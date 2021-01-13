@@ -13,6 +13,7 @@ services:
       - .env
     depends_on:
       - db
+      - fake-smtp
 
   db:
     container_name: ${DB_NAME}
@@ -26,3 +27,10 @@ services:
       POSTGRES_USER: ${DB_USER}
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+
+  fake-smtp:
+    image: reachfive/fake-smtp-server
+    hostname: mail
+    ports:
+      - 1080:1080
+      - 1025:1025

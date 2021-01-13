@@ -3,6 +3,8 @@ import React, { MouseEvent, useState } from 'react'
 import { AppBar, Container, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { UserSession } from 'src/components/layout/user-session'
+
 interface LayoutProps {
   children: any
 }
@@ -31,6 +33,9 @@ export const Layout = ({ children }: LayoutProps) => {
             <Typography variant="h1" className={classes.title}>
               Acter
             </Typography>
+          </div>
+          <div>
+            <UserSession />
           </div>
         </Toolbar>
       </AppBar>
