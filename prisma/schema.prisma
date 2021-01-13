@@ -10,6 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
 model Account {
   id                 String    @id @default(uuid())
   compoundId         String    @unique @map(name: "compound_id")

@@ -39,9 +39,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </div>
         </Toolbar>
       </AppBar>
-      <Container>
-        <main>{children}</main>
-      </Container>
+      <Container>{children}</Container>
     </>
   )
 }
