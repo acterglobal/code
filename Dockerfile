@@ -4,11 +4,12 @@ FROM node:current-alpine
 RUN mkdir -p /usr/src
 WORKDIR /usr/src/app
 
-# Copying source files
-COPY package*.json ./
-COPY yarn*.lock ./
 
 # Install dependencies
+COPY package*.json ./
+COPY yarn*.lock ./
+# Prisma schema is needed for postinstall client generation
+COPY prisma /usr/src/app
 RUN yarn
 
 # add node_modules path to environment
