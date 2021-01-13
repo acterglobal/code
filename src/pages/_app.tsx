@@ -1,8 +1,16 @@
 import type { AppProps } from 'next/app'
-import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { theme } from 'styles/theme'
+
+function ActerApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  )
 }
 
-export default MyApp
+export default ActerApp
