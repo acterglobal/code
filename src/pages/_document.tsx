@@ -1,7 +1,7 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import { theme } from 'styles/theme'
+import { acterTheme } from 'src/themes/acter-theme'
 
 export default class ActerDocument extends Document {
   render() {
@@ -9,7 +9,7 @@ export default class ActerDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={acterTheme.palette.primary.main} />
         </Head>
         <body>
           <Main />
