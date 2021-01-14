@@ -1,47 +1,48 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
+import { GetServerSideProps } from 'next'
 import { useQuery } from '@apollo/client'
-import { useSession } from 'next-auth/client'
-import { Session } from 'next-auth'
+import { getSession } from 'next-auth/client'
 
 import { CircularProgress } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
+
+import { ProfileView } from 'src/components/profile/profile-view'
 
 import { User } from '@generated/type-graphql'
 import QUERY_PROFILE_BY_EMAIL from 'graphql/queries/query-profile-by-email.graphql'
 
-const UserProfilePage = () => {
-  const [session, sessionLoading] = useSession()
-  if (sessionLoading) {
-    return <CircularProgress />
-  }
+interface UserProfilePageProps {
+  loading?: boolean
+  error?: string
+  user?: User
+}
 
-  const router = useRouter()
-  useEffect(() => {
-    if (!sessionLoading && !session) {
-      router.push('/')
-    }
-  }, [session, sessionLoading])
-  if (!session) {
-    return 'redirecting'
-  }
-
-  const { loading, error, data } = useQuery(QUERY_PROFILE_BY_EMAIL, {
-    variables: { email: session.user.email },
-  })
-
+export const UserProfilePage = ({
+  user,
+  loading,
+  error,
+}: UserProfilePageProps) => {
   if (loading) {
     return <CircularProgress />
   }
 
   if (error) {
-    console.log(error)
-
-    return <p>Error</p>
+    return (
+      <Alert severity="error" aria-label="error">
+        {error}
+      </Alert>
+    )
   }
 
-  const { user }: { user: User } = data
+  if (!user) {
+    return (
+      <Alert severity="warning" aria-label="nothing found">
+        Nothing to show
+      </Alert>
+    )
+  }
 
   return (
     <Layout>
@@ -49,9 +50,51 @@ const UserProfilePage = () => {
         <title>Profile</title>
       </Head>
 
-      <main>{user.email}</main>
+      <main>
+        <ProfileView user={user} />
+      </main>
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession()
+
+  if (!session.user) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/',
+      },
+    }
+  }
+
+  const { loading, error, data } = useQuery(QUERY_PROFILE_BY_EMAIL, {
+    variables: { email: session.user.email },
+  })
+
+  if (loading) {
+    return {
+      props: {
+        loading: true,
+      },
+    }
+  }
+
+  if (error) {
+    return {
+      props: {
+        error,
+      },
+    }
+  }
+
+  const { user }: { user: User } = data
+  return {
+    props: {
+      user,
+    },
+  }
 }
 
 export default UserProfilePage

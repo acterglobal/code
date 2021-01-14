@@ -1,7 +1,9 @@
+/* istanbul ignore file */
 import React from 'react'
 import { Button } from '@material-ui/core'
 
-export interface SignInButtonProps {
+export interface SignInButtonProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Action to perform on sign-in
    */
@@ -9,7 +11,7 @@ export interface SignInButtonProps {
 }
 
 export const SignInButton = ({ onClick }: SignInButtonProps) => (
-  <Button color="inherit" onClick={() => onClick()}>
+  <Button color="inherit" onClick={() => onClick()} aria-label="signin-button">
     Sign in
   </Button>
 )

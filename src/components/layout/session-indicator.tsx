@@ -1,13 +1,14 @@
-import React, { MouseEvent, useContext, useState } from 'react'
+import React, { MouseEvent, useState } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/client'
+import { get } from 'lodash'
 
-import { SessionContext } from 'src/contexts/session'
-
-import { ProfileMenu } from 'src/components/layout/profile-menu'
+import { SessionMenu } from 'src/components/layout/session-menu'
 import { ProfileButton } from 'src/components/profile/profile-button'
 import { SignInButton } from 'src/components/layout/sign-in-button'
+import { CircularProgress } from '@material-ui/core'
 
 export const SessionIndicator = () => {
-  const { session, signInAction, signOutAction } = useContext(SessionContext)
+  const [session, sessionLoading] = useSession()
   const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null)
   const openUserMenu = (evt: MouseEvent) =>
     setUserMenuAnchorEl(evt.currentTarget)
@@ -15,19 +16,25 @@ export const SessionIndicator = () => {
     setUserMenuAnchorEl(null)
   }
 
-  if (!session) {
-    return <SignInButton onClick={signInAction} />
+  if (sessionLoading) {
+    return <CircularProgress aria-label="session-loading-indicator" />
+  }
+
+  const user = get(session, 'user')
+
+  if (!user) {
+    return <SignInButton onClick={() => signIn()} />
   }
 
   return (
     <>
       <ProfileButton onClick={openUserMenu} />
-      <ProfileMenu
+      <SessionMenu
         menuAnchorEl={userMenuAnchorEl}
-        signedInAs={session.user.email}
+        signedInAs={user.email}
         isMenuOpen={Boolean(userMenuAnchorEl)}
         onCloseMenu={closeUserMenu}
-        onSignOut={() => signOutAction()}
+        onSignOut={() => signOut()}
       />
     </>
   )

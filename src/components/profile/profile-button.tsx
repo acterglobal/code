@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import { IconButton } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 
-export interface ProfileButtonProps {
+export interface ProfileButtonProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Action to perform on click
    */
-  onClick: () => void
+  onClick: (MouseEvent) => void
 }
 
-export const ProfileButton = ({ onClick }) => (
-  <IconButton color="inherit" onClick={onClick}>
+export const ProfileButton = ({ onClick }: ProfileButtonProps) => (
+  <IconButton color="inherit" onClick={onClick} aria-label="profile-button">
     <AccountCircle />
   </IconButton>
 )

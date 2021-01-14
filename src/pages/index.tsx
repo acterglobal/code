@@ -1,3 +1,5 @@
+import { getSession, signIn, signOut } from 'next-auth/client'
+
 import Head from 'next/head'
 
 import { Layout } from 'src/components/layout'

@@ -3,13 +3,13 @@ import React from 'react'
 import { Container } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 
-interface LayoutProps {
+export interface LayoutProps {
   children: any
 }
 
-export const Layout = ({ children }: LayoutProps) => (
+export const Layout = (props: LayoutProps) => (
   <>
     <TopBar />
-    <Container>{children}</Container>
+    <Container>{props.children}</Container>
   </>
 )

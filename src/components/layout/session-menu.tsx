@@ -8,7 +8,7 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
-export interface ProfileMenuProps {
+export interface SessionMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Anchor Element
    */
@@ -31,16 +31,21 @@ export interface ProfileMenuProps {
   onSignOut: () => void
 }
 
-export const ProfileMenu = ({
+export const SessionMenu = ({
   menuAnchorEl,
   isMenuOpen,
   signedInAs,
   onCloseMenu,
   onSignOut,
-}: ProfileMenuProps) => (
-  <Menu anchorEl={menuAnchorEl} open={isMenuOpen} onClose={onCloseMenu}>
+}: SessionMenuProps) => (
+  <Menu
+    anchorEl={menuAnchorEl}
+    open={isMenuOpen}
+    onClose={onCloseMenu}
+    aria-label="session-menu"
+  >
     <ListItemText>Signed in as {signedInAs}</ListItemText>
-    <MenuItem onClick={() => onCloseMenu}>
+    <MenuItem>
       <Link href="/profile">Edit Profile</Link>
     </MenuItem>
     <MenuItem
