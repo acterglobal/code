@@ -1,3 +1,6 @@
+.next
+out
+coverage
 node_modules
 postgres-data
 .env*

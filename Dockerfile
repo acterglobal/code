@@ -18,6 +18,9 @@ ENV PATH /usr/src/app/node_modules/.bin:${PATH}
 # Copying source files
 COPY . /usr/src/app
 
+# Generate code
+RUN yarn run generate
+
 # Building app
 RUN yarn run build
 EXPOSE 3000

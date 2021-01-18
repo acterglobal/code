@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetServerSideProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { useQuery } from '@apollo/client'
 import { getSession } from 'next-auth/client'
 
@@ -19,11 +19,11 @@ interface UserProfilePageProps {
   user?: User
 }
 
-export const UserProfilePage = ({
+export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   user,
   loading,
   error,
-}: UserProfilePageProps) => {
+}) => {
   if (loading) {
     return <CircularProgress />
   }
@@ -57,7 +57,7 @@ export const UserProfilePage = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const session = await getSession()
 
   if (!session.user) {
