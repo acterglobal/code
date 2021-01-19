@@ -17,12 +17,19 @@ Acter is built with the following stack.
 |Language|[Typescript]()|
 |Frontend|[Next.js](https://nextjs.org)|
 |Components|[Material-UI](https://material-ui.com/), [Storybook](https://storybook.js.org/)|
+|Authenticaton|[NextAtuh.js](https://next-auth.js.org/), [Fake SMTP Server](https://github.com/ReachFive/fake-smtp-server), [JWT](https://jwt.io/) (planned)|
 |API/Data|[GraphQL](https://graphql.org/), [Apollo](https://www.apollographql.com/), [TypeGraphQL](https://typegraphql.com/), [Prisma](https://www.prisma.io/)|
 |Database|[PostgreSQL](https://www.postgresql.org/)|
 
 ### Components
 
 Acter uses [Component Driven Develompment](https://www.componentdriven.org/) to build the application from the "bottom up" using smaller components incorporated into larger components. Smaller components use [Material-UI](https://material-ui.com/) to build larger functional pieces. Components are unit tested and use [Storybook](https://storybook.js.org/) to visualize their look and behavior.
+
+### Authentication
+
+We use [NextAtuh.js](https://next-auth.js.org/) for managing our authentication layer. It provides a react hook as well as server-side call to easily fetch session information, and managed authentication methods via Providers. We currently only use a password-less email provider, but will expand to use [JWT](https://jwt.io/) at a later date, likely using Azure-provided means of SSO. We may investigate the use of other auth providers such as Facebook, LinkedIn, Discord, Apple, and others. Tracked in #5.
+
+We have a fake SMTP server that is deployed with Docker which allows us to receive emails in development. When our app is running in Docker, it is available at [http://localhost:1080](http://localhost:1080).
 
 ### API/Data
 
