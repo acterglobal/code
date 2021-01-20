@@ -16,7 +16,8 @@
     "postinstall": "yarn generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "seed": "ts-node prisma/seeds/index.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",

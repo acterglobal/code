@@ -33,6 +33,42 @@ model Account {
   @@map(name: "accounts")
 }
 
+model Acter {
+  id          String  @id @default(uuid())
+  acterTypeId String  @map(name: "acter_type_id")
+  name        String?
+  slug        String? @unique
+  location    String?
+  locationLat Float?  @map(name: "location_lat")
+  locationLng Float?  @map(name: "location_lng")
+
+  type    ActerType         @relation(fields: [acterTypeId], references: [id])
+  parent  ActerConnection?  @relation("parent")
+  members ActerConnection[] @relation("members")
+
+  User User?
+  @@map(name: "acters")
+}
+
+model ActerConnection {
+  id            String @id @default(uuid())
+  parentActerId String @map(name: "parent_acter_id")
+  memberActerId String @map(name: "connection_acter_id")
+
+  parent Acter @relation(name: "parent", fields: [parentActerId], references: [id])
+  member Acter @relation(name: "members", fields: [memberActerId], references: [id])
+
+  @@map(name: "acter_connections")
+}
+
+model ActerType {
+  id   String @id @default(uuid())
+  name String @unique
+
+  Acter Acter[]
+  @@map(name: "acter_types")
+}
+
 model Session {
   id           String   @id @default(uuid())
   userId       String   @map(name: "user_id")
@@ -47,12 +83,15 @@ model Session {
 
 model User {
   id            String    @id @default(uuid())
+  acterId       String?   @map(name: "acter_id")
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map(name: "email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  acter Acter? @relation(fields: [acterId], references: [id])
 
   @@map(name: "users")
 }
