@@ -1,8 +1,11 @@
+/* istanbul ignore file */
 // Adapted from https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-graphql/
 
 import { useMemo } from 'react'
 import {
   ApolloClient,
+  ApolloLink,
+  HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
@@ -10,9 +13,15 @@ import {
 let apolloClient: ApolloClient<InMemoryCache | NormalizedCacheObject>
 
 export const createApolloClient = () => {
-  return new ApolloClient({
+  const ssrMode = typeof window === 'undefined'
+  const link = new HttpLink({
     uri: 'http://localhost:3000/api/graphql',
+  })
+
+  return new ApolloClient({
     cache: new InMemoryCache(),
+    ssrMode,
+    link,
   })
 }
 
