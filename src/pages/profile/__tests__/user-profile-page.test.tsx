@@ -1,21 +1,10 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { Session } from 'next-auth/client'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
 import { UserProfilePage, getServerSideProps } from 'src/pages/profile'
 
-// Unfortunately because how Jest hoists this mock we cannot import this functionality but must copy-and-past until a better solution is found
-let mockSession: Session = {
-  user: null,
-  expires: '',
-}
-jest.mock('next-auth/client', () => ({
-  useSession: () => [{ expires: '', user: null }, false],
-  signIn: () => Promise.resolve(),
-  signOut: () => Promise.resolve(),
-  getSession: () => mockSession,
-}))
+jest.mock('next-auth/client')
 
 let mockQueryResponse = {
   loading: false,
@@ -30,10 +19,10 @@ jest.mock('src/lib/apollo', () => ({
 
 describe('UserProfilePage', () => {
   beforeEach(() => {
-    mockSession = {
+    require('next-auth/client').__setMockSession({
       user: null,
       expires: '',
-    }
+    })
 
     mockQueryResponse = {
       loading: false,
@@ -99,10 +88,10 @@ describe('UserProfilePage', () => {
     }
 
     const mockGoodSession = () => {
-      mockSession = {
+      require('next-auth/client').__setMockSession({
         user: ExampleUser,
         expires: '',
-      }
+      })
     }
 
     it('should redirect if there is no session', async () => {
@@ -148,7 +137,7 @@ describe('UserProfilePage', () => {
         },
       }
       const resp = await callGetServerSideProps()
-      expect(resp?.props.user).toBe(ExampleUser)
+      expect(resp?.props?.user).toBe(ExampleUser)
     })
   })
 })
