@@ -4,7 +4,6 @@ import { Session } from 'next-auth/client'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
 import { UserProfilePage, getServerSideProps } from 'src/pages/profile'
-import { get } from 'lodash'
 
 // Unfortunately because how Jest hoists this mock we cannot import this functionality but must copy-and-past until a better solution is found
 let mockSession: Session = {
@@ -106,7 +105,7 @@ describe('UserProfilePage', () => {
 
     it('should redirect if there is no session', async () => {
       const resp = await callGetServerSideProps()
-      expect(get(resp, 'redirect.destination')).toBe('/')
+      expect(resp?.redirect?.destination).toBe('/')
     })
 
     it('should return loading while query is in process', async () => {
@@ -116,7 +115,7 @@ describe('UserProfilePage', () => {
         loading: true,
       }
       const resp = await callGetServerSideProps()
-      expect(get(resp, 'props.loading')).toBe(true)
+      expect(resp?.props?.loading).toBe(true)
     })
 
     it('should return an error if there is one', async () => {
@@ -128,13 +127,13 @@ describe('UserProfilePage', () => {
         error: errorString,
       }
       const resp = await callGetServerSideProps()
-      expect(get(resp, 'props.error')).toBe(errorString)
+      expect(resp?.props?.error).toBe(errorString)
     })
 
     it('should return undefined if no user is found', async () => {
       mockGoodSession()
       const resp = await callGetServerSideProps()
-      expect(get(resp, 'props.user')).toBe(undefined)
+      expect(resp?.props?.user).toBe(undefined)
     })
 
     it('should return the queried user', async () => {
@@ -147,7 +146,7 @@ describe('UserProfilePage', () => {
         },
       }
       const resp = await callGetServerSideProps()
-      expect(get(resp, 'props.user')).toBe(ExampleUser)
+      expect(resp?.props.user).toBe(ExampleUser)
     })
   })
 })
