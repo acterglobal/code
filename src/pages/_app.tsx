@@ -5,19 +5,18 @@ import type { AppProps } from 'next/app'
 import { get } from 'lodash'
 
 import { Provider as NextAuthProvider } from 'next-auth/client'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
+
+import { useApollo } from 'lib/apollo'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from 'src/themes/acter-theme'
 
 const ActerApp = ({ Component, pageProps }: AppProps) => {
-  const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql',
-    cache: new InMemoryCache(),
-  })
+  const apolloClient = useApollo(pageProps.initialApolloState)
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <NextAuthProvider session={pageProps.session}>
         <ActerThemeProvider>
           <CssBaseline />

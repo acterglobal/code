@@ -23,8 +23,10 @@ let mockQueryResponse = {
   error: null,
   data: {},
 }
-jest.mock('@apollo/client', () => ({
-  useQuery: () => mockQueryResponse,
+jest.mock('src/lib/apollo', () => ({
+  initializeApollo: () => ({
+    query: () => mockQueryResponse,
+  }),
 }))
 
 describe('UserProfilePage', () => {
