@@ -1,0 +1,9 @@
+mutation CreateActer($name: String!, $slug: String!, $acterTypeId: String!) {
+  createActer(
+    data: { name: $name, slug: $slug, type: { connect: { id: $acterTypeId } } }
+  ) {
+    acterTypeId
+    name
+    slug
+  }
+}

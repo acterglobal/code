@@ -1,0 +1,6 @@
+query getActerTypes {
+  acterTypes {
+    id
+    name
+  }
+}
