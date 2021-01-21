@@ -1,6 +1,5 @@
 import React, { MouseEvent, useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/client'
-import { get } from 'lodash'
 
 import { SessionMenu } from 'src/components/layout/session-menu'
 import { ProfileButton } from 'src/components/profile/profile-button'
@@ -20,7 +19,7 @@ export const SessionIndicator = () => {
     return <CircularProgress aria-label="session-loading-indicator" />
   }
 
-  const user = get(session, 'user')
+  const user = session?.user
 
   if (!user) {
     return <SignInButton onClick={() => signIn()} />

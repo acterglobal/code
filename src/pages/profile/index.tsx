@@ -1,7 +1,8 @@
 import React from 'react'
 import { NextPage, GetServerSideProps } from 'next'
-import { useQuery } from '@apollo/client'
 import { getSession } from 'next-auth/client'
+
+import { initializeApollo } from 'src/lib/apollo'
 
 import { CircularProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
@@ -12,6 +13,7 @@ import { ProfileView } from 'src/components/profile/profile-view'
 
 import { User } from '@generated/type-graphql'
 import QUERY_PROFILE_BY_EMAIL from 'graphql/queries/query-profile-by-email.graphql'
+import { get } from 'lodash'
 
 interface UserProfilePageProps {
   loading?: boolean
@@ -58,9 +60,9 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
 }
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession()
+  const session = await getSession({ req: context.req })
 
-  if (!session.user) {
+  if (!session?.user) {
     return {
       props: {},
       redirect: {
@@ -69,7 +71,10 @@ export const getServerSideProps = async (context) => {
     }
   }
 
-  const { loading, error, data } = useQuery(QUERY_PROFILE_BY_EMAIL, {
+  const apollo = initializeApollo()
+
+  const { loading, error, data } = await apollo.query({
+    query: QUERY_PROFILE_BY_EMAIL,
     variables: { email: session.user.email },
   })
 
