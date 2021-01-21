@@ -1,0 +1,5 @@
+export { ExampleUser } from 'src/__fixtures__/user/example-user'
+export { ExampleActer } from 'src/__fixtures__/acter/example-acter'
+export { ExampleGroupType } from 'src/__fixtures__/acter-type/example-group'
+export { ExampleNetworkType } from 'src/__fixtures__/acter-type/example-network'
+export { ExampleOrganizationType } from 'src/__fixtures__/acter-type/example-organization'
