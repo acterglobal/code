@@ -39,11 +39,13 @@
     "next-compose-plugins": "^2.2.1",
     "next-graphql-loader": "^1.0.1",
     "pg": "^8.5.1",
+    "pluralize": "^8.0.0",
     "react": "^16.14",
     "react-dom": "^16.14",
     "react-final-form": "^6.5.2",
     "reflect-metadata": "^0.1.13",
     "sb": "^6.1.14",
+    "slugify": "^1.4.6",
     "type-graphql": "^1.1.1",
     "typegraphql-prisma": "^0.10.0",
     "uuid": "^8.3.2"
