@@ -1,10 +1,10 @@
-import React from 'react'
-import { AppBar, Container, Toolbar, Typography } from '@material-ui/core'
+import React, { FC } from 'react'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   titleBar: {
     color: 'white',
   },
@@ -15,22 +15,25 @@ const useStyles = makeStyles({
     textTransform: 'uppercase',
     fontSize: '2rem',
   },
-})
+}))
 
-export const TopBar = () => {
+export const TopBar: FC = () => {
   const classes = useStyles()
   return (
-    <AppBar position="relative">
-      <Toolbar className={classes.titleBar}>
-        <div className={classes.titleLogo}>
-          <Typography variant="h1" className={classes.title}>
-            Acter
-          </Typography>
-        </div>
-        <div>
-          <SessionIndicator />
-        </div>
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="fixed">
+        <Toolbar className={classes.titleBar}>
+          <div className={classes.titleLogo}>
+            <Typography variant="h1" className={classes.title}>
+              Acter
+            </Typography>
+          </div>
+          <div>
+            <SessionIndicator />
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </>
   )
 }
