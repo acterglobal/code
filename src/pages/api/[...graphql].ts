@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client'
 import { resolvers } from '@generated/type-graphql'
 const schema = buildSchemaSync({
   resolvers,
+  validate: false,
 })
 
 interface Context {
