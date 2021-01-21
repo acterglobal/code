@@ -1,12 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro'
-import { buildSchemaSync } from 'type-graphql'
 import { PrismaClient } from '@prisma/client'
 
-import { resolvers } from '@generated/type-graphql'
-const schema = buildSchemaSync({
-  resolvers,
-  validate: false,
-})
+import { schema } from 'graphql/schema'
 
 interface Context {
   prisma: PrismaClient
