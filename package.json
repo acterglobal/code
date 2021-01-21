@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "test": "rm -rf .next out && jest",
-    "test:ci": "rm -rf .next out && tsc && jest",
+    "test:ci": "rm -rf .next out && jest",
     "cover": "jest --coverage",
     "postinstall": "yarn generate",
     "storybook": "start-storybook -p 6006",
