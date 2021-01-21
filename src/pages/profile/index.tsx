@@ -62,7 +62,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
 export const getServerSideProps = async (context) => {
   const session = await getSession({ req: context.req })
 
-  if (!get(session, 'user')) {
+  if (!session?.user) {
     return {
       props: {},
       redirect: {

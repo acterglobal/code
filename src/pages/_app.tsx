@@ -1,8 +1,6 @@
 import 'reflect-metadata'
 
-import type { AppProps } from 'next/app'
-
-import { get } from 'lodash'
+import { AppProps } from 'next/app'
 
 import { Provider as NextAuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
