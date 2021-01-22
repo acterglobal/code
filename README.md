@@ -3,6 +3,8 @@
 ## Getting started
 The application and it's dependencies are dockerized. Make sure that [Docker](http://docker.com) is set up, then run:
 ```
+Create a .env file with : DB_NAME, DB_USER,DB_PASS
+
 docker-compose up -d --build
 ```
 
