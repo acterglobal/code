@@ -1,3 +1,5 @@
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -7,6 +9,7 @@ module.exports = {
   ],
 
   webpackFinal: (config) => {
+    config.resolve.plugins.push(new TsconfigPathsPlugin({}));
     config.resolve.alias['next-auth/client'] = require.resolve(
       '../src/__mocks__/next-auth'
     )

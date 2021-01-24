@@ -3,7 +3,8 @@ import { Story, Meta, forceReRender } from '@storybook/react'
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
-import { decorator as NextAuthMockDecorator } from 'src/__mocks__/next-auth'
+//@ts-ignore
+import { decorator as NextAuthMockDecorator } from 'next-auth/client'
 
 export default {
   title: 'layout/UserSession',

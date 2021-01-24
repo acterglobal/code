@@ -3,7 +3,8 @@ import { Story, Meta } from '@storybook/react'
 import { TopBar } from 'src/components/layout/top-bar'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
-import { decorator as NextAuthMockDecorator } from 'src/__mocks__/next-auth'
+//@ts-ignore
+import { decorator as NextAuthMockDecorator } from 'next-auth/client'
 
 export default {
   title: 'layout/TopBar',
