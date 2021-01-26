@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-vsliveshare.vsliveshare-pack",
+    "ms-azuretools.vscode-docker",
+    "orta.vscode-jest",
+    "ms-vsliveshare.vsliveshare",
+    "ms-vsliveshare.vsliveshare-audio",
+    "esbenp.prettier-vscode",
+    "prisma.prisma"
+  ]
+}
