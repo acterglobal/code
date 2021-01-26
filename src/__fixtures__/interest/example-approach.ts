@@ -1,4 +1,4 @@
-import { Interest, InterestType } from '@generated/type-graphql'
+import { Interest } from '@generated/type-graphql'
 
 import { ExampleInterestType } from 'src/__fixtures__/interest/example-interest-type'
 
