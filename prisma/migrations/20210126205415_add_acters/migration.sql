@@ -38,6 +38,7 @@ CREATE TABLE "acter_type_rules" (
     "id" TEXT NOT NULL,
     "can_create" BOOLEAN NOT NULL,
     "can_join" BOOLEAN NOT NULL,
+    "can_become" BOOLEAN NOT NULL,
     "subject_acter_type_id" TEXT NOT NULL,
     "oubject_acter_type_id" TEXT NOT NULL,
 
@@ -55,6 +56,9 @@ CREATE UNIQUE INDEX "acters.slug_unique" ON "acters"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "acter_types.name_unique" ON "acter_types"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "acter_type_rules.subject_acter_type_id_oubject_acter_type_id_unique" ON "acter_type_rules"("subject_acter_type_id", "oubject_acter_type_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_acter_follows_AB_unique" ON "_acter_follows"("A", "B");

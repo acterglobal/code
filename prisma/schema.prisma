@@ -67,21 +67,23 @@ model ActerType {
 
   Acter Acter[]
 
-  ActerTypeRules   ActerTypeRules[] @relation("subject")
-  RulesOnActerType ActerTypeRules[] @relation("object")
+  ActerTypeRules   ActerTypeRule[] @relation("subject")
+  RulesOnActerType ActerTypeRule[] @relation("object")
   @@map("acter_types")
 }
 
-model ActerTypeRules {
+model ActerTypeRule {
   id        String  @id @default(uuid())
   canCreate Boolean @map("can_create")
   canJoin   Boolean @map("can_join")
+  canBecome Boolean @map("can_become")
 
   Subject            ActerType @relation("subject", fields: [subjectActerTypeId], references: [id])
   subjectActerTypeId String    @map("subject_acter_type_id")
   Object             ActerType @relation("object", fields: [objectActerTypeId], references: [id])
   objectActerTypeId  String    @map("oubject_acter_type_id")
 
+  @@unique([subjectActerTypeId, objectActerTypeId])
   @@map("acter_type_rules")
 }
 

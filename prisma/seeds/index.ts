@@ -1,37 +1,17 @@
 import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
-const seedDb = async () => {
-  console.time()
-  const prisma = new PrismaClient()
+import { seedActerTypes } from 'prisma/seeds/acter-types'
 
-  try {
-    await prisma.$connect()
-  } catch (error) {
-    throw error
-  }
-
-  console.log('Creating ActerType seeds')
-  await Promise.all(
-    ['User', 'Group', 'Organization', 'Network'].map(async (name) => {
-      console.log(`Trying to create ${name}`)
-
-      const typeCreate = { name }
-
-      const type = await prisma.acterType.upsert({
-        create: typeCreate,
-        update: typeCreate,
-        where: { name },
-      })
-      console.log(`Created: ${JSON.stringify(type)}`)
-      return type
-    })
-  )
-
-  await prisma.$disconnect()
-  console.log('Finished creating seeds')
-  console.timeEnd()
+const main = async () => {
+  await seedActerTypes(prisma)
 }
 
-seedDb()
-  .catch((e) => console.error(e))
-  .finally(() => process.exit(0))
+main()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
