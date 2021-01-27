@@ -12,7 +12,7 @@ export default {
   component: ApproachList,
   args: {
     type: ExampleInterestType,
-    interests: [ExampleApproach, ExampleApproach, ExampleApproach],
+    interests: [ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach],
   } as ApproachListProps,
 } as Meta
 
