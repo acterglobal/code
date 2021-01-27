@@ -11,4 +11,5 @@ export const ExampleActer: Acter = {
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
+  autoApproveFollowers: true,
 }
