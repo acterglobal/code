@@ -203,12 +203,13 @@ export const seedActerTypes = async (prisma: PrismaClient) => {
             },
             update: {},
             where: {
-              subjectActerTypeId_objectActerTypeId: {
+              subject_object_acter_type_ids: {
                 objectActerTypeId: types[name].type.id,
                 subjectActerTypeId: types[name2].type.id,
               },
             },
           })
+          console.log('ActerTypeRule created: ', types[name].rules[name2].rule)
         })
       )
     })

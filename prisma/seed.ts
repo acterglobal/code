@@ -1,7 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-const main = async () => {}
+import { seedActerTypes } from './seeds/acter-types'
+
+const main = async () => {
+  await seedActerTypes(prisma)
+}
 
 main()
   .catch((e) => {
