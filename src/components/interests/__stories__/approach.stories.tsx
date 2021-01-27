@@ -12,4 +12,11 @@ export default {
   },
 } as Meta
 
-export const Default: Story = (args: ApproachProps) => <Approach {...args} />
+const Template: Story<ApproachProps> = (args: ApproachProps) => (
+  <Approach {...args} />
+)
+
+export const Default = Template.bind({})
+Default.args = {
+  selected: false
+} as ApproachProps
