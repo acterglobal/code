@@ -6,6 +6,7 @@
     "ms-vsliveshare.vsliveshare",
     "ms-vsliveshare.vsliveshare-audio",
     "esbenp.prettier-vscode",
-    "prisma.prisma"
+    "prisma.prisma",
+    "netcorext.uuid-generator"
   ]
 }
