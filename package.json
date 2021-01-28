@@ -40,6 +40,7 @@
     "pg": "^8.5.1",
     "react": "^16.14",
     "react-dom": "^16.14",
+    "react-swipeable-views": "^0.13.9",
     "reflect-metadata": "^0.1.13",
     "sb": "^6.1.14",
     "type-graphql": "^1.1.1",
