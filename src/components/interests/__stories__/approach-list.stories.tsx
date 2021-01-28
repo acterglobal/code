@@ -12,10 +12,11 @@ export default {
   component: ApproachList,
   args: {
     type: ExampleApproachType,
-    interests: [ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach, ExampleApproach],
+    approaches: [ExampleApproach, ExampleApproach, ExampleApproach],
+    interests: [ExampleApproach, ExampleApproach],
   } as ApproachListProps,
 } as Meta
-// this is a container for the Focus/Tag/Approach. And it flips between what they are .
+
 export const Default: Story = (args: ApproachListProps) => (
   <ApproachList {...args} />
 )

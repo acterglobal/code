@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { Approach } from 'src/components/interests/approach';
+import { Focus } from './focus';
+import { Tag } from './tag';
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -51,8 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyle: 'none',
       padding: theme.spacing(0.5),
       margin: 0,
-      //     backgroundColor: theme.palette.background.paper,
-      //     width: 500,
+      backgroundColor: theme.palette.background.paper,
     },
   }),
 );
@@ -60,9 +61,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface InterestsListProps {
   type: InterestType
   interests: Interest[]
+  approaches: Interest[]
+  focuses: Interest[]
+  tags: Interest[]
 }
 
-export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
+export const InterestsList: FC<InterestsListProps> = ({ approaches, focuses, tags }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -74,7 +78,6 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
-
 
   return (
 
@@ -99,21 +102,21 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Focus
+          {focuses.map((focus) => (
+            <Focus interest={focus} />
+          ))}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {/* Approach */}
-          {interests.map((interest) => (
-            <Approach interest={interest} />
+          {approaches.map((approach) => (
+            <Approach interest={approach} />
           ))}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Tags
+          {tags.map((tag) => (
+            <Tag interest={tag} />
+          ))}
         </TabPanel>
       </SwipeableViews>
-
-
-
     </div>
   );
 }

@@ -18,15 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface ApproachListProps {
   type: InterestType
   interests: Interest[]
+  approaches: Interest[]
 }
 
-export const ApproachList: FC<ApproachListProps> = ({ interests }) => {
+export const ApproachList: FC<ApproachListProps> = ({ approaches }) => {
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {interests.map((interest) => (
+      {approaches.map((interest) => (
         <Approach interest={interest} />
       ))}
     </div>

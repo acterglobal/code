@@ -5,7 +5,7 @@ import {
   InterestsListProps,
 } from 'src/components/interests/interests-list'
 
-import { ExampleApproach, ExampleApproachType } from 'src/__fixtures__'
+import { ExampleApproach, ExampleApproachType, ExampleFocus, ExampleTag } from 'src/__fixtures__'
 
 export default {
   title: 'interests/InterestsList',
@@ -13,6 +13,9 @@ export default {
   args: {
     type: ExampleApproachType,
     interests: [ExampleApproach, ExampleApproach, ExampleApproach],
+    approaches: [ExampleApproach, ExampleApproach],
+    focuses: [ExampleFocus, ExampleFocus],
+    tags: [ExampleTag, ExampleTag],
   } as InterestsListProps,
 } as Meta
 // this is a container for the Focus/Tag/Approach. And it flips between what they are .
