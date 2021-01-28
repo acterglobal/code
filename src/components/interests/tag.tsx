@@ -1,5 +1,6 @@
 import { Interest } from '@generated/type-graphql';
 import { Chip } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 
@@ -24,6 +25,7 @@ export const Tag: FC<TagProps> = ({ interest }) => {
   return <Chip
     clickable
     color={color}
+    avatar={<Avatar>M</Avatar>}
     className={classes.chip}
     label={interest.name}
     onClick={handleClick}

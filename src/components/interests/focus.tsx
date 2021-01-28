@@ -1,6 +1,7 @@
 import { Interest } from '@generated/type-graphql';
 import { Chip } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import FaceIcon from '@material-ui/icons/Face';
 import React, { FC } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,6 +25,7 @@ export const Focus: FC<FocusProps> = ({ interest }) => {
   return <Chip
     clickable
     color={color}
+    icon={<FaceIcon />}
     className={classes.chip}
     label={interest.name}
     onClick={handleClick}
