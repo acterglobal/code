@@ -1,4 +1,3 @@
-
 // If a interesttype has a parent interest type then we can do a wrapper like this
 // sort somehow : For anything that does not have a parent, it's a toplevel.
 // If it has then it's seccond level and if it has a 3rd then it goes on a 3rd level
@@ -62,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 export interface InterestsListProps {
   type: InterestType
   approaches: Interest[]
@@ -70,12 +68,6 @@ export interface InterestsListProps {
   tags: Interest[]
   interests: Interest[]
 }
-
-// interface InterestsProps { }
-
-// export const Interests: FC<InterestsProps> = () => {
-//   return <div></div>
-// }
 
 export const InterestsList: FC<InterestsListProps> = ({ approaches, focuses, tags, interests }) => {
   const classes = useStyles();

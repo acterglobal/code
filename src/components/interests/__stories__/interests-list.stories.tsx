@@ -1,20 +1,14 @@
-import { Story, Meta } from '@storybook/react'
-
-import {
-  InterestsList,
-  InterestsListProps,
-} from 'src/components/interests/'
-
-import { Interest, ExampleApproach, ExampleFocus, ExampleTag, tags } from 'src/__fixtures__'
+import { Meta, Story } from '@storybook/react'
+import { InterestsList, InterestsListProps } from 'src/components/interests/'
+import { approaches, focuses, tags } from 'src/__fixtures__'
 
 export default {
   title: 'interests/InterestsList',
   component: InterestsList,
   args: {
-    type: Interest,
-    approaches: [ExampleApproach, ExampleApproach],
-    focuses: [ExampleFocus, ExampleFocus],
-    tags: [tags[0], tags[1]],
+    approaches,
+    focuses,
+    tags,
   } as InterestsListProps,
 } as Meta
 // this is a container for the Focus/Tag/Approach. And it flips between what they are .
