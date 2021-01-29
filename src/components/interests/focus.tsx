@@ -3,6 +3,7 @@ import { Chip } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import FaceIcon from '@material-ui/icons/Face';
 import React, { FC } from 'react';
+import { Environment } from 'src/__fixtures__';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,4 +31,5 @@ export const Focus: FC<FocusProps> = ({ interest }) => {
     label={interest.name}
     onClick={handleClick}
   />
+
 }

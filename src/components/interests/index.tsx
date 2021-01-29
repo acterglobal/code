@@ -11,6 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { Environment, Social, Economy } from 'src/__fixtures__';
 import { Approach } from './approach';
 import { Focus } from './focus';
 import { Tag } from './tag';
@@ -105,7 +106,16 @@ export const InterestsList: FC<InterestsListProps> = ({ approaches, focuses, tag
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          {focuses.map((focus) => (
+          <div >Environment</div>
+          {focuses.filter(focus => focus.interestTypeId === Environment.id).map((focus) => (
+            <Focus interest={focus} />
+          ))}
+          <div >Social</div>
+          {focuses.filter(focus => focus.interestTypeId === Social.id).map((focus) => (
+            <Focus interest={focus} />
+          ))}
+          <div >Economy</div>
+          {focuses.filter(focus => focus.interestTypeId === Economy.id).map((focus) => (
             <Focus interest={focus} />
           ))}
         </TabPanel>
