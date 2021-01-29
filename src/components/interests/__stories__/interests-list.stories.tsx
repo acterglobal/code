@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import { InterestsList, InterestsListProps } from 'src/components/interests/'
-import { approaches, focuses, tags } from 'src/__fixtures__'
+import { approaches, focuses, tags, interests } from 'src/__fixtures__'
 
 export default {
   title: 'interests/InterestsList',
@@ -9,6 +9,7 @@ export default {
     approaches,
     focuses,
     tags,
+    interests,
   } as InterestsListProps,
 } as Meta
 // this is a container for the Focus/Tag/Approach. And it flips between what they are .

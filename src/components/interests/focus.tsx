@@ -16,7 +16,7 @@ export interface FocusProps {
   interest: Interest
 }
 
-export const Focus: FC<FocusProps> = ({ interest }) => {
+export const FocusComponent: FC<FocusProps> = ({ interest }) => {
   const classes = useStyles();
   const [color, setChipColors] = React.useState('default');
 

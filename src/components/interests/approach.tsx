@@ -14,7 +14,7 @@ export interface ApproachProps {
   interest: Interest
 }
 
-export const Approach: FC<ApproachProps> = ({ interest }) => {
+export const ApproachComponent: FC<ApproachProps> = ({ interest }) => {
   const classes = useStyles();
   const [color, setChipColors] = React.useState('default');
 

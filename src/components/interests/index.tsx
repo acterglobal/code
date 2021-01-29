@@ -11,10 +11,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { Environment, Social, Economy } from 'src/__fixtures__';
-import { Approach } from './approach';
-import { Focus } from './focus';
-import { Tag } from './tag';
+import { Environment, Social, Economy, Approach, Focus, Tag } from 'src/__fixtures__';
+import { ApproachComponent } from './approach';
+import { FocusComponent } from './focus';
+import { TagComponent } from './tag';
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -107,26 +107,26 @@ export const InterestsList: FC<InterestsListProps> = ({ approaches, focuses, tag
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <div >Environment</div>
-          {focuses.filter(focus => focus.interestTypeId === Environment.id).map((focus) => (
-            <Focus interest={focus} />
+          {interests.filter(focus => focus.interestTypeId === Environment.id).map((focus) => (
+            <FocusComponent interest={focus} />
           ))}
           <div >Social</div>
-          {focuses.filter(focus => focus.interestTypeId === Social.id).map((focus) => (
-            <Focus interest={focus} />
+          {interests.filter(focus => focus.interestTypeId === Social.id).map((focus) => (
+            <FocusComponent interest={focus} />
           ))}
           <div >Economy</div>
-          {focuses.filter(focus => focus.interestTypeId === Economy.id).map((focus) => (
-            <Focus interest={focus} />
+          {interests.filter(focus => focus.interestTypeId === Economy.id).map((focus) => (
+            <FocusComponent interest={focus} />
           ))}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {approaches.map((approach) => (
-            <Approach interest={approach} />
+          {interests.filter(approach => approach.interestTypeId === Approach.id).map((approach) => (
+            <ApproachComponent interest={approach} />
           ))}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          {tags.map((tag) => (
-            <Tag interest={tag} />
+          {interests.filter(tag => tag.interestTypeId === Tag.id).map((tag) => (
+            <TagComponent interest={tag} />
           ))}
         </TabPanel>
       </SwipeableViews>

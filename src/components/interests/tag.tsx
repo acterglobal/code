@@ -14,7 +14,7 @@ export interface TagProps {
   interest: Interest
 }
 
-export const Tag: FC<TagProps> = ({ interest }) => {
+export const TagComponent: FC<TagProps> = ({ interest }) => {
   const classes = useStyles();
   const [color, setChipColors] = React.useState('default');
 
