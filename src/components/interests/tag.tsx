@@ -3,6 +3,7 @@ import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,12 +23,7 @@ export const Tag: FC<TagProps> = ({ interest }) => {
   const handleClick = (event: React.setOnClickListener, []) => {
     setChipColors('primary');
   };
-  return <Chip
-    clickable
-    color={color}
-    avatar={<Avatar>M</Avatar>}
-    className={classes.chip}
-    label={interest.name}
-    onClick={handleClick}
-  />
+  return <Button onClick={handleClick} >
+    {interest.name}
+  </Button>
 }

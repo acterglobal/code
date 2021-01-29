@@ -1,7 +1,5 @@
-export { ExampleApproach } from 'src/__fixtures__/interest/example-approach'
-export { ExampleTag } from 'src/__fixtures__/interest/example-tag'
+export { Arts, Biomimicry, ExampleApproach } from 'src/__fixtures__/interest/example-approach'
 export { ExampleFocus } from 'src/__fixtures__/interest/example-focus'
-export { ExampleApproachType } from 'src/__fixtures__/interest/example-interest-type'
-export { ExampleTagType } from 'src/__fixtures__/interest/example-interest-type'
-export { ExampleFocusType } from 'src/__fixtures__/interest/example-interest-type'
+export { Approach, Economy, Environment, Focus, Interest, interests, Social, Tag } from 'src/__fixtures__/interest/example-interest-type'
+export { ExampleTag, AntiRacism, tags, BalticSea } from 'src/__fixtures__/interest/example-tag'
 
