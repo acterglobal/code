@@ -1,9 +1,11 @@
 # Acter
 
 ## Getting started
+
 The application and it's dependencies are dockerized. Make sure that [Docker](http://docker.com) is set up, then run:
+
 ```
-Create a .env file with : DB_NAME, DB_USER,DB_PASS
+Create a .env.development.local file with : DB_NAME, DB_USER,DB_PASS
 
 docker-compose up -d --build
 ```
@@ -13,6 +15,7 @@ Or better yet use the VS Code built-in Docker command: `command+shift+p` and sel
 The application will be available at: [http://localhost:3000](http://localhost:3000)
 
 ## Technology Stack
+
 Acter is built with the following stack.
 |Role|Technology|
 |-|-|
@@ -40,6 +43,7 @@ The API layer starts with [GraphQL](https://graphql.org/) and the [Apollo GraphQ
 ## Layout
 
 ### `.storybook`
+
 Contains configuration files for [Storybook](https://graphql.org/), including webpack.
 
 ### `graphql`

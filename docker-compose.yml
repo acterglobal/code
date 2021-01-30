@@ -10,7 +10,7 @@ services:
       - /usr/src/node_modules
       - /usr/src/.next
     env_file:
-      - .env
+      - .env.development.local
     depends_on:
       - db
       - fake-smtp
