@@ -14,14 +14,15 @@ const Wrapper = ({ children }) => (
 describe('SessionMenu', () => {
   it('hides the menu', () => {
     render(
-      <SessionMenu
-        menuAnchorEl={document.createElement('div')}
-        signedInAs="foo"
-        isMenuOpen={false}
-        onCloseMenu={() => null}
-        onSignOut={() => null}
-      />,
-      { wrapper: Wrapper }
+      <Wrapper>
+        <SessionMenu
+          menuAnchorEl={document.createElement('div')}
+          signedInAs="foo"
+          isMenuOpen={false}
+          onCloseMenu={() => null}
+          onSignOut={() => null}
+        />
+      </Wrapper>
     )
 
     expect(screen.queryByRole('menu')).toBeFalsy()
@@ -32,14 +33,15 @@ describe('SessionMenu', () => {
     const onSignOut = jest.fn()
 
     render(
-      <SessionMenu
-        menuAnchorEl={document.createElement('div')}
-        signedInAs="foo"
-        isMenuOpen={true}
-        onCloseMenu={onClose}
-        onSignOut={() => null}
-      />,
-      { wrapper: Wrapper }
+      <Wrapper>
+        <SessionMenu
+          menuAnchorEl={document.createElement('div')}
+          signedInAs="foo"
+          isMenuOpen={true}
+          onCloseMenu={onClose}
+          onSignOut={() => null}
+        />
+      </Wrapper>
     )
 
     userEvent.click(await screen.getByRole('menuitem', { name: 'Sign Out' }))
