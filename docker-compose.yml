@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
+      - .:/usr/src
+      - /usr/src/node_modules
+      - /usr/src/.next
     env_file:
       - .env
     depends_on:
