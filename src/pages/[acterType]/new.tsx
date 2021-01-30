@@ -2,7 +2,6 @@ import React from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import pluralize from 'pluralize'
-import slugify from 'slugify'
 import { useMutation } from '@apollo/client'
 
 import { initializeApollo } from 'src/lib/apollo'
@@ -34,7 +33,6 @@ export const _handleSubmit = (
   return await createActerFn({
     variables: {
       ...data,
-      slug: slugify(data.name.toLowerCase()),
       acterTypeId: acterType.id,
     },
   })
@@ -45,9 +43,11 @@ export const _handleSubmit = (
  * @param router NextRouter returned from useRouter
  * @param acterType The ActerType to use for routing
  */
-export const _handleOnComplete = (router: NextRouter, acterType: ActerType) => (
-  data: Acter
-) => router.push(`/${_acterTypeAsUrl(acterType)}/${data.slug}`)
+export const _handleOnComplete = (
+  router: NextRouter,
+  acterType: ActerType
+) => ({ createActer }: { createActer: Acter }) =>
+  router.push(`/${_acterTypeAsUrl(createActer.ActerType)}/${createActer.slug}`)
 
 interface NewActerPageProps {
   /**

@@ -48,7 +48,7 @@ model Acter {
   createdByUser   User   @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
-  type ActerType @relation(fields: [acterTypeId], references: [id])
+  ActerType ActerType @relation(fields: [acterTypeId], references: [id])
 
   Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id])
   Children      Acter[] @relation("acter_parent")

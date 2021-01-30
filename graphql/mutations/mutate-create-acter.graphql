@@ -1,9 +1,9 @@
-mutation CreateActer($name: String!, $slug: String!, $acterTypeId: String!) {
-  createActer(
-    data: { name: $name, slug: $slug, type: { connect: { id: $acterTypeId } } }
-  ) {
-    acterTypeId
+mutation CreateActer($name: String!, $acterTypeId: String!) {
+  createActer(name: $name, acterTypeId: $acterTypeId) {
     name
     slug
+    ActerType {
+      name
+    }
   }
 }
