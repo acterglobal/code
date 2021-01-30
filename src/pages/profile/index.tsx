@@ -1,6 +1,7 @@
 import React from 'react'
 import { NextPage, GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/client'
+import { getToken } from 'src/lib/next-auth/jwt'
 
 import { initializeApollo } from 'src/lib/apollo'
 
@@ -59,10 +60,10 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   )
 }
 
-export const getServerSideProps = async (context) => {
-  const session = await getSession({ req: context.req })
+export const getServerSideProps = async ({ req }) => {
+  const token = await getToken(req)
 
-  if (!session?.user) {
+  if (!token?.sub && !token?.email) {
     return {
       props: {},
       redirect: {
@@ -75,7 +76,7 @@ export const getServerSideProps = async (context) => {
 
   const { loading, error, data } = await apollo.query({
     query: QUERY_PROFILE_BY_EMAIL,
-    variables: { email: session.user.email },
+    variables: { email: token.email },
   })
 
   if (loading) {

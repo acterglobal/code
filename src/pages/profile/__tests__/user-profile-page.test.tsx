@@ -24,6 +24,8 @@ describe('UserProfilePage', () => {
       expires: '',
     })
 
+    require('next-auth/jwt').__setMockToken({})
+
     mockQueryResponse = {
       loading: false,
       error: null,
@@ -91,6 +93,10 @@ describe('UserProfilePage', () => {
       require('next-auth/client').__setMockSession({
         user: ExampleUser,
         expires: '',
+      })
+      require('next-auth/jwt').__setMockToken({
+        sub: ExampleUser.id,
+        email: ExampleUser.email,
       })
     }
 

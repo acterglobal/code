@@ -2,6 +2,7 @@ import NextAuth, { InitOptions } from 'next-auth'
 import Adapters from 'next-auth/adapters'
 import { PrismaClient } from '@prisma/client'
 import Email from 'src/lib/next-auth/email-provider'
+import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
 const prisma = new PrismaClient()
 
@@ -20,6 +21,9 @@ const options: InitOptions = {
   ],
 
   adapter: Adapters.Prisma.Adapter({ prisma }),
+
+  session: { jwt: true },
+  jwt,
 }
 
 export default (req, res) => NextAuth(req, res, options)
