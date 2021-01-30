@@ -17,7 +17,11 @@
     "postinstall": "yarn generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "db:migrate": "yarn db:migrate:run --create-only",
+    "db:migrate:run": "prisma migrate dev --preview-feature",
+    "db:reset": "prisma migrate reset --preview-feature",
+    "db:seed": "prisma db seed --preview-feature"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
