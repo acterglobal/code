@@ -1,10 +1,10 @@
 import React from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import pluralize from 'pluralize'
 import { useMutation } from '@apollo/client'
 
 import { initializeApollo } from 'src/lib/apollo'
+import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
@@ -13,13 +13,6 @@ import { ActerForm } from 'src/components/acter/form'
 import { Acter, ActerType } from '@generated/type-graphql'
 import QUERY_ACTER_TYPES from 'graphql/queries/query-acter-types.graphql'
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
-
-/**
- * Make ActerType name url-friendly (lowercase, plural, and slugged)
- * @param acterType The ActerType
- */
-export const _acterTypeAsUrl = (acterType: ActerType) =>
-  pluralize(acterType.name.toLowerCase())
 
 /**
  * Returns an onSubmit handler
@@ -47,7 +40,7 @@ export const _handleOnComplete = (
   router: NextRouter,
   acterType: ActerType
 ) => ({ createActer }: { createActer: Acter }) =>
-  router.push(`/${_acterTypeAsUrl(createActer.ActerType)}/${createActer.slug}`)
+  router.push(`/${acterTypeAsUrl(createActer.ActerType)}/${createActer.slug}`)
 
 interface NewActerPageProps {
   /**
@@ -96,7 +89,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { acterTypes }: { acterTypes: [ActerType] } = data
 
   const acterType = acterTypes.find(
-    (type) => _acterTypeAsUrl(type) === params.acterType
+    (type) => acterTypeAsUrl(type) === params.acterType
   )
 
   if (!acterType) {
