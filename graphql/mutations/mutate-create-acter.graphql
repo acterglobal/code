@@ -1,6 +1,15 @@
-mutation CreateActer($name: String!, $acterTypeId: String!) {
-  createActer(name: $name, acterTypeId: $acterTypeId) {
+mutation CreateActer(
+  $name: String!
+  $description: String!
+  $acterTypeId: String!
+) {
+  createActer(
+    name: $name
+    description: $description
+    acterTypeId: $acterTypeId
+  ) {
     name
+    description
     slug
     ActerType {
       name

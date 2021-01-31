@@ -13,6 +13,7 @@ CREATE TABLE "acters" (
     "acter_type_id" TEXT NOT NULL,
     "name" TEXT,
     "slug" TEXT,
+    "description" TEXT,
     "location" TEXT,
     "location_lat" DECIMAL(65,30),
     "location_lng" DECIMAL(65,30),
@@ -59,7 +60,7 @@ CREATE TABLE "acter_type_rules" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "acters.slug_unique" ON "acters"("slug");
+CREATE UNIQUE INDEX "slug_unique_for_acter_type" ON "acters"("slug", "acter_type_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "acter_types.name_unique" ON "acter_types"("name");

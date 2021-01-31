@@ -35,6 +35,14 @@ export const ActerForm: FC<ActerFormProps> = ({
                 required={true}
                 value={values.name}
               />
+              <TextField
+                label="About"
+                name="description"
+                multiline
+                rows={4}
+                required={false}
+                value={values.description}
+              />
               <Button
                 color="primary"
                 type="submit"

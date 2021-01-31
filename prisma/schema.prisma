@@ -7,7 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["nativeTypes"]
 }
 
 generator typegraphql {
@@ -37,7 +38,8 @@ model Acter {
   id                   String   @id @default(uuid())
   acterTypeId          String   @map("acter_type_id")
   name                 String?
-  slug                 String?  @unique
+  slug                 String?
+  description          String?  @db.Text
   location             String?
   locationLat          Float?   @map("location_lat")
   locationLng          Float?   @map("location_lng")
@@ -59,6 +61,8 @@ model Acter {
 
   User User?
 
+
+  @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
 
