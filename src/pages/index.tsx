@@ -1,11 +1,18 @@
-import { getSession, signIn, signOut } from 'next-auth/client'
+import { GetServerSideProps } from 'next'
+import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import Head from 'next/head'
 
 import { Layout } from 'src/components/layout'
 
-const Home = () => (
-  <Layout>
+import { User } from '@generated/type-graphql'
+
+interface HomeProps {
+  user?: User
+}
+
+const Home = ({ user }) => (
+  <Layout loggedInUser={user}>
     <Head>
       <title>Acter</title>
       <link rel="icon" href="/favicon.ico" />
@@ -21,5 +28,15 @@ const Home = () => (
     </main>
   </Layout>
 )
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const user = await getTokenUser(req)
+
+  return {
+    props: {
+      user,
+    },
+  }
+}
 
 export default Home

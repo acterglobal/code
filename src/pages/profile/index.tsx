@@ -1,7 +1,6 @@
 import React from 'react'
 import { NextPage, GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/client'
-import { getToken } from 'src/lib/next-auth/jwt'
+import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import { initializeApollo } from 'src/lib/apollo'
 
@@ -14,7 +13,6 @@ import { ProfileView } from 'src/components/profile/profile-view'
 
 import { User } from '@generated/type-graphql'
 import QUERY_PROFILE_BY_EMAIL from 'graphql/queries/query-profile-by-email.graphql'
-import { get } from 'lodash'
 
 interface UserProfilePageProps {
   loading?: boolean
@@ -48,7 +46,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   }
 
   return (
-    <Layout>
+    <Layout loggedInUser={user}>
       <Head>
         <title>Profile</title>
       </Head>
@@ -61,9 +59,9 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
 }
 
 export const getServerSideProps = async ({ req }) => {
-  const token = await getToken(req)
+  const tokenUser = await getTokenUser(req)
 
-  if (!token?.sub && !token?.email) {
+  if (!tokenUser) {
     return {
       props: {},
       redirect: {
@@ -76,7 +74,7 @@ export const getServerSideProps = async ({ req }) => {
 
   const { loading, error, data } = await apollo.query({
     query: QUERY_PROFILE_BY_EMAIL,
-    variables: { email: token.email },
+    variables: { email: tokenUser.email },
   })
 
   if (loading) {

@@ -1,15 +1,15 @@
-import { Story, Meta, forceReRender } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
-import { SessionIndicator } from 'src/components/layout/session-indicator'
+import {
+  SessionIndicator,
+  SessionIndicatorProps,
+} from 'src/components/layout/session-indicator'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
-//@ts-ignore
-import { decorator as NextAuthMockDecorator } from 'next-auth/client'
 
 export default {
   title: 'layout/UserSession',
   component: SessionIndicator,
-  decorators: [NextAuthMockDecorator],
   parameters: {
     nextAuth: {
       user: null,
@@ -17,11 +17,13 @@ export default {
   },
 } as Meta
 
-export const LoggedOut: Story = () => <SessionIndicator />
+const Template: Story<SessionIndicatorProps> = (args) => (
+  <SessionIndicator {...args} />
+)
 
-export const LoggedIn: Story = () => <SessionIndicator />
-LoggedIn.parameters = {
-  nextAuth: {
-    user: ExampleUser,
-  },
+export const LoggedOut = Template.bind({})
+
+export const LoggedIn = Template.bind({})
+LoggedIn.args = {
+  user: ExampleUser,
 }

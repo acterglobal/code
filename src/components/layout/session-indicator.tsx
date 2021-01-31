@@ -1,22 +1,20 @@
-import React from 'react'
-import { useSession, signIn, signOut } from 'next-auth/client'
+import React, { FC } from 'react'
+import Link from 'next/link'
+import { signIn, signOut } from 'next-auth/client'
 
-import { Link, ListItemText, MenuItem } from '@material-ui/core'
+import { Link as MuiLink, ListItemText, MenuItem } from '@material-ui/core'
 
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ProfileButton } from 'src/components/profile/profile-button'
 import { SignInButton } from 'src/components/layout/sign-in-button'
-import { CircularProgress } from '@material-ui/core'
 
-export const SessionIndicator = () => {
-  const [session, sessionLoading] = useSession()
+import { User } from '@generated/type-graphql'
 
-  if (sessionLoading) {
-    return <CircularProgress aria-label="session-loading-indicator" />
-  }
+export interface SessionIndicatorProps {
+  user?: User
+}
 
-  const user = session?.user
-
+export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
   if (!user) {
     return <SignInButton onClick={() => signIn()} />
   }
@@ -25,7 +23,9 @@ export const SessionIndicator = () => {
     <DropdownMenu anchorNode={<ProfileButton />}>
       <ListItemText>Signed in as {user.email}</ListItemText>
       <MenuItem>
-        <Link href="/profile">Edit Profile</Link>
+        <Link href="/profile">
+          <MuiLink>Edit Profile</MuiLink>
+        </Link>
       </MenuItem>
       <MenuItem
         onClick={() => {

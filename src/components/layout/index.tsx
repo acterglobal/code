@@ -1,27 +1,49 @@
-import React from 'react'
+import React, { FC } from 'react'
+import clsx from 'clsx'
 
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { TopBar } from 'src/components/layout/top-bar'
-import { relative } from 'path'
+import { SideBar } from 'src/components/layout/side-bar'
 
-const useStyles = makeStyles({
+import { User } from '@generated/type-graphql'
+
+const sidebarWidth = 240
+
+const useStyles = makeStyles((theme) => ({
   container: {
-    position: 'relative',
+    flexGrow: 1,
+    margin: theme.spacing(2),
   },
-})
+  containerWithSidebar: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: sidebarWidth,
+  },
+}))
 
 export interface LayoutProps {
+  loggedInUser?: User
   children: any
 }
 
-export const Layout = (props: LayoutProps) => {
+export const Layout: FC<LayoutProps> = ({ loggedInUser, children }) => {
   const classes = useStyles()
 
   return (
     <>
-      <TopBar />
-      <Container>{props.children}</Container>
+      <TopBar user={loggedInUser} />
+      {loggedInUser && <SideBar width={sidebarWidth} />}
+      <Container
+        className={clsx(
+          classes.container,
+          loggedInUser && classes.containerWithSidebar
+        )}
+      >
+        {children}
+      </Container>
     </>
   )
 }
