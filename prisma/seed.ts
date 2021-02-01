@@ -1,7 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-const main = async () => {}
+import { seedInterests } from './seeds/interests'
+
+const main = async () => {
+  await seedInterests(prisma)
+}
 
 main()
   .catch((e) => {
