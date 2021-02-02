@@ -1,0 +1,15 @@
+query getActerTypesWithRules {
+  acterTypes {
+    id
+    name
+    ActerTypeRules {
+      Subject {
+        id
+        name
+      }
+      canBecome
+      canCreate
+      canJoin
+    }
+  }
+}
