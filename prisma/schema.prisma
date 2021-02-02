@@ -33,6 +33,29 @@ model Account {
   @@map(name: "accounts")
 }
 
+model Interest {
+  id             String       @id @default(uuid())
+  name           String
+  interestType   InterestType @relation(fields: [interestTypeId], references: [id])
+  interestTypeId String       @map("interest_type_id")
+
+  @@unique(name: "nameUniqueForInterestType", fields: [interestTypeId, name])
+  @@map("interests")
+}
+
+model InterestType {
+  id                   String         @id @default(uuid())
+  name                 String
+  parent               InterestType?  @relation("parent_interest_type", fields: [parentInterestTypeId], references: [id])
+  children             InterestType[] @relation("parent_interest_type")
+  parentInterestTypeId String?        @map("parent_interest_type_id")
+  Interests            Interest[]
+
+
+  @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
+  @@map("interest_types")
+}
+
 model Session {
   id           String   @id @default(uuid())
   userId       String   @map(name: "user_id")
