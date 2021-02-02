@@ -3,12 +3,8 @@
 // If it has then it's seccond level and if it has a 3rd then it goes on a 3rd level
 
 import { Interest, InterestType } from '@generated/type-graphql';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
+import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
 import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { Environment, Social, Economy, Approach, Focus, Tag } from 'src/__fixtures__';
@@ -62,12 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-export interface InterestsListProps {
-  type: InterestType
-  interests: Interest[]
-}
-
-export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
+export const InterestsList: FC<InterestType> = (interests) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -79,9 +70,9 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
+  console.log(interests)
 
   return (
-
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
@@ -103,8 +94,9 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <div >Environment</div>
-          {interests.filter(focus => focus.interestTypeId === Environment.id).map((focus) => (
+
+          {/* <div >Environment</div>
+          {interests.filter(interests => interest === Environment.id).map((focus) => (
             <FocusComponent interest={focus} />
           ))}
           <div >Social</div>
@@ -124,7 +116,7 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
         <TabPanel value={value} index={2} dir={theme.direction}>
           {interests.filter(tag => tag.interestTypeId === Tag.id).map((tag) => (
             <TagComponent interest={tag} />
-          ))}
+          ))} */}
         </TabPanel>
       </SwipeableViews>
     </div>

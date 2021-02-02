@@ -1,15 +1,17 @@
 import { Meta, Story } from '@storybook/react'
-import { InterestsList, InterestsListProps } from 'src/components/interests/'
+import { InterestsList } from 'src/components/interests'
 import { interests } from 'src/__fixtures__'
+import {
+  InterestType
+} from '@generated/type-graphql'
+
 
 export default {
   title: 'interests/InterestsList',
   component: InterestsList,
-  args: {
-    interests,
-  } as InterestsListProps,
+  args: interests as InterestType[],
 } as Meta
-// this is a container for the Focus/Tag/Approach. And it switches between what they are .
-export const Default: Story = (args: InterestsListProps) => (
+
+export const Default: Story = (args: InterestType) => (
   <InterestsList {...args} />
 )
