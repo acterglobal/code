@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 
-import { TopBar } from 'src/components/layout/top-bar'
+import { TopBar, TopBarProps } from 'src/components/layout/top-bar'
 
 import { ExampleUser } from 'src/__fixtures__/user/example-user'
 //@ts-ignore
@@ -17,11 +17,11 @@ export default {
   },
 } as Meta
 
-export const LoggedOut: Story = () => <TopBar />
+const Template: Story<TopBarProps> = (args) => <TopBar {...args} />
 
-export const LoggedIn: Story = () => <TopBar />
-LoggedIn.parameters = {
-  nextAuth: {
-    user: ExampleUser,
-  },
+export const LoggedOut = Template.bind({})
+
+export const LoggedIn = Template.bind({})
+LoggedIn.args = {
+  user: ExampleUser,
 }

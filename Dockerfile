@@ -26,7 +26,7 @@ RUN yarn
 ENV PATH /usr/src/node_modules/.bin:${PATH}
 
 # Copying source files
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 COPY . .
 
 # # Building app
