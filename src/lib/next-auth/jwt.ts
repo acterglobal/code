@@ -8,7 +8,7 @@ export const jwtConfig: JWTOptions & JWTDecodeParams = {
   signingKey: process.env.JWT_SIGNING_KEY,
 }
 
-interface JWTToken {
+export interface JWTToken {
   email: string
   sub: string
 }
