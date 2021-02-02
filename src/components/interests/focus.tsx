@@ -14,22 +14,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 export interface FocusProps {
   interest: Interest
+  isSelected: boolean
 }
 
-export const FocusComponent: FC<FocusProps> = ({ interest }) => {
+export const FocusComponent: FC<FocusProps> = ({ interest, isSelected }) => {
   const classes = useStyles();
-  const [color, setChipColors] = React.useState('default');
+  const btn_selected = isSelected ? "outlined" : "default";
 
-  const handleClick = (event: React.setOnClickListener, []) => {
-    setChipColors('primary');
-  };
   return <Chip
-    clickable
-    color={color}
+    color='default'
+    variant={btn_selected}
     icon={<FaceIcon />}
     className={classes.chip}
     label={interest.name}
-    onClick={handleClick}
+    clickable
   />
 
 }

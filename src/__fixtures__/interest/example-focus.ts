@@ -6,42 +6,35 @@ import { Economy, Environment, Focus, Social } from 'src/__fixtures__/interest/e
   id: '71a92416-a65f-41f1-b4ec-e81012325cd8',
   interestTypeId: Focus.id,
   name: 'Example Focus',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf08ea-6228-11eb-ae93-0242ac130002',
   interestTypeId: Environment.id,
   name: 'Air',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf0a70-6228-11eb-ae93-0242ac130002',
   interestTypeId: Environment.id,
   name: 'Biodiversity Land',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf0b24-6228-11eb-ae93-0242ac130002',
   interestTypeId: Social.id,
   name: 'Corruption',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf0be2-6228-11eb-ae93-0242ac130002',
   interestTypeId: Social.id,
   name: 'Drinking Water',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf1010-6228-11eb-ae93-0242ac130002',
   interestTypeId: Economy.id,
   name: 'Agriculture',
-  selected: false,
-   } as Interest,
-   {
+  } as Interest,
+  {
   id: 'd9cf10e2-6228-11eb-ae93-0242ac130002',
   interestTypeId: Economy.id,
   name: 'Consumption',
-  selected: false,
-   } as Interest
- ]
+  } as Interest
+]

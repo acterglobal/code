@@ -64,13 +64,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 export interface InterestsListProps {
   type: InterestType
-  approaches: Interest[]
-  focuses: Interest[]
-  tags: Interest[]
   interests: Interest[]
 }
 
-export const InterestsList: FC<InterestsListProps> = ({ approaches, focuses, tags, interests }) => {
+export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
