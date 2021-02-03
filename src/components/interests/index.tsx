@@ -76,6 +76,8 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
     //TODO: handle error
   }
   const topLevelTypes = interests.filter(type => type.parentInterestTypeId === rootType.id)
+  const focusType = interests.find(type => type.name === 'Focus')
+  const FocusTypes = interests.filter(type => type.parentInterestTypeId === focusType.id)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -109,20 +111,25 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
       >
         {topLevelTypes.map((topLevel) => (
           // value and index are safeguards. if they don't match, the presumption is that we are on the wrong table
-          <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
-            {topLevel.Interests.map((interest) => (
-              topLevel.name === 'Approach' ?
-                <Approach interest={interest} /> : topLevel.name === 'Tag' ?
-                  <Tag interest={interest} /> : (topLevel.name === 'Focus' ?
-                    <Approach interest={interest} /> : <Focus interest={interest} />)
 
-              // I am mapping out every toplevel interest. I want to
-              // if (interest.interestTypeId === topLevel.id) {
-              //   <Approach interest={interest} />
-              // } else {
-              //   <Approach interest={interest} />
-              // }
-            ))}
+          <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
+            {topLevel.name === 'Focus' ? '' :
+              topLevel.Interests.map((interest) => (
+                // // this works
+                topLevel.name === 'Approach' ?
+                  <Approach interest={interest} /> : topLevel.name === 'Tag' ?
+                    <Tag interest={interest} /> : (topLevel.name === 'Focus' ?
+                      <Approach interest={interest} /> : <Focus interest={interest} />)
+                // console.log('focus')
+                // topLevel.name === 'Focus' ?
+                //   console.log('focus') : ''
+                // I am mapping out every toplevel interest. I want to
+                // if (interest.interestTypeId === topLevel.id) {
+                //   <Approach interest={interest} />
+                // } else {
+                //   <Approach interest={interest} />
+                // }
+              ))}
             {/* {interests.filter(interests => interests.parentInterestTypeId === topLevel.id).map((secondLevel) => (
               <Approach interest={secondLevel} />
             ))} */}
