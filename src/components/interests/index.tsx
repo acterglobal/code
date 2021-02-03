@@ -1,16 +1,11 @@
-// If a interesttype has a parent interest type then we can do a wrapper like this
-// sort somehow : For anything that does not have a parent, it's a toplevel.
-// If it has then it's seccond level and if it has a 3rd then it goes on a 3rd level
-
-import { Interest, InterestType } from '@generated/type-graphql';
+import { InterestType } from '@generated/type-graphql';
 import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { Environment, Social, Economy, Approach, Focus, Tag } from 'src/__fixtures__';
-import { ApproachComponent } from './approach';
-import { FocusComponent } from './focus';
-import { TagComponent } from './tag';
+import { Focus } from './focus';
+import { Approach } from './approach';
+import { interests } from 'src/__fixtures__'
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -58,10 +53,29 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-export const InterestsList: FC<InterestType> = (interests) => {
+
+const root = makeStyles((theme: Theme) =>
+  createStyles({
+    chip: {
+      margin: theme.spacing(0.5),
+    },
+  }),
+);
+interface InterestsListProps {
+  interests: InterestType[]
+}
+
+export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
+
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  // console.log(interests);
+  const rootType = interests.find(type => type.parentInterestTypeId === null)
+  if (!rootType) {
+    //TODO: handle error
+  }
+  const topLevelTypes = interests.filter(type => type.parentInterestTypeId === rootType.id)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -70,8 +84,8 @@ export const InterestsList: FC<InterestType> = (interests) => {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
-  console.log(interests)
 
+  // maybe i can try to make the loop inside the return statement
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -83,9 +97,9 @@ export const InterestsList: FC<InterestType> = (interests) => {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Focus" {...a11yProps(0)} />
-          <Tab label="Approach" {...a11yProps(1)} />
-          <Tab label="Tags" {...a11yProps(2)} />
+          {topLevelTypes.map(({ id, name }) => (
+            <Tab label={name} key={`type-tab-${id}`}>{name}</Tab>
+          ))}
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -93,31 +107,48 @@ export const InterestsList: FC<InterestType> = (interests) => {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-
-          {/* <div >Environment</div>
+        {topLevelTypes.map((topLevel) => (
+          // value and index are safeguards. if they don't match, the presumption is that we are on the wrong table
+          <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
+            {console.log(topLevel.Interests)}
+            {topLevel.Interests.map((interest) => (
+              <Approach interest={interest} />
+            ))}
+            {/* {interests.filter(interests => interests.parentInterestTypeId === topLevel.id).map((secondLevel) => (
+              <Approach interest={secondLevel} />
+            ))} */}
+            {/* {topLevel.map((interest) => (
+              <Approach interest={interest} />
+            ))} */}
+            {/* {topLevelTypes.map((topLevel) => (
+            <Focus interest={topLevel} />
+          ))} */}
+            {/* {topLevelTypes.map(type => {type.Interests.map(); type.})} */}
+            {/* <div >Environment</div>
           {interests.filter(interests => interest === Environment.id).map((focus) => (
-            <FocusComponent interest={focus} />
+            <Focus interest={focus} />
           ))}
           <div >Social</div>
           {interests.filter(focus => focus.interestTypeId === Social.id).map((focus) => (
-            <FocusComponent interest={focus} />
+            <Focus interest={focus} />
           ))}
           <div >Economy</div>
           {interests.filter(focus => focus.interestTypeId === Economy.id).map((focus) => (
-            <FocusComponent interest={focus} />
+            <Focus interest={focus} />
           ))}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           {interests.filter(approach => approach.interestTypeId === Approach.id).map((approach) => (
-            <ApproachComponent interest={approach} />
+            <Approach interest={approach} />
           ))}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           {interests.filter(tag => tag.interestTypeId === Tag.id).map((tag) => (
-            <TagComponent interest={tag} />
+            <Tag interest={tag} />
           ))} */}
-        </TabPanel>
+          </TabPanel>
+        ))}
+
       </SwipeableViews>
     </div>
   );
