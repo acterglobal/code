@@ -112,8 +112,10 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
           <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
             {topLevel.Interests.map((interest) => (
               topLevel.name === 'Approach' ?
-                <Approach interest={interest} /> :
-                <Tag interest={interest} />
+                <Approach interest={interest} /> : topLevel.name === 'Tag' ?
+                  <Tag interest={interest} /> : (topLevel.name === 'Focus' ?
+                    <Approach interest={interest} /> : <Focus interest={interest} />)
+
               // I am mapping out every toplevel interest. I want to
               // if (interest.interestTypeId === topLevel.id) {
               //   <Approach interest={interest} />

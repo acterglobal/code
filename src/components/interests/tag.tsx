@@ -14,14 +14,14 @@ export interface TagProps {
   interest: Interest
 }
 
-export const TagComponent: FC<TagProps> = ({ interest }) => {
+export const Tag: FC<TagProps> = ({ interest }) => {
   const classes = useStyles();
   const [color, setChipColors] = React.useState('default');
 
   const handleClick = (event: React.setOnClickListener, []) => {
     setChipColors('primary');
   };
-  return <Button onClick={handleClick} >
-    {interest.name}
+  return <Button  >
+    #{interest.name}
   </Button>
 }

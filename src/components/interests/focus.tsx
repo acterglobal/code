@@ -14,16 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 export interface FocusProps {
   interest: Interest
-  isSelected: boolean
 }
 
-export const FocusComponent: FC<FocusProps> = ({ interest, isSelected }) => {
+export const Focus: FC<FocusProps> = ({ interest }) => {
   const classes = useStyles();
-  const btn_selected = isSelected ? "outlined" : "default";
+  console.log('approach', interest);
 
   return <Chip
     color='default'
-    variant={btn_selected}
     icon={<FaceIcon />}
     className={classes.chip}
     label={interest.name}
