@@ -1,0 +1,18 @@
+mutation CreateActer(
+  $name: String!
+  $description: String!
+  $acterTypeId: String!
+) {
+  createActer(
+    name: $name
+    description: $description
+    acterTypeId: $acterTypeId
+  ) {
+    name
+    description
+    slug
+    ActerType {
+      name
+    }
+  }
+}
