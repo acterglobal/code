@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { Focus } from './focus';
 import { Approach } from './approach';
+import { Tag } from './tag';
 import { interests } from 'src/__fixtures__'
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,7 +71,6 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  // console.log(interests);
   const rootType = interests.find(type => type.parentInterestTypeId === null)
   if (!rootType) {
     //TODO: handle error
@@ -110,9 +110,16 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
         {topLevelTypes.map((topLevel) => (
           // value and index are safeguards. if they don't match, the presumption is that we are on the wrong table
           <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
-            {console.log(topLevel.Interests)}
             {topLevel.Interests.map((interest) => (
-              <Approach interest={interest} />
+              topLevel.name === 'Approach' ?
+                <Approach interest={interest} /> :
+                <Tag interest={interest} />
+              // I am mapping out every toplevel interest. I want to
+              // if (interest.interestTypeId === topLevel.id) {
+              //   <Approach interest={interest} />
+              // } else {
+              //   <Approach interest={interest} />
+              // }
             ))}
             {/* {interests.filter(interests => interests.parentInterestTypeId === topLevel.id).map((secondLevel) => (
               <Approach interest={secondLevel} />
@@ -146,6 +153,7 @@ export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
           {interests.filter(tag => tag.interestTypeId === Tag.id).map((tag) => (
             <Tag interest={tag} />
           ))} */}
+
           </TabPanel>
         ))}
 
