@@ -1,10 +1,9 @@
 import { InterestType } from '@generated/type-graphql'
 import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import { InterestList } from 'src/components/interests/interest-list'
-import { Interests } from 'src/__fixtures__'
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -52,34 +51,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-const root = makeStyles((theme: Theme) =>
-  createStyles({
-    chip: {
-      margin: theme.spacing(0.5),
-    },
-  }),
-);
 export interface InterestTypeListProps {
   Interests: InterestType[]
 }
 
 export const InterestTypeList: FC<InterestTypeListProps> = ({ Interests }) => {
-
   const classes = useStyles();
   const theme = useTheme();
-
   const [currentTab, setCurrentTab] = React.useState(0);
-  // const [value, setValue] = useState(null);
   const rootType = Interests.find(type => type.parentInterestTypeId === null)
   if (!rootType) {
     //TODO: handle error
   }
   const topLevelTypes = Interests.filter(type => type.parentInterestTypeId === rootType.id)
-  // useEffect(() => {
-  //   setValue(topLevelTypes[0]?.name)
-  // }, [topLevelTypes])
-
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setCurrentTab(newValue);
@@ -111,12 +95,18 @@ export const InterestTypeList: FC<InterestTypeListProps> = ({ Interests }) => {
         onChangeIndex={handleChangeIndex}
       >
         {topLevelTypes.map((type, index) => (
-          // fix the ctrl shift 7
-          <TabPanel value={type.name} key={type.id} index={index} dir={theme.direction}>
-            {/* {console.log('type', type)} */}
-            {/* {console.log('Interests', Interests)} */}
-            <InterestList interestType={type} interestTypes={Interests} />
-          </TabPanel>
+          <>
+            <TabPanel value={type.name} key={type.id} index={index} dir={theme.direction}>
+              {console.log('before interest list', type)}
+              <InterestList interestType={type} interestTypes={Interests} />
+              {console.log('after interest list', Interests)}
+              {/* <TabPanel value={value} index={1} dir={theme.direction}>
+                {interests.filter(approach => approach.interestTypeId === Approach.id).map((approach) => (
+            <Approach interest={approach} />
+                ))}
+              </TabPanel> */}
+            </TabPanel>
+          </>
         ))}
       </SwipeableViews>
     </div>
