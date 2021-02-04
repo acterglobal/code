@@ -94,17 +94,10 @@ export const InterestTypeList: FC<InterestTypeListProps> = ({ Interests }) => {
         index={currentTab}
         onChangeIndex={handleChangeIndex}
       >
-        {topLevelTypes.map((type, index) => (
+        {topLevelTypes.map((topLevelType, index) => (
           <>
-            <TabPanel value={type.name} key={type.id} index={index} dir={theme.direction}>
-              {console.log('before interest list', type)}
-              <InterestList interestType={type} interestTypes={Interests} />
-              {console.log('after interest list', Interests)}
-              {/* <TabPanel value={value} index={1} dir={theme.direction}>
-                {interests.filter(approach => approach.interestTypeId === Approach.id).map((approach) => (
-            <Approach interest={approach} />
-                ))}
-              </TabPanel> */}
+            <TabPanel value={index} key={topLevelType.id} index={index} dir={theme.direction}>
+              <InterestList interestType={topLevelType} interestTypes={Interests} />
             </TabPanel>
           </>
         ))}
