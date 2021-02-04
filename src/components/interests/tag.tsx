@@ -18,9 +18,6 @@ export const Tag: FC<TagProps> = ({ interest }) => {
   const classes = useStyles();
   const [color, setChipColors] = React.useState('default');
 
-  const handleClick = (event: React.setOnClickListener, []) => {
-    setChipColors('primary');
-  };
   return <Button  >
     #{interest.name}
   </Button>

@@ -1,9 +1,7 @@
-import { Interest } from '@generated/type-graphql';
-import { Chip } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import React, { FC } from 'react';
-
-console.log('approach');
+import { Interest } from '@generated/type-graphql'
+import { Chip } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import React, { FC } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

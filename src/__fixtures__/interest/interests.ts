@@ -1,6 +1,6 @@
-import {Interest, InterestType} from '@generated/type-graphql'
+import { InterestType } from '@generated/type-graphql'
 
-export const interests: InterestType[] = [
+export const Interests: InterestType[] = [
   {
     id: 'a96a445a-b50a-4aa2-8559-9add91c7bf5c',
     name: 'root',

@@ -1,22 +1,19 @@
-import { InterestType } from '@generated/type-graphql';
-import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
-import React, { FC } from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { Focus } from './focus';
-import { Approach } from './approach';
-import { Tag } from './tag';
-import { interests } from 'src/__fixtures__'
+import { InterestType } from '@generated/type-graphql'
+import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core'
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
+import React, { FC, useState, useEffect } from 'react'
+import SwipeableViews from 'react-swipeable-views'
+import { InterestList } from 'src/components/interests/interest-list'
+import { Interests } from 'src/__fixtures__'
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
-  index: any;
+  index: number;
   value: any;
 }
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -30,6 +27,7 @@ function TabPanel(props: TabPanelProps) {
           <Typography>{children}</Typography>
         </Box>
       )}
+
     </div>
   );
 }
@@ -62,110 +60,64 @@ const root = makeStyles((theme: Theme) =>
     },
   }),
 );
-interface InterestsListProps {
-  interests: InterestType[]
+export interface InterestTypeListProps {
+  Interests: InterestType[]
 }
 
-export const InterestsList: FC<InterestsListProps> = ({ interests }) => {
+export const InterestTypeList: FC<InterestTypeListProps> = ({ Interests }) => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-  const rootType = interests.find(type => type.parentInterestTypeId === null)
+
+  const [currentTab, setCurrentTab] = React.useState(0);
+  // const [value, setValue] = useState(null);
+  const rootType = Interests.find(type => type.parentInterestTypeId === null)
   if (!rootType) {
     //TODO: handle error
   }
-  const topLevelTypes = interests.filter(type => type.parentInterestTypeId === rootType.id)
-  const focusType = interests.find(type => type.name === 'Focus')
-  const FocusTypes = interests.filter(type => type.parentInterestTypeId === focusType.id)
+  const topLevelTypes = Interests.filter(type => type.parentInterestTypeId === rootType.id)
+  // useEffect(() => {
+  //   setValue(topLevelTypes[0]?.name)
+  // }, [topLevelTypes])
+
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    setCurrentTab(newValue);
   };
 
   const handleChangeIndex = (index: number) => {
-    setValue(index);
+    setCurrentTab(index);
   };
 
-  // maybe i can try to make the loop inside the return statement
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={value}
+          value={currentTab}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          {topLevelTypes.map(({ id, name }) => (
-            <Tab label={name} key={`type-tab-${id}`}>{name}</Tab>
+          {topLevelTypes.map((topLevelType, index) => (
+            <Tab label={topLevelType.name} {...a11yProps(index)} key={`type-tabs-${topLevelType.id}`} />
           ))}
         </Tabs>
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
+        index={currentTab}
         onChangeIndex={handleChangeIndex}
       >
-        {topLevelTypes.map((topLevel) => (
-          // value and index are safeguards. if they don't match, the presumption is that we are on the wrong table
-
-          <TabPanel value={topLevel.name} index={topLevel.name} dir={theme.direction}>
-            {topLevel.name === 'Focus' ? '' :
-              topLevel.Interests.map((interest) => (
-                // // this works
-                topLevel.name === 'Approach' ?
-                  <Approach interest={interest} /> : topLevel.name === 'Tag' ?
-                    <Tag interest={interest} /> : (topLevel.name === 'Focus' ?
-                      <Approach interest={interest} /> : <Focus interest={interest} />)
-                // console.log('focus')
-                // topLevel.name === 'Focus' ?
-                //   console.log('focus') : ''
-                // I am mapping out every toplevel interest. I want to
-                // if (interest.interestTypeId === topLevel.id) {
-                //   <Approach interest={interest} />
-                // } else {
-                //   <Approach interest={interest} />
-                // }
-              ))}
-            {/* {interests.filter(interests => interests.parentInterestTypeId === topLevel.id).map((secondLevel) => (
-              <Approach interest={secondLevel} />
-            ))} */}
-            {/* {topLevel.map((interest) => (
-              <Approach interest={interest} />
-            ))} */}
-            {/* {topLevelTypes.map((topLevel) => (
-            <Focus interest={topLevel} />
-          ))} */}
-            {/* {topLevelTypes.map(type => {type.Interests.map(); type.})} */}
-            {/* <div >Environment</div>
-          {interests.filter(interests => interest === Environment.id).map((focus) => (
-            <Focus interest={focus} />
-          ))}
-          <div >Social</div>
-          {interests.filter(focus => focus.interestTypeId === Social.id).map((focus) => (
-            <Focus interest={focus} />
-          ))}
-          <div >Economy</div>
-          {interests.filter(focus => focus.interestTypeId === Economy.id).map((focus) => (
-            <Focus interest={focus} />
-          ))}
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          {interests.filter(approach => approach.interestTypeId === Approach.id).map((approach) => (
-            <Approach interest={approach} />
-          ))}
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          {interests.filter(tag => tag.interestTypeId === Tag.id).map((tag) => (
-            <Tag interest={tag} />
-          ))} */}
-
+        {topLevelTypes.map((type, index) => (
+          // fix the ctrl shift 7
+          <TabPanel value={type.name} key={type.id} index={index} dir={theme.direction}>
+            {/* {console.log('type', type)} */}
+            {/* {console.log('Interests', Interests)} */}
+            <InterestList interestType={type} interestTypes={Interests} />
           </TabPanel>
         ))}
-
       </SwipeableViews>
     </div>
   );
