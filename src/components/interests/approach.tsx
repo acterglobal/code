@@ -16,9 +16,9 @@ export interface ApproachProps {
 
 export const Approach: FC<ApproachProps> = ({ interest }) => {
   const classes = useStyles();
-  console.log('approach', interest);
   return <Chip
     className={classes.chip}
     label={interest.name}
+    clickable
   />
 }

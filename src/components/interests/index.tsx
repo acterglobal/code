@@ -26,7 +26,6 @@ function TabPanel(props: TabPanelProps) {
           <Typography>{children}</Typography>
         </Box>
       )}
-
     </div>
   );
 }

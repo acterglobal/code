@@ -23,34 +23,40 @@ interface InterestListProps {
 // }
 export const InterestList: FC<InterestListProps> = ({ interestType, interestTypes }) => {
 
-  { console.log('inside  interest list') }
-  { console.log('subtypes5', interestTypes) }
-  // not showing Social, Env and Eco yet
   const subtypes = interestTypes.filter(subtype => subtype.parentInterestTypeId === interestType.id)
-  { console.log('subtypes', subtypes) }
+  // { console.log('subtypes.length>0', subtypes.length) }
+  if (subtypes.length > 0) {
+    return (
+      <>
+        { console.log('indisde subtypes')}
 
-  // if (subtypes) {
-  //   return (
-  //     <>
-  //       {subtypes.map(subtype => <InterestList key={subtype.name} interestType={subtype} interestTypes={interestTypes} />)}
-  //     </>
-  //   )
-  // }
+        {subtypes.map(subtype => <><div key={subtype.name}>{subtype.name}</div>
+          <InterestList key={subtype.name} interestType={subtype} interestTypes={interestTypes} />
+        </>)}
+      </>
+    )
+  }
 
   return (
     <>
-      { console.log('subtypes3')}
+      {/* { console.log('interestType', interestType)} */}
       {
         interestType.Interests.map(interest => {
+          { console.log('interest', interestType.name, interest) }
           switch (interestType.name) {
             case ('Focus'):
+            case ('Economy'):
+            case ('Social'):
+            case ('Environment'):
+              { console.log('Focus') }
               return <Focus key={interest.name} interest={interest} />
             case ('Approach'):
               return <Approach key={interest.name} interest={interest} />
-            case ('Tag'):
+            case ('Tags'):
               return <Tag key={interest.name} interest={interest} />
             default:
-              return <div key={interest.name}>{interest.name}</div>
+              <div key={interest.name}>{interest.name}</div>
+              { console.log('default') }
           }
         })
       }

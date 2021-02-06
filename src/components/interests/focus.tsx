@@ -1,6 +1,6 @@
 import { Interest } from '@generated/type-graphql';
 import { Chip } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import FaceIcon from '@material-ui/icons/Face';
 import React, { FC } from 'react';
 
@@ -17,11 +17,19 @@ export interface FocusProps {
 
 export const Focus: FC<FocusProps> = ({ interest }) => {
   const classes = useStyles();
-  console.log('approach', interest);
+  console.log('inside focus component', interest.name);
+  const color = (interest.name === 'Transportation' ? 'green' : interest.name === 'Social' ? 'red' : interest.name === 'Economy' ? 'orange' : 'yellow') as string;
 
-  return <Chip
+  const StyleChip = withStyles({
+    root: {
+      backgroundColor: color,
+    },
+  })(Chip);
+
+  return <StyleChip
     color='default'
     icon={<FaceIcon />}
+    // style={{ backgroundColor: 'green' }}
     className={classes.chip}
     label={interest.name}
     clickable
