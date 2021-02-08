@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.dark,
   },
   joinBtn: {
-    borderRadius: 15,
+    borderRadius: 25,
     width: '100px',
     backgroundColor: theme.palette.primary.main,
     color: 'white',
@@ -44,14 +44,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export interface BannerSectionProps {
+export interface HeaderSectionProps {
   imageSrc?: string
 }
 
 const myLoader = () =>
   `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`
 
-const BannerSection: FC<BannerSectionProps> = ({ imageSrc }) => {
+const HeaderSection: FC<HeaderSectionProps> = ({ imageSrc }) => {
   const classes = useStyles()
   return (
     <Box className={classes.bannerSection}>
@@ -90,7 +90,7 @@ const BannerSection: FC<BannerSectionProps> = ({ imageSrc }) => {
             variant="contained"
             size="medium"
             disableElevation
-            onClick={() => console.log('button clicked')}
+            onClick={() => console.log('join button clicked')}
           >
             Join
           </Button>
@@ -100,4 +100,4 @@ const BannerSection: FC<BannerSectionProps> = ({ imageSrc }) => {
   )
 }
 
-export default BannerSection
+export default HeaderSection
