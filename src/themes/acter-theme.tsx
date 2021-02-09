@@ -7,11 +7,6 @@ export const acterTheme = createMuiTheme({
     primary: green,
     secondary: grey,
   },
-  typography: {
-    h4: {
-      fontWeight: 'bold',
-    },
-  },
 })
 
 export const ActerThemeProvider = ({ children }) => (
