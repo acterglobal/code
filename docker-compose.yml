@@ -4,7 +4,7 @@ services:
       - 3000:3000
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.m1
     volumes:
       - .:/usr/src
       - /usr/src/node_modules
