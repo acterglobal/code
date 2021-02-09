@@ -1,10 +1,24 @@
 import React, { FC } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Box, Typography, Button } from '@material-ui/core'
-
+import {
+  makeStyles,
+  createStyles,
+  withStyles,
+  Theme,
+} from '@material-ui/core/styles'
+import { Box, Typography as MUIT, Button } from '@material-ui/core'
 import Image from 'next/image'
 
-const useStyles = makeStyles((theme) => ({
+// ? overriding the MaterialUI tab styles
+const Typography = withStyles((theme: Theme) =>
+  createStyles({
+    h4: {
+      fontWeight: 'bold',
+    },
+  })
+)(MUIT)
+
+//  ? custom styles
+const useStyles = makeStyles((theme: Theme) => ({
   bannerSection: {
     position: 'relative',
   },
