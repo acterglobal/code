@@ -11,7 +11,7 @@ services:
     envs:
       - key: NEXTAUTH_URL
         scope: RUN_AND_BUILD_TIME
-        value: http://localhost:3000
+        value: http://dev.acter.global
       - key: DATABASE_URL
         scope: RUN_TIME
         value: ${db.DATABASE_URL}
