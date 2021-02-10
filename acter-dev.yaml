@@ -15,8 +15,17 @@ services:
       - key: DATABASE_URL
         scope: RUN_TIME
         value: ${db.DATABASE_URL}
+      - key: EMAIL_SERVER_HOST
+        scope: RUN_TIME
+        value: http://smtp.gmail.com
+      - key: EMAIL_SERVER_PORT
+        scope: RUN_TIME
+        value: 465
+      - key: EMAIL_FROM
+        scope: RUN_TIME
+        value: noreply@acter.global
     github:
-      branch: digitalocean
+      branch: damon/ch164-deploy-development-site
       repo: acterglobal/code
     http_port: 3000
     instance_count: 1
