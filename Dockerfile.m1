@@ -1,38 +1,35 @@
-FROM node:current-stretch
-# RUN apt-get update
-# RUN apt-get install -y g++ make python libvips-dev
-
+FROM node:15.8.0-stretch as prebase
 # Create app directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
-
+EXPOSE 3000
+RUN apt-get update
+RUN apt-get install -y g++ make python libvips-dev
 # Workaround for M1 chip problems with sharp. sorry.
 RUN wget https://github.com/libvips/libvips/releases/download/v8.10.5/vips-8.10.5.tar.gz && tar xf vips-8.10.5.tar.gz
 WORKDIR /usr/src/vips-8.10.5
 RUN ./configure && make && make install && ldconfig
 
+FROM prebase as base
 WORKDIR /usr/src
-
 # Prisma schema is needed for postinstall client generation
 COPY prisma ./
-
 # Install dependencies
 COPY package*.json ./
 COPY yarn*.lock ./
-
 RUN yarn
 
-# add node_modules path to environment
-ENV PATH /usr/src/node_modules/.bin:${PATH}
 
+FROM base as source
 # Copying source files
 WORKDIR /usr/src
 COPY . .
 
-# # Building app
-RUN yarn run build
-
-EXPOSE 3000
-
+FROM base as dev
 # Running the app
-CMD "npm" "run" "dev"
+CMD "yarn" "dev"
+
+FROM base AS prod
+# Building app
+RUN yarn run build
+CMD "yarn" "start"

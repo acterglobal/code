@@ -6,7 +6,7 @@ services:
       - 3000:3000
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.m1
       target: dev
     volumes:
       - .:/usr/src
