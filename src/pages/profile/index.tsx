@@ -1,8 +1,5 @@
 import React from 'react'
-import { NextPage, GetServerSideProps } from 'next'
-import { getTokenUser } from 'src/lib/next-auth/jwt'
-
-import { initializeApollo } from 'src/lib/apollo'
+import { NextPage } from 'next'
 
 import { CircularProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
@@ -12,7 +9,8 @@ import { Layout } from 'src/components/layout'
 import { ProfileView } from 'src/components/profile/profile-view'
 
 import { User } from '@generated/type-graphql'
-import QUERY_PROFILE_BY_EMAIL from 'graphql/queries/query-profile-by-email.graphql'
+import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { getToken, getUserProfile } from 'src/props'
 
 interface UserProfilePageProps {
   loading?: boolean
@@ -58,47 +56,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   )
 }
 
-export const getServerSideProps = async ({ req }) => {
-  const tokenUser = await getTokenUser(req)
-
-  if (!tokenUser) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/',
-      },
-    }
-  }
-
-  const apollo = initializeApollo()
-
-  const { loading, error, data } = await apollo.query({
-    query: QUERY_PROFILE_BY_EMAIL,
-    variables: { email: tokenUser.email },
-  })
-
-  if (loading) {
-    return {
-      props: {
-        loading: true,
-      },
-    }
-  }
-
-  if (error) {
-    return {
-      props: {
-        error,
-      },
-    }
-  }
-
-  const { user }: { user: User } = data
-  return {
-    props: {
-      user,
-    },
-  }
-}
+export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+  composeProps(ctx, getToken, getUserProfile)
 
 export default UserProfilePage
