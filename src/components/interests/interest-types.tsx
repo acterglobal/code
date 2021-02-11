@@ -1,13 +1,11 @@
 import React, { FC } from 'react'
-import { Box, Typography } from '@material-ui/core'
 import { InterestType } from '@generated/type-graphql'
-import InterestSubTypes from './interest-sub-types'
 import Interest from './interest'
 
 export interface typesProps {
   types: {
     type: InterestType
-    allTypes: any
+    allTypes: InterestType[]
   }
 }
 
@@ -18,22 +16,27 @@ const InterestTypes: FC<typesProps> = ({ types }) => {
     (subtype) => type.id === subtype.parentInterestTypeId
   )
 
-  return (
-    <Box>
-      <Typography style={{ margin: 5 }}>{type.name}</Typography>
-      {subTypes.length > 0
-        ? subTypes.map((subType) => (
-            <InterestSubTypes key={subType.id} interest={subType} />
-          ))
-        : type.Interests.map((interest) => (
-            <Interest
-              key={interest.id}
-              interest={interest}
-              outline={type.name === 'Tags' ? 'outlined' : 'default'}
-            />
-          ))}
-    </Box>
-  )
+  if (subTypes.length > 0) {
+    return subTypes.map((type) => (
+      <InterestTypes key={type.id} types={{ type, allTypes }} />
+    ))
+  } else {
+    return type.Interests.map((interest) => (
+      <Interest key={interest.id} interest={interest} type={type.name} />
+    ))
+  }
+
+  //   return (
+  //     <>
+  //       {subTypes.length > 0
+  //         ? subTypes.map((type) => (
+  //             <InterestTypes key={type.id} types={{ type, allTypes }} />
+  //           ))
+  //         : type.Interests.map((interest) => (
+  //             <Interest key={interest.id} interest={interest} type={type.name} />
+  //           ))}
+  //     </>
+  //   )
 }
 
 export default InterestTypes

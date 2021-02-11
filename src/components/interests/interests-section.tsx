@@ -1,18 +1,9 @@
-import React from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
+import React, { FC } from 'react'
+import { Box, Typography } from '@material-ui/core'
 import { Interests } from '../../__fixtures__/interest/interests'
 import InterestTypes from './interest-types'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    display: 'flex',
-  },
-}))
-
-const InterestsSection = () => {
-  const classes = useStyles()
-
+const InterestsSection: FC = () => {
   const rootType = Interests.data.interestTypes.find(
     (type) => type.name === 'root'
   )
@@ -24,12 +15,14 @@ const InterestsSection = () => {
   )
 
   return (
-    <Box className={classes.container}>
+    <Box style={{ display: 'flex' }}>
       {topLevelTypes.map((type) => (
-        <InterestTypes
-          key={type.id}
-          types={{ type: type, allTypes: Interests.data.interestTypes }}
-        />
+        <Box key={type.id}>
+          <Typography style={{ margin: 5 }}>{type.name}</Typography>
+          <InterestTypes
+            types={{ type: type, allTypes: Interests.data.interestTypes }}
+          />
+        </Box>
       ))}
     </Box>
   )
