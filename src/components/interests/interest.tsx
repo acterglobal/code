@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
 import { Box, Chip } from '@material-ui/core'
 
-const chipColors = {
+export const interestColors = {
   Economy: 'rgb(248, 186, 0)',
   Environment: 'rgb(29, 177, 0)',
   Social: 'rgb(255, 100, 78)',
@@ -21,7 +21,7 @@ const Interest: FC<InterestProps> = ({ interest, type }) => {
     case 'Economy':
     case 'Environment':
     case 'Social':
-      backgroundColor = { backgroundColor: chipColors[type] }
+      backgroundColor = { backgroundColor: interestColors[type] }
       break
 
     case 'Tags':

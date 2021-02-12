@@ -17,8 +17,11 @@ const InterestTypes: FC<typesProps> = ({ types }) => {
   )
 
   if (subTypes.length > 0) {
-    return subTypes.map((type) => (
-      <InterestTypes key={type.id} types={{ type, allTypes }} />
+    return subTypes.map((subType) => (
+      <InterestTypes
+        key={subType.id}
+        types={{ type: subType, allTypes: subTypes }}
+      />
     ))
   } else {
     return type.Interests.map((interest) => (
