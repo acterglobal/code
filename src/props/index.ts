@@ -1,3 +1,4 @@
+export * from 'src/props/get-acter'
 export * from 'src/props/get-acter-types'
 export * from 'src/props/get-token'
 export * from 'src/props/get-user-profile'

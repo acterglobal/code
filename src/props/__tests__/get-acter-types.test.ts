@@ -12,7 +12,7 @@ import {
   OrganizationActerType,
 } from 'src/__fixtures__'
 
-import { getActerTypes } from 'src/props/get-acter-types'
+import { getActerTypes } from 'src/props'
 
 describe('getActerTypes', () => {
   let acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
