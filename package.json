@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "ts-node server.ts",
+    "start": "node server.mjs",
     "test": "rm -rf .next out && jest",
     "test:ci": "rm -rf .next out && jest",
     "cover": "jest --coverage",

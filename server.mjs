@@ -1,6 +1,7 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
-import express, { Request, Response } from 'express'
+import express from 'express'
 import next from 'next'
 import basicAuth from 'express-basic-auth'
 import cryptoRandomString from 'crypto-random-string'
@@ -25,10 +26,10 @@ const port = process.env.PORT || 3000
         realm: cryptoRandomString({ length: 10 }),
       })
     )
-    server.all('*', (req: Request, res: Response) => {
+    server.all('*', (req, res) => {
       return handle(req, res)
     })
-    server.listen(port, (err?: any) => {
+    server.listen(port, (err) => {
       if (err) throw err
       console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`)
     })
