@@ -17,10 +17,10 @@ WORKDIR /usr/src
 COPY . .
 
 FROM source AS dev
-CMD "yarn" "dev"
+# CMD "yarn" "dev"
 
 FROM source AS prod
 # Building app
 RUN yarn run build && yarn --production
 # Running the app
-CMD "yarn" "start"
+# CMD "yarn" "start"
