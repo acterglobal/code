@@ -9,12 +9,14 @@ import cryptoRandomString from 'crypto-random-string'
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 3000
 
 ;(async () => {
   try {
     await app.prepare()
     const server = express()
+    server.get('/health', (req, res) => res.send('ok'))
     server.use(
       basicAuth({
         users: {
@@ -29,9 +31,9 @@ const port = process.env.PORT || 3000
     server.all('*', (req, res) => {
       return handle(req, res)
     })
-    server.listen(port, (err) => {
+    server.listen(port, host, (err) => {
       if (err) throw err
-      console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`)
+      console.log(`> Ready on ${host}:${port} - env ${process.env.NODE_ENV}`)
     })
   } catch (e) {
     console.error(e)

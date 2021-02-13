@@ -9,6 +9,9 @@ region: ams
 services:
   - dockerfile_path: Dockerfile
     envs:
+      - key: HOST
+        scope: RUN_AND_BUILD_TIME
+        value: '0.0.0.0'
       - key: NEXTAUTH_URL
         scope: RUN_AND_BUILD_TIME
         value: http://dev.acter.global

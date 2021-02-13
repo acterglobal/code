@@ -9,7 +9,7 @@ WORKDIR /usr/src
 # Prisma schema is needed for postinstall client generation
 # Install dependencies
 COPY prisma package*.json yarn*.lock ./
-RUN yarn
+RUN yarn --network-timeout=300000
 
 FROM base as source
 # Copying source files
@@ -21,6 +21,6 @@ FROM source AS dev
 
 FROM source AS prod
 # Building app
-RUN yarn run build && yarn --production
+RUN yarn run build && yarn --production --network-timeout=300000
 # Running the app
-# CMD "yarn" "start"
+CMD "yarn" "start"
