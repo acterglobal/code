@@ -35,6 +35,8 @@ const Interest: FC<InterestProps> = ({ interest, type }) => {
   return (
     <Box style={{ margin: 5 }}>
       <Chip
+        aria-label={interest.name}
+        role="listitem"
         key={interest.id}
         label={interest.name}
         style={{ ...backgroundColor, width: 150, fontSize: '0.8rem' }}
