@@ -19,7 +19,7 @@ export const ExampleActer: Acter = {
   createdByUserId: ExampleUser.id,
   autoApproveFollowers: true,
 }
-
+// TODO: update this with image urls(banner, avatar)
 export const getBannerImageUrl = () =>
   `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`
 
