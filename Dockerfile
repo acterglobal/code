@@ -7,10 +7,8 @@ EXPOSE 3000
 FROM prebase as base
 WORKDIR /usr/src
 # Prisma schema is needed for postinstall client generation
-COPY prisma ./
 # Install dependencies
-COPY package*.json ./
-COPY yarn*.lock ./
+COPY prisma package*.json yarn*.lock ./
 RUN yarn
 
 FROM base as source
@@ -23,6 +21,6 @@ CMD "yarn" "dev"
 
 FROM source AS prod
 # Building app
-RUN yarn run build
+RUN yarn run build && yarn --production
 # Running the app
 CMD "yarn" "start"
