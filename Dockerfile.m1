@@ -3,33 +3,30 @@ FROM node:15.8.0-stretch as prebase
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
 EXPOSE 3000
-RUN apt-get update
-RUN apt-get install -y g++ make python libvips-dev
 # Workaround for M1 chip problems with sharp. sorry.
-RUN wget https://github.com/libvips/libvips/releases/download/v8.10.5/vips-8.10.5.tar.gz && tar xf vips-8.10.5.tar.gz
-WORKDIR /usr/src/vips-8.10.5
-RUN ./configure && make && make install && ldconfig
+# RUN apt-get update
+# RUN apt-get install -y g++ make python libvips-dev
+# RUN wget https://github.com/libvips/libvips/releases/download/v8.10.5/vips-8.10.5.tar.gz && tar xf vips-8.10.5.tar.gz
+# WORKDIR /usr/src/vips-8.10.5
+# RUN ./configure && make && make install && ldconfig
 
 FROM prebase as base
 WORKDIR /usr/src
 # Prisma schema is needed for postinstall client generation
-COPY prisma ./
 # Install dependencies
-COPY package*.json ./
-COPY yarn*.lock ./
-RUN yarn
-
+COPY prisma package*.json yarn*.lock ./
+RUN yarn --network-timeout=300000 --ignore-optional
 
 FROM base as source
 # Copying source files
 WORKDIR /usr/src
 COPY . .
 
-FROM base as dev
-# Running the app
+FROM source AS dev
 CMD "yarn" "dev"
 
-FROM base AS prod
+FROM source AS prod
 # Building app
-RUN yarn run build
+RUN yarn run build && yarn --production --network-timeout=300000 --ignore-optional
+# Running the app
 CMD "yarn" "start"

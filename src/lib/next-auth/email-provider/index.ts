@@ -85,6 +85,8 @@ const sendVerificationRequest = ({
     // Strip protocol from URL and use domain as site name
     const site = baseUrl.replace(/^https?:\/\//, '')
 
+    console.log('NextAuth Email Provider request: ', email)
+
     nodemailer.createTransport(server).sendMail(
       {
         to: email,
