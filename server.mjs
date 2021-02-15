@@ -16,7 +16,11 @@ const port = process.env.PORT || 3000
   try {
     await app.prepare()
     const server = express()
+    // Non-secure routes
     server.get('/health', (req, res) => res.send('ok'))
+    server.all('/api/graphql', handle)
+
+    // Secure
     server.use(
       basicAuth({
         users: {
@@ -28,9 +32,7 @@ const port = process.env.PORT || 3000
         realm: cryptoRandomString({ length: 10 }),
       })
     )
-    server.all('*', (req, res) => {
-      return handle(req, res)
-    })
+    server.all('*', handle)
     server.listen(port, host, (err) => {
       if (err) throw err
       console.log(`> Ready on ${host}:${port} - env ${process.env.NODE_ENV}`)
