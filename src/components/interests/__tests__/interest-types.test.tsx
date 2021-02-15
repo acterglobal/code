@@ -16,15 +16,20 @@ describe('[Interest Types]', () => {
       <InterestTypes type={types[0]} allTypes={Interests.data.interestTypes} />
     )
     expect(screen.getAllByRole('listitem')).toHaveLength(30)
+    expect(
+      screen.getByRole('listitem', { name: 'Transportation' })
+    ).toBeTruthy()
 
     rerender(
       <InterestTypes type={types[1]} allTypes={Interests.data.interestTypes} />
     )
     expect(screen.getAllByRole('listitem')).toHaveLength(20)
+    expect(screen.getByRole('listitem', { name: 'Debate' })).toBeTruthy()
 
     rerender(
       <InterestTypes type={types[2]} allTypes={Interests.data.interestTypes} />
     )
     expect(screen.getAllByRole('listitem')).toHaveLength(24)
+    expect(screen.getByRole('listitem', { name: 'GreenNewDeal' })).toBeTruthy()
   })
 })

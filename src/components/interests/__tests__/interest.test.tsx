@@ -14,6 +14,7 @@ describe('[Interest]', () => {
     expect(Tag.type).toBe('Tags')
     render(<Interest {...Tag} />)
     expect(document.querySelector('.MuiChip-outlined')).toBeTruthy()
+    // TODO: need to use snapshot testing
     expect(
       screen.getByRole('listitem', { name: Tag.interest.name })
     ).toBeTruthy()

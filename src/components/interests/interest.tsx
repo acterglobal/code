@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
 import { Box, Chip } from '@material-ui/core'
 
+//  TODO: put these colors in theme or somewhere
 export const interestColors = {
   Economy: 'rgb(248, 186, 0)',
   Environment: 'rgb(29, 177, 0)',
