@@ -33,6 +33,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
     "@prisma/client": "^2.15.0",
+    "@sendgrid/mail": "^7.4.2",
     "@storybook/addon-contexts": "^5.3.21",
     "apollo-server-micro": "^2.19.1",
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
