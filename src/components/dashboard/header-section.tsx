@@ -9,10 +9,6 @@ import { Box, Typography as MUIT, Button } from '@material-ui/core'
 import Image from 'next/image'
 import Avatar from '../profile/avatar'
 import { Acter } from '@generated/type-graphql'
-import {
-  getBannerImageUrl,
-  getAvtarImageUrl,
-} from '../../__fixtures__/acter/example-acter'
 
 // ? overriding the MaterialUI tab styles
 const Typography = withStyles((theme: Theme) =>
@@ -57,19 +53,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface HeaderSectionProps {
-  imageSrc?: string
   acter: Acter
 }
 
-// const myLoader = () =>
-//   `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`
-
 const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const classes = useStyles()
+  console.log(acter)
   return (
     <Box className={classes.bannerSection}>
       <Image
-        loader={() => getBannerImageUrl()}
+        loader={() => acter.bannerUrl}
         src={'/acter-logo-144.png'}
         alt="Acter Logo"
         layout="intrinsic"
@@ -77,13 +70,17 @@ const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         width={1920}
       />
       <Box className={classes.infoSection}>
-        <Avatar imageUrl={getAvtarImageUrl()} />
+        <Avatar imageUrl={acter.avatarUrl} />
 
         <Box className={classes.info}>
-          <Typography variant="h4" className={classes.title}>
+          <Typography role="acter-name" variant="h4" className={classes.title}>
             {acter.name}
           </Typography>
-          <Typography variant="subtitle2" className={classes.location}>
+          <Typography
+            role="acter-location"
+            variant="subtitle2"
+            className={classes.location}
+          >
             {acter.location}
           </Typography>
         </Box>
