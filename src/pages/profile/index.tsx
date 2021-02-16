@@ -6,7 +6,7 @@ import { Alert } from '@material-ui/lab'
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 
-import { ProfileView } from 'src/components/profile/profile-view'
+import { ProfileView } from 'src/components/user/profile-view'
 
 import { User } from '@generated/type-graphql'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'

@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles'
 import { Box, Typography as MUIT, Button } from '@material-ui/core'
 import Image from 'next/image'
-import Avatar from 'src/components/profile/avatar'
+import Avatar from 'src/components/user/avatar'
 import { Acter } from '@generated/type-graphql'
 
 // ? overriding the MaterialUI tab styles
