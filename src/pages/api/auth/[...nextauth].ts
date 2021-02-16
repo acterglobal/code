@@ -20,27 +20,6 @@ const options: InitOptions = {
     }),
   ],
 
-  events: {
-    async signIn(message) {
-      console.log('NextAuth signIn: ', message)
-    },
-    async signOut(message) {
-      console.log('NextAuth signOut: ', message)
-    },
-    async createUser(message) {
-      console.log('NextAuth createUser: ', message)
-    },
-    async linkAccount(message) {
-      console.log('NextAuth linkAccount: ', message)
-    },
-    async session(message) {
-      console.log('NextAuth session: ', message)
-    },
-    async error(message) {
-      console.log('NextAuth error: ', message)
-    },
-  },
-
   adapter: Adapters.Prisma.Adapter({ prisma }),
 
   session: { jwt: true },
