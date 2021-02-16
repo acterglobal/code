@@ -6,7 +6,7 @@ import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
-const prisma = new PrismaClient({ log: ['query'] })
+const prisma = new PrismaClient()
 
 const options: InitOptions = {
   providers: [
