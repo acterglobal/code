@@ -6,7 +6,7 @@ import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({ log: ['query'] })
 
 const options: InitOptions = {
   providers: [
@@ -33,12 +33,25 @@ const options: InitOptions = {
         return
       }
 
-      const userActer = prisma.acter.create({
-        data: {
-          acterTypeId: userActerType.id,
-          createdByUserId: user.id,
-        },
-      })
+      try {
+        const userWithUserActer = await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            acter: {
+              upsert: {
+                create: {
+                  acterTypeId: userActerType.id,
+                  createdByUserId: user.id,
+                },
+                update: {},
+              },
+            },
+          },
+        })
+      } catch (err) {
+        console.error(err)
+        throw err
+      }
       console.info('Created User Acter to match User', user.id)
     },
   },
