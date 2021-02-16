@@ -1,0 +1,8 @@
+query acterByActerTypeSlug($acterTypeId: String!, $slug: String!) {
+  getActer(acterTypeId: $acterTypeId, slug: $slug) {
+    name
+    slug
+    location
+    url
+  }
+}

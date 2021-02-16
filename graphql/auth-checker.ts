@@ -10,5 +10,5 @@ export const authChecker: AuthChecker<Context> = (
   { context: { token } },
   roles
 ) => {
-  return Boolean(token?.sub && token?.email)
+  return Boolean(token?.email)
 }

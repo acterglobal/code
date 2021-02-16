@@ -1,17 +1,19 @@
 import React from 'react'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
-import { initializeApollo } from 'src/lib/apollo'
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 
+import { getActerTypes, setActerType } from 'src/props'
+import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+
 import { Acter, ActerType } from '@generated/type-graphql'
-import QUERY_ACTER_TYPES from 'graphql/queries/query-acter-types.graphql'
+
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
 
 /**
@@ -71,39 +73,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({ acterType }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const apollo = initializeApollo()
-
-  const { data, error } = await apollo.query({
-    query: QUERY_ACTER_TYPES,
-  })
-
-  if (error) {
-    return {
-      props: {
-        error,
-      },
-    }
-  }
-
-  const { acterTypes }: { acterTypes: [ActerType] } = data
-
-  const acterType = acterTypes.find(
-    (type) => acterTypeAsUrl(type) === params.acterType
-  )
-
-  if (!acterType) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      acterTypes,
-      acterType,
-    },
-  }
-}
+export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+  composeProps(ctx, getActerTypes, setActerType)
 
 export default NewActerPage
