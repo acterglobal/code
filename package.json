@@ -13,7 +13,7 @@
     "start": "node server.mjs",
     "test": "rm -rf .next out && jest",
     "test:ci": "rm -rf .next out && jest",
-    "cover": "jest --coverage",
+    "cover": "rm -rf .next && jest --coverage",
     "postinstall": "yarn generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
