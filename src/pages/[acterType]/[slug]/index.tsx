@@ -9,6 +9,7 @@ import { Acter, ActerType } from '@generated/type-graphql'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
+import { ActerView } from 'src/components/acter/view'
 
 interface ActerLandingPageProps {
   acterType: ActerType
@@ -24,7 +25,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       <Head>
         <title>{acter.name}</title>
       </Head>
-      {acter.name}
+      <ActerView acter={acter} />
     </Layout>
   )
 }

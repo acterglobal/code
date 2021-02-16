@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Card, CardContent } from '@material-ui/core'
-// import InterestsSection from '../interests/interests-section'
 import Header from './info-section/header'
 import PeopleSection from './info-section/people'
 import Organzations from './info-section/organizations'
+
+import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -12,19 +13,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const InfoSection: FC = () => {
+interface InfoSectionProps {
+  acter: Acter
+}
+
+export const InfoSection: FC<InfoSectionProps> = ({ acter }) => {
   const classes = useStyles()
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
-        <Header
-          title="Greenlight Aarhus"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos vero
-          omnis perferendis cupiditate quidem! Commodi cum alias, asperiores nam
-          voluptatibus ratione eos, animi libero culpa odio expedita, totam
-          dolorum. Facilis."
-        />
+        <Header title={acter.name} description={acter.description} />
         {/* <InterestsSection /> */}
         <PeopleSection numOfPeople={20} imageURL={[]} />
         <Organzations imageURL={[]} />

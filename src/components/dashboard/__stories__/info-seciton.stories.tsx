@@ -7,4 +7,6 @@ export default {
   component: InfoSection,
 } as Meta
 
-export const MetaSection: React.FC = () => <InfoSection />
+import { ExampleActer } from 'src/__fixtures__/acter/example-acter'
+
+export const MetaSection: React.FC = () => <InfoSection acter={ExampleActer} />

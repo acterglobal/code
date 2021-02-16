@@ -56,7 +56,7 @@ export interface HeaderSectionProps {
   acter: Acter
 }
 
-const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
+export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const classes = useStyles()
   console.log(acter)
   return (

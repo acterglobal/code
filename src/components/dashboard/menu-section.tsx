@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Tabs from '../util/tabs/'
 
-const MenuSection: FC = () => {
+export const MenuSection: FC = () => {
   const [value, setValue] = React.useState(0)
   const tabLabels = ['forum', 'activities', 'members']
 
