@@ -1,8 +1,14 @@
-FROM node:15.8.0-alpine AS prebase
+FROM node:15.8.0-stretch as prebase
 # Create app directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
 EXPOSE 3000
+# Workaround for M1 chip problems with sharp. sorry.
+# RUN apt-get update
+# RUN apt-get install -y g++ make python libvips-dev
+# RUN wget https://github.com/libvips/libvips/releases/download/v8.10.5/vips-8.10.5.tar.gz && tar xf vips-8.10.5.tar.gz
+# WORKDIR /usr/src/vips-8.10.5
+# RUN ./configure && make && make install && ldconfig
 
 FROM prebase as base
 WORKDIR /usr/src

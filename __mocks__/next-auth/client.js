@@ -5,6 +5,7 @@ let mockSession = {
   expires: '',
 }
 let loading = false
+let signOutFn = () => Promise.resolve()
 
 client.__setLoading = function (isLoading) {
   loading = isLoading
@@ -26,8 +27,12 @@ client.signIn = function () {
   return Promise.resolve()
 }
 
+client.__setMockSignOut = function (mockSignOut) {
+  client.signOut = mockSignOut
+}
+
 client.signOut = function signOut() {
-  return Promise.resolve()
+  return signOutFn
 }
 
 module.exports = client
