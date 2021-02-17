@@ -1,122 +1,121 @@
-import React from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Stepper from '@material-ui/core/Stepper'
-import Step from '@material-ui/core/Step'
-import StepLabel from '@material-ui/core/StepLabel'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+import React, { FC, useState } from 'react'
+import { Form, Formik } from 'formik'
+import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import BasicInfo from './basic-info'
+import BasicInfo1 from './basic-info1'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      //   width: '100%',
-      width: 500,
-      //   backgroundColor: 'wheat',
-    },
-    button: {
-      marginRight: theme.spacing(1),
-    },
-    instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    width: 500,
+    border: '1px solid gray',
+    padding: 20,
+  },
+  fields: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  btnsContainer: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+  },
+  button: {
+    borderRadius: 50,
+    textTransform: 'none',
+    width: 200,
+  },
+}))
 
-function getSteps() {
-  return ['Basic informaiton', 'Upload pictures', 'Choose interests']
-}
-
-function getStepContent(step: number) {
+const steps = [BasicInfo, BasicInfo1, BasicInfo]
+const getStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return 'Select campaign settings...'
+      return <BasicInfo />
     case 1:
-      return 'What is an ad group anyways?'
+      return <BasicInfo1 />
     case 2:
-      return 'This is the bit I really care about!'
-    default:
-      return 'Unknown step'
+      return 'choose interests'
   }
 }
 
-export default function HorizontalLinearStepper() {
+const Wizard: FC = () => {
   const classes = useStyles()
-  const [activeStep, setActiveStep] = React.useState(0)
-  const [skipped, setSkipped] = React.useState(new Set<number>())
-  const steps = getSteps()
+  const [activeStep, setActiveStep] = useState(0)
+  const totalSteps = steps.length - 1
 
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step)
-  }
+  const isLastStep = () => activeStep === totalSteps
+  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
+  const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
-  const handleNext = () => {
-    let newSkipped = skipped
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values())
-      newSkipped.delete(activeStep)
+  const onSubmit = (values, formikBag) => {
+    const { setSubmitting, setTouched } = formikBag
+    if (!isLastStep()) {
+      // setTouched({})
+      setSubmitting(false)
+      handleNext()
+      return
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    setSkipped(newSkipped)
+    console.log(values)
   }
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1)
-  }
-
-  const handleReset = () => {
-    setActiveStep(0)
-  }
+  const initialValues = steps.reduce(
+    (values, { initialValues }) => ({
+      ...values,
+      ...initialValues,
+    }),
+    {}
+  )
+  // let initialValues = {}
+  const ActiveStep = steps[activeStep]
+  // initialValues = { ...ActiveStep.initialValues }
+  const validationSchema = ActiveStep.validationSchema
 
   return (
-    <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {}
-          const labelProps: { optional?: React.ReactNode } = {}
-          return (
-            <Step key={index} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          )
-        })}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-            <div>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ isSubmitting, touched }) => (
+        <Box className={classes.container}>
+          <Form>
+            <Stepper alternativeLabel activeStep={activeStep}>
+              {steps.map((step, index) => (
+                <Step key={index}>
+                  <StepLabel>{step.label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+
+            <Box className={classes.fields}>{getStepContent(activeStep)}</Box>
+
+            <Box className={classes.btnsContainer}>
               <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
+                variant="outlined"
+                color="primary"
                 className={classes.button}
+                disabled={activeStep === 0 || isSubmitting}
+                onClick={handlePrev}
               >
                 Back
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleNext}
+                style={{ color: 'white' }}
                 className={classes.button}
+                disabled={isSubmitting}
+                type="submit"
               >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                {isLastStep() ? 'Submit' : 'Continue'}
               </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+            </Box>
+          </Form>
+          {/* <pre>{JSON.stringify(touched, null, 2)}</pre> */}
+        </Box>
+      )}
+    </Formik>
   )
 }
+
+export default Wizard
