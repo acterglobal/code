@@ -71,16 +71,16 @@ model Acter {
 
 model ActerConnection {
   id         String   @id @default(uuid())
-  isApproved Boolean  @map("is_approved")
+  isApproved Boolean? @default(true) @map("is_approved")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  createdByUser   User   @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
+  CreatedByUser   User   @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
-  follower         Acter  @relation("follower", fields: [followerActerId], references: [id])
+  Follower         Acter  @relation("follower", fields: [followerActerId], references: [id])
   followerActerId  String @map("follower_acter_id")
-  following        Acter  @relation("following", fields: [followingActerId], references: [id])
+  Following        Acter  @relation("following", fields: [followingActerId], references: [id])
   followingActerId String @map("following_acter_id")
 
   @@map("acter_connections")
@@ -91,12 +91,12 @@ model ActerInterest {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  createdByUser   User   @relation("acter_interest_created_by_user", fields: [createdByUserId], references: [id])
+  CreatedByUser   User   @relation("acter_interest_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
   Acter      Acter    @relation(fields: [acterId], references: [id])
-  Interest   Interest @relation(fields: [interestId], references: [id])
   acterId    String
+  Interest   Interest @relation(fields: [interestId], references: [id])
   interestId String
 
   @@map("acter_interests")
@@ -174,12 +174,11 @@ model User {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @default(now()) @map("updated_at")
 
-  acter   Acter?  @relation(fields: [acterId], references: [id])
+  Acter   Acter?  @relation(fields: [acterId], references: [id])
   acterId String?
 
-
-  Acter           Acter[]           @relation("acter_created_by_user")
-  ActerConnection ActerConnection[] @relation("acter_connection_created_by_user")
+  ActersCreated    Acter[]           @relation("acter_created_by_user")
+  ActerConnections ActerConnection[] @relation("acter_connection_created_by_user")
 
   ActerInterest ActerInterest[] @relation("acter_interest_created_by_user")
   @@map("users")
