@@ -1,4 +1,4 @@
-FROM node:15.8.0-alpine AS prebase
+FROM node:15.8.0-stretch AS prebase
 # Create app directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
