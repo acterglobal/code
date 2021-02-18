@@ -62,7 +62,8 @@
     "sb": "^6.1.14",
     "slugify": "^1.4.6",
     "type-graphql": "^1.1.1",
-    "typegraphql-prisma": "^0.10.0"
+    "typegraphql-prisma": "^0.10.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@prisma/cli": "^2.15.0",
