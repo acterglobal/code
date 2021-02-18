@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Tabs from '../util/tabs/'
+import Tabs from 'src/components/util/tabs/'
 
 export const MenuSection: FC = () => {
   const [value, setValue] = React.useState(0)

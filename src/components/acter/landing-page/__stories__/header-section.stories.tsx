@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
 import HeaderSection from '../header-section'
-import { ExampleActer } from '../../../__fixtures__/acter/example-acter'
+import { ExampleActer } from 'src/__fixtures__/acter/example-acter'
 import { Acter } from '@generated/type-graphql'
 
 export default {

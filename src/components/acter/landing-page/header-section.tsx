@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles'
 import { Box, Typography as MUIT, Button } from '@material-ui/core'
 import Image from 'next/image'
-import Avatar from '../profile/avatar'
+import Avatar from 'src/components/profile/avatar'
 import { Acter } from '@generated/type-graphql'
 
 // ? overriding the MaterialUI tab styles
@@ -58,7 +58,6 @@ export interface HeaderSectionProps {
 
 export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const classes = useStyles()
-  console.log(acter)
   return (
     <Box className={classes.bannerSection}>
       <Image
