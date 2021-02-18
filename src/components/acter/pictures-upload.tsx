@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState, createRef } from 'react'
 import { FilePond, registerPlugin } from 'react-filepond'
 import { makeStyles } from '@material-ui/core/styles'
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
@@ -18,21 +18,23 @@ registerPlugin(
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: 600,
+    width: 350,
   },
 }))
 
-const PictureUpload = () => {
+const PictureUpload: FC = () => {
   const classes = useStyles()
   const [files, setFiles] = useState([])
   const [image, setImage] = useState(null)
+  const [showEditor, setShowEditor] = useState(false)
   const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg']
+
   const [editor] = useState({
     // Called by FilePond to edit the image
     // - should open your image editor
     // - receives file object and image edit instructions
     open: (file, instructions) => {
-      console.log(instructions)
+      console.log('instructions :', instructions)
       setImage(URL.createObjectURL(file))
     },
 
@@ -52,28 +54,29 @@ const PictureUpload = () => {
 
   const handleUpload = () => {
     console.log('Upload file :', files[0].filename)
+    editor.onclose()
   }
 
-  const handleSubmit = (image) => {
+  const handleSubmit = (image: any) => {
     console.log('submit')
     setImage(image)
-    // editor.onconfirm({
-    // data: {
-    //   crop: {
-    //     center: {
-    //       x: 0.5,
-    //       y: 0.5,
-    //     },
-    //     flip: {
-    //       horizontal: false,
-    //       vertical: false,
-    //     },
-    //     zoom: 2,
-    //     rotation: 0,
-    //     aspectRatio: null,
-    //   },
-    // },
-    // })
+    editor.onconfirm({
+      data: {
+        crop: {
+          center: {
+            x: 0.5,
+            y: 0.5,
+          },
+          flip: {
+            horizontal: false,
+            vertical: false,
+          },
+          zoom: 2,
+          rotation: 0,
+          aspectRatio: null,
+        },
+      },
+    })
   }
 
   return (
@@ -83,15 +86,18 @@ const PictureUpload = () => {
         allowMultiple={false}
         onupdatefiles={setFiles}
         imageEditEditor={editor}
-        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+        labelIdle='Drag & Drop image file here or <span class="filepond--label-action">Browse</span>'
         acceptedFileTypes={validFileTypes}
         credits={false}
         stylePanelLayout="compact"
-        st
       />
 
-      {image !== null && (
-        <CropperEditor image={image} handleSubmit={handleSubmit} />
+      {showEditor && (
+        <CropperEditor
+          openModal={true}
+          image={image}
+          handleSubmit={handleUpload}
+        />
       )}
       <img src={image} alt="" />
     </div>
