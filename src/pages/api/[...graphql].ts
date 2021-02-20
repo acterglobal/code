@@ -1,18 +1,16 @@
 import { ApolloServer } from 'apollo-server-micro'
 import { PrismaClient } from '@prisma/client'
 
-import { getToken, JWTToken } from 'src/lib/next-auth/jwt'
+import { getToken } from 'src/lib/next-auth/jwt'
+
+import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
 import { schema } from 'graphql/schema'
-interface Context {
-  prisma: PrismaClient
-  token: JWTToken
-}
 const prisma = new PrismaClient()
 
 const server = new ApolloServer({
   schema,
-  context: async ({ req }): Promise<Context> => {
+  context: async ({ req }): Promise<ActerGraphQLContext> => {
     const token = await getToken(req)
     return {
       token,
