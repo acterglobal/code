@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import Head from 'next/head'
@@ -11,7 +11,7 @@ interface HomeProps {
   user?: User
 }
 
-const Home = ({ user }) => (
+const Home: NextPage<HomeProps> = ({ user }) => (
   <Layout loggedInUser={user}>
     <Head>
       <title>Acter</title>

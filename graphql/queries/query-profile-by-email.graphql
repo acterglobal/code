@@ -1,6 +1,8 @@
 query userByEmail($email: String) {
   user(where: { email: $email }) {
+    id
     name
     email
+    acterId
   }
 }
