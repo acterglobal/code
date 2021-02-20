@@ -1,5 +1,5 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx, Query } from 'type-graphql'
-import { ActerGraphQLContext } from 'src/pages/api/[...graphql]'
+import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
 
 import { Acter } from '@generated/type-graphql'
