@@ -1,6 +1,6 @@
 mutation CreateActer(
   $name: String!
-  $description: String!
+  $description: String
   $acterTypeId: String!
 ) {
   createActer(

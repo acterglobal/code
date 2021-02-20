@@ -10,7 +10,7 @@ interface ActerViewProps {
   acter: Acter
 }
 
-export const ActerLandingPage: FC<ActerViewProps> = ({ acter }) => (
+export const ActerLanding: FC<ActerViewProps> = ({ acter }) => (
   <>
     <HeaderSection acter={acter} />
     <MenuSection />

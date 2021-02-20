@@ -23,7 +23,7 @@ export class ActerResolver {
   async createActer(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
-    @Arg('description') description: string,
+    @Arg('description', { nullable: true }) description: string,
     @Arg('acterTypeId') acterTypeId: string
   ): Promise<Acter> {
     const currentUser = await ctx.prisma.user.findFirst({

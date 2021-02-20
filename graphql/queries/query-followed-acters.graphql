@@ -1,0 +1,14 @@
+query FollowedActers($acterId: String) {
+  acterConnections(where: { followerActerId: { equals: $acterId } }) {
+    Following {
+      id
+      name
+      slug
+      avatarUrl
+      ActerType {
+        id
+        name
+      }
+    }
+  }
+}
