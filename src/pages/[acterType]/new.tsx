@@ -9,10 +9,15 @@ import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 
-import { getActerTypes, setActerType } from 'src/props'
+import {
+  getToken,
+  getUserProfile,
+  getActerTypes,
+  setActerType,
+} from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType } from '@generated/type-graphql'
+import { Acter, ActerType, User } from '@generated/type-graphql'
 
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
 
@@ -49,15 +54,22 @@ interface NewActerPageProps {
    * The ActerType we are creating
    */
   acterType: ActerType
+  /**
+   * The logged in user
+   */
+  user?: User
 }
-export const NewActerPage: NextPage<NewActerPageProps> = ({ acterType }) => {
+export const NewActerPage: NextPage<NewActerPageProps> = ({
+  acterType,
+  user,
+}) => {
   const router: NextRouter = useRouter()
   const [createActer, { loading, error }] = useMutation(MUTATE_ACTER_CREATE, {
     onCompleted: _handleOnComplete(router, acterType),
   })
 
   return (
-    <Layout>
+    <Layout loggedInUser={user}>
       <Head>
         <title>New {acterType.name}</title>
       </Head>
@@ -74,6 +86,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({ acterType }) => {
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, setActerType)
+  composeProps(ctx, getToken, getUserProfile, getActerTypes, setActerType)
 
 export default NewActerPage

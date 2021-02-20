@@ -5,7 +5,7 @@ import { signIn, signOut } from 'next-auth/client'
 import { Link as MuiLink, ListItemText, MenuItem } from '@material-ui/core'
 
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
-import { ProfileButton } from 'src/components/profile/profile-button'
+import { ProfileButton } from 'src/components/user/profile-button'
 import { SignInButton } from 'src/components/layout/sign-in-button'
 
 import { User } from '@generated/type-graphql'
