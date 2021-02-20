@@ -8,7 +8,7 @@ import { SideBar } from 'src/components/layout/side-bar'
 
 import { User } from '@generated/type-graphql'
 
-const sidebarWidth = 240
+const sidebarWidth = 50
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: sidebarWidth,
+    paddingLeft: sidebarWidth + theme.spacing(2),
   },
 }))
 
