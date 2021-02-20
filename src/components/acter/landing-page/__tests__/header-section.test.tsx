@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { ExampleActer } from '../../../__fixtures__/acter/example-acter'
+import { ExampleActer } from 'src/__fixtures__/acter/example-acter'
 import HeaderSection from '../header-section'
 
 describe('[Header Section]', () => {
