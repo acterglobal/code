@@ -18,12 +18,12 @@ services:
       - db
       - fake-smtp
   
-  figma:
+  storybook:
     ports:
       - 6006:6006
     build:
       context: .
-      dockerfile: Dockerfile.figma
+      dockerfile: Dockerfile.storybook
       target: dev
     volumes:
       - .:/usr/src
