@@ -6,7 +6,7 @@ name: Run test coverage on each push
 on: push
 
 jobs:
-  build-and-deploy:
+  lint-cover-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,4 +36,8 @@ jobs:
       - name: coverage tests
         run: |
           yarn cover
+      
+      - name: build
+        run: |
+          yarn build
       

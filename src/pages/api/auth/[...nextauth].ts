@@ -37,7 +37,7 @@ const options: InitOptions = {
         const userWithUserActer = await prisma.user.update({
           where: { id: user.id },
           data: {
-            acter: {
+            Acter: {
               upsert: {
                 create: {
                   acterTypeId: userActerType.id,
