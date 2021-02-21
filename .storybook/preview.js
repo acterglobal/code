@@ -10,6 +10,9 @@ export const decorators = [
   (story) => <ActerThemeProvider>{story()}</ActerThemeProvider>,
 ]
 
+/* 
+ * based on the work found at this issue https://github.com/vercel/next.js/issues/18393
+ */                                 
 Object.defineProperty(nextImage, "default", {
   configurable: true,
   value: props => {
