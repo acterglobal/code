@@ -6,22 +6,13 @@ import PeopleSection from 'src/components/acter/landing-page/info-section/people
 import Organzations from 'src/components/acter/landing-page/info-section/organizations'
 
 import { Acter } from '@generated/type-graphql'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    maxWidth: 500,
-  },
-}))
-
 interface InfoSectionProps {
   acter: Acter
 }
 
 export const InfoSection: FC<InfoSectionProps> = ({ acter }) => {
-  const classes = useStyles()
-
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card variant="outlined">
       <CardContent>
         <Header title={acter.name} description={acter.description} />
         {/* <InterestsSection /> */}

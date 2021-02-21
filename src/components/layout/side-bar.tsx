@@ -44,7 +44,7 @@ export const SideBar: FC<SideBarProps> = ({ width }) => {
   const router = useRouter()
   return (
     <Drawer
-      variant="persistent"
+      variant="permanent"
       anchor="left"
       open={true}
       classes={{ paper: classes.drawer }}
