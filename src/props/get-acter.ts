@@ -15,7 +15,7 @@ export const getActer: ComposedGetServerSideProps = async ({
   params,
   props,
 }) => {
-  if (!Boolean(props?.acterType?.id) || !Boolean(params?.slug)) {
+  if (!props?.acterType?.id || !params?.slug) {
     return {
       props: {},
       notFound: true,

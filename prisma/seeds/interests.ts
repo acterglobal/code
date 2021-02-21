@@ -116,7 +116,7 @@ const interestTypes: interestTypeMap[] = [
   },
 ]
 
-export const seedInterests = async (prisma: PrismaClient) => {
+export const seedInterests = async (prisma: PrismaClient): Promise<void[]> => {
   const upsertInterestType = async (
     name: string,
     parent?: interestTypeMap

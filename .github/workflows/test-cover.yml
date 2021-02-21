@@ -32,6 +32,10 @@ jobs:
       - name: yarn install
         run: |
           yarn
+      
+      - name: lint
+        run: |
+          yarn lint
 
       - name: coverage tests
         run: |

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     fontSize: '1.6rem',
     marginBottom: '20px',

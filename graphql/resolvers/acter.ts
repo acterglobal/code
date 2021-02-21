@@ -5,7 +5,7 @@ import slugify from 'slugify'
 import { Acter } from '@generated/type-graphql'
 @Resolver(Acter)
 export class ActerResolver {
-  @Query((returns) => Acter)
+  @Query(() => Acter)
   async getActer(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterTypeId') acterTypeId: string,
@@ -19,7 +19,7 @@ export class ActerResolver {
   }
 
   @Authorized()
-  @Mutation((returns) => Acter)
+  @Mutation(() => Acter)
   async createActer(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,

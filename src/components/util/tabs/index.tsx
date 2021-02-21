@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface TabProps {
   tabLabels: string[]
-  handleTabChange: (vent: React.ChangeEvent<{}>, newValue: any) => void
+  handleTabChange: (vent: React.ChangeEvent<any>, newValue: any) => void
   initialValue: number
 }
 

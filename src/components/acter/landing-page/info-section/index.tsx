@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Card, CardContent } from '@material-ui/core'
 import Header from 'src/components/acter/landing-page/info-section/header'
 import PeopleSection from 'src/components/acter/landing-page/info-section/people'

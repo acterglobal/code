@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-interface InterestsProps {}
-
-export const Interests: FC<InterestsProps> = () => {
+export const Interests: FC = () => {
   return <div></div>
 }

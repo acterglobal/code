@@ -46,6 +46,7 @@ describe('SessionIndicator', () => {
 
   it('should call the signout function when sign out is clicked', async () => {
     const mockSignOut = jest.fn()
+    // eslint-disable-next-line
     require('next-auth/client').__setMockSignOut(mockSignOut)
     render(<SessionIndicator user={ExampleUser} />)
     const profileButton = await screen.findByRole('button', {

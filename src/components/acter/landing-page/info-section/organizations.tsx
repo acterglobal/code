@@ -24,7 +24,7 @@ export interface organisationsProps {
   imageURL: string[]
 }
 
-const Organizations: FC<organisationsProps> = ({ imageURL }) => {
+const Organizations: FC<organisationsProps> = () => {
   const classes = useStyles()
   return (
     <Box>

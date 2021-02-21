@@ -31,11 +31,13 @@ describe('getUserProfile', () => {
   }
 
   beforeEach(() => {
+    // eslint-disable-next-line
     require('next-auth/client').__setMockSession({
       user: null,
       expires: '',
     })
 
+    // eslint-disable-next-line
     require('next-auth/jwt').__setMockToken({})
 
     mockQueryResponse = {
@@ -47,6 +49,7 @@ describe('getUserProfile', () => {
 
   it('should redirect if there is no session', async () => {
     const resp = await callGetServerSideProps()
+    //@ts-ignore
     expect(resp.redirect.destination).toBe('/')
   })
 
@@ -56,6 +59,7 @@ describe('getUserProfile', () => {
       loading: true,
     }
     const resp = await callGetServerSideProps({ tokenUser })
+    //@ts-ignore
     expect(resp?.props?.loading).toBe(true)
   })
 
@@ -66,11 +70,13 @@ describe('getUserProfile', () => {
       error: errorString,
     }
     const resp = await callGetServerSideProps({ tokenUser })
+    //@ts-ignore
     expect(resp?.props?.error).toBe(errorString)
   })
 
   it('should return undefined if no user is found', async () => {
     const resp = await callGetServerSideProps({ tokenUser })
+    //@ts-ignore
     expect(resp?.props?.user).toBe(undefined)
   })
 
@@ -82,6 +88,7 @@ describe('getUserProfile', () => {
       },
     }
     const resp = await callGetServerSideProps({ tokenUser })
+    //@ts-ignore
     expect(resp?.props?.user).toBe(ExampleUser)
   })
 })

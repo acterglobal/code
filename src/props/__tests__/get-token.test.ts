@@ -13,26 +13,18 @@ describe('getToken', () => {
     })
   }
 
-  const mockGoodSession = () => {
-    require('next-auth/client').__setMockSession({
-      user: ExampleUser,
-      expires: '',
-    })
-    require('next-auth/jwt').__setMockToken({
-      sub: ExampleUser.id,
-      email: ExampleUser.email,
-    })
-  }
-
   it('should redirect if there is no session', async () => {
     const resp = await callGetServerSideProps()
+    //@ts-ignore
     expect(resp.redirect.destination).toBe('/')
   })
 
   it('should return the session session', async () => {
     const { id, email } = ExampleUser
+    // eslint-disable-next-line
     require('next-auth/jwt').__setMockToken({ sub: id, email })
     const resp = await callGetServerSideProps()
+    //@ts-ignore
     expect(resp.props.tokenUser).toStrictEqual({
       id,
       email,
