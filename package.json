@@ -15,7 +15,7 @@
     "test:ci": "rm -rf .next out && jest",
     "cover": "rm -rf .next && jest --coverage",
     "postinstall": "yarn generate",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "generate": "prisma generate",
     "db:migrate": "yarn db:migrate:run --create-only",
