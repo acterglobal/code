@@ -1,4 +1,4 @@
-import React, { FC, useState, createRef } from 'react'
+import React, { FC, useState, createRef, RefObject } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 import { Backup as UploadIcon } from '@material-ui/icons'
@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     // width: 250,
     height: 250,
     display: 'flex',
+    position: 'relative',
+    margin: 10,
   },
   uploadContainer: {
     width: 250,
@@ -39,10 +41,11 @@ export interface ImageUploadProps {
 
 export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
   const classes = useStyles()
-  const pond: React.RefObject<FilePond> = createRef()
+  const pond: RefObject<FilePond> = createRef()
 
   const [image, setImage] = useState(null)
   const [showEditor, setShowEditor] = useState(false)
+
   const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg']
 
   const [editor] = useState({
@@ -50,7 +53,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
     // - should open your image editor
     // - receives file object and image edit instructions
     open: (file, instructions) => {
-      //   console.log('FILE :', file)
+      // console.log('FILE in edit:', file)
       //   console.log(instructions)
       setImage(URL.createObjectURL(file))
       setShowEditor(true)
@@ -60,7 +63,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
     // - should be called by the editor when user confirms editing
     // - should receive output object, resulting edit information
     onconfirm: (output) => {
-      console.log('FILE...:', output.file)
+      // console.log('FILE...:', output.file)
     },
 
     // Callback set by FilePond
@@ -74,46 +77,19 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
     },
   })
 
-  const handleSubmit = (cropData, canvasData, imagefile) => {
+  const handleSubmit = (cropData, imagefile) => {
+    const { center, cropAreaRatio, zoom } = cropData
     pond.current.addFile(imagefile)
     setImage(imagefile)
     setShowEditor(false)
-
-    /* Ratio of selected crop area. */
-    const cropAreaRatio = cropData.height / cropData.width
-
-    /* Center point of crop area in percent. */
-    const percentX = (cropData.x + cropData.width / 2) / canvasData.naturalWidth
-    const percentY =
-      (cropData.y + cropData.height / 2) / canvasData.naturalHeight
-
-    /* Calculate available space round image center position. */
-    const cx = percentX > 0.5 ? 1 - percentX : percentX
-    const cy = percentY > 0.5 ? 1 - percentY : percentY
-
-    /* Calculate image rectangle respecting space round image from crop area. */
-    let width = canvasData.naturalWidth
-    let height = width * cropAreaRatio
-    if (height > canvasData.naturalHeight) {
-      height = canvasData.naturalHeight
-      width = height / cropAreaRatio
-    }
-    const rectWidth = cx * 2 * width
-    const rectHeight = cy * 2 * height
-
-    /* Calculate zoom. */
-    const zoom = Math.max(
-      rectWidth / cropData.width,
-      rectHeight / cropData.height
-    )
 
     console.log('submit')
     editor.onconfirm({
       data: {
         crop: {
           center: {
-            x: percentX,
-            y: percentY,
+            x: center.X,
+            y: center.Y,
           },
           flip: {
             horizontal: false,
@@ -129,31 +105,22 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
 
   return (
     <div className={classes.container}>
-      {/* {showEditor ? (
-        <ImageCropper image={image} handleCrop={handleSubmit} />
-      ) : (
-        <FilePond
-          className={classes.container}
-          ref={pond}
-          instantUpload={false}
-          allowMultiple={false}
-          imageEditEditor={editor}
-        />
-      )} */}
       <FilePond
         ref={pond}
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
+        labelIdle={`<span class="filepond--label-action"> Browse</span>  image file for ${imageType}`}
         // @ts-ignore
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
         credits={false}
       />
+
       {showEditor ? (
         <ImageCropper
           image={image}
-          aspectRatio={imageType === 'banner' ? 24 / 5 : 1 / 1}
+          aspectRatio={imageType === 'Banner' ? 24 / 5 : 1 / 1}
           handleCrop={handleSubmit}
         />
       ) : (

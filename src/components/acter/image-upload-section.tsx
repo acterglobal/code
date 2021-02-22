@@ -4,8 +4,8 @@ import { ImageUpload } from './image-upload'
 export const ImageUploadSection = () => {
   return (
     <>
-      <ImageUpload imageType="avtar" />
-      <ImageUpload imageType="banner" />
+      <ImageUpload imageType="Avatar" />
+      <ImageUpload imageType="Banner" />
     </>
   )
 }
