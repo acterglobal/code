@@ -7,8 +7,13 @@ export const ImageUploadSection = (props) => {
   const { setFieldValue } = props
   return (
     <div style={{ display: 'flex' }}>
-      <ImageUpload imageType="avatar" setImageToFormField={setFieldValue} />
-      <ImageUpload imageType="banner" setImageToFormField={setFieldValue} />
+      <ImageUpload imageType="Avatar" onFile={() => null} setImageToFormField={setFieldValue} />
+      <ImageUpload
+        aspectRatio={24 / 5}
+        imageType="Banner"
+        onFile={() => null}
+        setImageToFormField={setFieldValue}
+      />
     </div>
   )
 }

@@ -1,9 +1,11 @@
 import React from 'react'
+import md5 from 'md5'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
+import { uploadImage } from 'src/lib/images/upload-image'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
@@ -20,6 +22,30 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { Acter, ActerType, User } from '@generated/type-graphql'
 
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
+import MUTATE_ACTER_UPDATE from 'graphql/mutations/mutate-update-acter.graphql'
+
+interface FileDescription {
+  name: string
+  size: number
+  type: string
+}
+
+interface FileUpload {
+  avatar: FileDescription
+  banner: FileDescription
+}
+
+type FormValues = Acter & FileUpload
+
+const blankActer: Partial<Acter> = {
+  name: '',
+  slug: '',
+  description: '',
+  location: '',
+  url: '',
+  avatarUrl: '',
+  bannerUrl: '',
+}
 
 /**
  * Returns an onSubmit handler
@@ -28,12 +54,42 @@ import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
  */
 export const _handleSubmit = (
   createActerFn: (any) => any,
+  updateActerFn: (any) => any,
   acterType: ActerType
-) => async (data: Acter) => {
-  return await createActerFn({
+) => async (data: FormValues) => {
+  // Create the acter
+  const acterData = (data as unknown) as Acter
+  const createRes = await createActerFn({
     variables: {
-      ...data,
+      ...acterData,
       acterTypeId: acterType.id,
+    },
+  })
+  let acter: Acter = createRes.data.createActer
+
+  // Upload images
+  let { avatar, banner } = data
+  const folder = `acter/${md5(acter.id)}`
+  await Promise.all(
+    ['avatar', 'banner'].map(async (fileName) => {
+      const file = data[fileName]
+      try {
+        const img = await uploadImage(folder, file)
+        console.log('img', img)
+        acter[`${fileName}Url`] = img
+        return
+      } catch (err) {
+        console.error('Could not save file: ', err)
+        throw err
+      }
+    })
+  )
+
+  // Update Acter with image URLs
+  return await updateActerFn({
+    variables: {
+      ...acter,
+      acterId: acter.id,
     },
   })
 }
@@ -43,11 +99,8 @@ export const _handleSubmit = (
  * @param router NextRouter returned from useRouter
  * @param acterType The ActerType to use for routing
  */
-export const _handleOnComplete = (
-  router: NextRouter,
-  acterType: ActerType
-) => ({ createActer }: { createActer: Acter }) =>
-  router.push(`/${acterTypeAsUrl(createActer.ActerType)}/${createActer.slug}`)
+export const _handleOnComplete = (router: NextRouter, acter: Acter) =>
+  router.push(`/${acterTypeAsUrl(acter.ActerType)}/${acter.slug}`)
 
 interface NewActerPageProps {
   /**
@@ -64,8 +117,11 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [createActer, { loading, error }] = useMutation(MUTATE_ACTER_CREATE, {
-    onCompleted: _handleOnComplete(router, acterType),
+  const [createActer, createOut] = useMutation(MUTATE_ACTER_CREATE)
+  const [updateActer, updateOut] = useMutation(MUTATE_ACTER_UPDATE, {
+    onCompleted: ({ updateActer }) => {
+      _handleOnComplete(router, updateActer)
+    },
   })
 
   return (
@@ -75,10 +131,11 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       </Head>
       <main>
         <ActerForm
+          acter={blankActer}
           acterType={acterType}
-          loading={loading}
-          error={error?.message}
-          onSubmit={_handleSubmit(createActer, acterType)}
+          loading={createOut.loading || updateOut.loading}
+          error={createOut.error?.message && updateOut.error?.message}
+          onSubmit={_handleSubmit(createActer, updateActer, acterType)}
         />
       </main>
     </Layout>

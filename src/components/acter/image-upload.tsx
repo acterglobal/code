@@ -119,6 +119,11 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
     <div className={classes.container}>
       <FilePond
         ref={pond}
+        onaddfile={(error, file) => {
+          if (!error) {
+            onFile(file.file)
+          }
+        }}
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
@@ -131,7 +136,7 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
         credits={false}
       />
 
-      {showEditor ? (
+      {showEditor && (
         <ImageCropper
           image={image}
           aspectRatio={imageType === 'banner' ? 24 / 5 : 1 / 1}

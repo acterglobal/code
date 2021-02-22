@@ -8,9 +8,12 @@ mutation CreateActer(
     description: $description
     acterTypeId: $acterTypeId
   ) {
+    id
     name
     description
     slug
+    location
+    url
     ActerType {
       name
     }

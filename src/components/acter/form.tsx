@@ -44,12 +44,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface ActerFormProps {
-  acter?: Acter
+  acter: Partial<Acter>
   acterType: ActerType
   loading?: boolean
   error?: string
   onSubmit: (any) => void
 }
+
+interface File {
+  name: string
+  size: number
+  type: string
+}
+
+interface FileUpload {
+  file: File
+}
+
+type FormValues = Acter & FileUpload
 
 export const ActerForm: FC<ActerFormProps> = ({
   acter,
