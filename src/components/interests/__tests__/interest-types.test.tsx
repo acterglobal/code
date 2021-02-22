@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Interests } from '../../../__fixtures__/interest/interests'
-import InterestTypes from '../interest-types'
+import { InterestTypes } from '../interest-types'
 
 describe('[Interest Types]', () => {
   it('should PASS if correct number of interests of each types(Focus, Approach, Tags) are rendered', () => {
