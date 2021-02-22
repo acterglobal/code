@@ -1,18 +1,11 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { Interests } from '../../__fixtures__/interest/interests'
-import InterestTypes from './interest-types'
+import { InterestTypes } from './interest-types'
+import { getTopLevelTypes } from '../../lib/interests/get-toplevel-types'
 
 const InterestsSection: FC = () => {
-  const rootType = Interests.data.interestTypes.find(
-    (type) => type.name === 'root'
-  )
-  //TODO: handle error
-  // if (!rootType) {
-  // }
-  const topLevelTypes = Interests.data.interestTypes.filter(
-    (type) => type.parentInterestTypeId === rootType.id
-  )
+  const topLevelTypes = getTopLevelTypes()
 
   return (
     <Box style={{ display: 'flex' }}>
