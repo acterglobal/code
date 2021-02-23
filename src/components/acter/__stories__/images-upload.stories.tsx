@@ -1,9 +1,13 @@
 import { Meta } from '@storybook/react'
-import { ImageUploadSection } from '../image-upload-section'
+import { ImageUploadSection } from 'src/components/acter/image-upload-section'
 
 export default {
   title: 'acter/ImagesUpload',
   component: ImageUploadSection,
 } as Meta
 
-export const ImagesUpload = () => <ImageUploadSection />
+const testSetFieldValue = () => console.log('test')
+
+export const ImagesUpload = () => (
+  <ImageUploadSection setFieldValue={testSetFieldValue} />
+)

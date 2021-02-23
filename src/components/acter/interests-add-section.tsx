@@ -1,9 +1,10 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Grid, Box } from '@material-ui/core'
 import { Interests } from 'src/__fixtures__/interest/interests'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
+import { FormikSetFieldType } from 'src/components/acter/wizard'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -12,17 +13,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const InterestsAddSection = () => {
+export const InterestsAddSection: FC<FormikSetFieldType> = (props) => {
+  const { setFieldValue } = props
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [selectedInterests, setSelectedInterests] = useState([])
   const [selectedTypes, setSelectedTypes] = useState([])
 
+  useEffect(() => {
+    setFieldValue('interests', selectedInterests)
+  }, [selectedInterests])
+
   const topLevelTypes = getTopLevelTypes()
 
   const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue)
-    // console.log('VALUE :', newValue)
   }
 
   const handleSelectedInterest = (interest, type) => {
@@ -80,3 +85,6 @@ export const InterestsAddSection = () => {
     </div>
   )
 }
+
+InterestsAddSection.label = 'Add Interests'
+InterestsAddSection.initialValues = { interests: [] }

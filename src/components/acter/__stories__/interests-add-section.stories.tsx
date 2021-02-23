@@ -1,10 +1,13 @@
 import { Story, Meta } from '@storybook/react'
-// import { InterestsAddSection } from '../interests-add-section_old'
-import { InterestsAddSection } from '../interests-add-section'
+import { InterestsAddSection } from 'src/components/acter/interests-add-section'
 
 export default {
   title: 'interests/InterestsAdd',
   component: InterestsAddSection,
 } as Meta
 
-export const InterestsAdd: Story = () => <InterestsAddSection />
+const testSetFieldValue = () => console.log('test')
+
+export const InterestsAdd: Story = () => (
+  <InterestsAddSection setFieldValue={testSetFieldValue} />
+)

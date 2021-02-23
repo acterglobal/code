@@ -15,13 +15,14 @@ const disabledColor = '#b5b5b5'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    margin: 5,
+    margin: 3,
   },
   chip: {
     cursor: 'pointer',
     width: 150,
-    fontSize: '0.8rem',
-    letterSpacing: '0.03rem',
+    height: 22,
+    fontSize: '0.7rem',
+    letterSpacing: '0.02rem',
   },
 }))
 

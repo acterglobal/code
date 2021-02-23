@@ -1,5 +1,5 @@
-import { Story, Meta } from '@storybook/react'
-import Wizard from '../wizard'
+import { Meta } from '@storybook/react'
+import { Wizard } from 'src/components/acter/wizard'
 
 export default {
   title: 'acter/Wizard',

@@ -1,12 +1,12 @@
 import React, { FC, useState, createRef, RefObject } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { Backup as UploadIcon } from '@material-ui/icons'
 import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginImageEdit from 'filepond-plugin-image-edit'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
-import { ImageCropper } from './cropper-editor'
+import { ImageCropper } from 'src/components/acter/cropper-editor'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
@@ -39,14 +39,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface ImageUploadProps {
   imageType: string
+  setImageToFormField: any
 }
 
-export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
+export const ImageUpload: FC<ImageUploadProps> = (props) => {
+  const { imageType, setImageToFormField } = props
   const classes = useStyles()
   const pond: RefObject<FilePond> = createRef()
 
   const [image, setImage] = useState(null)
   const [showEditor, setShowEditor] = useState(false)
+  const [showUploadButton, setShowUploadButton] = useState(false)
+  const [uploadMessage, setUploadMessage] = useState('')
 
   const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg']
 
@@ -79,13 +83,13 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
     },
   })
 
-  const handleSubmit = (cropData, imagefile) => {
+  const handleImageCrop = (cropData, imagefile) => {
     const { center, cropAreaRatio, zoom } = cropData
     pond.current.addFile(imagefile)
     setImage(imagefile)
     setShowEditor(false)
+    setShowUploadButton(true)
 
-    console.log('submit')
     editor.onconfirm({
       data: {
         crop: {
@@ -112,7 +116,9 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
-        labelIdle={`<span class="filepond--label-action"> Browse</span>  image file for ${imageType}`}
+        labelIdle={`<span class="filepond--label-action"> Browse</span>  image file for ${
+          imageType.charAt(0).toUpperCase() + imageType.slice(1)
+        }`}
         // @ts-ignore
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
@@ -122,21 +128,32 @@ export const ImageUpload: FC<ImageUploadProps> = ({ imageType }) => {
       {showEditor ? (
         <ImageCropper
           image={image}
-          aspectRatio={imageType === 'Banner' ? 24 / 5 : 1 / 1}
-          handleCrop={handleSubmit}
+          aspectRatio={imageType === 'banner' ? 24 / 5 : 1 / 1}
+          handleCrop={handleImageCrop}
         />
+      ) : showUploadButton ? (
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          endIcon={<UploadIcon />}
+          onClick={() => {
+            setImageToFormField(`${imageType}Image`, pond.current.getFile())
+            setShowUploadButton(false)
+            setUploadMessage('Image added.')
+          }}
+        >
+          Upload
+        </Button>
       ) : (
-        image !== null && (
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            endIcon={<UploadIcon />}
-            onClick={() => console.log(pond.current.getFile())}
-          >
-            Upload
-          </Button>
-        )
+        <Typography
+          style={{ textAlign: 'center' }}
+          variant="caption"
+          display="block"
+          gutterBottom
+        >
+          {uploadMessage}
+        </Typography>
       )}
     </div>
   )

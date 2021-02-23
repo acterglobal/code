@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { BasicInformation } from './basic-info'
-import BasicInfo1 from './basic-info1'
-import { ImageUploadSection } from './image-upload-section'
+import { BasicInformation } from 'src/components/acter/basic-info'
+import { ImageUploadSection } from 'src/components/acter/image-upload-section'
+import { InterestsAddSection } from 'src/components/acter/interests-add-section'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -30,19 +30,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const steps = [BasicInformation, ImageUploadSection, BasicInformation]
-const getStepContent = (step: number) => {
+const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
+const getStepContent = (step: number, setFieldValue: any) => {
   switch (step) {
     case 0:
       return <BasicInformation />
     case 1:
-      return <ImageUploadSection />
+      return <ImageUploadSection setFieldValue={setFieldValue} />
     case 2:
-      return 'choose interests'
+      return <InterestsAddSection setFieldValue={setFieldValue} />
   }
 }
 
-const Wizard: FC = () => {
+export interface FormikSetFieldType {
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
+}
+
+export const Wizard: FC = () => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length - 1
@@ -52,6 +56,7 @@ const Wizard: FC = () => {
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
   const onSubmit = (values, formikBag) => {
+    console.log('VALUES :', values)
     const { setSubmitting, setTouched } = formikBag
     if (!isLastStep()) {
       // setTouched({})
@@ -69,9 +74,7 @@ const Wizard: FC = () => {
     }),
     {}
   )
-  // let initialValues = {}
   const ActiveStep = steps[activeStep]
-  // initialValues = { ...ActiveStep.initialValues }
   const validationSchema = ActiveStep.validationSchema
 
   return (
@@ -80,7 +83,7 @@ const Wizard: FC = () => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, touched }) => (
+      {({ isSubmitting, touched, setFieldValue }) => (
         <Box className={classes.container}>
           <Form>
             <Stepper alternativeLabel activeStep={activeStep}>
@@ -91,7 +94,9 @@ const Wizard: FC = () => {
               ))}
             </Stepper>
 
-            <Box className={classes.fields}>{getStepContent(activeStep)}</Box>
+            <Box className={classes.fields}>
+              {getStepContent(activeStep, setFieldValue)}
+            </Box>
 
             <Box className={classes.btnsContainer}>
               <Button
@@ -115,11 +120,8 @@ const Wizard: FC = () => {
               </Button>
             </Box>
           </Form>
-          {/* <pre>{JSON.stringify(touched, null, 2)}</pre> */}
         </Box>
       )}
     </Formik>
   )
 }
-
-export default Wizard

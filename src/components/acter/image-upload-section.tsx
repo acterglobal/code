@@ -1,11 +1,13 @@
-import React from 'react'
-import { ImageUpload } from './image-upload'
+import React, { FC } from 'react'
+import { ImageUpload } from 'src/components/acter/image-upload'
+import { FormikSetFieldType } from 'src/components/acter/wizard'
 
-export const ImageUploadSection = () => {
+export const ImageUploadSection: FC<FormikSetFieldType> = (props) => {
+  const { setFieldValue } = props
   return (
     <div style={{ display: 'flex' }}>
-      <ImageUpload imageType="Avatar" />
-      <ImageUpload imageType="Banner" />
+      <ImageUpload imageType="avatar" setImageToFormField={setFieldValue} />
+      <ImageUpload imageType="banner" setImageToFormField={setFieldValue} />
     </div>
   )
 }
