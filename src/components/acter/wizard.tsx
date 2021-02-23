@@ -2,22 +2,26 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import BasicInfo from './basic-info'
+import { BasicInformation } from './basic-info'
 import BasicInfo1 from './basic-info1'
+import { ImageUploadSection } from './image-upload-section'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: 500,
+    height: 500,
     border: '1px solid gray',
     padding: 20,
   },
   fields: {
+    height: 350,
     display: 'flex',
     flexDirection: 'column',
   },
   btnsContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
+    // bottom: 5,
   },
   button: {
     borderRadius: 50,
@@ -26,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const steps = [BasicInfo, BasicInfo1, BasicInfo]
+const steps = [BasicInformation, ImageUploadSection, BasicInformation]
 const getStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return <BasicInfo />
+      return <BasicInformation />
     case 1:
-      return <BasicInfo1 />
+      return <ImageUploadSection />
     case 2:
       return 'choose interests'
   }

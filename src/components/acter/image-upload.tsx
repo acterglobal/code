@@ -20,18 +20,20 @@ registerPlugin(
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     // width: 250,
-    height: 250,
+    // height: 250,
     display: 'flex',
+    flexDirection: 'column',
     position: 'relative',
     margin: 10,
   },
   uploadContainer: {
-    width: 250,
+    width: 230,
+    fontSize: '0.85rem',
   },
   button: {
     color: 'white',
-    margin: 10,
-    height: 40,
+    margin: 5,
+    height: 30,
   },
 }))
 

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const BasiInformation = () => {
+export const BasicInformation = () => {
   const classes = useStyles()
   return (
     <>
@@ -48,16 +48,14 @@ const BasiInformation = () => {
   )
 }
 
-BasiInformation.label = 'Basic Information'
-BasiInformation.initialValues = {
+BasicInformation.label = 'Basic Information'
+BasicInformation.initialValues = {
   name: '',
   description: '',
   location: '',
   url: '',
 }
-BasiInformation.validationSchema = Yup.object().shape({
+BasicInformation.validationSchema = Yup.object().shape({
   name: Yup.string().required('Please enter the name'),
   location: Yup.string().required('Please enter locaiton'),
 })
-
-export default BasiInformation
