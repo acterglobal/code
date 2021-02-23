@@ -1,14 +1,12 @@
-import { PrismaClient } from '@prisma/client'
-import { Resolver, Query, Arg } from 'type-graphql'
+import { Resolver, Query, Ctx } from 'type-graphql'
+import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
 import { ActerType } from '@generated/type-graphql'
-
-const prisma = new PrismaClient()
 
 @Resolver(ActerType)
 export class ActerTypeResolver {
   @Query((returns) => [ActerType])
-  async acterTypes() {
-    return prisma.acterType.findMany()
+  async acterTypes(@Ctx() ctx: ActerGraphQLContext) {
+    return ctx.prisma.acterType.findMany()
   }
 }
