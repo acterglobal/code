@@ -79,13 +79,12 @@ export const Wizard = () => {
   // TODO: Add validation
   const ActiveStep = steps[activeStep]
   // const validationSchema = ActiveStep.validationSchema
-  const validationSchema = {}
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
     >
       {({ isSubmitting, touched, setFieldValue }) => (
         <Box className={classes.container}>
