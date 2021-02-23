@@ -1,13 +1,26 @@
 import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
-import Interest from './interest'
+import { Interest } from 'src/components/interests/interest'
 
-export interface typesProps {
-  type: InterestType
-  allTypes: InterestType[]
+interface selectedInterest {
+  id: string
+  name: string
+  type: string
 }
 
-const InterestTypes: FC<typesProps> = ({ type, allTypes }) => {
+export interface TypesProps {
+  type: InterestType
+  allTypes: InterestType[]
+  onSelectedInterestsChange?: ({ interest: InterestType, type: string }) => void
+  selectedInterests?: selectedInterest[]
+}
+
+export const InterestTypes: FC<TypesProps> = ({
+  type,
+  allTypes,
+  onSelectedInterestsChange,
+  selectedInterests,
+}) => {
   const subTypes = allTypes.filter(
     (subtype) => type.id === subtype.parentInterestTypeId
   )
@@ -16,19 +29,42 @@ const InterestTypes: FC<typesProps> = ({ type, allTypes }) => {
     return (
       <>
         {subTypes.map((subType) => (
-          <InterestTypes key={subType.id} type={subType} allTypes={subTypes} />
+          <InterestTypes
+            key={subType.id}
+            type={subType}
+            allTypes={subTypes}
+            onSelectedInterestsChange={onSelectedInterestsChange}
+            selectedInterests={selectedInterests}
+          />
         ))}
       </>
     )
   } else {
     return (
       <>
-        {type.Interests.map((interest) => (
-          <Interest key={interest.id} interest={interest} type={type.name} />
-        ))}
+        {type.Interests.map((interest) => {
+          return (
+            <Interest
+              key={interest.id}
+              interest={interest}
+              type={type.name}
+              onSelectedInterestsChange={onSelectedInterestsChange}
+              selected={
+                selectedInterests &&
+                selectedInterests.some(
+                  (selectedInterest) => selectedInterest.id === interest.id
+                )
+              }
+              disabled={
+                selectedInterests &&
+                selectedInterests.filter(
+                  (selectedInterest) => selectedInterest.type === type.name
+                ).length >= 5
+              }
+            />
+          )
+        })}
       </>
     )
   }
 }
-
-export default InterestTypes
