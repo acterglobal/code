@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const InterestsAddSection: FC<FormikSetFieldType> = (props) => {
+//  TODO: Add typing
+export const InterestsAddSection = (props) => {
   const { setFieldValue } = props
   const classes = useStyles()
   const [value, setValue] = useState(0)

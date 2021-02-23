@@ -2,7 +2,8 @@ import React, { FC } from 'react'
 import { ImageUpload } from 'src/components/acter/image-upload'
 import { FormikSetFieldType } from 'src/components/acter/wizard'
 
-export const ImageUploadSection: FC<FormikSetFieldType> = (props) => {
+// TODO : ADD types to this component
+export const ImageUploadSection = (props) => {
   const { setFieldValue } = props
   return (
     <div style={{ display: 'flex' }}>

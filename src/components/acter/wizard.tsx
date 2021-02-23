@@ -46,7 +46,8 @@ export interface FormikSetFieldType {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
 }
 
-export const Wizard: FC = () => {
+// TODO: Add typing
+export const Wizard = () => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length - 1
@@ -74,8 +75,11 @@ export const Wizard: FC = () => {
     }),
     {}
   )
+
+  // TODO: Add validation
   const ActiveStep = steps[activeStep]
-  const validationSchema = ActiveStep.validationSchema
+  // const validationSchema = ActiveStep.validationSchema
+  const validationSchema = {}
 
   return (
     <Formik
