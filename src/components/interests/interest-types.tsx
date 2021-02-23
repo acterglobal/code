@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
-import { Interest } from './interest'
+import { Interest } from 'src/components/interests/interest'
 
 interface selectedInterest {
   id: string

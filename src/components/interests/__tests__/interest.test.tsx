@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { Interest, interestColors } from '../interest'
+import { Interest, interestColors } from 'src/components/interests/interest'
 import {
   Tag,
   Approach,

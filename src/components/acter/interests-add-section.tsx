@@ -1,9 +1,10 @@
 import React, { useState, ChangeEvent } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Grid, Box } from '@material-ui/core'
-import { Interests } from '../../__fixtures__/interest/interests'
-import { InterestTypes } from '../interests/interest-types'
-import { getTopLevelTypes } from '../../lib/interests/get-toplevel-types'
+import { Interests } from 'src/__fixtures__/interest/interests'
+import { InterestTypes } from 'src/components/interests/interest-types'
+// import { InterestTypes } from ' ../interests/interest-types'
+import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
