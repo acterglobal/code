@@ -109,6 +109,12 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
     })
   }
 
+  const handleImageUpload = () => {
+    setImageToFormField(`${imageType}Image`, pond.current.getFile())
+    setShowUploadButton(false)
+    setUploadMessage('Image added.')
+  }
+
   return (
     <div className={classes.container}>
       <FilePond
@@ -137,11 +143,7 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
           color="primary"
           className={classes.button}
           endIcon={<UploadIcon />}
-          onClick={() => {
-            setImageToFormField(`${imageType}Image`, pond.current.getFile())
-            setShowUploadButton(false)
-            setUploadMessage('Image added.')
-          }}
+          onClick={handleImageUpload}
         >
           Upload
         </Button>
