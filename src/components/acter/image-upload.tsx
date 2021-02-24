@@ -74,7 +74,7 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
 
     // Callback set by FilePond
     // - should be called by the editor when user cancels editing
-    oncancel: () => {},
+    oncancel: () => null,
 
     // Callback set by FilePond
     // - should be called by the editor when user closes the editor
