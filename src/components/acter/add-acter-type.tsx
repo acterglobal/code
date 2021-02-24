@@ -7,6 +7,10 @@ import { ActerType } from 'src/components/acter/acter-type'
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: 500,
+    // height: 300,
+    // backgroundColor: 'red',
+    paddingTop: 20,
+    paddingBottom: 60,
   },
   header: {
     fontWeight: 'bold',
@@ -17,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 250,
     margin: 'auto',
     color: theme.palette.secondary.main,
+    marginBottom: 40,
   },
 }))
 
