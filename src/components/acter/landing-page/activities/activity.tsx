@@ -46,14 +46,18 @@ export const Activity: FC = () => {
     <Box className={classes.root}>
       <Box className={classes.image}>
         {/* <Image
-        loader={() =>
-          `https://res.cloudinary.com/dfglnmgmx/image/upload/v1614186352/acter/activity-example.png`
-        }
-        src="/me.png"
-        alt="Picture of the author"
-        width={500}
-        height={500}
-      /> */}
+          loader={() =>
+            `https://res.cloudinary.com/dfglnmgmx/image/upload/v1614186352/acter/activity-example.png`
+          }
+          src="/me.png"
+          alt="Picture of the author"
+          width={500}
+          height={500}
+        /> */}
+        <img
+          src="https://res.cloudinary.com/dfglnmgmx/image/upload/v1614186352/acter/activity-example.png"
+          alt=""
+        />
       </Box>
       <Box className={classes.info}>
         <Typography className={classes.dateTime} variant="subtitle1">
