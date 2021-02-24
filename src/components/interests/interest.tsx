@@ -30,7 +30,7 @@ export interface InterestProps {
   type: string
   selected?: boolean
   disabled?: boolean
-  onSelectedInterestsChange?: ({ interest: InterestType, type: string }) => void
+  onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
 export const Interest: FC<InterestProps> = ({
@@ -88,7 +88,7 @@ export const Interest: FC<InterestProps> = ({
 
   const handleClick = () => {
     if (disabled && !selected) return null
-    else onSelectedInterestsChange({ ...interest, type })
+    else onSelectedInterestsChange(interest.id, type)
   }
 
   return (
@@ -101,7 +101,7 @@ export const Interest: FC<InterestProps> = ({
         label={type === 'Tags' ? `# ${interest.name}` : interest.name}
         style={{ ...colorStyle }}
         size="small"
-        {...variant}
+        {...variant} // TODO: FIX type
         onClick={handleClick}
       />
     </Box>
