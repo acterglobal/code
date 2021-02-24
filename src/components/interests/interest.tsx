@@ -30,7 +30,7 @@ export interface InterestProps {
   type: string
   selected?: boolean
   disabled?: boolean
-  onSelectedInterestsChange?: ({ interest: InterestType, type: string }) => void
+  onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
 export const Interest: FC<InterestProps> = ({
@@ -42,7 +42,7 @@ export const Interest: FC<InterestProps> = ({
 }) => {
   const classes = useStyles()
   let colorStyle = {}
-  let variant = { variant: 'outlined' }
+  let variant = false
   const disabledStyles = {
     color: disabledColor,
     borderColor: disabledColor,
@@ -56,7 +56,7 @@ export const Interest: FC<InterestProps> = ({
     case 'Approach':
       if (selected) {
         colorStyle = { backgroundColor: interestColors[type], color: 'white' }
-        variant = { variant: 'default' }
+        variant = true
       } else if (disabled) {
         colorStyle = { ...disabledStyles }
       } else {
@@ -76,19 +76,15 @@ export const Interest: FC<InterestProps> = ({
       } else if (disabled) {
         colorStyle = { ...disabledStyles }
       } else {
-        variant = { variant: 'default' }
+        variant = true
         colorStyle = { backgroundColor: 'white', color: 'black' }
       }
-
-      break
-
-    default:
       break
   }
 
   const handleClick = () => {
     if (disabled && !selected) return null
-    else onSelectedInterestsChange({ ...interest, type })
+    else onSelectedInterestsChange(interest.id, type)
   }
 
   return (
@@ -101,7 +97,7 @@ export const Interest: FC<InterestProps> = ({
         label={type === 'Tags' ? `# ${interest.name}` : interest.name}
         style={{ ...colorStyle }}
         size="small"
-        {...variant}
+        variant={variant ? 'default' : 'outlined'}
         onClick={handleClick}
       />
     </Box>

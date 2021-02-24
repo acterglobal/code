@@ -2,24 +2,22 @@ import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
 import { Interest } from 'src/components/interests/interest'
 
-interface selectedInterest {
-  id: string
-  name: string
-  type: string
-}
-
-export interface TypesProps {
+export interface InterestTypesProps {
   type: InterestType
   allTypes: InterestType[]
-  onSelectedInterestsChange?: ({ interest: InterestType, type: string }) => void
-  selectedInterests?: selectedInterest[]
+  selectedInterests?: string[]
+  selectedTypes?: string[]
+  disabled?: boolean
+  onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
-export const InterestTypes: FC<TypesProps> = ({
+export const InterestTypes: FC<InterestTypesProps> = ({
   type,
   allTypes,
   onSelectedInterestsChange,
   selectedInterests,
+  selectedTypes,
+  disabled,
 }) => {
   const subTypes = allTypes.filter(
     (subtype) => type.id === subtype.parentInterestTypeId
@@ -35,6 +33,16 @@ export const InterestTypes: FC<TypesProps> = ({
             allTypes={subTypes}
             onSelectedInterestsChange={onSelectedInterestsChange}
             selectedInterests={selectedInterests}
+            selectedTypes={selectedTypes}
+            disabled={
+              selectedTypes &&
+              selectedTypes.filter(
+                (selectedType) =>
+                  selectedType === 'Economy' ||
+                  selectedType === 'Environment' ||
+                  selectedType === 'Social'
+              ).length >= 5
+            }
           />
         ))}
       </>
@@ -50,16 +58,14 @@ export const InterestTypes: FC<TypesProps> = ({
               type={type.name}
               onSelectedInterestsChange={onSelectedInterestsChange}
               selected={
-                selectedInterests &&
-                selectedInterests.some(
-                  (selectedInterest) => selectedInterest.id === interest.id
-                )
+                selectedInterests && selectedInterests.includes(interest.id)
               }
               disabled={
-                selectedInterests &&
-                selectedInterests.filter(
-                  (selectedInterest) => selectedInterest.type === type.name
-                ).length >= 5
+                disabled ||
+                (selectedTypes &&
+                  selectedTypes.filter(
+                    (selectedType) => selectedType === type.name
+                  ).length >= 5)
               }
             />
           )

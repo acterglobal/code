@@ -16,6 +16,7 @@ export const InterestsAddSection = () => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [selectedInterests, setSelectedInterests] = useState([])
+  const [selectedTypes, setSelectedTypes] = useState([])
 
   const topLevelTypes = getTopLevelTypes()
 
@@ -24,19 +25,22 @@ export const InterestsAddSection = () => {
     // console.log('VALUE :', newValue)
   }
 
-  const handleSelectedInterest = (interest) => {
-    if (
-      selectedInterests.some(
-        (selectedInterest) => selectedInterest.id === interest.id
-      )
-    ) {
+  const handleSelectedInterest = (interest, type) => {
+    const newSelectedTypes = [...selectedTypes]
+    if (selectedInterests.includes(interest)) {
       setSelectedInterests(
         selectedInterests.filter(
-          (selectedInterest) => selectedInterest.id !== interest.id
+          (selectedInterest) => selectedInterest !== interest
         )
       )
+      const deleteIndex = newSelectedTypes.indexOf(
+        newSelectedTypes.find((newtype) => newtype === type)
+      )
+      newSelectedTypes.splice(deleteIndex, 1)
+      setSelectedTypes([...newSelectedTypes])
     } else {
       setSelectedInterests([...selectedInterests, interest])
+      setSelectedTypes([...selectedTypes, type])
     }
   }
 
@@ -66,6 +70,7 @@ export const InterestsAddSection = () => {
                   allTypes={Interests.data.interestTypes}
                   onSelectedInterestsChange={handleSelectedInterest}
                   selectedInterests={selectedInterests}
+                  selectedTypes={selectedTypes}
                 />
               </Grid>
             )}
