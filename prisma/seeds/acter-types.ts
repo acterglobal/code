@@ -162,11 +162,6 @@ const types: Record<string, typeMap> = {
   },
 }
 
-interface ActerTypeMap {
-  key: string
-  type: ActerType
-}
-
 const upsertActerType = async (
   prisma: PrismaClient,
   name: string
@@ -178,7 +173,7 @@ const upsertActerType = async (
   })
 }
 
-export const seedActerTypes = async (prisma: PrismaClient) => {
+export const seedActerTypes = async (prisma: PrismaClient): Promise<void> => {
   // First loop is to create the ActerTypes
   await Promise.all(
     Object.keys(types).map(async (name) => {

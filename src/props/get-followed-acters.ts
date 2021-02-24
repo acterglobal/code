@@ -3,13 +3,7 @@ import { initializeApollo } from 'src/lib/apollo'
 
 import QUERY_FOLLOWED_ACTERS from 'graphql/queries/query-followed-acters.graphql'
 
-import { Acter, ActerConnection } from '@generated/type-graphql'
-
-type queryResult = {
-  data: {
-    acterConnections: ActerConnection[]
-  }
-}
+import { Acter } from '@generated/type-graphql'
 
 /**
  *
@@ -22,7 +16,7 @@ export const getFollowedActers: ComposedGetServerSideProps = async ({
   //TODO this needs to be refactored and tested
   const apollo = initializeApollo()
 
-  if (!Boolean(props?.user?.acterId)) {
+  if (!props?.user?.acterId) {
     console.log('Could not find acter id ', props)
     return {
       props: {},

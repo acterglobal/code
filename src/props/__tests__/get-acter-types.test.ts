@@ -15,7 +15,7 @@ import {
 import { getActerTypes } from 'src/props'
 
 describe('getActerTypes', () => {
-  let acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
+  const acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
   let context = ({} as unknown) as ComposedGetServerSidePropsContext
 
   beforeEach(() => {
@@ -23,6 +23,7 @@ describe('getActerTypes', () => {
   })
   it('should return an error if acter type query fails', async () => {
     const error = 'there was an error'
+    // eslint-disable-next-line
     require('src/lib/apollo').__setApolloQueryResponse({ error })
 
     expect(await getActerTypes(context)).toStrictEqual(
@@ -34,6 +35,7 @@ describe('getActerTypes', () => {
     )
   })
   it('should set selected acter type as well as list of all acter types', async () => {
+    // eslint-disable-next-line
     require('src/lib/apollo').__setApolloQueryResponse({
       data: { acterTypes },
     })

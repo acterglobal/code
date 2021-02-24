@@ -6,9 +6,6 @@ interface Context {
   token: JWTToken
 }
 
-export const authChecker: AuthChecker<Context> = (
-  { context: { token } },
-  roles
-) => {
+export const authChecker: AuthChecker<Context> = ({ context: { token } }) => {
   return Boolean(token?.email)
 }

@@ -6,8 +6,8 @@ import { getActer } from 'src/props'
 
 jest.mock('src/lib/apollo')
 
-let emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
-let goodContext = ({
+const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
+const goodContext = ({
   props: {
     acterType: OrganizationActerType,
   },
@@ -18,6 +18,7 @@ let goodContext = ({
 
 describe('getActer', () => {
   it('should return not found when there is missing data', async () => {
+    // eslint-disable-next-line
     ;[
       emptyContext,
       { ...emptyContext, props: {} },
@@ -34,6 +35,7 @@ describe('getActer', () => {
 
   it('should return an error if the acter query fails', async () => {
     const error = 'there was an error'
+    // eslint-disable-next-line
     require('src/lib/apollo').__setApolloQueryResponse({ error })
 
     expect(await getActer(goodContext)).toStrictEqual(
@@ -42,6 +44,7 @@ describe('getActer', () => {
   })
 
   it('should return an Acter', async () => {
+    // eslint-disable-next-line
     require('src/lib/apollo').__setApolloQueryResponse({
       data: { getActer: ExampleActer },
     })

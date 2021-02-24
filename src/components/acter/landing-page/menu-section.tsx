@@ -5,7 +5,7 @@ export const MenuSection: FC = () => {
   const [value, setValue] = React.useState(0)
   const tabLabels = ['forum', 'activities', 'members']
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: any) => {
+  const handleChange = (event: React.ChangeEvent<any>, newValue: any) => {
     setValue(newValue)
     console.log('menu section: ', newValue)
   }

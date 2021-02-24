@@ -17,7 +17,7 @@ export interface peopleProps {
   imageURL: string[]
 }
 
-const People: FC<peopleProps> = ({ numOfPeople, imageURL }) => {
+const People: FC<peopleProps> = ({ numOfPeople }) => {
   const classes = useStyles()
   return (
     <Box>

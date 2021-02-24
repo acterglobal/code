@@ -27,7 +27,7 @@ export const InterestsAddSection = (props) => {
 
   const topLevelTypes = getTopLevelTypes()
 
-  const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (event: ChangeEvent<any>, newValue: number) => {
     setValue(newValue)
   }
 

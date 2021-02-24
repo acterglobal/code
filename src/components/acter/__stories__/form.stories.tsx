@@ -1,4 +1,3 @@
-import { Acter } from '@prisma/client'
 import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from 'src/components/acter/form'

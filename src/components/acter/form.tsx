@@ -48,14 +48,12 @@ export interface ActerFormProps {
   acterType: ActerType
   loading?: boolean
   error?: string
-  onSubmit: (any) => any
+  onSubmit: (any) => void
 }
 
 export const ActerForm: FC<ActerFormProps> = ({
   acter,
   acterType,
-  loading,
-  error,
   onSubmit,
 }) => {
   const classes = useStyles()

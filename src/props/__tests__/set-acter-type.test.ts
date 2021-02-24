@@ -9,7 +9,7 @@ import {
 import { setActerType } from 'src/props/set-acter-type'
 
 describe('setActerType', () => {
-  let acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
+  const acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
   let context = ({} as unknown) as ComposedGetServerSidePropsContext
 
   it('should return not found if acter type is not found', async () => {

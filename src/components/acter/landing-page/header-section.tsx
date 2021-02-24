@@ -11,7 +11,7 @@ import Avatar from 'src/components/user/avatar'
 import { Acter } from '@generated/type-graphql'
 
 // ? overriding the MaterialUI tab styles
-const Typography = withStyles((theme: Theme) =>
+const Typography = withStyles(() =>
   createStyles({
     h4: {
       fontWeight: 'bold',
