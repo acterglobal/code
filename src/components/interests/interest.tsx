@@ -42,7 +42,7 @@ export const Interest: FC<InterestProps> = ({
 }) => {
   const classes = useStyles()
   let colorStyle = {}
-  let variant = { variant: 'outlined' }
+  let variant = false
   const disabledStyles = {
     color: disabledColor,
     borderColor: disabledColor,
@@ -56,7 +56,7 @@ export const Interest: FC<InterestProps> = ({
     case 'Approach':
       if (selected) {
         colorStyle = { backgroundColor: interestColors[type], color: 'white' }
-        variant = { variant: 'default' }
+        variant = true
       } else if (disabled) {
         colorStyle = { ...disabledStyles }
       } else {
@@ -76,13 +76,9 @@ export const Interest: FC<InterestProps> = ({
       } else if (disabled) {
         colorStyle = { ...disabledStyles }
       } else {
-        variant = { variant: 'default' }
+        variant = true
         colorStyle = { backgroundColor: 'white', color: 'black' }
       }
-
-      break
-
-    default:
       break
   }
 
@@ -101,7 +97,7 @@ export const Interest: FC<InterestProps> = ({
         label={type === 'Tags' ? `# ${interest.name}` : interest.name}
         style={{ ...colorStyle }}
         size="small"
-        {...variant} // TODO: FIX type
+        variant={variant ? 'default' : 'outlined'}
         onClick={handleClick}
       />
     </Box>
