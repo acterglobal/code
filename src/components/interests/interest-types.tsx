@@ -7,6 +7,7 @@ export interface InterestTypesProps {
   allTypes: InterestType[]
   selectedInterests?: string[]
   selectedTypes?: string[]
+  disabled?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -16,6 +17,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   onSelectedInterestsChange,
   selectedInterests,
   selectedTypes,
+  disabled,
 }) => {
   const subTypes = allTypes.filter(
     (subtype) => type.id === subtype.parentInterestTypeId
@@ -32,6 +34,15 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             onSelectedInterestsChange={onSelectedInterestsChange}
             selectedInterests={selectedInterests}
             selectedTypes={selectedTypes}
+            disabled={
+              selectedTypes &&
+              selectedTypes.filter(
+                (selectedType) =>
+                  selectedType === 'Economy' ||
+                  selectedType === 'Environment' ||
+                  selectedType === 'Social'
+              ).length >= 5
+            }
           />
         ))}
       </>
@@ -50,10 +61,11 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                 selectedInterests && selectedInterests.includes(interest.id)
               }
               disabled={
-                selectedTypes &&
-                selectedTypes.filter(
-                  (selectedType) => selectedType === type.name
-                ).length >= 5
+                disabled ||
+                (selectedTypes &&
+                  selectedTypes.filter(
+                    (selectedType) => selectedType === type.name
+                  ).length >= 5)
               }
             />
           )
