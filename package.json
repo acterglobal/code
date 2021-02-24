@@ -47,6 +47,8 @@
     "filepond-plugin-image-edit": "^1.6.2",
     "filepond-plugin-image-preview": "^4.6.5",
     "final-form": "^4.20.1",
+    "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
     "graphql": "^15.4.0",
     "graphql-fields": "^2.0.3",
     "graphql-type-json": "^0.3.2",
@@ -69,7 +71,8 @@
     "slugify": "^1.4.6",
     "type-graphql": "^1.1.1",
     "typegraphql-prisma": "^0.10.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@prisma/cli": "^2.15.0",
