@@ -2,8 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SessionIndicator } from 'src/components/layout/session-indicator'
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
-import { requirePropFactory } from '@material-ui/core'
+import { ExampleUser } from 'src/__fixtures__'
 
 jest.mock('next-auth/client')
 

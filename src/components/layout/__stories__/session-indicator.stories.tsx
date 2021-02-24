@@ -5,8 +5,7 @@ import {
   SessionIndicatorProps,
 } from 'src/components/layout/session-indicator'
 
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
-
+import { ExampleUser } from 'src/__fixtures__'
 export default {
   title: 'layout/UserSession',
   component: SessionIndicator,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
+import { ExampleUser } from 'src/__fixtures__'
 import { UserProfilePage, getServerSideProps } from 'src/pages/profile'
 
 jest.mock('next-auth/client')

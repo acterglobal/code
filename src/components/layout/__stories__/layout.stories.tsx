@@ -1,8 +1,7 @@
 import Reaact, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { Layout, LayoutProps } from 'src/components/layout'
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
-
+import { ExampleUser } from 'src/__fixtures__'
 const Content: FC = () => <main>Main content</main>
 
 export default {

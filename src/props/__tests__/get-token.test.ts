@@ -1,7 +1,6 @@
 import { getToken } from 'src/props/get-token'
 
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
-
+import { ExampleUser } from 'src/__fixtures__'
 describe('getToken', () => {
   const callGetServerSideProps = async () => {
     return await getToken({
