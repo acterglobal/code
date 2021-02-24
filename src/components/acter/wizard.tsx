@@ -57,15 +57,12 @@ export const Wizard = () => {
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
   const onSubmit = (values, formikBag) => {
-    console.log('VALUES :', values)
-    const { setSubmitting, setTouched } = formikBag
+    const { setSubmitting } = formikBag
     if (!isLastStep()) {
-      // setTouched({})
       setSubmitting(false)
       handleNext()
       return
     }
-    console.log(values)
   }
 
   const initialValues = steps.reduce(
