@@ -1,4 +1,9 @@
+__mocks__
+.git
+.github
+.husky
 .next
+.vscode
 out
 coverage
 node_modules

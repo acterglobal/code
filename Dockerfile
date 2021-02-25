@@ -22,5 +22,6 @@ CMD "yarn" "dev"
 FROM source AS prod
 # Building app
 RUN yarn run build && yarn --production --network-timeout=300000 --ignore-scripts
+COPY --from=base /usr/src/node_modules/@generated ./node_modules
 # Running the app
 CMD "yarn" "start"
