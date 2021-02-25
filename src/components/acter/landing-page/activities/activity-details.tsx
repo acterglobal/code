@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { Modal } from 'src/components/util/modal/modal'
 
 const myLoader = ({ src, width, quality }) => {
   return `https://acter.ams3.cdn.digitaloceanspaces.com/assets/${src}`
@@ -7,7 +8,7 @@ const myLoader = ({ src, width, quality }) => {
 
 export const ActivityDetails = () => {
   return (
-    <div>
+    <Modal>
       <Image
         loader={myLoader}
         src={`organisation-logo.png`}
@@ -15,6 +16,6 @@ export const ActivityDetails = () => {
         width={500}
         height={500}
       />
-    </div>
+    </Modal>
   )
 }
