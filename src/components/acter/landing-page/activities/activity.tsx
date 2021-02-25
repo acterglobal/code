@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
-
 import Image from 'next/image'
 
 const useStyles = makeStyles({
@@ -18,7 +17,7 @@ const useStyles = makeStyles({
   },
   info: {
     // margin: 20,
-    padding: 30,
+    padding: '20px 0px 20px 35px',
   },
   dateTime: {
     fontSize: '0.6rem',
@@ -44,21 +43,13 @@ export const Activity: FC = () => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.image}>
-        {/* <Image
-          loader={() =>
-            `https://res.cloudinary.com/dfglnmgmx/image/upload/v1614186352/acter/activity-example.png`
-          }
-          src="/me.png"
-          alt="Picture of the author"
-          width={500}
-          height={500}
-        /> */}
-        <img
-          src="https://res.cloudinary.com/dfglnmgmx/image/upload/v1614186352/acter/activity-example.png"
-          alt=""
-        />
-      </Box>
+      <Image
+        className={classes.image}
+        src="https://acter.ams3.cdn.digitaloceanspaces.com/assets/example-activity.jpg"
+        alt="Picture of the author"
+        width={200}
+        height={100}
+      />
       <Box className={classes.info}>
         <Typography className={classes.dateTime} variant="subtitle1">
           {activity.dateTime}
