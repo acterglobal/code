@@ -16,12 +16,13 @@ export const createApolloClient = (): ApolloClient<
 > => {
   const ssrMode = typeof window === 'undefined'
   const link = new HttpLink({
-    uri: process.env.GRAPHQL_URL,
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
   })
 
   return new ApolloClient({
     cache: new InMemoryCache(),
     ssrMode,
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     link,
   })
 }
