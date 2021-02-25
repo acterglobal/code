@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core/styles'
 import { Box, Typography as MUIT, Button } from '@material-ui/core'
 import Image from 'next/image'
-import Avatar from 'src/components/user/avatar'
 import { Acter } from '@generated/type-graphql'
 
 // ? overriding the MaterialUI tab styles
@@ -30,6 +29,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '80px',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  avatarImage: {
+    position: 'absolute',
+    border: '2',
+    borderColor: theme.palette.primary.main,
+    cursor: 'pointer',
+    backgroundColor: 'white',
+    marginLeft: '40px',
+    top: '15vw',
   },
 
   info: {
@@ -69,7 +78,16 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         width={1920}
       />
       <Box className={classes.infoSection}>
-        <Avatar imageUrl={acter.avatarUrl} />
+        <Box className={classes.avatarImage} border={2} borderRadius={16}>
+          <Image
+            loader={() => acter.avatarUrl}
+            src={'/acter-logo-144.png'}
+            alt="Acter Logo"
+            layout="intrinsic"
+            height={130}
+            width={130}
+          />
+        </Box>
 
         <Box className={classes.info}>
           <Typography role="acter-name" variant="h4" className={classes.title}>
