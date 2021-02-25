@@ -4,7 +4,6 @@
 import { useMemo } from 'react'
 import {
   ApolloClient,
-  ApolloLink,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
@@ -12,10 +11,12 @@ import {
 
 let apolloClient: ApolloClient<InMemoryCache | NormalizedCacheObject>
 
-export const createApolloClient = () => {
+export const createApolloClient = (): ApolloClient<
+  InMemoryCache | NormalizedCacheObject
+> => {
   const ssrMode = typeof window === 'undefined'
   const link = new HttpLink({
-    uri: 'http://localhost:3000/api/graphql',
+    uri: process.env.GRAPHQL_URL,
   })
 
   return new ApolloClient({
@@ -25,7 +26,9 @@ export const createApolloClient = () => {
   })
 }
 
-export function initializeApollo(initialState = null) {
+export function initializeApollo(
+  initialState = null
+): ApolloClient<InMemoryCache | NormalizedCacheObject> {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client,
@@ -47,7 +50,9 @@ export function initializeApollo(initialState = null) {
   return _apolloClient
 }
 
-export function useApollo(initialState) {
+export function useApollo(
+  initialState: InMemoryCache | NormalizedCacheObject
+): ApolloClient<InMemoryCache | NormalizedCacheObject> {
   const store = useMemo(() => initializeApollo(initialState), [initialState])
   return store
 }
