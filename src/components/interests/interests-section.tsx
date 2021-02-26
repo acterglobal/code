@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
-import { Interests } from '../../__fixtures__/interest/interests'
-import { InterestTypes } from './interest-types'
-import { getTopLevelTypes } from '../../lib/interests/get-toplevel-types'
+import { Interests } from 'src/__fixtures__/interest/interests'
+import { InterestTypes } from 'src/components/interests/interest-types'
+import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 
-const InterestsSection: FC = () => {
+export const InterestsSection: FC = () => {
   const topLevelTypes = getTopLevelTypes()
 
   return (
@@ -20,5 +20,3 @@ const InterestsSection: FC = () => {
     </Box>
   )
 }
-
-export default InterestsSection

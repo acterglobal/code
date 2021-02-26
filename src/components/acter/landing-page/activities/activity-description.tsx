@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-// import {InterestsSection} from 'src/components/interests/interests-section'
+import { InterestsSection } from 'src/components/interests/interests-section'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -40,6 +40,7 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
       <Typography className={classes.description} variant="caption">
         {description}
       </Typography>
+      {/* <InterestsSection /> */}
     </Box>
   )
 }

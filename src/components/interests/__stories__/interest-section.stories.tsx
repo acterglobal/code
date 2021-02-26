@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react'
-import InterestsSection from '../interests-section'
+import { InterestsSection } from '../interests-section'
 
 export default {
   title: 'interests/Interests',
