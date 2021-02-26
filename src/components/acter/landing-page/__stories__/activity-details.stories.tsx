@@ -9,4 +9,4 @@ export default {
 
 // import { ExampleActer } from 'src/__fixtures__/acter/example-acter'
 
-export const MetaSection: React.FC = () => <Activity />
+export const ActivityDetails: React.FC = () => <Activity />
