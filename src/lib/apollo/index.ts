@@ -4,8 +4,6 @@
 import { useMemo } from 'react'
 import {
   ApolloClient,
-  HttpLink,
-  ApolloCache,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
@@ -20,7 +18,7 @@ export const createApolloClient = (
   return new ApolloClient({
     cache: new InMemoryCache(),
     ssrMode,
-    uri: graphqlUri
+    uri: graphqlUri,
   })
 }
 
@@ -35,7 +33,7 @@ export const initializeApollo = ({
 }: InitializeApolloProps = {}): ApolloClient<
   InMemoryCache | NormalizedCacheObject
 > => {
-  graphqlUri ||= process.env.NEXT_PUBLIC_GRAPHQL_URL
+  graphqlUri = graphqlUri || process.env.NEXT_PUBLIC_GRAPHQL_URL
   const _apolloClient = apolloClient ?? createApolloClient(graphqlUri)
 
   // If your page has Next.js data fetching methods that use Apollo Client,
