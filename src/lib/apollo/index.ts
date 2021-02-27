@@ -19,6 +19,10 @@ export const createApolloClient = (): ApolloClient<
     uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
   })
 
+  console.log(
+    'Setting up GraphQL client with: ',
+    process.env.NEXT_PUBLIC_GRAPHQL_URL
+  )
   return new ApolloClient({
     cache: new InMemoryCache(),
     ssrMode,
