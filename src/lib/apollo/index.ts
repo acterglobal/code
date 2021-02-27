@@ -5,36 +5,38 @@ import { useMemo } from 'react'
 import {
   ApolloClient,
   HttpLink,
+  ApolloCache,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
 
 let apolloClient: ApolloClient<InMemoryCache | NormalizedCacheObject>
 
-export const createApolloClient = (): ApolloClient<
-  InMemoryCache | NormalizedCacheObject
-> => {
+export const createApolloClient = (
+  graphqlUri: string
+): ApolloClient<InMemoryCache | NormalizedCacheObject> => {
   const ssrMode = typeof window === 'undefined'
-  const link = new HttpLink({
-    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
-  })
 
-  console.log(
-    'Setting up GraphQL client with: ',
-    process.env.NEXT_PUBLIC_GRAPHQL_URL
-  )
   return new ApolloClient({
     cache: new InMemoryCache(),
     ssrMode,
-    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
-    link,
+    uri: graphqlUri
   })
 }
 
-export function initializeApollo(
-  initialState = null
-): ApolloClient<InMemoryCache | NormalizedCacheObject> {
-  const _apolloClient = apolloClient ?? createApolloClient()
+interface InitializeApolloProps {
+  graphqlUri?: string
+  initialState?: any
+}
+
+export const initializeApollo = ({
+  graphqlUri,
+  initialState,
+}: InitializeApolloProps = {}): ApolloClient<
+  InMemoryCache | NormalizedCacheObject
+> => {
+  graphqlUri ||= process.env.NEXT_PUBLIC_GRAPHQL_URL
+  const _apolloClient = apolloClient ?? createApolloClient(graphqlUri)
 
   // If your page has Next.js data fetching methods that use Apollo Client,
   // the initial state gets hydrated here
@@ -55,9 +57,15 @@ export function initializeApollo(
   return _apolloClient
 }
 
-export function useApollo(
-  initialState: InMemoryCache | NormalizedCacheObject
-): ApolloClient<InMemoryCache | NormalizedCacheObject> {
-  const store = useMemo(() => initializeApollo(initialState), [initialState])
+export function useApollo({
+  graphqlUri,
+  initialState,
+}: {
+  graphqlUri: string
+  initialState?: InMemoryCache | NormalizedCacheObject
+}): ApolloClient<InMemoryCache | NormalizedCacheObject> {
+  const store = useMemo(() => initializeApollo({ graphqlUri, initialState }), [
+    initialState,
+  ])
   return store
 }
