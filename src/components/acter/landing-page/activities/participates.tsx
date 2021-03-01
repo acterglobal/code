@@ -30,11 +30,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface ParticipatesProps {
-  // users: []
+  // TODO: fix the below types
+  users?: []
+  organizations?: []
 }
 
-export const Participates: FC<ParticipatesProps> = () => {
+export const Participates: FC<ParticipatesProps> = (props) => {
   const classes = useStyles()
+  const { users, organizations } = props
+
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
