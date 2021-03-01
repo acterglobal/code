@@ -1,9 +1,10 @@
+import React from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { Login } from 'src/components/user/auth/login'
 
-export const LoginPage: NextPage = () => {
+const LoginPage: NextPage = () => {
   return (
     <Layout>
       <Head>
@@ -13,3 +14,5 @@ export const LoginPage: NextPage = () => {
     </Layout>
   )
 }
+
+export default LoginPage
