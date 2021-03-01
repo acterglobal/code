@@ -1,11 +1,12 @@
 import { ExampleUser } from '__fixtures__'
+import { UserActerType } from 'src/__fixtures__/acter-type/user'
 
-export const ExampleActiivity = {
+export const ExampleActivity = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',
   acterId: '9a64149c-5641-4841-96b1-1b2ec85f99bb',
   title: 'Green eco talk',
   description:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ratione doloribus distinctio sequi accusantium amet voluptate quo, veritatis deserunt. Doloremque quis harum eos dolor laborum, eaque voluptates beatae ipsa quae.',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ratione doloribus distinctio sequi accusantium amet voluptate quo, veritatis deserunt. Doloremque quis harum eos dolor laborum, eaque voluptates beatae ipsa quae.    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ratione doloribus distinctio sequi accusantium amet voluptate quo, veritatis deserunt. Doloremque quis harum eos dolor laborum, eaque voluptates beatae ipsa quae.',
   startDate: '19 MAR. 17.00',
   endDate: '20 MAR. 18.00',
   //   location: 'online',
@@ -222,8 +223,28 @@ export const ExampleActiivity = {
       __typename: 'ActerInterest',
     },
   ],
-  people: [], // many example-acter-users
-  organizations: [], // many example-acter-organisation
+  people: [
+    // {
+    //   id: '9a64149c-5641-4841-96b1-1b2ec85f87ba',
+    //   acterTypeId: UserActerType.id,
+    //   ActerType: UserActerType,
+    //   name: 'Malik Shaik',
+    //   location: 'Aarhus Denmark',
+    //   slug: 'my-organization',
+    //   description: `Lorem ipsum dolor sit amet consectetur adipisicing
+    //   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
+    //   alias veritatis vitae eum culpa amet delectus eveniet tempore
+    //   quibusdam repellat ut? Corrupti, consequuntur ipsam`,
+    //   url: 'company url',
+    //   avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
+    //   bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
+    //   createdAt: new Date(),
+    //   updatedAt: new Date(),
+    //   createdByUserId: ExampleUser.id,
+    //   autoApproveFollowers: true,
+    // },
+  ],
+  organizations: [],
   image: 'https://acter.ams3.cdn.digitaloceanspaces.com/assets/tree.png',
   createdAt: new Date(),
   updatedAt: new Date(),
