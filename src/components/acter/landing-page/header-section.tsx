@@ -1,22 +1,8 @@
 import React, { FC } from 'react'
-import {
-  makeStyles,
-  createStyles,
-  withStyles,
-  Theme,
-} from '@material-ui/core/styles'
-import { Box, Typography as MUIT, Button } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Typography, Button } from '@material-ui/core'
 import Image from 'next/image'
 import { Acter } from '@generated/type-graphql'
-
-// ? overriding the MaterialUI tab styles
-const Typography = withStyles(() =>
-  createStyles({
-    h4: {
-      // fontWeight: 'bold',
-    },
-  })
-)(MUIT)
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -31,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderColor: theme.palette.primary.main,
     backgroundColor: 'white',
     marginLeft: '40px',
-    marginTop: -85,
+    marginTop: -75,
     zIndex: 99,
   },
 
@@ -49,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100px',
     backgroundColor: theme.palette.primary.main,
     color: 'white',
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
     textTransform: 'none',
   },
 }))
@@ -107,5 +93,3 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
     </Box>
   )
 }
-
-export default HeaderSection
