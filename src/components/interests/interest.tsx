@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   chip: {
     cursor: 'pointer',
-    width: 150,
+    width: 130,
     height: 22,
     fontSize: '0.7rem',
     letterSpacing: '0.02rem',

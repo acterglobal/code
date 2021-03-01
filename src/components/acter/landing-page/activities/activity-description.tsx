@@ -7,8 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     margin: '10px 0px 10px 10px',
     padding: 20,
-    width: 300,
-    // height: '100%',
+    width: 500,
     backgroundColor: 'white',
     borderRadius: 5,
   },
@@ -17,9 +16,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
   },
   description: {
+    height: 100,
+    overflow: 'scroll',
     fontSize: '0.7rem',
     lineHeight: '0.05rem',
     color: theme.palette.secondary.main,
+    marginBottom: 5,
   },
 }))
 
@@ -37,10 +39,10 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
       <Typography className={classes.heading} variant="h6">
         About
       </Typography>
-      <Typography className={classes.description} variant="caption">
-        {description}
-      </Typography>
-      {/* <InterestsSection /> */}
+      <Box className={classes.description}>
+        <Typography variant="caption">{description}</Typography>
+      </Box>
+      <InterestsSection />
     </Box>
   )
 }

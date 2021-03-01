@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 import { Modal } from 'src/components/util/modal/modal'
-import { ExampleActiivity } from 'src/__fixtures__/activity/example-activity'
 import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ActivityInfo } from 'src/components/acter/landing-page/activities/activity-info'
 import { ActivityDescription } from 'src/components/acter/landing-page/activities/activity-description'
 import { Participates } from 'src/components/acter/landing-page/activities/participates'
 import { Organiser } from 'src/components/acter/landing-page/activities/organiser'
+
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: 700,
@@ -24,9 +24,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const ActivityDetails = () => {
+export interface ActivityDetailsProps {
+  // TODO: need to specify the activity type below instead any
+  activity: any
+}
+
+export const ActivityDetails: FC<ActivityDetailsProps> = ({ activity }) => {
   const classes = useStyles()
-  const activity = { ...ExampleActiivity }
 
   return (
     <Modal>

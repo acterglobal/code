@@ -29,7 +29,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface ParticipatesProps {}
+export interface ParticipatesProps {
+  // users: []
+}
 
 export const Participates: FC<ParticipatesProps> = () => {
   const classes = useStyles()

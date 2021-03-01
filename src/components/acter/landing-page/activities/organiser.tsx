@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   name: {
     color: theme.palette.secondary.main,
-    fontSize: '0.8rem',
+    fontSize: '0.7rem',
     fontWeight: 'bold',
     marginLeft: 10,
   },
