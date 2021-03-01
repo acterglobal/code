@@ -55,8 +55,10 @@ export const Signup: FC = () => {
       alert(JSON.stringify(values, null, 2))
       setSubmitting(false)
     }, 500)
-    console.log('values')
   }
+
+  const handleSocialLogin = () => {}
+  const handleLoginLink = () => {}
 
   return (
     <Box maxWidth="sm" className={classes.container}>
@@ -87,17 +89,17 @@ export const Signup: FC = () => {
         <SignupButton
           label="Continue with LinkedIn"
           socailSignupType={true}
-          hadleClick={() => console.log('LinkedIn button clicked')}
+          hadleClick={handleSocialLogin}
         />
         <SignupButton
           label="Continue with Google"
           socailSignupType={true}
-          hadleClick={() => console.log('Google button clicked')}
+          hadleClick={handleSocialLogin}
         />
         <SignupButton
           label="Continue with Facebook"
           socailSignupType={true}
-          hadleClick={() => console.log('Facebook button clicked')}
+          hadleClick={handleSocialLogin}
         />
         <Typography variant="body2" style={{ color: grey[600] }}>
           Already have an account?
@@ -105,9 +107,7 @@ export const Signup: FC = () => {
             className={classes.loginLink}
             component="button"
             variant="body2"
-            onClick={() => {
-              console.info("I'm a button.")
-            }}
+            onClick={handleLoginLink}
           >
             Login
           </Link>
