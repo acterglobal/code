@@ -72,16 +72,10 @@ export const _handleSubmit = (
   const folder = `acter/${md5(acter.id)}`
   await Promise.all(
     ['avatar', 'banner'].map(async (fileName) => {
+      //TODO: error handling for failed upload
       const file = data[fileName]
-      try {
-        const img = await uploadImage(folder, file)
-        console.log('img', img)
-        acter[`${fileName}Url`] = img
-        return
-      } catch (err) {
-        console.error('Could not save file: ', err)
-        throw err
-      }
+      const img = await uploadImage(folder, file)
+      acter[`${fileName}Url`] = img
     })
   )
 
@@ -99,7 +93,10 @@ export const _handleSubmit = (
  * @param router NextRouter returned from useRouter
  * @param acterType The ActerType to use for routing
  */
-export const _handleOnComplete = (router: NextRouter, acter: Acter) =>
+export const _handleOnComplete = (
+  router: NextRouter,
+  acter: Acter
+): Promise<boolean> =>
   router.push(`/${acterTypeAsUrl(acter.ActerType)}/${acter.slug}`)
 
 interface NewActerPageProps {

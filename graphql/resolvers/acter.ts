@@ -64,24 +64,6 @@ export class ActerResolver {
       throw err
     }
 
-    const interests = interestIds.map((interestId) => ({
-      interestId,
-      createdByUserId,
-    }))
-
-    const interestMap = await Promise.all(
-      interestIds.map(async (interestId) => {
-        const interest = await ctx.prisma.interest.findUnique({
-          where: { id: interestId },
-        })
-        if (!interest) {
-          console.log('Could not find interest with id ', interestId)
-        }
-      })
-    )
-
-    console.log('interests: ', interests)
-
     return ctx.prisma.acter.create({
       data: {
         name,
@@ -99,7 +81,10 @@ export class ActerResolver {
           ],
         },
         ActerInterest: {
-          create: interests,
+          create: interestIds.map((interestId) => ({
+            interestId,
+            createdByUserId,
+          })),
         },
       },
     })
