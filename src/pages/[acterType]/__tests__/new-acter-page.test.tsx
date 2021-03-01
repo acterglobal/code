@@ -1,6 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
-import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
+import { render } from '@testing-library/react'
 import { NextRouter } from 'next/router'
 
 jest.mock('@apollo/client', () => ({
@@ -11,7 +10,6 @@ jest.mock('src/lib/apollo')
 
 import {
   NewActerPage,
-  getServerSideProps,
   _handleOnComplete,
   _handleSubmit,
 } from 'src/pages/[acterType]/new'
@@ -19,8 +17,6 @@ import {
 import { Acter, ActerType } from '@generated/type-graphql'
 import {
   ExampleActer,
-  GroupActerType,
-  NetworkActerType,
   OrganizationActerType,
   UserActerType,
 } from 'src/__fixtures__'
