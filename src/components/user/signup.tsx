@@ -57,8 +57,12 @@ export const Signup: FC = () => {
     }, 500)
   }
 
-  const handleSocialLogin = () => {}
-  const handleLoginLink = () => {}
+  const handleSocialLogin = () => {
+    // TODO: handle social login
+  }
+  const handleLoginLink = () => {
+    // TODO: redirect to login screen
+  }
 
   return (
     <Box maxWidth="sm" className={classes.container}>
