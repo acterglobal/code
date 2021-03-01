@@ -1,10 +1,9 @@
 import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Grid, Box } from '@material-ui/core'
-import { Interests } from 'src/__fixtures__/interest/interests'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { FormikSetFieldType } from 'src/components/acter/wizard'
+import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -14,18 +13,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 //  TODO: Add typing
-export const InterestsAddSection = (props) => {
-  const { setFieldValue } = props
+export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [selectedInterests, setSelectedInterests] = useState([])
   const [selectedTypes, setSelectedTypes] = useState([])
 
   useEffect(() => {
-    setFieldValue('interests', selectedInterests)
+    setFieldValue('interestIds', selectedInterests)
   }, [selectedInterests])
 
-  const topLevelTypes = getTopLevelTypes()
+  const topLevelTypes = getTopLevelTypes(interestTypes)
 
   const handleChange = (event: ChangeEvent<any>, newValue: number) => {
     setValue(newValue)
@@ -73,7 +71,7 @@ export const InterestsAddSection = (props) => {
               <Grid container spacing={3} style={{ margin: 'auto' }}>
                 <InterestTypes
                   type={type}
-                  allTypes={Interests.data.interestTypes}
+                  allTypes={interestTypes}
                   onSelectedInterestsChange={handleSelectedInterest}
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
@@ -88,4 +86,4 @@ export const InterestsAddSection = (props) => {
 }
 
 InterestsAddSection.label = 'Add Interests'
-InterestsAddSection.initialValues = { interests: [] }
+InterestsAddSection.initialValues = { interestIds: [] }

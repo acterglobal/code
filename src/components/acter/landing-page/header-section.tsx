@@ -70,10 +70,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   return (
     <Box className={classes.bannerSection}>
       <Image
-        loader={() =>
-          `https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`
-        }
-        src={'/acter-logo-144.png'}
+        src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
         alt="Acter Logo"
         layout="intrinsic"
         height={400}

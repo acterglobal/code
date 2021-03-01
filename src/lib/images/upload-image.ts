@@ -26,7 +26,7 @@ export const uploadImage = async (
   const res = await axios.get(
     `/api/upload-url?contentType=${file.type}&fileName=${fileName}`
   )
-  const imgSaveResp = await axios.put(res.data, file, {
+  await axios.put(res.data, file, {
     headers: {
       'Content-type': file.type,
       'x-amz-acl': 'public-read',

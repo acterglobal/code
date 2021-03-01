@@ -2,14 +2,16 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { BasicInformation } from 'src/components/acter/basic-info'
-import { ImageUploadSection } from 'src/components/acter/image-upload-section'
-import { InterestsAddSection } from 'src/components/acter/interests-add-section'
+import { BasicInformation } from 'src/components/acter/form/basic-info'
+import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
+import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
+
+import { ActerType, InterestType } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    width: 500,
-    height: 500,
+    minWidth: 500,
+    minHeight: 500,
     border: '1px solid gray',
     padding: 20,
   },
@@ -31,14 +33,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
-const getStepContent = (step: number, setFieldValue: any) => {
+const getStepContent = (
+  step: number,
+  interestTypes: InterestType[],
+  setFieldValue: any
+) => {
   switch (step) {
     case 0:
       return <BasicInformation />
     case 1:
       return <ImageUploadSection setFieldValue={setFieldValue} />
     case 2:
-      return <InterestsAddSection setFieldValue={setFieldValue} />
+      return (
+        <InterestsAddSection
+          interestTypes={interestTypes}
+          setFieldValue={setFieldValue}
+        />
+      )
   }
 }
 
@@ -46,8 +57,18 @@ export interface FormikSetFieldType {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
 }
 
+export interface ActerFormProps {
+  acterType: ActerType
+  interestTypes: InterestType[]
+  onSubmit: (any) => any
+}
+
 // TODO: Add typing
-export const Wizard = () => {
+export const ActerForm: FC<ActerFormProps> = ({
+  acterType,
+  interestTypes,
+  onSubmit,
+}) => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length - 1
@@ -56,13 +77,15 @@ export const Wizard = () => {
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
-  const onSubmit = (values, formikBag) => {
+  const onStepSubmit = (values, formikBag) => {
     const { setSubmitting } = formikBag
     if (!isLastStep()) {
       setSubmitting(false)
       handleNext()
       return
     }
+    // TODO: Final validation
+    onSubmit(values)
   }
 
   const initialValues = steps.reduce(
@@ -70,20 +93,22 @@ export const Wizard = () => {
       ...values,
       ...initialValues,
     }),
-    {}
+    {
+      acterTypeId: acterType.id,
+    }
   )
 
   // TODO: Add validation
-  const ActiveStep = steps[activeStep]
+  // const ActiveStep = steps[activeStep]
   // const validationSchema = ActiveStep.validationSchema
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={onStepSubmit}
       // validationSchema={validationSchema}
     >
-      {({ isSubmitting, touched, setFieldValue }) => (
+      {({ isSubmitting, setFieldValue }) => (
         <Box className={classes.container}>
           <Form>
             <Stepper alternativeLabel activeStep={activeStep}>
@@ -95,7 +120,7 @@ export const Wizard = () => {
             </Stepper>
 
             <Box className={classes.fields}>
-              {getStepContent(activeStep, setFieldValue)}
+              {getStepContent(activeStep, interestTypes, setFieldValue)}
             </Box>
 
             <Box className={classes.btnsContainer}>

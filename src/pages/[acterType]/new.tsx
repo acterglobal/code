@@ -16,10 +16,11 @@ import {
   getUserProfile,
   getActerTypes,
   setActerType,
+  getInterests,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType, User } from '@generated/type-graphql'
+import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
 import MUTATE_ACTER_UPDATE from 'graphql/mutations/mutate-update-acter.graphql'
@@ -65,10 +66,9 @@ export const _handleSubmit = (
       acterTypeId: acterType.id,
     },
   })
-  let acter: Acter = createRes.data.createActer
+  const acter: Acter = createRes.data.createActer
 
   // Upload images
-  let { avatar, banner } = data
   const folder = `acter/${md5(acter.id)}`
   await Promise.all(
     ['avatar', 'banner'].map(async (fileName) => {
@@ -108,12 +108,17 @@ interface NewActerPageProps {
    */
   acterType: ActerType
   /**
+   * List of interests grouped by Interest Type
+   */
+  interestTypes: InterestType[]
+  /**
    * The logged in user
    */
   user?: User
 }
 export const NewActerPage: NextPage<NewActerPageProps> = ({
   acterType,
+  interestTypes,
   user,
 }) => {
   const router: NextRouter = useRouter()
@@ -131,10 +136,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       </Head>
       <main>
         <ActerForm
-          acter={blankActer}
           acterType={acterType}
-          loading={createOut.loading || updateOut.loading}
-          error={createOut.error?.message && updateOut.error?.message}
+          interestTypes={interestTypes}
           onSubmit={_handleSubmit(createActer, updateActer, acterType)}
         />
       </main>
@@ -143,6 +146,13 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getToken, getUserProfile, getActerTypes, setActerType)
+  composeProps(
+    ctx,
+    getToken,
+    getUserProfile,
+    getActerTypes,
+    setActerType,
+    getInterests
+  )
 
 export default NewActerPage

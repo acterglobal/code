@@ -6,7 +6,7 @@ import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginImageEdit from 'filepond-plugin-image-edit'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
-import { ImageCropper } from 'src/components/acter/cropper-editor'
+import { ImageCropper } from 'src/components/image-upload/cropper-editor'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
@@ -40,17 +40,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface ImageUploadProps {
   imageType: string
   setImageToFormField: any
+  aspectRatio?: number
 }
 
-export const ImageUpload: FC<ImageUploadProps> = (props) => {
-  const { imageType, setImageToFormField } = props
+export const ImageUpload: FC<ImageUploadProps> = ({
+  imageType,
+  setImageToFormField,
+  aspectRatio = 1,
+}) => {
   const classes = useStyles()
   const pond: RefObject<FilePond> = createRef()
 
   const [image, setImage] = useState(null)
   const [showEditor, setShowEditor] = useState(false)
-  const [showUploadButton, setShowUploadButton] = useState(false)
-  const [uploadMessage, setUploadMessage] = useState('')
 
   const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg']
 
@@ -84,11 +86,10 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
   })
 
   const handleImageCrop = (cropData, imagefile) => {
-    const { center, cropAreaRatio, zoom } = cropData
+    const { center } = cropData
     pond.current.addFile(imagefile)
     setImage(imagefile)
     setShowEditor(false)
-    setShowUploadButton(true)
 
     editor.onconfirm({
       data: {
@@ -103,27 +104,21 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
           },
           zoom: 1,
           rotation: 0,
-          aspectRatio: cropAreaRatio,
+          aspectRatio: aspectRatio,
         },
       },
     })
   }
 
   const handleImageUpload = () => {
-    setImageToFormField(`${imageType}Image`, pond.current.getFile())
-    setShowUploadButton(false)
-    setUploadMessage('Image added.')
+    setImageToFormField(`${imageType}`, pond.current.getFile().file)
   }
 
   return (
     <div className={classes.container}>
       <FilePond
         ref={pond}
-        onaddfile={(error, file) => {
-          if (!error) {
-            onFile(file.file)
-          }
-        }}
+        onaddfile={handleImageUpload}
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
@@ -139,28 +134,9 @@ export const ImageUpload: FC<ImageUploadProps> = (props) => {
       {showEditor && (
         <ImageCropper
           image={image}
-          aspectRatio={imageType === 'banner' ? 24 / 5 : 1 / 1}
+          aspectRatio={aspectRatio}
           handleCrop={handleImageCrop}
         />
-      ) : showUploadButton ? (
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          endIcon={<UploadIcon />}
-          onClick={handleImageUpload}
-        >
-          Upload
-        </Button>
-      ) : (
-        <Typography
-          style={{ textAlign: 'center' }}
-          variant="caption"
-          display="block"
-          gutterBottom
-        >
-          {uploadMessage}
-        </Typography>
       )}
     </div>
   )

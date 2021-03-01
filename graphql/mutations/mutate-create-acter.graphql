@@ -1,12 +1,18 @@
 mutation CreateActer(
   $name: String!
   $description: String
+  $location: String
+  $url: String
   $acterTypeId: String!
+  $interestIds: [String!]!
 ) {
   createActer(
     name: $name
     description: $description
+    location: $location
+    url: $url
     acterTypeId: $acterTypeId
+    interestIds: $interestIds
   ) {
     id
     name

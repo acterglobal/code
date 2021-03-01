@@ -1,0 +1,11 @@
+query queryAllInterestsByType {
+  interestTypes {
+    id
+    name
+    parentInterestTypeId
+    Interests {
+      id
+      name
+    }
+  }
+}
