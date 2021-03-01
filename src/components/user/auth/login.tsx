@@ -3,8 +3,8 @@ import { Box, Link, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { Formik, Form, FormikHelpers } from 'formik'
-import { InputField } from 'src/components/user/signup/input-field'
-import { SignupButton } from 'src/components/user/signup/signup-button'
+import { InputField } from 'src/components/user/auth/input-field'
+import { Button } from 'src/components/user/auth/button'
 import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,20 +35,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const validationSchema = Yup.object({
-  fullName: Yup.string()
-    .min(2, '* Name should be minimum 2 charecters')
-    .required('* Please enter the name'),
   email: Yup.string()
     .email('* Please enter valid email')
     .required('* Please enter email'),
-  password: Yup.string()
-    .min(5, '* Password should be minimum 5 charecters')
-    .required('* Please enter the password'),
+  password: Yup.string().required('* Please enter the password'),
 })
 
-export const Signup: FC = () => {
+export const Login: FC = () => {
   const classes = useStyles()
-  const initialValues = { fullName: '', email: '', password: '' }
+  const initialValues = { email: '', password: '' }
 
   const handleSubmit = (values, { setSubmitting }) => {
     setTimeout(() => {
@@ -67,8 +62,8 @@ export const Signup: FC = () => {
   return (
     <Box maxWidth="sm" className={classes.container}>
       <Box>
-        <Typography className={classes.heading} variant="h4">
-          Welcome!
+        <Typography className={classes.heading} variant="h6">
+          Login
         </Typography>
       </Box>
 
@@ -80,40 +75,39 @@ export const Signup: FC = () => {
         {(props) => (
           <Form>
             <Box className={classes.fieldsContainer} m={4}>
-              <InputField label="Full Name" name="fullName" />
               <InputField label="Email" name="email" />
               <InputField label="Password" name="password" type="password" />
 
-              <SignupButton label="Signup" hadleClick={props.submitForm} />
+              <Button label="Login" hadleClick={props.submitForm} />
             </Box>
           </Form>
         )}
       </Formik>
       <Box className={classes.socialButtonsContainer}>
-        <SignupButton
-          label="Continue with LinkedIn"
+        <Button
+          label="Login with LinkedIn"
           socailSignupType={true}
           hadleClick={handleSocialLogin}
         />
-        <SignupButton
-          label="Continue with Google"
+        <Button
+          label="Login with Google"
           socailSignupType={true}
           hadleClick={handleSocialLogin}
         />
-        <SignupButton
-          label="Continue with Facebook"
+        <Button
+          label="Login with Facebook"
           socailSignupType={true}
           hadleClick={handleSocialLogin}
         />
         <Typography variant="body2" style={{ color: grey[600] }}>
-          Already have an account?
+          Are you new member?
           <Link
             className={classes.loginLink}
             component="button"
             variant="body2"
             onClick={handleLoginLink}
           >
-            Login
+            Create account
           </Link>
         </Typography>
       </Box>

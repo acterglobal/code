@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button } from '@material-ui/core'
+import { Button as MuiButton } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 
@@ -19,23 +19,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface SignupButtonProps {
+export interface ButtonProps {
   label: string
   socailSignupType?: boolean
   hadleClick: () => void
 }
 
-export const SignupButton: FC<SignupButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = (props) => {
   const classes = useStyles()
   const { label, hadleClick, socailSignupType } = props
 
   return (
-    <Button
+    <MuiButton
       className={socailSignupType ? classes.socialTypeButton : classes.button}
       variant="contained"
       onClick={hadleClick}
     >
       {label}
-    </Button>
+    </MuiButton>
   )
 }
