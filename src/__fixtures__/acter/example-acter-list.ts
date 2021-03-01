@@ -1,9 +1,11 @@
 import { v4 } from 'uuid'
 import { Acter } from '@generated/type-graphql'
-import { ExampleActer } from 'src/__fixtures__/acter/example-acter'
-import { GroupActerType } from 'src/__fixtures__/acter-type/group'
-import { NetworkActerType } from 'src/__fixtures__/acter-type/network'
-import { OrganizationActerType } from 'src/__fixtures__/acter-type/organization'
+import {
+  ExampleActer,
+  GroupActerType,
+  NetworkActerType,
+  OrganizationActerType,
+} from 'src/__fixtures__'
 
 export const ExampleActerList: Acter[] = [
   {

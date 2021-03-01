@@ -1,7 +1,9 @@
 import { Acter } from '@generated/type-graphql'
-import { OrganizationActerType } from 'src/__fixtures__/acter-type/organization'
-import { UserActerType } from 'src/__fixtures__/acter-type/user'
-import { ExampleUser } from '__fixtures__'
+import {
+  ExampleUser,
+  OrganizationActerType,
+  UserActerType,
+} from 'src/__fixtures__'
 
 export const ExampleActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',

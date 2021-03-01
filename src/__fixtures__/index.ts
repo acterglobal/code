@@ -1,16 +1,13 @@
-export { ExampleApproach } from 'src/__fixtures__/interest/example-approach'
-export { ExampleInterestType } from 'src/__fixtures__/interest/example-interest-type'
+export * from './interest/interests'
+export * from './interest/example-interest-type'
+export * from './interest/example-approach'
+export * from './interest/example-interest-type'
 
-export { Interests } from 'src/__fixtures__/interest/interests'
+import { GroupActerType } from './acter-type/group'
+import { NetworkActerType } from './acter-type/network'
+import { OrganizationActerType } from './acter-type/organization'
+import { UserActerType } from './acter-type/user'
 
-export { ExampleUser } from 'src/__fixtures__/user/example-user'
-export { ExampleActer } from 'src/__fixtures__/acter/example-acter'
-export { ExampleActerList } from 'src/__fixtures__/acter/example-acter-list'
-
-import { GroupActerType } from 'src/__fixtures__/acter-type/group'
-import { NetworkActerType } from 'src/__fixtures__/acter-type/network'
-import { OrganizationActerType } from 'src/__fixtures__/acter-type/organization'
-import { UserActerType } from 'src/__fixtures__/acter-type/user'
 export {
   GroupActerType,
   NetworkActerType,
@@ -23,3 +20,7 @@ export const ActerTypes = [
   OrganizationActerType,
   UserActerType,
 ]
+
+export * from './user/example-user'
+export * from './acter/example-acter'
+export * from './acter/example-acter-list'
