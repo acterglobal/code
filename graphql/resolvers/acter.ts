@@ -80,7 +80,7 @@ export class ActerResolver {
             },
           ],
         },
-        ActerInterest: {
+        ActerInterests: {
           create: interestIds.map((interestId) => ({
             interestId,
             createdByUserId,
