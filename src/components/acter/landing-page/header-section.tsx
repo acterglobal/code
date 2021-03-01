@@ -13,40 +13,33 @@ import { Acter } from '@generated/type-graphql'
 const Typography = withStyles(() =>
   createStyles({
     h4: {
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
     },
   })
 )(MUIT)
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
-  bannerSection: {
-    position: 'relative',
-  },
+  bannerSection: {},
   infoSection: {
     display: 'flex',
-    // backgroundColor: 'blue',
     height: '80px',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   avatarImage: {
-    position: 'absolute',
-    border: '2',
+    borderRadius: 16,
     borderColor: theme.palette.primary.main,
-    cursor: 'pointer',
     backgroundColor: 'white',
     marginLeft: '40px',
-    top: '15vw',
+    marginTop: -85,
+    zIndex: 99,
   },
 
   info: {
-    margin: '0px',
-    marginLeft: '190px',
+    marginLeft: theme.spacing(2),
   },
   title: {
-    fontSize: '1.4rem',
+    fontWeight: 'bold',
   },
   location: {
     color: theme.palette.secondary.dark,
@@ -56,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100px',
     backgroundColor: theme.palette.primary.main,
     color: 'white',
-    marginRight: '40px',
+    marginRight: theme.spacing(2),
     textTransform: 'none',
   },
 }))
@@ -77,18 +70,18 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         width={1920}
       />
       <Box className={classes.infoSection}>
-        <Box className={classes.avatarImage} border={2} borderRadius={16}>
+        <Box className={classes.avatarImage} border={2}>
           <Image
             src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.avatarUrl}`}
             alt="Acter Logo"
-            layout="intrinsic"
+            layout="fixed"
             height={130}
             width={130}
           />
         </Box>
 
         <Box className={classes.info}>
-          <Typography role="acter-name" variant="h4" className={classes.title}>
+          <Typography role="acter-name" variant="h5" className={classes.title}>
             {acter.name}
           </Typography>
           <Typography
@@ -99,7 +92,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
             {acter.location}
           </Typography>
         </Box>
-        <Box>
+        <Box style={{ marginLeft: 'auto' }}>
           <Button
             className={classes.joinBtn}
             variant="contained"
