@@ -2,6 +2,8 @@ import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from 'src/components/acter/form'
 
+import { ExampleActer } from 'src/__fixtures__'
+
 import {
   GroupActerType,
   NetworkActerType,
@@ -13,6 +15,9 @@ export default {
   component: ActerForm,
   argTypes: {
     onSubmit: { action: 'form submit' },
+  },
+  args: {
+    acter: ExampleActer,
   },
 } as Meta
 

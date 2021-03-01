@@ -70,8 +70,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   return (
     <Box className={classes.bannerSection}>
       <Image
-        loader={() => acter.bannerUrl}
-        src={'/acter-logo-144.png'}
+        src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
         alt="Acter Logo"
         layout="intrinsic"
         height={400}
@@ -80,8 +79,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2} borderRadius={16}>
           <Image
-            loader={() => acter.avatarUrl}
-            src={'/acter-logo-144.png'}
+            src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.avatarUrl}`}
             alt="Acter Logo"
             layout="intrinsic"
             height={130}
