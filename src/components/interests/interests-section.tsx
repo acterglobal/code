@@ -8,7 +8,9 @@ export interface InterestsSectionProps {
   interestTypes: InterestType[]
 }
 
-const InterestsSection: FC<InterestsSectionProps> = ({ interestTypes }) => {
+export const InterestsSection: FC<InterestsSectionProps> = ({
+  interestTypes,
+}) => {
   const topLevelTypes = getTopLevelTypes(interestTypes)
 
   return (
