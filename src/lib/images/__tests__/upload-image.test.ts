@@ -13,7 +13,10 @@ describe('uploadImage', () => {
       expect(options.headers['x-amz-acl']).toBe('public-read')
     })
     expect(async () =>
-      uploadImage({ name: 'Foo', type: 'image/jpeg' } as FileDescription)
+      uploadImage('fobar', {
+        name: 'Foo',
+        type: 'image/jpeg',
+      } as FileDescription)
     ).not.toThrow()
   })
 })
