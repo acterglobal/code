@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-// TODO: add interests
 export interface ActivityDescriptionProps {
-  description: string
+  // TODO: fix the type below
+  activity: any
 }
 
 export const ActivityDescription: FC<ActivityDescriptionProps> = ({
-  description,
+  activity,
 }) => {
   const classes = useStyles()
   return (
@@ -40,9 +40,9 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
         About
       </Typography>
       <Box className={classes.description}>
-        <Typography variant="caption">{description}</Typography>
+        <Typography variant="caption">{activity.description}</Typography>
       </Box>
-      <InterestsSection />
+      {/* <InterestsSection interestTypes={activity.interests} /> */}
     </Box>
   )
 }

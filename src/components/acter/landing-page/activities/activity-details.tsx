@@ -47,7 +47,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ activity }) => {
 
         <ActivityInfo activity={activity} />
         <Box style={{ display: 'flex' }}>
-          <ActivityDescription description={activity.description} />
+          <ActivityDescription activity={activity} />
           <Box style={{ margin: 10, width: '330px' }}>
             <Participates />
             <Organiser />
