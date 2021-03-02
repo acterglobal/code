@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import InfoSection from '../info-section'
+import { InfoSection } from 'src/components/acter/landing-page/info-section'
 
 export default {
   title: 'landingpage/MetaSection',

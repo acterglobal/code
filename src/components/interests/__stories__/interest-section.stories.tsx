@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/react'
-import InterestsSection from 'src/components/interests/interests-section'
-
+import { InterestsSection } from 'src/components/interests/interests-section'
 import { Interests } from 'src/__fixtures__'
 
 export default {

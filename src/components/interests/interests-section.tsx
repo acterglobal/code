@@ -2,14 +2,15 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-
 import { InterestType } from '@generated/type-graphql'
 
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
 }
 
-const InterestsSection: FC<InterestsSectionProps> = ({ interestTypes }) => {
+export const InterestsSection: FC<InterestsSectionProps> = ({
+  interestTypes,
+}) => {
   const topLevelTypes = getTopLevelTypes(interestTypes)
 
   return (
@@ -25,5 +26,3 @@ const InterestsSection: FC<InterestsSectionProps> = ({ interestTypes }) => {
     </Box>
   )
 }
-
-export default InterestsSection

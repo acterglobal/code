@@ -1,4 +1,4 @@
-import InterestsSection from 'src/components/interests/interests-section'
+import { InterestsSection } from 'src/components/interests/interests-section'
 import { render, screen } from '@testing-library/react'
 
 import { Interests } from 'src/__fixtures__'

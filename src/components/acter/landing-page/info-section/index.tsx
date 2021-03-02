@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Card, CardContent } from '@material-ui/core'
 import Header from 'src/components/acter/landing-page/info-section/header'
-import PeopleSection from 'src/components/acter/landing-page/info-section/people'
-import Organzations from 'src/components/acter/landing-page/info-section/organizations'
+import { People as PeopleSection } from 'src/components/acter/landing-page/info-section/people'
+import { Organizations } from 'src/components/acter/landing-page/info-section/organizations'
 
 import { Acter } from '@generated/type-graphql'
 interface InfoSectionProps {
@@ -16,10 +16,8 @@ export const InfoSection: FC<InfoSectionProps> = ({ acter }) => {
         <Header title={acter.name} description={acter.description} />
         {/* <InterestsSection /> */}
         <PeopleSection numOfPeople={20} imageURL={[]} />
-        <Organzations imageURL={[]} />
+        <Organizations imageURL={[]} />
       </CardContent>
     </Card>
   )
 }
-
-export default InfoSection
