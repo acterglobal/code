@@ -11,4 +11,7 @@ module.exports = withPlugins([withGraphql], {
       return config
     },
   },
+  images: {
+    domains: ['acter.ams3.cdn.digitaloceanspaces.com'],
+  },
 })

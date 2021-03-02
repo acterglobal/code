@@ -1,8 +1,11 @@
 query acterByActerTypeSlug($acterTypeId: String!, $slug: String!) {
   getActer(acterTypeId: $acterTypeId, slug: $slug) {
     name
+    description
     slug
     location
     url
+    avatarUrl
+    bannerUrl
   }
 }

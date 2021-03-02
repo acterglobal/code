@@ -63,7 +63,7 @@ model Acter {
 
   User User?
 
-  ActerInterest ActerInterest[]
+  ActerInterests ActerInterest[]
 
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
@@ -134,7 +134,7 @@ model Interest {
   interestType   InterestType @relation(fields: [interestTypeId], references: [id])
   interestTypeId String       @map("interest_type_id")
 
-  ActerInterest ActerInterest[]
+  InterestActers ActerInterest[]
 
   @@unique(name: "nameUniqueForInterestType", fields: [interestTypeId, name])
   @@map("interests")
