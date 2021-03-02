@@ -102,6 +102,8 @@ const sendVerificationRequest = ({
         .send(mailObj)
         .then(() => console.log('Email sent'))
         .catch((error) => {
+          console.error(error)
+
           logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
           reject(new Error('SEND_VERIFICATION_EMAIL_ERROR' + error))
         })
