@@ -57,10 +57,7 @@ export const SideBar: FC<SideBarProps> = ({ width }) => {
           </IconButton>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <IconButton
-            color="inherit"
-            onClick={() => router.push('/organizations/new')}
-          >
+          <IconButton color="inherit" onClick={() => router.push('/acter/new')}>
             <AddIcon fontSize="large" />
           </IconButton>
         </ListItem>

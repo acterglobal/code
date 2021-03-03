@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
+    cursor: 'pointer',
   },
   title: {
     marginLeft: 20,
@@ -35,40 +36,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface ActerTypeProps {
   acterType: string
+  onClick: (acterType: string) => any
 }
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-32.png`
-}
-
-export const ActerType: FC<ActerTypeProps> = ({ acterType }) => {
+export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {
   const classes = useStyles()
+  //TODO: read this from DB
   const caption =
-    acterType === 'organisation'
+    acterType === 'organization'
       ? `Eg: NGO's, Movements, Companies, Public organisations`
       : `Eg: Network, Platforms, Clusters`
 
-  const handleClick = () => {
-    console.log('Clicked')
-  }
-
   return (
-    <div className={classes.container}>
-      {
-        // TODO: fix the next/image below
-        /* <Image
-        loader={myLoader}
-        src="acter-logo-32.png"
-        alt="organisation"
-        width={20}
-        height={20}
-      /> */
-      }
-      <img
-        src={`/${acterType}-logo.webp`}
-        height={45}
-        style={{ marginLeft: 20 }}
-      />
+    <Box className={classes.container} onClick={() => onClick(acterType)}>
+      <Box style={{ marginLeft: 20 }}>
+        <Image
+          src={`https://acter.ams3.cdn.digitaloceanspaces.com/assets/${acterType}-logo.png`}
+          width={45}
+          height={45}
+        />
+      </Box>
       <Box>
         <Typography className={classes.title} variant="h6">
           Create {acterType}
@@ -77,11 +64,7 @@ export const ActerType: FC<ActerTypeProps> = ({ acterType }) => {
           {caption}
         </Typography>
       </Box>
-      <KeyboardArrowRightRounded
-        fontSize="inherit"
-        className={classes.icon}
-        onClick={handleClick}
-      />
-    </div>
+      <KeyboardArrowRightRounded fontSize="inherit" className={classes.icon} />
+    </Box>
   )
 }

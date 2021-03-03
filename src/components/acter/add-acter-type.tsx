@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const AddActerType: FC = () => {
+export interface AddActerTypeProps {
+  onClick: (acterType: string) => any
+}
+
+export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
   const classes = useStyles()
   return (
     <Modal>
@@ -32,13 +36,13 @@ export const AddActerType: FC = () => {
         </Typography>
         <Box className={classes.caption}>
           <Typography variant="caption">
-            Create an organisation or network on Acter to start coordinating or
+            Create an organization or network on Acter to start coordinating or
             collaborating.
           </Typography>
         </Box>
         <Box>
-          <ActerType acterType="organisation" />
-          <ActerType acterType="network" />
+          <ActerType acterType="organization" onClick={onClick} />
+          <ActerType acterType="network" onClick={onClick} />
         </Box>
       </Box>
     </Modal>
