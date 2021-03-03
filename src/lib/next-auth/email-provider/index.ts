@@ -75,44 +75,41 @@ export default (options: ProviderEmailOptions) => {
   }
 }
 
-const sendVerificationRequest = ({
+const sendVerificationRequest = async ({
   identifier: email,
   url,
   baseUrl,
   provider,
 }) => {
-  return new Promise<void>((resolve, reject): void => {
-    const { server, from } = provider
-    // Strip protocol from URL and use domain as site name
-    const site = baseUrl.replace(/^https?:\/\//, '')
+  const { server, from } = provider
+  // Strip protocol from URL and use domain as site name
+  const site = baseUrl.replace(/^https?:\/\//, '')
 
-    console.log('NextAuth Email Provider request: ', email)
-    const mailObj = {
-      to: email,
-      from,
-      subject: `Sign in to ${site}`,
-      text: text({ url, site }),
-      html: html({ url, site, email }),
-    }
+  const mailObj = {
+    to: email,
+    from,
+    subject: `Sign in to ${site}`,
+    text: text({ url, site }),
+    html: html({ url, site, email }),
+  }
 
-    //TODO: refactor this into its own lib\
-    if (process.env.NODE_ENV === 'production') {
+  //TODO: refactor this into its own lib\
+  if (process.env.NODE_ENV === 'production') {
+    try {
       sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-      sendgrid
-        .send(mailObj)
-        .then(() => console.log('Email sent'))
-        .catch((error) => {
-          logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
-          reject(new Error('SEND_VERIFICATION_EMAIL_ERROR' + error))
-        })
-    } else {
-      nodemailer.createTransport(server).sendMail(mailObj, (error) => {
-        if (error) {
-          logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
-          return reject(new Error('SEND_VERIFICATION_EMAIL_ERROR' + error))
-        }
-        return resolve()
-      })
+      await sendgrid.send(mailObj)
+      logger.debug('SEND_VERIFICATION_EMAIL_SUCCESS')
+      return
+    } catch (err) {
+      logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, err)
+      throw err
+    }
+  }
+
+  nodemailer.createTransport(server).sendMail(mailObj, (error) => {
+    if (error) {
+      logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
+      throw 'SEND_VERIFICATION_EMAIL_ERROR' + error
     }
   })
 }
