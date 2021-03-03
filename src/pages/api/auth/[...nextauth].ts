@@ -41,6 +41,7 @@ const options: InitOptions = {
             Acter: {
               create: {
                 acterTypeId: userActerType.id,
+                createdByUserId: user.id,
               },
             },
           },
