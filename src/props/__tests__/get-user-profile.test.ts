@@ -19,7 +19,7 @@ const tokenUser = {
 
 describe('getUserProfile', () => {
   const callGetServerSideProps = async (props = {}) => {
-    return await getUserProfile({
+    return await getUserProfile(true)({
       //@ts-ignore
       req: {},
       //@ts-ignore

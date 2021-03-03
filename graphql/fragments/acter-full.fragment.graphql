@@ -1,0 +1,21 @@
+#import "./acter-dislapy.fragment.graphql"
+
+fragment ActerFull on Acter {
+  ...ActerDisplay
+  Following {
+    Following {
+      ...ActerDisplay
+    }
+  }
+  ActerInterests {
+    Interest {
+      id
+      name
+      InterestType {
+        id
+        name
+        parentInterestTypeId
+      }
+    }
+  }
+}

@@ -1,25 +1,36 @@
 import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { ComposedGetServerSideProps } from 'lib/compose-props'
+import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
-import QUERY_PROFILE_BY_EMAIL from 'graphql/queries/query-profile-by-email.graphql'
+import QUERY_PROFILE_BY_ID from 'graphql/queries/query-profile-by-id.graphql'
 
-export const getUserProfile: ComposedGetServerSideProps = async (ctx) => {
+export const getUserProfile = (
+  requireUser = true
+): ComposedGetServerSideProps => async ({ req }) => {
   const apollo = initializeApollo()
 
-  if (!ctx.props?.tokenUser?.email) {
+  const tokenUser = await getTokenUser(req)
+
+  if (!tokenUser) {
+    if (requireUser) {
+      return {
+        props: {},
+        redirect: {
+          destination: '/',
+        },
+      }
+    }
+
     return {
       props: {},
-      redirect: {
-        destination: '/',
-      },
     }
   }
 
   const { loading, error, data } = await apollo.query({
-    query: QUERY_PROFILE_BY_EMAIL,
-    variables: { email: ctx.props?.tokenUser?.email },
+    query: QUERY_PROFILE_BY_ID,
+    variables: { id: tokenUser.id },
   })
 
   if (loading) {

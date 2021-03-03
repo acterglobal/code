@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { TopBar } from 'src/components/layout/top-bar'
-import { SideBar } from 'src/components/layout/side-bar'
+import { Sidebar } from 'src/components/layout/side-bar'
 
 import { User } from '@generated/type-graphql'
 
@@ -25,21 +25,21 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export interface LayoutProps {
-  loggedInUser?: User
+  user?: User
   children: any
 }
 
-export const Layout: FC<LayoutProps> = ({ loggedInUser, children }) => {
+export const Layout: FC<LayoutProps> = ({ user, children }) => {
   const classes = useStyles()
 
   return (
     <>
-      <TopBar user={loggedInUser} />
-      {loggedInUser && <SideBar width={sidebarWidth} />}
+      <TopBar user={user} />
+      {user && <Sidebar user={user} width={sidebarWidth} />}
       <Container
         className={clsx(
           classes.container,
-          loggedInUser && classes.containerWithSidebar
+          user && classes.containerWithSidebar
         )}
       >
         {children}

@@ -1,5 +1,6 @@
-import { NextPage, GetServerSideProps } from 'next'
-import { getTokenUser } from 'src/lib/next-auth/jwt'
+import { NextPage } from 'next'
+import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { getUserProfile } from 'src/props'
 
 import Head from 'next/head'
 
@@ -12,7 +13,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ user }) => (
-  <Layout loggedInUser={user}>
+  <Layout user={user}>
     <Head>
       <title>Acter</title>
       <link rel="icon" href="/favicon.ico" />
@@ -29,14 +30,7 @@ const Home: NextPage<HomeProps> = ({ user }) => (
   </Layout>
 )
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const user = await getTokenUser(req)
-
-  return {
-    props: {
-      user,
-    },
-  }
-}
+// export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+//   composeProps(ctx, getUserProfile(false))
 
 export default Home

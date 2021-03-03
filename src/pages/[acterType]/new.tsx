@@ -12,7 +12,6 @@ import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 
 import {
-  getToken,
   getUserProfile,
   getActerTypes,
   setActerType,
@@ -131,7 +130,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   })
 
   return (
-    <Layout loggedInUser={user}>
+    <Layout user={user}>
       <Head>
         <title>New {acterType.name}</title>
       </Head>
@@ -149,8 +148,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(
     ctx,
-    getToken,
-    getUserProfile,
+    getUserProfile(true),
     getActerTypes,
     setActerType,
     getInterests

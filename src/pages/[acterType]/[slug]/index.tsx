@@ -4,7 +4,6 @@ import { NextPage } from 'next'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
 import {
-  getToken,
   getUserProfile,
   getActer,
   getActerTypes,
@@ -29,7 +28,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   user,
 }) => {
   return (
-    <Layout loggedInUser={user}>
+    <Layout user={user}>
       <Head>
         <title>{acter.name}</title>
       </Head>
@@ -39,13 +38,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getToken,
-    getUserProfile,
-    getActerTypes,
-    setActerType,
-    getActer
-  )
+  composeProps(ctx, getUserProfile(true), getActerTypes, setActerType, getActer)
 
 export default ActerLandingPage
