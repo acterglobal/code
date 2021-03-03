@@ -29,21 +29,19 @@ const options: InitOptions = {
         where: { name: 'user' },
       })
       if (!userActerType) {
-        console.error('Could not find user ActerType')
-        return
+        const err = 'Could not find user ActerType'
+        console.error(err)
+        throw err
       }
 
       try {
-        const userWithUserActer = await prisma.user.update({
+        await prisma.user.update({
           where: { id: user.id },
           data: {
             Acter: {
-              upsert: {
-                create: {
-                  acterTypeId: userActerType.id,
-                  createdByUserId: user.id,
-                },
-                update: {},
+              create: {
+                acterTypeId: userActerType.id,
+                createdByUserId: user.id,
               },
             },
           },
