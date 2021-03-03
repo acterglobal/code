@@ -1,14 +1,15 @@
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
-import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
+import { Button, Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { BasicInformation } from 'src/components/acter/form/basic-info'
-import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
-import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
-import { InterestType } from '@generated/type-graphql'
+import { Acter, InterestType } from '@generated/type-graphql'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { Modal } from 'src/components/util/modal/modal'
+import { Step1 } from 'src/components/acter/landing-page/activities/form/step1'
+import { Step2 } from 'src/components/acter/landing-page/activities/form/step2'
+import { Step3 } from 'src/components/acter/landing-page/activities/form/step3'
+import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: 50,
   },
   fields: {
-    height: 350,
+    // height: 350,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -50,23 +51,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
+const steps = [Step1, Step2, Step3]
 const getStepContent = (
   step: number,
+  acter: Acter,
   interestTypes: InterestType[],
-  setFieldValue: any
+  setFieldValue: any,
+  values: any
 ) => {
   switch (step) {
     case 1:
-      return <BasicInformation />
+      return <Step1 acter={acter} />
     case 2:
-      return <ImageUploadSection setFieldValue={setFieldValue} />
+      return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
       return (
-        <InterestsAddSection
-          interestTypes={interestTypes}
-          setFieldValue={setFieldValue}
-        />
+        <Step3 interestTypes={interestTypes} setFieldValue={setFieldValue} />
       )
   }
 }
@@ -75,18 +75,15 @@ export interface FormikSetFieldType {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
 }
 
-export interface ActerFormProps {
-  // acterType: ActerType
+export interface ActivityFormProps {
+  acter: Acter
   interestTypes: InterestType[]
   onSubmit: (any) => any
 }
 
 // TODO: Add typing
-export const AddActivity: FC<ActerFormProps> = ({
-  // acterType,
-  interestTypes,
-  onSubmit,
-}) => {
+export const AddActivity: FC<ActivityFormProps> = (props) => {
+  const { acter, interestTypes, onSubmit } = props
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(1)
   const totalSteps = steps.length
@@ -102,23 +99,29 @@ export const AddActivity: FC<ActerFormProps> = ({
       handleNext()
       return
     }
+
     // TODO: Final validation
     onSubmit(values)
   }
 
   const initialValues = {
+    organiser: '',
     name: '',
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
     description: '',
     location: '',
-    url: '',
+    meetingUrl: '',
     interestIds: [],
-    AvatarImage: null,
-    BannerImage: null,
   }
 
   // TODO: Add validation
-  // const ActiveStep = steps[activeStep]
-  // const validationSchema = ActiveStep.validationSchema
+  // const validationSchema = Yup.object().shape({
+  //   name: Yup.string().required('Please enter activity name'),
+  //   startDate: Yup.date().required('Please enter start date'),
+  // })
 
   return (
     <Modal>
@@ -127,11 +130,17 @@ export const AddActivity: FC<ActerFormProps> = ({
         onSubmit={onStepSubmit}
         // validationSchema={validationSchema}
       >
-        {({ isSubmitting, setFieldValue }) => (
+        {({ isSubmitting, setFieldValue, values }) => (
           <Box className={classes.container}>
             <Form>
               <Box className={classes.fields}>
-                {getStepContent(activeStep, interestTypes, setFieldValue)}
+                {getStepContent(
+                  activeStep,
+                  acter,
+                  interestTypes,
+                  setFieldValue,
+                  values
+                )}
               </Box>
 
               <Box className={classes.statusBars}>

@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
-import { AddActivity } from 'src/components/acter/landing-page/activities/add-activity'
-import { OrganizationActerType, Interests } from 'src/__fixtures__'
+import { AddActivity } from 'src/components/acter/landing-page/activities/form'
+import { Interests, ExampleActer } from 'src/__fixtures__'
 
 export default {
   title: 'landingpage/AddActivityForm',
@@ -9,7 +9,7 @@ export default {
 
 export const AddActivityForm: Story = () => (
   <AddActivity
-    // acterType={OrganizationActerType}
+    acter={ExampleActer}
     interestTypes={Interests.data.interestTypes}
     onSubmit={(values) => console.log(values)}
   />

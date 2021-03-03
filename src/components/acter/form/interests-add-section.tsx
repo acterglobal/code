@@ -8,7 +8,13 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     // backgroundColor: 'gray',
-    width: 500,
+    maxWidth: 450,
+  },
+  interests: {
+    display: 'flex',
+    justifyContent: 'center',
+    // backgroundColor: 'red',
+    // textAlign: 'center',
   },
 }))
 
@@ -68,7 +74,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
         {topLevelTypes.map((type, index) => (
           <Box role="tabpanel" hidden={value !== index} key={index}>
             {value === index && (
-              <Grid container spacing={3} style={{ margin: 'auto' }}>
+              <Grid container spacing={3} className={classes.interests}>
                 <InterestTypes
                   type={type}
                   allTypes={interestTypes}
