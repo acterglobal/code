@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Typography, Button } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { People } from 'src/components/acter/landing-page/info-section/people'
+import { AvatarList } from 'src/components/acter/landing-page/info-section/avatar-list'
 import { Organisations } from 'src/components/acter/landing-page/info-section/organisations'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -45,7 +45,7 @@ export const Participates: FC<ParticipatesProps> = (props) => {
         Participates
       </Typography>
       <Box className={classes.people}>
-        <People numOfPeople={12} imageURL={[]} />
+        <AvatarList numOfPeople={12} imageURL={[]} />
       </Box>
       <Box className={classes.organisations}>
         <Organisations imageURL={[]} />

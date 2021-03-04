@@ -48,7 +48,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
       alt={`${acter.ActerType.name} ${acter.name}`}
       src={acter.avatarUrl}
     >
-      {acter.avatarUrl ? '' : getInitials(acter.name)}
+      {acter.avatarUrl ? '' : getInitials(acter.name || '')}
     </Avatar>
   )
 }

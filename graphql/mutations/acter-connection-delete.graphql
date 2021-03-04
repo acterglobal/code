@@ -1,5 +1,3 @@
-#import "../fragments/acter-connection-full.fragment.graphql"
-
 mutation ActerConnectionDelete(
   $followerActerId: String!
   $followingActerId: String!
@@ -12,6 +10,6 @@ mutation ActerConnectionDelete(
       }
     }
   ) {
-    ...ActerConnectionFull
+    id
   }
 }
