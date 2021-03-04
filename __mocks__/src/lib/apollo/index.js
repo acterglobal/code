@@ -12,5 +12,8 @@ apollo.initializeApollo = function () {
     },
   }
 }
+apollo.addApolloState = function (client, props) {
+  return props
+}
 
 module.exports = apollo
