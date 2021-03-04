@@ -74,8 +74,12 @@ export const _handleSubmit = (
     ['avatar', 'banner'].map(async (fileName) => {
       //TODO: error handling for failed upload
       const file = data[fileName]
-      const img = await uploadImage(folder, file)
-      acter[`${fileName}Url`] = img
+      if (file) {
+        const img = await uploadImage(folder, file)
+        if (img) {
+          acter[`${fileName}Url`] = img
+        }
+      }
     })
   )
 
