@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Selectors } from 'src/components/acter/landing-page/memebers-section/selectors'
-import { DisplayMembers } from 'src/components/acter/landing-page/memebers-section/display-members'
+import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
+import { DisplayMembers } from 'src/components/acter/landing-page/members-section/display-members'
 import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface MembersSectionProps {
   // TODO: fix the types below
-  people: any
-  organisations: any
+  people: Acter[]
+  organisations: Acter[]
 }
 
 export const MembersSection: FC<MembersSectionProps> = (props) => {

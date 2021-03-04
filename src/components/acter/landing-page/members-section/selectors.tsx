@@ -8,7 +8,7 @@ import {
 } from '@material-ui/icons'
 import { useAutocomplete } from '@material-ui/lab'
 import clsx from 'clsx'
-import { MembersSectionProps } from 'src/components/acter/landing-page/memebers-section'
+import { MembersSectionProps } from 'src/components/acter/landing-page/members-section'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -130,7 +130,7 @@ export const Selectors: FC<SelectorProps> = (props) => {
       </Box>
 
       <Box className={classes.searchSection}>
-        <Button
+        {/* <Button
           className={clsx(
             classes.button,
             activeSelector === 'focus' && classes.active
@@ -162,7 +162,7 @@ export const Selectors: FC<SelectorProps> = (props) => {
               ))}
             </ul>
           ) : null}
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   )

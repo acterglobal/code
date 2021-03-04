@@ -90,14 +90,14 @@ export const DisplayMembers: FC<DisplayMembers> = (props) => {
                 primary={ExampleActer.name}
                 secondary={ExampleActer.ActerType.name}
               />
-              <Button
+              {/* <Button
                 className={classes.button}
                 variant="outlined"
                 disableElevation
                 onClick={() => handleViewMember(ExampleActer.id)}
               >
                 View
-              </Button>
+              </Button> */}
             </ListItem>
             <Divider
               classes={{ root: classes.divider }}
