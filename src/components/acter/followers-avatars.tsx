@@ -49,7 +49,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
         return (
           <Box key={`${title}-followers`}>
             <Typography variant="h6" className={classes.section}>
-              {title}s ({acters.length})
+              {title} ({acters.length})
             </Typography>
             <Box style={{ display: 'flex' }}>
               {acters.map((acter) => (
