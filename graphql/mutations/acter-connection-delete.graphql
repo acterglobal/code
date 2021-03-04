@@ -1,0 +1,17 @@
+#import "../fragments/acter-connection-full.fragment.graphql"
+
+mutation ActerConnectionDelete(
+  $followerActerId: String!
+  $followingActerId: String!
+) {
+  deleteActerConnection(
+    where: {
+      acter_follower_following: {
+        followingActerId: $followingActerId
+        followerActerId: $followerActerId
+      }
+    }
+  ) {
+    ...ActerConnectionFull
+  }
+}

@@ -1,0 +1,14 @@
+#import "./acter-full.fragment.graphql"
+
+fragment ActerConnectionFull on ActerConnection {
+  id
+  isApproved
+  followerActerId
+  followingActerId
+  Follower {
+    ...ActerFull
+  }
+  Following {
+    ...ActerFull
+  }
+}

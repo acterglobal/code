@@ -4,7 +4,7 @@ import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
-import QUERY_PROFILE_BY_ID from 'graphql/queries/query-profile-by-id.graphql'
+import GET_USER from 'graphql/queries/user-by-id.graphql'
 
 export const getUserProfile = (
   requireUser = true
@@ -29,7 +29,7 @@ export const getUserProfile = (
   }
 
   const { loading, error, data } = await apollo.query({
-    query: QUERY_PROFILE_BY_ID,
+    query: GET_USER,
     variables: { id: tokenUser.id },
   })
 

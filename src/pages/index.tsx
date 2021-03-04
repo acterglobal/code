@@ -1,8 +1,7 @@
 import { NextPage } from 'next'
+import Head from 'next/head'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'
-
-import Head from 'next/head'
 
 import { Layout } from 'src/components/layout'
 
@@ -30,7 +29,7 @@ const Home: NextPage<HomeProps> = ({ user }) => (
   </Layout>
 )
 
-// export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-//   composeProps(ctx, getUserProfile(false))
+export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+  composeProps(ctx, getUserProfile(false))
 
 export default Home

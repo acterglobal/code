@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser } from 'src/__fixtures__'
 import { HeaderSection } from 'src/components/acter/landing-page/header-section'
 
 describe('[Header Section]', () => {
   it('should render the header section component with correct content', () => {
-    render(<HeaderSection acter={ExampleActer} />)
+    render(<HeaderSection acter={ExampleActer} user={ExampleUser} />)
     expect(screen.getByRole('acter-name')).toHaveTextContent(
       'Greenlight Aarhus'
     )

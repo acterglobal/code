@@ -1,0 +1,14 @@
+#import "../fragments/acter-dislapy.fragment.graphql"
+
+query ActerBySlug($acterTypeId: String!, $slug: String!) {
+  getActer(acterTypeId: $acterTypeId, slug: $slug) {
+    ...ActerDisplay
+    createdByUserId
+    Followers {
+      id
+      Follower {
+        ...ActerDisplay
+      }
+    }
+  }
+}

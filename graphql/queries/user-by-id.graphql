@@ -1,6 +1,6 @@
 #import "../fragments/acter-full.fragment.graphql"
 
-query queryProfileById($id: String!) {
+query UserById($id: String!) {
   user(where: { id: $id }) {
     id
     name

@@ -72,7 +72,7 @@ export class ActerResolver {
         acterTypeId,
         updatedAt: new Date(),
         createdByUserId,
-        followers: {
+        Followers: {
           create: [
             {
               followerActerId: currentUser.Acter.id,

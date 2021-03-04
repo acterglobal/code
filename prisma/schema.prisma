@@ -83,6 +83,7 @@ model ActerConnection {
   Following        Acter  @relation("following", fields: [followingActerId], references: [id])
   followingActerId String @map("following_acter_id")
 
+  @@unique(name: "acter_follower_following", fields: [followerActerId, followingActerId])
   @@map("acter_connections")
 }
 

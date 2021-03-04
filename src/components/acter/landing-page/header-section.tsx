@@ -1,8 +1,12 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography, Button } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
-import { Acter } from '@generated/type-graphql'
+import {
+  MembershipButton,
+  MembershipButtonProps,
+} from 'src/components/acter/landing-page/membership-button'
+import { Acter, User } from '@generated/type-graphql'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -40,11 +44,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface HeaderSectionProps {
-  acter: Acter
-}
+export type HeaderSectionProps = MembershipButtonProps
 
-export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
+export const HeaderSection: FC<HeaderSectionProps> = ({
+  acter,
+  user,
+  onJoin,
+  onLeave,
+}) => {
   const classes = useStyles()
   return (
     <Box className={classes.bannerSection}>
@@ -79,15 +86,12 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
           </Typography>
         </Box>
         <Box style={{ marginLeft: 'auto' }}>
-          <Button
-            className={classes.joinBtn}
-            variant="contained"
-            size="medium"
-            disableElevation
-            onClick={() => console.log('join button clicked')}
-          >
-            Join
-          </Button>
+          <MembershipButton
+            acter={acter}
+            user={user}
+            onJoin={onJoin}
+            onLeave={onLeave}
+          />
         </Box>
       </Box>
     </Box>

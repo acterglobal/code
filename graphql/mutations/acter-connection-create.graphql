@@ -1,0 +1,17 @@
+#import "../fragments/acter-connection-full.fragment.graphql"
+
+mutation ActerConnectionCreate(
+  $createdByUserId: String!
+  $followerActerId: String!
+  $followingActerId: String!
+) {
+  createActerConnection(
+    data: {
+      CreatedByUser: { connect: { id: $createdByUserId } }
+      Follower: { connect: { id: $followerActerId } }
+      Following: { connect: { id: $followingActerId } }
+    }
+  ) {
+    ...ActerConnectionFull
+  }
+}
