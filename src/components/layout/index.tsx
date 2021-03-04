@@ -35,7 +35,7 @@ export const Layout: FC<LayoutProps> = ({ user, children }) => {
   return (
     <>
       <TopBar user={user} />
-      {user && <Sidebar user={user} width={sidebarWidth} />}
+      {user && <Sidebar width={sidebarWidth} />}
       <Container
         className={clsx(
           classes.container,

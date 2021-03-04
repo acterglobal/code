@@ -31,17 +31,17 @@ const getActerTypeTitle = (acterType: ActerType) => {
 export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
   const classes = useStyles()
 
-  const users = acter.Followers.filter(
+  const users = acter.Followers?.filter(
     ({ Follower }) => Follower.ActerType.name === 'user'
   ).map(({ Follower }) => Follower)
-  const organizations = acter.Followers.filter(
-    ({ Follower }) => Follower.ActerType.name === 'organization'
+  const organisations = acter.Followers?.filter(
+    ({ Follower }) => Follower.ActerType.name === 'organisation'
   ).map(({ Follower }) => Follower)
 
   return (
     <>
-      {[users, organizations].map((acters) => {
-        if (acters.length <= 0) {
+      {[users, organisations].map((acters) => {
+        if (!acters?.length) {
           return null
         }
         const title = getActerTypeTitle(acters[0].ActerType)

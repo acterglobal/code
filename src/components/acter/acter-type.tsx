@@ -43,7 +43,7 @@ export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {
   const classes = useStyles()
   //TODO: read this from DB
   const caption =
-    acterType === 'organization'
+    acterType === 'organisation'
       ? `Eg: NGO's, Movements, Companies, Public organisations`
       : `Eg: Network, Platforms, Clusters`
 

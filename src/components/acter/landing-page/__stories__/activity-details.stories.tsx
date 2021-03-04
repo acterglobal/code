@@ -4,13 +4,14 @@ import {
   ActivityDetails as Activity,
   ActivityDetailsProps,
 } from 'src/components/acter/landing-page/activities/activity-details'
-import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
+import { ExampleActivity, ExampleActer } from 'src/__fixtures__'
 
 export default {
   title: 'landingpage/ActivityDetails',
   component: Activity,
   args: {
     activity: ExampleActivity,
+    acter: ExampleActer,
   },
 } as Meta
 

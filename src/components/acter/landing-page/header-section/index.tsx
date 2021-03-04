@@ -38,6 +38,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   user,
   onJoin,
   onLeave,
+  loading,
 }) => {
   const classes = useStyles()
   return (
@@ -78,6 +79,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
             user={user}
             onJoin={onJoin}
             onLeave={onLeave}
+            loading={loading}
           />
         </Box>
       </Box>
