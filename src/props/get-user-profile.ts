@@ -1,4 +1,4 @@
-import { initializeApollo } from 'src/lib/apollo'
+import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { ComposedGetServerSideProps } from 'lib/compose-props'
 
 import { User } from '@generated/type-graphql'
@@ -39,9 +39,9 @@ export const getUserProfile: ComposedGetServerSideProps = async (ctx) => {
   }
 
   const { user }: { user: User } = data
-  return {
+  return addApolloState(apollo, {
     props: {
       user,
     },
-  }
+  })
 }
