@@ -1,12 +1,19 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
-import { Menu } from '@material-ui/core'
-
+import {
+  Menu,
+  MenuProps,
+  withStyles,
+  createStyles,
+  Theme,
+} from '@material-ui/core'
 interface DropdownMenuProps {
   anchorNode: ReactNode
+  closeOnClick?: boolean
   children: any
 }
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   anchorNode,
+  closeOnClick = true,
   children,
 }) => {
   const [menuAnchorEl, setMenuAnchorEl] = useState(null)
@@ -16,16 +23,35 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   }
 
   return (
-    <>
+    <div>
       <div onClick={openMenu}>{anchorNode}</div>
-      <Menu
+      <StyledMenu
         anchorEl={menuAnchorEl}
         open={Boolean(menuAnchorEl)}
         onClose={closeMenu}
-        onClick={closeMenu}
+        onClick={closeOnClick ? closeMenu : null}
       >
         {children}
-      </Menu>
-    </>
+      </StyledMenu>
+    </div>
   )
 }
+
+const StyledMenu = withStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: '300px',
+      borderRadius: 30,
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: theme.palette.divider,
+    },
+  })
+)((props: MenuProps) => (
+  <Menu
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    getContentAnchorEl={null}
+    {...props}
+  />
+))

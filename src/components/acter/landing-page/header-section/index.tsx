@@ -2,11 +2,7 @@ import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
-import {
-  MembershipButton,
-  MembershipButtonProps,
-} from 'src/components/acter/landing-page/membership-button'
-import { Acter, User } from '@generated/type-graphql'
+import { Connect, ConnectProps } from 'src/components/acter/connect'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,17 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   location: {
     color: theme.palette.secondary.dark,
   },
-  joinBtn: {
-    borderRadius: 25,
-    width: '100px',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    marginRight: theme.spacing(3),
-    textTransform: 'none',
-  },
 }))
-
-export type HeaderSectionProps = MembershipButtonProps
+export type HeaderSectionProps = ConnectProps
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
@@ -86,7 +73,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           </Typography>
         </Box>
         <Box style={{ marginLeft: 'auto' }}>
-          <MembershipButton
+          <Connect
             acter={acter}
             user={user}
             onJoin={onJoin}

@@ -9,8 +9,6 @@ import {
 import { MenuSection } from 'src/components/acter/landing-page/menu-section'
 import { InfoSection } from 'src/components/acter/landing-page/info-section'
 
-import { Acter, User } from '@generated/type-graphql'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
@@ -41,6 +39,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   user,
   onJoin,
   onLeave,
+  loading,
 }) => {
   const classes = useStyles({})
   return (
@@ -51,6 +50,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           user={user}
           onJoin={onJoin}
           onLeave={onLeave}
+          loading={loading}
         />
       </Grid>
       <Grid container>

@@ -15,17 +15,17 @@ import { Acter, User } from '@generated/type-graphql'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
-import {
-  ActerLanding,
-  ActerLandingProps,
-} from 'src/components/acter/landing-page'
+import { ActerLanding } from 'src/components/acter/landing-page'
 
 import CREATE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-delete.graphql'
 import GET_ACTER from 'graphql/queries/acter-by-slug.graphql'
 import GET_USER from 'graphql/queries/user-by-id.graphql'
 
-type ActerLandingPageProps = ActerLandingProps
+interface ActerLandingPageProps {
+  acter: Acter
+  user: User
+}
 
 const _handleJoin = (createConnection: MutationFunction, user: User) => (
   follower: Acter,
@@ -73,7 +73,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     CREATE_ACTER_CONNECTION,
     {
       update: (cache, { data }) => {
-        user.Acter.Following.push(data.createActerConnection)
         acter.Followers.push(data.createActerConnection)
         writeCache(cache)
       },
@@ -84,7 +83,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     {
       update: (cache, { data }) => {
         const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
-        user.Acter.Following = user.Acter.Following.filter(withoutConnection)
         acter.Followers = acter.Followers.filter(withoutConnection)
         writeCache(cache)
       },

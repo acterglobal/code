@@ -19,7 +19,7 @@ export interface headerProps {
   description: string
 }
 
-const Header: FC<headerProps> = ({ title, description }) => {
+export const Header: FC<headerProps> = ({ title, description }) => {
   const classes = useStyles()
   return (
     <>
@@ -32,5 +32,3 @@ const Header: FC<headerProps> = ({ title, description }) => {
     </>
   )
 }
-
-export default Header

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Card, CardContent } from '@material-ui/core'
-import Header from 'src/components/acter/landing-page/info-section/header'
+import { Header } from 'src/components/acter/landing-page/info-section/header'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 
 import { Acter } from '@generated/type-graphql'

@@ -5,6 +5,11 @@ fragment ActerFull on Acter {
   Following {
     Following {
       ...ActerDisplay
+      Following {
+        Following {
+          ...ActerDisplay
+        }
+      }
     }
   }
   ActerInterests {

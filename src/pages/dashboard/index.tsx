@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
+import Head from 'next/head'
 import { User } from '@generated/type-graphql'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
@@ -14,14 +15,12 @@ interface DashboardPageProps {
 }
 
 const DashboardPage: NextPage<DashboardPageProps> = ({ user }) => {
-  console.log('DashboardPage', user)
   return (
     <Layout user={user}>
-      <Dashboard
-        acters={user.Acter?.Following?.map(
-          (connection) => connection.Following
-        )}
-      />
+      <Head>
+        <title>Dashboard - Acter</title>
+      </Head>
+      <Dashboard user={user} />
     </Layout>
   )
 }
