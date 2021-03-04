@@ -13,7 +13,7 @@ describe('ActerListByType', () => {
 
     expect(typeLists.length).toBe(3)
     //TODO: We should use an explicit order
-    const acterTypes = ['Organization', 'Network', 'Group']
+    const acterTypes = ['Organisation', 'Network', 'Group']
     expect(
       typeLists.map((list) => within(list).queryByRole('heading').textContent)
     ).toEqual(acterTypes)

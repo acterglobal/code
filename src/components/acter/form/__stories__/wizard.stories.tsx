@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/react'
 import { ActerForm, ActerFormProps } from 'src/components/acter/form'
 
-import { OrganizationActerType, Interests } from 'src/__fixtures__'
+import { OrganisationActerType, Interests } from 'src/__fixtures__'
 
 export default {
   title: 'acter/AddActer',
   component: ActerForm,
   args: {
-    acterType: OrganizationActerType,
+    acterType: OrganisationActerType,
     interestTypes: Interests.data.interestTypes,
     onSubmit: () => null,
   },

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box, Typography, Button } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { People } from 'src/components/acter/landing-page/info-section/people'
-import { Organizations } from 'src/components/acter/landing-page/info-section/organizations'
+import { Organisations } from 'src/components/acter/landing-page/info-section/organisations'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface ParticipatesProps {
   // TODO: fix the below types
   users?: []
-  organizations?: []
+  organisations?: []
 }
 
 export const Participates: FC<ParticipatesProps> = (props) => {
   const classes = useStyles()
-  const { users, organizations } = props
+  const { users, organisations } = props
 
   return (
     <Box className={classes.container}>
@@ -48,7 +48,7 @@ export const Participates: FC<ParticipatesProps> = (props) => {
         <People numOfPeople={12} imageURL={[]} />
       </Box>
       <Box className={classes.organisations}>
-        <Organizations imageURL={[]} />
+        <Organisations imageURL={[]} />
       </Box>
       <Button
         className={classes.button}
