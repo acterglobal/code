@@ -4,16 +4,16 @@ import {
   ExampleActer,
   GroupActerType,
   NetworkActerType,
-  OrganizationActerType,
+  OrganisationActerType,
 } from 'src/__fixtures__'
 
 export const ExampleActerList: Acter[] = [
   {
     ...ExampleActer,
     id: v4(),
-    name: 'Organization 1',
-    slug: 'organization-1',
-    ActerType: OrganizationActerType,
+    name: 'Organisation 1',
+    slug: 'organisation-1',
+    ActerType: OrganisationActerType,
   },
   {
     ...ExampleActer,
@@ -32,9 +32,9 @@ export const ExampleActerList: Acter[] = [
   {
     ...ExampleActer,
     id: v4(),
-    name: 'Organization 2',
-    slug: 'organization-2',
-    ActerType: OrganizationActerType,
+    name: 'Organisation 2',
+    slug: 'organisation-2',
+    ActerType: OrganisationActerType,
   },
   {
     ...ExampleActer,
@@ -53,9 +53,9 @@ export const ExampleActerList: Acter[] = [
   {
     ...ExampleActer,
     id: v4(),
-    name: 'Organization 3',
-    slug: 'organization-3',
-    ActerType: OrganizationActerType,
+    name: 'Organisation 3',
+    slug: 'organisation-3',
+    ActerType: OrganisationActerType,
   },
   {
     ...ExampleActer,

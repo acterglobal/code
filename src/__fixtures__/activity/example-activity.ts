@@ -229,7 +229,7 @@ export const ExampleActivity = {
     //   ActerType: UserActerType,
     //   name: 'Malik Shaik',
     //   location: 'Aarhus Denmark',
-    //   slug: 'my-organization',
+    //   slug: 'my-organisation',
     //   description: `Lorem ipsum dolor sit amet consectetur adipisicing
     //   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
     //   alias veritatis vitae eum culpa amet delectus eveniet tempore
@@ -243,7 +243,7 @@ export const ExampleActivity = {
     //   autoApproveFollowers: true,
     // },
   ],
-  organizations: [],
+  organisations: [],
   image: 'https://acter.ams3.cdn.digitaloceanspaces.com/assets/tree.png',
   createdAt: new Date(),
   updatedAt: new Date(),

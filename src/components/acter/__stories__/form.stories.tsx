@@ -33,7 +33,7 @@ NewNetwork.args = {
   acterType: NetworkActerType,
 }
 
-export const NewOrganization = Template.bind({})
-NewOrganization.args = {
+export const NewOrganisation = Template.bind({})
+NewOrganisation.args = {
   acterType: UserActerType,
 }

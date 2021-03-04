@@ -1,17 +1,17 @@
 import { Acter } from '@generated/type-graphql'
 import {
   ExampleUser,
-  OrganizationActerType,
+  OrganisationActerType,
   UserActerType,
 } from 'src/__fixtures__'
 
 export const ExampleActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',
-  acterTypeId: OrganizationActerType.id,
-  ActerType: OrganizationActerType,
+  acterTypeId: OrganisationActerType.id,
+  ActerType: OrganisationActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
-  slug: 'my-organization',
+  slug: 'my-organisation',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
   alias veritatis vitae eum culpa amet delectus eveniet tempore
@@ -31,7 +31,7 @@ export const ExampleUserActer: Acter = {
   ActerType: UserActerType,
   name: 'Malik Shaik',
   location: 'Aarhus Denmark',
-  slug: 'my-organization',
+  slug: 'my-organisation',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
   alias veritatis vitae eum culpa amet delectus eveniet tempore
@@ -47,11 +47,11 @@ export const ExampleUserActer: Acter = {
 
 export const ExampleOrganisationActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f98aj',
-  acterTypeId: OrganizationActerType.id,
-  ActerType: OrganizationActerType,
+  acterTypeId: OrganisationActerType.id,
+  ActerType: OrganisationActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
-  slug: 'my-organization',
+  slug: 'my-organisation',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
   alias veritatis vitae eum culpa amet delectus eveniet tempore

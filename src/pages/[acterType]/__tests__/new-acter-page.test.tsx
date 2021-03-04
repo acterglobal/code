@@ -17,7 +17,7 @@ import {
 import { Acter, ActerType } from '@generated/type-graphql'
 import {
   ExampleActer,
-  OrganizationActerType,
+  OrganisationActerType,
   UserActerType,
 } from 'src/__fixtures__'
 
@@ -48,16 +48,16 @@ describe('NewActerPage', () => {
       const push = jest.fn()
       const onCompleteFn = _handleOnComplete(
         ({ push } as unknown) as NextRouter,
-        OrganizationActerType
+        OrganisationActerType
       )
       onCompleteFn({
-        createActer: { ...ExampleActer, ActerType: OrganizationActerType },
+        createActer: { ...ExampleActer, ActerType: OrganisationActerType },
       })
-      expect(push).toHaveBeenCalledWith('/organizations/my-organization')
+      expect(push).toHaveBeenCalledWith('/organisations/my-organisation')
     })
   })
 
   it.skip('should reneder the new acter page', () => {
-    render(<NewActerPage acterType={{ name: 'organization' } as ActerType} />)
+    render(<NewActerPage acterType={{ name: 'organisation' } as ActerType} />)
   })
 })
