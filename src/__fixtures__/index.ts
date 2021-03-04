@@ -5,19 +5,19 @@ export * from './interest/example-interest-type'
 
 import { GroupActerType } from './acter-type/group'
 import { NetworkActerType } from './acter-type/network'
-import { OrganizationActerType } from './acter-type/organization'
+import { OrganisationActerType } from './acter-type/organisation'
 import { UserActerType } from './acter-type/user'
 
 export {
   GroupActerType,
   NetworkActerType,
-  OrganizationActerType,
+  OrganisationActerType,
   UserActerType,
 }
 export const ActerTypes = [
   GroupActerType,
   NetworkActerType,
-  OrganizationActerType,
+  OrganisationActerType,
   UserActerType,
 ]
 

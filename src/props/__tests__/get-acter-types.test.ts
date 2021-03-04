@@ -9,13 +9,13 @@ jest.mock('src/lib/apollo')
 import {
   GroupActerType,
   NetworkActerType,
-  OrganizationActerType,
+  OrganisationActerType,
 } from 'src/__fixtures__'
 
 import { getActerTypes } from 'src/props'
 
 describe('getActerTypes', () => {
-  const acterTypes = [GroupActerType, NetworkActerType, OrganizationActerType]
+  const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]
   let context = ({} as unknown) as ComposedGetServerSidePropsContext
 
   beforeEach(() => {
@@ -40,7 +40,7 @@ describe('getActerTypes', () => {
       data: { acterTypes },
     })
     context = ({
-      params: { acterType: 'organizations' },
+      params: { acterType: 'organisations' },
     } as unknown) as ComposedGetServerSidePropsContext
 
     expect(await getActerTypes(context)).toStrictEqual({

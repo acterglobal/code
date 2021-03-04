@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: 10,
   },
   uploadContainer: {
-    width: 230,
+    minWidth: 230,
     fontSize: '0.85rem',
   },
   button: {

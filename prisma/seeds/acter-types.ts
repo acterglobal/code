@@ -27,7 +27,7 @@ const types: Record<string, typeMap> = {
         canJoin: true,
         canBecome: false,
       },
-      organization: {
+      organisation: {
         canCreate: true,
         canJoin: true,
         canBecome: false,
@@ -56,7 +56,7 @@ const types: Record<string, typeMap> = {
         canJoin: false,
         canBecome: false,
       },
-      organization: {
+      organisation: {
         canCreate: false,
         canJoin: true,
         canBecome: true,
@@ -73,7 +73,7 @@ const types: Record<string, typeMap> = {
       },
     },
   },
-  organization: {
+  organisation: {
     rules: {
       user: {
         canCreate: false,
@@ -85,7 +85,7 @@ const types: Record<string, typeMap> = {
         canJoin: false,
         canBecome: false,
       },
-      organization: {
+      organisation: {
         canCreate: false,
         canJoin: true,
         canBecome: true,
@@ -114,7 +114,7 @@ const types: Record<string, typeMap> = {
         canJoin: true,
         canBecome: false,
       },
-      organization: {
+      organisation: {
         canCreate: false,
         canJoin: true,
         canBecome: true,
@@ -143,7 +143,7 @@ const types: Record<string, typeMap> = {
         canJoin: false,
         canBecome: false,
       },
-      organization: {
+      organisation: {
         canCreate: false,
         canJoin: false,
         canBecome: false,

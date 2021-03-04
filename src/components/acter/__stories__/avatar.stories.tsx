@@ -8,7 +8,7 @@ import {
   ExampleActer,
   UserActerType,
   GroupActerType,
-  OrganizationActerType,
+  OrganisationActerType,
   NetworkActerType,
 } from 'src/__fixtures__'
 
@@ -42,12 +42,12 @@ Group.args = {
   } as Acter,
 }
 
-export const Organization = Template.bind({})
-Organization.args = {
+export const Organisation = Template.bind({})
+Organisation.args = {
   acter: {
     ...ExampleActer,
     avatarUrl: '',
-    ActerType: OrganizationActerType,
+    ActerType: OrganisationActerType,
   } as Acter,
 }
 

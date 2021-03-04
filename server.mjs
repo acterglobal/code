@@ -20,18 +20,18 @@ const port = process.env.PORT || 3000
     server.get('/health', (req, res) => res.send('ok'))
     server.all('/api/graphql', handle)
 
-    // Secure
-    server.use(
-      basicAuth({
-        users: {
-          admin:
-            process.env.BASIC_AUTH_ADMIN_PASS ||
-            cryptoRandomString({ length: 18, type: 'base64' }),
-        },
-        challenge: true,
-        realm: cryptoRandomString({ length: 10 }),
-      })
-    )
+    // // Secure
+    // server.use(
+    //   basicAuth({
+    //     users: {
+    //       admin:
+    //         process.env.BASIC_AUTH_ADMIN_PASS ||
+    //         cryptoRandomString({ length: 18, type: 'base64' }),
+    //     },
+    //     challenge: true,
+    //     realm: cryptoRandomString({ length: 10 }),
+    //   })
+    // )
     server.all('*', handle)
     server.listen(port, host, (err) => {
       if (err) throw err

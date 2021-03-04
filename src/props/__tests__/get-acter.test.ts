@@ -1,6 +1,6 @@
 import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
 
-import { OrganizationActerType, ExampleActer } from 'src/__fixtures__'
+import { OrganisationActerType, ExampleActer } from 'src/__fixtures__'
 
 import { getActer } from 'src/props'
 
@@ -9,7 +9,7 @@ jest.mock('src/lib/apollo')
 const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
 const goodContext = ({
   props: {
-    acterType: OrganizationActerType,
+    acterType: OrganisationActerType,
   },
   params: {
     slug: ExampleActer.slug,

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Card, CardContent } from '@material-ui/core'
 import Header from 'src/components/acter/landing-page/info-section/header'
 import { People as PeopleSection } from 'src/components/acter/landing-page/info-section/people'
-import { Organizations } from 'src/components/acter/landing-page/info-section/organizations'
+import { Organisations } from 'src/components/acter/landing-page/info-section/organisations'
 
 import { Acter } from '@generated/type-graphql'
 interface InfoSectionProps {
@@ -16,7 +16,7 @@ export const InfoSection: FC<InfoSectionProps> = ({ acter }) => {
         <Header title={acter.name} description={acter.description} />
         {/* <InterestsSection /> */}
         <PeopleSection numOfPeople={20} imageURL={[]} />
-        <Organizations imageURL={[]} />
+        <Organisations imageURL={[]} />
       </CardContent>
     </Card>
   )

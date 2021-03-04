@@ -12,6 +12,6 @@ describe('acterTypeAsUrl', () => {
   })
 
   it('should convert an ActerType name to pluralized lower-case', () => {
-    expect(acterAsUrl(ExampleActer)).toBe('/organizations/my-organization')
+    expect(acterAsUrl(ExampleActer)).toBe('/organisations/my-organisation')
   })
 })

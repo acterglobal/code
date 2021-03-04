@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => {
       color: theme.palette.getContrastText(green[600]),
       backgroundColor: green[600],
     },
-    organization: {
+    organisation: {
       color: theme.palette.getContrastText(green[700]),
       backgroundColor: green[700],
     },

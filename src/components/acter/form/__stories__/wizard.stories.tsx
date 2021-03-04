@@ -1,17 +1,16 @@
-import { Meta } from '@storybook/react'
-import { ActerForm } from 'src/components/acter/form'
+import { Meta, Story } from '@storybook/react'
+import { ActerForm, ActerFormProps } from 'src/components/acter/form'
 
-import { OrganizationActerType, Interests } from 'src/__fixtures__'
+import { OrganisationActerType, Interests } from 'src/__fixtures__'
 
 export default {
-  title: 'acter/Wizard',
+  title: 'acter/AddActer',
   component: ActerForm,
+  args: {
+    acterType: OrganisationActerType,
+    interestTypes: Interests.data.interestTypes,
+    onSubmit: () => null,
+  },
 } as Meta
 
-export const wizard = () => (
-  <ActerForm
-    acterType={OrganizationActerType}
-    interestTypes={Interests.data.interestTypes}
-    onSubmit={() => null}
-  />
-)
+export const AddActer: Story<ActerFormProps> = (args) => <ActerForm {...args} />

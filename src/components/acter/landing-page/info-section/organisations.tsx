@@ -8,13 +8,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
     color: theme.palette.secondary.main,
   },
-  organizations: {
+  organisations: {
     display: 'flex',
     '& > *': {
       margin: theme.spacing(0.3),
     },
   },
-  organization: {
+  organisation: {
     border: '1px solid ',
     width: theme.spacing(3.5),
     height: theme.spacing(3.5),
@@ -25,36 +25,36 @@ export interface organisationsProps {
   imageURL: string[]
 }
 
-export const Organizations: FC<organisationsProps> = () => {
+export const Organisations: FC<organisationsProps> = () => {
   const classes = useStyles()
   return (
     <Box>
       <Typography variant="h5" className={classes.section}>
-        Organizations
+        Organisations
       </Typography>
-      <Box className={classes.organizations}>
+      <Box className={classes.organisations}>
         <Avatar
-          className={classes.organization}
+          className={classes.organisation}
           alt="Remy Sharp"
           src="https://res.cloudinary.com/dfglnmgmx/image/upload/v1612887008/IMG_1971_qnods9.jpg"
         />
         <Avatar
-          className={classes.organization}
+          className={classes.organisation}
           alt="Travis Howard"
           src="/static/images/avatar/2.jpg"
         />
         <Avatar
-          className={classes.organization}
+          className={classes.organisation}
           alt="Cindy Baker"
           src="/static/images/avatar/3.jpg"
         />
         <Avatar
-          className={classes.organization}
+          className={classes.organisation}
           alt="Agnes Walker"
           src="https://res.cloudinary.com/dfglnmgmx/image/upload/v1612887008/IMG_1971_qnods9.jpg"
         />
         <Avatar
-          className={classes.organization}
+          className={classes.organisation}
           alt="Trevor Henderson"
           src="/static/images/avatar/5.jpg"
         />
