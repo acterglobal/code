@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
     fontWeight: 'bold',
   },
-  interestSection: {
-    // backgroundColor: 'red',
-  },
 }))
 
 export interface Step3Props {
@@ -34,7 +31,7 @@ export const Step3: FC<Step3Props> = ({ interestTypes, setFieldValue }) => {
   return (
     <Box className={classes.container}>
       <InputLabel className={classes.label}>Choose interests</InputLabel>
-      <Box className={classes.interestSection}>
+      <Box>
         <InterestsAddSection
           interestTypes={interestTypes}
           setFieldValue={setFieldValue}

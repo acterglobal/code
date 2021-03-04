@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
-import { KeyboardDatePicker, DatePicker } from 'formik-material-ui-pickers'
+import { KeyboardDatePicker } from 'formik-material-ui-pickers'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { grey } from '@material-ui/core/colors'
-import { AccessTime } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme: Theme) => ({
   datepicker: {
@@ -27,11 +26,9 @@ export const DatePickerField: FC<DatePickerProps> = (props) => {
       component={KeyboardDatePicker}
       autoOk
       disablePast
-      // disableToolbar
       label={label}
       name={name}
       placeholder={placeholder}
-      // variant="inline"
       inputVariant="outlined"
       format="DD/MM/yyyy"
       InputProps={{ className: classes.datepicker }}

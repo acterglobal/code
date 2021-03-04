@@ -7,14 +7,11 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    // backgroundColor: 'gray',
     maxWidth: 450,
   },
   interests: {
     display: 'flex',
     justifyContent: 'center',
-    // backgroundColor: 'red',
-    // textAlign: 'center',
   },
 }))
 
