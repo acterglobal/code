@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
 import { Box, Typography, Button } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { People } from 'src/components/acter/landing-page/info-section/people'
-import { Organisations } from 'src/components/acter/landing-page/info-section/organisations'
+import { FollowersAvatars } from 'src/components/acter/followers-avatars'
+
+import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -30,26 +31,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface ParticipatesProps {
-  // TODO: fix the below types
-  users?: []
-  organisations?: []
+  acter: Acter
 }
 
-export const Participates: FC<ParticipatesProps> = (props) => {
+export const Participates: FC<ParticipatesProps> = ({ acter }) => {
   const classes = useStyles()
-  const { users, organisations } = props
 
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
         Participates
       </Typography>
-      <Box className={classes.people}>
-        <People numOfPeople={12} imageURL={[]} />
-      </Box>
-      <Box className={classes.organisations}>
-        <Organisations imageURL={[]} />
-      </Box>
+      <FollowersAvatars acter={acter} />
       <Button
         className={classes.button}
         variant="contained"

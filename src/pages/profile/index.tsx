@@ -10,7 +10,7 @@ import { ProfileView } from 'src/components/user/profile-view'
 
 import { User } from '@generated/type-graphql'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getToken, getUserProfile } from 'src/props'
+import { getUserProfile } from 'src/props'
 
 interface UserProfilePageProps {
   loading?: boolean
@@ -44,7 +44,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   }
 
   return (
-    <Layout loggedInUser={user}>
+    <Layout user={user}>
       <Head>
         <title>Profile</title>
       </Head>
@@ -57,6 +57,6 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getToken, getUserProfile)
+  composeProps(ctx, getUserProfile(true))
 
 export default UserProfilePage

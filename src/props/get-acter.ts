@@ -1,9 +1,9 @@
 import { ComposedGetServerSideProps } from 'lib/compose-props'
-import { initializeApollo } from 'src/lib/apollo'
+import { initializeApollo, addApolloState } from 'src/lib/apollo'
 
 import { Acter } from '@generated/type-graphql'
 
-import QUERY_ACTER from 'graphql/queries/query-acter-by-slug.graphql'
+import QUERY_ACTER from 'graphql/queries/acter-by-slug.graphql'
 
 /**
  *
@@ -40,9 +40,9 @@ export const getActer: ComposedGetServerSideProps = async ({
   }
 
   const { getActer }: { getActer: Acter } = data
-  return {
+  return addApolloState(apollo, {
     props: {
       acter: getActer,
     },
-  }
+  })
 }

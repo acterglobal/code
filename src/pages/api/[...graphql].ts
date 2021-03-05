@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-micro'
 import { PrismaClient } from '@prisma/client'
 

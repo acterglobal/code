@@ -58,8 +58,8 @@ model Acter {
   Children      Acter[] @relation("acter_parent")
   parentActerId String? @map("parent_acter_id")
 
-  following ActerConnection[] @relation("follower")
-  followers ActerConnection[] @relation("following")
+  Following ActerConnection[] @relation("follower")
+  Followers ActerConnection[] @relation("following")
 
   User User?
 
@@ -83,6 +83,7 @@ model ActerConnection {
   Following        Acter  @relation("following", fields: [followingActerId], references: [id])
   followingActerId String @map("following_acter_id")
 
+  @@unique(name: "acter_follower_following", fields: [followerActerId, followingActerId])
   @@map("acter_connections")
 }
 
@@ -131,7 +132,7 @@ model ActerTypeRule {
 model Interest {
   id             String       @id @default(uuid())
   name           String
-  interestType   InterestType @relation(fields: [interestTypeId], references: [id])
+  InterestType   InterestType @relation(fields: [interestTypeId], references: [id])
   interestTypeId String       @map("interest_type_id")
 
   InterestActers ActerInterest[]

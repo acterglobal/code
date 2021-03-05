@@ -1,0 +1,15 @@
+mutation ActerConnectionDelete(
+  $followerActerId: String!
+  $followingActerId: String!
+) {
+  deleteActerConnection(
+    where: {
+      acter_follower_following: {
+        followingActerId: $followingActerId
+        followerActerId: $followerActerId
+      }
+    }
+  ) {
+    id
+  }
+}

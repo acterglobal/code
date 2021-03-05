@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-
+import { flattenFollowing } from 'src/lib/acter/flatten-following'
 import { ActerListByType } from 'src/components/acter/list-by-type'
 
-import { Acter } from '@generated/type-graphql'
+import { User } from '@generated/type-graphql'
 
 export interface DashboardProps {
-  acters: Acter[]
+  user: User
 }
 
-export const Dashboard: FC<DashboardProps> = ({ acters }) => (
-  <ActerListByType acters={acters} />
-)
+export const Dashboard: FC<DashboardProps> = ({ user }) => {
+  return <ActerListByType acters={flattenFollowing(user.Acter)} />
+}

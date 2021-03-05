@@ -36,12 +36,12 @@ export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
         </Typography>
         <Box className={classes.caption}>
           <Typography variant="caption">
-            Create an organization or network on Acter to start coordinating or
+            Create an organisation or network on Acter to start coordinating or
             collaborating.
           </Typography>
         </Box>
         <Box>
-          <ActerType acterType="organization" onClick={onClick} />
+          <ActerType acterType="organisation" onClick={onClick} />
           <ActerType acterType="network" onClick={onClick} />
         </Box>
       </Box>

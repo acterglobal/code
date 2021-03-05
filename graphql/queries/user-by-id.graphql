@@ -1,0 +1,12 @@
+#import "../fragments/acter-full.fragment.graphql"
+
+query UserById($id: String!) {
+  user(where: { id: $id }) {
+    id
+    name
+    email
+    Acter {
+      ...ActerFull
+    }
+  }
+}

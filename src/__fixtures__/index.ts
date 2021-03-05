@@ -24,3 +24,5 @@ export const ActerTypes = [
 export * from './user/example-user'
 export * from './acter/example-acter'
 export * from './acter/example-acter-list'
+
+export * from './activity/example-activity'

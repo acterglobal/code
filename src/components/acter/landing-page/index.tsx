@@ -2,11 +2,12 @@ import React, { FC } from 'react'
 
 import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 
-import { HeaderSection } from 'src/components/acter/landing-page/header-section'
+import {
+  HeaderSection,
+  HeaderSectionProps,
+} from 'src/components/acter/landing-page/header-section'
 import { MenuSection } from 'src/components/acter/landing-page/menu-section'
 import { InfoSection } from 'src/components/acter/landing-page/info-section'
-
-import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,16 +32,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-interface ActerViewProps {
-  acter: Acter
-}
+export type ActerLandingProps = HeaderSectionProps
 
-export const ActerLanding: FC<ActerViewProps> = ({ acter }) => {
+export const ActerLanding: FC<ActerLandingProps> = ({
+  acter,
+  user,
+  onJoin,
+  onLeave,
+  loading,
+}) => {
   const classes = useStyles({})
   return (
     <Grid className={classes.header} container>
       <Grid item xs={12}>
-        <HeaderSection acter={acter} />
+        <HeaderSection
+          acter={acter}
+          user={user}
+          onJoin={onJoin}
+          onLeave={onLeave}
+          loading={loading}
+        />
       </Grid>
       <Grid container>
         <Grid className={classes.menu} item xs={12} sm>

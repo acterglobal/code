@@ -13,7 +13,7 @@ import { ActerThemeProvider } from 'src/themes/acter-theme'
 const ActerApp = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo({
     graphqlUri: pageProps.graphqlUri,
-    initialState: pageProps.initialApolloState,
+    pageProps,
   })
 
   return (

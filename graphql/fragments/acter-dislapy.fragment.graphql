@@ -1,0 +1,11 @@
+fragment ActerDisplay on Acter {
+  id
+  name
+  slug
+  avatarUrl
+  bannerUrl
+  ActerType {
+    id
+    name
+  }
+}

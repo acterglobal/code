@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography, Button } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
-import { Acter } from '@generated/type-graphql'
+import { Connect, ConnectProps } from 'src/components/acter/connect'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,21 +30,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   location: {
     color: theme.palette.secondary.dark,
   },
-  joinBtn: {
-    borderRadius: 25,
-    width: '100px',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    marginRight: theme.spacing(3),
-    textTransform: 'none',
-  },
 }))
+export type HeaderSectionProps = ConnectProps
 
-export interface HeaderSectionProps {
-  acter: Acter
-}
-
-export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
+export const HeaderSection: FC<HeaderSectionProps> = ({
+  acter,
+  user,
+  onJoin,
+  onLeave,
+  loading,
+}) => {
   const classes = useStyles()
   return (
     <Box className={classes.bannerSection}>
@@ -79,15 +74,13 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
           </Typography>
         </Box>
         <Box style={{ marginLeft: 'auto' }}>
-          <Button
-            className={classes.joinBtn}
-            variant="contained"
-            size="medium"
-            disableElevation
-            onClick={() => console.log('join button clicked')}
-          >
-            Join
-          </Button>
+          <Connect
+            acter={acter}
+            user={user}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            loading={loading}
+          />
         </Box>
       </Box>
     </Box>

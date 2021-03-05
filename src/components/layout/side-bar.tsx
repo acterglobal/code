@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-interface SideBarProps {
+interface SidebarProps {
   /**
    * Width of the sidebar
    */
   width: number
 }
 
-export const SideBar: FC<SideBarProps> = ({ width }) => {
+export const Sidebar: FC<SidebarProps> = ({ width }) => {
   const classes = useStyles({ width })
   const router = useRouter()
   return (

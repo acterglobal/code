@@ -8,6 +8,8 @@ import { ActivityDescription } from 'src/components/acter/landing-page/activitie
 import { Participates } from 'src/components/acter/landing-page/activities/participates'
 import { Organiser } from 'src/components/acter/landing-page/activities/organiser'
 
+import { Acter } from '@generated/type-graphql'
+
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: 700,
@@ -27,9 +29,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface ActivityDetailsProps {
   // TODO: need to specify the activity type below instead any
   activity: any
+
+  acter: Acter
 }
 
-export const ActivityDetails: FC<ActivityDetailsProps> = ({ activity }) => {
+export const ActivityDetails: FC<ActivityDetailsProps> = ({
+  activity,
+  acter,
+}) => {
   const classes = useStyles()
 
   return (
@@ -49,7 +56,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ activity }) => {
         <Box style={{ display: 'flex' }}>
           <ActivityDescription activity={activity} />
           <Box style={{ margin: 10, width: '330px' }}>
-            <Participates />
+            <Participates acter={acter} />
             <Organiser />
           </Box>
         </Box>
