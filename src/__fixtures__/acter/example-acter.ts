@@ -17,8 +17,8 @@ export const ExampleActer: Acter = {
   alias veritatis vitae eum culpa amet delectus eveniet tempore
   quibusdam repellat ut? Corrupti, consequuntur ipsam`,
   url: 'company url',
-  avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
-  bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
+  avatarUrl: ``,
+  bannerUrl: ``,
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,

@@ -41,6 +41,15 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   loading,
 }) => {
   const classes = useStyles()
+
+  /* load default images if doesn't have avatar and banner does not exist */
+  if (!acter.avatarUrl) {
+    acter.avatarUrl = 'assets/default-avatar.png'
+  }
+  if (!acter.bannerUrl) {
+    acter.bannerUrl = 'assets/default-banner.jpeg'
+  }
+
   return (
     <Box className={classes.bannerSection}>
       <Image
