@@ -2,13 +2,14 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Button, Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Acter, InterestType } from '@generated/type-graphql'
+import { flattenFollowing } from 'src/lib/acter/flatten-following'
+import { Acter, InterestType, User } from '@generated/type-graphql'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { Modal } from 'src/components/util/modal/modal'
-import { Step1 } from 'src/components/acter/landing-page/activities/form/step1'
-import { Step2 } from 'src/components/acter/landing-page/activities/form/step2'
-import { Step3 } from 'src/components/acter/landing-page/activities/form/step3'
+import { Step1 } from 'src/components/activities/form/step1'
+import { Step2 } from 'src/components/activities/form/step2'
+import { Step3 } from 'src/components/activities/form/step3'
 import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -54,14 +55,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 const steps = [Step1, Step2, Step3]
 const getStepContent = (
   step: number,
-  acter: Acter,
+  user: User,
   interestTypes: InterestType[],
   setFieldValue: any,
   values: any
 ) => {
+  const organisers = flattenFollowing(user.Acter)
   switch (step) {
     case 1:
-      return <Step1 acter={acter} />
+      return <Step1 acters={organisers} />
     case 2:
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
@@ -76,14 +78,23 @@ export interface FormikSetFieldType {
 }
 
 export interface ActivityFormProps {
-  acter: Acter
+  /**
+   * The currently logged in user
+   */
+  user: User
+  /**
+   * InterestTypes with Interests
+   */
   interestTypes: InterestType[]
   onSubmit: (any) => any
 }
 
 // TODO: Add typing
-export const AddActivity: FC<ActivityFormProps> = (props) => {
-  const { acter, interestTypes, onSubmit } = props
+export const ActivityForm: FC<ActivityFormProps> = ({
+  user,
+  interestTypes,
+  onSubmit,
+}) => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(1)
   const totalSteps = steps.length
@@ -105,15 +116,18 @@ export const AddActivity: FC<ActivityFormProps> = (props) => {
   }
 
   const initialValues = {
-    organiser: '',
+    organiserActerId: '',
     name: '',
     startDate: null,
     startTime: null,
+    startAt: null,
     endDate: null,
     endTime: null,
+    endAt: null,
+    isOnline: null,
     description: '',
     location: '',
-    meetingUrl: '',
+    url: '',
     interestIds: [],
   }
 
@@ -136,7 +150,7 @@ export const AddActivity: FC<ActivityFormProps> = (props) => {
               <Box className={classes.fields}>
                 {getStepContent(
                   activeStep,
-                  acter,
+                  user,
                   interestTypes,
                   setFieldValue,
                   values

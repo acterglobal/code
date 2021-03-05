@@ -1,0 +1,36 @@
+mutation ActivityCreate(
+  # Acter
+  $name: String!
+  $description: String
+  $location: String
+  $url: String
+  $acterTypeId: String!
+  $interestIds: [String!]!
+  #Activity
+  $isOnline: Boolean!
+  $startAt: DateTime!
+  $endAt: DateTime!
+  $organiserActerId: String!
+) {
+  __typename
+  createActivity(
+    # Acter
+    name: $name
+    description: $description
+    location: $location
+    url: $url
+    acterTypeId: $acterTypeId
+    interestIds: $interestIds
+
+    # Activity
+    isOnline: $isOnline
+    startAt: $startAt
+    endAt: $endAt
+    organiserActerId: $organiserActerId
+  ) {
+    id
+    Acter {
+      id
+    }
+  }
+}

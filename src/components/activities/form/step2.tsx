@@ -5,7 +5,7 @@ import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { grey } from '@material-ui/core/colors'
 import { ImageUpload } from 'src/components/image-upload'
-import { FormikSetFieldType } from 'src/components/acter/landing-page/activities/form'
+import { FormikSetFieldType } from 'src/components/activities/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -51,7 +51,7 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
       <Box>
         <ImageUpload
           aspectRatio={72 / 25}
-          imageType="activity banner"
+          imageType="banner"
           setImageToFormField={setFieldValue}
         />
       </Box>
@@ -74,40 +74,37 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
         <InputLabel className={classes.label}>Locaiton</InputLabel>
         <Box className={classes.locationLabelSection}>
           <Typography variant="body1" className={classes.locationLabel}>
-            <Field type="radio" name="location" value="venue" required={true} />{' '}
+            <Field type="radio" name="isOnline" value="false" required={true} />{' '}
             Venue
           </Typography>
 
           <Typography variant="body1" className={classes.locationLabel}>
-            <Field
-              type="radio"
-              name="location"
-              value="online"
-              required={true}
-            />{' '}
+            <Field type="radio" name="isOnline" value="true" required={true} />{' '}
             Online
           </Typography>
         </Box>
-        {values.location !== '' &&
-          (values.location === 'venue' ? (
-            <Field
-              className={classes.textinput}
-              component={TextField}
-              variant="outlined"
-              name="address"
-              placeholder="Type address"
-              required={true}
-            />
-          ) : (
-            <Field
-              className={classes.textinput}
-              component={TextField}
-              variant="outlined"
-              name="meetingUrl"
-              placeholder="Type online meeting link"
-              required={true}
-            />
-          ))}
+        {values.isOnline === 'true' && (
+          <Field
+            className={classes.textinput}
+            component={TextField}
+            variant="outlined"
+            name="url"
+            title="meeting url"
+            placeholder="Type online meeting link"
+            required={true}
+          />
+        )}
+        {values.isOnline === 'false' && (
+          <Field
+            className={classes.textinput}
+            component={TextField}
+            variant="outlined"
+            name="location"
+            title="address"
+            placeholder="Type address"
+            required={true}
+          />
+        )}
       </Box>
     </Box>
   )

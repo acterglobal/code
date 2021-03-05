@@ -2,7 +2,7 @@ import { Authorized, Resolver, Mutation, Arg, Ctx, Query } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter, Activity } from '@generated/type-graphql'
 @Resolver(Acter)
 export class ActerResolver {
   @Query(() => Acter)
@@ -86,6 +86,43 @@ export class ActerResolver {
             createdByUserId,
           })),
         },
+      },
+    })
+  }
+
+  @Authorized()
+  @Mutation(() => Activity)
+  async createActivity(
+    @Ctx() ctx: ActerGraphQLContext,
+    @Arg('name') name: string,
+    @Arg('description', { nullable: true }) description: string,
+    @Arg('location', { nullable: true }) location: string,
+    @Arg('url', { nullable: true }) url: string,
+    @Arg('acterTypeId') acterTypeId: string,
+    @Arg('interestIds', () => [String]) interestIds: [string],
+    @Arg('startAt') startAt: Date,
+    @Arg('endAt') endAt: Date,
+    @Arg('isOnline') isOnline: boolean,
+    @Arg('organiserActerId') organiserActerId: string
+  ): Promise<Activity> {
+    const acter = await this.createActer(
+      ctx,
+      name,
+      description,
+      location,
+      url,
+      acterTypeId,
+      interestIds
+    )
+
+    return ctx.prisma.activity.create({
+      data: {
+        startAt,
+        endAt,
+        isOnline,
+        organiserId: organiserActerId,
+        acterId: acter.id,
+        createdByUserId: acter.createdByUserId,
       },
     })
   }

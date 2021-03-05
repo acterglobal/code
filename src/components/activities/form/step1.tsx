@@ -7,7 +7,10 @@ import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import MomentUtils from '@date-io/moment'
-import { SelectOrganiser } from 'src/components/acter/landing-page/activities/form/select-organiser'
+import {
+  SelectOrganiser,
+  SelectOrganiserProps,
+} from 'src/components/activities/form/select-organiser'
 import { Acter } from '@generated/type-graphql'
 import { grey } from '@material-ui/core/colors'
 
@@ -46,11 +49,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface Step1Props {
-  acter: Acter
-}
+export type Step1Props = SelectOrganiserProps
 
-export const Step1: FC<Step1Props> = ({ acter }) => {
+export const Step1: FC<Step1Props> = ({ acters }) => {
   const classes = useStyles()
 
   return (
@@ -59,7 +60,7 @@ export const Step1: FC<Step1Props> = ({ acter }) => {
         + Add Activity
       </Typography>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <SelectOrganiser defaultOrganiser={acter} />
+        <SelectOrganiser acters={acters} />
 
         <Field
           className={classes.textinput}

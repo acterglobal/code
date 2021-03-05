@@ -1,0 +1,17 @@
+mutation UpdateActerImages(
+  $acterId: String!
+  $avatarUrl: String
+  $bannerUrl: String
+) {
+  __typename
+  updateActer(
+    data: { avatarUrl: { set: $avatarUrl }, bannerUrl: { set: $bannerUrl } }
+    where: { id: $acterId }
+  ) {
+    id
+    slug
+    ActerType {
+      name
+    }
+  }
+}

@@ -1,15 +1,15 @@
 import React from 'react'
-import md5 from 'md5'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { uploadImage } from 'src/lib/images/upload-image'
+import { saveActerImages } from 'src/lib/acter/save-images'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
+import { ActivityForm } from 'src/components/activities/form'
 
 import {
   getUserProfile,
@@ -22,30 +22,8 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
-import MUTATE_ACTER_UPDATE from 'graphql/mutations/mutate-update-acter.graphql'
-
-interface FileDescription {
-  name: string
-  size: number
-  type: string
-}
-
-interface FileUpload {
-  avatar: FileDescription
-  banner: FileDescription
-}
-
-type FormValues = Acter & FileUpload
-
-const blankActer: Partial<Acter> = {
-  name: '',
-  slug: '',
-  description: '',
-  location: '',
-  url: '',
-  avatarUrl: '',
-  bannerUrl: '',
-}
+import UPDATE_ACTER_IMAGES from 'graphql/mutations/acter-update-images.graphql'
+import CREATE_ACTIVITY from 'graphql/mutations/activity-create.graphql'
 
 /**
  * Returns an onSubmit handler
@@ -56,37 +34,26 @@ export const _handleSubmit = (
   createActerFn: (any) => any,
   updateActerFn: (any) => any,
   acterType: ActerType
-) => async (data: FormValues) => {
+) => async (data) => {
   // Create the acter
-  const acterData = (data as unknown) as Acter
-  const createRes = await createActerFn({
+  const acter: Acter = await createActerFn({
     variables: {
-      ...acterData,
+      ...data,
       acterTypeId: acterType.id,
     },
   })
-  const acter: Acter = createRes.data.createActer
 
   // Upload images
-  const folder = `acter/${md5(acter.id)}`
-  await Promise.all(
-    ['avatar', 'banner'].map(async (fileName) => {
-      //TODO: error handling for failed upload
-      const file = data[fileName]
-      if (file) {
-        const img = await uploadImage(folder, file)
-        if (img) {
-          acter[`${fileName}Url`] = img
-        }
-      }
-    })
-  )
+  await saveActerImages(acter, data)
+
+  debugger
 
   // Update Acter with image URLs
   return await updateActerFn({
     variables: {
-      ...acter,
       acterId: acter.id,
+      avatarUrl: acter.avatarUrl || '',
+      bannerUrl: acter.bannerUrl || '',
     },
   })
 }
@@ -122,12 +89,47 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [createActer, createOut] = useMutation(MUTATE_ACTER_CREATE)
-  const [updateActer, updateOut] = useMutation(MUTATE_ACTER_UPDATE, {
+  const [createActivity] = useMutation(CREATE_ACTIVITY)
+  const [createActer] = useMutation(MUTATE_ACTER_CREATE)
+  const [updateActerImages] = useMutation(UPDATE_ACTER_IMAGES, {
     onCompleted: ({ updateActer }) => {
       _handleOnComplete(router, updateActer)
     },
   })
+
+  // TODO: Refactor this
+  let Form
+  let createFn
+  switch (acterType.name) {
+    case 'activity':
+      Form = ActivityForm
+      createFn = async (data): Promise<Acter> => {
+        // Create copy of the variables
+        const variables = {
+          ...data.variables,
+        }
+        ;['start', 'end'].forEach((t) => {
+          const time = data.variables[`${t}Time`]
+          variables[`${t}At`] = data.variables[`${t}Date`]
+            .hour(time.hour())
+            .minute(time.minute())
+            .second(time.second())
+            .toDate()
+          delete variables[`${t}Date`]
+          delete variables[`${t}Time`]
+        })
+        variables.isOnline = variables.isOnline === 'true'
+        const res = await createActivity({ variables })
+        return res.data.createActivity.Acter
+      }
+      break
+    default:
+      createFn = async (data): Promise<Acter> => {
+        const res = await createActer(data)
+        return res.data.createActer
+      }
+      Form = ActerForm
+  }
 
   return (
     <Layout user={user}>
@@ -135,10 +137,11 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
         <title>New {acterType.name}</title>
       </Head>
       <main>
-        <ActerForm
+        <Form
           acterType={acterType}
+          user={user}
           interestTypes={interestTypes}
-          onSubmit={_handleSubmit(createActer, updateActer, acterType)}
+          onSubmit={_handleSubmit(createFn, updateActerImages, acterType)}
         />
       </main>
     </Layout>

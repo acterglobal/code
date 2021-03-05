@@ -65,6 +65,9 @@ model Acter {
 
   ActerInterests ActerInterest[]
 
+  Activity            Activity?  @relation("acter")
+  ActivitiesOrganized Activity[] @relation("organiser")
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -129,6 +132,26 @@ model ActerTypeRule {
   @@map("acter_type_rules")
 }
 
+model Activity {
+  id       String   @id @default(uuid())
+  startAt  DateTime @map("start_at")
+  endAt    DateTime @map("end_at")
+  isOnline Boolean  @map("is_online")
+
+  createdByUser   User     @relation("activity_created_by_user", fields: [createdByUserId], references: [id])
+  createdByUserId String   @map("created_by_user_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  Acter   Acter?  @relation(name: "acter", fields: [acterId], references: [id])
+  acterId String?
+
+  Organiser   Acter?  @relation(name: "organiser", fields: [organiserId], references: [id])
+  organiserId String?
+
+  @@map("activities")
+}
+
 model Interest {
   id             String       @id @default(uuid())
   name           String
@@ -182,6 +205,9 @@ model User {
   ActerConnections ActerConnection[] @relation("acter_connection_created_by_user")
 
   ActerInterest ActerInterest[] @relation("acter_interest_created_by_user")
+
+  ActivitiesCreated Activity[] @relation("activity_created_by_user")
+
   @@map("users")
 }
 

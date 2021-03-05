@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@generated/type-graphql'
-import { FormikSetFieldType } from 'src/components/acter/landing-page/activities/form'
+import { FormikSetFieldType } from 'src/components/activities/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
