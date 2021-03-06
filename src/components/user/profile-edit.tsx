@@ -17,16 +17,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   fieldsContainer: {},
   textinput: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: theme.spacing(2),
   },
   button: {
     display: 'flex',
     alignItems: 'center',
-    // height: 100,
     backgroundColor: 'white',
   },
   secondButton: {
-    marginTop: 20,
+    marginTop: theme.spacing(2),
     width: '100%',
     color: grey[700],
     borderRadius: theme.spacing(3),
@@ -52,7 +51,6 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(false)
-    console.log(values)
     onSubmit(values)
   }
 
