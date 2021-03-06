@@ -8,7 +8,7 @@ export const getSelectedInterests = (
   interestTypes: InterestType[],
   selected: Interest[]
 ): InterestType[] => {
-  if (selected.length) {
+  if (selected?.length) {
     const selectedMap = selected.reduce((prev, { id }) => ({
       ...prev,
       [id]: true,
