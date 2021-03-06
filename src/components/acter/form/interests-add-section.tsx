@@ -7,7 +7,7 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    maxWidth: 450,
+    maxWidth: 550,
   },
   interests: {
     display: 'flex',

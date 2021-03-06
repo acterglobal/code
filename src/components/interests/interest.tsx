@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
-import { Avatar, Box, Chip } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Avatar, Box, Chip, Typography } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Image from 'next/image'
+import clsx from 'clsx'
 
 //  TODO: put these colors in theme or somewhere
 export const interestColors = {
@@ -13,20 +15,57 @@ export const interestColors = {
 }
 const disabledColor = '#b5b5b5'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    margin: 3,
-  },
-  chip: {
-    cursor: 'pointer',
-    width: 130,
-    height: 22,
-    fontSize: '0.7rem',
-    letterSpacing: '0.02rem',
-    display: 'flex',
-    flexDirection: 'row-reverse',
-  },
-}))
+const useStyles = makeStyles((theme: Theme) => {
+  return createStyles({
+    chip: {
+      //   margin: 3,
+      margin: theme.spacing(0.2),
+      width: theme.spacing(23),
+      height: theme.spacing(3),
+      border: ({ type }: { type: string }) =>
+        type === 'Tags' ? 'none' : '1px solid',
+      borderRadius: theme.spacing(3),
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      cursor: 'pointer',
+    },
+    outline: {
+      borderColor: ({ type }: { type: string }) => interestColors[type],
+      color: ({ type }: { type: string }) => interestColors[type],
+    },
+    selected: {
+      border: ({ type }: { type: string }) =>
+        type === 'Tags' ? '1px solid' : 'none',
+
+      borderColor: ({ type }: { type: string }) =>
+        type === 'Tags' && interestColors[type],
+
+      backgroundColor: ({ type }: { type: string }) =>
+        type !== 'Tags' ? interestColors[type] : '',
+
+      color: ({ type }: { type: string }) =>
+        type === 'Tags' ? interestColors[type] : 'white',
+    },
+    disable: {
+      color: disabledColor,
+      borderColor: disabledColor,
+      cursor: 'default',
+    },
+    name: {
+      marginLeft: theme.spacing(1),
+      fontSize: '0.7rem',
+    },
+    rightSideBox: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    number: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+  })
+})
 
 export interface InterestProps {
   interest: InterestType
@@ -45,47 +84,7 @@ export const Interest: FC<InterestProps> = ({
   SDGLogo = false,
   onSelectedInterestsChange,
 }) => {
-  const classes = useStyles()
-  let colorStyle = {}
-  let variant = false
-  const disabledStyles = {
-    color: disabledColor,
-    borderColor: disabledColor,
-    cursor: 'default',
-  }
-
-  switch (type) {
-    case 'Economy':
-    case 'Environment':
-    case 'Social':
-    case 'Approach':
-      if (selected) {
-        colorStyle = { backgroundColor: interestColors[type], color: 'white' }
-        variant = true
-      } else if (disabled) {
-        colorStyle = { ...disabledStyles }
-      } else {
-        colorStyle = {
-          color: interestColors[type],
-          borderColor: interestColors[type],
-        }
-      }
-      break
-
-    case 'Tags':
-      if (selected) {
-        colorStyle = {
-          color: interestColors[type],
-          borderColor: interestColors[type],
-        }
-      } else if (disabled) {
-        colorStyle = { ...disabledStyles }
-      } else {
-        variant = true
-        colorStyle = { backgroundColor: 'white', color: 'black' }
-      }
-      break
-  }
+  const classes = useStyles({ type })
 
   const handleClick = () => {
     if (disabled && !selected) return null
@@ -93,26 +92,34 @@ export const Interest: FC<InterestProps> = ({
   }
 
   return (
-    <Box className={classes.container}>
-      <Chip
-        className={classes.chip}
-        aria-label={interest.name}
-        role="listitem"
-        key={interest.id}
-        label={type === 'Tags' ? `# ${interest.name}` : interest.name}
-        style={{ ...colorStyle }}
-        size="small"
-        variant={variant ? 'default' : 'outlined'}
-        onClick={handleClick}
-        avatar={
-          SDGLogo && (
-            <Avatar
-              alt="SDG"
-              src="https://acter.ams3.cdn.digitaloceanspaces.com/assets/SDG-logo.png"
-            />
-          )
-        }
-      />
+    <Box
+      className={clsx(
+        classes.chip,
+        selected
+          ? classes.selected
+          : disabled
+          ? classes.disable
+          : classes.outline
+      )}
+      onClick={handleClick}
+    >
+      <Typography className={classes.name} variant="caption">
+        {type === 'Tags' ? `# ${interest.name}` : interest.name}
+      </Typography>
+
+      {SDGLogo && (
+        <Box className={clsx(classes.rightSideBox)}>
+          <Image
+            src="https://acter.ams3.cdn.digitaloceanspaces.com/assets/SDG-logo.png"
+            alt="SDG"
+            width={15}
+            height={15}
+          />
+          <Typography className={classes.number} variant="caption">
+            5
+          </Typography>
+        </Box>
+      )}
     </Box>
   )
 }
