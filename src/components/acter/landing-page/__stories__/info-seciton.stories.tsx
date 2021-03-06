@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
 import { InfoSection } from 'src/components/acter/landing-page/info-section'
+import { Interests } from 'src/__fixtures__'
 
 export default {
   title: 'landingpage/MetaSection',
@@ -8,4 +9,9 @@ export default {
 } as Meta
 
 import { ExampleActer } from 'src/__fixtures__'
-export const MetaSection: React.FC = () => <InfoSection acter={ExampleActer} />
+export const MetaSection: React.FC = () => (
+  <InfoSection
+    acter={ExampleActer}
+    interestTypes={Interests.data.interestTypes}
+  />
+)
