@@ -8,7 +8,6 @@ import { FormikSetFieldType } from 'src/components/activity/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    height: 400,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -6,13 +6,8 @@ import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    maxWidth: 550,
-  },
-  interests: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+  root: {},
+  interests: {},
 }))
 
 //  TODO: Add typing
@@ -71,7 +66,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
         {topLevelTypes.map((type, index) => (
           <Box role="tabpanel" hidden={value !== index} key={index}>
             {value === index && (
-              <Grid container spacing={3} className={classes.interests}>
+              <Box className={classes.interests}>
                 <InterestTypes
                   type={type}
                   allTypes={interestTypes}
@@ -79,7 +74,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
                 />
-              </Grid>
+              </Box>
             )}
           </Box>
         ))}

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 import { Modal } from 'src/components/util/modal/modal'
-import { Box } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ConnectProps } from 'src/components/acter/connect'
 import { ActivityInfo } from 'src/components/activity/activity-info'
@@ -9,21 +9,20 @@ import { ActivityDescription } from 'src/components/activity/activity-descriptio
 import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
 
-import { Acter, InterestType, User } from '@generated/type-graphql'
+import { InterestType } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    width: 700,
-    height: 680,
     backgroundColor: '#F2F2F2',
-    borderRadius: '10px 10px 10px 10px',
   },
   imageContainer: {
-    borderRadius: '10px 10px 0px 0px',
     backgroundColor: 'white',
+    height: 250,
+    overflow: 'hidden',
+    objectFit: 'contain',
   },
-  image: {
-    borderRadius: '10px 10px 0px 0px',
+  content: {
+    padding: theme.spacing(2),
   },
 }))
 
@@ -42,33 +41,35 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   const classes = useStyles()
 
   return (
-    <Modal>
-      <Box className={classes.container}>
-        <Box className={classes.imageContainer}>
-          <Image
-            className={classes.image}
-            src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
-            alt="Picture of activity"
-            width={750}
-            height={250}
-          />
-        </Box>
-
-        <ActivityInfo acter={acter} />
-        <Box style={{ display: 'flex' }}>
-          <ActivityDescription acter={acter} interestTypes={interestTypes} />
-          <Box style={{ margin: 10, width: '330px' }}>
-            <Participates
-              acter={acter}
-              user={user}
-              onJoin={onJoin}
-              onLeave={onLeave}
-              loading={loading}
-            />
-            <Organiser acter={acter.Activity.Organiser} />
-          </Box>
-        </Box>
+    <Box className={classes.container}>
+      <Box className={classes.imageContainer}>
+        <Image
+          src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
+          alt="Picture of activity"
+          layout="responsive"
+          width={600}
+          height={250}
+        />
       </Box>
-    </Modal>
+
+      <ActivityInfo acter={acter} />
+
+      <Grid container spacing={2} className={classes.content}>
+        <Grid item sm={8}>
+          <ActivityDescription acter={acter} interestTypes={interestTypes} />
+        </Grid>
+        <Grid item sm={4}>
+          <Participates
+            acter={acter}
+            user={user}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            loading={loading}
+          />
+          <br />
+          <Organiser acter={acter.Activity.Organiser} />
+        </Grid>
+      </Grid>
+    </Box>
   )
 }

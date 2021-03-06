@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Grid, Typography } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { DatePickerField } from 'src/components/util/pickers/date-picker-field'
 import { TimePickerField } from 'src/components/util/pickers/time-picker-field'
@@ -11,18 +11,16 @@ import {
   SelectOrganiser,
   SelectOrganiserProps,
 } from 'src/components/activity/form/select-organiser'
-import { Acter } from '@generated/type-graphql'
 import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    height: 400,
     display: 'flex',
     flexDirection: 'column',
   },
   heading: {
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: theme.spacing(2),
     textAlign: 'center',
     color: grey[800],
   },
@@ -38,14 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.5rem',
     marginBottom: 15,
     color: theme.palette.secondary.light,
-  },
-  datetimeSection: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  pickerfield: {
-    width: 240,
   },
 }))
 
@@ -71,39 +61,44 @@ export const Step1: FC<Step1Props> = ({ acters }) => {
           required={true}
         />
 
-        <Box className={classes.datetimeSection}>
-          <Box className={classes.pickerfield}>
-            <DatePickerField
-              placeholder="Start Date"
-              name="startDate"
-              required={true}
-            />
-          </Box>
-          <Box className={classes.pickerfield}>
-            <TimePickerField
-              placeholder="Start Time"
-              name="startTime"
-              required={true}
-            />
-          </Box>
-        </Box>
-
-        <Box className={classes.datetimeSection}>
-          <Box className={classes.pickerfield}>
-            <DatePickerField
-              placeholder="End Date"
-              name="endDate"
-              required={true}
-            />
-          </Box>
-          <Box className={classes.pickerfield}>
-            <TimePickerField
-              placeholder="End Time"
-              name="endTime"
-              required={true}
-            />
-          </Box>
-        </Box>
+        <Grid container spacing={2}>
+          <Grid item sm={12} md={6}>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <DatePickerField
+                  placeholder="Start Date"
+                  name="startDate"
+                  required={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TimePickerField
+                  placeholder="Start Time"
+                  name="startTime"
+                  required={true}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item sm={12} md={6}>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <DatePickerField
+                  placeholder="end Date"
+                  name="endDate"
+                  required={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TimePickerField
+                  placeholder="End Time"
+                  name="endTime"
+                  required={true}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </MuiPickersUtilsProvider>
     </Box>
   )

@@ -8,11 +8,9 @@ import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    marginTop: 10,
-    // padding: 20,
-    padding: '15px 20px 15px 20px',
+    padding: theme.spacing(2),
     backgroundColor: 'white',
-    borderRadius: 5,
+    borderRadius: theme.spacing(1),
   },
   heading: {
     fontWeight: 'bolder',

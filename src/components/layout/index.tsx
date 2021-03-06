@@ -1,8 +1,13 @@
 import React, { FC } from 'react'
 import clsx from 'clsx'
 
-import { Container } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import {
+  Container,
+  Toolbar,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
 
@@ -10,19 +15,20 @@ import { User } from '@generated/type-graphql'
 
 const sidebarWidth = 50
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    flexGrow: 1,
-    margin: theme.spacing(2),
-  },
-  containerWithSidebar: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    paddingLeft: sidebarWidth + theme.spacing(2),
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      minWidth: 375 - sidebarWidth,
+    },
+    containerWithSidebar: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      paddingLeft: sidebarWidth + theme.spacing(2),
+    },
+  })
+)
 
 export interface LayoutProps {
   user?: User

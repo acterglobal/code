@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
-import { Button, Box } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { flattenFollowing } from 'src/lib/acter/flatten-following'
-import { Acter, InterestType, User } from '@generated/type-graphql'
+import { Button, Box, Grid, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { Modal } from 'src/components/util/modal/modal'
+import { flattenFollowing } from 'src/lib/acter/flatten-following'
+import { InterestType, User } from '@generated/type-graphql'
 import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
@@ -14,34 +13,34 @@ import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    minWidth: 500,
-    minHeight: 500,
-    border: '1px solid gray',
-    padding: 50,
-  },
-  fields: {
-    // height: 350,
+    height: '90vh',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+  fields: {
+    flexGrow: 1,
+    overflowY: 'scroll',
+  },
+  controls: {
+    flexShrink: 0,
   },
   btnsContainer: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    // bottom: 5,
+    padding: theme.spacing(2),
   },
   button: {
-    borderRadius: 5,
+    borderRadius: theme.spacing(1),
     textTransform: 'none',
-    width: 200,
+    width: '100%',
   },
   statusBars: {
     display: 'flex',
     justifyContent: 'center',
-    width: '100%',
-    marginBottom: 50,
+    // width: '100%',
+    margin: theme.spacing(2.5),
   },
   bar: {
-    minWidth: 130,
+    minWidth: 75,
     height: 8,
     backgroundColor: grey[200],
     borderRadius: 10,
@@ -95,6 +94,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   interestTypes,
   onSubmit,
 }) => {
+  const router = useRouter()
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(1)
   const totalSteps = steps.length
@@ -116,7 +116,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   }
 
   const initialValues = {
-    organiserActerId: '',
+    organiserActerId: router.query.organiserActerId || '',
     name: '',
     startDate: null,
     startTime: null,
@@ -138,25 +138,25 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   // })
 
   return (
-    <Modal>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onStepSubmit}
-        // validationSchema={validationSchema}
-      >
-        {({ isSubmitting, setFieldValue, values }) => (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onStepSubmit}
+      // validationSchema={validationSchema}
+    >
+      {({ isSubmitting, setFieldValue, values }) => (
+        <Form>
           <Box className={classes.container}>
-            <Form>
-              <Box className={classes.fields}>
-                {getStepContent(
-                  activeStep,
-                  user,
-                  interestTypes,
-                  setFieldValue,
-                  values
-                )}
-              </Box>
+            <Box className={classes.fields}>
+              {getStepContent(
+                activeStep,
+                user,
+                interestTypes,
+                setFieldValue,
+                values
+              )}
+            </Box>
 
+            <Box className={classes.controls}>
               <Box className={classes.statusBars}>
                 {steps.map((step, index) => (
                   <Box
@@ -169,31 +169,35 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                 ))}
               </Box>
 
-              <Box className={classes.btnsContainer}>
-                <Button
-                  variant="text"
-                  color="primary"
-                  className={classes.button}
-                  disabled={activeStep === 1 || isSubmitting}
-                  onClick={handlePrev}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ color: 'white' }}
-                  className={classes.button}
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isLastStep() ? 'Submit' : 'Next'}
-                </Button>
-              </Box>
-            </Form>
+              <Grid container spacing={4} className={classes.btnsContainer}>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    variant="text"
+                    color="primary"
+                    className={classes.button}
+                    disabled={activeStep === 1 || isSubmitting}
+                    onClick={handlePrev}
+                  >
+                    Back
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ color: 'white' }}
+                    className={classes.button}
+                    disabled={isSubmitting}
+                    type="submit"
+                  >
+                    {isLastStep() ? 'Submit' : 'Next'}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
-        )}
-      </Formik>
-    </Modal>
+        </Form>
+      )}
+    </Formik>
   )
 }

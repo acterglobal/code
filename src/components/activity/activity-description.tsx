@@ -7,9 +7,7 @@ import { Acter, InterestType } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    margin: '10px 0px 10px 10px',
-    padding: 20,
-    width: 500,
+    padding: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: 5,
   },
@@ -18,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
   },
   description: {
-    height: 100,
+    height: 80,
     overflow: 'scroll',
     fontSize: '0.7rem',
     lineHeight: '0.05rem',

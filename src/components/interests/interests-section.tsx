@@ -42,15 +42,19 @@ export const InterestsSection: FC<InterestsSectionProps> = ({
   const topLevelTypes = getTopLevelTypes(typesWithSelectedInterests)
 
   return (
-    <Box style={{ display: 'flex' }}>
+    <>
       {topLevelTypes.map((type) => (
         <Box role="interests-section" key={type.id}>
           <Typography id="interest-type-name" style={{ margin: 5 }}>
             {type.name}
           </Typography>
-          <InterestTypes type={type} allTypes={typesWithSelectedInterests} />
+          <InterestTypes
+            type={type}
+            allTypes={typesWithSelectedInterests}
+            onSelectedInterestsChange={() => null}
+          />
         </Box>
       ))}
-    </Box>
+    </>
   )
 }

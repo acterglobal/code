@@ -7,7 +7,6 @@ import {
   List,
   ListItem,
   Toolbar,
-  Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import {
@@ -44,7 +43,7 @@ export const Sidebar: FC<SidebarProps> = ({ width }) => {
   const router = useRouter()
   return (
     <Drawer
-      variant="permanent"
+      variant="persistent"
       anchor="left"
       open={true}
       classes={{ paper: classes.drawer }}

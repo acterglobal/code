@@ -8,10 +8,7 @@ import { ImageUpload } from 'src/components/image-upload'
 import { FormikSetFieldType } from 'src/components/activity/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    height: 400,
-    overflow: 'scroll',
-  },
+  container: {},
   descriptionSection: {
     marginBottom: 20,
   },

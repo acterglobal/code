@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Meta } from '@storybook/react'
-import { ListActivities } from 'src/components/activity/list-activities'
+import { ActivitiesList } from 'src/components/activity/list'
 
 export default {
   title: 'landingpage/ActivitiesList',
-  component: ListActivities,
+  component: ActivitiesList,
 } as Meta
 
-export const ActivitiesList: FC = () => <ListActivities />
+export const ActivitiesList: FC = () => <ActivitiesList />

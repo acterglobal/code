@@ -47,8 +47,6 @@ export const _handleSubmit = (
   // Upload images
   await saveActerImages(acter, data)
 
-  debugger
-
   // Update Acter with image URLs
   return await updateActerFn({
     variables: {

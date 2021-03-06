@@ -1,5 +1,10 @@
 import React, { FC } from 'react'
-import { LocationOnOutlined, Event as CalanderIcon } from '@material-ui/icons'
+import moment from 'moment'
+import {
+  Computer,
+  LocationOnOutlined,
+  Event as CalanderIcon,
+} from '@material-ui/icons'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
@@ -36,28 +41,45 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
+const momentFormat = 'llll'
+
 export interface ActivityInfoProps {
   acter: Acter
 }
 
 export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
   const classes = useStyles()
+  const startAt = moment(acter.Activity.startAt)
+  const endAt = moment(acter.Activity.endAt)
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
         <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.date} variant="subtitle1">
-          {`${acter.Activity?.startAt} - ${acter.Activity?.endAt}`}
+          {`${startAt.format(momentFormat)} - ${endAt.format(momentFormat)}`}
         </Typography>
       </Box>
       <Typography className={classes.title} variant="h3">
         {acter.name}
       </Typography>
       <Box className={classes.locationContainer}>
-        <LocationOnOutlined style={{ fontSize: '1.3rem', marginRight: 5 }} />
-        <Typography className={classes.location} variant="body2">
-          {acter.location}
-        </Typography>
+        {acter.Activity.isOnline ? (
+          <>
+            <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
+            <Typography className={classes.location} variant="body2">
+              {acter.url}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <LocationOnOutlined
+              style={{ fontSize: '1.3rem', marginRight: 5 }}
+            />
+            <Typography className={classes.location} variant="body2">
+              {acter.location}
+            </Typography>
+          </>
+        )}
       </Box>
     </Box>
   )
