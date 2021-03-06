@@ -8,12 +8,14 @@ export interface InterestTypesProps {
   selectedInterests?: string[]
   selectedTypes?: string[]
   disabled?: boolean
+  SDGLogo?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
 export const InterestTypes: FC<InterestTypesProps> = ({
   type,
   allTypes,
+  SDGLogo,
   onSelectedInterestsChange,
   selectedInterests,
   selectedTypes,
@@ -31,6 +33,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             key={subType.id}
             type={subType}
             allTypes={subTypes}
+            SDGLogo={true}
             onSelectedInterestsChange={onSelectedInterestsChange}
             selectedInterests={selectedInterests}
             selectedTypes={selectedTypes}
@@ -56,6 +59,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               key={interest.id}
               interest={interest}
               type={type.name}
+              SDGLogo={SDGLogo}
               onSelectedInterestsChange={onSelectedInterestsChange}
               selected={
                 selectedInterests && selectedInterests.includes(interest.id)

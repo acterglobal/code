@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { InterestType } from '@generated/type-graphql'
-import { Box, Chip } from '@material-ui/core'
+import { Avatar, Box, Chip } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 //  TODO: put these colors in theme or somewhere
@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: 22,
     fontSize: '0.7rem',
     letterSpacing: '0.02rem',
+    display: 'flex',
+    flexDirection: 'row-reverse',
   },
 }))
 
@@ -31,6 +33,7 @@ export interface InterestProps {
   type: string
   selected?: boolean
   disabled?: boolean
+  SDGLogo?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -39,6 +42,7 @@ export const Interest: FC<InterestProps> = ({
   type,
   selected = true,
   disabled = false,
+  SDGLogo = false,
   onSelectedInterestsChange,
 }) => {
   const classes = useStyles()
@@ -100,6 +104,14 @@ export const Interest: FC<InterestProps> = ({
         size="small"
         variant={variant ? 'default' : 'outlined'}
         onClick={handleClick}
+        avatar={
+          SDGLogo && (
+            <Avatar
+              alt="SDG"
+              src="https://acter.ams3.cdn.digitaloceanspaces.com/assets/SDG-logo.png"
+            />
+          )
+        }
       />
     </Box>
   )
