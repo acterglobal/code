@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react'
 import {
   ActivityDetails as Activity,
   ActivityDetailsProps,
-} from 'src/components/activities/activity-details'
+} from 'src/components/activity'
 import { ExampleActivity, ExampleActer } from 'src/__fixtures__'
 
 export default {

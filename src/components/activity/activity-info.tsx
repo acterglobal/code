@@ -4,6 +4,8 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 
+import { Acter } from '@generated/type-graphql'
+
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
     padding: '20px 20px 20px 30px',
@@ -34,28 +36,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-// TODO: add correct activity type when you have activity modal ready in prisma
 export interface ActivityInfoProps {
-  activity: any
+  acter: Acter
 }
 
-export const ActivityInfo: FC<ActivityInfoProps> = ({ activity }) => {
+export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
   const classes = useStyles()
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
         <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.date} variant="subtitle1">
-          {`${activity.startDate} - ${activity.endDate}`}
+          {`${acter.Activity?.startAt} - ${acter.Activity?.endAt}`}
         </Typography>
       </Box>
       <Typography className={classes.title} variant="h3">
-        {activity.title}
+        {acter.name}
       </Typography>
       <Box className={classes.locationContainer}>
         <LocationOnOutlined style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.location} variant="body2">
-          {activity.location}
+          {acter.location}
         </Typography>
       </Box>
     </Box>

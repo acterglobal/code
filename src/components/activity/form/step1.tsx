@@ -10,7 +10,7 @@ import MomentUtils from '@date-io/moment'
 import {
   SelectOrganiser,
   SelectOrganiserProps,
-} from 'src/components/activities/form/select-organiser'
+} from 'src/components/activity/form/select-organiser'
 import { Acter } from '@generated/type-graphql'
 import { grey } from '@material-ui/core/colors'
 

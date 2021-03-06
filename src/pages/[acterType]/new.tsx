@@ -9,7 +9,7 @@ import { saveActerImages } from 'src/lib/acter/save-images'
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
-import { ActivityForm } from 'src/components/activities/form'
+import { ActivityForm } from 'src/components/activity/form'
 
 import {
   getUserProfile,
@@ -24,6 +24,7 @@ import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER_IMAGES from 'graphql/mutations/acter-update-images.graphql'
 import CREATE_ACTIVITY from 'graphql/mutations/activity-create.graphql'
+import { ACTIVITY } from 'src/constants'
 
 /**
  * Returns an onSubmit handler
@@ -101,7 +102,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   let Form
   let createFn
   switch (acterType.name) {
-    case 'activity':
+    case ACTIVITY:
       Form = ActivityForm
       createFn = async (data): Promise<Acter> => {
         // Create copy of the variables

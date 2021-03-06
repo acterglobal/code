@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react'
-import { ActivityForm, ActivityFormProps } from 'src/components/activities/form'
+import { ActivityForm, ActivityFormProps } from 'src/components/activity/form'
 import { Interests, ExampleActer } from 'src/__fixtures__'
 
 export default {

@@ -6,6 +6,7 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
 import { Acter } from '@generated/type-graphql'
+import { NETWORK, ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
   label: {
@@ -43,7 +44,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    ['organisation', 'network'].includes(name)
+    [ORGANISATION, NETWORK].includes(name)
   )
 
   return (

@@ -3,6 +3,8 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { InterestsSection } from 'src/components/interests/interests-section'
 
+import { Acter, InterestType } from '@generated/type-graphql'
+
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     margin: '10px 0px 10px 10px',
@@ -26,12 +28,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface ActivityDescriptionProps {
-  // TODO: fix the type below
-  activity: any
+  acter: Acter
+  interestTypes: InterestType[]
 }
 
 export const ActivityDescription: FC<ActivityDescriptionProps> = ({
-  activity,
+  acter,
+  interestTypes,
 }) => {
   const classes = useStyles()
   return (
@@ -40,9 +43,12 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
         About
       </Typography>
       <Box className={classes.description}>
-        <Typography variant="caption">{activity.description}</Typography>
+        <Typography variant="caption">{acter.description}</Typography>
       </Box>
-      {/* <InterestsSection interestTypes={activity.interests} /> */}
+      <InterestsSection
+        interestTypes={interestTypes}
+        selected={acter.ActerInterests.map(({ Interest }) => Interest)}
+      />
     </Box>
   )
 }

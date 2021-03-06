@@ -2,8 +2,9 @@ import React, { FC } from 'react'
 import { Box, Typography, Button } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
+import { Connect, ConnectProps } from 'src/components/acter/connect'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter, User } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -30,11 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface ParticipatesProps {
-  acter: Acter
-}
+export type ParticipatesProps = ConnectProps
 
-export const Participates: FC<ParticipatesProps> = ({ acter }) => {
+export const Participates: FC<ParticipatesProps> = (props) => {
   const classes = useStyles()
 
   return (
@@ -42,15 +41,8 @@ export const Participates: FC<ParticipatesProps> = ({ acter }) => {
       <Typography className={classes.heading} variant="h6">
         Participates
       </Typography>
-      <FollowersAvatars acter={acter} />
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        fullWidth
-      >
-        Join
-      </Button>
+      <FollowersAvatars acter={props.acter} />
+      <Connect {...props} />
     </Box>
   )
 }

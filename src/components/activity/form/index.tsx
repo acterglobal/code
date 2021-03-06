@@ -7,9 +7,9 @@ import { Acter, InterestType, User } from '@generated/type-graphql'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { Modal } from 'src/components/util/modal/modal'
-import { Step1 } from 'src/components/activities/form/step1'
-import { Step2 } from 'src/components/activities/form/step2'
-import { Step3 } from 'src/components/activities/form/step3'
+import { Step1 } from 'src/components/activity/form/step1'
+import { Step2 } from 'src/components/activity/form/step2'
+import { Step3 } from 'src/components/activity/form/step3'
 import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({

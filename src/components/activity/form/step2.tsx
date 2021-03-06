@@ -5,7 +5,7 @@ import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { grey } from '@material-ui/core/colors'
 import { ImageUpload } from 'src/components/image-upload'
-import { FormikSetFieldType } from 'src/components/activities/form'
+import { FormikSetFieldType } from 'src/components/activity/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

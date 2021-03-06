@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Meta } from '@storybook/react'
-import { ListActivities } from 'src/components/activities/list-activities'
+import { ListActivities } from 'src/components/activity/list-activities'
 
 export default {
   title: 'landingpage/ActivitiesList',

@@ -3,12 +3,13 @@ import Image from 'next/image'
 import { Modal } from 'src/components/util/modal/modal'
 import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { ActivityInfo } from 'src/components/activities/activity-info'
-import { ActivityDescription } from 'src/components/activities/activity-description'
-import { Participates } from 'src/components/activities/participates'
-import { Organiser } from 'src/components/activities/organiser'
+import { ConnectProps } from 'src/components/acter/connect'
+import { ActivityInfo } from 'src/components/activity/activity-info'
+import { ActivityDescription } from 'src/components/activity/activity-description'
+import { Participates } from 'src/components/activity/participates'
+import { Organiser } from 'src/components/activity/organiser'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter, InterestType, User } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -26,16 +27,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface ActivityDetailsProps {
-  // TODO: need to specify the activity type below instead any
-  activity: any
-
-  acter: Acter
+export interface ActivityDetailsProps extends ConnectProps {
+  interestTypes: InterestType[]
 }
 
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
-  activity,
   acter,
+  interestTypes,
+  user,
+  onJoin,
+  onLeave,
+  loading,
 }) => {
   const classes = useStyles()
 
@@ -45,19 +47,25 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         <Box className={classes.imageContainer}>
           <Image
             className={classes.image}
-            src={activity.image}
+            src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
             alt="Picture of activity"
             width={750}
             height={250}
           />
         </Box>
 
-        <ActivityInfo activity={activity} />
+        <ActivityInfo acter={acter} />
         <Box style={{ display: 'flex' }}>
-          <ActivityDescription activity={activity} />
+          <ActivityDescription acter={acter} interestTypes={interestTypes} />
           <Box style={{ margin: 10, width: '330px' }}>
-            <Participates acter={acter} />
-            <Organiser />
+            <Participates
+              acter={acter}
+              user={user}
+              onJoin={onJoin}
+              onLeave={onLeave}
+              loading={loading}
+            />
+            <Organiser acter={acter.Activity.Organiser} />
           </Box>
         </Box>
       </Box>
