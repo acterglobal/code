@@ -144,10 +144,10 @@ model Activity {
   updatedAt       DateTime @updatedAt @map("updated_at")
 
   Acter   Acter?  @relation(name: "acter", fields: [acterId], references: [id])
-  acterId String?
+  acterId String? @map("acter_id")
 
   Organiser   Acter?  @relation(name: "organiser", fields: [organiserId], references: [id])
-  organiserId String?
+  organiserId String? @map("organiser_id")
 
   @@map("activities")
 }
