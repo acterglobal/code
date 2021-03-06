@@ -13,6 +13,7 @@ import {
 } from 'src/__fixtures__'
 
 import { getActerTypes } from 'src/props'
+import { ORGANISATION } from 'src/constants'
 
 describe('getActerTypes', () => {
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]
@@ -40,7 +41,7 @@ describe('getActerTypes', () => {
       data: { acterTypes },
     })
     context = ({
-      params: { acterType: 'organisations' },
+      params: { acterType: ORGANISATION },
     } as unknown) as ComposedGetServerSidePropsContext
 
     expect(await getActerTypes(context)).toStrictEqual({

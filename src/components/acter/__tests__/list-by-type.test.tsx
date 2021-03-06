@@ -3,6 +3,7 @@ import { render, screen, within } from '@testing-library/react'
 
 import { ActerListByType } from 'src/components/acter/list-by-type'
 import { ExampleActerList } from 'src/__fixtures__'
+import { GROUP, NETWORK, ORGANISATION } from 'src/constants'
 
 describe('ActerListByType', () => {
   it.skip('should display a list of Acters ordered by ActerType', async () => {
@@ -13,7 +14,7 @@ describe('ActerListByType', () => {
 
     expect(typeLists.length).toBe(3)
     //TODO: We should use an explicit order
-    const acterTypes = ['Organisation', 'Network', 'Group']
+    const acterTypes = [ORGANISATION, NETWORK, GROUP]
     expect(
       typeLists.map((list) => within(list).queryByRole('heading').textContent)
     ).toEqual(acterTypes)

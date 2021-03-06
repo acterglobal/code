@@ -21,6 +21,7 @@ import CREATE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-create.g
 import DELETE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-delete.graphql'
 import GET_ACTER from 'graphql/queries/acter-by-slug.graphql'
 import GET_USER from 'graphql/queries/user-by-id.graphql'
+import { ACTIVITY } from 'src/constants'
 
 interface ActerLandingPageProps {
   acter: Acter

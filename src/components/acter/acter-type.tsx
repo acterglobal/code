@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { KeyboardArrowRightRounded } from '@material-ui/icons'
+import { ORGANISATION } from 'src/constants'
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     border: '1px solid gray',
@@ -43,7 +44,7 @@ export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {
   const classes = useStyles()
   //TODO: read this from DB
   const caption =
-    acterType === 'organisation'
+    acterType === ORGANISATION
       ? `Eg: NGO's, Movements, Companies, Public organisations`
       : `Eg: Network, Platforms, Clusters`
 

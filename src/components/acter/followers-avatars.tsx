@@ -4,6 +4,7 @@ import { Box, Typography } from '@material-ui/core'
 import { titleCase } from 'title-case'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { Acter, ActerType } from '@generated/type-graphql'
+import { ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +36,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
     ({ Follower }) => Follower.ActerType.name === 'user'
   ).map(({ Follower }) => Follower)
   const organisations = acter.Followers?.filter(
-    ({ Follower }) => Follower.ActerType.name === 'organisation'
+    ({ Follower }) => Follower.ActerType.name === ORGANISATION
   ).map(({ Follower }) => Follower)
 
   return (
