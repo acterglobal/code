@@ -12,6 +12,50 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 
 import { Acter, User } from '@generated/type-graphql'
+import { ACTIVITY, NETWORK, ORGANISATION, USER } from 'src/constants'
+
+// TODO: this IS the app and should be tested
+export const filterFollowers = (acter: Acter) => (
+  following: Acter
+): boolean => {
+  // Don't include self
+  if (following.id === acter.id) return false
+
+  // Don't include activity organizer
+  if (
+    acter.ActerType.name === ACTIVITY &&
+    acter.Activity.organiserId === following.id
+  ) {
+    return false
+  }
+
+  switch (following.ActerType.name) {
+    // Activities cannot connect to other types
+    case ACTIVITY:
+      return false
+    // Networks cannot connect to anything
+    case NETWORK:
+      return false
+    // Orgs can only connect to Networks
+    case ORGANISATION:
+      return [NETWORK].includes(acter.ActerType.name)
+    // Users can connect to anything
+    case USER:
+      return true
+    default:
+      return false
+  }
+}
+
+// TODO tests
+export const getFollowers = (user: User, acter: Acter): Acter[] => {
+  const followers = flattenFollowing(user.Acter).filter(filterFollowers(acter))
+  // Only include the User's UserActer if this Acter was not created by the User
+  if (acter.createdByUserId !== user.id) {
+    followers.unshift(user.Acter)
+  }
+  return followers
+}
 
 export interface ConnectProps {
   /**
@@ -45,14 +89,9 @@ export const Connect: FC<ConnectProps> = ({
   onLeave,
   loading,
 }) => {
-  const rows = flattenFollowing(user.Acter).filter(
-    (following) => following.id !== acter.id
-  )
-  // Only include the User's UserActer if this Acter was not created by the User
-  if (acter.createdByUserId !== user.id) {
-    rows.unshift(user.Acter)
-  }
-  if (!rows.length) {
+  const followers = getFollowers(user, acter)
+
+  if (!followers.length) {
     return null
   }
 
@@ -61,7 +100,7 @@ export const Connect: FC<ConnectProps> = ({
       anchorNode={<StyledButton>Connect</StyledButton>}
       closeOnClick={false}
     >
-      {rows.map((follower) => (
+      {followers.map((follower) => (
         <FollowerRow
           acter={acter}
           follower={follower}
