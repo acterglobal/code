@@ -1,12 +1,15 @@
 #import "../fragments/acter-dislapy.fragment.graphql"
+#import "../fragments/acter-full.fragment.graphql"
 
 query ActerBySlug($acterTypeId: String!, $slug: String!) {
   getActer(acterTypeId: $acterTypeId, slug: $slug) {
-    ...ActerDisplay
+    ...ActerFull
     createdByUserId
-    Followers {
-      id
-      Follower {
+    Activity {
+      isOnline
+      startAt
+      endAt
+      Organiser {
         ...ActerDisplay
       }
     }
