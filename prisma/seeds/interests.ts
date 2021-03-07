@@ -10,6 +10,7 @@ interface interestMap {
 interface interestTypeMap {
   id?: string
   name: string
+  sortOrder?: number
   types?: interestTypeMap[]
   interests?: interestMap[]
 }
@@ -17,9 +18,11 @@ interface interestTypeMap {
 const interestTypes: interestTypeMap[] = [
   {
     name: 'Focus',
+    sortOrder: 1,
     types: [
       {
         name: 'Environment',
+        sortOrder: 1,
         interests: [
           { name: 'Air', description: '', sdgNumber: '' },
           { name: 'Biodiversity land', description: '', sdgNumber: '15' },
@@ -33,6 +36,7 @@ const interestTypes: interestTypeMap[] = [
       },
       {
         name: 'Social',
+        sortOrder: 2,
         interests: [
           { name: 'Corruption', description: '', sdgNumber: '' },
           { name: 'Drinking water', description: '', sdgNumber: '' },
@@ -51,6 +55,7 @@ const interestTypes: interestTypeMap[] = [
       },
       {
         name: 'Economy',
+        sortOrder: 3,
         interests: [
           { name: 'Agriculture', description: '', sdgNumber: '' },
           { name: 'Consumption', description: '', sdgNumber: '12' },
@@ -68,6 +73,7 @@ const interestTypes: interestTypeMap[] = [
   },
   {
     name: 'Approach',
+    sortOrder: 2,
     interests: [
       { name: 'Collaboration', description: '', sdgNumber: '' },
       { name: 'Conferences', description: '', sdgNumber: '' },
@@ -93,6 +99,7 @@ const interestTypes: interestTypeMap[] = [
   },
   {
     name: 'Tags',
+    sortOrder: 3,
     interests: [
       { name: 'AntiRacism', description: '', sdgNumber: '' },
       { name: 'BalticSea', description: '', sdgNumber: '' },
@@ -124,16 +131,21 @@ const interestTypes: interestTypeMap[] = [
 
 export const seedInterests = async (prisma: PrismaClient): Promise<void[]> => {
   const upsertInterestType = async (
-    name: string,
+    interestType: interestTypeMap,
     parent?: interestTypeMap
   ): Promise<InterestType> => {
     const parentId = parent?.id || null
+    const map = {
+      name: interestType.name,
+      sortOrder: interestType.sortOrder,
+      parentInterestTypeId: parentId,
+    }
     const type = await prisma.interestType.upsert({
-      create: { name, parentInterestTypeId: parentId },
-      update: {},
+      create: map,
+      update: map,
       where: {
         nameUniqueForParentInterestType: {
-          name,
+          name: interestType.name,
           parentInterestTypeId: parentId,
         },
       },
@@ -159,7 +171,7 @@ export const seedInterests = async (prisma: PrismaClient): Promise<void[]> => {
   const seedInterestType = (parent?: interestTypeMap) => async (
     type: interestTypeMap
   ) => {
-    const interestType = await upsertInterestType(type.name, parent)
+    const interestType = await upsertInterestType(type, parent)
 
     if (type.interests?.length) {
       await Promise.all(type.interests.map(upsertInterest(interestType)))

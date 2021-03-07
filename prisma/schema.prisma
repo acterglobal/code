@@ -172,11 +172,13 @@ model InterestType {
   name                 String
   parent               InterestType?  @relation("parent_interest_type", fields: [parentInterestTypeId], references: [id])
   children             InterestType[] @relation("parent_interest_type")
+  sortOrder            Int            @default(0) @map("sort_order")
   parentInterestTypeId String?        @map("parent_interest_type_id")
   Interests            Interest[]
 
 
   @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
+  @@index([sortOrder])
   @@map("interest_types")
 }
 
