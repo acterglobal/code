@@ -1,17 +1,25 @@
 import React, { FC } from 'react'
-import { Meta } from '@storybook/react'
-import { ActivitiesList } from 'src/components/activity/list'
+import { Meta, Story } from '@storybook/react'
+import { v4 } from 'uuid'
+import { ActivitiesList, ActivityListProps } from 'src/components/activity/list'
 import { ExampleActer, ExampleActivity, ExampleUser } from 'src/__fixtures__'
+import { Acter } from '@generated/type-graphql'
+
+const acter = ({
+  ...ExampleActer,
+  Followers: [{ id: v4(), Follower: ExampleActer }],
+} as unknown) as Acter
 
 export default {
   title: 'landingpage/ActivitiesList',
   component: ActivitiesList,
+  args: {
+    acter: acter,
+    user: ExampleUser,
+    activities: [ExampleActivity],
+  },
 } as Meta
 
-export const List: FC = () => (
-  <ActivitiesList
-    acter={ExampleActer}
-    user={ExampleUser}
-    activities={[ExampleActivity]}
-  />
+export const List: Story<ActivityListProps> = (args) => (
+  <ActivitiesList {...args} />
 )

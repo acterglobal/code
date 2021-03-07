@@ -4,7 +4,7 @@ import {
   ActerLanding,
   ActerLandingProps,
 } from 'src/components/acter/landing-page/index'
-import { ExampleActer, ExampleUser } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser, ExampleActivity } from 'src/__fixtures__'
 import { Acter } from '@generated/type-graphql'
 
 export default {

@@ -4,14 +4,27 @@ import {
   ActivityDetails as Activity,
   ActivityDetailsProps,
 } from 'src/components/activity'
-import { ExampleActivity, ExampleActer } from 'src/__fixtures__'
+import {
+  ExampleActivity,
+  ExampleActer,
+  Interests,
+  ExampleUser,
+} from 'src/__fixtures__'
+
+const acter = {
+  ...ExampleActer,
+  Activity: ExampleActivity,
+  ActerInterests: [{ Interest: Interests.data.interestTypes[1].Interests[0] }],
+  Followers: [{ Follower: ExampleActer }],
+}
 
 export default {
   title: 'landingpage/ActivityDetails',
   component: Activity,
   args: {
-    activity: ExampleActivity,
-    acter: ExampleActer,
+    acter: acter,
+    interestTypes: Interests.data.interestTypes,
+    user: ExampleUser,
   },
 } as Meta
 

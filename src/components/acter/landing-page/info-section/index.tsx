@@ -17,7 +17,7 @@ export const InfoSection: FC<InfoSectionProps> = ({ acter, interestTypes }) => {
         <Header title={acter.name} description={acter.description} />
         <InterestsSection
           interestTypes={interestTypes}
-          selected={acter.ActerInterests.map(({ Interest }) => Interest)}
+          selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
         />
         <FollowersAvatars acter={acter} />
       </CardContent>

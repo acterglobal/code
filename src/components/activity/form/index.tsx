@@ -116,7 +116,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   }
 
   const initialValues = {
-    organiserActerId: router.query.organiserActerId || '',
+    organiserActerId: router?.query?.organiserActerId || '',
     name: '',
     startDate: null,
     startTime: null,

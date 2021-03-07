@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-interface ActivityListProps {
+export interface ActivityListProps {
   acter: Acter
   activities: Activity[]
   user: User
@@ -36,8 +36,8 @@ export const ActivitiesList: FC<ActivityListProps> = ({
   const router = useRouter()
   const classes = useStyles()
 
-  const canCreate = acter.Followers.map(({ Follower: { id } }) => id).includes(
-    user.Acter.id
+  const canCreate = acter.Followers?.map(({ Follower: { id } }) => id).includes(
+    user.Acter?.id
   )
 
   return (
@@ -56,7 +56,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({
         </Box>
       )}
       <Box>
-        {activities.map((activity) => (
+        {activities?.map((activity) => (
           <Box
             className={classes.activity}
             onClick={() => router.push(`/activities/${activity.Acter.slug}`)}

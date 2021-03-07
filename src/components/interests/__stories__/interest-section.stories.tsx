@@ -9,8 +9,9 @@ export default {
   title: 'interests/Section',
   component: InterestsSection,
   args: {
-    interestTypes: Interests.data.interestTypes,
     columns: false,
+    showTitle: true,
+    interestTypes: Interests.data.interestTypes,
   },
 } as Meta
 
