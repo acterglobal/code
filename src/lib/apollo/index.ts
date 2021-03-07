@@ -86,7 +86,6 @@ export function addApolloState(
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract()
   }
 
-  console.log('In addApolloState', pageProps)
   return pageProps
 }
 

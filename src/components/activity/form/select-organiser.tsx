@@ -6,6 +6,7 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
 import { Acter } from '@generated/type-graphql'
+import { NETWORK, ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
   label: {
@@ -33,12 +34,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface SelectOrganiserProps {
-  defaultOrganiser: Acter
+  /**
+   * A list of potential Organiser Acters
+   */
+  acters: Acter[]
 }
 
-export const SelectOrganiser: FC<SelectOrganiserProps> = (props) => {
-  const { defaultOrganiser } = props
+export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
+  // TODO:  Refactor this to use rule set
+  const organisers = acters.filter(({ ActerType: { name } }) =>
+    [ORGANISATION, NETWORK].includes(name)
+  )
 
   return (
     <>
@@ -46,36 +53,21 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = (props) => {
       <Field
         className={classes.chooseOrganiser}
         component={Select}
-        name="organiser"
+        name="organiserActerId"
         label="organiser"
         // displayEmpty
         required={true}
       >
-        {/* TODO: loop the list of acters instead of defaultOrganiser */}
-        <MenuItem value="1">
-          <Box className={classes.organiserContainer}>
-            <ActerAvatar acter={defaultOrganiser} size={4} />
-            <Typography className={classes.name} variant="body1">
-              {defaultOrganiser.name}
-            </Typography>
-          </Box>
-        </MenuItem>
-        <MenuItem value="2">
-          <Box className={classes.organiserContainer}>
-            <ActerAvatar acter={defaultOrganiser} size={4} />
-            <Typography className={classes.name} variant="body1">
-              {defaultOrganiser.name}
-            </Typography>
-          </Box>
-        </MenuItem>
-        <MenuItem value="3">
-          <Box className={classes.organiserContainer}>
-            <ActerAvatar acter={defaultOrganiser} size={4} />
-            <Typography className={classes.name} variant="body1">
-              {defaultOrganiser.name}
-            </Typography>
-          </Box>
-        </MenuItem>
+        {organisers.map((acter) => (
+          <MenuItem value={acter.id} key={`organiser-${acter.id}`}>
+            <Box className={classes.organiserContainer}>
+              <ActerAvatar acter={acter} size={4} />
+              <Typography className={classes.name} variant="body1">
+                {acter.name}
+              </Typography>
+            </Box>
+          </MenuItem>
+        ))}
       </Field>
     </>
   )

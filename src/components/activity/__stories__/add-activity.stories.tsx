@@ -1,13 +1,10 @@
 import { Story, Meta } from '@storybook/react'
-import {
-  AddActivity,
-  ActivityFormProps,
-} from 'src/components/acter/landing-page/activities/form'
+import { ActivityForm, ActivityFormProps } from 'src/components/activity/form'
 import { Interests, ExampleActer } from 'src/__fixtures__'
 
 export default {
   title: 'landingpage/AddActivityForm',
-  component: AddActivity,
+  component: ActivityForm,
   args: {
     acter: ExampleActer,
     interestTypes: Interests.data.interestTypes,
@@ -16,5 +13,5 @@ export default {
 } as Meta
 
 export const AddActivityForm: Story<ActivityFormProps> = (args) => (
-  <AddActivity {...args} />
+  <ActivityForm {...args} />
 )

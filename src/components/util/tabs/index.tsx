@@ -30,7 +30,6 @@ const Tab = withStyles((theme: Theme) =>
 const useStyles = makeStyles((theme: Theme) => ({
   tabs: {
     borderRadius: '5px',
-    width: '200px',
   },
   tab: {
     border: `1px solid ${theme.palette.secondary.dark}`,

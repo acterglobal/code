@@ -20,6 +20,7 @@ import {
   OrganisationActerType,
   UserActerType,
 } from 'src/__fixtures__'
+import { ORGANISATION } from 'src/constants'
 
 describe('NewActerPage', () => {
   describe('_handleSubmit', () => {
@@ -58,6 +59,6 @@ describe('NewActerPage', () => {
   })
 
   it.skip('should reneder the new acter page', () => {
-    render(<NewActerPage acterType={{ name: 'organisation' } as ActerType} />)
+    render(<NewActerPage acterType={{ name: ORGANISATION } as ActerType} />)
   })
 })

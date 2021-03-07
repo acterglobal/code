@@ -1,14 +1,16 @@
 import React, { FC } from 'react'
-import { Box, Typography, Avatar } from '@material-ui/core'
+import { useRouter } from 'next/router'
+import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { ActerAvatar } from 'src/components/acter/avatar'
+import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    marginTop: 10,
-    // padding: 20,
-    padding: '15px 20px 15px 20px',
+    padding: theme.spacing(2),
     backgroundColor: 'white',
-    borderRadius: 5,
+    borderRadius: theme.spacing(1),
   },
   heading: {
     fontWeight: 'bolder',
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   organiserContainer: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   organiser: {
     width: theme.spacing(4),
@@ -30,21 +33,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const Organiser = () => {
+interface OrganiserProps {
+  acter: Acter
+}
+
+export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   const classes = useStyles()
+  const router = useRouter()
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
         Organiser
       </Typography>
-      <Box className={classes.organiserContainer}>
-        <Avatar
-          className={classes.organiser}
-          alt="Remy Sharp"
-          src="https://res.cloudinary.com/dfglnmgmx/image/upload/v1612887008/IMG_1971_qnods9.jpg"
-        />
+      <Box
+        className={classes.organiserContainer}
+        onClick={() => router.push(acterAsUrl(acter))}
+      >
+        <ActerAvatar acter={acter} size={4} />
         <Typography className={classes.name} variant="body1">
-          The Green organisation
+          {acter.name}
         </Typography>
       </Box>
     </Box>

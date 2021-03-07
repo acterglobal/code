@@ -7,12 +7,9 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    maxWidth: 550,
+    overflowY: 'scroll',
   },
-  interests: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+  interests: {},
 }))
 
 //  TODO: Add typing
@@ -71,15 +68,16 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
         {topLevelTypes.map((type, index) => (
           <Box role="tabpanel" hidden={value !== index} key={index}>
             {value === index && (
-              <Grid container spacing={3} className={classes.interests}>
+              <Box className={classes.interests}>
                 <InterestTypes
                   type={type}
                   allTypes={interestTypes}
                   onSelectedInterestsChange={handleSelectedInterest}
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
+                  columns={true}
                 />
-              </Grid>
+              </Box>
             )}
           </Box>
         ))}

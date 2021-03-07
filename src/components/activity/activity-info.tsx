@@ -1,8 +1,15 @@
 import React, { FC } from 'react'
-import { LocationOnOutlined, Event as CalanderIcon } from '@material-ui/icons'
+import moment from 'moment'
+import {
+  Computer,
+  LocationOnOutlined,
+  Event as CalanderIcon,
+} from '@material-ui/icons'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
+
+import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
@@ -34,29 +41,45 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-// TODO: add correct activity type when you have activity modal ready in prisma
+const momentFormat = 'llll'
+
 export interface ActivityInfoProps {
-  activity: any
+  acter: Acter
 }
 
-export const ActivityInfo: FC<ActivityInfoProps> = ({ activity }) => {
+export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
   const classes = useStyles()
+  const startAt = moment(acter.Activity.startAt)
+  const endAt = moment(acter.Activity.endAt)
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
         <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.date} variant="subtitle1">
-          {`${activity.startDate} - ${activity.endDate}`}
+          {`${startAt.format(momentFormat)} - ${endAt.format(momentFormat)}`}
         </Typography>
       </Box>
       <Typography className={classes.title} variant="h3">
-        {activity.title}
+        {acter.name}
       </Typography>
       <Box className={classes.locationContainer}>
-        <LocationOnOutlined style={{ fontSize: '1.3rem', marginRight: 5 }} />
-        <Typography className={classes.location} variant="body2">
-          {activity.location}
-        </Typography>
+        {acter.Activity.isOnline ? (
+          <>
+            <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
+            <Typography className={classes.location} variant="body2">
+              {acter.url}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <LocationOnOutlined
+              style={{ fontSize: '1.3rem', marginRight: 5 }}
+            />
+            <Typography className={classes.location} variant="body2">
+              {acter.location}
+            </Typography>
+          </>
+        )}
       </Box>
     </Box>
   )

@@ -9,23 +9,21 @@ import {
   getActer,
   getActerTypes,
   setActerType,
+  getInterests,
 } from 'src/props'
 
-import { Acter, User } from '@generated/type-graphql'
+import { Acter, InterestType, User } from '@generated/type-graphql'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerLanding } from 'src/components/acter/landing-page'
+import { ActivityDetails } from 'src/components/activity'
 
 import CREATE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-delete.graphql'
 import GET_ACTER from 'graphql/queries/acter-by-slug.graphql'
 import GET_USER from 'graphql/queries/user-by-id.graphql'
-
-interface ActerLandingPageProps {
-  acter: Acter
-  user: User
-}
+import { ACTIVITY } from 'src/constants'
 
 const _handleJoin = (createConnection: MutationFunction, user: User) => (
   follower: Acter,
@@ -50,8 +48,24 @@ const _handleLeave = (deleteConnection: MutationFunction) => (
     },
   })
 
+const getActerView = (acter) => {
+  switch (acter.ActerType.name) {
+    case ACTIVITY:
+      return ActivityDetails
+    default:
+      return ActerLanding
+  }
+}
+
+interface ActerLandingPageProps {
+  acter: Acter
+  interestTypes: InterestType[]
+  user: User
+}
+
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
+  interestTypes,
   user,
 }) => {
   const writeCache = (cache) => {
@@ -89,14 +103,17 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     }
   )
 
+  const View = getActerView(acter)
+
   return (
     <Layout user={user}>
       <Head>
         <title>{acter.name} - Acter</title>
       </Head>
-      <ActerLanding
+      <View
         acter={acter}
         user={user}
+        interestTypes={interestTypes}
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection}
@@ -106,6 +123,13 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(true), getActerTypes, setActerType, getActer)
+  composeProps(
+    ctx,
+    getUserProfile(true),
+    getActerTypes,
+    setActerType,
+    getActer,
+    getInterests
+  )
 
 export default ActerLandingPage

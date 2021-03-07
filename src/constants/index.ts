@@ -1,0 +1,5 @@
+export const ACTIVITY = 'activity'
+export const GROUP = 'group'
+export const ORGANISATION = 'organisation'
+export const NETWORK = 'network'
+export const USER = 'user'

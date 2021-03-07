@@ -9,6 +9,7 @@ import {
 import { useAutocomplete } from '@material-ui/lab'
 import clsx from 'clsx'
 import { MembersSectionProps } from 'src/components/acter/landing-page/members-section'
+import { ORGANISATION, USER } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -107,22 +108,22 @@ export const Selectors: FC<SelectorProps> = (props) => {
         <Button
           className={clsx(
             classes.button,
-            activeSelector === 'people' && classes.active
+            activeSelector === USER && classes.active
           )}
           variant="contained"
           disableElevation
-          onClick={() => handleSelectorChange('people')}
+          onClick={() => handleSelectorChange(USER)}
         >
           People
         </Button>
         <Button
           className={clsx(
             classes.button,
-            activeSelector === 'organisations' && classes.active
+            activeSelector === ORGANISATION && classes.active
           )}
           variant="contained"
           disableElevation
-          onClick={() => handleSelectorChange('organisations')}
+          onClick={() => handleSelectorChange(ORGANISATION)}
           style={{ marginLeft: 15 }}
         >
           Organisations

@@ -7,7 +7,11 @@ import {
   HeaderSectionProps,
 } from 'src/components/acter/landing-page/header-section'
 import { MenuSection } from 'src/components/acter/landing-page/menu-section'
-import { InfoSection } from 'src/components/acter/landing-page/info-section'
+import {
+  InfoSection,
+  InfoSectionProps,
+} from 'src/components/acter/landing-page/info-section'
+import { ActivitiesList } from 'src/components/activity/list'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,10 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type ActerLandingProps = HeaderSectionProps
+export type ActerLandingProps = HeaderSectionProps & InfoSectionProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
+  interestTypes,
   user,
   onJoin,
   onLeave,
@@ -44,24 +49,26 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   const classes = useStyles({})
   return (
     <Grid className={classes.header} container>
-      <Grid item xs={12}>
-        <HeaderSection
-          acter={acter}
-          user={user}
-          onJoin={onJoin}
-          onLeave={onLeave}
-          loading={loading}
-        />
-      </Grid>
-      <Grid container>
-        <Grid className={classes.menu} item xs={12} sm>
+      <HeaderSection
+        acter={acter}
+        user={user}
+        onJoin={onJoin}
+        onLeave={onLeave}
+        loading={loading}
+      />
+      <Grid container spacing={2}>
+        <Grid className={classes.menu} item xs={12} sm={4} md={2}>
           <MenuSection />
         </Grid>
-        <Grid className={classes.main} item xs={12} sm={6}>
-          main
+        <Grid className={classes.main} item xs={12} sm={8} md={6}>
+          <ActivitiesList
+            acter={acter}
+            user={user}
+            activities={acter.ActivitiesOrganized}
+          />
         </Grid>
-        <Grid className={classes.info} item xs={12} sm>
-          <InfoSection acter={acter} />
+        <Grid className={classes.info} item xs={12} sm={12} md={4}>
+          <InfoSection acter={acter} interestTypes={interestTypes} />
         </Grid>
       </Grid>
     </Grid>

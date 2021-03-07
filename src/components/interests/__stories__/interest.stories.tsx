@@ -9,7 +9,7 @@ import {
 } from '../../../__fixtures__/interest/example-interests'
 
 export default {
-  title: 'interests/Interests',
+  title: 'interests/Interest',
   component: Interest,
 } as Meta
 

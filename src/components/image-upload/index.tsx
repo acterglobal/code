@@ -54,7 +54,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   const [image, setImage] = useState(null)
   const [showEditor, setShowEditor] = useState(false)
 
-  const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg']
+  const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp']
 
   const [editor] = useState({
     // Called by FilePond to edit the image

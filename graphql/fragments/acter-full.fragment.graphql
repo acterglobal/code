@@ -12,6 +12,11 @@ fragment ActerFull on Acter {
       }
     }
   }
+  Followers {
+    Follower {
+      ...ActerDisplay
+    }
+  }
   ActerInterests {
     Interest {
       id

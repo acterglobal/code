@@ -3,11 +3,10 @@ import Tabs from 'src/components/util/tabs/'
 
 export const MenuSection: FC = () => {
   const [value, setValue] = React.useState(0)
-  const tabLabels = ['forum', 'activities', 'members']
+  const tabLabels = ['Activities', 'Members', 'Forum']
 
   const handleChange = (event: React.ChangeEvent<any>, newValue: any) => {
     setValue(newValue)
-    console.log('menu section: ', newValue)
   }
 
   return (
