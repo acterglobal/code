@@ -153,8 +153,11 @@ model Activity {
 }
 
 model Interest {
-  id             String       @id @default(uuid())
-  name           String
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  sdgNumber   String? @map("sdg_number")
+
   InterestType   InterestType @relation(fields: [interestTypeId], references: [id])
   interestTypeId String       @map("interest_type_id")
 
