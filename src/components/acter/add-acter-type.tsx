@@ -29,20 +29,22 @@ export interface AddActerTypeProps {
 export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
   const classes = useStyles()
   return (
-    <Box className={classes.container}>
-      <Typography className={classes.header} variant="h5">
-        + Add
-      </Typography>
-      <Box className={classes.caption}>
-        <Typography variant="caption">
-          Create an organisation or network on Acter to start coordinating or
-          collaborating.
+    <Modal>
+      <Box className={classes.container}>
+        <Typography className={classes.header} variant="h5">
+          + Add
         </Typography>
+        <Box className={classes.caption}>
+          <Typography variant="caption">
+            Create an organisation or network on Acter to start coordinating or
+            collaborating.
+          </Typography>
+        </Box>
+        <Box>
+          <ActerType acterType="organisation" onClick={onClick} />
+          <ActerType acterType="network" onClick={onClick} />
+        </Box>
       </Box>
-      <Box>
-        <ActerType acterType="organisation" onClick={onClick} />
-        <ActerType acterType="network" onClick={onClick} />
-      </Box>
-    </Box>
+    </Modal>
   )
 }

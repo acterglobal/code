@@ -8,6 +8,7 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     overflowY: 'scroll',
+    width: 600,
   },
   interests: {},
 }))

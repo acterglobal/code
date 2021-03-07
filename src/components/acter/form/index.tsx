@@ -6,20 +6,21 @@ import { Modal } from 'src/components/util/modal/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
-
 import { ActerType, InterestType } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    minWidth: 500,
-    minHeight: 500,
+    minWidth: 600,
+    minHeight: 600,
     border: '1px solid gray',
     padding: 20,
   },
   fields: {
+    width: '100%',
     height: 350,
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
   },
   btnsContainer: {
     display: 'flex',
@@ -104,50 +105,52 @@ export const ActerForm: FC<ActerFormProps> = ({
   // const validationSchema = ActiveStep.validationSchema
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onStepSubmit}
-      // validationSchema={validationSchema}
-    >
-      {({ isSubmitting, setFieldValue }) => (
-        <Box className={classes.container}>
-          <Form>
-            <Stepper alternativeLabel activeStep={activeStep}>
-              {steps.map((step, index) => (
-                <Step key={index}>
-                  <StepLabel>{step.label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+    <Modal>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onStepSubmit}
+        // validationSchema={validationSchema}
+      >
+        {({ isSubmitting, setFieldValue }) => (
+          <Box className={classes.container}>
+            <Form>
+              <Stepper alternativeLabel activeStep={activeStep}>
+                {steps.map((step, index) => (
+                  <Step key={index}>
+                    <StepLabel>{step.label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
 
-            <Box className={classes.fields}>
-              {getStepContent(activeStep, interestTypes, setFieldValue)}
-            </Box>
+              <Box className={classes.fields}>
+                {getStepContent(activeStep, interestTypes, setFieldValue)}
+              </Box>
 
-            <Box className={classes.btnsContainer}>
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-                disabled={activeStep === 0 || isSubmitting}
-                onClick={handlePrev}
-              >
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ color: 'white' }}
-                className={classes.button}
-                disabled={isSubmitting}
-                type="submit"
-              >
-                {isLastStep() ? 'Submit' : 'Continue'}
-              </Button>
-            </Box>
-          </Form>
-        </Box>
-      )}
-    </Formik>
+              <Box className={classes.btnsContainer}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.button}
+                  disabled={activeStep === 0 || isSubmitting}
+                  onClick={handlePrev}
+                >
+                  Back
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ color: 'white' }}
+                  className={classes.button}
+                  disabled={isSubmitting}
+                  type="submit"
+                >
+                  {isLastStep() ? 'Submit' : 'Continue'}
+                </Button>
+              </Box>
+            </Form>
+          </Box>
+        )}
+      </Formik>
+    </Modal>
   )
 }

@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
   textinput: {
+    width: '90%',
     fontSize: '0.5rem',
     marginBottom: 20,
     color: theme.palette.secondary.light,
