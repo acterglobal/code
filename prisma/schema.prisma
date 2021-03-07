@@ -153,8 +153,11 @@ model Activity {
 }
 
 model Interest {
-  id             String       @id @default(uuid())
-  name           String
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  sdgNumber   String? @map("sdg_number")
+
   InterestType   InterestType @relation(fields: [interestTypeId], references: [id])
   interestTypeId String       @map("interest_type_id")
 
@@ -169,11 +172,13 @@ model InterestType {
   name                 String
   parent               InterestType?  @relation("parent_interest_type", fields: [parentInterestTypeId], references: [id])
   children             InterestType[] @relation("parent_interest_type")
+  sortOrder            Int            @default(0) @map("sort_order")
   parentInterestTypeId String?        @map("parent_interest_type_id")
   Interests            Interest[]
 
 
   @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
+  @@index([sortOrder])
   @@map("interest_types")
 }
 

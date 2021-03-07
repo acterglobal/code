@@ -1,11 +1,12 @@
 query queryAllInterestsByType {
-  interestTypes {
+  interestTypes(orderBy: { sortOrder: asc }) {
     id
     name
     parentInterestTypeId
-    Interests {
+    Interests(orderBy: { name: asc }) {
       id
       name
+      sdgNumber
     }
   }
 }

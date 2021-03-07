@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { InterestType } from '@generated/type-graphql'
+import { Interest as InterestType } from '@generated/type-graphql'
 import { Avatar, Box, Chip, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
@@ -72,7 +72,6 @@ export interface InterestProps {
   type: string
   selected?: boolean
   disabled?: boolean
-  SDGLogo?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -81,7 +80,6 @@ export const Interest: FC<InterestProps> = ({
   type,
   selected = true,
   disabled = false,
-  SDGLogo = false,
   onSelectedInterestsChange,
 }) => {
   const classes = useStyles({ type })
@@ -107,7 +105,7 @@ export const Interest: FC<InterestProps> = ({
         {type === 'Tags' ? `# ${interest.name}` : interest.name}
       </Typography>
 
-      {SDGLogo && (
+      {interest.sdgNumber && (
         <Box className={clsx(classes.rightSideBox)}>
           <Image
             src="https://acter.ams3.cdn.digitaloceanspaces.com/assets/SDG-logo.png"
@@ -116,7 +114,7 @@ export const Interest: FC<InterestProps> = ({
             height={15}
           />
           <Typography className={classes.number} variant="caption">
-            5
+            {interest.sdgNumber}
           </Typography>
         </Box>
       )}

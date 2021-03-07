@@ -13,7 +13,7 @@
     "start": "node server.mjs",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "rm -rf .next out && jest",
-    "test:prepush": "yarn lint --quiet && yarn cover",
+    "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
     "test:ci": "rm -rf .next out && jest",
     "cover": "rm -rf .next && jest --coverage",
     "postinstall": "yarn generate",
