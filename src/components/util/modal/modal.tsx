@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
 
@@ -19,7 +19,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const Modal = ({ children }) => {
+export interface ModalProps {
+  children: React.ReactNode
+  handleCloseModal?: boolean
+  disableBackdropClick?: boolean
+}
+
+export const Modal: FC<ModalProps> = (props) => {
+  const { children, handleCloseModal, disableBackdropClick = true } = props
   const classes = useStyles()
   const [open, setOpen] = React.useState(true)
 
@@ -38,6 +45,7 @@ export const Modal = ({ children }) => {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
+        disableBackdropClick={disableBackdropClick}
       >
         <Fade in={open}>
           <div className={classes.paper}>{children}</div>
