@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { Box, Link, Typography } from '@material-ui/core'
+import Link from 'next/link'
+import { Box, Link as MuiLink, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { Formik, Form, FormikHelpers } from 'formik'
@@ -41,7 +42,11 @@ const validationSchema = Yup.object({
   password: Yup.string().required('* Please enter the password'),
 })
 
-export const Login: FC = () => {
+interface SignupProps {
+  providers: any
+}
+
+export const Login: FC<SignupProps> = ({ providers }) => {
   const classes = useStyles()
   const initialValues = { email: '', password: '' }
 
@@ -78,36 +83,43 @@ export const Login: FC = () => {
               <InputField label="Email" name="email" />
               <InputField label="Password" name="password" type="password" />
 
-              <Button label="Login" hadleClick={props.submitForm} />
+              <Button label="Login" handleClick={props.submitForm} />
             </Box>
           </Form>
         )}
       </Formik>
+      {providers.length > 0 && (
+        <Box className={classes.socialButtonsContainer}>
+          <>
+            <Typography variant="subtitle1">
+              Or get started with one of these providers
+            </Typography>
+            {Object.keys(providers)
+              .filter((key) => !['email', 'credentials'].includes(key))
+              .map((key) => {
+                const provider = providers[key]
+                return (
+                  <Button
+                    label={`Continue with ${provider.name}`}
+                    socailSignupType={true}
+                    handleClick={() => signIn(provider.id)}
+                  />
+                )
+              })}
+          </>
+        </Box>
+      )}
       <Box className={classes.socialButtonsContainer}>
-        <Button
-          label="Login with LinkedIn"
-          socailSignupType={true}
-          hadleClick={handleSocialLogin}
-        />
-        <Button
-          label="Login with Google"
-          socailSignupType={true}
-          hadleClick={handleSocialLogin}
-        />
-        <Button
-          label="Login with Facebook"
-          socailSignupType={true}
-          hadleClick={handleSocialLogin}
-        />
         <Typography variant="body2" style={{ color: grey[600] }}>
           Are you new member?
-          <Link
-            className={classes.loginLink}
-            component="button"
-            variant="body2"
-            onClick={handleLoginLink}
-          >
-            Create account
+          <Link href="/signup">
+            <MuiLink
+              className={classes.loginLink}
+              component="button"
+              variant="body2"
+            >
+              Create account
+            </MuiLink>
           </Link>
         </Typography>
       </Box>

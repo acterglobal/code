@@ -38,6 +38,7 @@ ActerApp.getInitialProps = async (appContext: AppContext) => {
   return {
     ...appProps,
     pageProps: {
+      ...appProps.pageProps,
       graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     } as AppPageProps,
   }

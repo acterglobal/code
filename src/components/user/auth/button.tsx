@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface ButtonProps {
   label: string
   socailSignupType?: boolean
-  hadleClick: () => void
+  handleClick: (values: any) => Promise<void>
 }
 
 export const Button: FC<ButtonProps> = (props) => {
   const classes = useStyles()
-  const { label, hadleClick, socailSignupType } = props
+  const { label, handleClick, socailSignupType } = props
 
   return (
     <MuiButton
       className={socailSignupType ? classes.socialTypeButton : classes.button}
       variant="contained"
-      onClick={hadleClick}
+      onClick={handleClick}
     >
       {label}
     </MuiButton>

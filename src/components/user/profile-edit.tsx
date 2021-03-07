@@ -96,7 +96,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
               </Box>
             </Box>
             <Box className={classes.button}>
-              <SaveButton label="Save" hadleClick={props.submitForm} />
+              <SaveButton label="Save" handleClick={props.submitForm} />
             </Box>
             <Button
               className={classes.secondButton}
