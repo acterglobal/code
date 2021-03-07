@@ -77,12 +77,15 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             {type.name}
           </Typography>
         )}
-        <Box>
+        <Box style={{ display: 'flex', flexWrap: 'wrap' }}>
           {type.Interests.map((interest) => {
             return (
               <Box
                 key={interest.id}
-                style={{ display: columns ? 'block' : 'inline' }}
+                style={{
+                  position: 'relative',
+                  display: columns ? 'block' : 'inline-block',
+                }}
               >
                 <Interest
                   interest={interest}

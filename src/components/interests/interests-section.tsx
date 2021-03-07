@@ -29,11 +29,13 @@ export const getSelectedInterests = (
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
   selected?: Interest[]
+  columns?: boolean
 }
 
 export const InterestsSection: FC<InterestsSectionProps> = ({
   interestTypes,
   selected,
+  columns,
 }) => {
   const typesWithSelectedInterests = getSelectedInterests(
     interestTypes,
@@ -52,6 +54,7 @@ export const InterestsSection: FC<InterestsSectionProps> = ({
             type={type}
             allTypes={typesWithSelectedInterests}
             onSelectedInterestsChange={() => null}
+            columns={columns}
           />
         </Box>
       ))}

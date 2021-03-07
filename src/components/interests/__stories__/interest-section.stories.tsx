@@ -10,6 +10,7 @@ export default {
   component: InterestsSection,
   args: {
     interestTypes: Interests.data.interestTypes,
+    columns: false,
   },
 } as Meta
 

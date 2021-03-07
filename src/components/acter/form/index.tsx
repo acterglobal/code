@@ -104,52 +104,50 @@ export const ActerForm: FC<ActerFormProps> = ({
   // const validationSchema = ActiveStep.validationSchema
 
   return (
-    <Modal>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onStepSubmit}
-        // validationSchema={validationSchema}
-      >
-        {({ isSubmitting, setFieldValue }) => (
-          <Box className={classes.container}>
-            <Form>
-              <Stepper alternativeLabel activeStep={activeStep}>
-                {steps.map((step, index) => (
-                  <Step key={index}>
-                    <StepLabel>{step.label}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onStepSubmit}
+      // validationSchema={validationSchema}
+    >
+      {({ isSubmitting, setFieldValue }) => (
+        <Box className={classes.container}>
+          <Form>
+            <Stepper alternativeLabel activeStep={activeStep}>
+              {steps.map((step, index) => (
+                <Step key={index}>
+                  <StepLabel>{step.label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
 
-              <Box className={classes.fields}>
-                {getStepContent(activeStep, interestTypes, setFieldValue)}
-              </Box>
+            <Box className={classes.fields}>
+              {getStepContent(activeStep, interestTypes, setFieldValue)}
+            </Box>
 
-              <Box className={classes.btnsContainer}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.button}
-                  disabled={activeStep === 0 || isSubmitting}
-                  onClick={handlePrev}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ color: 'white' }}
-                  className={classes.button}
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isLastStep() ? 'Submit' : 'Continue'}
-                </Button>
-              </Box>
-            </Form>
-          </Box>
-        )}
-      </Formik>
-    </Modal>
+            <Box className={classes.btnsContainer}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+                disabled={activeStep === 0 || isSubmitting}
+                onClick={handlePrev}
+              >
+                Back
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ color: 'white' }}
+                className={classes.button}
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isLastStep() ? 'Submit' : 'Continue'}
+              </Button>
+            </Box>
+          </Form>
+        </Box>
+      )}
+    </Formik>
   )
 }

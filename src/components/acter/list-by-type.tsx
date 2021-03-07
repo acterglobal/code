@@ -1,6 +1,10 @@
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
+import pluralize from 'pluralize'
 import { Box, Divider, Grid, Hidden, Typography } from '@material-ui/core'
+
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 import { Acter } from '@generated/type-graphql'
 import {
@@ -9,6 +13,7 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles'
+import { ACTIVITY } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 
@@ -41,6 +46,7 @@ const StyledBox = withStyles((theme: Theme) =>
       backgroundColor: grey[200],
       display: 'flex',
       marginBottom: 10,
+      cursor: 'pointer',
     },
   })
 )(Box)
@@ -65,6 +71,7 @@ type ActersByType = {
 
 export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   const actersByType = acters.reduce((prev, acter) => {
     prev[acter.ActerType.name] = [...(prev[acter.ActerType.name] || []), acter]
@@ -82,29 +89,33 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
         // <Hidden key={type} xsDown={type === 'Network' || type === 'Group'}>
         <Grid item xs={12} sm={6} md={4}>
           <Typography className={classes.heading} variant="h6">
-            {`My ${type}s`}
+            {`My ${pluralize(type)}`}
           </Typography>
 
           <StyledDevider />
 
-          {subset.map((acter) => (
-            <StyledBox key={acter.id}>
-              <Image
-                src={getImageUrl(acter.avatarUrl, 'avatar')}
-                width={80}
-                height={70}
-                layout="fixed"
-              />
-              <Box className={classes.info}>
-                <Typography className={classes.title} variant="h5">
-                  {acter.name}
-                </Typography>
-                <Typography className={classes.subttitle} variant="body1">
-                  {acter.ActerType.name}
-                </Typography>
-              </Box>
-            </StyledBox>
-          ))}
+          {subset.map((acter) => {
+            const image =
+              acter.ActerType.name === ACTIVITY
+                ? getImageUrl(acter.bannerUrl, 'banner')
+                : getImageUrl(acter.avatarUrl, 'avatar')
+            return (
+              <StyledBox
+                key={acter.id}
+                onClick={() => router.push(acterAsUrl(acter))}
+              >
+                <Image src={image} width={80} height={70} />
+                <Box className={classes.info}>
+                  <Typography className={classes.title} variant="h5">
+                    {acter.name}
+                  </Typography>
+                  <Typography className={classes.subttitle} variant="body1">
+                    {acter.ActerType.name}
+                  </Typography>
+                </Box>
+              </StyledBox>
+            )
+          })}
         </Grid>
         // </Hidden>
       ))}

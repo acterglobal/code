@@ -6,7 +6,9 @@ import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {},
+  root: {
+    overflowY: 'scroll',
+  },
   interests: {},
 }))
 
@@ -73,6 +75,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
                   onSelectedInterestsChange={handleSelectedInterest}
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
+                  columns={true}
                 />
               </Box>
             )}
