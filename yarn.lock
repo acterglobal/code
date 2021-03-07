@@ -1813,20 +1813,20 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@next/env@10.0.8-canary.3":
-  version "10.0.8-canary.3"
-  resolved "https://registry.npmjs.org/@next/env/-/env-10.0.8-canary.3.tgz#9827accde59863f797896514122c48a9c24d8450"
-  integrity sha512-zCsW5d3v0Lp4RXALzU6BrJsSYEuOhGICfolDubc9Sj++6x6YthGHtOttvGHvcAjcxGKmECOe7d8d9CxQmB5Rgw==
+"@next/env@10.0.8":
+  version "10.0.8"
+  resolved "https://registry.npmjs.org/@next/env/-/env-10.0.8.tgz#3306c9de20ef187438affbafce0ef966c9e43c3b"
+  integrity sha512-vWdxAHD6gJn52tN5bxj1VoRgu5lNtRPc/HyYf7V014k2GZ9eKhqoFQGSSMNGHB7WgdUxLVw75+o9Ek9ClOOAjw==
 
-"@next/polyfill-module@10.0.8-canary.3":
-  version "10.0.8-canary.3"
-  resolved "https://registry.npmjs.org/@next/polyfill-module/-/polyfill-module-10.0.8-canary.3.tgz#20941a0285ec369a7db41a196128cf35df5715e1"
-  integrity sha512-CrWJ+aTk2eJypYZBUQ3btlwLjfNpuHJaWyJKJwpWC6Be0V7FbLgOW3lyyfct/GAfvn3Z6iAnYTZSllHKO79saw==
+"@next/polyfill-module@10.0.8":
+  version "10.0.8"
+  resolved "https://registry.npmjs.org/@next/polyfill-module/-/polyfill-module-10.0.8.tgz#1d033f390389591f227499e286911e3db14c484b"
+  integrity sha512-JCUGB4/SKQ4LXniv7LKGrpW+W2DGH/CLkrgXgSo/Ze+EJdMDLxC/VFhiuW+TgAaAWLE4gryoswlZBNyHtkPGQA==
 
-"@next/react-dev-overlay@10.0.8-canary.3":
-  version "10.0.8-canary.3"
-  resolved "https://registry.npmjs.org/@next/react-dev-overlay/-/react-dev-overlay-10.0.8-canary.3.tgz#472833b57f2515450cd4372dec7f9ce18b6aa64a"
-  integrity sha512-jzz+TIr9qq2MEfn7bwCKuqHImQMyEk+E9jMs8alZE81hjqHDSeZR4FLOQkwJ0Mnd76MjOSQxbJBed82Vnt7Tfg==
+"@next/react-dev-overlay@10.0.8":
+  version "10.0.8"
+  resolved "https://registry.npmjs.org/@next/react-dev-overlay/-/react-dev-overlay-10.0.8.tgz#a8e841647b74f9720cc60d3e3bd3da225ad12533"
+  integrity sha512-ygVsvkzYTYIuME+dUUSjCxbNjrJ+Up9Y+CrWEmSSk6HuxajUvrB9vN6RT+PeAzEOQ5er1sWxmVHVdPknQPVWyQ==
   dependencies:
     "@babel/code-frame" "7.12.11"
     anser "1.4.9"
@@ -1840,10 +1840,10 @@
     stacktrace-parser "0.1.10"
     strip-ansi "6.0.0"
 
-"@next/react-refresh-utils@10.0.8-canary.3":
-  version "10.0.8-canary.3"
-  resolved "https://registry.npmjs.org/@next/react-refresh-utils/-/react-refresh-utils-10.0.8-canary.3.tgz#7d4535091f9d51ca7080962fe36c7996c17e9599"
-  integrity sha512-H64+O+oLc3qf80NdYD+lt9EeRkyONZxfKOzm+DFYbcT/Dzzik+zAkamsSYVpQKQ2N3ziYrT86eRlGoQuymgzBQ==
+"@next/react-refresh-utils@10.0.8":
+  version "10.0.8"
+  resolved "https://registry.npmjs.org/@next/react-refresh-utils/-/react-refresh-utils-10.0.8.tgz#6129d633e2c0a9b5760de002e998932f08c8baae"
+  integrity sha512-ZMO77Xs2ioGV/nZB4GRDHgsNT2jhOp+cZIh6c7wf0xw9o/1KoTWN8nxWzwU/laAtkoSS+E6YdhuR4Mw3Ar3CSg==
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -11061,17 +11061,17 @@ next-graphql-loader@^1.0.1:
   dependencies:
     graphql-tag "^2.10.3"
 
-next@^v10.0.8-canary.3:
-  version "10.0.8-canary.3"
-  resolved "https://registry.npmjs.org/next/-/next-10.0.8-canary.3.tgz#90db44ac17ebaa16534246e4c94ce82ae8c1695a"
-  integrity sha512-vK6XTL9sO+YKFZRLofrjvRIYglMJoLsrTDuT+vVYot5CxzaUrW1W3UaPruIwJb/75+Fqe7BvlNGw+SZxBFGOuQ==
+next@^v10.0.8:
+  version "10.0.8"
+  resolved "https://registry.npmjs.org/next/-/next-10.0.8.tgz#a2232c11ffad974d67f3d572b8db2acaa5ddedd7"
+  integrity sha512-iDY65ce4Prn/9EnQpJGFMb5QJvtGWzZPk6KQqT7vDNu4D+jkivkk9NaAs/k1hR73pXdJHmhHer1s0YxLSghAKQ==
   dependencies:
     "@babel/runtime" "7.12.5"
     "@hapi/accept" "5.0.1"
-    "@next/env" "10.0.8-canary.3"
-    "@next/polyfill-module" "10.0.8-canary.3"
-    "@next/react-dev-overlay" "10.0.8-canary.3"
-    "@next/react-refresh-utils" "10.0.8-canary.3"
+    "@next/env" "10.0.8"
+    "@next/polyfill-module" "10.0.8"
+    "@next/react-dev-overlay" "10.0.8"
+    "@next/react-refresh-utils" "10.0.8"
     "@opentelemetry/api" "0.14.0"
     ast-types "0.13.2"
     browserslist "4.16.1"
@@ -11102,7 +11102,7 @@ next@^v10.0.8-canary.3:
     styled-jsx "3.3.2"
     use-subscription "1.5.1"
     vm-browserify "1.1.2"
-    watchpack "2.0.0-beta.13"
+    watchpack "2.1.1"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -15287,10 +15287,10 @@ watchpack-chokidar2@^2.0.1:
   dependencies:
     chokidar "^2.1.8"
 
-watchpack@2.0.0-beta.13:
-  version "2.0.0-beta.13"
-  resolved "https://registry.npmjs.org/watchpack/-/watchpack-2.0.0-beta.13.tgz#9d9b0c094b8402139333e04eb6194643c8384f55"
-  integrity sha512-ZEFq2mx/k5qgQwgi6NOm+2ImICb8ngAkA/rZ6oyXZ7SgPn3pncf+nfhYTCrs3lmHwOxnPtGLTOuFLfpSMh1VMA==
+watchpack@2.1.1, watchpack@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/watchpack/-/watchpack-2.1.1.tgz#e99630550fca07df9f90a06056987baa40a689c7"
+  integrity sha512-Oo7LXCmc1eE1AjyuSBmtC3+Wy4HcV8PxWh2kP6fOl8yTlNS7r0K9l1ao2lrrUza7V39Y3D/BbJgY8VeSlc5JKw==
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
@@ -15305,14 +15305,6 @@ watchpack@^1.7.4:
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
-
-watchpack@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/watchpack/-/watchpack-2.1.1.tgz#e99630550fca07df9f90a06056987baa40a689c7"
-  integrity sha512-Oo7LXCmc1eE1AjyuSBmtC3+Wy4HcV8PxWh2kP6fOl8yTlNS7r0K9l1ao2lrrUza7V39Y3D/BbJgY8VeSlc5JKw==
-  dependencies:
-    glob-to-regexp "^0.4.1"
-    graceful-fs "^4.1.2"
 
 web-namespaces@^1.0.0:
   version "1.1.4"
