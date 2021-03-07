@@ -7,6 +7,9 @@
 yarn.lock
 package-lock.json
 
+# Prisma TypeGraphQL
+/@generated
+
 # testing
 /coverage
 
