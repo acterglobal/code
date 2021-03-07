@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "rm -rf .next out && jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
@@ -73,6 +73,7 @@
     "next-graphql-loader": "^1.0.1",
     "pg": "^8.5.1",
     "pluralize": "^8.0.0",
+    "pm2": "^4.5.5",
     "prop-types": "^15.7.2",
     "react": "^16.14",
     "react-cropper": "^2.1.6",
