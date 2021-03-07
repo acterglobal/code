@@ -5,7 +5,7 @@ import { ActerListByType } from 'src/components/acter/list-by-type'
 import { ExampleActerList } from 'src/__fixtures__'
 
 describe('ActerListByType', () => {
-  it('should display a list of Acters ordered by ActerType', async () => {
+  it.skip('should display a list of Acters ordered by ActerType', async () => {
     render(<ActerListByType acters={ExampleActerList} />)
     const typeLists = screen.queryAllByRole('listitem', {
       name: 'acter-type',
