@@ -37,7 +37,7 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
         <Toolbar>
           <div className={classes.titleLogo}>
             <Image
-              src="/acter-logo-32.png"
+              src="assets/acter-logo-32.png"
               alt="Acter Logo"
               width={32}
               height={32}

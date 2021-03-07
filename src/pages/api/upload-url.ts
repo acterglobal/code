@@ -11,11 +11,12 @@ export default async function handler(req, res) {
     return res.status(400).send()
   }
 
-  const spacesEndpoint = new aws.Endpoint(process.env.S3_URI)
+  // const spacesEndpoint = new aws.Endpoint(process.env.S3_URI)
   const s3 = new aws.S3({
-    endpoint: spacesEndpoint,
+    // endpoint: spacesEndpoint,
     accessKeyId: process.env.S3_KEY,
     secretAccessKey: process.env.S3_SECRET,
+    region: 'eu-central-1',
   })
 
   const expireSeconds = 60
@@ -27,6 +28,8 @@ export default async function handler(req, res) {
     Expires: expireSeconds,
     ACL: 'public-read',
   })
+
+  console.log('Got s3 signed URL', url)
 
   res.send(url)
 }
