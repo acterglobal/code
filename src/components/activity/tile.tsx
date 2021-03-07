@@ -49,7 +49,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
     <Box className={classes.root}>
       <Box className={classes.image}>
         <Image
-          src={`https://acter.ams3.cdn.digitaloceanspaces.com/${activity.Acter.bannerUrl}`}
+          src={`${activity.Acter.bannerUrl}`}
           alt={activity.Acter.name}
           layout="fill"
         />

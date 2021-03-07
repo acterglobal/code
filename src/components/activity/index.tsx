@@ -44,7 +44,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
     <Box className={classes.container}>
       <Box className={classes.imageContainer}>
         <Image
-          src={`https://acter.ams3.cdn.digitaloceanspaces.com/${acter.bannerUrl}`}
+          src={`${acter.bannerUrl}`}
           alt="Picture of activity"
           layout="responsive"
           width={600}

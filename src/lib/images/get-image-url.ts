@@ -7,7 +7,7 @@
  */
 
 export const getImageUrl = (imageName, imageType) => {
-  let imageUrl = `https://acter.ams3.cdn.digitaloceanspaces.com/`
+  let imageUrl = ''
 
   imageUrl += imageName || `assets/default-${imageType}.png`
   return imageUrl

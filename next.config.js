@@ -12,6 +12,7 @@ module.exports = withPlugins([withGraphql], {
     },
   },
   images: {
-    domains: ['acter.ams3.cdn.digitaloceanspaces.com'],
+    loader: 'imgix',
+    path: 'https://acter-dev.imgix.net',
   },
 })
