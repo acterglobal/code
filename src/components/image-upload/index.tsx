@@ -41,12 +41,14 @@ export interface ImageUploadProps {
   imageType: string
   setImageToFormField: any
   aspectRatio?: number
+  fileUrl?: string
 }
 
 export const ImageUpload: FC<ImageUploadProps> = ({
   imageType,
   setImageToFormField,
   aspectRatio = 1,
+  fileUrl,
 }) => {
   const classes = useStyles()
   const pond: RefObject<FilePond> = createRef()
@@ -114,6 +116,15 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     setImageToFormField(`${imageType}`, pond.current.getFile().file)
   }
 
+  const files = fileUrl
+    ? [
+        {
+          source: `https://acter.ams3.cdn.digitaloceanspaces.com/${fileUrl}`,
+          options: { type: 'remote' },
+        },
+      ]
+    : []
+
   return (
     <div className={classes.container}>
       <FilePond
@@ -129,6 +140,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
         credits={false}
+        files={files}
       />
 
       {showEditor && (
