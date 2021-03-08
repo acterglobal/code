@@ -8,12 +8,11 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output   = env("TYPEGRAPHQL_OUTPUT")
 }
 
 generator typegraphql {
   provider           = "typegraphql-prisma"
-  output             = "../@generated/type-graphql"
+  output             = env("TYPEGRAPHQL_OUTPUT")
   emitTranspiledCode = true
 }
 
