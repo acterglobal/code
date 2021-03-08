@@ -27,10 +27,6 @@ export const DefaultMessage: FC = () => {
         Get started{' '}
         <Link href="/acter/new">
           <MuiLink className={classes.link}>here</MuiLink>
-        </Link>{' '}
-        or go to{' '}
-        <Link href="/">
-          <MuiLink className={classes.link}>Greenlight Aarhus</MuiLink>
         </Link>
       </Typography>
     </Box>
