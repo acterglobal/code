@@ -2,14 +2,10 @@
 const withPlugins = require('next-compose-plugins')
 const withGraphql = require('next-graphql-loader')
 
-const { PHASE_PRODUCTION_BUILD } = require('next/constants')
-
-console.log('***In next.config.js ', process.env.IMAGE_LOADER_URL)
-
-const images = {
-  loader: 'imgix',
-  path: process.env.IMAGE_LOADER_URL,
-}
+const {
+  PHASE_PRODUCTION_BUILD,
+  PHASE_PRODUCTION_SERVER,
+} = require('next/constants')
 
 module.exports = withPlugins([withGraphql], {
   [PHASE_PRODUCTION_BUILD]: {
@@ -17,7 +13,15 @@ module.exports = withPlugins([withGraphql], {
       config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//))
       return config
     },
-    images: images,
   },
-  images: images,
+  [PHASE_PRODUCTION_BUILD + PHASE_PRODUCTION_SERVER]: {
+    images: {
+      loader: 'imgix',
+      path: 'https://acter-prod.imgix.net',
+    },
+  },
+  images: {
+    loader: 'imgix',
+    path: 'https://acter-dev.imgix.net',
+  },
 })
