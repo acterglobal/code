@@ -4,8 +4,12 @@ const withGraphql = require('next-graphql-loader')
 
 const { PHASE_PRODUCTION_BUILD } = require('next/constants')
 
-const path = process.env.IMAGE_LOADER_URL
 console.log('***In next.config.js ', process.env.IMAGE_LOADER_URL)
+
+const images = {
+  loader: 'imgix',
+  path: process.env.IMAGE_LOADER_URL,
+}
 
 module.exports = withPlugins([withGraphql], {
   [PHASE_PRODUCTION_BUILD]: {
@@ -13,9 +17,7 @@ module.exports = withPlugins([withGraphql], {
       config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//))
       return config
     },
+    images: images,
   },
-  images: {
-    loader: 'imgix',
-    path,
-  },
+  images: images,
 })
