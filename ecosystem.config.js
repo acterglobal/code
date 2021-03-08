@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'web',
-      script: 'server.mjs',
+      script: 'next start -P $PORT',
       instances: 'max',
       watch: '.',
       env: {
