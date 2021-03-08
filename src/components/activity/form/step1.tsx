@@ -15,6 +15,7 @@ import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
+    height: 400,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -36,6 +37,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.5rem',
     marginBottom: 15,
     color: theme.palette.secondary.light,
+  },
+  datetimeSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  pickerfield: {
+    width: 240,
   },
 }))
 
@@ -61,44 +70,39 @@ export const Step1: FC<Step1Props> = ({ acters }) => {
           required={true}
         />
 
-        <Grid container spacing={2}>
-          <Grid item sm={12} md={6}>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <DatePickerField
-                  placeholder="Start Date"
-                  name="startDate"
-                  required={true}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TimePickerField
-                  placeholder="Start Time"
-                  name="startTime"
-                  required={true}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item sm={12} md={6}>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <DatePickerField
-                  placeholder="end Date"
-                  name="endDate"
-                  required={true}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TimePickerField
-                  placeholder="End Time"
-                  name="endTime"
-                  required={true}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Box className={classes.datetimeSection}>
+          <Box className={classes.pickerfield}>
+            <DatePickerField
+              placeholder="Start Date"
+              name="startDate"
+              required={true}
+            />
+          </Box>
+          <Box className={classes.pickerfield}>
+            <TimePickerField
+              placeholder="Start Time"
+              name="startTime"
+              required={true}
+            />
+          </Box>
+        </Box>
+
+        <Box className={classes.datetimeSection}>
+          <Box className={classes.pickerfield}>
+            <DatePickerField
+              placeholder="End Date"
+              name="endDate"
+              required={true}
+            />
+          </Box>
+          <Box className={classes.pickerfield}>
+            <TimePickerField
+              placeholder="End Time"
+              name="endTime"
+              required={true}
+            />
+          </Box>
+        </Box>
       </MuiPickersUtilsProvider>
     </Box>
   )

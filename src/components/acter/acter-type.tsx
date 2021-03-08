@@ -51,7 +51,7 @@ export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {
   return (
     <Box className={classes.container} onClick={() => onClick(acterType)}>
       <Box style={{ marginLeft: 20 }}>
-        <Image src={`${acterType}-logo.png`} width={45} height={45} />
+        <Image src={`assets/${acterType}-logo.png`} width={45} height={45} />
       </Box>
       <Box>
         <Typography className={classes.title} variant="h6">

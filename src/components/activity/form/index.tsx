@@ -9,24 +9,26 @@ import { InterestType, User } from '@generated/type-graphql'
 import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
+import { Modal } from 'src/components/util/modal/modal'
 import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    height: '90vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
+    minWidth: 500,
+    minHeight: 500,
+    border: '1px solid gray',
+    padding: 50,
   },
   fields: {
-    flexGrow: 1,
-    overflowY: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
   },
   controls: {
-    flexShrink: 0,
+    // flexShrink: 0,
   },
   btnsContainer: {
-    padding: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'space-evenly',
   },
   button: {
     borderRadius: theme.spacing(1),
@@ -36,15 +38,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   statusBars: {
     display: 'flex',
     justifyContent: 'center',
-    // width: '100%',
-    margin: theme.spacing(2.5),
+    width: '100%',
+    marginBottom: 50,
   },
   bar: {
-    minWidth: 75,
     height: 8,
     backgroundColor: grey[200],
     borderRadius: 10,
     margin: 5,
+    minWidth: 130,
   },
   active: {
     backgroundColor: green[500],
@@ -138,25 +140,26 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   // })
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onStepSubmit}
-      // validationSchema={validationSchema}
-    >
-      {({ isSubmitting, setFieldValue, values }) => (
-        <Form>
-          <Box className={classes.container}>
-            <Box className={classes.fields}>
-              {getStepContent(
-                activeStep,
-                user,
-                interestTypes,
-                setFieldValue,
-                values
-              )}
-            </Box>
+    <Modal>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onStepSubmit}
+        // validationSchema={validationSchema}
+      >
+        {({ isSubmitting, setFieldValue, values }) => (
+          <Form>
+            <Box className={classes.container}>
+              <Box className={classes.fields}>
+                {getStepContent(
+                  activeStep,
+                  user,
+                  interestTypes,
+                  setFieldValue,
+                  values
+                )}
+              </Box>
 
-            <Box className={classes.controls}>
+              {/* <Box className={classes.controls}> */}
               <Box className={classes.statusBars}>
                 {steps.map((step, index) => (
                   <Box
@@ -169,35 +172,31 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                 ))}
               </Box>
 
-              <Grid container spacing={4} className={classes.btnsContainer}>
-                <Grid item xs={12} sm={6}>
-                  <Button
-                    variant="text"
-                    color="primary"
-                    className={classes.button}
-                    disabled={activeStep === 1 || isSubmitting}
-                    onClick={handlePrev}
-                  >
-                    Back
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ color: 'white' }}
-                    className={classes.button}
-                    disabled={isSubmitting}
-                    type="submit"
-                  >
-                    {isLastStep() ? 'Submit' : 'Next'}
-                  </Button>
-                </Grid>
-              </Grid>
+              <Box className={classes.btnsContainer}>
+                <Button
+                  variant="text"
+                  color="primary"
+                  className={classes.button}
+                  disabled={activeStep === 1 || isSubmitting}
+                  onClick={handlePrev}
+                >
+                  Back
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ color: 'white' }}
+                  className={classes.button}
+                  disabled={isSubmitting}
+                  type="submit"
+                >
+                  {isLastStep() ? 'Submit' : 'Next'}
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
   )
 }
