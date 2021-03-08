@@ -78,8 +78,6 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
     return prev
   }, {} as ActersByType)
 
-  console.log(actersByType)
-
   const tasks = []
   const activities = []
 
