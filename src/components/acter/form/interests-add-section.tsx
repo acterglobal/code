@@ -7,10 +7,15 @@ import { FormikSetFieldType } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    overflowY: 'scroll',
     width: 600,
   },
-  interests: {},
+  tabs: {
+    marginBottom: theme.spacing(1),
+  },
+  interests: {
+    height: 340,
+    overflowY: 'scroll',
+  },
 }))
 
 //  TODO: Add typing
@@ -58,18 +63,23 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
         textColor="primary"
         variant="fullWidth"
         aria-label="full width tabs example"
-        style={{ marginBottom: 15 }}
+        className={classes.tabs}
       >
         {topLevelTypes.map((type) => (
-          <Tab label={type.name} key={type.id} />
+          <Tab style={{ fontWeight: 'bold' }} label={type.name} key={type.id} />
         ))}
       </Tabs>
 
-      <>
+      <Box>
         {topLevelTypes.map((type, index) => (
-          <Box role="tabpanel" hidden={value !== index} key={index}>
+          <Box
+            className={classes.interests}
+            role="tabpanel"
+            hidden={value !== index}
+            key={index}
+          >
             {value === index && (
-              <Box className={classes.interests}>
+              <Box>
                 <InterestTypes
                   type={type}
                   allTypes={interestTypes}
@@ -82,7 +92,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
             )}
           </Box>
         ))}
-      </>
+      </Box>
     </div>
   )
 }

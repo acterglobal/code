@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     minHeight: 600,
     border: '1px solid gray',
     padding: 20,
+    paddingBottom: 0,
   },
   fields: {
     width: '100%',
-    height: 350,
+    height: 400,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   btnsContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
-    // bottom: 5,
+    marginTop: theme.spacing(1),
   },
   button: {
     borderRadius: 50,
