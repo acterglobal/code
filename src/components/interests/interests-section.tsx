@@ -55,6 +55,7 @@ export const InterestsSection: FC<InterestsSectionProps> = ({
             allTypes={typesWithSelectedInterests}
             onSelectedInterestsChange={() => null}
             columns={columns}
+            showSubTypeTitles={false}
           />
         </Box>
       ))}
