@@ -87,6 +87,7 @@ export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
                   columns={true}
+                  devider={true}
                 />
               </Box>
             )}

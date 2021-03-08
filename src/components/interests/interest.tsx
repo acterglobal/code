@@ -11,6 +11,7 @@ export const interestColors = {
   Environment: 'rgb(29, 177, 0)',
   Social: 'rgb(255, 100, 78)',
   Approach: 'rgb(84, 85, 89)',
+  Focus: 'black',
   Tags: 'black',
 }
 const disabledColor = '#b5b5b5'

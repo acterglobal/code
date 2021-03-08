@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import {
   Box,
+  Divider,
   Typography,
   makeStyles,
   createStyles,
@@ -8,10 +9,18 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@generated/type-graphql'
 import { Interest, interestColors } from 'src/components/interests/interest'
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     interests: {},
+    devider: {
+      marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(0.8),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      backgroundColor: grey[500],
+    },
   })
 )
 export interface InterestTypesProps {
@@ -23,6 +32,7 @@ export interface InterestTypesProps {
   showTitle?: boolean
   showSubTypeTitles?: boolean
   columns?: boolean
+  devider?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -36,6 +46,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   showTitle = false,
   showSubTypeTitles = true,
   columns = false,
+  devider = false,
 }) => {
   const classes = useStyles()
 
@@ -57,15 +68,34 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             showTitle={true && showSubTypeTitles}
             disabled={
               selectedTypes &&
-              selectedTypes.filter(
-                (selectedType) =>
-                  selectedType === 'Economy' ||
-                  selectedType === 'Environment' ||
-                  selectedType === 'Social'
-              ).length >= 5
+              selectedTypes.filter(() => type.name === 'Focus').length >= 5
             }
           />
         ))}
+        {type.name === 'Focus' && (
+          <>
+            {devider && (
+              <Divider variant="middle" className={classes.devider} />
+            )}
+            <Box style={{ marginLeft: 25 }}>
+              <Interest
+                interest={type.Interests[0]}
+                type={type.name}
+                onSelectedInterestsChange={onSelectedInterestsChange}
+                selected={
+                  selectedInterests &&
+                  selectedInterests.includes(type.Interests[0].id)
+                }
+                disabled={
+                  disabled ||
+                  (selectedTypes &&
+                    selectedTypes.filter(() => type.name === 'Focus').length >=
+                      5)
+                }
+              />
+            </Box>
+          </>
+        )}
       </>
     )
   } else {
