@@ -19,10 +19,10 @@ import { Layout } from 'src/components/layout'
 import { ActerLanding } from 'src/components/acter/landing-page'
 import { ActivityDetails } from 'src/components/activity'
 
-import CREATE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-create.graphql'
-import DELETE_ACTER_CONNECTION from 'graphql/mutations/acter-connection-delete.graphql'
-import GET_ACTER from 'graphql/queries/acter-by-slug.graphql'
-import GET_USER from 'graphql/queries/user-by-id.graphql'
+import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
+import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
+import GET_ACTER from 'api/queries/acter-by-slug.graphql'
+import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
 
 const _handleJoin = (createConnection: MutationFunction, user: User) => (

@@ -1,9 +1,9 @@
 import { buildSchemaSync } from 'type-graphql'
 import { resolvers } from '@generated/type-graphql'
 
-import { ActerResolver } from 'graphql/resolvers/acter'
+import { ActerResolver } from 'api/resolvers/acter'
 
-import { authChecker } from 'graphql/auth-checker'
+import { authChecker } from 'api/auth-checker'
 
 export const schema = buildSchemaSync({
   authChecker,

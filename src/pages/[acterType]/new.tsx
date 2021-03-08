@@ -21,9 +21,9 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
 import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 
-import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
-import UPDATE_ACTER_IMAGES from 'graphql/mutations/acter-update-images.graphql'
-import CREATE_ACTIVITY from 'graphql/mutations/activity-create.graphql'
+import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
+import UPDATE_ACTER_IMAGES from 'api/mutations/acter-update-images.graphql'
+import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
 
 /**

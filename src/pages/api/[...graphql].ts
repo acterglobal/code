@@ -6,7 +6,7 @@ import { getToken } from 'src/lib/next-auth/jwt'
 
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
-import { schema } from 'graphql/schema'
+import { schema } from 'api/schema'
 
 const server = new ApolloServer({
   schema,
