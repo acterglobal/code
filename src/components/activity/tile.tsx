@@ -3,8 +3,8 @@ import Image from 'next/image'
 import moment from 'moment'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
-
 import { Activity } from '@generated/type-graphql'
+import { getImageUrl } from 'src/lib/images/get-image-url'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
     <Box className={classes.root}>
       <Box className={classes.image}>
         <Image
-          src={`${activity.Acter.bannerUrl}`}
+          src={getImageUrl(activity.Acter.bannerUrl, 'banner')}
           alt={activity.Acter.name}
           layout="fill"
         />

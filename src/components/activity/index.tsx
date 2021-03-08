@@ -8,8 +8,8 @@ import { ActivityInfo } from 'src/components/activity/activity-info'
 import { ActivityDescription } from 'src/components/activity/activity-description'
 import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
-
 import { InterestType } from '@generated/type-graphql'
+import { getImageUrl } from 'src/lib/images/get-image-url'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -44,7 +44,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
     <Box className={classes.container}>
       <Box className={classes.imageContainer}>
         <Image
-          src={`${acter.bannerUrl}`}
+          src={getImageUrl(acter.bannerUrl, 'banner')}
           alt="Picture of activity"
           layout="responsive"
           width={600}

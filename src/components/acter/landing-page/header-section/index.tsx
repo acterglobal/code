@@ -3,6 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
+import { getImageUrl } from 'src/lib/images/get-image-url'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -53,7 +54,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   return (
     <Box className={classes.bannerSection}>
       <Image
-        src={`${acter.bannerUrl}`}
+        src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
         layout="intrinsic"
         height={400}
@@ -62,7 +63,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
-            src={`${acter.avatarUrl}`}
+            src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
             layout="fixed"
             height={130}
