@@ -16,16 +16,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const DefaultMessage: FC = () => {
+export interface DefaultMessageProps {
+  message?: string
+  redirectTo?: string
+}
+
+export const DefaultMessage: FC<DefaultMessageProps> = (props) => {
+  const { message, redirectTo } = props
   const classes = useStyles()
   return (
     <Box className={classes.root}>
       <Typography variant="body1">
-        You have not created any Organisations or Networks.
+        {message || `You have not created any Organisations or Networks.`}
       </Typography>
       <Typography variant="body1">
         Get started{' '}
-        <Link href="/acter/new">
+        <Link href={redirectTo || `/acter/new`}>
           <MuiLink className={classes.link}>here</MuiLink>
         </Link>
       </Typography>

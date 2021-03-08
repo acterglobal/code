@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Box, Button, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { ActivityTile } from 'src/components/activity/tile'
 import { Acter, Activity, User } from '@generated/type-graphql'
+import { DefaultMessage } from 'src/components/dashboard/default-message'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,6 +57,13 @@ export const ActivitiesList: FC<ActivityListProps> = ({
         </Box>
       )}
       <Box>
+        {acter.ActivitiesOrganized.length === 0 && (
+          <DefaultMessage
+            message="You have no activies."
+            redirectTo={`/activities/new?organiserActerId=${acter.id}`}
+          />
+        )}
+
         {activities?.map((activity) => (
           <Box
             className={classes.activity}
