@@ -13,6 +13,6 @@ module.exports = withPlugins([withGraphql], {
   },
   images: {
     loader: 'imgix',
-    path: 'https://acter-dev.imgix.net',
+    path: process.env.IMAGE_LOADER_URL,
   },
 })
