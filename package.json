@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "rm -rf .next out && jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",

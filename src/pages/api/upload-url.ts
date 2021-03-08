@@ -32,7 +32,5 @@ export default async function handler(req, res) {
     ACL: 'public-read',
   })
 
-  console.log('Got s3 signed URL', url)
-
   res.send(url)
 }
