@@ -44,17 +44,22 @@ export const _handleSubmit = (
     },
   })
 
+  console.log('Acter created: ', acter)
+
   // Upload images
   await saveActerImages(acter, data)
 
+  console.log('Acter images created: ', acter)
+
   // Update Acter with image URLs
-  return await updateActerFn({
+  const res = await updateActerFn({
     variables: {
       acterId: acter.id,
       avatarUrl: acter.avatarUrl || '',
       bannerUrl: acter.bannerUrl || '',
     },
   })
+  console.log('Acter updated with images ', res)
 }
 
 /**
