@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires*/
+require('dotenv').config()
 const withPlugins = require('next-compose-plugins')
 const withGraphql = require('next-graphql-loader')
 
