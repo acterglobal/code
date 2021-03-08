@@ -12,6 +12,7 @@ generator client {
 
 generator typegraphql {
   provider = "typegraphql-prisma"
+  output   = "../@generated/type-graphql"
 }
 
 model Account {
