@@ -39,12 +39,23 @@ const options: InitOptions = {
         throw err
       }
 
+      // TODO: test this well
+      const name = user.email.match(/^(.*)@/)[1]
+      const matchingNames = await prisma.acter.findMany({
+        where: { slug: { startsWith: name.toLocaleLowerCase() } },
+      })
+      const slug = matchingNames
+        ? `${name}_${matchingNames.length}`
+        : name.toLowerCase()
+
       try {
         await prisma.user.update({
           where: { id: user.id },
           data: {
             Acter: {
               create: {
+                name,
+                slug,
                 acterTypeId: userActerType.id,
                 createdByUserId: user.id,
               },
