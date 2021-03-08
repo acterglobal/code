@@ -29,7 +29,6 @@ export class ActerResolver {
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
-    console.log('In createActer', ctx.token)
     const currentUser = await ctx.prisma.user.findUnique({
       select: {
         id: true,
@@ -42,7 +41,6 @@ export class ActerResolver {
       console.error(err)
       throw err
     }
-    console.log('Creating Acter for current user', currentUser)
     const createdByUserId = currentUser.id
 
     const slug = slugify(name.toLocaleLowerCase())
@@ -65,7 +63,6 @@ export class ActerResolver {
       console.error(err)
       throw err
     }
-    console.log('No existing acter for slug, creating')
 
     return ctx.prisma.acter.create({
       data: {
