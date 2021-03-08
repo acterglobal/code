@@ -17,4 +17,5 @@ module.exports = withPlugins([withGraphql], {
     loader: 'imgix',
     path: process.env.IMAGE_LOADER_URL,
   },
+  productionBrowserSourceMaps: true,
 })
