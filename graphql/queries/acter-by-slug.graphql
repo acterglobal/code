@@ -3,7 +3,11 @@
 #import "../fragments/activity-display.fragment.graphql"
 
 query ActerBySlug($acterTypeId: String!, $slug: String!) {
-  getActer(acterTypeId: $acterTypeId, slug: $slug) {
+  acter(
+    where: {
+      slug_unique_for_acter_type: { acterTypeId: $acterTypeId, slug: $slug }
+    }
+  ) {
     ...ActerFull
     createdByUserId
     Activity {

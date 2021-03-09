@@ -5,18 +5,18 @@ import slugify from 'slugify'
 import { Acter, Activity } from '@generated/type-graphql'
 @Resolver(Acter)
 export class ActerResolver {
-  @Query(() => Acter)
-  async getActer(
-    @Ctx() ctx: ActerGraphQLContext,
-    @Arg('acterTypeId') acterTypeId: string,
-    @Arg('slug') slug: string
-  ): Promise<Acter> {
-    return ctx.prisma.acter.findUnique({
-      where: {
-        slug_unique_for_acter_type: { slug, acterTypeId },
-      },
-    })
-  }
+  // @Query(() => Acter)
+  // async getActer(
+  //   @Ctx() ctx: ActerGraphQLContext,
+  //   @Arg('acterTypeId') acterTypeId: string,
+  //   @Arg('slug') slug: string
+  // ): Promise<Acter> {
+  //   return ctx.prisma.acter.findUnique({
+  //     where: {
+  //       slug_unique_for_acter_type: { slug, acterTypeId },
+  //     },
+  //   })
+  // }
 
   @Authorized()
   @Mutation(() => Acter)

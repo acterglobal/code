@@ -39,10 +39,18 @@ export const getActer: ComposedGetServerSideProps = async ({
     }
   }
 
-  const { getActer }: { getActer: Acter } = data
+  const { acter }: { acter: Acter } = data
+
+  if (!acter) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+
   return addApolloState(apollo, {
     props: {
-      acter: getActer,
+      acter,
     },
   })
 }
