@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import { signIn, signOut } from 'next-auth/client'
 
-import { Link as MuiLink, ListItemText, MenuItem } from '@material-ui/core'
+import { Link as MuiLink, MenuItem } from '@material-ui/core'
 
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ProfileButton } from 'src/components/user/profile-button'
 import { SignInButton } from 'src/components/layout/sign-in-button'
 
 import { User } from '@generated/type-graphql'
-
 export interface SessionIndicatorProps {
   user?: User
 }
@@ -20,8 +19,7 @@ export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
   }
 
   return (
-    <DropdownMenu anchorNode={<ProfileButton />}>
-      <ListItemText>Signed in as {user.email}</ListItemText>
+    <DropdownMenu anchorNode={<ProfileButton user={user} />}>
       <MenuItem>
         <Link href="/profile">
           <MuiLink>Edit Profile</MuiLink>

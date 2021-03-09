@@ -3,6 +3,7 @@ import { Avatar, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getInitials } from 'src/lib/get-initials'
+import { getImageUrl } from 'src/lib/images/get-image-url'
 
 import { Acter } from '@generated/type-graphql'
 
@@ -46,7 +47,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
         acter.avatarUrl || classes[acter.ActerType.name.toLocaleLowerCase()]
       )}
       alt={`${acter.ActerType.name} ${acter.name}`}
-      src={acter.avatarUrl}
+      src={`getImageUrl(acter.avatarUrl)&w=64&h=64&crop=entropy`}
     >
       {acter.avatarUrl ? '' : getInitials(acter.name || '')}
     </Avatar>
