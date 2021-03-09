@@ -85,6 +85,10 @@ export const Interest: FC<InterestProps> = ({
 }) => {
   const classes = useStyles({ type })
 
+  if (!interest) {
+    return null
+  }
+
   const handleClick = () => {
     if (disabled && !selected) return null
     else onSelectedInterestsChange(interest.id, type)
