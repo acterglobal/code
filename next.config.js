@@ -4,7 +4,7 @@ const withGraphql = require('next-graphql-loader')
 
 const { PHASE_PRODUCTION_BUILD } = require('next/constants')
 
-console.log('***In next.config.js ', process.env.IMAGE_LOADER_URL)
+console.log('***In next.config.js ', process.env.NEXT_PUBLIC_IMAGE_LOADER_URL)
 
 module.exports = withPlugins([withGraphql], {
   [PHASE_PRODUCTION_BUILD]: {
@@ -15,7 +15,6 @@ module.exports = withPlugins([withGraphql], {
   },
   images: {
     loader: 'imgix',
-    path: process.env.IMAGE_LOADER_URL,
-    // path: 'https://acter-prod.imgix.net',
+    path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
   },
 })
