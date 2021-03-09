@@ -1,7 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Link from 'next/link'
 import { signIn } from 'next-auth/client'
-import { Box, Link as MuiLink, Typography } from '@material-ui/core'
+import {
+  Box,
+  Link as MuiLink,
+  FormControlLabel,
+  Checkbox,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { Formik, Form, FormikHelpers } from 'formik'
@@ -66,6 +72,7 @@ interface SigninProps {
 export const Signin: FC<SigninProps> = ({ providers, variant }) => {
   const classes = useStyles()
   const initialValues = { fullName: '', email: '', password: '' }
+  const [canSubmit, setCanSubmit] = useState(variant === SIGN_IN)
 
   return (
     <Box maxWidth="sm" className={classes.container}>
@@ -93,8 +100,33 @@ export const Signin: FC<SigninProps> = ({ providers, variant }) => {
                 name="passwordConfirm"
                 type="password"
               /> */}
+              {variant === SIGN_UP && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={({ target: { checked } }) =>
+                        setCanSubmit(checked)
+                      }
+                    />
+                  }
+                  label={
+                    <Typography variant="subtitle1">
+                      I have read and agree to{' '}
+                      <Link href="/privacy-policy">
+                        <a className={classes.loginLink} target="_blank">
+                          Privacy Policy
+                        </a>
+                      </Link>
+                    </Typography>
+                  }
+                />
+              )}
 
-              <Button label="Signin" handleClick={props.submitForm} />
+              <Button
+                label="Signin"
+                disabled={!canSubmit}
+                handleClick={props.submitForm}
+              />
             </Box>
           </Form>
         )}
