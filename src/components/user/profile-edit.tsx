@@ -78,7 +78,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
         {(props) => (
           <Form>
             <Grid container>
-              <Grid item sm={12} md={6}>
+              <Grid item sm={12} md={12}>
                 <ImageUpload
                   imageType="avatar"
                   setImageToFormField={props.setFieldValue}
@@ -128,12 +128,12 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
                   }}
                 />
               </Grid>
-              <Grid item sm={12} md={6}>
+              {/* <Grid item sm={12} md={6}>
                 <InterestsAddSection
                   interestTypes={interestTypes}
                   setFieldValue={props.setFieldValue}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Box className={classes.button}>
               <SaveButton label="Save" handleClick={props.submitForm} />
