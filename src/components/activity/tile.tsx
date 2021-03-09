@@ -41,6 +41,7 @@ export interface ActivityTileProps {
 }
 
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
+  if (!activity) return null
   const classes = useStyles()
   const format = 'llll'
   const startAt = moment(activity.startAt).format(format)
