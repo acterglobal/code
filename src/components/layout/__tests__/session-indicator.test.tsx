@@ -2,9 +2,14 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SessionIndicator } from 'src/components/layout/session-indicator'
-import { ExampleUser } from 'src/__fixtures__'
+import { ExampleUser, ExampleActer } from 'src/__fixtures__'
 
 jest.mock('next-auth/client')
+
+const user = {
+  ...ExampleUser,
+  Acter: ExampleActer,
+}
 
 describe('SessionIndicator', () => {
   it('should show a sign in button when the user is not logged in', () => {
@@ -19,7 +24,7 @@ describe('SessionIndicator', () => {
   })
 
   it('should show the profile button and menu when user is logged in', () => {
-    render(<SessionIndicator user={ExampleUser} />)
+    render(<SessionIndicator user={user} />)
     expect(screen.findByRole('button', { name: 'profile-button' })).toBeTruthy()
 
     expect(
@@ -30,7 +35,7 @@ describe('SessionIndicator', () => {
   })
 
   it('should show the session menu when the profile button is clicked', async () => {
-    render(<SessionIndicator user={ExampleUser} />)
+    render(<SessionIndicator user={user} />)
     const profileButton = await screen.findByRole('button', {
       name: 'profile-button',
     })
@@ -48,7 +53,7 @@ describe('SessionIndicator', () => {
     const mockSignOut = jest.fn()
     // eslint-disable-next-line
     require('next-auth/client').__setMockSignOut(mockSignOut)
-    render(<SessionIndicator user={ExampleUser} />)
+    render(<SessionIndicator user={user} />)
     const profileButton = await screen.findByRole('button', {
       name: 'profile-button',
     })

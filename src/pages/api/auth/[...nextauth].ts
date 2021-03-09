@@ -1,5 +1,6 @@
 import NextAuth, { InitOptions } from 'next-auth'
 import Adapters from 'next-auth/adapters'
+import Providers from 'next-auth/providers'
 import prisma from 'src/lib/prisma'
 import Email from 'src/lib/next-auth/email-provider'
 import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
@@ -20,6 +21,13 @@ const options: InitOptions = {
     }),
   ],
 
+  pages: {
+    signIn: '/login',
+    verifyRequest: '/verify',
+    newUser: '/profile',
+    error: '/error',
+  },
+
   events: {
     createUser: async (user: User) => {
       // Create a User Acter
@@ -32,12 +40,23 @@ const options: InitOptions = {
         throw err
       }
 
+      // TODO: test this well
+      const name = user.email.match(/^(.*)@/)[1]
+      const matchingNames = await prisma.acter.findMany({
+        where: { slug: { startsWith: name.toLocaleLowerCase() } },
+      })
+      const slug = matchingNames
+        ? `${name}_${matchingNames.length}`
+        : name.toLowerCase()
+
       try {
         await prisma.user.update({
           where: { id: user.id },
           data: {
             Acter: {
               create: {
+                name,
+                slug,
                 acterTypeId: userActerType.id,
                 createdByUserId: user.id,
               },

@@ -1,8 +1,10 @@
 fragment ActerDisplay on Acter {
   id
   name
-  slug
   description
+  slug
+  url
+  location
   avatarUrl
   bannerUrl
   ActerType {

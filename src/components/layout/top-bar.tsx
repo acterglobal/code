@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Box, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 
 import { User } from '@generated/type-graphql'
+import { relative } from 'path'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -23,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexGrow: 1,
     flexDirection: 'row',
+  },
+  logo: {
+    width: 32,
+    height: 32,
+    position: 'relative',
   },
   title: {
     textTransform: 'uppercase',
