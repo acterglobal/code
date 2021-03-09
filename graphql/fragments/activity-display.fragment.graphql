@@ -1,6 +1,7 @@
 #import "../fragments/acter-dislapy.fragment.graphql"
 
 fragment ActivityDisplay on Activity {
+  id
   isOnline
   startAt
   endAt
