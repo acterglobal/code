@@ -1,3 +1,5 @@
+// TODO: fix the below lint error
+/* eslint no-irregular-whitespace: 0 */
 import React from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
@@ -32,14 +34,14 @@ const GDPR: NextPage = () => {
             The words of which the initial letter is capitalized have meanings
             defined under the following conditions. The following definitions
             shall have the same meaning regardless of whether they appear in
-            singular or in plural.{' '}
+            singular or in plural.
           </p>
-          ​<h3> Definitions </h3>
-          For the purposes of this Privacy Policy:
+          ​<h3>Definitions</h3>
+          <span>For the purposes of this Privacy Policy: </span>
           <ul>
             <li>
               Account means a unique account created for You to access our
-              Service or parts of our Service.{' '}
+              Service or parts of our Service.
             </li>
             <li>
               Company (referred to as either "the Company", "We", "Us" or "Our"
@@ -52,7 +54,7 @@ const GDPR: NextPage = () => {
               details of Your browsing history on that Web Application among its
               many uses.
             </li>
-            <li> Country refers to: Denmark </li>
+            <li>Country refers to: Denmark</li>
             <li>
               Device means any device that can access the Service such as a
               computer, a cell phone or a digital tablet.
@@ -196,7 +198,7 @@ const GDPR: NextPage = () => {
               informative communications related to the functionalities,
               products or contracted services, including the security updates,
               when necessary or reasonable for their implementation.
-            </li>{' '}
+            </li>
             <li>
               to provide you with relevant news and general information about
               our services.
@@ -217,13 +219,13 @@ const GDPR: NextPage = () => {
           </p>
           <p>acter may process your personal data because:</p>
           <ul>
-            <li>we need to perform a contract with you</li>{' '}
-            <li>you have given us permission to do so</li>{' '}
+            <li>we need to perform a contract with you</li>
+            <li>you have given us permission to do so</li>
             <li>
               the processing is in our legitimate interests and it’s not
               overridden by your rights
-            </li>{' '}
-            <li>for payment processing purposes</li>{' '}
+            </li>
+            <li>for payment processing purposes</li>
             <li>to comply with the law</li>
           </ul>
           <h3>​Retention of your personal data</h3>
