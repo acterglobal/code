@@ -125,7 +125,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(
     ctx,
-    getUserProfile(true),
+    getUserProfile(false),
     getActerTypes,
     setActerType,
     getActer,

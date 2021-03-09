@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
+import { signIn } from 'next-auth/client'
 import {
   Button,
   Grid,
@@ -89,6 +90,13 @@ export const Connect: FC<ConnectProps> = ({
   onLeave,
   loading,
 }) => {
+  if (!user) {
+    return (
+      <StyledConnectButton onClick={() => signIn()}>
+        Sign in to Connect
+      </StyledConnectButton>
+    )
+  }
   const followers = getFollowers(user, acter)
 
   if (!followers.length) {
@@ -97,7 +105,7 @@ export const Connect: FC<ConnectProps> = ({
 
   return (
     <DropdownMenu
-      anchorNode={<StyledButton>Connect</StyledButton>}
+      anchorNode={<StyledConnectButton>Connect</StyledConnectButton>}
       closeOnClick={false}
     >
       {followers.map((follower) => (
@@ -170,11 +178,13 @@ const AvatarGrid = withStyles((theme: Theme) =>
   })
 )(Grid)
 
-const StyledButton = withStyles((theme: Theme) =>
+export const StyledConnectButton = withStyles((theme: Theme) =>
   createStyles({
     root: {
       borderRadius: 25,
-      width: '100px',
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      minWidth: '100px',
       backgroundColor: theme.palette.primary.main,
       color: 'white',
       marginRight: theme.spacing(3),

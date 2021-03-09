@@ -38,7 +38,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({
   const classes = useStyles()
 
   const canCreate = acter.Followers?.map(({ Follower: { id } }) => id).includes(
-    user.Acter?.id
+    user?.Acter?.id
   )
 
   return (
