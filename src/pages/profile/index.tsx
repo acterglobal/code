@@ -15,7 +15,7 @@ import { InterestType, User } from '@generated/type-graphql'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'
 
-import UPDATE_ACTER from 'graphql/mutations/acter-update.graphql'
+import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
 type WithInterestIds = {
   interestIds: string[]
