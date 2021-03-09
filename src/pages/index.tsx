@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'
@@ -29,7 +29,15 @@ const Home: NextPage<HomeProps> = ({ user }) => (
   </Layout>
 )
 
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false))
+// export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+//   composeProps(ctx, getUserProfile(false))
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {},
+    redirect: {
+      destination: 'networks/greenlight-aarhus',
+    },
+  }
+}
 
 export default Home

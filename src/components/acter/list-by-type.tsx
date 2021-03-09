@@ -78,8 +78,6 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
     return prev
   }, {} as ActersByType)
 
-  console.log(actersByType)
-
   const tasks = []
   const activities = []
 
@@ -87,7 +85,7 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
     <Grid container spacing={1}>
       {Object.entries(actersByType).map(([type, subset]) => (
         // <Hidden key={type} xsDown={type === 'Network' || type === 'Group'}>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={4} key={`acter-types-${type}`}>
           <Typography className={classes.heading} variant="h6">
             {`My ${pluralize(type)}`}
           </Typography>

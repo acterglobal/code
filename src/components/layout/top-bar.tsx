@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     zIndex: theme.zIndex.drawer + 1,
   },
+  link: {
+    display: 'flex',
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+  },
   titleLogo: {
     display: 'flex',
     flexGrow: 1,
@@ -36,15 +41,19 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
       <AppBar position="fixed" color="inherit" className={classes.appBar}>
         <Toolbar>
           <div className={classes.titleLogo}>
-            <Image
-              src="/assets/acter-logo-32.png"
-              alt="Acter Logo"
-              width={32}
-              height={32}
-            />
-            <Typography variant="h1" className={classes.title}>
-              Acter
-            </Typography>
+            <Link href="/">
+              <a className={classes.link}>
+                <Image
+                  src="/assets/acter-logo-32.png"
+                  alt="Acter Logo"
+                  width={32}
+                  height={32}
+                />
+                <Typography variant="h1" className={classes.title}>
+                  Acter
+                </Typography>
+              </a>
+            </Link>
           </div>
           <div>
             <SessionIndicator user={user} />
