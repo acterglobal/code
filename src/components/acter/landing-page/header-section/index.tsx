@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Button, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { getImageUrl } from 'src/lib/images/get-image-url'
