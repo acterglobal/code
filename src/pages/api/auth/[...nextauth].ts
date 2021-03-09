@@ -25,6 +25,7 @@ const options: InitOptions = {
     signIn: '/login',
     verifyRequest: '/verify',
     newUser: '/profile',
+    error: '/error',
   },
 
   events: {

@@ -30,7 +30,7 @@ const VerifyPage: NextPage<any> = ({ providers }) => {
   return (
     <Layout>
       <Head>
-        <title>Login</title>
+        <title>Email sent</title>
       </Head>
       <Box className={classes.container}>
         <Typography variant="h4" className={classes.heading}>

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
+import { signIn } from 'next-auth/client'
 import { Box, Link as MuiLink, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     margin: 'auto',
     maxWidth: 500,
+    paddingTop: theme.spacing(10),
   },
   heading: {
     fontWeight: 'bold',
@@ -36,54 +38,63 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const validationSchema = Yup.object({
+  // fullName: Yup.string()
+  //   .min(2, '* Name should be minimum 2 charecters')
+  //   .required('* Please enter the name'),
   email: Yup.string()
     .email('* Please enter valid email')
     .required('* Please enter email'),
-  password: Yup.string().required('* Please enter the password'),
+  // password: Yup.string()
+  //   .matches(
+  //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&\\])[A-Za-z\d@$!%*#?&\\]{8,}$/,
+  //     'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
+  //   )
+  //   .required('* Please enter the password'),
+  // passwordConfirm: Yup.string().oneOf(
+  //   [Yup.ref('password'), null],
+  //   'Passwords must match'
+  // ),
 })
 
-interface SignupProps {
+const SIGN_UP = 'signup'
+const SIGN_IN = 'signin'
+interface SigninProps {
   providers: any
+  variant: typeof SIGN_UP | typeof SIGN_IN
 }
 
-export const Login: FC<SignupProps> = ({ providers }) => {
+export const Signin: FC<SigninProps> = ({ providers, variant }) => {
   const classes = useStyles()
-  const initialValues = { email: '', password: '' }
-
-  const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2))
-      setSubmitting(false)
-    }, 500)
-  }
-
-  const handleSocialLogin = () => {
-    // TODO: handle social login
-  }
-  const handleLoginLink = () => {
-    // TODO: redirect to login screen
-  }
+  const initialValues = { fullName: '', email: '', password: '' }
 
   return (
     <Box maxWidth="sm" className={classes.container}>
       <Box>
-        <Typography className={classes.heading} variant="h6">
-          Login
+        <Typography className={classes.heading} variant="h5">
+          {variant === SIGN_UP
+            ? 'Welcome! Please give us your email to get started:'
+            : 'Welcome back. Please enter the email address you used to sign up:'}
         </Typography>
       </Box>
 
       <Formik
         initialValues={initialValues}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => signIn('email', values)}
         validationSchema={validationSchema}
       >
         {(props) => (
           <Form>
             <Box className={classes.fieldsContainer} m={4}>
+              {/* <InputField label="Full Name" name="fullName" /> */}
               <InputField label="Email" name="email" />
-              <InputField label="Password" name="password" type="password" />
+              {/* <InputField label="Password" name="password" type="password" />
+              <InputField
+                label="Confirm Password"
+                name="passwordConfirm"
+                type="password"
+              /> */}
 
-              <Button label="Login" handleClick={props.submitForm} />
+              <Button label="Signin" handleClick={props.submitForm} />
             </Box>
           </Form>
         )}
@@ -110,18 +121,33 @@ export const Login: FC<SignupProps> = ({ providers }) => {
         </Box>
       )}
       <Box className={classes.socialButtonsContainer}>
-        <Typography variant="body2" style={{ color: grey[600] }}>
-          Are you new member?
-          <Link href="/signup">
-            <MuiLink
-              className={classes.loginLink}
-              component="button"
-              variant="body2"
-            >
-              Create account
-            </MuiLink>
-          </Link>
-        </Typography>
+        {variant === SIGN_UP ? (
+          <Typography variant="body2" style={{ color: grey[600] }}>
+            Already have an account?
+            <Link href="/login">
+              <MuiLink
+                className={classes.loginLink}
+                component="button"
+                variant="body2"
+              >
+                Sign In
+              </MuiLink>
+            </Link>
+          </Typography>
+        ) : (
+          <Typography variant="body2" style={{ color: grey[600] }}>
+            First time here?
+            <Link href="/signup">
+              <MuiLink
+                className={classes.loginLink}
+                component="button"
+                variant="body2"
+              >
+                Sign Up
+              </MuiLink>
+            </Link>
+          </Typography>
+        )}
       </Box>
     </Box>
   )

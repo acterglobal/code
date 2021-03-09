@@ -2,14 +2,16 @@ import React from 'react'
 import { NextPage } from 'next'
 import { providers } from 'next-auth/client'
 import Head from 'next/head'
-
 import { Layout } from 'src/components/layout'
-import { Signup } from 'src/components/user/auth/signup'
+import { Signin } from 'src/components/user/auth/signin'
 
 const SignupPage: NextPage<any> = ({ providers }) => {
   return (
     <Layout>
-      <Signup providers={providers} />
+      <Head>
+        <title>Sign Up - Acter</title>
+      </Head>
+      <Signin providers={providers} variant="signup" />
     </Layout>
   )
 }

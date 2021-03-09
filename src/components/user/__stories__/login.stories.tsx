@@ -1,9 +1,9 @@
 import { Story } from '@storybook/react'
-import { Login } from 'src/components/user/auth/login'
+import { Signin } from 'src/components/user/auth/signin'
 
 export default {
   title: 'user/Login',
-  component: Login,
+  component: Signin,
 }
 
-export const LoginPage: Story = () => <Login />
+export const LoginPage: Story = () => <Signin providers={[]} variant="signin" />

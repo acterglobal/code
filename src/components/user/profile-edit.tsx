@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import {
   Box,
   Button,
+  Grid,
   Typography,
   createStyles,
   makeStyles,
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       margin: 'auto',
-      maxWidth: 600,
+      paddingTop: theme.spacing(10),
     },
     fieldsContainer: {},
     textinput: {
@@ -76,57 +77,64 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
       >
         {(props) => (
           <Form>
-            <Box className={classes.fieldsContainer} m={4}>
-              <ImageUpload
-                imageType="avatar"
-                setImageToFormField={props.setFieldValue}
-                fileUrl={user.Acter.avatarUrl}
-              />
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="name"
-                placeholder="name"
-                variant="outlined"
-                inputProps={{ style: { paddingLeft: 25, fontSize: '0.9rem' } }}
-              />
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="email"
-                placeholder="you@acter.global"
-                variant="outlined"
-                disabled={true}
-                inputProps={{ style: { paddingLeft: 25, fontSize: '0.9rem' } }}
-              />
+            <Grid container>
+              <Grid item sm={12} md={6}>
+                <ImageUpload
+                  imageType="avatar"
+                  setImageToFormField={props.setFieldValue}
+                  fileUrl={user.Acter.avatarUrl}
+                />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="name"
+                  placeholder="name"
+                  variant="outlined"
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="email"
+                  placeholder="you@acter.global"
+                  variant="outlined"
+                  disabled={true}
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
 
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="description"
-                multiline
-                rows={4}
-                placeholder="Write some thing about you"
-                variant="outlined"
-                inputProps={{ style: { padding: 10, fontSize: '0.9rem' } }}
-              />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="description"
+                  multiline
+                  rows={4}
+                  placeholder="Write some thing about you"
+                  variant="outlined"
+                  inputProps={{ style: { padding: 10, fontSize: '0.9rem' } }}
+                />
 
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="location"
-                placeholder="location"
-                variant="outlined"
-                inputProps={{ style: { paddingLeft: 25, fontSize: '0.9rem' } }}
-              />
-
-              <Box ml={8}>
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="location"
+                  placeholder="location"
+                  variant="outlined"
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
+              </Grid>
+              <Grid item sm={12} md={6}>
                 <InterestsAddSection
                   interestTypes={interestTypes}
                   setFieldValue={props.setFieldValue}
                 />
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
             <Box className={classes.button}>
               <SaveButton label="Save" handleClick={props.submitForm} />
             </Box>
