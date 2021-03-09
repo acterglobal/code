@@ -18,7 +18,6 @@ const SignupPage: NextPage<any> = ({ providers }) => {
 
 export const getServerSideProps = async () => {
   const authProviders = await providers()
-  console.log('getInitialProps', authProviders)
   return {
     props: { providers: authProviders },
   }
