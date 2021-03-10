@@ -87,7 +87,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           <div role="tabpanel" hidden={tab !== ACTIVITIES}>
             <ActivitiesList
               acter={acter}
-              user={user}
               activities={acter.ActivitiesOrganized}
             />
           </div>
