@@ -5,7 +5,7 @@ import { grey } from '@material-ui/core/colors'
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
-import { Acter } from '@generated/type-graphql'
+import { Acter, User } from '@generated/type-graphql'
 import { NETWORK, ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -29,7 +29,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: grey[800],
     fontSize: '0.9rem',
     fontWeight: 'bold',
-    marginLeft: 10,
+    // marginLeft: 10,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 }))
 
@@ -50,7 +52,10 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   return (
     <>
       <InputLabel className={classes.label}>Organiser</InputLabel>
-      <Field
+      {/* <Typography className={classes.name} variant="body1">
+        {user.name}
+      </Typography> */}
+      {/* <Field
         className={classes.chooseOrganiser}
         component={Select}
         name="organiserActerId"
@@ -68,7 +73,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
             </Box>
           </MenuItem>
         ))}
-      </Field>
+      </Field> */}
     </>
   )
 }
