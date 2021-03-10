@@ -36,6 +36,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
+const StyledTypeContainer = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      borderColor: theme.palette.divider,
+      borderWidth: 'thin',
+      borderStyle: 'solid',
+      borderRadius: theme.spacing(1),
+      padding: theme.spacing(2),
+      marginTop: theme.spacing(2),
+      marginRight: theme.spacing(2),
+    },
+  })
+)(Grid)
+
 const StyledBox = withStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -82,10 +97,16 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
   const activities = []
 
   return (
-    <Grid container spacing={1}>
+    <Grid container>
       {Object.entries(actersByType).map(([type, subset]) => (
         // <Hidden key={type} xsDown={type === 'Network' || type === 'Group'}>
-        <Grid item xs={12} sm={6} md={4} key={`acter-types-${type}`}>
+        <StyledTypeContainer
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          key={`acter-types-${type}`}
+        >
           <Typography className={classes.heading} variant="h6">
             {`My ${pluralize(type)}`}
           </Typography>
@@ -114,7 +135,7 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
               </StyledBox>
             )
           })}
-        </Grid>
+        </StyledTypeContainer>
         // </Hidden>
       ))}
     </Grid>

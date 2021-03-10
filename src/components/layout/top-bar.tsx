@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     zIndex: theme.zIndex.drawer + 1,
   },
+  toolBar: {
+    paddingLeft: theme.spacing(1),
+  },
   link: {
     display: 'flex',
     color: theme.palette.primary.main,
@@ -45,13 +48,14 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
   return (
     <>
       <AppBar position="fixed" color="inherit" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <div className={classes.titleLogo}>
             <Link href="/">
               <a className={classes.link}>
                 <Image
                   src="/assets/acter-logo-32.png"
                   alt="Acter Logo"
+                  layout="intrinsic"
                   width={32}
                   height={32}
                 />

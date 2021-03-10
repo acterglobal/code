@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Card, CardContent } from '@material-ui/core'
+import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 import { Header } from 'src/components/acter/landing-page/info-section/header'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 import { InterestsSection } from 'src/components/interests/interests-section'
@@ -12,15 +12,27 @@ export interface InfoSectionProps {
 
 export const InfoSection: FC<InfoSectionProps> = ({ acter, interestTypes }) => {
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Header title={acter.name} description={acter.description} />
-        <InterestsSection
-          interestTypes={interestTypes}
-          selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
-        />
-        <FollowersAvatars acter={acter} />
-      </CardContent>
-    </Card>
+    <InfoSectionContainer>
+      <Header title={acter.name} description={acter.description} />
+      <InterestsSection
+        interestTypes={interestTypes}
+        selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
+      />
+      <FollowersAvatars acter={acter} />
+    </InfoSectionContainer>
   )
 }
+
+const InfoSectionContainer = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      //TODO: make this reusable
+      backgroundColor: theme.palette.background.paper,
+      borderColor: theme.palette.divider,
+      borderWidth: 'thin',
+      borderStyle: 'solid',
+      borderRadius: theme.spacing(1),
+      padding: theme.spacing(2),
+    },
+  })
+)(Box)

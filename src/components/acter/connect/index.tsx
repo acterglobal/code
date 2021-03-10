@@ -181,14 +181,14 @@ const AvatarGrid = withStyles((theme: Theme) =>
 export const StyledConnectButton = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      borderRadius: 25,
+      borderRadius: theme.spacing(3),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
+      marginRight: theme.spacing(3),
       minWidth: '100px',
       backgroundColor: theme.palette.primary.main,
       color: 'white',
-      marginRight: theme.spacing(3),
-      textTransform: 'none',
+      textTransform: 'capitalize',
     },
   })
 )(Button)

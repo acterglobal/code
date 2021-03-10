@@ -77,7 +77,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             {devider && (
               <Divider variant="middle" className={classes.devider} />
             )}
-            <Box style={{ marginLeft: 25 }}>
+            <Box>
               <Interest
                 interest={type.Interests[0]}
                 type={type.name}
@@ -100,7 +100,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     )
   } else {
     return (
-      <Box style={{ marginLeft: 25 }}>
+      <Box>
         {showTitle && (
           <Typography style={{ color: interestColors[type.name] }}>
             {type.name}
