@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {},
     redirect: {
-      destination: 'networks/greenlight-aarhus',
+      destination: '/networks/greenlight-aarhus',
     },
   }
 }
