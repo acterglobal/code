@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      paddingLeft: sidebarWidth + theme.spacing(2),
+      paddingLeft: sidebarWidth + theme.spacing(1),
+      paddingRight: 0,
     },
   })
 )
@@ -43,6 +44,7 @@ export const Layout: FC<LayoutProps> = ({ user, children }) => {
       <TopBar user={user} />
       {user && <Sidebar width={sidebarWidth} />}
       <Container
+        maxWidth={false}
         className={clsx(
           classes.container,
           user && classes.containerWithSidebar

@@ -1,37 +1,60 @@
 import React, { FC } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Button, Typography } from '@material-ui/core'
+import {
+  Box,
+  Typography,
+  createStyles,
+  makeStyles,
+  useMediaQuery,
+  Theme,
+} from '@material-ui/core'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
+import { AddActivityButton } from 'src/components/activity/add-activity-button'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 
 //  ? custom styles
-const useStyles = makeStyles((theme: Theme) => ({
-  bannerSection: {},
-  infoSection: {
-    display: 'flex',
-    height: '80px',
-    alignItems: 'center',
-  },
-  avatarImage: {
-    borderRadius: 16,
-    borderColor: theme.palette.primary.main,
-    backgroundColor: 'white',
-    marginLeft: '40px',
-    marginTop: -75,
-    zIndex: 99,
-  },
-
-  info: {
-    marginLeft: theme.spacing(2),
-  },
-  title: {
-    fontWeight: 'bold',
-  },
-  location: {
-    color: theme.palette.secondary.dark,
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    bannerSection: {
+      backgroundColor: theme.palette.background.paper,
+      marginBottom: theme.spacing(2),
+    },
+    infoSection: {
+      display: 'flex',
+      height: '80px',
+      alignItems: 'flex-end',
+      paddingBottom: theme.spacing(3),
+    },
+    avatarImage: {
+      borderRadius: theme.spacing(2),
+      borderColor: theme.palette.primary.main,
+      marginLeft: theme.spacing(6) + 2,
+      width: 130,
+      height: 130,
+      objectFit: 'cover',
+      overflow: 'hidden',
+      zIndex: 99,
+      [theme.breakpoints.down('sm')]: {
+        width: 60,
+        height: 60,
+      },
+    },
+    info: {
+      marginLeft: theme.spacing(2),
+      flexGrow: 2,
+    },
+    title: {
+      fontWeight: 'bold',
+    },
+    location: {
+      color: theme.palette.secondary.dark,
+    },
+    buttonContainer: {
+      display: 'flex',
+      fontSize: '.8rem',
+    },
+  })
+)
 export type HeaderSectionProps = ConnectProps
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
@@ -42,6 +65,11 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   loading,
 }) => {
   const classes = useStyles()
+  const smallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm')
+  )
+
+  const avatarDims = smallScreen ? 65 : 140
 
   /* load default images if doesn't have avatar and banner does not exist */
   if (!acter.avatarUrl) {
@@ -65,9 +93,9 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           <Image
             src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
-            layout="fixed"
-            height={130}
-            width={130}
+            layout="intrinsic"
+            height={avatarDims}
+            width={avatarDims}
           />
         </Box>
 
@@ -83,7 +111,8 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
             {acter.location}
           </Typography>
         </Box>
-        <Box style={{ marginLeft: 'auto' }}>
+        <Box className={classes.buttonContainer}>
+          <AddActivityButton acter={acter} user={user} />
           <Connect
             acter={acter}
             user={user}
