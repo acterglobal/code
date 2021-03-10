@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export type Step1Props = SelectOrganiserProps
 
-export const Step1: FC<Step1Props> = ({ acters }) => {
+export const Step1: FC<Step1Props> = ({ acters, user }) => {
   const classes = useStyles()
 
   return (
@@ -59,7 +59,7 @@ export const Step1: FC<Step1Props> = ({ acters }) => {
         + Add Activity
       </Typography>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <SelectOrganiser acters={acters} />
+        <SelectOrganiser acters={acters} user={user} />
 
         <Field
           className={classes.textinput}

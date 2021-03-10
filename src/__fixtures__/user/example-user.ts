@@ -2,6 +2,7 @@ import { User } from '@generated/type-graphql'
 
 export const ExampleUser: User = {
   id: 'b27aa541-5ce5-4269-a310-350b7e0ef02a',
+  name: 'Kevin',
   email: 'example@acter.global',
   createdAt: new Date(0),
   updatedAt: new Date(0),

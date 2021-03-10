@@ -64,7 +64,7 @@ const getStepContent = (
   const organisers = flattenFollowing(user.Acter)
   switch (step) {
     case 1:
-      return <Step1 acters={organisers} />
+      return <Step1 acters={organisers} user={user} />
     case 2:
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
