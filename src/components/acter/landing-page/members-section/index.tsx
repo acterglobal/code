@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { mapFollowers } from 'src/lib/acter/map-followers'
 import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
@@ -12,14 +13,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
+const PEOPLE = 'people'
+const ORGANISATIONS = 'organisations'
+
 export interface MembersSectionProps {
-  // TODO: fix the types below
-  people: Acter[]
-  organisations: Acter[]
+  acter: Acter
 }
 
-export const MembersSection: FC<MembersSectionProps> = (props) => {
-  const { people, organisations } = props
+export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
+  const { users, organisations } = mapFollowers(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState('people')
 
@@ -27,21 +29,16 @@ export const MembersSection: FC<MembersSectionProps> = (props) => {
     setActiveSelector(selector)
   }
 
-  const handleViewMember = (memeberId) => {
-    // TODO:  implement this
-  }
-
   return (
     <Box className={classes.container}>
       <Selectors
-        people={people}
-        organisations={organisations}
+        selectors={[PEOPLE, ORGANISATIONS]}
         activeSelector={activeSelector}
         handleSelectorChange={handleSelectorChange}
       />
       <DisplayMembers
-        members={activeSelector === 'people' ? people : organisations}
-        handleViewMember={handleViewMember}
+        acters={activeSelector === PEOPLE ? users : organisations}
+        type={activeSelector}
       />
     </Box>
   )

@@ -2,38 +2,35 @@ import React, { FC } from 'react'
 import { Box, Button } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import {
-  GpsFixedTwoTone as FocusIcon,
-  Search as SearchIcon,
-} from '@material-ui/icons'
-import { useAutocomplete } from '@material-ui/lab'
+// import {
+//   GpsFixedTwoTone as FocusIcon,
+//   Search as SearchIcon,
+// } from '@material-ui/icons'
+// import { useAutocomplete } from '@material-ui/lab'
 import clsx from 'clsx'
 import { MembersSectionProps } from 'src/components/acter/landing-page/members-section'
-import { ORGANISATION, USER } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    // height: 50,
-    backgroundColor: 'grey',
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing(1),
   },
   button: {
     height: 25,
     width: 140,
-    borderRadius: 20,
+    borderRadius: theme.spacing(3),
+    marginRight: theme.spacing(1),
     color: grey[600],
     backgroundColor: 'white',
-    textTransform: 'none',
+    textTransform: 'capitalize',
     fontSize: '0.7rem',
     '&:hover': {
       backgroundColor: 'white',
     },
   },
   active: {
-    backgroundColor: green[600],
+    backgroundColor: green[400],
     color: 'white',
     '&:hover': {
       backgroundColor: green[600],
@@ -59,7 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     border: 'none',
   },
   listbox: {
-    // width: 200,
     margin: 0,
     padding: 0,
     zIndex: 1,
@@ -81,53 +77,48 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface SelectorProps extends MembersSectionProps {
+export interface SelectorProps {
+  selectors: string[]
   activeSelector: string
   handleSelectorChange: (selector: string) => void
 }
 
-export const Selectors: FC<SelectorProps> = (props) => {
-  const { people, organisations, activeSelector, handleSelectorChange } = props
+export const Selectors: FC<SelectorProps> = ({
+  selectors,
+  activeSelector,
+  handleSelectorChange,
+}) => {
   const classes = useStyles()
 
-  const {
-    getRootProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    id: 'use-autocomplete-demo',
-    options: films,
-    getOptionLabel: (option) => option.title,
-  })
+  // const {
+  //   getRootProps,
+  //   getInputProps,
+  //   getListboxProps,
+  //   getOptionProps,
+  //   groupedOptions,
+  // } = useAutocomplete({
+  //   id: 'use-autocomplete-demo',
+  //   options: films,
+  //   getOptionLabel: (option) => option.title,
+  // })
 
   return (
     <Box className={classes.container}>
       <Box>
-        <Button
-          className={clsx(
-            classes.button,
-            activeSelector === USER && classes.active
-          )}
-          variant="contained"
-          disableElevation
-          onClick={() => handleSelectorChange(USER)}
-        >
-          People
-        </Button>
-        <Button
-          className={clsx(
-            classes.button,
-            activeSelector === ORGANISATION && classes.active
-          )}
-          variant="contained"
-          disableElevation
-          onClick={() => handleSelectorChange(ORGANISATION)}
-          style={{ marginLeft: 15 }}
-        >
-          Organisations
-        </Button>
+        {selectors.map((selector) => (
+          <Button
+            key={`members-selector-${selector}`}
+            className={clsx(
+              classes.button,
+              activeSelector === selector && classes.active
+            )}
+            variant="contained"
+            disableElevation
+            onClick={() => handleSelectorChange(selector)}
+          >
+            {selector}
+          </Button>
+        ))}
       </Box>
 
       <Box className={classes.searchSection}>
@@ -168,21 +159,3 @@ export const Selectors: FC<SelectorProps> = (props) => {
     </Box>
   )
 }
-
-const films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-]

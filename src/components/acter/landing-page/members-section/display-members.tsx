@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+import pluralize from 'pluralize'
 import {
   Box,
-  Button,
   Divider,
   Typography,
   List,
@@ -18,7 +18,12 @@ import { Acter } from '@generated/type-graphql'
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: '100%',
-    padding: 20,
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.spacing(1),
+    borderColor: theme.palette.divider,
+    borderWidth: 'thin',
+    borderStyle: 'solid',
   },
   heading: {
     fontSize: '0.9rem',
@@ -30,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100%',
     overflow: 'scroll',
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
   },
   memberInfo: {
     marginLeft: 30,
@@ -57,25 +61,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface DisplayMembers {
-  members: Acter[]
-  handleViewMember: (memeberId: string) => void
+  acters: Acter[]
+  type: string
 }
 
-export const DisplayMembers: FC<DisplayMembers> = (props) => {
-  const { members, handleViewMember } = props
+export const DisplayMembers: FC<DisplayMembers> = ({ acters = [], type }) => {
   const classes = useStyles()
-
-  const members1 = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
 
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h5">
-        225 People
+        {acters.length} {pluralize(type)}
       </Typography>
       <Divider />
 
       <List className={classes.members}>
-        {members1.map((member) => (
+        {acters.map((acter) => (
           <>
             <ListItem>
               <ListItemAvatar>
@@ -87,17 +88,9 @@ export const DisplayMembers: FC<DisplayMembers> = (props) => {
                   secondary: classes.acterType,
                 }}
                 className={classes.memberInfo}
-                primary={ExampleActer.name}
-                secondary={ExampleActer.ActerType.name}
+                primary={acter.name}
+                secondary={acter.ActerType.name}
               />
-              {/* <Button
-                className={classes.button}
-                variant="outlined"
-                disableElevation
-                onClick={() => handleViewMember(ExampleActer.id)}
-              >
-                View
-              </Button> */}
             </ListItem>
             <Divider
               classes={{ root: classes.divider }}
