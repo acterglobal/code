@@ -10,7 +10,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button } from '@material-ui/core/'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
-import { Modal } from 'src/components/util/modal/modal'
+import { Modal } from 'src/components/util/modal'
 import { green, grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) => ({
