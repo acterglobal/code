@@ -19,21 +19,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-interface InterestsAddSection {
-  interestTypes: InterestType[]
-  currentInterests?: string[]
-  setFieldValue: (string, any) => any
-}
-
 //  TODO: Add typing
-export const InterestsAddSection: FC<InterestsAddSection> = ({
+export const InterestsAddSection = ({
   interestTypes,
-  currentInterests = [],
+  initialValues = [],
   setFieldValue,
 }) => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
-  const [selectedInterests, setSelectedInterests] = useState(currentInterests)
+  const [selectedInterests, setSelectedInterests] = useState(initialValues)
   const [selectedTypes, setSelectedTypes] = useState([])
 
   useEffect(() => {

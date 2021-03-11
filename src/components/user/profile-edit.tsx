@@ -151,7 +151,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
               <Grid item className={classes.interests} md={12}>
                 <InterestsAddSection
                   interestTypes={interestTypes}
-                  currentInterests={user.Acter.ActerInterests.map(
+                  initialValues={user.Acter.ActerInterests.map(
                     ({ Interest }) => Interest.id
                   )}
                   setFieldValue={props.setFieldValue}
