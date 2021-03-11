@@ -19,21 +19,37 @@ import { grey } from '@material-ui/core/colors'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      margin: 'auto',
-      paddingTop: theme.spacing(10),
+      margin: `${theme.spacing(2)}px auto`,
+      padding: theme.spacing(4),
+      minWidth: 350,
+      maxWidth: 960,
+      //TODO: make this reusable
+      backgroundColor: theme.palette.background.paper,
+      borderColor: theme.palette.divider,
+      borderWidth: 'thin',
+      borderStyle: 'solid',
+      borderRadius: theme.spacing(1),
     },
-    fieldsContainer: {},
+    fieldsContainer: {
+      minHeight: 300,
+      overflowY: 'scroll',
+    },
     textinput: {
       width: '100%',
       marginBottom: theme.spacing(2),
     },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      backgroundColor: 'white',
+    interests: {
+      width: '100%',
+    },
+    buttonContainer: {
+      paddingTop: theme.spacing(2),
+      justifyContent: 'flex-end',
+    },
+    submitButtonContainer: {
+      marginRight: theme.spacing(1),
+      width: '100%',
     },
     secondButton: {
-      marginTop: theme.spacing(2),
       width: '100%',
       color: grey[700],
       borderRadius: theme.spacing(3),
@@ -45,12 +61,14 @@ export interface ProfileEditProps {
   user: User
   interestTypes: InterestType[]
   onSubmit: (any) => any
+  loading: boolean
 }
 
 export const ProfileEdit: FC<ProfileEditProps> = ({
   user,
   interestTypes,
   onSubmit,
+  loading,
 }) => {
   const classes = useStyles()
 
@@ -78,12 +96,14 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
         {(props) => (
           <Form>
             <Grid container>
-              <Grid item sm={12} md={12}>
+              <Grid item sm={12} md={4}>
                 <ImageUpload
                   imageType="avatar"
                   setImageToFormField={props.setFieldValue}
                   fileUrl={user.Acter.avatarUrl}
                 />
+              </Grid>
+              <Grid item sm={12} md={8}>
                 <Field
                   className={classes.textinput}
                   component={TextField}
@@ -128,23 +148,39 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
                   }}
                 />
               </Grid>
-              {/* <Grid item sm={12} md={6}>
+              <Grid item className={classes.interests} md={12}>
                 <InterestsAddSection
                   interestTypes={interestTypes}
+                  currentInterests={user.Acter.ActerInterests.map(
+                    ({ Interest }) => Interest.id
+                  )}
                   setFieldValue={props.setFieldValue}
                 />
-              </Grid> */}
+              </Grid>
             </Grid>
-            <Box className={classes.button}>
-              <SaveButton label="Save" handleClick={props.submitForm} />
-            </Box>
-            <Button
-              className={classes.secondButton}
-              variant="outlined"
-              onClick={() => null}
-            >
-              Complete later
-            </Button>
+            <Grid container className={classes.buttonContainer}>
+              <Grid
+                item
+                xs={12}
+                md={3}
+                className={classes.submitButtonContainer}
+              >
+                <SaveButton
+                  label="Save"
+                  disabled={loading}
+                  handleClick={props.submitForm}
+                />
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <Button
+                  className={classes.secondButton}
+                  variant="outlined"
+                  onClick={() => null}
+                >
+                  Complete later
+                </Button>
+              </Grid>
+            </Grid>
           </Form>
         )}
       </Formik>

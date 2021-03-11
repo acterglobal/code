@@ -10,11 +10,15 @@ import { ActerType, InterestType } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    minWidth: 600,
+    width: 650,
     minHeight: 600,
     border: '1px solid gray',
     padding: 20,
     paddingBottom: 0,
+    [theme.breakpoints.down('xs')]: {
+      width: 300,
+      height: 'auto',
+    },
   },
   fields: {
     width: '100%',
@@ -22,11 +26,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    overflowY: 'scroll',
   },
   btnsContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
     marginTop: theme.spacing(1),
+    backgroundColor: 'white',
+    zIndex: 10,
   },
   button: {
     borderRadius: 50,

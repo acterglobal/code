@@ -103,6 +103,7 @@ model ActerInterest {
   Interest   Interest @relation(fields: [interestId], references: [id])
   interestId String
 
+  @@unique(name: "acter_interests_unique", fields: [acterId, interestId])
   @@map("acter_interests")
 }
 

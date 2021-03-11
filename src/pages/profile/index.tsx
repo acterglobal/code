@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useMutation } from '@apollo/client'
 import md5 from 'md5'
 import { pick } from 'lodash'
+import { useSnackbar } from 'notistack'
 
 import { uploadImage } from 'src/lib/images/upload-image'
 
@@ -17,9 +18,14 @@ import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'graphql/mutations/acter-update.graphql'
 
-export const _handleSubmit = (user: User, updateFn: (any) => any) => async (
-  data: Partial<Acter>
-) => {
+type WithInterestIds = {
+  interestIds: string[]
+}
+
+export const _handleSubmit = (
+  user: User,
+  updateFn: (any) => Promise<any>
+) => async (data: Partial<Acter> & WithInterestIds) => {
   // Upload images
   const folder = `acter/${md5(user.Acter.id)}`
   await Promise.all(
@@ -44,6 +50,7 @@ export const _handleSubmit = (user: User, updateFn: (any) => any) => async (
     'url',
     'avatarUrl',
     'bannerUrl',
+    'interestIds',
   ]
 
   const acter = {
@@ -70,8 +77,11 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   user,
   interestTypes,
 }) => {
-  const [updateUser] = useMutation(UPDATE_ACTER, {
-    // update: (cache, res) => {},
+  const { enqueueSnackbar } = useSnackbar()
+  const [updateUser, { loading }] = useMutation(UPDATE_ACTER, {
+    onCompleted: () => {
+      enqueueSnackbar('Profile updated', { variant: 'success' })
+    },
   })
 
   return (
@@ -85,6 +95,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
           user={user}
           interestTypes={interestTypes}
           onSubmit={_handleSubmit(user, updateUser)}
+          loading={loading}
         />
       </main>
     </Layout>
