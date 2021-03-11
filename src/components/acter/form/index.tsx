@@ -6,7 +6,8 @@ import { Modal } from 'src/components/util/modal/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
-import { ActerType, InterestType } from '@generated/type-graphql'
+import { Acter, ActerType, InterestType } from '@generated/type-graphql'
+import { initialValues } from 'src/lib/acter/handle-update-acter'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -46,18 +47,27 @@ const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 const getStepContent = (
   step: number,
   interestTypes: InterestType[],
-  setFieldValue: any
+  setFieldValue: any,
+  acter: Acter
 ) => {
+  const selectedInterests =
+    acter.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
     case 0:
       return <BasicInformation />
     case 1:
-      return <ImageUploadSection setFieldValue={setFieldValue} />
+      return (
+        <ImageUploadSection
+          setFieldValue={setFieldValue}
+          initialValues={acter}
+        />
+      )
     case 2:
       return (
         <InterestsAddSection
           interestTypes={interestTypes}
           setFieldValue={setFieldValue}
+          initialValues={selectedInterests}
         />
       )
   }
@@ -68,6 +78,7 @@ export interface FormikSetFieldType {
 }
 
 export interface ActerFormProps {
+  acter: Acter
   acterType: ActerType
   interestTypes: InterestType[]
   onSubmit: (any) => any
@@ -75,6 +86,7 @@ export interface ActerFormProps {
 
 // TODO: Add typing
 export const ActerForm: FC<ActerFormProps> = ({
+  acter,
   acterType,
   interestTypes,
   onSubmit,
@@ -102,9 +114,11 @@ export const ActerForm: FC<ActerFormProps> = ({
     (values, { initialValues }) => ({
       ...values,
       ...initialValues,
+      ...acter,
     }),
     {
       acterTypeId: acterType.id,
+      selectedInterests: acter,
     }
   )
 
@@ -131,7 +145,12 @@ export const ActerForm: FC<ActerFormProps> = ({
               </Stepper>
 
               <Box className={classes.fields}>
-                {getStepContent(activeStep, interestTypes, setFieldValue)}
+                {getStepContent(
+                  activeStep,
+                  interestTypes,
+                  setFieldValue,
+                  initialValues
+                )}
               </Box>
 
               <Box className={classes.btnsContainer}>

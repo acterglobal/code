@@ -1,16 +1,20 @@
 import React, { FC } from 'react'
+import Link from 'next/link'
 import {
   Box,
+  IconButton,
   Typography,
   createStyles,
   makeStyles,
   useMediaQuery,
   Theme,
 } from '@material-ui/core'
+import { Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { AddActivityButton } from 'src/components/activity/add-activity-button'
 import { getImageUrl } from 'src/lib/images/get-image-url'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     info: {
+      display: 'flex',
       marginLeft: theme.spacing(2),
       flexGrow: 2,
     },
@@ -100,16 +105,31 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
         </Box>
 
         <Box className={classes.info}>
-          <Typography role="acter-name" variant="h5" className={classes.title}>
-            {acter.name}
-          </Typography>
-          <Typography
-            role="acter-location"
-            variant="subtitle2"
-            className={classes.location}
-          >
-            {acter.location}
-          </Typography>
+          <Box>
+            <Typography
+              role="acter-name"
+              variant="h5"
+              className={classes.title}
+            >
+              {acter.name}
+            </Typography>
+            <Typography
+              role="acter-location"
+              variant="subtitle2"
+              className={classes.location}
+            >
+              {acter.location}
+            </Typography>
+          </Box>
+          <Box>
+            {acter.createdByUserId === user.id && (
+              <Link href={`${acterAsUrl(acter)}/edit`}>
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
+              </Link>
+            )}
+          </Box>
         </Box>
         <Box className={classes.buttonContainer}>
           <AddActivityButton acter={acter} user={user} />

@@ -14,7 +14,7 @@ import { grey } from '@material-ui/core/colors'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     interests: {},
-    devider: {
+    divider: {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(0.8),
       marginTop: theme.spacing(1),
@@ -32,7 +32,7 @@ export interface InterestTypesProps {
   showTitle?: boolean
   showSubTypeTitles?: boolean
   columns?: boolean
-  devider?: boolean
+  divider?: boolean
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -46,7 +46,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   showTitle = false,
   showSubTypeTitles = true,
   columns = false,
-  devider = false,
+  divider: divider = false,
 }) => {
   const classes = useStyles()
 
@@ -74,8 +74,8 @@ export const InterestTypes: FC<InterestTypesProps> = ({
         ))}
         {type.name === 'Focus' && (
           <>
-            {devider && (
-              <Divider variant="middle" className={classes.devider} />
+            {divider && (
+              <Divider variant="middle" className={classes.divider} />
             )}
             <Box>
               <Interest

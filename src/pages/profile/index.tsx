@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useMutation } from '@apollo/client'
-import md5 from 'md5'
-import { pick } from 'lodash'
+
 import { useSnackbar } from 'notistack'
 
-import { uploadImage } from 'src/lib/images/upload-image'
+import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
 
 import { Layout } from 'src/components/layout'
 import { ProfileEdit } from 'src/components/user/profile-edit'
 
-import { Acter, InterestType, User } from '@generated/type-graphql'
+import { InterestType, User } from '@generated/type-graphql'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'
@@ -22,50 +21,8 @@ type WithInterestIds = {
   interestIds: string[]
 }
 
-export const _handleSubmit = (
-  user: User,
-  updateFn: (any) => Promise<any>
-) => async (data: Partial<Acter> & WithInterestIds) => {
-  // Upload images
-  const folder = `acter/${md5(user.Acter.id)}`
-  await Promise.all(
-    ['avatar', 'banner'].map(async (fileName) => {
-      //TODO: error handling for failed upload
-      const file = data[fileName]
-      if (file) {
-        if (!user.Acter.avatarUrl?.match(file.name)) {
-          const img = await uploadImage(folder, file)
-          if (img) {
-            data[`${fileName}Url`] = img
-          }
-        }
-      }
-    })
-  )
-
-  const updateSet = [
-    'name',
-    'description',
-    'location',
-    'url',
-    'avatarUrl',
-    'bannerUrl',
-    'interestIds',
-  ]
-
-  const acter = {
-    ...updateSet.reduce((prev, key) => ({ ...prev, [key]: '' }), {}),
-    ...user.Acter,
-    ...pick(data, ...updateSet),
-  }
-
-  return await updateFn({
-    variables: {
-      acterId: user.Acter.id,
-      ...acter,
-    },
-  })
-}
+export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) =>
+  handleUpdateActer(user.Acter, updateFn)
 interface UserProfilePageProps {
   loading?: boolean
   error?: string
