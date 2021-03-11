@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
 import { Box, MenuItem, InputLabel, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   label: {
     color: grey[700],
     marginBottom: 5,
-    fontSize: '0.9rem',
+    // fontSize: '0.9rem',
   },
   chooseOrganiser: {
     marginBottom: 25,
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   name: {
     color: grey[800],
-    fontSize: '0.9rem',
+    // fontSize: '0.9rem',
     fontWeight: 'bold',
     // marginLeft: 10,
     marginTop: theme.spacing(1),
@@ -50,11 +51,17 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters, user }) => {
     [ORGANISATION, NETWORK].includes(name)
   )
 
+  const router = useRouter()
+  const { organiserActerId } = router.query
+  const organiser = organiserActerId
+    ? organisers.find((acter) => acter.id === organiserActerId)
+    : organisers[0]
+
   return (
     <>
-      <InputLabel className={classes.label}>Organiser</InputLabel>
-      <Typography className={classes.name} variant="body1">
-        {user.name}
+      <InputLabel className={classes.label}>Show activity in:</InputLabel>
+      <Typography className={classes.name} variant="h6">
+        {organiser.name}
       </Typography>
       {/* <Field
         className={classes.chooseOrganiser}
