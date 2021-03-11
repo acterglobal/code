@@ -92,7 +92,7 @@ export const InterestsAddSection = ({
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
                   columns={true}
-                  devider={true}
+                  divider={true}
                 />
               </Box>
             )}

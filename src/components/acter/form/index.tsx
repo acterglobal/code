@@ -48,7 +48,7 @@ const getStepContent = (
   step: number,
   interestTypes: InterestType[],
   setFieldValue: any,
-  acter: Acter
+  acter: Partial<Acter>
 ) => {
   const selectedInterests =
     acter.ActerInterests?.map(({ Interest: { id } }) => id) || []

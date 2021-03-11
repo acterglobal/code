@@ -16,5 +16,5 @@ export default {
 const testSetFieldValue = () => console.log('test')
 
 export const ImagesUpload = () => (
-  <ImageUploadSection setFieldValue={testSetFieldValue} />
+  <ImageUploadSection setFieldValue={testSetFieldValue} initialValues={{}} />
 )
