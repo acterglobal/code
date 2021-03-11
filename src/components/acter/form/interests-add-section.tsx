@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-interface InterestsAddSection {
-  interestTypes: InterestType[]
-  currentInterests?: string[]
-  setFieldValue: (string, any) => any
-}
-
 //  TODO: Add typing
 export const InterestsAddSection = ({
   interestTypes,
