@@ -2,6 +2,8 @@ import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
+import { useSnackbar } from 'notistack'
+import { pick } from 'lodash'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 import { saveActerImages } from 'src/lib/acter/save-images'
@@ -11,53 +13,22 @@ import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
 
+import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
+
 import {
   getUserProfile,
   getActerTypes,
   setActerType,
   getInterests,
+  getActer,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
 import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 
-import MUTATE_ACTER_CREATE from 'graphql/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'graphql/mutations/acter-update.graphql'
-import CREATE_ACTIVITY from 'graphql/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
-
-/**
- * Returns an onSubmit handler
- * @param createActerFn Function returned from useMutation
- * @param acterType The ActerType to use for Acter creation
- */
-export const _handleSubmit = (
-  createActerFn: (any) => any,
-  updateActerFn: (any) => any,
-  acterType: ActerType
-) => async (data) => {
-  // Create the acter
-  const acter: Acter = await createActerFn({
-    variables: {
-      ...data,
-      acterTypeId: acterType.id,
-    },
-  })
-
-  // Upload images
-  await saveActerImages(acter, data)
-
-  // Update Acter with image URLs
-  return await updateActerFn({
-    variables: {
-      ...acter,
-      acterId: acter.id,
-      interestIds: data.interestIds,
-      avatarUrl: acter.avatarUrl || '',
-      bannerUrl: acter.bannerUrl || '',
-    },
-  })
-}
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -72,6 +43,10 @@ export const _handleOnComplete = (
 
 interface NewActerPageProps {
   /**
+   * This Acter
+   */
+  acter: Acter
+  /**
    * The ActerType we are creating
    */
   acterType: ActerType
@@ -85,16 +60,17 @@ interface NewActerPageProps {
   user?: User
 }
 export const NewActerPage: NextPage<NewActerPageProps> = ({
+  acter,
   acterType,
   interestTypes,
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [createActivity] = useMutation(CREATE_ACTIVITY)
-  const [createActer] = useMutation(MUTATE_ACTER_CREATE)
-  const [updateActer] = useMutation(UPDATE_ACTER, {
-    onCompleted: ({ updateActer }) => {
-      _handleOnComplete(router, updateActer)
+  const { enqueueSnackbar } = useSnackbar()
+  const [updateActer, { loading }] = useMutation(UPDATE_ACTER, {
+    onCompleted: () => {
+      enqueueSnackbar('Profile updated', { variant: 'success' })
+      router.push(acterAsUrl(acter))
     },
   })
 
@@ -102,31 +78,31 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   let Form
   let createFn
   switch (acterType.name) {
-    case ACTIVITY:
-      Form = ActivityForm
-      createFn = async (data): Promise<Acter> => {
-        // Create copy of the variables
-        const variables = {
-          ...data.variables,
-        }
-        ;['start', 'end'].forEach((t) => {
-          const time = data.variables[`${t}Time`]
-          variables[`${t}At`] = data.variables[`${t}Date`]
-            .hour(time.hour())
-            .minute(time.minute())
-            .second(time.second())
-            .toDate()
-          delete variables[`${t}Date`]
-          delete variables[`${t}Time`]
-        })
-        variables.isOnline = variables.isOnline === 'true'
-        const res = await createActivity({ variables })
-        return res.data.createActivity.Acter
-      }
-      break
+    // case ACTIVITY:
+    //   Form = ActivityForm
+    //   createFn = async (data): Promise<Acter> => {
+    //     // Create copy of the variables
+    //     const variables = {
+    //       ...data.variables,
+    //     }
+    //     ;['start', 'end'].forEach((t) => {
+    //       const time = data.variables[`${t}Time`]
+    //       variables[`${t}At`] = data.variables[`${t}Date`]
+    //         .hour(time.hour())
+    //         .minute(time.minute())
+    //         .second(time.second())
+    //         .toDate()
+    //       delete variables[`${t}Date`]
+    //       delete variables[`${t}Time`]
+    //     })
+    //     variables.isOnline = variables.isOnline === 'true'
+    //     const res = await createActivity({ variables })
+    //     return res.data.createActivity.Acter
+    //   }
+    //   break
     default:
       createFn = async (data): Promise<Acter> => {
-        const res = await createActer(data)
+        const res = await updateActer(data)
         return res.data.createActer
       }
       Form = ActerForm
@@ -135,14 +111,16 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   return (
     <Layout user={user}>
       <Head>
-        <title>New {acterType.name}</title>
+        <title>Edit {acter.name} - Acter</title>
       </Head>
       <main>
         <Form
+          acter={acter}
           acterType={acterType}
           user={user}
           interestTypes={interestTypes}
-          onSubmit={_handleSubmit(createFn, updateActer, acterType)}
+          onSubmit={handleUpdateActer(acter, updateActer)}
+          loading={loading}
         />
       </main>
     </Layout>
@@ -155,7 +133,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getUserProfile(true),
     getActerTypes,
     setActerType,
-    getInterests
+    getInterests,
+    getActer
   )
 
 export default NewActerPage
