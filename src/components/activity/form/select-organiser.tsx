@@ -54,7 +54,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
         className={classes.chooseOrganiser}
         component={Select}
         name="organiserActerId"
-        label="organiser"
+        label="Create activity in:"
         // displayEmpty
         required={true}
       >
