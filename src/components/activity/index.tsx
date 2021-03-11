@@ -52,7 +52,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         />
       </Box>
 
-      <ActivityInfo acter={acter} />
+      <ActivityInfo acter={acter} user={user} />
 
       <Grid container spacing={2} className={classes.content}>
         <Grid item sm={8}>

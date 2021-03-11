@@ -50,6 +50,7 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
           aspectRatio={72 / 25}
           imageType="banner"
           setImageToFormField={setFieldValue}
+          fileUrl={values.bannerUrl}
         />
       </Box>
 

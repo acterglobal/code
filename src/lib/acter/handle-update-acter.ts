@@ -47,6 +47,7 @@ export const handleUpdateActer = (
 
   return await updateActerFn({
     variables: {
+      ...data,
       acterId: acter.id,
       ...acterData,
     },

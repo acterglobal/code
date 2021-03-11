@@ -75,43 +75,6 @@ export class ActerResolver {
   }
 
   @Authorized()
-  @Mutation(() => Activity)
-  async createActivity(
-    @Ctx() ctx: ActerGraphQLContext,
-    @Arg('name') name: string,
-    @Arg('description', { nullable: true }) description: string,
-    @Arg('location', { nullable: true }) location: string,
-    @Arg('url', { nullable: true }) url: string,
-    @Arg('acterTypeId') acterTypeId: string,
-    @Arg('interestIds', () => [String]) interestIds: [string],
-    @Arg('startAt') startAt: Date,
-    @Arg('endAt') endAt: Date,
-    @Arg('isOnline') isOnline: boolean,
-    @Arg('organiserActerId') organiserActerId: string
-  ): Promise<Activity> {
-    const acter = await this.createActer(
-      ctx,
-      name,
-      description,
-      location,
-      url,
-      acterTypeId,
-      interestIds
-    )
-
-    return ctx.prisma.activity.create({
-      data: {
-        startAt,
-        endAt,
-        isOnline,
-        organiserId: organiserActerId,
-        acterId: acter.id,
-        createdByUserId: acter.createdByUserId,
-      },
-    })
-  }
-
-  @Authorized()
   @Mutation(() => Acter)
   async updateActer(
     @Ctx() ctx: ActerGraphQLContext,
@@ -175,6 +138,84 @@ export class ActerResolver {
         },
       },
       where: { id: acterId },
+    })
+  }
+
+  @Authorized()
+  @Mutation(() => Activity)
+  async createActivity(
+    @Ctx() ctx: ActerGraphQLContext,
+    @Arg('name') name: string,
+    @Arg('description', { nullable: true }) description: string,
+    @Arg('location', { nullable: true }) location: string,
+    @Arg('url', { nullable: true }) url: string,
+    @Arg('acterTypeId') acterTypeId: string,
+    @Arg('interestIds', () => [String]) interestIds: [string],
+    @Arg('startAt') startAt: Date,
+    @Arg('endAt') endAt: Date,
+    @Arg('isOnline') isOnline: boolean,
+    @Arg('organiserActerId') organiserActerId: string
+  ): Promise<Activity> {
+    const acter = await this.createActer(
+      ctx,
+      name,
+      description,
+      location,
+      url,
+      acterTypeId,
+      interestIds
+    )
+
+    return ctx.prisma.activity.create({
+      data: {
+        startAt,
+        endAt,
+        isOnline,
+        organiserId: organiserActerId,
+        acterId: acter.id,
+        createdByUserId: acter.createdByUserId,
+      },
+    })
+  }
+
+  @Authorized()
+  @Mutation(() => Activity)
+  async updateActivity(
+    @Ctx() ctx: ActerGraphQLContext,
+    @Arg('acterId') acterId: string,
+    @Arg('name') name: string,
+    @Arg('description', { nullable: true }) description: string,
+    @Arg('location', { nullable: true }) location: string,
+    @Arg('url', { nullable: true }) url: string,
+    @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
+    @Arg('interestIds', () => [String]) interestIds: [string],
+    @Arg('startAt') startAt: Date,
+    @Arg('endAt') endAt: Date,
+    @Arg('isOnline') isOnline: boolean,
+    @Arg('organiserActerId') organiserActerId: string
+  ): Promise<Activity> {
+    await this.updateActer(
+      ctx,
+      acterId,
+      name,
+      description,
+      location,
+      url,
+      null,
+      bannerUrl,
+      interestIds
+    )
+
+    return ctx.prisma.activity.update({
+      data: {
+        startAt,
+        endAt,
+        isOnline,
+        organiserId: organiserActerId,
+      },
+      where: {
+        acterId,
+      },
     })
   }
 
