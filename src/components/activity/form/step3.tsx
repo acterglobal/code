@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    maxWidth: 600,
   },
   label: {
     color: grey[700],
@@ -23,9 +24,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface Step3Props {
   interestTypes: InterestType[]
   setFieldValue: FormikSetFieldType
+  initialValues: string[]
 }
 
-export const Step3: FC<Step3Props> = ({ interestTypes, setFieldValue }) => {
+export const Step3: FC<Step3Props> = ({
+  interestTypes,
+  setFieldValue,
+  initialValues,
+}) => {
   const classes = useStyles()
   return (
     <Box className={classes.container}>
@@ -34,6 +40,7 @@ export const Step3: FC<Step3Props> = ({ interestTypes, setFieldValue }) => {
         <InterestsAddSection
           interestTypes={interestTypes}
           setFieldValue={setFieldValue}
+          initialValues={initialValues}
         />
       </Box>
     </Box>

@@ -1,12 +1,12 @@
 #import "../fragments/acter-full.fragment.graphql"
 
-mutation ActivityCreate(
+mutation ActivityUpdate(
   # Acter
+  $acterId: String!
   $name: String!
   $description: String
   $location: String
   $url: String
-  $acterTypeId: String!
   $interestIds: [String!]!
   #Activity
   $isOnline: Boolean!
@@ -15,13 +15,13 @@ mutation ActivityCreate(
   $organiserActerId: String!
 ) {
   __typename
-  createActivity(
+  updateActivity(
     # Acter
+    acterId: $acterId
     name: $name
     description: $description
     location: $location
     url: $url
-    acterTypeId: $acterTypeId
     interestIds: $interestIds
 
     # Activity
@@ -30,9 +30,6 @@ mutation ActivityCreate(
     endAt: $endAt
     organiserActerId: $organiserActerId
   ) {
-    id
-    Acter {
-      ...ActerFull
-    }
+    ...ActerFull
   }
 }

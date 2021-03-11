@@ -1,15 +1,18 @@
 import React, { FC } from 'react'
+import Link from 'next/link'
 import moment from 'moment'
 import {
   Computer,
+  Edit as EditIcon,
   LocationOnOutlined,
   Event as CalanderIcon,
 } from '@material-ui/icons'
-import { Box, Typography } from '@material-ui/core'
+import { Box, IconButton, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter, User } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
@@ -25,10 +28,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bolder',
     fontSize: '0.8rem',
   },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   title: {
     fontSize: '1.4rem',
     fontWeight: 'bold',
     margin: '3px 0px 3px 0px',
+  },
+  editIcon: {
+    fontSize: '1.2rem',
   },
   locationContainer: {
     display: 'flex',
@@ -45,9 +55,10 @@ const momentFormat = 'llll'
 
 export interface ActivityInfoProps {
   acter: Acter
+  user: User
 }
 
-export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
+export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
   const classes = useStyles()
   const startAt = moment(acter.Activity.startAt)
   const endAt = moment(acter.Activity.endAt)
@@ -59,9 +70,18 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
           {`${startAt.format(momentFormat)} - ${endAt.format(momentFormat)}`}
         </Typography>
       </Box>
-      <Typography className={classes.title} variant="h3">
-        {acter.name}
-      </Typography>
+      <Box className={classes.titleContainer}>
+        <Typography className={classes.title} variant="h3">
+          {acter.name}
+        </Typography>
+        {acter.createdByUserId === user.id && (
+          <Link href={`${acterAsUrl(acter)}/edit`}>
+            <IconButton>
+              <EditIcon className={classes.editIcon} />
+            </IconButton>
+          </Link>
+        )}
+      </Box>
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline ? (
           <>

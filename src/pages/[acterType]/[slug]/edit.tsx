@@ -3,10 +3,8 @@ import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useSnackbar } from 'notistack'
-import { pick } from 'lodash'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { saveActerImages } from 'src/lib/acter/save-images'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
@@ -27,6 +25,7 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
 
 import UPDATE_ACTER from 'graphql/mutations/acter-update.graphql'
+import UPDATE_ACTIVITY from 'graphql/mutations/activity-update.graphql'
 import { ACTIVITY } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
@@ -67,41 +66,53 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }) => {
   const router: NextRouter = useRouter()
   const { enqueueSnackbar } = useSnackbar()
-  const [updateActer, { loading }] = useMutation(UPDATE_ACTER, {
-    onCompleted: () => {
-      enqueueSnackbar('Profile updated', { variant: 'success' })
-      router.push(acterAsUrl(acter))
-    },
-  })
+  const [updateActer, { loading: updateActerLoading }] = useMutation(
+    UPDATE_ACTER,
+    {
+      onCompleted: () => {
+        enqueueSnackbar('Profile updated', { variant: 'success' })
+        router.push(acterAsUrl(acter))
+      },
+    }
+  )
+  const [updateActivity, { loading: updateActivityLoading }] = useMutation(
+    UPDATE_ACTIVITY,
+    {
+      onCompleted: () => {
+        enqueueSnackbar('Event updated', { variant: 'success' })
+        router.push(acterAsUrl(acter))
+      },
+    }
+  )
 
   // TODO: Refactor this
   let Form
-  let createFn
+  let updateFn
   switch (acterType.name) {
-    // case ACTIVITY:
-    //   Form = ActivityForm
-    //   createFn = async (data): Promise<Acter> => {
-    //     // Create copy of the variables
-    //     const variables = {
-    //       ...data.variables,
-    //     }
-    //     ;['start', 'end'].forEach((t) => {
-    //       const time = data.variables[`${t}Time`]
-    //       variables[`${t}At`] = data.variables[`${t}Date`]
-    //         .hour(time.hour())
-    //         .minute(time.minute())
-    //         .second(time.second())
-    //         .toDate()
-    //       delete variables[`${t}Date`]
-    //       delete variables[`${t}Time`]
-    //     })
-    //     variables.isOnline = variables.isOnline === 'true'
-    //     const res = await createActivity({ variables })
-    //     return res.data.createActivity.Acter
-    //   }
-    //   break
+    case ACTIVITY:
+      Form = ActivityForm
+      updateFn = async (data): Promise<Acter> => {
+        // Create copy of the variables
+        const variables = {
+          ...data.variables,
+        }
+        ;['start', 'end'].forEach((t) => {
+          const time = data.variables[`${t}Time`]
+          variables[`${t}At`] = data.variables[`${t}Date`]
+            .hour(time.hour())
+            .minute(time.minute())
+            .second(time.second())
+            .toDate()
+          delete variables[`${t}Date`]
+          delete variables[`${t}Time`]
+        })
+        variables.isOnline = variables.isOnline === 'true'
+        const res = await updateActivity({ variables })
+        return res.data.updateActivity.Acter
+      }
+      break
     default:
-      createFn = async (data): Promise<Acter> => {
+      updateFn = async (data): Promise<Acter> => {
         const res = await updateActer(data)
         return res.data.createActer
       }
@@ -119,8 +130,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           acterType={acterType}
           user={user}
           interestTypes={interestTypes}
-          onSubmit={handleUpdateActer(acter, updateActer)}
-          loading={loading}
+          onSubmit={handleUpdateActer(acter, updateFn)}
+          loading={updateActerLoading || updateActivityLoading}
         />
       </main>
     </Layout>

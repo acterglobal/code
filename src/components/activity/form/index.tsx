@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
 import { Button, Box, Grid, makeStyles, Theme } from '@material-ui/core'
@@ -11,6 +12,7 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal/modal'
 import * as Yup from 'yup'
+import { Acter } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -55,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const steps = [Step1, Step2, Step3]
 const getStepContent = (
+  acter: Acter,
   step: number,
   user: User,
   interestTypes: InterestType[],
@@ -62,6 +65,8 @@ const getStepContent = (
   values: any
 ) => {
   const organisers = flattenFollowing(user.Acter)
+  const selectedInterests =
+    acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
     case 1:
       return <Step1 acters={organisers} />
@@ -69,7 +74,11 @@ const getStepContent = (
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
       return (
-        <Step3 interestTypes={interestTypes} setFieldValue={setFieldValue} />
+        <Step3
+          interestTypes={interestTypes}
+          setFieldValue={setFieldValue}
+          initialValues={selectedInterests}
+        />
       )
   }
 }
@@ -79,6 +88,10 @@ export interface FormikSetFieldType {
 }
 
 export interface ActivityFormProps {
+  /**
+   * The ActivityType Acter for this
+   */
+  acter: Acter
   /**
    * The currently logged in user
    */
@@ -92,6 +105,7 @@ export interface ActivityFormProps {
 
 // TODO: Add typing
 export const ActivityForm: FC<ActivityFormProps> = ({
+  acter,
   user,
   interestTypes,
   onSubmit,
@@ -117,20 +131,29 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     onSubmit(values)
   }
 
+  let startAt = null
+  let endAt = null
+  if (acter?.id) {
+    startAt = moment(acter.Activity.startAt)
+    endAt = moment(acter.Activity.endAt)
+  }
   const initialValues = {
-    organiserActerId: router?.query?.organiserActerId || '',
+    organiserActerId:
+      router?.query?.organiserActerId || acter.Activity.Organiser.id || '',
     name: '',
-    startDate: null,
-    startTime: null,
-    startAt: null,
-    endDate: null,
-    endTime: null,
-    endAt: null,
-    isOnline: null,
     description: '',
     location: '',
     url: '',
     interestIds: [],
+    ...acter,
+    ...acter?.Activity,
+    isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
+    startDate: startAt,
+    startTime: startAt,
+    startAt: startAt,
+    endDate: endAt,
+    endTime: endAt,
+    endAt: endAt,
   }
 
   // TODO: Add validation
@@ -151,6 +174,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
             <Box className={classes.container}>
               <Box className={classes.fields}>
                 {getStepContent(
+                  acter,
                   activeStep,
                   user,
                   interestTypes,
