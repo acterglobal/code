@@ -38,7 +38,7 @@ export const Layout: FC<LayoutProps> = ({ user, children }) => {
       <TopBar user={user} />
       {user && <Sidebar width={sidebarWidth} />}
       <Container
-        maxWidth={false}
+        maxWidth="xl"
         className={clsx(
           classes.container,
           user && classes.containerWithSidebar

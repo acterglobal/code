@@ -30,6 +30,9 @@ mutation ActivityUpdate(
     endAt: $endAt
     organiserActerId: $organiserActerId
   ) {
-    ...ActerFull
+    id
+    Acter {
+      ...ActerFull
+    }
   }
 }

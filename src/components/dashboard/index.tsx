@@ -25,7 +25,7 @@ export const Dashboard: FC<DashboardProps> = ({ user }) => {
       <StyledContentContainer>
         <Typography variant="h4">Dashboard</Typography>
         <Typography variant="subtitle1">
-          Here are the Organisations, Netowrks and Activities to which you are
+          Here are the Organisations, Networks and Activities to which you are
           connected.
         </Typography>
       </StyledContentContainer>
