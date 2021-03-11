@@ -21,6 +21,8 @@ export const ActerTypes = [
   UserActerType,
 ]
 
+export * from './acter-connection/example-acter-connection'
+
 export * from './user/example-user'
 export * from './acter/example-acter'
 export * from './acter/example-acter-list'

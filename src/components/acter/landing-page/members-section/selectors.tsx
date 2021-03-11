@@ -80,13 +80,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 export interface SelectorProps {
   selectors: string[]
   activeSelector: string
-  handleSelectorChange: (selector: string) => void
+  onChange: (selector: string) => void
 }
 
 export const Selectors: FC<SelectorProps> = ({
   selectors,
   activeSelector,
-  handleSelectorChange,
+  onChange,
 }) => {
   const classes = useStyles()
 
@@ -104,17 +104,18 @@ export const Selectors: FC<SelectorProps> = ({
 
   return (
     <Box className={classes.container}>
-      <Box>
+      <Box role="tablist">
         {selectors.map((selector) => (
           <Button
             key={`members-selector-${selector}`}
+            role="tab"
             className={clsx(
               classes.button,
               activeSelector === selector && classes.active
             )}
             variant="contained"
             disableElevation
-            onClick={() => handleSelectorChange(selector)}
+            onClick={() => onChange(selector)}
           >
             {selector}
           </Button>

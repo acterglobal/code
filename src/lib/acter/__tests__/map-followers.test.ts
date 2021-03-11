@@ -20,11 +20,11 @@ describe('mapFollowers', () => {
   it('should return a map of acters by type', () => {
     const acter = {
       ...ExampleActer,
-      Following: [
+      Followers: [
         // 2 Organisations
         {
           ...ExampleActerConnection,
-          Following: {
+          Follower: {
             ...ExampleActer,
             name: 'organisation1',
             ActerType: OrganisationActerType,
@@ -32,7 +32,7 @@ describe('mapFollowers', () => {
         },
         {
           ...ExampleActerConnection,
-          Following: {
+          Follower: {
             ...ExampleActer,
             name: 'organisation2',
             ActerType: OrganisationActerType,
@@ -41,7 +41,7 @@ describe('mapFollowers', () => {
         // 1 Network
         {
           ...ExampleActerConnection,
-          Following: {
+          Follower: {
             ...ExampleActer,
             name: 'network1',
             ActerType: NetworkActerType,
