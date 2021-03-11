@@ -10,6 +10,8 @@ import { useApollo } from 'lib/apollo'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from 'src/themes/acter-theme'
 
+import { SnackbarProvider } from 'notistack'
+
 const ActerApp = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo({
     graphqlUri: pageProps.graphqlUri,
@@ -20,8 +22,12 @@ const ActerApp = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={apolloClient}>
       <NextAuthProvider session={pageProps.session}>
         <ActerThemeProvider>
-          <CssBaseline />
-          <Component {...pageProps} />
+          <SnackbarProvider
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+            <CssBaseline />
+            <Component {...pageProps} />
+          </SnackbarProvider>
         </ActerThemeProvider>
       </NextAuthProvider>
     </ApolloProvider>

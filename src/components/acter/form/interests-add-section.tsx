@@ -5,24 +5,29 @@ import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { FormikSetFieldType } from 'src/components/acter/form'
 
+import { Interest, InterestType } from '@generated/type-graphql'
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: 600,
+    // width: 600,
   },
   tabs: {
     marginBottom: theme.spacing(1),
   },
   interests: {
-    height: 340,
     overflowY: 'scroll',
   },
 }))
 
 //  TODO: Add typing
-export const InterestsAddSection = ({ interestTypes, setFieldValue }) => {
+export const InterestsAddSection = ({
+  interestTypes,
+  initialValues = [],
+  setFieldValue,
+}) => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
-  const [selectedInterests, setSelectedInterests] = useState([])
+  const [selectedInterests, setSelectedInterests] = useState(initialValues)
   const [selectedTypes, setSelectedTypes] = useState([])
 
   useEffect(() => {

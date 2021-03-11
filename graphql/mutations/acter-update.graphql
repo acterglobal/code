@@ -1,28 +1,25 @@
-#import "../fragments/acter-dislapy.fragment.graphql"
+#import "../fragments/acter-full.fragment.graphql"
 
 mutation ActerUpdate(
   $acterId: String!
   $name: String!
-  $slug: String
   $description: String
   $location: String
   $url: String
   $avatarUrl: String
   $bannerUrl: String
+  $interestIds: [String!]!
 ) {
-  __typename
   updateActer(
-    data: {
-      name: { set: $name }
-      slug: { set: $slug }
-      description: { set: $description }
-      location: { set: $location }
-      url: { set: $url }
-      avatarUrl: { set: $avatarUrl }
-      bannerUrl: { set: $bannerUrl }
-    }
-    where: { id: $acterId }
+    acterId: $acterId
+    name: $name
+    description: $description
+    location: $location
+    url: $url
+    avatarUrl: $avatarUrl
+    bannerUrl: $bannerUrl
+    interestIds: $interestIds
   ) {
-    ...ActerDisplay
+    ...ActerFull
   }
 }

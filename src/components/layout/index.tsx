@@ -1,13 +1,7 @@
 import React, { FC } from 'react'
 import clsx from 'clsx'
 
-import {
-  Container,
-  Toolbar,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Container, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
 

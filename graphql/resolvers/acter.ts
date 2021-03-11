@@ -2,22 +2,9 @@ import { Authorized, Resolver, Mutation, Arg, Ctx, Query } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
 
-import { Acter, Activity } from '@generated/type-graphql'
+import { Acter, Activity, User } from '@generated/type-graphql'
 @Resolver(Acter)
 export class ActerResolver {
-  // @Query(() => Acter)
-  // async getActer(
-  //   @Ctx() ctx: ActerGraphQLContext,
-  //   @Arg('acterTypeId') acterTypeId: string,
-  //   @Arg('slug') slug: string
-  // ): Promise<Acter> {
-  //   return ctx.prisma.acter.findUnique({
-  //     where: {
-  //       slug_unique_for_acter_type: { slug, acterTypeId },
-  //     },
-  //   })
-  // }
-
   @Authorized()
   @Mutation(() => Acter)
   async createActer(
@@ -29,13 +16,8 @@ export class ActerResolver {
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
-    const currentUser = await ctx.prisma.user.findFirst({
-      select: {
-        id: true,
-        Acter: true,
-      },
-      where: { id: ctx.token.sub },
-    })
+    const currentUser = await this.getCurrentUser(ctx)
+
     if (!currentUser) {
       const err = 'No user found'
       console.error(err)
@@ -69,6 +51,8 @@ export class ActerResolver {
         name,
         description,
         slug,
+        location,
+        url,
         acterTypeId,
         updatedAt: new Date(),
         createdByUserId,
@@ -124,6 +108,83 @@ export class ActerResolver {
         acterId: acter.id,
         createdByUserId: acter.createdByUserId,
       },
+    })
+  }
+
+  @Authorized()
+  @Mutation(() => Acter)
+  async updateActer(
+    @Ctx() ctx: ActerGraphQLContext,
+    @Arg('acterId') acterId: string,
+    @Arg('name') name: string,
+    @Arg('description', { nullable: true }) description: string,
+    @Arg('location', { nullable: true }) location: string,
+    @Arg('url', { nullable: true }) url: string,
+    @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
+    @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
+    @Arg('interestIds', () => [String]) interestIds: [string]
+  ): Promise<Acter> {
+    const currentUser = await this.getCurrentUser(ctx)
+    const acter = await ctx.prisma.acter.findUnique({
+      select: {
+        id: true,
+        createdByUserId: true,
+        ActerInterests: true,
+      },
+      where: { id: acterId },
+    })
+
+    if (
+      currentUser.Acter.id !== acter.id &&
+      acter.createdByUserId !== currentUser.id
+    ) {
+      console.error(`User ${currentUser.id} cannot modify acter ${acter.id}`)
+      throw 'Not authorized'
+    }
+
+    // Every interestId from new interestId list that does NOT currently exist
+    const currentInterestIdMap = acter.ActerInterests.reduce(
+      (map, { interestId }) => ({ ...map, [interestId]: true }),
+      {}
+    )
+    const createActerInterests = interestIds
+      .filter((id) => !currentInterestIdMap[id])
+      .map((interestId) => ({ interestId, createdByUserId: currentUser.id }))
+
+    // Every interestId from CURRENT interestId list that does not exist in the new list
+    const newInterestIdMap = interestIds.reduce(
+      (map, interestId) => ({ ...map, [interestId]: true }),
+      {}
+    )
+    const deleteActerInterests = acter.ActerInterests.filter(
+      ({ interestId }) => !newInterestIdMap[interestId]
+    ).map(({ id }) => ({ id }))
+
+    return await ctx.prisma.acter.update({
+      data: {
+        name,
+        description,
+        location,
+        url,
+        avatarUrl,
+        bannerUrl,
+        updatedAt: new Date(),
+        ActerInterests: {
+          create: createActerInterests,
+          delete: deleteActerInterests,
+        },
+      },
+      where: { id: acterId },
+    })
+  }
+
+  async getCurrentUser(ctx: ActerGraphQLContext): Promise<Partial<User>> {
+    return ctx.prisma.user.findFirst({
+      select: {
+        id: true,
+        Acter: true,
+      },
+      where: { id: ctx.token.sub },
     })
   }
 }
