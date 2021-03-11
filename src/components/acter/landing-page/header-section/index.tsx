@@ -122,7 +122,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
             </Typography>
           </Box>
           <Box>
-            {acter.createdByUserId === user.id && (
+            {acter.createdByUserId === user?.id && (
               <Link href={`${acterAsUrl(acter)}/edit`}>
                 <IconButton>
                   <EditIcon />
