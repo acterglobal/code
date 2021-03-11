@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { signIn } from 'next-auth/client'
 import {
@@ -74,6 +75,11 @@ export const Signin: FC<SigninProps> = ({ providers, variant }) => {
   const initialValues = { fullName: '', email: '', password: '' }
   const [canSubmit, setCanSubmit] = useState(variant === SIGN_IN)
 
+  const router = useRouter()
+  const {
+    query: { callbackUrl },
+  } = router
+
   return (
     <Box maxWidth="sm" className={classes.container}>
       <Box>
@@ -86,7 +92,17 @@ export const Signin: FC<SigninProps> = ({ providers, variant }) => {
 
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => signIn('email', values)}
+        onSubmit={(values) => {
+          let callbackUrl = router.query?.callbackUrl as string
+          if (
+            !callbackUrl ||
+            callbackUrl.match(/signin/) ||
+            callbackUrl.match(/signup/)
+          ) {
+            callbackUrl = '/'
+          }
+          return signIn('email', { ...values, callbackUrl })
+        }}
         validationSchema={validationSchema}
       >
         {(props) => (
