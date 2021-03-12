@@ -107,7 +107,7 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
   return (
     <Modal
       disableBackdropClick={true}
-      handleModalClose={() => router.back()}
+      handleModalClose={() => null}
       showCloseButton={false}
     >
       <Box className={classes.container}>

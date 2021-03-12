@@ -51,7 +51,6 @@ export const Modal: FC<ModalProps> = (props) => {
 
   const handleClose = () => {
     setOpen(false)
-    // router.back()
     handleModalClose()
   }
 
