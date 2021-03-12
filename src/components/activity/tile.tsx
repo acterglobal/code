@@ -5,6 +5,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import { Activity } from '@generated/type-graphql'
 import { getImageUrl } from 'src/lib/images/get-image-url'
+import { DATE_FORMAT } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,9 +44,8 @@ export interface ActivityTileProps {
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   if (!activity.id) return null
   const classes = useStyles()
-  const format = 'llll'
-  const startAt = moment(activity.startAt).format(format)
-  const endAt = moment(activity.endAt).format(format)
+  const startAt = moment(activity.startAt).format(DATE_FORMAT)
+  const endAt = moment(activity.endAt).format(DATE_FORMAT)
   return (
     <Box className={classes.root}>
       <Box className={classes.image}>
