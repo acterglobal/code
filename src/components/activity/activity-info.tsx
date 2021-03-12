@@ -70,6 +70,14 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
   const classes = useStyles()
   const startAt = moment(acter.Activity.startAt)
   const endAt = moment(acter.Activity.endAt)
+
+  const getUrl = (url) => {
+    if (url.indexOf('http://') == 0 || url.indexOf('https://') == 0) {
+      return url
+    }
+    return `https://${url}`
+  }
+
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
@@ -94,7 +102,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
         {acter.Activity.isOnline ? (
           <>
             <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
-            <Link href={`https://www.google.com`} passHref={true}>
+            <Link href={getUrl(acter.url)}>
               <Typography className={classes.onlineLink} variant="body2">
                 {acter.url}
               </Typography>
