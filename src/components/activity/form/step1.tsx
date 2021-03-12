@@ -120,7 +120,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
           type="checkbox"
           name="wholeDay"
           Label={{ label: 'whole day activity', style: { color: grey[700] } }}
-          inputProps={{ 'aria-label': 'uncontrolled-checkbox' }}
+          inputProps={{ 'aria-label': 'all day activity' }}
         />
       </Box>
     </MuiPickersUtilsProvider>
