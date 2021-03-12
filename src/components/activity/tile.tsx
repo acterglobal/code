@@ -5,7 +5,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import { Activity } from '@generated/type-graphql'
 import { getImageUrl } from 'src/lib/images/get-image-url'
-import { DATE_FORMAT } from 'src/constants'
+import { DATE_FORMAT_SHORT } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(2),
       overflow: 'hidden',
       width: 200,
+      height: 200,
     },
     image: {
       height: 100,
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       padding: theme.spacing(1),
+      overflowY: 'scroll',
+      height: 100,
     },
     dateTime: {
       fontSize: '0.6rem',
@@ -44,8 +47,8 @@ export interface ActivityTileProps {
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   if (!activity.id) return null
   const classes = useStyles()
-  const startAt = moment(activity.startAt).format(DATE_FORMAT)
-  const endAt = moment(activity.endAt).format(DATE_FORMAT)
+  const startAt = moment(activity.startAt).format(DATE_FORMAT_SHORT)
+  const endAt = moment(activity.endAt).format(DATE_FORMAT_SHORT)
   return (
     <Box className={classes.root}>
       <Box className={classes.image}>
@@ -61,6 +64,14 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           {startAt}
         </Typography>
         <Typography className={classes.name} variant="h6">
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
+          {activity.Acter.name}
           {activity.Acter.name}
         </Typography>
         <Typography className={classes.location} variant="subtitle1">
