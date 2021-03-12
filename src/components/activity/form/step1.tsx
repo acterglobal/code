@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, Grid, Typography, Paper } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { DatePickerField } from 'src/components/util/pickers/date-picker-field'
 import { TimePickerField } from 'src/components/util/pickers/time-picker-field'
 import { Field } from 'formik'
-import { TextField } from 'formik-material-ui'
+import { TextField, CheckboxWithLabel } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import MomentUtils from '@date-io/moment'
 import {
@@ -12,6 +12,7 @@ import {
   SelectOrganiserProps,
 } from 'src/components/activity/form/select-organiser'
 import { grey } from '@material-ui/core/colors'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -41,24 +42,33 @@ const useStyles = makeStyles((theme: Theme) => ({
   datetimeSection: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    // marginBottom: 15,
   },
+
   pickerfield: {
     width: 240,
   },
+  paper: {},
 }))
 
-export type Step1Props = SelectOrganiserProps
+export interface Step1Props extends SelectOrganiserProps {
+  values: any
+}
 
-export const Step1: FC<Step1Props> = ({ acters }) => {
+export const Step1: FC<Step1Props> = ({ acters, values }) => {
   const classes = useStyles()
 
+  if (values.wholeDay === true) {
+    values.endTime = moment('23.00', 'hh:mm')
+    values.startTime = moment('00.00', 'hh:mm')
+  }
+
   return (
-    <Box className={classes.container}>
-      <Typography className={classes.heading} variant="h5">
-        + Add Activity
-      </Typography>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <Box className={classes.container}>
+        <Typography className={classes.heading} variant="h5">
+          + Add Activity
+        </Typography>
         <SelectOrganiser acters={acters} />
 
         <Field
@@ -70,40 +80,49 @@ export const Step1: FC<Step1Props> = ({ acters }) => {
           required={true}
         />
 
-        <Box className={classes.datetimeSection}>
-          <Box className={classes.pickerfield}>
+        <Grid container style={{ width: 500 }} spacing={2}>
+          <Grid item xs={6}>
             <DatePickerField
               placeholder="Start Date"
               name="startDate"
               required={true}
             />
-          </Box>
-          <Box className={classes.pickerfield}>
-            <TimePickerField
-              placeholder="Start Time"
-              name="startTime"
-              required={true}
-            />
-          </Box>
-        </Box>
+          </Grid>
+          {!values.wholeDay && (
+            <Grid item xs={6}>
+              <TimePickerField
+                placeholder="Start Time"
+                name="startTime"
+                required={true}
+              />
+            </Grid>
+          )}
 
-        <Box className={classes.datetimeSection}>
-          <Box className={classes.pickerfield}>
+          <Grid item xs={6}>
             <DatePickerField
               placeholder="End Date"
               name="endDate"
               required={true}
             />
-          </Box>
-          <Box className={classes.pickerfield}>
-            <TimePickerField
-              placeholder="End Time"
-              name="endTime"
-              required={true}
-            />
-          </Box>
-        </Box>
-      </MuiPickersUtilsProvider>
-    </Box>
+          </Grid>
+          {!values.wholeDay && (
+            <Grid item xs={6}>
+              <TimePickerField
+                placeholder="End Time"
+                name="endTime"
+                required={true}
+              />
+            </Grid>
+          )}
+        </Grid>
+        <Field
+          component={CheckboxWithLabel}
+          type="checkbox"
+          name="wholeDay"
+          Label={{ label: 'whole day activity', style: { color: grey[700] } }}
+          inputProps={{ 'aria-label': 'uncontrolled-checkbox' }}
+        />
+      </Box>
+    </MuiPickersUtilsProvider>
   )
 }

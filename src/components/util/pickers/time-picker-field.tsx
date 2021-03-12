@@ -28,7 +28,8 @@ export const TimePickerField: FC<TimePickerProps> = (props) => {
       label={label}
       name={name}
       placeholder={placeholder}
-      mask="__:__ _M"
+      mask="__:__"
+      ampm={false}
       keyboardIcon={<AccessTime />}
       inputVariant="outlined"
       InputAdornmentProps={{ position: 'start' }}
