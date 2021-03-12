@@ -59,7 +59,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
   const classes = useStyles()
 
   if (values.wholeDay === true) {
-    values.endTime = moment('23.00', 'hh:mm')
+    values.endTime = moment('23.59', 'hh:mm')
     values.startTime = moment('00.00', 'hh:mm')
   }
 
