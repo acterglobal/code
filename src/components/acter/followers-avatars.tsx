@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { AvatarGroup } from '@material-ui/lab'
 import { Box, Typography } from '@material-ui/core'
 import { titleCase } from 'title-case'
 import { ActerAvatar } from 'src/components/acter/avatar'
@@ -54,11 +55,128 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
             </Typography>
             <Box style={{ display: 'flex' }}>
               {acters.map((acter) => (
-                <ActerAvatar
-                  key={`info-follower-acter-${acter.id}`}
-                  acter={acter}
-                  size={4}
-                />
+                <AvatarGroup max={7}>
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={5}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                  <ActerAvatar
+                    key={`info-follower-acter-${acter.id}`}
+                    acter={acter}
+                    size={4}
+                  />
+                </AvatarGroup>
               ))}
             </Box>
           </Box>
