@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
     fontWeight: 'lighter',
   },
+  onlineLink: {
+    fontSize: '0.9rem',
+    fontWeight: 'lighter',
+    '&:hover': {
+      textDecoration: 'underline',
+      cursor: 'pointer',
+    },
+  },
 }))
 
 const momentFormat = 'llll'
@@ -86,9 +94,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
         {acter.Activity.isOnline ? (
           <>
             <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
-            <Typography className={classes.location} variant="body2">
-              {acter.url}
-            </Typography>
+            <Link href={`https://www.google.com`} passHref={true}>
+              <Typography className={classes.onlineLink} variant="body2">
+                {acter.url}
+              </Typography>
+            </Link>
           </>
         ) : (
           <>
