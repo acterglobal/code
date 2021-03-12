@@ -6,15 +6,20 @@ import { Provider as NextAuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
 
 import { useApollo } from 'lib/apollo'
+import { initSentry } from 'lib/sentry'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from 'src/themes/acter-theme'
 
 import { SnackbarProvider } from 'notistack'
 
-const ActerApp = ({ Component, pageProps }: AppProps) => {
+type ActerAppProps = AppProps & { err: any }
+
+initSentry()
+
+const ActerApp = ({ Component, pageProps, err }: ActerAppProps) => {
   const apolloClient = useApollo({
-    graphqlUri: pageProps.graphqlUri,
+    graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     pageProps,
   })
 
@@ -26,28 +31,12 @@ const ActerApp = ({ Component, pageProps }: AppProps) => {
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           >
             <CssBaseline />
-            <Component {...pageProps} />
+            <Component {...pageProps} err={err} />
           </SnackbarProvider>
         </ActerThemeProvider>
       </NextAuthProvider>
     </ApolloProvider>
   )
-}
-
-export interface AppPageProps {
-  graphqlUri: string
-}
-
-ActerApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext)
-
-  return {
-    ...appProps,
-    pageProps: {
-      ...appProps.pageProps,
-      graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
-    } as AppPageProps,
-  }
 }
 
 export default ActerApp
