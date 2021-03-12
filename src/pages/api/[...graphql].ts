@@ -1,12 +1,12 @@
 import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-micro'
 import prisma from 'src/lib/prisma'
-
+import { initSentry } from 'src/lib/sentry'
 import { getToken } from 'src/lib/next-auth/jwt'
-
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
-
 import { schema } from 'graphql/schema'
+
+initSentry()
 
 const server = new ApolloServer({
   schema,
