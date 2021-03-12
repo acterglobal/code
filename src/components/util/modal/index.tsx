@@ -3,7 +3,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
 import { CloseRounded as CloseButtonIcon } from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
-import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +46,6 @@ export const Modal: FC<ModalProps> = (props) => {
   } = props
   const classes = useStyles()
   const [open, setOpen] = useState(true)
-  const router = useRouter()
 
   //   const handleOpen = () => setOpen(true)
 
