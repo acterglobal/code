@@ -3,6 +3,7 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Modal } from 'src/components/util/modal'
 import { ActerType } from 'src/components/acter/acter-type'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -28,8 +29,11 @@ export interface AddActerTypeProps {
 
 export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
   const classes = useStyles()
+  const router = useRouter()
+  const handleModalClose = () => router.back()
+
   return (
-    <Modal>
+    <Modal handleModalClose={handleModalClose}>
       <Box className={classes.container}>
         <Typography className={classes.header} variant="h5">
           + Add

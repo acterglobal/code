@@ -12,11 +12,10 @@ const ChildComponent = () => {
 export default {
   title: 'util/modal',
   component: Modal,
-  args: {},
 } as Meta
 
-export const modal: Story = (args) => (
-  <Modal {...args}>
+export const modal: Story = () => (
+  <Modal handleModalClose={() => null}>
     <ChildComponent />
   </Modal>
 )

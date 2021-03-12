@@ -11,6 +11,7 @@ import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
+
 import * as Yup from 'yup'
 import { Acter } from '@schema'
 
@@ -163,8 +164,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   //   startDate: Yup.date().required('Please enter start date'),
   // })
 
+  const handleModalClose = () => router.back()
+
   return (
-    <Modal>
+    <Modal handleModalClose={handleModalClose}>
       <Formik
         initialValues={initialValues}
         onSubmit={onStepSubmit}

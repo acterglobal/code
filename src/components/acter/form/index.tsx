@@ -8,6 +8,7 @@ import { ImageUploadSection } from 'src/components/acter/form/image-upload-secti
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { Acter, ActerType, InterestType } from '@schema'
 import { initialValues } from 'src/lib/acter/handle-update-acter'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -92,6 +93,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles()
+  const router = useRouter()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length - 1
 
@@ -127,7 +129,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   // const validationSchema = ActiveStep.validationSchema
 
   return (
-    <Modal>
+    <Modal handleModalClose={() => router.back()}>
       <Formik
         initialValues={initialValues}
         onSubmit={onStepSubmit}
