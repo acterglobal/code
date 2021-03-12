@@ -55,8 +55,10 @@ export interface Step1Props extends SelectOrganiserProps {
   values: any
 }
 
-export const Step1: FC<Step1Props> = ({ acters, values }) => {
+export const Step1: FC<Step1Props> = ({ acters, values, setFieldValue }) => {
   const classes = useStyles()
+
+  debugger
 
   if (values.isAllDay === true) {
     values.endTime = moment('23.59', 'hh:mm')
@@ -69,7 +71,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
         <Typography className={classes.heading} variant="h5">
           + Add Activity
         </Typography>
-        <SelectOrganiser acters={acters} />
+        <SelectOrganiser acters={acters} setFieldValue={setFieldValue} />
 
         <Field
           className={classes.textinput}
