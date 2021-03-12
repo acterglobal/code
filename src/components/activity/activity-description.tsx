@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
   },
   description: {
-    height: 80,
-    overflow: 'scroll',
     fontSize: '0.7rem',
     lineHeight: '0.05rem',
     color: theme.palette.secondary.main,
