@@ -1,5 +1,8 @@
 import aws from 'aws-sdk'
 import { getTokenUser } from 'src/lib/next-auth/jwt'
+import { initSentry } from 'src/lib/sentry'
+
+initSentry()
 
 export default async function handler(req, res) {
   const tokenUser = await getTokenUser(req)

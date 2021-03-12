@@ -43,5 +43,5 @@ jobs:
       
       - name: build
         run: |
-          yarn build
+          make build
       

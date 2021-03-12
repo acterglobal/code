@@ -7,6 +7,10 @@ import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
+import { initSentry } from 'src/lib/sentry'
+
+initSentry()
+
 const options: InitOptions = {
   providers: [
     Email({
