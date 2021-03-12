@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Selectors> should should highlight the selected tab 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root MuiBox-root-18 makeStyles-container-11"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-19"
+      role="tablist"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-12 makeStyles-active-13 MuiButton-disableElevation"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          foo
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-12 MuiButton-disableElevation"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          bar
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-20 makeStyles-searchSection-14"
+    />
+  </div>
+</DocumentFragment>
+`;

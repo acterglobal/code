@@ -39,17 +39,20 @@ export const handleUpdateActer = (
     })
   )
 
+  // TODO: clean this up
   const acterData = {
     ...initialValues,
     ...acter,
     ...pick(data, ...updateSet),
   }
 
+  const variables = {
+    ...data,
+    acterId: acter.id,
+    ...acterData,
+  }
+
   return await updateActerFn({
-    variables: {
-      ...data,
-      acterId: acter.id,
-      ...acterData,
-    },
+    variables,
   })
 }

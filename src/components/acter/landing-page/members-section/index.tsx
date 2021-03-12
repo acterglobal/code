@@ -21,7 +21,7 @@ export interface MembersSectionProps {
 }
 
 export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
-  const { users, organisations } = mapFollowers(acter)
+  const { user, organisation } = mapFollowers(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState('people')
 
@@ -34,10 +34,10 @@ export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
       <Selectors
         selectors={[PEOPLE, ORGANISATIONS]}
         activeSelector={activeSelector}
-        handleSelectorChange={handleSelectorChange}
+        onChange={handleSelectorChange}
       />
       <DisplayMembers
-        acters={activeSelector === PEOPLE ? users : organisations}
+        acters={activeSelector === PEOPLE ? user : organisation}
         type={activeSelector}
       />
     </Box>

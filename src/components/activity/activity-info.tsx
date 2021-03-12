@@ -74,7 +74,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
         <Typography className={classes.title} variant="h3">
           {acter.name}
         </Typography>
-        {acter.createdByUserId === user.id && (
+        {acter.createdByUserId === user?.id && (
           <Link href={`${acterAsUrl(acter)}/edit`}>
             <IconButton>
               <EditIcon className={classes.editIcon} />
