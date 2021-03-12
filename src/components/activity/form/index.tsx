@@ -69,7 +69,7 @@ const getStepContent = (
     acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
     case 1:
-      return <Step1 acters={organisers} />
+      return <Step1 acters={organisers} values={values} />
     case 2:
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
@@ -151,6 +151,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startDate: startAt,
     startTime: startAt,
     startAt: startAt,
+    wholeDay: false,
     endDate: endAt,
     endTime: endAt,
     endAt: endAt,

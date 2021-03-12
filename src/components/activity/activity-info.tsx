@@ -11,7 +11,7 @@ import { Box, IconButton, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-
+import { DATE_FORMAT } from 'src/constants'
 import { Acter, User } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,8 +51,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const momentFormat = 'llll'
-
 export interface ActivityInfoProps {
   acter: Acter
   user: User
@@ -67,7 +65,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
       <Box className={classes.dateContainer}>
         <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.date} variant="subtitle1">
-          {`${startAt.format(momentFormat)} - ${endAt.format(momentFormat)}`}
+          {`${startAt.format(DATE_FORMAT)} - ${endAt.format(DATE_FORMAT)}`}
         </Typography>
       </Box>
       <Box className={classes.titleContainer}>
