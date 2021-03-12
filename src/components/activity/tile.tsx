@@ -65,14 +65,6 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
         </Typography>
         <Typography className={classes.name} variant="h6">
           {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
-          {activity.Acter.name}
         </Typography>
         <Typography className={classes.location} variant="subtitle1">
           {activity.Acter.location}
