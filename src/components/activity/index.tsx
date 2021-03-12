@@ -52,20 +52,20 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         />
       </Box>
 
-      <ActivityInfo acter={acter} user={user} />
+      <ActivityInfo
+        acter={acter}
+        user={user}
+        onJoin={onJoin}
+        onLeave={onLeave}
+        loading={loading}
+      />
 
       <Grid container spacing={2} className={classes.content}>
         <Grid item sm={8}>
           <ActivityDescription acter={acter} interestTypes={interestTypes} />
         </Grid>
         <Grid item sm={4}>
-          <Participates
-            acter={acter}
-            user={user}
-            onJoin={onJoin}
-            onLeave={onLeave}
-            loading={loading}
-          />
+          <Participates acter={acter} />
           <br />
           <Organiser acter={acter.Activity.Organiser} />
         </Grid>

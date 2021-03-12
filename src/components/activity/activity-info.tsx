@@ -13,6 +13,7 @@ import { green, grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
 import { Acter, User } from '@schema'
+import { Connect, ConnectProps } from 'src/components/acter/connect'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
@@ -58,14 +59,16 @@ const useStyles = makeStyles((theme: Theme) => ({
       cursor: 'pointer',
     },
   },
+  titleAndJoinContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))
 
-export interface ActivityInfoProps {
-  acter: Acter
-  user: User
-}
+export type ActivityInfoProps = ConnectProps
 
-export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
+export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
+  const { acter, user } = props
   const classes = useStyles()
 
   const format = acter.Activity.isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT
@@ -93,17 +96,20 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
           {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
         </Typography>
       </Box>
-      <Box className={classes.titleContainer}>
-        <Typography className={classes.title} variant="h3">
-          {acter.name}
-        </Typography>
-        {acter.createdByUserId === user?.id && (
-          <Link href={`${acterAsUrl(acter)}/edit`}>
-            <IconButton>
-              <EditIcon className={classes.editIcon} />
-            </IconButton>
-          </Link>
-        )}
+      <Box className={classes.titleAndJoinContainer}>
+        <Box className={classes.titleContainer}>
+          <Typography className={classes.title} variant="h3">
+            {acter.name}
+          </Typography>
+          {acter.createdByUserId === user?.id && (
+            <Link href={`${acterAsUrl(acter)}/edit`}>
+              <IconButton>
+                <EditIcon className={classes.editIcon} />
+              </IconButton>
+            </Link>
+          )}
+        </Box>
+        <Connect {...props} />
       </Box>
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline && acter.url && (
