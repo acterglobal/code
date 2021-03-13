@@ -52,8 +52,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   onlineLink: {
     fontSize: '0.9rem',
     fontWeight: 'lighter',
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
     '&:hover': {
-      textDecoration: 'underline',
       cursor: 'pointer',
     },
   },
@@ -103,11 +104,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline ? (
           <>
-            <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
-            <a href={getUrl(acter.url)}>
-              <Typography className={classes.onlineLink} variant="body2">
-                {acter.url}
-              </Typography>
+            <Computer
+              style={{ fontSize: '1.3rem', marginRight: 5, color: green[500] }}
+            />
+            <a href={getUrl(acter.url)} className={classes.onlineLink}>
+              <Typography variant="body2">{acter.url}</Typography>
             </a>
           </>
         ) : (
