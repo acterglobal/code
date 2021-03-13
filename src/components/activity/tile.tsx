@@ -103,7 +103,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           </Typography>
         </StyledTooltip>
         <Typography className={classes.location} variant="subtitle1">
-          {activity.Acter.location}
+          {activity.isOnline ? 'Online' : activity.Acter.location}
         </Typography>
       </Box>
     </Box>
