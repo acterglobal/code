@@ -13,7 +13,7 @@ import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ExampleActer } from 'src/__fixtures__'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

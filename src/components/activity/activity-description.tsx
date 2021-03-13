@@ -3,7 +3,7 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { InterestsSection } from 'src/components/interests/interests-section'
 
-import { Acter, InterestType } from '@generated/type-graphql'
+import { Acter, InterestType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

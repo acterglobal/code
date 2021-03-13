@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
 import { DisplayMembers } from 'src/components/acter/landing-page/members-section/display-members'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { ACTIVITIES } from 'src/constants'
-import { Acter, User } from '@generated/type-graphql'
+import { Acter, User } from '@schema'
 
 export interface AddActivityButtonProps {
   acter: Acter

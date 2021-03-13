@@ -8,7 +8,7 @@ import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ProfileButton } from 'src/components/user/profile-button'
 import { SignInButton } from 'src/components/layout/sign-in-button'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 export interface SessionIndicatorProps {
   user?: User
 }

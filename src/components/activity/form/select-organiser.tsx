@@ -5,7 +5,7 @@ import { grey } from '@material-ui/core/colors'
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 import { NETWORK, ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({

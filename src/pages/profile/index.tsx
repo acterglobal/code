@@ -10,7 +10,7 @@ import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
 import { Layout } from 'src/components/layout'
 import { ProfileEdit } from 'src/components/user/profile-edit'
 
-import { InterestType, User } from '@generated/type-graphql'
+import { InterestType, User } from '@schema'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'

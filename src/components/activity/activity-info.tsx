@@ -12,7 +12,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
-import { Acter, User } from '@generated/type-graphql'
+import { Acter, User } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {

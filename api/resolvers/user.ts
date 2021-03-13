@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 @Resolver(User)
 export class UserResolver {
   @Query((returns) => User)

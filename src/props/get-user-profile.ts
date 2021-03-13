@@ -2,7 +2,7 @@ import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { ComposedGetServerSideProps } from 'lib/compose-props'
 import { getTokenUser } from 'src/lib/next-auth/jwt'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 import GET_USER from 'api/queries/user-by-id.graphql'
 

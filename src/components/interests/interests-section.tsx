@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { InterestType, Interest } from '@generated/type-graphql'
+import { InterestType, Interest } from '@schema'
 
 export const getSelectedInterests = (
   interestTypes: InterestType[],

@@ -6,7 +6,7 @@ import { Modal } from 'src/components/util/modal/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
-import { Acter, ActerType, InterestType } from '@generated/type-graphql'
+import { Acter, ActerType, InterestType } from '@schema'
 import { initialValues } from 'src/lib/acter/handle-update-acter'
 
 const useStyles = makeStyles((theme: Theme) => ({

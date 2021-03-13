@@ -8,7 +8,7 @@ import {
   Theme,
 } from '@material-ui/core/styles'
 import { Box, Typography, Tooltip } from '@material-ui/core'
-import { Activity } from '@generated/type-graphql'
+import { Activity } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 import { DATE_FORMAT_SHORT, DATE_FORMAT_SHORT_NO_TIME } from 'src/constants'
 import { grey } from '@material-ui/core/colors'

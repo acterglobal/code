@@ -4,7 +4,7 @@ import { green } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getInitials } from 'src/lib/get-initials'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

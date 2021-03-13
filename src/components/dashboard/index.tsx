@@ -10,7 +10,7 @@ import { flattenFollowing } from 'src/lib/acter/flatten-following'
 import { ActerListByType } from 'src/components/acter/list-by-type'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 export interface DashboardProps {
   user: User
 }

@@ -1,6 +1,6 @@
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 /**
  * Make ActerType name url-friendly (lowercase, plural, and slugged)

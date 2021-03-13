@@ -2,7 +2,7 @@ import { Authorized, Resolver, Mutation, Arg, Ctx, Query } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
 
-import { Acter, Activity, User } from '@generated/type-graphql'
+import { Acter, Activity, User } from '@schema'
 @Resolver(Acter)
 export class ActerResolver {
   @Authorized()

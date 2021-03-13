@@ -19,7 +19,7 @@ import {
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType, InterestType, User } from '@generated/type-graphql'
+import { Acter, ActerType, InterestType, User } from '@schema'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'

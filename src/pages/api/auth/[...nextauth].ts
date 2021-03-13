@@ -5,7 +5,7 @@ import prisma from 'src/lib/prisma'
 import Email from 'src/lib/next-auth/email-provider'
 import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 import { initSentry } from 'src/lib/sentry'
 

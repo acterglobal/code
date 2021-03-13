@@ -1,4 +1,4 @@
-import { Interest } from '@generated/type-graphql'
+import { Interest } from '@schema'
 
 import { ExampleInterestType } from 'src/__fixtures__'
 

@@ -12,7 +12,7 @@ import {
   getInterests,
 } from 'src/props'
 
-import { Acter, InterestType, User } from '@generated/type-graphql'
+import { Acter, InterestType, User } from '@schema'
 
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'

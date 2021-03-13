@@ -1,4 +1,4 @@
-import { InterestType } from '@generated/type-graphql'
+import { InterestType } from '@schema'
 
 export const Interests = {
   data: {

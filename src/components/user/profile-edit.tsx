@@ -13,7 +13,7 @@ import { TextField } from 'formik-material-ui'
 import { Button as SaveButton } from 'src/components/user/auth/button'
 import { ImageUpload } from 'src/components/image-upload/index'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
-import { InterestType, User } from '@generated/type-graphql'
+import { InterestType, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -12,7 +12,7 @@ import { flattenFollowing } from 'src/lib/acter/flatten-following'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 
-import { Acter, User } from '@generated/type-graphql'
+import { Acter, User } from '@schema'
 import { ACTIVITY, NETWORK, ORGANISATION, USER } from 'src/constants'
 
 // TODO: this IS the app and should be tested

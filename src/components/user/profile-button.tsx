@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { AccountCircle, KeyboardArrowDownOutlined } from '@material-ui/icons'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
