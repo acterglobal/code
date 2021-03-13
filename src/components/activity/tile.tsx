@@ -69,6 +69,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
 
   if (!activity.id) return null
   const classes = useStyles()
+
   const startAt = moment(activity.startAt).format(DATE_FORMAT_SHORT)
   const endAt = moment(activity.endAt).format(DATE_FORMAT_SHORT)
 
@@ -84,7 +85,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
 
       <Box className={classes.info}>
         <Typography className={classes.dateTime} variant="subtitle1">
-          {startAt}
+          {startAt} - {endAt}
         </Typography>
 
         <StyledTooltip
