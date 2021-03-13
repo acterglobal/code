@@ -119,7 +119,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
           component={CheckboxWithLabel}
           type="checkbox"
           name="isAllDay"
-          Label={{ label: 'whole day activity', style: { color: grey[700] } }}
+          Label={{ label: 'All day activity', style: { color: grey[700] } }}
           inputProps={{ 'aria-label': 'all day activity' }}
         />
       </Box>
