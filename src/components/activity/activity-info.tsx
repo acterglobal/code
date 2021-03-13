@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
     fontWeight: 'lighter',
   },
+  onlineLink: {
+    fontSize: '0.9rem',
+    fontWeight: 'lighter',
+    '&:hover': {
+      textDecoration: 'underline',
+      cursor: 'pointer',
+    },
+  },
 }))
 
 export interface ActivityInfoProps {
@@ -60,6 +68,15 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
   const classes = useStyles()
   const startAt = moment(acter.Activity.startAt)
   const endAt = moment(acter.Activity.endAt)
+
+  const getUrl = (url) => {
+    if (url.match(/^https?:\/\//)) {
+      return url
+    }
+
+    return `http://${url}`
+  }
+
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
@@ -84,9 +101,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
         {acter.Activity.isOnline ? (
           <>
             <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
-            <Typography className={classes.location} variant="body2">
-              {acter.url}
-            </Typography>
+            <a href={getUrl(acter.url)}>
+              <Typography className={classes.onlineLink} variant="body2">
+                {acter.url}
+              </Typography>
+            </a>
           </>
         ) : (
           <>
