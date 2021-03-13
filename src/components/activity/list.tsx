@@ -39,6 +39,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({
 
         {activities?.map((activity) => (
           <Box
+            key={activity.id}
             className={classes.activity}
             onClick={() => router.push(`/activities/${activity.Acter.slug}`)}
           >
