@@ -75,7 +75,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
   const initialValues = {
     avatar: user.Acter.avatarUrl,
     description: user.Acter.description,
-    location: user.Acter.description,
+    location: user.Acter.location,
     name: user.Acter.name,
     email: user.email,
   }
