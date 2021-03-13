@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Box, InputLabel, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.secondary.light,
     width: '100%',
   },
+  textEditor: {
+    border: '1px solid black',
+    backgroundColor: 'red',
+  },
   locationLabelSection: {
     display: 'flex',
     marginBottom: 10,
@@ -43,6 +47,7 @@ export interface Step2Props {
 
 export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
   const classes = useStyles()
+  const [textEditorInput, setTextEditorInput] = useState(null)
 
   return (
     <Box className={classes.container}>
@@ -58,17 +63,13 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
       <Box className={classes.descriptionSection}>
         <InputLabel className={classes.label}>Description</InputLabel>
         {/* <Field
-          className={classes.textinput}
-          component={TextField}
-          // component={TextEditor}
-          variant="outlined"
+          className={classes.textEditor}
+          component={TextEditor}
           name="description"
           placeholder="Description of your activity"
-          multiline
-          rows={4}
           required={true}
         /> */}
-        <TextEditor />
+        <TextEditor handleInputChange={(data) => setTextEditorInput(data)} />
       </Box>
 
       <Box style={{ marginBottom: 20 }}>
