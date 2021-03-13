@@ -6,6 +6,7 @@ import { TextField } from 'formik-material-ui'
 import { grey } from '@material-ui/core/colors'
 import { ImageUpload } from 'src/components/image-upload'
 import { FormikSetFieldType } from 'src/components/activity/form'
+import { TextEditor } from 'src/components/util/text-editor'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
@@ -56,16 +57,18 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
 
       <Box className={classes.descriptionSection}>
         <InputLabel className={classes.label}>Description</InputLabel>
-        <Field
+        {/* <Field
           className={classes.textinput}
           component={TextField}
+          // component={TextEditor}
           variant="outlined"
           name="description"
           placeholder="Description of your activity"
           multiline
           rows={4}
           required={true}
-        />
+        /> */}
+        <TextEditor />
       </Box>
 
       <Box style={{ marginBottom: 20 }}>
