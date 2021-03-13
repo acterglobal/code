@@ -154,6 +154,7 @@ export class ActerResolver {
     @Arg('startAt') startAt: Date,
     @Arg('endAt') endAt: Date,
     @Arg('isOnline') isOnline: boolean,
+    @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string
   ): Promise<Activity> {
     const acter = await this.createActer(
@@ -171,6 +172,7 @@ export class ActerResolver {
         startAt,
         endAt,
         isOnline,
+        isAllDay,
         organiserId: organiserActerId,
         acterId: acter.id,
         createdByUserId: acter.createdByUserId,
@@ -192,6 +194,7 @@ export class ActerResolver {
     @Arg('startAt') startAt: Date,
     @Arg('endAt') endAt: Date,
     @Arg('isOnline') isOnline: boolean,
+    @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string
   ): Promise<Activity> {
     await this.updateActer(
@@ -211,6 +214,7 @@ export class ActerResolver {
         startAt,
         endAt,
         isOnline,
+        isAllDay,
         organiserId: organiserActerId,
       },
       where: {

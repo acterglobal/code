@@ -12,6 +12,7 @@ mutation ActivityCreate(
   $isOnline: Boolean!
   $startAt: DateTime!
   $endAt: DateTime!
+  $isAllDay: Boolean!
   $organiserActerId: String!
 ) {
   __typename
@@ -28,6 +29,7 @@ mutation ActivityCreate(
     isOnline: $isOnline
     startAt: $startAt
     endAt: $endAt
+    isAllDAy: $isAllDay
     organiserActerId: $organiserActerId
   ) {
     id

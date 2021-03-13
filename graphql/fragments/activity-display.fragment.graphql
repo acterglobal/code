@@ -5,4 +5,5 @@ fragment ActivityDisplay on Activity {
   isOnline
   startAt
   endAt
+  isAllDay
 }

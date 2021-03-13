@@ -58,7 +58,7 @@ export interface Step1Props extends SelectOrganiserProps {
 export const Step1: FC<Step1Props> = ({ acters, values }) => {
   const classes = useStyles()
 
-  if (values.wholeDay === true) {
+  if (values.isAllDay === true) {
     values.endTime = moment('23.59', 'hh:mm')
     values.startTime = moment('00.00', 'hh:mm')
   }
@@ -88,7 +88,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
               required={true}
             />
           </Grid>
-          {!values.wholeDay && (
+          {!values.isAllDay && (
             <Grid item xs={6}>
               <TimePickerField
                 placeholder="Start Time"
@@ -105,7 +105,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
               required={true}
             />
           </Grid>
-          {!values.wholeDay && (
+          {!values.isAllDay && (
             <Grid item xs={6}>
               <TimePickerField
                 placeholder="End Time"
@@ -118,7 +118,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
         <Field
           component={CheckboxWithLabel}
           type="checkbox"
-          name="wholeDay"
+          name="isAllDay"
           Label={{ label: 'whole day activity', style: { color: grey[700] } }}
           inputProps={{ 'aria-label': 'all day activity' }}
         />
