@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-// Adapted from https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-graphql/
+// Adapted from https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-api/
 
 import { useMemo } from 'react'
 import {

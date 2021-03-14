@@ -3,7 +3,7 @@ import { initializeApollo, addApolloState } from 'src/lib/apollo'
 
 import { Acter } from '@generated/type-graphql'
 
-import QUERY_ACTER from 'graphql/queries/acter-by-slug.graphql'
+import QUERY_ACTER from 'api/queries/acter-by-slug.graphql'
 
 /**
  *

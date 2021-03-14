@@ -4,7 +4,7 @@ import { getTokenUser } from 'src/lib/next-auth/jwt'
 
 import { User } from '@generated/type-graphql'
 
-import GET_USER from 'graphql/queries/user-by-id.graphql'
+import GET_USER from 'api/queries/user-by-id.graphql'
 
 export const getUserProfile = (
   requireUser = true

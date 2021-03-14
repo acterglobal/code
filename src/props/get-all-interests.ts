@@ -3,7 +3,7 @@ import { initializeApollo } from 'src/lib/apollo'
 
 import { InterestType } from '@generated/type-graphql'
 
-import QUERY_ALL_INTERESTS from 'graphql/queries/query-all-interests-by-type.graphql'
+import QUERY_ALL_INTERESTS from 'api/queries/query-all-interests-by-type.graphql'
 
 export const getInterests: ComposedGetServerSideProps = async () => {
   const apollo = initializeApollo()
