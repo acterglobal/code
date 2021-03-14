@@ -1,4 +1,4 @@
-import { InterestType } from '@generated/type-graphql'
+import { InterestType } from '@schema'
 
 /**
  * Get all interests by Top level types (Focus,Approach,Tags)

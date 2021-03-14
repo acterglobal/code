@@ -1,6 +1,6 @@
 import pluralize from 'pluralize'
 
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 
 /**
  * Make ActerType name url-friendly (lowercase, plural, and slugged)

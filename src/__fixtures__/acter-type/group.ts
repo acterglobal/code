@@ -1,4 +1,4 @@
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 import { GROUP } from 'src/constants'
 
 export const GroupActerType: ActerType = {

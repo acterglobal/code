@@ -4,7 +4,7 @@ import { Header } from 'src/components/acter/landing-page/info-section/header'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 import { InterestsSection } from 'src/components/interests/interests-section'
 
-import { Acter, InterestType } from '@generated/type-graphql'
+import { Acter, InterestType } from '@schema'
 export interface InfoSectionProps {
   acter: Acter
   interestTypes: InterestType[]

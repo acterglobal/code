@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Box, Typography } from '@material-ui/core'
 import { titleCase } from 'title-case'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { Acter, ActerType } from '@generated/type-graphql'
+import { Acter, ActerType } from '@schema'
 import { ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) =>

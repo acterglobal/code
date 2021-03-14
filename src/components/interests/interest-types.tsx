@@ -7,7 +7,7 @@ import {
   createStyles,
   Theme,
 } from '@material-ui/core'
-import { InterestType } from '@generated/type-graphql'
+import { InterestType } from '@schema'
 import { Interest, interestColors } from 'src/components/interests/interest'
 import { grey } from '@material-ui/core/colors'
 

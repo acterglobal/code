@@ -1,7 +1,7 @@
 import { JWTOptions } from 'next-auth'
 import jwt, { JWTDecodeParams } from 'next-auth/jwt'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 export const jwtConfig: JWTOptions & JWTDecodeParams = {
   secret: process.env.JWT_SECRET,

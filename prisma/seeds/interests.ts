@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { Interest, InterestType } from '@generated/type-graphql'
+import { Interest, InterestType } from '@schema'
 
 interface interestMap {
   name: string

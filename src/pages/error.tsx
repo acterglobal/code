@@ -5,7 +5,7 @@ import { getUserProfile } from 'src/props'
 import { Typography } from '@material-ui/core'
 import { Layout } from 'src/components/layout'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 interface ErrorProps {
   user?: User

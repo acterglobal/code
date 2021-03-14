@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { ActerType, ActerTypeRule } from '@generated/type-graphql'
+import { ActerType, ActerTypeRule } from '@schema'
 
 interface typeMap {
   type?: ActerType

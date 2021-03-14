@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 import { relative } from 'path'
 
 const useStyles = makeStyles((theme) => ({

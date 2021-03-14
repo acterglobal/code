@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'

@@ -1,4 +1,4 @@
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 import {
   ExampleUser,
   OrganisationActerType,

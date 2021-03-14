@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from 'lib/compose-props'
 import { initializeApollo } from 'src/lib/apollo'
 
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 
 import QUERY_ACTER_TYPES from 'api/queries/query-acter-types.graphql'
 

@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react'
 import { v4 } from 'uuid'
 import { ActivitiesList, ActivityListProps } from 'src/components/activity/list'
 import { ExampleActer, ExampleActivity, ExampleUser } from 'src/__fixtures__'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const acter = ({
   ...ExampleActer,

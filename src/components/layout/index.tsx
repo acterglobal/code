@@ -5,7 +5,7 @@ import { Container, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 const sidebarWidth = 50
 

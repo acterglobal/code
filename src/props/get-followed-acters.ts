@@ -3,7 +3,7 @@ import { initializeApollo } from 'src/lib/apollo'
 
 import QUERY_FOLLOWED_ACTERS from 'api/queries/query-followed-acters.graphql'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 /**
  *

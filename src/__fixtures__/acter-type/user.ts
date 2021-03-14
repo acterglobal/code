@@ -1,4 +1,4 @@
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 
 import { OrganisationActerType, NetworkActerType } from 'src/__fixtures__'
 

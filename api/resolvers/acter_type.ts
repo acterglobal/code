@@ -1,7 +1,7 @@
 import { Resolver, Query, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 
 @Resolver(ActerType)
 export class ActerTypeResolver {

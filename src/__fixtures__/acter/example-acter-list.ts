@@ -1,5 +1,5 @@
 import { v4 } from 'uuid'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 import {
   ExampleActer,
   GroupActerType,

@@ -5,7 +5,7 @@ import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { FormikSetFieldType } from 'src/components/acter/form'
 
-import { Interest, InterestType } from '@generated/type-graphql'
+import { Interest, InterestType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

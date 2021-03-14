@@ -6,13 +6,13 @@ import { Button, Box, Grid, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
-import { InterestType, User } from '@generated/type-graphql'
+import { InterestType, User } from '@schema'
 import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal/modal'
 import * as Yup from 'yup'
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

@@ -6,7 +6,7 @@ import { Box, Divider, Grid, Hidden, Typography } from '@material-ui/core'
 
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 import {
   createStyles,
   makeStyles,

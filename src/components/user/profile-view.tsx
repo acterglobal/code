@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 interface ProfileViewProps {
   user: User

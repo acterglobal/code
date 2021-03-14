@@ -1,4 +1,4 @@
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 export const flattenFollowingMap = (acter: Acter): { [key: string]: Acter } => {
   if (!acter?.Following) {

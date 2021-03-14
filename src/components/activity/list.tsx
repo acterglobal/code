@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { ActivityTile } from 'src/components/activity/tile'
-import { Acter, Activity } from '@generated/type-graphql'
+import { Acter, Activity } from '@schema'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -2,7 +2,7 @@ import md5 from 'md5'
 import { pick } from 'lodash'
 import { uploadImage } from 'src/lib/images/upload-image'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 const updateSet = [
   'name',

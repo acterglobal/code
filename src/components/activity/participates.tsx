@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 
-import { Acter, User } from '@generated/type-graphql'
+import { Acter, User } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

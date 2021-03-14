@@ -8,7 +8,7 @@ import { ActivityInfo } from 'src/components/activity/activity-info'
 import { ActivityDescription } from 'src/components/activity/activity-description'
 import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
-import { InterestType } from '@generated/type-graphql'
+import { InterestType } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 
 const useStyles = makeStyles((theme: Theme) => ({

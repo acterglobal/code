@@ -5,7 +5,7 @@ import { getUserProfile } from 'src/props'
 
 import { Layout } from 'src/components/layout'
 
-import { User } from '@generated/type-graphql'
+import { User } from '@schema'
 
 interface HomeProps {
   user?: User

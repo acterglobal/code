@@ -1,6 +1,6 @@
 import { v4 } from 'uuid'
 
-import { ActerConnection } from '@generated/type-graphql'
+import { ActerConnection } from '@schema'
 
 export const ExampleActerConnection: ActerConnection = {
   id: v4(),

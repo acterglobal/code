@@ -1,4 +1,4 @@
-import { ActerType } from '@generated/type-graphql'
+import { ActerType } from '@schema'
 import { NETWORK } from 'src/constants'
 
 export const NetworkActerType: ActerType = {

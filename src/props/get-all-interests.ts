@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from 'lib/compose-props'
 import { initializeApollo } from 'src/lib/apollo'
 
-import { InterestType } from '@generated/type-graphql'
+import { InterestType } from '@schema'
 
 import QUERY_ALL_INTERESTS from 'api/queries/query-all-interests-by-type.graphql'
 

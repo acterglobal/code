@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { ActerAvatar, ActerAvatarProps } from 'src/components/acter/avatar'
 
-import { Acter } from '@generated/type-graphql'
+import { Acter } from '@schema'
 
 import {
   ExampleActer,
