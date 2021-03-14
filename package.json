@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "rm -rf .next out && jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
@@ -36,7 +36,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
-    "@prisma/client": "^2.15.0",
+    "@prisma/client": "^2.18.0",
     "@sendgrid/mail": "^7.4.2",
     "@sentry/integrations": "^6.2.2",
     "@sentry/node": "^6.2.2",
