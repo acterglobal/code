@@ -10,7 +10,7 @@ import {
 import { Box, Typography, Tooltip } from '@material-ui/core'
 import { Activity } from '@generated/type-graphql'
 import { getImageUrl } from 'src/lib/images/get-image-url'
-import { DATE_FORMAT_SHORT } from 'src/constants'
+import { DATE_FORMAT_SHORT, DATE_FORMAT_SHORT_NO_TIME } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,8 +70,12 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   if (!activity.id) return null
   const classes = useStyles()
 
-  const startAt = moment(activity.startAt).format(DATE_FORMAT_SHORT)
-  const endAt = moment(activity.endAt).format(DATE_FORMAT_SHORT)
+  const format = activity.isAllDay
+    ? DATE_FORMAT_SHORT_NO_TIME
+    : DATE_FORMAT_SHORT
+
+  const startAt = moment(activity.startAt).format(format)
+  const endAt = moment(activity.endAt).format(format)
 
   return (
     <Box className={classes.root}>
@@ -85,7 +89,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
 
       <Box className={classes.info}>
         <Typography className={classes.dateTime} variant="subtitle1">
-          {startAt} - {endAt}
+          {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
         </Typography>
 
         <StyledTooltip

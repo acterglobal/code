@@ -11,7 +11,7 @@ import { Box, IconButton, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { DATE_FORMAT } from 'src/constants'
+import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
 import { Acter, User } from '@generated/type-graphql'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -52,8 +52,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   onlineLink: {
     fontSize: '0.9rem',
     fontWeight: 'lighter',
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
     '&:hover': {
-      textDecoration: 'underline',
       cursor: 'pointer',
     },
   },
@@ -66,8 +67,11 @@ export interface ActivityInfoProps {
 
 export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
   const classes = useStyles()
-  const startAt = moment(acter.Activity.startAt)
-  const endAt = moment(acter.Activity.endAt)
+
+  const format = acter.Activity.isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT
+
+  const startAt = moment(acter.Activity.startAt).format(format)
+  const endAt = moment(acter.Activity.endAt).format(format)
 
   const getUrl = (url) => {
     if (url.match(/^https?:\/\//)) {
@@ -82,7 +86,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
       <Box className={classes.dateContainer}>
         <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
         <Typography className={classes.date} variant="subtitle1">
-          {`${startAt.format(DATE_FORMAT)} - ${endAt.format(DATE_FORMAT)}`}
+          {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
         </Typography>
       </Box>
       <Box className={classes.titleContainer}>
@@ -100,11 +104,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline ? (
           <>
-            <Computer style={{ fontSize: '1.3rem', marginRight: 5 }} />
-            <a href={getUrl(acter.url)}>
-              <Typography className={classes.onlineLink} variant="body2">
-                {acter.url}
-              </Typography>
+            <Computer
+              style={{ fontSize: '1.3rem', marginRight: 5, color: green[500] }}
+            />
+            <a href={getUrl(acter.url)} className={classes.onlineLink}>
+              <Typography variant="body2">{acter.url}</Typography>
             </a>
           </>
         ) : (

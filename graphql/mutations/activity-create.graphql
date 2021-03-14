@@ -29,7 +29,7 @@ mutation ActivityCreate(
     isOnline: $isOnline
     startAt: $startAt
     endAt: $endAt
-    isAllDAy: $isAllDay
+    isAllDay: $isAllDay
     organiserActerId: $organiserActerId
   ) {
     id
