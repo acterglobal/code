@@ -14,10 +14,13 @@ import { getImageUrl } from 'src/lib/images/get-image-url'
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     backgroundColor: '#F2F2F2',
+    width: 800,
+    height: 700,
+    overflowY: 'scroll',
   },
   imageContainer: {
     backgroundColor: 'white',
-    height: 250,
+    height: 200,
     overflow: 'hidden',
     objectFit: 'contain',
   },
@@ -41,35 +44,37 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   const classes = useStyles()
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.imageContainer}>
-        <Image
-          src={getImageUrl(acter.bannerUrl, 'banner')}
-          alt="Picture of activity"
-          layout="responsive"
-          width={600}
-          height={250}
+    <Modal disableBackdropClick={false}>
+      <Box className={classes.container}>
+        <Box className={classes.imageContainer}>
+          <Image
+            src={getImageUrl(acter.bannerUrl, 'banner')}
+            alt="Picture of activity"
+            layout="responsive"
+            width={600}
+            height={200}
+          />
+        </Box>
+
+        <ActivityInfo
+          acter={acter}
+          user={user}
+          onJoin={onJoin}
+          onLeave={onLeave}
+          loading={loading}
         />
+
+        <Grid container spacing={2} className={classes.content}>
+          <Grid item sm={8}>
+            <ActivityDescription acter={acter} interestTypes={interestTypes} />
+          </Grid>
+          <Grid item sm={4}>
+            <Participates acter={acter} />
+            <br />
+            <Organiser acter={acter.Activity.Organiser} />
+          </Grid>
+        </Grid>
       </Box>
-
-      <ActivityInfo
-        acter={acter}
-        user={user}
-        onJoin={onJoin}
-        onLeave={onLeave}
-        loading={loading}
-      />
-
-      <Grid container spacing={2} className={classes.content}>
-        <Grid item sm={8}>
-          <ActivityDescription acter={acter} interestTypes={interestTypes} />
-        </Grid>
-        <Grid item sm={4}>
-          <Participates acter={acter} />
-          <br />
-          <Organiser acter={acter.Activity.Organiser} />
-        </Grid>
-      </Grid>
-    </Box>
+    </Modal>
   )
 }
