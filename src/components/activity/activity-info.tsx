@@ -74,6 +74,10 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
   const endAt = moment(acter.Activity.endAt).format(format)
 
   const getUrl = (url) => {
+    if (!url) {
+      return ''
+    }
+
     if (url.match(/^https?:\/\//)) {
       return url
     }
@@ -102,16 +106,21 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter, user }) => {
         )}
       </Box>
       <Box className={classes.locationContainer}>
-        {acter.Activity.isOnline ? (
+        {acter.Activity.isOnline && acter.url && (
           <>
             <Computer
               style={{ fontSize: '1.3rem', marginRight: 5, color: green[500] }}
             />
-            <a href={getUrl(acter.url)} className={classes.onlineLink}>
+            <a
+              href={getUrl(acter.url)}
+              className={classes.onlineLink}
+              target="_blank"
+            >
               <Typography variant="body2">{acter.url}</Typography>
             </a>
           </>
-        ) : (
+        )}
+        {!acter.Activity.isOnline && acter.location && (
           <>
             <LocationOnOutlined
               style={{ fontSize: '1.3rem', marginRight: 5 }}
