@@ -53,27 +53,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
             <Typography variant="h6" className={classes.section}>
               {title} ({acters.length})
             </Typography>
-            <AvatarGroup acters={acters} maxShow={5} />
-            {/* <Box style={{ display: 'flex' }}>
-              {acters.map((acter, i) => (
-                <>
-                  {i === acters.length - 1 ? (
-                    <ActerAvatar
-                      key={`info-follower-acter-${acter.id}`}
-                      acter={acter}
-                      groupAvatar={35}
-                      size={4}
-                    />
-                  ) : (
-                    <ActerAvatar
-                      key={`info-follower-acter-${acter.id}`}
-                      acter={acter}
-                      size={4}
-                    />
-                  )}
-                </>
-              ))}
-            </Box> */}
+            <AvatarGroup acters={acters} totalCount={2} />
           </Box>
         )
       })}
