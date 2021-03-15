@@ -57,17 +57,13 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
 
       <Box className={classes.descriptionSection}>
         <InputLabel className={classes.label}>Description</InputLabel>
-        {/* <Field
-          className={classes.textinput}
-          component={TextField}
-          variant="outlined"
-          name="description"
-          placeholder="Description of your activity"
-          multiline
-          rows={4}
-          required={true}
-        /> */}
-        <TextEditor handleInputChange={() => null} />
+
+        <TextEditor
+          width={450}
+          height={100}
+          // @ts-ignore
+          handleInputChange={(value) => setFieldValue('description', value)}
+        />
       </Box>
 
       <Box style={{ marginBottom: 20 }}>
