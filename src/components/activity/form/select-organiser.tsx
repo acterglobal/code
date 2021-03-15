@@ -49,12 +49,12 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
 
   return (
     <>
-      <InputLabel className={classes.label}>Organiser</InputLabel>
+      <InputLabel className={classes.label}>Show activity in:</InputLabel>
       <Field
         className={classes.chooseOrganiser}
         component={Select}
         name="organiserActerId"
-        label="Create activity in:"
+        label="Show activity in:"
         // displayEmpty
         required={true}
       >
