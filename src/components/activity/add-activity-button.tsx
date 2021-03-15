@@ -2,8 +2,10 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { ACTIVITIES } from 'src/constants'
 import { Acter, User } from '@schema'
+import { grey } from '@material-ui/core/colors'
 
 export interface AddActivityButtonProps {
   acter: Acter
@@ -57,12 +59,12 @@ const StyledButton = withStyles((theme: Theme) =>
       paddingRight: theme.spacing(3),
       marginRight: theme.spacing(3),
       minWidth: '100px',
-      backgroundColor: theme.palette.secondary.light,
+      backgroundColor: grey[800],
       color: theme.palette.secondary.contrastText,
       textTransform: 'capitalize',
-    },
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: grey[700],
+      },
     },
   })
 )(Button)
