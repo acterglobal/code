@@ -90,7 +90,6 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({
         component={Select}
         name="organiserActerId"
         label="Create activity in:"
-        // displayEmpty
         required={true}
       >
         {organisers.map((acter) => (
