@@ -10,6 +10,26 @@ export default class ActerDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={acterTheme.palette.primary.main} />
+          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG && (
+            <>
+              {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG}`}
+              ></script>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG}');
+`,
+                }}
+              />
+            </>
+          )}
         </Head>
         <body>
           <Main />
