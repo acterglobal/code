@@ -157,7 +157,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startDate: startAt,
     startTime: startAt,
     startAt: startAt,
-    isAllDAy: false,
+    isAllDay: false,
     endDate: endAt,
     endTime: endAt,
     endAt: endAt,

@@ -58,8 +58,6 @@ export interface Step1Props extends SelectOrganiserProps {
 export const Step1: FC<Step1Props> = ({ acters, values, setFieldValue }) => {
   const classes = useStyles()
 
-  debugger
-
   if (values.isAllDay === true) {
     values.endTime = moment('23.59', 'hh:mm')
     values.startTime = moment('00.00', 'hh:mm')
