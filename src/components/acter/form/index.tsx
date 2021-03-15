@@ -2,12 +2,13 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Modal } from 'src/components/util/modal/modal'
+import { Modal } from 'src/components/util/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { Acter, ActerType, InterestType } from '@schema'
 import { initialValues } from 'src/lib/acter/handle-update-acter'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -92,6 +93,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles()
+  const router = useRouter()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length - 1
 
@@ -127,7 +129,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   // const validationSchema = ActiveStep.validationSchema
 
   return (
-    <Modal>
+    <Modal handleModalClose={() => router.back()}>
       <Formik
         initialValues={initialValues}
         onSubmit={onStepSubmit}

@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
+import { CloseRounded as CloseButtonIcon } from '@material-ui/icons'
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -8,6 +10,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    closeButton: {
+      margin: theme.spacing(2),
+      float: 'right',
+      cursor: 'pointer',
+      color: grey[800],
+      '&:hover': {
+        color: grey[600],
+      },
     },
     paper: {
       outline: 0,
@@ -21,18 +32,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface ModalProps {
   children: React.ReactNode
-  handleCloseModal?: boolean
+  showCloseButton?: boolean
+  handleModalClose?: () => void
   disableBackdropClick?: boolean
 }
 
 export const Modal: FC<ModalProps> = (props) => {
-  const { children, handleCloseModal, disableBackdropClick = true } = props
+  const {
+    children,
+    handleModalClose,
+    disableBackdropClick = true,
+    showCloseButton = true,
+  } = props
   const classes = useStyles()
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = useState(true)
 
   //   const handleOpen = () => setOpen(true)
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    handleModalClose()
+  }
 
   return (
     <div>
@@ -48,7 +68,15 @@ export const Modal: FC<ModalProps> = (props) => {
         disableBackdropClick={disableBackdropClick}
       >
         <Fade in={open}>
-          <div className={classes.paper}>{children}</div>
+          <div className={classes.paper}>
+            {showCloseButton && (
+              <CloseButtonIcon
+                className={classes.closeButton}
+                onClick={handleClose}
+              />
+            )}
+            {children}
+          </div>
         </Fade>
       </MUIModal>
     </div>

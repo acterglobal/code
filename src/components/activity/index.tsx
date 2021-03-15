@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
-import { Modal } from 'src/components/util/modal/modal'
+import { Modal } from 'src/components/util/modal'
 import { Box, Grid } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ConnectProps } from 'src/components/acter/connect'
