@@ -53,15 +53,15 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
             <Link href="/">
               <a className={classes.link}>
                 <Image
-                  src="/assets/acter-logo-32.png"
+                  src="/assets/acter-text-logo.png"
                   alt="Acter Logo"
                   layout="intrinsic"
-                  width={32}
-                  height={32}
+                  width={90}
+                  height={30}
                 />
-                <Typography variant="h1" className={classes.title}>
+                {/* <Typography variant="h1" className={classes.title}>
                   Acter
-                </Typography>
+                </Typography> */}
               </a>
             </Link>
           </div>
