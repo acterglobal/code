@@ -81,7 +81,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
     <Box className={classes.root}>
       <Box className={classes.image}>
         <Image
-          src={getImageUrl(activity.Acter.bannerUrl, 'banner')}
+          src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
           alt={activity.Acter.name}
           layout="fill"
         />
@@ -93,7 +93,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
         </Typography>
 
         <StyledTooltip
-          title={activity.Acter.name}
+          title={activity.Acter?.name}
           disableHoverListener={!isOverflowed}
           aria-label="tooltip"
         >
@@ -103,11 +103,11 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
             noWrap
             variant="h6"
           >
-            {activity.Acter.name}
+            {activity.Acter?.name}
           </Typography>
         </StyledTooltip>
         <Typography className={classes.location} variant="subtitle1">
-          {activity.isOnline ? 'Online' : activity.Acter.location}
+          {activity.isOnline ? 'Online' : activity.Acter?.location}
         </Typography>
       </Box>
     </Box>
