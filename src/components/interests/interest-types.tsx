@@ -30,7 +30,6 @@ export interface InterestTypesProps {
   selectedTypes?: string[]
   disabled?: boolean
   showTitle?: boolean
-  showSDG?: boolean
   showSubTypeTitles?: boolean
   columns?: boolean
   divider?: boolean
@@ -46,7 +45,6 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   disabled,
   showTitle = false,
   showSubTypeTitles = true,
-  showSDG = false,
   columns = false,
   divider: divider = false,
 }) => {
@@ -67,7 +65,6 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             onSelectedInterestsChange={onSelectedInterestsChange}
             selectedInterests={selectedInterests}
             selectedTypes={selectedTypes}
-            showSDG={true}
             showTitle={true && showSubTypeTitles}
             disabled={
               selectedTypes &&
@@ -85,7 +82,6 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                 interest={type.Interests[0]}
                 type={type.name}
                 onSelectedInterestsChange={onSelectedInterestsChange}
-                showSDG={true}
                 selected={
                   selectedInterests &&
                   selectedInterests.includes(type.Interests[0].id)
@@ -124,7 +120,6 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                   interest={interest}
                   type={type.name}
                   onSelectedInterestsChange={onSelectedInterestsChange}
-                  showSDG={showSDG}
                   selected={
                     selectedInterests && selectedInterests.includes(interest.id)
                   }

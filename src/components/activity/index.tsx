@@ -44,6 +44,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   const classes = useStyles()
 
   return (
+    // TODO: add close button on top
     <Modal disableBackdropClick={false}>
       <Box className={classes.container}>
         <Box className={classes.imageContainer}>

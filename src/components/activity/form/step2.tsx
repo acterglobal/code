@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Box, InputLabel, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
@@ -46,7 +46,6 @@ export interface Step2Props {
 
 export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
   const classes = useStyles()
-  const [textEditorInput, setTextEditorInput] = useState(null)
 
   return (
     <Box className={classes.container}>
