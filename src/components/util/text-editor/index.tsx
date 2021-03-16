@@ -2,8 +2,6 @@ import React, { FC, useState, useEffect } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
-import { stateFromMarkdown } from 'draft-js-import-markdown'
-
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import dynamic from 'next/dynamic'
@@ -55,17 +53,9 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
   const { handleInputChange, initialValue, height, width } = props
   const classes = useStyles({ width, height })
 
-  let contentState = stateFromMarkdown(initialValue)
+  const rawData = markdownToDraft(initialValue)
 
-  const rawData = markdownToDraft(initialValue, {
-    remarkableOptions: {
-      enable: {
-        inline: 'emphasis',
-      },
-    },
-  })
-
-  // const contentState = convertFromRaw(rawData)
+  const contentState = convertFromRaw(rawData)
 
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(contentState)
@@ -80,7 +70,7 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
     handleInputChange(value)
 
     setEditorState(data)
-    console.log(data)
+    console.log('DATA', data)
   }
 
   return (
