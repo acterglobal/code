@@ -53,7 +53,10 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
             <Typography variant="h6" className={classes.section}>
               {title} ({acters.length})
             </Typography>
-            <AvatarGroup acters={acters} totalCount={2} />
+            <AvatarGroup
+              acters={acters.slice(0, 8)}
+              totalCount={acters.length}
+            />
           </Box>
         )
       })}
