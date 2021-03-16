@@ -10,6 +10,7 @@ import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
 import { InterestType } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -43,9 +44,11 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 }) => {
   const classes = useStyles()
 
+  const router = useRouter()
+
   return (
-    // TODO: add close button on top
-    <Modal disableBackdropClick={false}>
+    // TODO: style close button on top
+    <Modal disableBackdropClick={false} handleModalClose={() => router.back()}>
       <Box className={classes.container}>
         <Box className={classes.imageContainer}>
           <Image
