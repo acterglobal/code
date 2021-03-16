@@ -82,7 +82,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       <Box className={classes.image}>
         <Image
           src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
-          alt={activity.Acter.name}
+          alt={activity.Acter?.name}
           layout="fill"
         />
       </Box>
