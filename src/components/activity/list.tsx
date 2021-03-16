@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { ActivityTile } from 'src/components/activity/tile'
-import { Acter, Activity } from '@schema'
+import { Acter } from '@schema'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,27 +17,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface ActivityListProps {
   acter: Acter
-  activities: Activity[]
 }
 
-export const ActivitiesList: FC<ActivityListProps> = ({
-  acter,
-  activities,
-}) => {
+export const ActivitiesList: FC<ActivityListProps> = ({ acter }) => {
   const classes = useStyles()
   const router = useRouter()
+
+  const displayActivities =
+    acter.ActivitiesOrganized?.filter((a) => a.Acter) || []
 
   return (
     <Box>
       <Box>
-        {acter.ActivitiesOrganized.length === 0 && (
+        {displayActivities.length === 0 && (
           <DefaultMessage
             message="You have no activies."
             redirectTo={`/activities/new?organiserActerId=${acter.id}`}
           />
         )}
 
-        {activities?.map((activity) => (
+        {displayActivities?.map((activity) => (
           <Box
             key={activity.id}
             className={classes.activity}
