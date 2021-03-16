@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {},
   descriptionSection: {
     marginBottom: 20,
+    // height: 200,
   },
   label: {
     color: grey[700],
@@ -60,7 +61,8 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
 
         <TextEditor
           width={450}
-          height={100}
+          height={150}
+          initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
         />

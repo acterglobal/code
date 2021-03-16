@@ -1,9 +1,19 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
+import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
+import { stateFromMarkdown } from 'draft-js-import-markdown'
+
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+
 import dynamic from 'next/dynamic'
-import { convertToRaw } from 'draft-js'
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+  ContentState,
+} from 'draft-js'
+import { number } from 'yup'
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((reactDraft) => reactDraft.Editor),
@@ -16,36 +26,67 @@ const useStyles = makeStyles((theme: Theme) => {
       border: '1px solid',
       borderColor: grey[400],
       borderRadius: 4,
-      width: ({ width }: { width: number }) => width,
-      height: ({ height }: { height: number }) => height,
+      width: ({ width, height }: widthHeightType) => width,
+      height: ({ width, height }: widthHeightType) => height,
     },
     toolBar: {
       backgroundColor: grey[200],
     },
-    editor: {},
+    editor: {
+      height: 100,
+      // backgroundColor: 'red',
+    },
     inlineTools: {},
   })
 })
 
+type widthHeightType = {
+  width: number
+  height: number
+}
 export interface TextEditorProps {
+  initialValue: any
   height: number
   width: number
   handleInputChange: (data: any) => void
 }
 
 export const TextEditor: FC<TextEditorProps> = (props) => {
-  const { handleInputChange, height, width } = props
+  const { handleInputChange, initialValue, height, width } = props
   const classes = useStyles({ width, height })
 
+  let contentState = stateFromMarkdown(initialValue)
+
+  const rawData = markdownToDraft(initialValue, {
+    remarkableOptions: {
+      enable: {
+        inline: 'emphasis',
+      },
+    },
+  })
+
+  // const contentState = convertFromRaw(rawData)
+
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(contentState)
+  )
+
+  console.log('EDITOR :', editorState)
+
   const onEditorStateChange = async (data) => {
-    const draftToMarkdown = (await import('draftjs-to-markdown')).default
-    const value = draftToMarkdown(convertToRaw(data.getCurrentContent()))
+    const content = data.getCurrentContent()
+    const rawObject = convertToRaw(content)
+    const value = draftToMarkdown(rawObject)
     handleInputChange(value)
+
+    setEditorState(data)
+    console.log(data)
   }
 
   return (
     <Editor
       // @ts-ignore
+      editorState={editorState}
       wrapperClassName={classes.wrapper}
       editorClassName={classes.editor}
       toolbarClassName={classes.toolBar}
