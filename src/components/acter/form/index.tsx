@@ -48,13 +48,14 @@ const getStepContent = (
   step: number,
   interestTypes: InterestType[],
   setFieldValue: any,
-  acter: Partial<Acter>
+  acter: Partial<Acter>,
+  values: any
 ) => {
   const selectedInterests =
     acter.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
     case 0:
-      return <BasicInformation />
+      return <BasicInformation values={values} setFieldValue={setFieldValue} />
     case 1:
       return (
         <ImageUploadSection
@@ -133,7 +134,7 @@ export const ActerForm: FC<ActerFormProps> = ({
         onSubmit={onStepSubmit}
         // validationSchema={validationSchema}
       >
-        {({ isSubmitting, setFieldValue }) => (
+        {({ isSubmitting, setFieldValue, values }) => (
           <Box className={classes.container}>
             <Form>
               <Stepper alternativeLabel activeStep={activeStep}>
@@ -149,7 +150,8 @@ export const ActerForm: FC<ActerFormProps> = ({
                   activeStep,
                   interestTypes,
                   setFieldValue,
-                  initialValues
+                  initialValues,
+                  values
                 )}
               </Box>
 

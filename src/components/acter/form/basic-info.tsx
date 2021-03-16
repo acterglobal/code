@@ -2,6 +2,9 @@ import React from 'react'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { InputLabel, Box } from '@material-ui/core'
+import { TextEditor } from 'src/components/util/text-editor'
+
 import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -13,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const BasicInformation = () => {
+export const BasicInformation = ({ setFieldValue, values }) => {
   const classes = useStyles()
   return (
     <>
@@ -24,14 +27,25 @@ export const BasicInformation = () => {
         name="name"
         required={true}
       />
-      <Field
+      <Box>
+        <InputLabel>Description</InputLabel>
+        <TextEditor
+          width={535}
+          height={150}
+          initialValue={values.description}
+          // @ts-ignore
+          handleInputChange={(value) => setFieldValue('description', value)}
+        />
+      </Box>
+
+      {/* <Field
         className={classes.textinput}
         component={TextField}
         label="About"
         name="description"
         multiline
         rows={4}
-      />
+      /> */}
       <Field
         className={classes.textinput}
         component={TextField}
@@ -49,6 +63,7 @@ export const BasicInformation = () => {
   )
 }
 
+// TODO: refacter below and add types to this component
 BasicInformation.label = 'Basic Information'
 BasicInformation.initialValues = {
   name: '',
