@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { AvatarGroup } from 'src/components/acter/avatar-group'
 import { Box, Typography } from '@material-ui/core'
 import { titleCase } from 'title-case'
 import { ActerAvatar } from 'src/components/acter/avatar'
@@ -52,15 +53,10 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
             <Typography variant="h6" className={classes.section}>
               {title} ({acters.length})
             </Typography>
-            <Box style={{ display: 'flex' }}>
-              {acters.map((acter) => (
-                <ActerAvatar
-                  key={`info-follower-acter-${acter.id}`}
-                  acter={acter}
-                  size={4}
-                />
-              ))}
-            </Box>
+            <AvatarGroup
+              acters={acters.slice(0, 8)}
+              totalCount={acters.length}
+            />
           </Box>
         )
       })}

@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.secondary.light,
     width: '100%',
   },
+  textEditor: {
+    border: '1px solid black',
+    backgroundColor: 'red',
+  },
   locationLabelSection: {
     display: 'flex',
     marginBottom: 10,

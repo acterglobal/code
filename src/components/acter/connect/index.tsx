@@ -92,9 +92,7 @@ export const Connect: FC<ConnectProps> = ({
 }) => {
   if (!user) {
     return (
-      <StyledConnectButton onClick={() => signIn()}>
-        Sign in to Connect
-      </StyledConnectButton>
+      <StyledConnectButton onClick={() => signIn()}>Join</StyledConnectButton>
     )
   }
   const followers = getFollowers(user, acter)
@@ -189,6 +187,9 @@ export const StyledConnectButton = withStyles((theme: Theme) =>
       backgroundColor: theme.palette.primary.main,
       color: 'white',
       textTransform: 'capitalize',
+      '&:hover': {
+        backgroundColor: theme.palette.primary.light,
+      },
     },
   })
 )(Button)
