@@ -12,9 +12,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     closeButton: {
-      margin: theme.spacing(2),
-      float: 'right',
+      backgroundColor: 'white',
+      height: theme.spacing(5),
+      width: theme.spacing(5),
+      padding: theme.spacing(1),
+      borderRadius: '50%',
+      marginLeft: theme.spacing(-2),
+      marginTop: theme.spacing(-2.5),
       cursor: 'pointer',
+      zIndex: 99,
       color: grey[800],
       '&:hover': {
         color: grey[600],
@@ -26,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       borderRadius: theme.spacing(2),
       overflow: 'hidden',
+    },
+    modalContainer: {
+      display: 'flex',
+      outline: 'none',
     },
   })
 )
@@ -68,14 +78,15 @@ export const Modal: FC<ModalProps> = (props) => {
         disableBackdropClick={disableBackdropClick}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div className={classes.modalContainer}>
+            <div className={classes.paper}>{children}</div>
+
             {showCloseButton && (
               <CloseButtonIcon
                 className={classes.closeButton}
                 onClick={handleClose}
               />
             )}
-            {children}
           </div>
         </Fade>
       </MUIModal>
