@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {},
   descriptionSection: {
     marginBottom: 20,
-    // height: 200,
   },
   label: {
     color: grey[700],

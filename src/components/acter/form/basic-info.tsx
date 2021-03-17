@@ -38,14 +38,6 @@ export const BasicInformation = ({ setFieldValue, values }) => {
         />
       </Box>
 
-      {/* <Field
-        className={classes.textinput}
-        component={TextField}
-        label="About"
-        name="description"
-        multiline
-        rows={4}
-      /> */}
       <Field
         className={classes.textinput}
         component={TextField}
