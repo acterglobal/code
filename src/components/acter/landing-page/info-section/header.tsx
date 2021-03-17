@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
+import MarkDown from 'markdown-to-jsx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,7 @@ export const Header: FC<headerProps> = ({ title, description }) => {
         {title}
       </Typography>
       <Typography variant="body2" component="p" className={classes.description}>
-        {description}
+        <MarkDown>{description}</MarkDown>
       </Typography>
     </>
   )

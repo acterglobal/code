@@ -68,9 +68,9 @@ const getStepContent = (
   const selectedInterests =
     acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
-    case 1:
-      return <Step1 acters={organisers} values={values} />
     case 2:
+      return <Step1 acters={organisers} values={values} />
+    case 1:
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
       return (
