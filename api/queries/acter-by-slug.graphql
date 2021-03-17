@@ -3,9 +3,13 @@
 #import "../fragments/activity-display.fragment.graphql"
 
 query ActerBySlug($acterTypeId: String!, $slug: String!) {
-  acter(
-    where: {
-      slug_unique_for_acter_type: { acterTypeId: $acterTypeId, slug: $slug }
+  findFirstActer(
+    where: { 
+      AND: {
+        acterTypeId: {equals: $acterTypeId},
+        slug: {equals: $slug}, 
+        deletedAt: {equals: null}
+      }
     }
   ) {
     ...ActerFull
@@ -16,7 +20,7 @@ query ActerBySlug($acterTypeId: String!, $slug: String!) {
         ...ActerDisplay
       }
     }
-    ActivitiesOrganized {
+    ActivitiesOrganized(where: {Acter: {is: {deletedAt: {equals: null}}}}) {
       ...ActivityDisplay
       Acter {
         ...ActerDisplay

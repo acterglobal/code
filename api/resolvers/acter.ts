@@ -223,6 +223,35 @@ export class ActerResolver {
     })
   }
 
+  @Authorized()
+  @Mutation(() => Acter)
+  async deleteActer(
+    @Ctx() ctx: ActerGraphQLContext,
+    @Arg('acterId') acterId: string
+  ): Promise<Acter> {
+    const currentUser = await this.getCurrentUser(ctx)
+    const acter = await ctx.prisma.acter.findUnique({
+      select: {
+        id: true,
+        createdByUserId: true,
+      },
+      where: { id: acterId },
+    })
+    if (acter.createdByUserId !== currentUser.id) {
+      throw 'Not authorized'
+    }
+
+    return await ctx.prisma.acter.update({
+      data: {
+        deletedAt: new Date(),
+        deltedByUserId: currentUser.id,
+      },
+      where: {
+        id: acterId,
+      },
+    })
+  }
+
   async getCurrentUser(ctx: ActerGraphQLContext): Promise<Partial<User>> {
     return ctx.prisma.user.findFirst({
       select: {

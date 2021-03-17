@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   Theme,
 } from '@material-ui/core'
-import { Edit as EditIcon } from '@material-ui/icons'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { AddActivityButton } from 'src/components/activity/add-activity-button'
@@ -123,11 +123,18 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           </Box>
           <Box>
             {acter.createdByUserId === user?.id && (
-              <Link href={`${acterAsUrl(acter)}/edit`}>
-                <IconButton>
-                  <EditIcon />
-                </IconButton>
-              </Link>
+              <>
+                <Link href={`${acterAsUrl(acter)}/edit`}>
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Link>
+                <Link href={`${acterAsUrl(acter)}/delete`}>
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Link>
+              </>
             )}
           </Box>
         </Box>

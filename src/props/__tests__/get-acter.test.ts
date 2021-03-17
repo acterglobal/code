@@ -46,7 +46,7 @@ describe('getActer', () => {
   it('should return an Acter', async () => {
     // eslint-disable-next-line
     require('src/lib/apollo').__setApolloQueryResponse({
-      data: { acter: ExampleActer },
+      data: { findFirstActer: ExampleActer },
     })
     expect(await getActer(goodContext)).toStrictEqual(
       expect.objectContaining({ props: { acter: ExampleActer } })

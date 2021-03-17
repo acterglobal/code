@@ -1,0 +1,10 @@
+mutation ActerDelete(
+  $acterId: String!
+) {
+  deleteActer(
+    acterId: $acterId
+  ) {
+    id
+    deletedAt
+  }
+}

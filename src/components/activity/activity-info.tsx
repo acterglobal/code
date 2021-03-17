@@ -3,6 +3,7 @@ import Link from 'next/link'
 import moment from 'moment'
 import {
   Computer,
+  Delete as DeleteIcon,
   Edit as EditIcon,
   LocationOnOutlined,
   Event as CalanderIcon,
@@ -102,11 +103,18 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
             {acter.name}
           </Typography>
           {acter.createdByUserId === user?.id && (
-            <Link href={`${acterAsUrl(acter)}/edit`}>
-              <IconButton>
-                <EditIcon className={classes.editIcon} />
-              </IconButton>
-            </Link>
+            <>
+              <Link href={`${acterAsUrl(acter)}/edit`}>
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
+              </Link>
+              <Link href={`${acterAsUrl(acter)}/delete`}>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Link>
+            </>
           )}
         </Box>
         <Connect {...props} />
