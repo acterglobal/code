@@ -43,7 +43,7 @@ export interface ActerAvatarProps {
   size?: number
 }
 
-export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size }) => {
+export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   const classes = useStyles({ size })
 
   const avatarUrl = `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`

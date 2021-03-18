@@ -34,9 +34,9 @@ const AvatarGroupContainer = withStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      '& *:not(:first-child)': {
-        marginLeft: '-.25rem',
-      },
+      // '& *:not(:first-child)': {
+      //   marginLeft: '-.25rem',
+      // },
     },
   })
 )(Box)
