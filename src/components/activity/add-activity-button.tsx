@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
+import { userIsFollower } from 'src/lib/acter/user-is-follower'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { ACTIVITIES } from 'src/constants'
 import { Acter, User } from '@schema'
@@ -20,9 +22,7 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
 
   if (tab !== ACTIVITIES) return null
 
-  const canCreateActivity = acter.Followers?.map(
-    ({ Follower: { id } }) => id
-  ).includes(user?.Acter?.id)
+  const canCreateActivity = userIsFollower(acter, user)
 
   if (!canCreateActivity) {
     return null
@@ -30,13 +30,9 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
 
   return (
     <StyledContainer>
-      <StyledButton
-        onClick={() =>
-          router.push(`/activities/new?organiserActerId=${acter.id}`)
-        }
-      >
-        + Add Activity
-      </StyledButton>
+      <Link href={`/activities/new?organiserActerId=${acter.id}`}>
+        <StyledButton>+ Add Activity</StyledButton>
+      </Link>
     </StyledContainer>
   )
 }
