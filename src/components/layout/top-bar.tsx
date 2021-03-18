@@ -28,15 +28,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     flexDirection: 'row',
   },
-  logo: {
-    width: 32,
-    height: 32,
-    position: 'relative',
-  },
-  title: {
-    textTransform: 'uppercase',
-    fontSize: '2rem',
-  },
 }))
 
 export interface TopBarProps {
@@ -56,12 +47,9 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
                   src="/assets/acter-text-logo.png"
                   alt="Acter Logo"
                   layout="intrinsic"
-                  width={90}
-                  height={30}
+                  width={40}
+                  height={15}
                 />
-                {/* <Typography variant="h1" className={classes.title}>
-                  Acter
-                </Typography> */}
               </a>
             </Link>
           </div>

@@ -4,7 +4,7 @@ import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import dynamic from 'next/dynamic'
-import { convertToRaw, convertFromRaw, EditorState, RichUtils } from 'draft-js'
+import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((reactDraft) => reactDraft.Editor),
@@ -18,31 +18,30 @@ const useStyles = makeStyles((theme: Theme) => {
       borderColor: grey[400],
       borderRadius: 4,
       width: ({ width, height }: widthHeightType) => width,
-      // height: ({ width, height }: widthHeightType) => height,
+      minHeight: ({ width, height }: widthHeightType) => height,
     },
     toolBar: {
       backgroundColor: grey[200],
       marginBottom: 0,
     },
     editor: {
-      lineHeight: '1.1rem',
+      lineHeight: '1.2rem',
       padding: 0,
+      marginTop: -10,
     },
     inlineTools: {},
-    list: {
+    listStyle: {
       lineHeight: '0.2rem',
     },
   })
 })
 
-type widthHeightType = {
+interface widthHeightType {
   width: number
   height: number
 }
-export interface TextEditorProps {
+export interface TextEditorProps extends widthHeightType {
   initialValue: any
-  height: number
-  width: number
   handleInputChange: (data: any) => void
 }
 
@@ -63,6 +62,13 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
     setEditorState(data)
   }
 
+  const customBlockStyleFn = (contentBlock) => {
+    const type = contentBlock.getType()
+    if (type === 'unordered-list-item' || type === 'ordered-list-item') {
+      return classes.listStyle
+    }
+  }
+
   return (
     <Editor
       // @ts-ignore
@@ -79,16 +85,7 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
           italic: { className: classes.inlineTools },
         },
       }}
-      /**
-       * override behavior for enter key behavior
-       */
-      handleReturn={(event) => {
-        if (event.keyCode === 13) {
-          setEditorState(RichUtils.insertSoftNewline(editorState))
-          return true
-        }
-        return false
-      }}
+      blockStyleFn={customBlockStyleFn}
     />
   )
 }
