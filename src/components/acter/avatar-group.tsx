@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { ActerAvatar } from 'src/components/acter/avatar'
+import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+import { Avatar, ActerAvatar } from 'src/components/acter/avatar'
 import { Acter } from '@schema'
 
 export interface AvatarGroupProps {
@@ -10,16 +11,35 @@ export interface AvatarGroupProps {
   totalCount?: number
 }
 export const AvatarGroup: FC<AvatarGroupProps> = ({ acters, totalCount }) => {
+  const size = 4.5
   return (
-    <div style={{ display: 'flex' }}>
-      {acters.map((acter) => (
-        <ActerAvatar
-          key={`info-follower-acter-${acter.id}`}
-          acter={acter}
-          groupAvatar={acters.length < totalCount || acters.length > totalCount}
-          size={4}
-        />
-      ))}
-    </div>
+    <AvatarGroupContainer>
+      <>
+        {acters.map((acter) => (
+          <ActerAvatar
+            key={`info-follower-acter-${acter.id}`}
+            acter={acter}
+            groupAvatar={
+              acters.length < totalCount || acters.length > totalCount
+            }
+            size={size}
+          />
+        ))}
+        {totalCount > acters.length && (
+          <Avatar size={size}>+ {totalCount - acters.length}</Avatar>
+        )}
+      </>
+    </AvatarGroupContainer>
   )
 }
+
+const AvatarGroupContainer = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      '& *:not(:first-child)': {
+        marginLeft: '-.25rem',
+      },
+    },
+  })
+)(Box)
