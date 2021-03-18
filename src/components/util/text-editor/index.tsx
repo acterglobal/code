@@ -1,10 +1,10 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import dynamic from 'next/dynamic'
-import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
+import { convertToRaw, convertFromRaw, EditorState, RichUtils } from 'draft-js'
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((reactDraft) => reactDraft.Editor),
@@ -18,15 +18,20 @@ const useStyles = makeStyles((theme: Theme) => {
       borderColor: grey[400],
       borderRadius: 4,
       width: ({ width, height }: widthHeightType) => width,
-      height: ({ width, height }: widthHeightType) => height,
+      // height: ({ width, height }: widthHeightType) => height,
     },
     toolBar: {
       backgroundColor: grey[200],
+      marginBottom: 0,
     },
     editor: {
-      height: 100,
+      lineHeight: '1.1rem',
+      padding: 0,
     },
     inlineTools: {},
+    list: {
+      lineHeight: '0.2rem',
+    },
   })
 })
 
@@ -72,8 +77,17 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
           options: ['bold', 'italic'],
           bold: { className: classes.inlineTools },
           italic: { className: classes.inlineTools },
-          underline: { className: classes.inlineTools },
         },
+      }}
+      /**
+       * override behavior for enter key behavior
+       */
+      handleReturn={(event) => {
+        if (event.keyCode === 13) {
+          setEditorState(RichUtils.insertSoftNewline(editorState))
+          return true
+        }
+        return false
       }}
     />
   )
