@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     followers: {
       cursor: 'pointer',
+      marginBottom: theme.spacing(1),
     },
   })
 )

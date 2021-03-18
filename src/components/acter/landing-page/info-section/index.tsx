@@ -13,12 +13,18 @@ export interface InfoSectionProps {
 export const InfoSection: FC<InfoSectionProps> = ({ acter, interestTypes }) => {
   return (
     <InfoSectionContainer>
-      <Header title={acter.name} description={acter.description} />
-      <InterestsSection
-        interestTypes={interestTypes}
-        selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
-      />
-      <FollowersAvatars acter={acter} />
+      <Box>
+        <Header title={acter.name} description={acter.description} />
+      </Box>
+      <Box>
+        <InterestsSection
+          interestTypes={interestTypes}
+          selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
+        />
+      </Box>
+      <Box>
+        <FollowersAvatars acter={acter} />
+      </Box>
     </InfoSectionContainer>
   )
 }
@@ -33,6 +39,9 @@ const InfoSectionContainer = withStyles((theme: Theme) =>
       borderStyle: 'solid',
       borderRadius: theme.spacing(1),
       padding: theme.spacing(2),
+      '& > *': {
+        marginBottom: theme.spacing(2),
+      },
     },
   })
 )(Box)
