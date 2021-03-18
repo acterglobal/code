@@ -2,17 +2,12 @@
 
 fragment ActerFull on Acter {
   ...ActerDisplay
-  Following {
+  Following(where: {Following: {is: {deletedAt: {equals: null}}}}) {
     Following {
       ...ActerDisplay
-      Following {
-        Following {
-          ...ActerDisplay
-        }
-      }
     }
   }
-  Followers {
+  Followers(where: {Following: {is: {deletedAt: {equals: null}}}}) {
     Follower {
       ...ActerDisplay
     }

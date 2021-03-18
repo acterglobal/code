@@ -39,7 +39,7 @@ export const getActer: ComposedGetServerSideProps = async ({
     }
   }
 
-  const { acter }: { acter: Acter } = data
+  const { findFirstActer: acter }: { findFirstActer: Acter } = data
 
   if (!acter) {
     return {

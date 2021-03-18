@@ -54,6 +54,10 @@ model Acter {
   createdByUser   User   @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
+  deletedAt      DateTime? @map("deleted_at")
+  deltedByUserId String?   @map("deleted_by_user_id")
+  DeletedByUser  User?     @relation("acter_deleted_by_user", fields: [deltedByUserId], references: [id])
+
   ActerType ActerType @relation(fields: [acterTypeId], references: [id])
 
   Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id])
@@ -216,6 +220,8 @@ model User {
   ActerInterest ActerInterest[] @relation("acter_interest_created_by_user")
 
   ActivitiesCreated Activity[] @relation("activity_created_by_user")
+
+  ActersDeleted Acter[] @relation("acter_deleted_by_user")
 
   @@map("users")
 }

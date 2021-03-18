@@ -81,7 +81,7 @@ const interestTypes: interestTypeMap[] = [
       { name: 'Demonstrations', description: '', sdgNumber: '' },
       { name: 'Divestment', description: '', sdgNumber: '' },
       { name: 'Education', description: '', sdgNumber: '' },
-      { name: 'Innovation', description: '', sdgNumber: '9' },
+      { name: 'Innovation', description: '', sdgNumber: '' },
       { name: 'Investment', description: '', sdgNumber: '' },
       { name: 'Knowledge sharing', description: '', sdgNumber: '' },
       { name: 'Lobbyism', description: '', sdgNumber: '' },

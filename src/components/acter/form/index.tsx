@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
-import { Button, Box, Step, StepLabel, Stepper } from '@material-ui/core'
+import { Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Modal } from 'src/components/util/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
+import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { initialValues } from 'src/lib/acter/handle-update-acter'
 import { useRouter } from 'next/router'
@@ -29,18 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     overflowY: 'scroll',
-  },
-  btnsContainer: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    marginTop: theme.spacing(1),
-    backgroundColor: 'white',
-    zIndex: 10,
-  },
-  button: {
-    borderRadius: 50,
-    textTransform: 'none',
-    width: 200,
   },
 }))
 
@@ -157,11 +146,10 @@ export const ActerForm: FC<ActerFormProps> = ({
                 )}
               </Box>
 
-              <Box className={classes.btnsContainer}>
+              <ButtonsContainer>
                 <Button
                   variant="outlined"
                   color="primary"
-                  className={classes.button}
                   disabled={activeStep === 0 || isSubmitting}
                   onClick={handlePrev}
                 >
@@ -171,13 +159,12 @@ export const ActerForm: FC<ActerFormProps> = ({
                   variant="contained"
                   color="primary"
                   style={{ color: 'white' }}
-                  className={classes.button}
                   disabled={isSubmitting}
                   type="submit"
                 >
                   {isLastStep() ? 'Submit' : 'Continue'}
                 </Button>
-              </Box>
+              </ButtonsContainer>
             </Form>
           </Box>
         )}
