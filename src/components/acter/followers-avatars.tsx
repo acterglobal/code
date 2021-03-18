@@ -53,11 +53,6 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
         }
         const title = getActerTypeTitle(acters[0].ActerType)
 
-        const actersList = []
-        for (let i = 0; i <= 100; i++) {
-          actersList.push(acters[0])
-        }
-
         return (
           <Box
             key={`${title}-followers`}
@@ -68,8 +63,8 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
               {title} ({acters.length})
             </Typography>
             <AvatarGroup
-              acters={actersList.slice(0, 8)}
-              totalCount={actersList.length}
+              acters={acters.slice(0, 8)}
+              totalCount={acters.length}
             />
           </Box>
         )
