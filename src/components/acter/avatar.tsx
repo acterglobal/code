@@ -52,7 +52,9 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
     <Avatar
       size={size}
       className={clsx(
-        acter.avatarUrl || classes[acter.ActerType.name.toLocaleLowerCase()]
+        acter.avatarUrl
+          ? null
+          : classes[acter.ActerType.name.toLocaleLowerCase()]
       )}
       alt={`${acter.ActerType.name} ${acter.name}`}
       src={avatarUrl}

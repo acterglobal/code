@@ -1,8 +1,15 @@
 import React, { FC } from 'react'
-import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Avatar, ActerAvatar } from 'src/components/acter/avatar'
 import { Acter } from '@schema'
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+    },
+  })
+)
 export interface AvatarGroupProps {
   acters: Acter[]
   /**
@@ -12,8 +19,9 @@ export interface AvatarGroupProps {
 }
 export const AvatarGroup: FC<AvatarGroupProps> = ({ acters, totalCount }) => {
   const size = 4.5
+  const classes = useStyles()
   return (
-    <AvatarGroupContainer>
+    <Box className={classes.container}>
       <>
         {acters.map((acter) => (
           <ActerAvatar
@@ -26,17 +34,6 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({ acters, totalCount }) => {
           <Avatar size={size}>+ {totalCount - acters.length}</Avatar>
         )}
       </>
-    </AvatarGroupContainer>
+    </Box>
   )
 }
-
-const AvatarGroupContainer = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      // '& *:not(:first-child)': {
-      //   marginLeft: '-.25rem',
-      // },
-    },
-  })
-)(Box)
