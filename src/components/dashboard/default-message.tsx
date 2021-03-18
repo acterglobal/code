@@ -29,12 +29,14 @@ export const DefaultMessage: FC<DefaultMessageProps> = (props) => {
       <Typography variant="body1">
         {message || `You have not created any Organisations or Networks.`}
       </Typography>
-      <Typography variant="body1">
-        Get started{' '}
-        <Link href={redirectTo || `/acter/new`}>
-          <MuiLink className={classes.link}>here</MuiLink>
-        </Link>
-      </Typography>
+      {redirectTo && (
+        <Typography variant="body1">
+          Get started{' '}
+          <Link href={redirectTo || `/acter/new`}>
+            <MuiLink className={classes.link}>here</MuiLink>
+          </Link>
+        </Typography>
+      )}
     </Box>
   )
 }

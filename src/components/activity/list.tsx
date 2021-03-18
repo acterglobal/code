@@ -1,51 +1,120 @@
-import React, { FC } from 'react'
-import { useRouter } from 'next/router'
-import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
+import React, { FC, useState, useMemo } from 'react'
+import Link from 'next/link'
+import moment from 'moment'
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  createStyles,
+  withStyles,
+  Theme,
+} from '@material-ui/core'
+import { userIsFollower } from 'src/lib/acter/user-is-follower'
 import { ActivityTile } from 'src/components/activity/tile'
-import { Acter } from '@schema'
+import { Acter, Activity, User } from '@schema'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    activity: {
-      display: 'inline-block',
-      margin: theme.spacing(1),
-      cursor: 'pointer',
-    },
-  })
-)
-
 export interface ActivityListProps {
+  /**
+   * Organizing Acter for Activities
+   */
   acter: Acter
+  /**
+   * Currently logged in user
+   */
+  user: User
 }
 
-export const ActivitiesList: FC<ActivityListProps> = ({ acter }) => {
-  const classes = useStyles()
-  const router = useRouter()
-
-  const displayActivities =
-    acter.ActivitiesOrganized?.filter((a) => a.Acter) || []
+export const ActivitiesList: FC<ActivityListProps> = ({ acter, user }) => {
+  const allActivities = useMemo(
+    () => acter.ActivitiesOrganized?.filter((a) => a.Acter) || [],
+    [acter.ActivitiesOrganized]
+  )
+  const now = moment()
+  const futureActivities = useMemo(
+    () => allActivities.filter((a) => now.isSameOrBefore(a.startAt)),
+    [allActivities, now]
+  )
+  const [showPastActivities, setShowPastActivities] = useState(true)
+  const displayActivities = showPastActivities
+    ? allActivities
+    : futureActivities
 
   return (
     <Box>
+      <FormControlsContainer>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={showPastActivities}
+              onChange={(evt) => setShowPastActivities(evt.target.checked)}
+              name="showPastActivities"
+            />
+          }
+          label="Show past activities?"
+        />
+      </FormControlsContainer>
       <Box>
-        {displayActivities.length === 0 && (
-          <DefaultMessage
-            message="You have no activies."
-            redirectTo={`/activities/new?organiserActerId=${acter.id}`}
-          />
-        )}
+        <ZeroMessage acter={acter} activities={displayActivities} user={user} />
 
         {displayActivities?.map((activity) => (
-          <Box
-            key={activity.id}
-            className={classes.activity}
-            onClick={() => router.push(`/activities/${activity.Acter.slug}`)}
-          >
-            <ActivityTile activity={activity} />
-          </Box>
+          <StyledActivityBox key={activity.id}>
+            <Link
+              href="/activities/[slug]"
+              as={`/activities/${activity.Acter.slug}`}
+              passHref
+            >
+              <a>
+                <ActivityTile activity={activity} />
+              </a>
+            </Link>
+          </StyledActivityBox>
         ))}
       </Box>
     </Box>
   )
 }
+
+interface ZeroMessageProps {
+  acter: Acter
+  activities: Activity[]
+  user: User
+}
+
+const ZeroMessage: FC<ZeroMessageProps> = ({ acter, activities, user }) => {
+  if (activities.length <= 0) {
+    if (userIsFollower(acter, user)) {
+      return (
+        <DefaultMessage
+          message="You have no activies."
+          redirectTo={`/activities/new?organiserActerId=${acter.id}`}
+        />
+      )
+    }
+    return (
+      <DefaultMessage message="There are no activities to show at this time" />
+    )
+  }
+  return null
+}
+
+const FormControlsContainer = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+  })
+)(Box)
+
+const StyledActivityBox = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      margin: theme.spacing(1),
+      display: 'inline-block',
+      '& a': {
+        textDecoration: 'none',
+        color: theme.palette.text.primary,
+      },
+    },
+  })
+)(Box)

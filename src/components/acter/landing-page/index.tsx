@@ -85,7 +85,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
         </Grid>
         <Grid className={classes.main} item xs={12} sm={8} md={7}>
           <div role="tabpanel" hidden={tab !== ACTIVITIES}>
-            <ActivitiesList acter={acter} />
+            <ActivitiesList acter={acter} user={user} />
           </div>
           <div role="tabpanel" hidden={tab !== MEMBERS}>
             <MembersSection acter={acter} />

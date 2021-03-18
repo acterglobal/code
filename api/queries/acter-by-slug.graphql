@@ -4,11 +4,11 @@
 
 query ActerBySlug($acterTypeId: String!, $slug: String!) {
   findFirstActer(
-    where: { 
+    where: {
       AND: {
-        acterTypeId: {equals: $acterTypeId},
-        slug: {equals: $slug}, 
-        deletedAt: {equals: null}
+        acterTypeId: { equals: $acterTypeId }
+        slug: { equals: $slug }
+        deletedAt: { equals: null }
       }
     }
   ) {
@@ -20,7 +20,10 @@ query ActerBySlug($acterTypeId: String!, $slug: String!) {
         ...ActerDisplay
       }
     }
-    ActivitiesOrganized(where: {Acter: {is: {deletedAt: {equals: null}}}}) {
+    ActivitiesOrganized(
+      where: { Acter: { is: { deletedAt: { equals: null } } } }
+      orderBy: { startAt: asc }
+    ) {
       ...ActivityDisplay
       Acter {
         ...ActerDisplay
