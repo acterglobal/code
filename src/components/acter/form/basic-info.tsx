@@ -27,8 +27,8 @@ export const BasicInformation = ({ setFieldValue, values }) => {
         name="name"
         required={true}
       />
-      <Box>
-        <InputLabel>Description</InputLabel>
+      <Box style={{ marginBottom: 10 }}>
+        <InputLabel style={{ marginBottom: 5 }}>Description</InputLabel>
         <TextEditor
           width={535}
           height={150}

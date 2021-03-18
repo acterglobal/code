@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
@@ -18,26 +18,30 @@ const useStyles = makeStyles((theme: Theme) => {
       borderColor: grey[400],
       borderRadius: 4,
       width: ({ width, height }: widthHeightType) => width,
-      height: ({ width, height }: widthHeightType) => height,
+      minHeight: ({ width, height }: widthHeightType) => height,
     },
     toolBar: {
       backgroundColor: grey[200],
+      marginBottom: 0,
     },
     editor: {
-      height: 100,
+      lineHeight: '1.2rem',
+      padding: 0,
+      marginTop: -10,
     },
     inlineTools: {},
+    listStyle: {
+      lineHeight: '0.2rem',
+    },
   })
 })
 
-type widthHeightType = {
+interface widthHeightType {
   width: number
   height: number
 }
-export interface TextEditorProps {
+export interface TextEditorProps extends widthHeightType {
   initialValue: any
-  height: number
-  width: number
   handleInputChange: (data: any) => void
 }
 
@@ -58,6 +62,13 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
     setEditorState(data)
   }
 
+  const customBlockStyleFn = (contentBlock) => {
+    const type = contentBlock.getType()
+    if (type === 'unordered-list-item' || type === 'ordered-list-item') {
+      return classes.listStyle
+    }
+  }
+
   return (
     <Editor
       // @ts-ignore
@@ -72,9 +83,9 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
           options: ['bold', 'italic'],
           bold: { className: classes.inlineTools },
           italic: { className: classes.inlineTools },
-          underline: { className: classes.inlineTools },
         },
       }}
+      blockStyleFn={customBlockStyleFn}
     />
   )
 }
