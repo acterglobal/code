@@ -19,9 +19,6 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({ acters, totalCount }) => {
           <ActerAvatar
             key={`info-follower-acter-${acter.id}`}
             acter={acter}
-            groupAvatar={
-              acters.length < totalCount || acters.length > totalCount
-            }
             size={size}
           />
         ))}
