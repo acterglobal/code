@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
       capitalize: 'title',
     },
+    container: {
+      display: 'flex',
+    },
     followers: {
       cursor: 'pointer',
     },
@@ -46,7 +49,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
   ).map(({ Follower }) => Follower)
 
   return (
-    <>
+    <Box>
       {[users, organisations].map((acters) => {
         if (!acters?.length) {
           return null
@@ -69,6 +72,6 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
           </Box>
         )
       })}
-    </>
+    </Box>
   )
 }
