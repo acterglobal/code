@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AvatarGroup } from 'src/components/acter/avatar-group'
 import { Box, Typography } from '@material-ui/core'
 import { titleCase } from 'title-case'
-import { ActerAvatar } from 'src/components/acter/avatar'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter, ActerType } from '@schema'
 import { ORGANISATION } from 'src/constants'
 
@@ -14,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       color: theme.palette.secondary.main,
       capitalize: 'title',
+    },
+    followers: {
+      cursor: 'pointer',
     },
   })
 )
@@ -32,6 +36,7 @@ const getActerTypeTitle = (acterType: ActerType) => {
 
 export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   const users = acter.Followers?.filter(
     ({ Follower }) => Follower.ActerType.name === 'user'
@@ -48,14 +53,23 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
         }
         const title = getActerTypeTitle(acters[0].ActerType)
 
+        const actersList = []
+        for (let i = 0; i <= 100; i++) {
+          actersList.push(acters[0])
+        }
+
         return (
-          <Box key={`${title}-followers`}>
+          <Box
+            key={`${title}-followers`}
+            className={classes.followers}
+            onClick={() => router.push(`${acterAsUrl(acter)}/members`)}
+          >
             <Typography variant="h6" className={classes.section}>
               {title} ({acters.length})
             </Typography>
             <AvatarGroup
-              acters={acters.slice(0, 8)}
-              totalCount={acters.length}
+              acters={actersList.slice(0, 8)}
+              totalCount={actersList.length}
             />
           </Box>
         )
