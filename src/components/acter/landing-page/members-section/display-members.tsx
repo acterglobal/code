@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderColor: theme.palette.divider,
     borderWidth: 'thin',
     borderStyle: 'solid',
+    overflow: 'hidden',
   },
   heading: {
     fontSize: '0.9rem',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   members: {
     height: '100%',
-    overflow: 'scroll',
+    overflowY: 'scroll',
     width: '100%',
   },
   memberInfo: {
