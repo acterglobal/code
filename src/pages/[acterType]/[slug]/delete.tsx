@@ -37,6 +37,9 @@ export const DeleteActerPage: NextPage<DeleteActerPageProps> = ({ acter }) => {
         },
       })
     },
+    onError: (err) => {
+      enqueueSnackbar(err.message, { variant: 'error' })
+    },
     onCompleted: () => {
       router.push('/dashboard')
       enqueueSnackbar(

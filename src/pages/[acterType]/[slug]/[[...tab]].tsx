@@ -1,6 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useMutation, MutationFunction } from '@apollo/client'
+import { useSnackbar } from 'notistack'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
@@ -68,6 +69,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   interestTypes,
   user,
 }) => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const writeCache = (cache) => {
     cache.writeQuery({
       query: GET_ACTER,
@@ -90,6 +93,18 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter.Followers.push(data.createActerConnection)
         writeCache(cache)
       },
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' })
+      },
+      onCompleted: ({
+        createActerConnection: {
+          Follower: { name },
+        },
+      }) => {
+        enqueueSnackbar(`Connected to ${acter.name} as ${name}`, {
+          variant: 'success',
+        })
+      },
     }
   )
   const [deleteConnection, { loading: deletingConnection }] = useMutation(
@@ -99,6 +114,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
         acter.Followers = acter.Followers.filter(withoutConnection)
         writeCache(cache)
+      },
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' })
+      },
+      onCompleted: () => {
+        enqueueSnackbar(`Disconnected from ${acter.name}`, {
+          variant: 'success',
+        })
       },
     }
   )

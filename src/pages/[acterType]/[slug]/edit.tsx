@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
@@ -69,6 +69,9 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const [updateActer, { loading: updateActerLoading }] = useMutation(
     UPDATE_ACTER,
     {
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' })
+      },
       onCompleted: () => {
         enqueueSnackbar('Profile updated', { variant: 'success' })
         router.push(acterAsUrl(acter))
@@ -78,6 +81,9 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const [updateActivity, { loading: updateActivityLoading }] = useMutation(
     UPDATE_ACTIVITY,
     {
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' })
+      },
       onCompleted: () => {
         enqueueSnackbar('Event updated', { variant: 'success' })
         router.push(acterAsUrl(acter))
@@ -107,14 +113,22 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           delete variables[`${t}Time`]
         })
         variables.isOnline = variables.isOnline === 'true'
-        const res = await updateActivity({ variables })
-        return res.data.updateActivity.Acter
+        try {
+          const res = await updateActivity({ variables })
+          return res.data.updateActivity.Acter
+        } catch (err) {
+          return {} as Acter
+        }
       }
       break
     default:
       updateFn = async (data): Promise<Acter> => {
-        const res = await updateActer(data)
-        return res.data.createActer
+        try {
+          const res = await updateActer(data)
+          return res.data.createActer
+        } catch (err) {
+          return {} as Acter
+        }
       }
       Form = ActerForm
   }

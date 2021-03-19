@@ -91,15 +91,18 @@ export const ActerForm: FC<ActerFormProps> = ({
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
-  const onStepSubmit = (values, formikBag) => {
-    const { setSubmitting } = formikBag
+  const onStepSubmit = async (values, { setSubmitting }) => {
     if (!isLastStep()) {
       setSubmitting(false)
       handleNext()
       return
     }
     // TODO: Final validation
-    onSubmit(values)
+    try {
+      return onSubmit(values)
+    } catch (err) {
+      setSubmitting(false)
+    }
   }
 
   const initialValues = steps.reduce(
