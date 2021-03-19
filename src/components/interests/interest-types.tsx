@@ -68,7 +68,11 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             showTitle={true && showSubTypeTitles}
             disabled={
               selectedTypes &&
-              selectedTypes.filter(() => type.name === 'Focus').length >= 5
+              selectedTypes.filter((selectedType) =>
+                ['Focus', 'Environment', 'Social', 'Economy'].includes(
+                  selectedType
+                )
+              ).length >= 5
             }
           />
         ))}
@@ -89,8 +93,11 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                 disabled={
                   disabled ||
                   (selectedTypes &&
-                    selectedTypes.filter(() => type.name === 'Focus').length >=
-                      5)
+                    selectedTypes.filter((selectedType) =>
+                      ['Focus', 'Environment', 'Social', 'Economy'].includes(
+                        selectedType
+                      )
+                    ).length >= 5)
                 }
               />
             </Box>
