@@ -3,8 +3,8 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Layout } from 'src/components/layout'
-import { Box, Link, Typography } from '@material-ui/core'
-import { createStyles, withStyles, Theme } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
+import { Box, Link } from 'src/components/styled'
 
 const Custom404: NextPage = () => {
   const router = useRouter()
@@ -14,33 +14,14 @@ const Custom404: NextPage = () => {
       <Head>
         <title>404 - Acter</title>
       </Head>
-      <StyledBox>
+      <Box mt={20}>
         <Typography variant="body1">
           We're sorry, but we can't find that Acter. Please{' '}
-          <StyledLink onClick={() => router.back()}>go back</StyledLink> and try
-          again.
+          <Link onClick={() => router.back()}>go back</Link> and try again.
         </Typography>
-      </StyledBox>
+      </Box>
     </Layout>
   )
 }
 
 export default Custom404
-
-export const StyledBox = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: theme.spacing(15),
-    },
-  })
-)(Box)
-
-export const StyledLink = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      cursor: 'pointer',
-    },
-  })
-)(Link)
