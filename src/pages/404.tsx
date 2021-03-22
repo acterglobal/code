@@ -8,6 +8,7 @@ import { Box, Link } from 'src/components/styled'
 
 const Custom404: NextPage = () => {
   const router = useRouter()
+  const handleRedirectBack = () => router.back()
 
   return (
     <Layout>
@@ -17,7 +18,7 @@ const Custom404: NextPage = () => {
       <Box mt={20}>
         <Typography variant="body1">
           We're sorry, but we can't find that Acter. Please{' '}
-          <Link onClick={() => router.back()}>go back</Link> and try again.
+          <Link onClick={handleRedirectBack}>go back</Link> and try again.
         </Typography>
       </Box>
     </Layout>
