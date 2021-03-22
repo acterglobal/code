@@ -151,7 +151,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startDate: startAt,
     startTime: startAt,
     startAt: startAt,
-    isAllDay: false,
+    isAllDay: acter?.Activity.isAllDay ? true : false,
     endDate: endAt,
     endTime: endAt,
     endAt: endAt,
@@ -186,7 +186,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                 )}
               </Box>
 
-              {/* <Box className={classes.controls}> */}
               <Box className={classes.statusBars}>
                 {steps.map((step, index) => (
                   <Box
