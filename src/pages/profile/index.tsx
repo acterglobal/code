@@ -1,6 +1,5 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { useMutation } from '@apollo/client'
 
 import { useSnackbar } from 'notistack'
@@ -42,11 +41,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   })
 
   return (
-    <Layout user={user}>
-      <Head>
-        <title>Profile</title>
-      </Head>
-
+    <Layout headTitle="Profile - Acter" user={user}>
       <main>
         <ProfileEdit
           user={user}

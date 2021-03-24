@@ -1,6 +1,5 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import {
   Box,
@@ -28,10 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const VerifyPage: NextPage<any> = ({ providers }) => {
   const classes = useStyles()
   return (
-    <Layout>
-      <Head>
-        <title>Email sent</title>
-      </Head>
+    <Layout headTitle="Email send - Acter">
       <Box className={classes.container}>
         <Typography variant="h4" className={classes.heading}>
           You're on your way

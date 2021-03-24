@@ -1,6 +1,5 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { User } from '@schema'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
@@ -16,10 +15,7 @@ interface DashboardPageProps {
 
 const DashboardPage: NextPage<DashboardPageProps> = ({ user }) => {
   return (
-    <Layout user={user}>
-      <Head>
-        <title>Dashboard - Acter</title>
-      </Head>
+    <Layout headTitle="Dashboard - Acter" user={user}>
       <Dashboard user={user} />
     </Layout>
   )

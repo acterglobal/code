@@ -6,7 +6,6 @@ import { useSnackbar } from 'notistack'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 
-import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
@@ -134,10 +133,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   }
 
   return (
-    <Layout user={user}>
-      <Head>
-        <title>Edit {acter.name} - Acter</title>
-      </Head>
+    <Layout headTitle={`${acter.name} - Acter`} user={user}>
       <main>
         <Form
           acter={acter}

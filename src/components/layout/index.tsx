@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { Container, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
+import { Head } from 'src/components/layout/head'
 
 import { User } from '@schema'
 
@@ -28,13 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface LayoutProps {
   user?: User
   children: any
+  headTitle: string
 }
 
-export const Layout: FC<LayoutProps> = ({ user, children }) => {
+export const Layout: FC<LayoutProps> = ({ headTitle, user, children }) => {
   const classes = useStyles()
 
   return (
     <>
+      <Head title={headTitle} />
       <TopBar user={user} />
       {user && <Sidebar width={sidebarWidth} />}
       <Container

@@ -6,7 +6,6 @@ import { useMutation } from '@apollo/client'
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 import { saveActerImages } from 'src/lib/acter/save-images'
 
-import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
@@ -133,10 +132,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   }
 
   return (
-    <Layout user={user}>
-      <Head>
-        <title>New {acterType.name}</title>
-      </Head>
+    <Layout headTitle={acterType.name} user={user}>
       <main>
         <Form
           acterType={acterType}
