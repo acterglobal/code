@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: grey[600],
       },
+      [theme.breakpoints.down('sm')]: {
+        height: theme.spacing(3),
+        width: theme.spacing(3),
+        padding: theme.spacing(0.5),
+        marginLeft: theme.spacing(-2),
+        marginTop: theme.spacing(-1.5),
+      },
     },
     paper: {
       outline: 0,
