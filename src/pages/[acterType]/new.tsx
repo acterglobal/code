@@ -9,6 +9,7 @@ import { saveActerImages } from 'src/lib/acter/save-images'
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
+import { Head } from 'src/components/layout/head'
 
 import {
   getUserProfile,
@@ -132,7 +133,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   }
 
   return (
-    <Layout headTitle={acterType.name} user={user}>
+    <Layout user={user}>
+      <Head title={acterType.name} />
       <main>
         <Form
           acterType={acterType}

@@ -3,10 +3,13 @@ import { NextPage } from 'next'
 import { Layout } from 'src/components/layout'
 import { Typography } from '@material-ui/core'
 import { Box } from 'src/components/styled'
+import { Head } from 'src/components/layout/head'
 
 const Custom500: NextPage = () => {
   return (
-    <Layout headTitle="500 - Acter">
+    <Layout>
+      <Head title="500 - Acter" />
+
       <Box mt={20}>
         <Typography variant="body1">
           We're sorry, but there seems to have been an error. We've been

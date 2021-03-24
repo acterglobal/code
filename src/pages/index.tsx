@@ -1,6 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'
+import { Head } from 'src/components/layout/head'
 
 import { Layout } from 'src/components/layout'
 
@@ -11,7 +12,9 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ user }) => (
-  <Layout headTitle="Acter" user={user}>
+  <Layout user={user}>
+    <Head title="Acter" />
+
     <main>
       <p>The platform for coordinating action on global challenges.</p>
       <p>

@@ -3,11 +3,15 @@ import { NextPage } from 'next'
 import { providers } from 'next-auth/client'
 import { Layout } from 'src/components/layout'
 import { Box, Link as MuiLink, Typography } from '@material-ui/core'
+import { Head } from 'src/components/layout/head'
+
 import { Signin } from 'src/components/user/auth/signin'
 
 const LoginPage: NextPage<any> = ({ providers }) => {
   return (
-    <Layout headTitle="SignIn - Acter">
+    <Layout>
+      <Head title="Acter" />
+
       <Signin providers={providers} variant="signin" />
     </Layout>
   )

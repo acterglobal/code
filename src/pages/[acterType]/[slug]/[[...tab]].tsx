@@ -12,10 +12,10 @@ import {
   setActerType,
   getInterests,
 } from 'src/props'
+import { Head } from 'src/components/layout/head'
 
 import { Acter, InterestType, User } from '@schema'
 
-import Head from 'next/head'
 import { Layout } from 'src/components/layout'
 import { ActerLanding } from 'src/components/acter/landing-page'
 import { ActivityDetails } from 'src/components/activity'
@@ -129,7 +129,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(acter)
 
   return (
-    <Layout headTitle={`${acter.name} - Acter`} user={user}>
+    <Layout user={user}>
+      <Head title={`${acter.name} - Acter`} />
       <View
         acter={acter}
         user={user}

@@ -3,10 +3,13 @@ import { NextPage } from 'next'
 import { providers } from 'next-auth/client'
 import { Layout } from 'src/components/layout'
 import { Signin } from 'src/components/user/auth/signin'
+import { Head } from 'src/components/layout/head'
 
 const SignupPage: NextPage<any> = ({ providers }) => {
   return (
-    <Layout headTitle="SingUp - Acter">
+    <Layout>
+      <Head title="SignUp- Acter" />
+
       <Signin providers={providers} variant="signup" />
     </Layout>
   )

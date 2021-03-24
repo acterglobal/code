@@ -6,6 +6,7 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'
 
 import { Layout } from 'src/components/layout'
+import { Head } from 'src/components/layout/head'
 
 import { Dashboard } from 'src/components/dashboard'
 
@@ -15,7 +16,9 @@ interface DashboardPageProps {
 
 const DashboardPage: NextPage<DashboardPageProps> = ({ user }) => {
   return (
-    <Layout headTitle="Dashboard - Acter" user={user}>
+    <Layout user={user}>
+      <Head title="Dashboard - Acter" />
+
       <Dashboard user={user} />
     </Layout>
   )

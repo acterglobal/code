@@ -3,9 +3,13 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { Layout } from 'src/components/layout'
+import { Head } from 'src/components/layout/head'
+
 const GDPR: NextPage = () => {
   return (
-    <Layout headTitle="Privacy Policy - Acter">
+    <Layout>
+      <Head title="Privacy Policy - Acter" />
+
       <main>
         <div>
           <h2> Privacy Policy</h2>

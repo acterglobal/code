@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack'
 import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
 
 import { Layout } from 'src/components/layout'
+import { Head } from 'src/components/layout/head'
 import { ProfileEdit } from 'src/components/user/profile-edit'
 
 import { InterestType, User } from '@schema'
@@ -41,7 +42,8 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   })
 
   return (
-    <Layout headTitle="Profile - Acter" user={user}>
+    <Layout user={user}>
+      <Head title="Profile - Acter" />
       <main>
         <ProfileEdit
           user={user}
