@@ -40,8 +40,8 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
 const StyledMenu = withStyles((theme: Theme) =>
   createStyles({
     paper: {
-      width: 300,
-      borderRadius: 30,
+      minWidth: theme.spacing(20),
+      borderRadius: theme.spacing(1),
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: theme.palette.divider,
