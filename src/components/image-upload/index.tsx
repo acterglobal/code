@@ -69,8 +69,6 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     // - should open your image editor
     // - receives file object and image edit instructions
     open: (file, instructions) => {
-      // console.log('FILE in edit:', file)
-      //   console.log(instructions)
       setImage(URL.createObjectURL(file))
       setShowEditor(true)
     },
@@ -119,6 +117,12 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     })
   }
 
+  const handleFileSelected = (file) => {
+    if (files.length === 0) {
+      editor.open(file.file, '')
+    }
+  }
+
   const handleImageUpload = () => {
     if (pond.current.getFile()) {
       const { file } = pond.current.getFile()
@@ -165,6 +169,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     <div className={classes.container}>
       <FilePond
         ref={pond}
+        onaddfilestart={handleFileSelected}
         onaddfile={handleImageUpload}
         className={classes.uploadContainer}
         instantUpload={false}
