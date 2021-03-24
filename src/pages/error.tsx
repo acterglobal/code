@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile } from 'src/props'
 import { Typography } from '@material-ui/core'
 import { Layout } from 'src/components/layout'
+import { Head } from 'src/components/layout/head'
 
 import { User } from '@schema'
 
@@ -14,10 +14,7 @@ interface ErrorProps {
 const ErrorPage: NextPage<ErrorProps> = ({ user }) => {
   return (
     <Layout user={user}>
-      <Head>
-        <title>Acter</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Head title="Acter" />
 
       <main>
         <Typography variant="h4">
