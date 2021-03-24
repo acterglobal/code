@@ -67,7 +67,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
               {title} ({acters.length})
             </Typography>
             <AvatarGroup
-              acters={acters.slice(0, 8)}
+              acters={acters.slice(0, 7)}
               totalCount={acters.length}
             />
           </Box>
