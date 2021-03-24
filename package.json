@@ -41,6 +41,7 @@
     "@sentry/integrations": "^6.2.2",
     "@sentry/node": "^6.2.2",
     "@sentry/react": "^6.2.2",
+    "@sentry/tracing": "^6.2.3",
     "@sentry/webpack-plugin": "^1.14.2",
     "@storybook/addon-contexts": "^5.3.21",
     "apollo-server-micro": "^2.19.1",

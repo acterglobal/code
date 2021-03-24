@@ -81,6 +81,9 @@ module.exports = withPlugins([withGraphql], {
             ignore: ['node_modules'],
             stripPrefix: ['webpack://_N_E/'],
             urlPrefix: `~${basePath}/_next`,
+            authToken: SENTRY_AUTH_TOKEN,
+            org: SENTRY_ORG,
+            project: SENTRY_PROJECT,
             release: COMMIT_SHA,
           })
         )

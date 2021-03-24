@@ -7,6 +7,7 @@ import { ApolloProvider } from '@apollo/client'
 
 import { useApollo } from 'lib/apollo'
 import { initSentry } from 'lib/sentry'
+import * as Sentry from '@sentry/react'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from 'src/themes/acter-theme'
@@ -39,4 +40,4 @@ const ActerApp = ({ Component, pageProps, err }: ActerAppProps) => {
   )
 }
 
-export default ActerApp
+export default Sentry.withProfiler(ActerApp)
