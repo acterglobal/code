@@ -19,5 +19,5 @@ export const getSelectedInterests = (
     })
   }
 
-  return interestTypes
+  return []
 }
