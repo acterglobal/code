@@ -8,39 +8,62 @@ import {
   LocationOnOutlined,
   Event as CalanderIcon,
 } from '@material-ui/icons'
-import { Box, IconButton, Typography } from '@material-ui/core'
+import { Box, IconButton, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
-import { Acter, User } from '@schema'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
+import { About } from 'src/components/activity/about'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
     padding: '20px 20px 20px 30px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '15px 5px 5px 10px',
+    },
     // height: 120,
     backgroundColor: 'white',
   },
   dateContainer: {
     display: 'flex',
+    alignItems: 'center',
     color: green[500],
+  },
+  calanderIcon: {
+    fontSize: '1.3rem',
+    marginRight: 5,
+    [theme.breakpoints.down('xs')]: {
+      marginRight: 3,
+    },
   },
   date: {
     fontWeight: 'bolder',
-    fontSize: '0.8rem',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.7rem',
+    },
   },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
   },
   title: {
-    fontSize: '1.4rem',
     fontWeight: 'bold',
-    margin: '3px 0px 3px 0px',
+    fontSize: '1.4rem',
+    margin: '3px 3px 3px 0px',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.2rem',
+    },
   },
-  editIcon: {
-    fontSize: '1.2rem',
+  iconButton: {
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+    },
+  },
+  icon: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.1rem',
+    },
   },
   locationContainer: {
     display: 'flex',
@@ -50,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   location: {
     fontSize: '0.9rem',
     fontWeight: 'lighter',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.8rem',
+    },
   },
   onlineLink: {
     fontSize: '0.9rem',
@@ -92,7 +118,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
-        <CalanderIcon style={{ fontSize: '1.3rem', marginRight: 5 }} />
+        <CalanderIcon className={classes.calanderIcon} />
         <Typography className={classes.date} variant="subtitle1">
           {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
         </Typography>
@@ -105,13 +131,13 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           {acter.createdByUserId === user?.id && (
             <>
               <Link href={`${acterAsUrl(acter)}/edit`}>
-                <IconButton>
-                  <EditIcon />
+                <IconButton className={classes.iconButton}>
+                  <EditIcon className={classes.icon} />
                 </IconButton>
               </Link>
               <Link href={`${acterAsUrl(acter)}/delete`}>
-                <IconButton>
-                  <DeleteIcon />
+                <IconButton className={classes.iconButton}>
+                  <DeleteIcon className={classes.icon} />
                 </IconButton>
               </Link>
             </>
@@ -130,7 +156,9 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
               className={classes.onlineLink}
               target="_blank"
             >
-              <Typography variant="body2">{acter.url}</Typography>
+              <Typography className={classes.location} variant="body2">
+                {acter.url}
+              </Typography>
             </a>
           </>
         )}
@@ -145,6 +173,9 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           </>
         )}
       </Box>
+      <Hidden smUp>
+        <About acter={acter} />
+      </Hidden>
     </Box>
   )
 }

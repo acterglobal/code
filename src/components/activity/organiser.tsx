@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(1),
+    },
   },
   heading: {
     fontWeight: 'bolder',

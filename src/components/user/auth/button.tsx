@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Button as MuiButton } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -9,12 +10,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white',
     borderRadius: theme.spacing(3),
     backgroundColor: green[600],
+    '&:hover': {
+      backgroundColor: green[500],
+    },
   },
   socialTypeButton: {
     width: '80%',
-    color: 'white',
-    borderRadius: theme.spacing(3),
-    backgroundColor: grey[600],
     textTransform: 'none',
   },
 }))
@@ -36,10 +37,14 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <MuiButton
-      className={socailSignupType ? classes.socialTypeButton : classes.button}
+      className={clsx(
+        classes.button,
+        socailSignupType && classes.socialTypeButton
+      )}
       variant="contained"
       disabled={disabled}
       onClick={handleClick}
+      disableElevation
     >
       {label}
     </MuiButton>
