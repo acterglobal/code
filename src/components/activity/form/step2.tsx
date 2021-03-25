@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Box, InputLabel, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
@@ -47,6 +47,7 @@ export interface Step2Props {
 
 export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
   const classes = useStyles()
+  const [editor, setEditor] = useState(null)
 
   return (
     <Box className={classes.container}>
@@ -59,7 +60,10 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
         />
       </Box>
 
-      <Box className={classes.descriptionSection}>
+      <Box
+        className={classes.descriptionSection}
+        onClick={() => editor.focus()}
+      >
         <InputLabel className={classes.label}>Description</InputLabel>
 
         <TextEditor
@@ -68,6 +72,7 @@ export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
+          handleFocus={(editorRef) => setEditor(editorRef)}
         />
       </Box>
 
