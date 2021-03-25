@@ -1,6 +1,5 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { useMutation } from '@apollo/client'
 
 import { useSnackbar } from 'notistack'
@@ -8,6 +7,7 @@ import { useSnackbar } from 'notistack'
 import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
 
 import { Layout } from 'src/components/layout'
+import { Head } from 'src/components/layout/head'
 import { ProfileEdit } from 'src/components/user/profile-edit'
 
 import { InterestType, User } from '@schema'
@@ -43,10 +43,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
 
   return (
     <Layout user={user}>
-      <Head>
-        <title>Profile</title>
-      </Head>
-
+      <Head title="Profile - Acter" />
       <main>
         <ProfileEdit
           user={user}
