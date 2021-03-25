@@ -9,7 +9,6 @@ import { Acter } from '@schema'
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     minWidth: 400,
-    height: 400,
   },
 }))
 
