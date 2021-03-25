@@ -54,6 +54,7 @@ const StyledButton = withStyles((theme: Theme) =>
       paddingRight: theme.spacing(3),
       marginRight: theme.spacing(3),
       minWidth: '100px',
+      height: theme.spacing(3.5),
       backgroundColor: grey[800],
       color: theme.palette.secondary.contrastText,
       textTransform: 'capitalize',
