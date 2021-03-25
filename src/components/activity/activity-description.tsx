@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Hidden } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import Markdown from 'markdown-to-jsx'
 import { InterestsSection } from 'src/components/interests/interests-section'
+import { About } from 'src/components/activity/about'
 import { Acter, InterestType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -10,16 +10,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: 5,
-  },
-  heading: {
-    fontWeight: 'bolder',
-    fontSize: '0.9rem',
-  },
-  description: {
-    fontSize: '0.7rem',
-    lineHeight: '0.05rem',
-    color: theme.palette.secondary.main,
-    marginBottom: 5,
   },
 }))
 
@@ -35,14 +25,9 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
   const classes = useStyles()
   return (
     <Box className={classes.container}>
-      <Typography className={classes.heading} variant="h6">
-        About
-      </Typography>
-      <Box className={classes.description}>
-        <Typography variant="caption">
-          <Markdown>{acter.description}</Markdown>
-        </Typography>
-      </Box>
+      <Hidden smDown>
+        <About acter={acter} />
+      </Hidden>
       <InterestsSection
         interestTypes={interestTypes}
         selected={acter.ActerInterests.map(({ Interest }) => Interest)}
