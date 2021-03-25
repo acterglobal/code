@@ -199,7 +199,7 @@ const StyledMenuItem = withStyles((theme: Theme) =>
   createStyles({
     root: {
       fontSize: theme.typography.fontSize,
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       borderStyle: 'solid',
       borderTopWidth: '1px',
       borderColor: theme.palette.divider,
