@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const BasicInformation = ({ setFieldValue, values }) => {
   const classes = useStyles()
+  const [editor, setEditor] = useState(null)
+
   return (
     <>
       <Field
@@ -27,7 +29,7 @@ export const BasicInformation = ({ setFieldValue, values }) => {
         name="name"
         required={true}
       />
-      <Box style={{ marginBottom: 10 }}>
+      <Box mb={1} onClick={() => editor.focus()}>
         <InputLabel style={{ marginBottom: 5 }}>Description</InputLabel>
         <TextEditor
           width={535}
@@ -35,6 +37,7 @@ export const BasicInformation = ({ setFieldValue, values }) => {
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
+          handleFocus={(editorRef) => setEditor(editorRef)}
         />
       </Box>
 
