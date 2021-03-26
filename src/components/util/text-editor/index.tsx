@@ -43,10 +43,11 @@ interface widthHeightType {
 export interface TextEditorProps extends widthHeightType {
   initialValue: any
   handleInputChange: (data: any) => void
+  handleFocus: (ref: any) => void
 }
 
 export const TextEditor: FC<TextEditorProps> = (props) => {
-  const { handleInputChange, initialValue, height, width } = props
+  const { handleInputChange, initialValue, height, width, handleFocus } = props
   const classes = useStyles({ width, height })
 
   const rawData = markdownToDraft(initialValue)
@@ -70,22 +71,25 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
   }
 
   return (
-    <Editor
-      // @ts-ignore
-      editorState={editorState}
-      wrapperClassName={classes.wrapper}
-      editorClassName={classes.editor}
-      toolbarClassName={classes.toolBar}
-      onEditorStateChange={onEditorStateChange}
-      toolbar={{
-        options: ['inline', 'blockType', 'list'],
-        inline: {
-          options: ['bold', 'italic'],
-          bold: { className: classes.inlineTools },
-          italic: { className: classes.inlineTools },
-        },
-      }}
-      blockStyleFn={customBlockStyleFn}
-    />
+    <>
+      <Editor
+        // @ts-ignore
+        editorState={editorState}
+        onEditorStateChange={onEditorStateChange}
+        editorRef={(ref) => handleFocus(ref)}
+        blockStyleFn={customBlockStyleFn}
+        wrapperClassName={classes.wrapper}
+        editorClassName={classes.editor}
+        toolbarClassName={classes.toolBar}
+        toolbar={{
+          options: ['inline', 'blockType', 'list'],
+          inline: {
+            options: ['bold', 'italic'],
+            bold: { className: classes.inlineTools },
+            italic: { className: classes.inlineTools },
+          },
+        }}
+      />
+    </>
   )
 }
