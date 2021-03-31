@@ -9,7 +9,6 @@ import {
 import { AccountCircle, KeyboardArrowDownOutlined } from '@material-ui/icons'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
-import { getCamelCase } from 'src/lib/get-camel-case'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.grey[700],
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+      textTransform: 'capitalize',
     },
     downIcon: {
       color: theme.palette.grey[500],
@@ -52,7 +52,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
         <AccountCircle />
       )}
       <Typography className={classes.text}>
-        {getCamelCase(user.Acter.name) || user.email}
+        {user.Acter.name || user.email}
       </Typography>
       <KeyboardArrowDownOutlined className={classes.downIcon} />
     </IconButton>
