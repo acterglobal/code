@@ -7,9 +7,7 @@ import { DisplayMembers } from 'src/components/acter/landing-page/members-sectio
 import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    minWidth: 400,
-  },
+  container: {},
 }))
 
 const PEOPLE = 'people'
