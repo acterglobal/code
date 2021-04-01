@@ -10,7 +10,7 @@ import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
-import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
+import { upsertActerWithPictures } from 'src/lib/acter/upsert-acter-with-pictures'
 
 import {
   getUserProfile,
@@ -28,6 +28,7 @@ import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
 import { ACTIVITY } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { upsertActivity } from 'src/lib/activity/upsert-activity'
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -103,23 +104,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     case ACTIVITY:
       Form = ActivityForm
       updateFn = async (data): Promise<Acter> => {
-        // Create copy of the variables
-        const variables = {
-          ...data.variables,
-        }
-        ;['start', 'end'].forEach((t) => {
-          const time = data.variables[`${t}Time`]
-          variables[`${t}At`] = data.variables[`${t}Date`]
-            .hour(time.hour())
-            .minute(time.minute())
-            .second(time.second())
-            .toDate()
-          delete variables[`${t}Date`]
-          delete variables[`${t}Time`]
-        })
-        variables.isOnline = variables.isOnline === 'true'
         try {
-          const res = await updateActivity({ variables })
+          const res = await upsertActivity(updateActivity, data)
           return res.data.updateActivity.Acter
         } catch (err) {
           return {} as Acter
@@ -148,7 +134,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={handleUpdateActer(acter, updateFn)}
+          onSubmit={upsertActerWithPictures(acter, updateFn)}
           loading={updateActerLoading || updateActivityLoading}
         />
       </main>

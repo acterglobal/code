@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
 import { saveActerImages } from 'src/lib/acter/save-images'
+import { upsertActivity } from 'src/lib/activity/upsert-activity'
 
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
@@ -114,23 +115,12 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     case ACTIVITY:
       Form = ActivityForm
       createFn = async (data): Promise<Acter> => {
-        // Create copy of the variables
-        const variables = {
-          ...data.variables,
+        try {
+          const res = await upsertActivity(createActivity, data)
+          return res.data.createActivity.Acter
+        } catch (err) {
+          return {} as Acter
         }
-        ;['start', 'end'].forEach((t) => {
-          const time = data.variables[`${t}Time`]
-          variables[`${t}At`] = data.variables[`${t}Date`]
-            .hour(time.hour())
-            .minute(time.minute())
-            .second(time.second())
-            .toDate()
-          delete variables[`${t}Date`]
-          delete variables[`${t}Time`]
-        })
-        variables.isOnline = variables.isOnline === 'true'
-        const res = await createActivity({ variables })
-        return res.data.createActivity.Acter
       }
       break
     default:

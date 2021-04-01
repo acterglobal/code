@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client'
 
 import { useSnackbar } from 'notistack'
 
-import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
+import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
@@ -16,6 +16,9 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
+
+export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) =>
+  updateActerWithPictures(user.Acter, updateFn)
 interface UserProfilePageProps {
   loading?: boolean
   error?: string
@@ -41,7 +44,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
         <ProfileEdit
           user={user}
           interestTypes={interestTypes}
-          onSubmit={handleUpdateActer(user.Acter, updateUser)}
+          onSubmit={_handleSubmit(user.Acter, updateUser)}
           loading={loading}
         />
       </main>
