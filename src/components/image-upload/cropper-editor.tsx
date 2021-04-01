@@ -12,7 +12,6 @@ import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import { Modal } from 'src/components/util/modal'
 import { green, grey } from '@material-ui/core/colors'
-import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -65,7 +64,6 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
   const { image, aspectRatio, handleCrop } = props
   const classes = useStyles()
   const [cropper, setCropper] = useState<any>()
-  const router = useRouter()
 
   const calculateCropData = () => {
     const cropData = cropper.getData()

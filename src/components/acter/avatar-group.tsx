@@ -1,15 +1,13 @@
 import React, { FC } from 'react'
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import { Avatar, ActerAvatar } from 'src/components/acter/avatar'
 import { Acter } from '@schema'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-    },
-  })
-)
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+  },
+})
 export interface AvatarGroupProps {
   acters: Acter[]
   /**

@@ -97,7 +97,7 @@ const ZeroMessage: FC<ZeroMessageProps> = ({ acter, activities, user }) => {
   return null
 }
 
-const FormControlsContainer = withStyles((theme: Theme) =>
+const FormControlsContainer = withStyles(() =>
   createStyles({
     root: {
       display: 'flex',

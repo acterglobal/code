@@ -1,6 +1,6 @@
 import NextAuth, { InitOptions } from 'next-auth'
 import Adapters from 'next-auth/adapters'
-import Providers from 'next-auth/providers'
+// import Providers from 'next-auth/providers'
 import prisma from 'src/lib/prisma'
 import Email from 'src/lib/next-auth/email-provider'
 import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'

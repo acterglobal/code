@@ -1,4 +1,4 @@
-import Reaact, { FC } from 'react'
+import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { Layout, LayoutProps } from 'src/components/layout'
 import { ExampleUser } from 'src/__fixtures__'

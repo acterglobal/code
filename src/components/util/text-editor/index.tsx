@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -11,29 +11,27 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    wrapper: {
-      border: '1px solid',
-      borderColor: grey[400],
-      borderRadius: 4,
-      width: ({ width, height }: widthHeightType) => width,
-      minHeight: ({ width, height }: widthHeightType) => height,
-    },
-    toolBar: {
-      backgroundColor: grey[200],
-      marginBottom: 0,
-    },
-    editor: {
-      lineHeight: '1.2rem',
-      padding: 0,
-      marginTop: -10,
-    },
-    inlineTools: {},
-    listStyle: {
-      lineHeight: '0.2rem',
-    },
-  })
+const useStyles = makeStyles({
+  wrapper: {
+    border: '1px solid',
+    borderColor: grey[400],
+    borderRadius: 4,
+    width: (size: widthHeightType) => size.width,
+    minHeight: (size: widthHeightType) => size.height,
+  },
+  toolBar: {
+    backgroundColor: grey[200],
+    marginBottom: 0,
+  },
+  editor: {
+    lineHeight: '1.2rem',
+    padding: 0,
+    marginTop: -10,
+  },
+  inlineTools: {},
+  listStyle: {
+    lineHeight: '0.2rem',
+  },
 })
 
 interface widthHeightType {
@@ -48,7 +46,8 @@ export interface TextEditorProps extends widthHeightType {
 
 export const TextEditor: FC<TextEditorProps> = (props) => {
   const { handleInputChange, initialValue, height, width, handleFocus } = props
-  const classes = useStyles({ width, height })
+  const size = { height, width }
+  const classes = useStyles(size)
 
   const rawData = markdownToDraft(initialValue)
   const contentState = convertFromRaw(rawData)

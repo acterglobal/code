@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const VerifyPage: NextPage<any> = ({ providers }) => {
+const VerifyPage: NextPage<any> = () => {
   const classes = useStyles()
   return (
     <Layout>

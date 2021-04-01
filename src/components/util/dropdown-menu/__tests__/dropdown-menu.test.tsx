@@ -20,7 +20,7 @@ describe('SessionMenu', () => {
   })
 
   it('shows the menu on anchor click', async () => {
-    const onClose = jest.fn()
+    // const onClose = jest.fn()
 
     render(
       <DropdownMenu anchorNode={<Anchor />}>

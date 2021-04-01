@@ -3,7 +3,7 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 
-import { Acter, User } from '@schema'
+import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Interest as InterestType } from '@schema'
-import { Avatar, Box, Chip, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'

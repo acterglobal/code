@@ -2,14 +2,14 @@ import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import logger from './logger'
 
-interface GenericReturnConfig {
-  [key: string]: any
-}
+// interface GenericReturnConfig {
+//   [key: string]: any
+// }
 
 /**
  * Email
  */
-type Email = (options: ProviderEmailOptions) => GenericReturnConfig
+// type Email = (options: ProviderEmailOptions) => GenericReturnConfig
 
 interface VerificationRequestParams {
   identifier: string

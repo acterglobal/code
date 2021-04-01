@@ -1,5 +1,3 @@
-import React, { FC } from 'react'
-
 import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 
 export const ButtonsContainer = withStyles((theme: Theme) =>

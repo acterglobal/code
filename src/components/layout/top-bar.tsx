@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { AppBar, Box, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 
 import { User } from '@schema'
-import { relative } from 'path'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

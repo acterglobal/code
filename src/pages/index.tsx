@@ -1,6 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile } from 'src/props'
+// import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+// import { getUserProfile } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
 import { Layout } from 'src/components/layout'

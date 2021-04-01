@@ -1,13 +1,10 @@
-import React, { FC } from 'react'
-
 import {
   Button as MuiButton,
   createStyles,
   withStyles,
-  Theme,
 } from '@material-ui/core'
 
-export const Button = withStyles((theme: Theme) =>
+export const Button = withStyles(
   createStyles({
     root: {
       borderRadius: 50,

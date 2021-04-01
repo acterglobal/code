@@ -12,7 +12,7 @@ export default {
     initialValue: null,
     width: 400,
     height: 300,
-    handleInputChange: (data) => null,
+    handleInputChange: (data) => console.log(data),
   },
 } as Meta
 

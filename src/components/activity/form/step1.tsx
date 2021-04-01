@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Grid, Typography, Paper } from '@material-ui/core'
+import { Box, Grid, Typography } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { DatePickerField } from 'src/components/util/pickers/date-picker-field'
 import { TimePickerField } from 'src/components/util/pickers/time-picker-field'
@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   pickerfield: {
     width: 240,
   },
-  paper: {},
 }))
 
 export interface Step1Props extends SelectOrganiserProps {

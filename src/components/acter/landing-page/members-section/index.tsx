@@ -1,16 +1,16 @@
 import React, { FC, useState } from 'react'
 import { mapFollowers } from 'src/lib/acter/map-followers'
 import { Box } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
 import { DisplayMembers } from 'src/components/acter/landing-page/members-section/display-members'
 import { Acter } from '@schema'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   container: {
     minWidth: 400,
   },
-}))
+})
 
 const PEOPLE = 'people'
 const ORGANISATIONS = 'organisations'

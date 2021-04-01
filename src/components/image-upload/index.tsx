@@ -18,12 +18,10 @@ registerPlugin(
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    // width: 250,
-    // height: 250,
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    margin: 10,
+    margin: theme.spacing(1.2),
   },
   uploadContainer: {
     minWidth: 230,
@@ -68,7 +66,8 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     // Called by FilePond to edit the image
     // - should open your image editor
     // - receives file object and image edit instructions
-    open: (file, instructions) => {
+    // @ts-ignore
+    open: (file) => {
       setImage(URL.createObjectURL(file))
       setShowEditor(true)
     },
@@ -76,8 +75,8 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     // Callback set by FilePond
     // - should be called by the editor when user confirms editing
     // - should receive output object, resulting edit information
-    onconfirm: (output) => {
-      // console.log('FILE...:', output.file)
+    onconfirm: () => {
+      // code goes here
     },
 
     // Callback set by FilePond
@@ -92,34 +91,35 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   })
 
   const handleImageCrop = (cropData, imagefile) => {
-    const { center } = cropData
     pond.current.addFile(imagefile)
     setImage(imagefile)
     setFiles([imagefile])
     setShowEditor(false)
 
-    editor.onconfirm({
-      data: {
-        crop: {
-          center: {
-            x: center.X,
-            y: center.Y,
-          },
-          flip: {
-            horizontal: false,
-            vertical: false,
-          },
-          zoom: 1,
-          rotation: 0,
-          aspectRatio: aspectRatio,
-        },
-      },
-    })
+    // const { center } = cropData
+
+    // editor.onconfirm({
+    //   data: {
+    //     crop: {
+    //       center: {
+    //         x: center.X,
+    //         y: center.Y,
+    //       },
+    //       flip: {
+    //         horizontal: false,
+    //         vertical: false,
+    //       },
+    //       zoom: 1,
+    //       rotation: 0,
+    //       aspectRatio: aspectRatio,
+    //     },
+    //   },
+    // })
   }
 
   const handleFileSelected = (file) => {
     if (files.length === 0) {
-      editor.open(file.file, '')
+      editor.open(file.file)
     }
   }
 

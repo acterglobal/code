@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { Formik, Form } from 'formik'
 import { InputField } from 'src/components/user/auth/input-field'
 import { Button } from 'src/components/user/auth/button'
 import * as Yup from 'yup'
@@ -76,9 +76,9 @@ export const Signin: FC<SigninProps> = ({ providers, variant }) => {
   const [canSubmit, setCanSubmit] = useState(variant === SIGN_IN)
 
   const router = useRouter()
-  const {
-    query: { callbackUrl },
-  } = router
+  // const {
+  //   query: { callbackUrl },
+  // } = router
 
   return (
     <Box maxWidth="sm" className={classes.container}>
