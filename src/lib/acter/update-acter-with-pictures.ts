@@ -1,5 +1,5 @@
 import md5 from 'md5'
-import { pipeWith } from 'ramda'
+import { pipe, andThen } from 'ramda'
 import { pick } from 'lodash'
 import { uploadImage, FileDescription } from 'src/lib/images/upload-image'
 import { Acter } from '@schema'
@@ -30,10 +30,11 @@ export const initialValues = updateSet.reduce(
   {}
 )
 
-export const updateActerWithPictures = (
+export const updateActerWithPictures = async (
   acter: Acter,
+  formData: Partial<Acter>,
   updateActerFn: (data: ActerData) => Promise<any>
-) => async (formData: Partial<Acter>): Promise<any> => {
+): Promise<any> => {
   const variables = {
     // Start with blanks fromt he update set
     ...initialValues,
@@ -45,7 +46,7 @@ export const updateActerWithPictures = (
     acterId: acter.id,
   }
 
-  return await pipeWith(_updatePictures, updateActerFn)({ variables })
+  return await pipe(_updatePictures, andThen(updateActerFn))({ variables })
 }
 
 /**

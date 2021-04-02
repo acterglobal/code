@@ -10,7 +10,7 @@ import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
-import { upsertActerWithPictures } from 'src/lib/acter/upsert-acter-with-pictures'
+import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
 import {
   getUserProfile,
@@ -29,6 +29,8 @@ import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
 import { ACTIVITY } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { upsertActivity } from 'src/lib/activity/upsert-activity'
+
+export const _handleSubmit = (updateFn: (any) => any) => async (data) => {}
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -78,8 +80,10 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       onError: (err) => {
         enqueueSnackbar(err.message, { variant: 'error' })
       },
-      onCompleted: () => {
-        enqueueSnackbar('Profile updated', { variant: 'success' })
+      onCompleted: (data) => {
+        enqueueSnackbar(`${data.updateActer.name} updated`, {
+          variant: 'success',
+        })
         router.push(acterAsUrl(acter))
       },
     }
@@ -91,7 +95,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
         enqueueSnackbar(err.message, { variant: 'error' })
       },
       onCompleted: () => {
-        enqueueSnackbar('Event updated', { variant: 'success' })
+        enqueueSnackbar('Activity updated', { variant: 'success' })
         router.push(acterAsUrl(acter))
       },
     }
@@ -105,6 +109,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       Form = ActivityForm
       updateFn = async (data): Promise<Acter> => {
         try {
+          debugger
           const res = await upsertActivity(updateActivity, data)
           return res.data.updateActivity.Acter
         } catch (err) {
@@ -115,7 +120,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     default:
       updateFn = async (data): Promise<Acter> => {
         try {
-          const res = await updateActer(data)
+          const res = await updateActerWithPictures(acter, data)
           return res.data.createActer
         } catch (err) {
           return {} as Acter
@@ -134,7 +139,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={upsertActerWithPictures(acter, updateFn)}
+          onSubmit={updateActerWithPictures(acter, updateFn)}
           loading={updateActerLoading || updateActivityLoading}
         />
       </main>

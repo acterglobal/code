@@ -17,8 +17,8 @@ export type ActivityDataVariables = Omit<Partial<Activity>, 'isOnline'> & {
 type DateTimeType = 'start' | 'end'
 
 export const upsertActivity = async (
-  mutationFn: (ActivityData) => Promise<any>,
-  data: ActivityData
+  data: ActivityData,
+  mutationFn: (ActivityData) => Promise<any>
 ): Promise<any> => {
   return await pipe(
     _setStartAndEndTime,

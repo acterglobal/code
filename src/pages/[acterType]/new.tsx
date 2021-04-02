@@ -6,7 +6,6 @@ import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { saveActerImages } from 'src/lib/acter/save-images'
 import { upsertActivity } from 'src/lib/activity/upsert-activity'
 
 import { Layout } from 'src/components/layout'
@@ -22,6 +21,7 @@ import {
   getActivityTypes,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
 import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
@@ -40,7 +40,7 @@ export const _handleSubmit = (
   updateActerFn: (any) => any,
   acterType: ActerType
 ) => async (data) => {
-  // Create the acter
+  // Create the acter so we know we have a good id & slug
   const acter: Acter = await createActerFn({
     variables: {
       ...data,
@@ -48,19 +48,8 @@ export const _handleSubmit = (
     },
   })
 
-  // Upload images
-  await saveActerImages(acter, data)
-
-  // Update Acter with image URLs
-  return await updateActerFn({
-    variables: {
-      ...acter,
-      acterId: acter.id,
-      interestIds: data.interestIds,
-      avatarUrl: acter.avatarUrl || '',
-      bannerUrl: acter.bannerUrl || '',
-    },
-  })
+  // Now update it so we get the avatar and banner URLs
+  return await updateActerWithPictures(acter, data, updateActerFn)
 }
 
 /**
@@ -116,7 +105,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       Form = ActivityForm
       createFn = async (data): Promise<Acter> => {
         try {
-          const res = await upsertActivity(createActivity, data)
+          const res = await upsertActivity(data, createActivity)
           return res.data.createActivity.Acter
         } catch (err) {
           return {} as Acter
