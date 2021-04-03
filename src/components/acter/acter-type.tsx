@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface ActerTypeProps {
   acterType: string
-  onClick: (acterType: string) => any
+  onClick: (acterType: string) => void
 }
 
 export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {

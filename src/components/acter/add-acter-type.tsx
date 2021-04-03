@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface AddActerTypeProps {
-  onClick: (acterType: string) => any
+  onClick: (acterType: string) => void
 }
 
 export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {

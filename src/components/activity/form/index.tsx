@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import React, { FC, useState } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
@@ -98,7 +100,7 @@ export interface ActivityFormProps {
    * InterestTypes with Interests
    */
   interestTypes: InterestType[]
-  onSubmit: (any) => any
+  onSubmit: (arg: any) => any
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({

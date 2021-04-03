@@ -13,11 +13,11 @@ export interface ActerDeleteConfirmDialogProps {
   /**
    * Callback for Cancel button click
    */
-  onCancel: (any?) => any
+  onCancel: (any?) => void
   /**
    * Callback for Delete button click
    */
-  onSubmit: (any?) => any
+  onSubmit: (any?) => void
 }
 
 export const ActerDeleteConfirmDialog: FC<ActerDeleteConfirmDialogProps> = ({
