@@ -3,8 +3,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { interestTypeMap } from 'src/lib/interests/mapInterestTypes'
-import { FormSetFieldValue } from 'src/components/acter/form'
+import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
+import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 import { InterestType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface InterestsAddSectionProps {
   interestTypes: InterestType[]
-  initialValues?: string[]
+  initialValues?: FormValues
   setFieldValue: FormSetFieldValue
 }
 
@@ -36,21 +36,17 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
 
   const topLevelTypes = getTopLevelTypes(interestTypes)
 
-  const getSelectedTypes = (): string[] => {
-    const types = selectedInterests.map(
-      (interestId) => interestTypeMap(interestTypes)[interestId]
-    )
-    return types
-  }
+  const types = getSelectedInterests(interestTypes, selectedInterests)
 
   useEffect(() => {
-    setSelectedTypes(getSelectedTypes())
+    setSelectedTypes(types)
   }, [])
 
   useEffect(() => {
     setFieldValue('interestIds', selectedInterests)
   }, [selectedInterests])
 
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const handleChange = (event: ChangeEvent<any>, newValue: number) => {
     setValue(newValue)
   }

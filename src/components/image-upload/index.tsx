@@ -184,7 +184,6 @@ export const ImageUpload: FC<ImageUploadProps> = ({
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
         credits={false}
-        //@ts-ignore
         files={files}
         server={serverConfig}
       />
