@@ -60,8 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface ProfileEditProps {
   user: User
   interestTypes: InterestType[]
-  onSubmit: (any) => any
   loading: boolean
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  onSubmit: (any) => any
 }
 
 export const ProfileEdit: FC<ProfileEditProps> = ({

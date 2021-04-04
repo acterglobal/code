@@ -100,7 +100,7 @@ export interface ActivityFormProps {
    * InterestTypes with Interests
    */
   interestTypes: InterestType[]
-  onSubmit: (arg: any) => any
+  onSubmit: (any) => any
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({

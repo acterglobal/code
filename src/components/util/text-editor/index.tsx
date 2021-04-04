@@ -41,9 +41,9 @@ interface widthHeightType {
   height: number
 }
 export interface TextEditorProps extends widthHeightType {
-  initialValue: any
-  handleInputChange: (data: any) => void
-  handleFocus: (ref: any) => void
+  initialValue: string
+  handleInputChange: (data: string) => void
+  handleFocus: (ref) => void
 }
 
 export const TextEditor: FC<TextEditorProps> = (props) => {

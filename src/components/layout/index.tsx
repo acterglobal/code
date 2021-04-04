@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface LayoutProps {
   user?: User
-  children: any
+  children: React.ReactNode
 }
 
 export const Layout: FC<LayoutProps> = ({ user, children }) => {
