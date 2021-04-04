@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import React from 'react'
+import React, { FC } from 'react'
 import { Button } from '@material-ui/core'
 
 export interface SignInButtonProps
@@ -10,7 +10,7 @@ export interface SignInButtonProps
   onClick: () => void
 }
 
-export const SignInButton = ({ onClick }: SignInButtonProps) => (
+export const SignInButton: FC = ({ onClick }: SignInButtonProps) => (
   <Button color="inherit" onClick={() => onClick()} aria-label="signin-button">
     Sign in
   </Button>
