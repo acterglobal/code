@@ -1,3 +1,5 @@
+// TODO: FIX types
+/* eslint-disable */
 import { Resolver, Query, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
