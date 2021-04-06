@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
-import { Button, Box, makeStyles, Theme } from '@material-ui/core'
+import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
@@ -11,49 +11,51 @@ import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
-
+import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 // import * as Yup from 'yup'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    minWidth: 500,
-    minHeight: 500,
-    border: '1px solid gray',
-    padding: 50,
-  },
-  fields: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  controls: {
-    // flexShrink: 0,
-  },
-  btnsContainer: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-  },
-  button: {
-    borderRadius: theme.spacing(1),
-    textTransform: 'none',
-    width: '100%',
-  },
-  statusBars: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    marginBottom: 50,
-  },
-  bar: {
-    height: 8,
-    backgroundColor: grey[200],
-    borderRadius: 10,
-    margin: 5,
-    minWidth: 130,
-  },
-  active: {
-    backgroundColor: green[500],
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      minWidth: 500,
+      minHeight: 500,
+      border: '1px solid gray',
+      padding: 50,
+    },
+    fields: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    controls: {
+      // flexShrink: 0,
+    },
+    btnsContainer: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
+    },
+    button: {
+      borderRadius: theme.spacing(1),
+      textTransform: 'none',
+      width: '100%',
+    },
+    statusBars: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      marginBottom: 50,
+    },
+    bar: {
+      height: 8,
+      backgroundColor: grey[200],
+      borderRadius: 10,
+      margin: 5,
+      minWidth: 130,
+    },
+    active: {
+      backgroundColor: green[500],
+    },
+  })
+)
 
 const steps = [Step1, Step2, Step3]
 const getStepContent = (
@@ -61,8 +63,8 @@ const getStepContent = (
   step: number,
   user: User,
   interestTypes: InterestType[],
-  setFieldValue: any,
-  values: any
+  setFieldValue: FormSetFieldValue,
+  values: FormValues
 ) => {
   const organisers = flattenFollowing(user.Acter)
   const selectedInterests =
@@ -83,10 +85,6 @@ const getStepContent = (
   }
 }
 
-export interface FormikSetFieldType {
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
-}
-
 export interface ActivityFormProps {
   /**
    * The ActivityType Acter for this
@@ -103,7 +101,6 @@ export interface ActivityFormProps {
   onSubmit: (any) => any
 }
 
-// TODO: Add typing
 export const ActivityForm: FC<ActivityFormProps> = ({
   acter,
   user,
@@ -158,10 +155,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   }
 
   // TODO: Add validation
-  // const validationSchema = Yup.object().shape({
-  //   name: Yup.string().required('Please enter activity name'),
-  //   startDate: Yup.date().required('Please enter start date'),
-  // })
 
   const handleModalClose = () => router.back()
 

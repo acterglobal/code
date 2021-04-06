@@ -1,22 +1,31 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { InputLabel, Box } from '@material-ui/core'
 import { TextEditor } from 'src/components/util/text-editor'
+import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 
 import * as Yup from 'yup'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  textinput: {
-    width: '90%',
-    fontSize: '0.5rem',
-    marginBottom: 20,
-    color: theme.palette.secondary.light,
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    textinput: {
+      width: '90%',
+      fontSize: '0.5rem',
+      marginBottom: 20,
+      color: theme.palette.secondary.light,
+    },
+  })
+)
 
-export const BasicInformation = ({ setFieldValue, values }) => {
+export interface BasicInformationProps {
+  setFieldValue: FormSetFieldValue
+  values: FormValues
+}
+
+export const BasicInformation: FC<BasicInformationProps> = (props) => {
+  const { setFieldValue, values } = props
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
 
@@ -57,16 +66,3 @@ export const BasicInformation = ({ setFieldValue, values }) => {
     </>
   )
 }
-
-// TODO: refacter below and add types to this component
-BasicInformation.label = 'Basic Information'
-BasicInformation.initialValues = {
-  name: '',
-  description: '',
-  location: '',
-  url: '',
-}
-BasicInformation.validationSchema = Yup.object().shape({
-  name: Yup.string().required('Please enter the name'),
-  location: Yup.string().required('Please enter locaiton'),
-})

@@ -1,28 +1,34 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import React, { FC, useState, useEffect, ChangeEvent } from 'react'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { interestTypeMap } from 'src/lib/interests/mapInterestTypes'
+import { FormSetFieldValue } from 'src/components/acter/form'
+import { InterestType } from '@schema'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    // width: 600,
-  },
-  tabs: {
-    marginBottom: theme.spacing(1),
-  },
-  interests: {
-    overflowY: 'scroll',
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      // width: 600,
+    },
+    tabs: {
+      marginBottom: theme.spacing(1),
+    },
+    interests: {
+      overflowY: 'scroll',
+    },
+  })
+)
 
-//  TODO: Add typing
-export const InterestsAddSection = ({
-  interestTypes,
-  initialValues = [],
-  setFieldValue,
-}) => {
+export interface InterestsAddSectionProps {
+  interestTypes: InterestType[]
+  initialValues?: string[]
+  setFieldValue: FormSetFieldValue
+}
+
+export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
+  const { interestTypes, initialValues = [], setFieldValue } = props
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [selectedInterests, setSelectedInterests] = useState(initialValues)
@@ -111,6 +117,3 @@ export const InterestsAddSection = ({
     </div>
   )
 }
-
-InterestsAddSection.label = 'Add Interests'
-InterestsAddSection.initialValues = { interestIds: [] }

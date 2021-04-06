@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ImageUpload } from 'src/components/image-upload'
+import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 
-// TODO : ADD types to this component
-export const ImageUploadSection = ({ initialValues, setFieldValue }) => {
+export interface ImageUploadProps {
+  initialValues: FormValues
+  setFieldValue: FormSetFieldValue
+}
+
+export const ImageUploadSection: FC<ImageUploadProps> = (props) => {
+  const { initialValues, setFieldValue } = props
   return (
     <div style={{ display: 'flex' }}>
       <ImageUpload
@@ -18,10 +24,4 @@ export const ImageUploadSection = ({ initialValues, setFieldValue }) => {
       />
     </div>
   )
-}
-
-ImageUploadSection.label = 'Upload Images'
-ImageUploadSection.initialValues = {
-  AvatarImage: null,
-  BannerImage: null,
 }
