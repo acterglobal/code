@@ -15,7 +15,8 @@ const LoginPage: NextPage<any> = ({ providers }) => {
     </Layout>
   )
 }
-
+// TODO: FIX types below
+// eslint-disable-next-line
 export const getServerSideProps = async () => {
   const authProviders = await providers()
   return {

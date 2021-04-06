@@ -1,17 +1,22 @@
 import aws from 'aws-sdk'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { getTokenUser } from 'src/lib/next-auth/jwt'
 import { initSentry } from 'src/lib/sentry'
 
 initSentry()
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> {
   const tokenUser = await getTokenUser(req)
   if (!tokenUser) {
-    return res.status(401).send()
+    return res.status(401).send(null)
   }
 
   if (!req.query.contentType || !req.query.fileName) {
-    return res.status(400).send()
+    return res.status(400).send(null)
   }
 
   // const spacesEndpoint = new aws.Endpoint(process.env.S3_URI)

@@ -1,3 +1,5 @@
+// TODO: fix the types for this file
+/* eslint-disable */
 import React from 'react'
 import { NextPage } from 'next'
 import { providers } from 'next-auth/client'

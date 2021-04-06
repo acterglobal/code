@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { acterTheme } from 'src/themes/acter-theme'
 
 export default class ActerDocument extends Document {
-  render() {
+  render(): ReactElement {
     return (
       <Html lang="en">
         <Head>
