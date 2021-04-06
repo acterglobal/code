@@ -1,5 +1,6 @@
 import { InterestType } from '@schema'
 
+// eslint-disable-next-line
 export const interestTypeMap = (allInterests: InterestType[]) => {
   return allInterests.reduce((map, type) => {
     return {

@@ -16,7 +16,6 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
-
 interface UserProfilePageProps {
   loading?: boolean
   error?: string

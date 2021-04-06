@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-
+import { FC } from 'react'
 import { AppProps } from 'next/app'
 
 import { Provider as NextAuthProvider } from 'next-auth/client'
@@ -18,7 +18,7 @@ type ActerAppProps = AppProps & { err: any }
 
 initSentry()
 
-const ActerApp = ({ Component, pageProps, err }: ActerAppProps) => {
+const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const apolloClient = useApollo({
     graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     pageProps,
