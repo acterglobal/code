@@ -1,6 +1,4 @@
 import { NextPage, GetServerSideProps } from 'next'
-// import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-// import { getUserProfile } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
 import { Layout } from 'src/components/layout'
@@ -26,8 +24,6 @@ const Home: NextPage<HomeProps> = ({ user }) => (
   </Layout>
 )
 
-// export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-//   composeProps(ctx, getUserProfile(false))
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {},

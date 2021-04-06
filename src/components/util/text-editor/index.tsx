@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -11,28 +11,30 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const useStyles = makeStyles({
-  wrapper: {
-    border: '1px solid',
-    borderColor: grey[400],
-    borderRadius: 4,
-    width: (size: widthHeightType) => size.width,
-    minHeight: (size: widthHeightType) => size.height,
-  },
-  toolBar: {
-    backgroundColor: grey[200],
-    marginBottom: 0,
-  },
-  editor: {
-    lineHeight: '1.2rem',
-    padding: 0,
-    marginTop: -10,
-  },
-  inlineTools: {},
-  listStyle: {
-    lineHeight: '0.2rem',
-  },
-})
+const useStyles = makeStyles(
+  createStyles({
+    wrapper: {
+      border: '1px solid',
+      borderColor: grey[400],
+      borderRadius: 4,
+      width: (size: widthHeightType) => size.width,
+      minHeight: (size: widthHeightType) => size.height,
+    },
+    toolBar: {
+      backgroundColor: grey[200],
+      marginBottom: 0,
+    },
+    editor: {
+      lineHeight: '1.2rem',
+      padding: 0,
+      marginTop: -10,
+    },
+    inlineTools: {},
+    listStyle: {
+      lineHeight: '0.2rem',
+    },
+  })
+)
 
 interface widthHeightType {
   width: number

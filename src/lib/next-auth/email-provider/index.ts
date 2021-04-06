@@ -2,14 +2,9 @@ import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import logger from './logger'
 
-// interface GenericReturnConfig {
-//   [key: string]: any
-// }
-
-/**
- * Email
- */
-// type Email = (options: ProviderEmailOptions) => GenericReturnConfig
+interface GenericReturnConfig {
+  [key: string]: any
+}
 
 interface VerificationRequestParams {
   identifier: string
@@ -52,7 +47,7 @@ interface EmailSenderProps extends SenderProps {
   email: string
 }
 
-export default (options: ProviderEmailOptions) => {
+export default (options: ProviderEmailOptions): GenericReturnConfig => {
   const serverObj = typeof options.server === 'object' ? options.server : {}
   return {
     id: 'email',
