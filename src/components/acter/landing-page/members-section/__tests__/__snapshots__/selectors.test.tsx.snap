@@ -3,14 +3,14 @@
 exports[`<Selectors> should should highlight the selected tab 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root MuiBox-root-18 makeStyles-container-11"
+    class="MuiBox-root MuiBox-root-17 makeStyles-container-10"
   >
     <div
-      class="MuiBox-root MuiBox-root-19"
+      class="MuiBox-root MuiBox-root-18"
       role="tablist"
     >
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-12 makeStyles-active-13 MuiButton-disableElevation"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-11 makeStyles-active-12 MuiButton-disableElevation"
         role="tab"
         tabindex="0"
         type="button"
@@ -25,7 +25,7 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         />
       </button>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-12 MuiButton-disableElevation"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-11 MuiButton-disableElevation"
         role="tab"
         tabindex="0"
         type="button"
@@ -40,9 +40,6 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         />
       </button>
     </div>
-    <div
-      class="MuiBox-root MuiBox-root-20 makeStyles-searchSection-14"
-    />
   </div>
 </DocumentFragment>
 `;

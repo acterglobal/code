@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
   },
   button: {
     height: 25,
-    width: 140,
+    minWidth: 120,
     borderRadius: theme.spacing(3),
     marginRight: theme.spacing(1),
     color: grey[600],
@@ -121,8 +122,8 @@ export const Selectors: FC<SelectorProps> = ({
         ))}
       </Box>
 
-      <Box className={classes.searchSection}>
-        {/* <Button
+      {/* <Box className={classes.searchSection}>
+        <Button
           className={clsx(
             classes.button,
             activeSelector === 'focus' && classes.active
@@ -154,8 +155,8 @@ export const Selectors: FC<SelectorProps> = ({
               ))}
             </ul>
           ) : null}
-        </Box> */}
-      </Box>
+        </Box>
+      </Box> */}
     </Box>
   )
 }

@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import {
   Box,
+  Hidden,
   IconButton,
   Typography,
   createStyles,
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '80px',
       alignItems: 'flex-end',
       paddingBottom: theme.spacing(3),
+      [theme.breakpoints.down('xs')]: {
+        alignItems: 'center',
+        paddingBottom: theme.spacing(1),
+      },
     },
     avatarImage: {
       borderRadius: theme.spacing(2),
@@ -38,7 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'cover',
       overflow: 'hidden',
       zIndex: 99,
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
+        marginLeft: theme.spacing(1),
         width: 60,
         height: 60,
       },
@@ -47,12 +53,21 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       marginLeft: theme.spacing(2),
       flexGrow: 2,
+      [theme.breakpoints.down('xs')]: {
+        marginLeft: theme.spacing(1),
+      },
     },
     title: {
       fontWeight: 'bold',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '0.9rem',
+      },
     },
     location: {
       color: theme.palette.secondary.dark,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '0.7rem',
+      },
     },
     buttonContainer: {
       display: 'flex',
@@ -71,18 +86,10 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 }) => {
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('sm')
+    theme.breakpoints.down('xs')
   )
 
   const avatarDims = smallScreen ? 65 : 140
-
-  /* load default images if doesn't have avatar and banner does not exist */
-  if (!acter.avatarUrl) {
-    acter.avatarUrl = 'assets/default-avatar.png'
-  }
-  if (!acter.bannerUrl) {
-    acter.bannerUrl = 'assets/default-banner.jpeg'
-  }
 
   return (
     <Box className={classes.bannerSection}>
@@ -121,25 +128,30 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
               {acter.location}
             </Typography>
           </Box>
-          <Box>
-            {acter.createdByUserId === user?.id && (
-              <>
-                <Link href={`${acterAsUrl(acter)}/edit`}>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                </Link>
-                <Link href={`${acterAsUrl(acter)}/delete`}>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </Link>
-              </>
-            )}
-          </Box>
+
+          <Hidden xsDown>
+            <Box>
+              {acter.createdByUserId === user?.id && (
+                <>
+                  <Link href={`${acterAsUrl(acter)}/edit`}>
+                    <IconButton>
+                      <EditIcon />
+                    </IconButton>
+                  </Link>
+                  <Link href={`${acterAsUrl(acter)}/delete`}>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Link>
+                </>
+              )}
+            </Box>
+          </Hidden>
         </Box>
         <Box className={classes.buttonContainer}>
-          <AddActivityButton acter={acter} user={user} />
+          <Hidden xsDown>
+            <AddActivityButton acter={acter} user={user} />
+          </Hidden>
           <Connect
             acter={acter}
             user={user}
