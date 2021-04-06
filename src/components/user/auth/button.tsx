@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Button as MuiButton } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) => ({

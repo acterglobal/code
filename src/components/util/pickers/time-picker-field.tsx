@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
 import { KeyboardTimePicker } from 'formik-material-ui-pickers'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { grey } from '@material-ui/core/colors'
 import { AccessTime } from '@material-ui/icons'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   timepicker: {
     color: grey[700],
   },
-}))
+})
 
 export interface TimePickerProps {
   label?: string

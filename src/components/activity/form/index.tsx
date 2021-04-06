@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
-import { Button, Box, Grid, makeStyles, Theme } from '@material-ui/core'
+import { Button, Box, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
@@ -12,7 +12,7 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
 
-import * as Yup from 'yup'
+// import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

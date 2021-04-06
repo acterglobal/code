@@ -24,9 +24,7 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
 
   const canCreateActivity = userIsFollower(acter, user)
 
-  if (!canCreateActivity) {
-    return null
-  }
+  if (!canCreateActivity) return null
 
   return (
     <StyledContainer>
@@ -37,7 +35,7 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
   )
 }
 
-const StyledContainer = withStyles((theme: Theme) =>
+const StyledContainer = withStyles(
   createStyles({
     root: {
       display: 'flex',

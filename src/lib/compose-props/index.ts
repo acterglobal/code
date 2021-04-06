@@ -1,8 +1,4 @@
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import merge from 'deepmerge'
 import { ParsedUrlQuery } from 'querystring'
 

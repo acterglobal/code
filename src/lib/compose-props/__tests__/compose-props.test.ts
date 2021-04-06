@@ -1,4 +1,3 @@
-import { GetServerSidePropsContext } from 'next'
 import {
   composeProps,
   ComposedGetServerSidePropsContext,
@@ -33,7 +32,7 @@ describe('composeProps', () => {
 
     const ctx: ComposedGetServerSidePropsContext = ({} as unknown) as ComposedGetServerSidePropsContext
 
-    const props = await composeProps(ctx, a, b, c)
+    await composeProps(ctx, a, b, c)
 
     expect(ctx.props).toEqual({
       a: 'a',

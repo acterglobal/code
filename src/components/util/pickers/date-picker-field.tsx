@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 import { KeyboardDatePicker } from 'formik-material-ui-pickers'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { grey } from '@material-ui/core/colors'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   datepicker: {
     color: grey[700],
   },
-}))
+})
 
 export interface DatePickerProps {
   label?: string

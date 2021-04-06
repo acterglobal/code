@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Meta, Story } from '@storybook/react'
 import { v4 } from 'uuid'
 import { ActivitiesList, ActivityListProps } from 'src/components/activity/list'

@@ -8,7 +8,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 // } from '@material-ui/icons'
 // import { useAutocomplete } from '@material-ui/lab'
 import clsx from 'clsx'
-import { MembersSectionProps } from 'src/components/acter/landing-page/members-section'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

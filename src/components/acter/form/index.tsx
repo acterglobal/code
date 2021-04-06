@@ -8,7 +8,6 @@ import { ImageUploadSection } from 'src/components/acter/form/image-upload-secti
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
-import { initialValues } from 'src/lib/acter/handle-update-acter'
 import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) => ({

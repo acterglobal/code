@@ -4,7 +4,7 @@ import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import { User } from '@schema'
 @Resolver(User)
 export class UserResolver {
-  @Query((returns) => User)
+  @Query(() => User)
   async user(@Ctx() ctx: ActerGraphQLContext, @Arg('email') email: string) {
     return ctx.prisma.user.findUnique({
       where: { email },

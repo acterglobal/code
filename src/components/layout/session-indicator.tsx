@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { signIn, signOut } from 'next-auth/client'
 
 import { Link as MuiLink, MenuItem, Typography } from '@material-ui/core'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ProfileButton } from 'src/components/user/profile-button'

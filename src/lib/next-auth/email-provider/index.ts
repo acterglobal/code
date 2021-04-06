@@ -6,11 +6,6 @@ interface GenericReturnConfig {
   [key: string]: any
 }
 
-/**
- * Email
- */
-type Email = (options: ProviderEmailOptions) => GenericReturnConfig
-
 interface VerificationRequestParams {
   identifier: string
   url: string
@@ -52,7 +47,7 @@ interface EmailSenderProps extends SenderProps {
   email: string
 }
 
-export default (options: ProviderEmailOptions) => {
+export default (options: ProviderEmailOptions): GenericReturnConfig => {
   const serverObj = typeof options.server === 'object' ? options.server : {}
   return {
     id: 'email',

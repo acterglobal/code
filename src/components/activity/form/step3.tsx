@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { Box, InputLabel } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
 import { FormikSetFieldType } from 'src/components/activity/form'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.9rem',
     fontWeight: 'bold',
   },
-}))
+})
 
 export interface Step3Props {
   interestTypes: InterestType[]

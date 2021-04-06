@@ -1,12 +1,9 @@
-import React, { FC, useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Tabs, Tab, Grid, Box } from '@material-ui/core'
+import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { interestTypeMap } from 'src/lib/interests/mapInterestTypes'
-import { FormikSetFieldType } from 'src/components/acter/form'
-
-import { Interest, InterestType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

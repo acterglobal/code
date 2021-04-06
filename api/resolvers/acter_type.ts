@@ -5,7 +5,7 @@ import { ActerType } from '@schema'
 
 @Resolver(ActerType)
 export class ActerTypeResolver {
-  @Query((returns) => [ActerType])
+  @Query(() => [ActerType])
   async acterTypes(@Ctx() ctx: ActerGraphQLContext) {
     return ctx.prisma.acterType.findMany()
   }

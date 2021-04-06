@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import pluralize from 'pluralize'
-import { Box, Divider, Grid, Hidden, Typography } from '@material-ui/core'
+import { Box, Divider, Grid, Typography } from '@material-ui/core'
 
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
@@ -60,7 +60,7 @@ const StyledBox = withStyles((theme: Theme) =>
       borderColor: grey[400],
       backgroundColor: grey[200],
       display: 'flex',
-      marginBottom: 10,
+      marginBottom: theme.spacing(1.2),
       cursor: 'pointer',
     },
   })
@@ -71,7 +71,7 @@ const StyledDevider = withStyles((theme: Theme) =>
     root: {
       height: 1,
       backgroundColor: grey[800],
-      marginBottom: 20,
+      marginBottom: theme.spacing(2.5),
     },
   })
 )(Divider)
@@ -92,9 +92,6 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
     prev[acter.ActerType.name] = [...(prev[acter.ActerType.name] || []), acter]
     return prev
   }, {} as ActersByType)
-
-  const tasks = []
-  const activities = []
 
   return (
     <Grid container>

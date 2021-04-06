@@ -17,10 +17,6 @@ import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
-type WithInterestIds = {
-  interestIds: string[]
-}
-
 export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) =>
   handleUpdateActer(user.Acter, updateFn)
 interface UserProfilePageProps {
