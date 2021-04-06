@@ -17,8 +17,6 @@ import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
-export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) =>
-  handleUpdateActer(user.Acter, updateFn)
 interface UserProfilePageProps {
   loading?: boolean
   error?: string
@@ -44,7 +42,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
         <ProfileEdit
           user={user}
           interestTypes={interestTypes}
-          onSubmit={_handleSubmit(user, updateUser)}
+          onSubmit={handleUpdateActer(user.Acter, updateUser)}
           loading={loading}
         />
       </main>
