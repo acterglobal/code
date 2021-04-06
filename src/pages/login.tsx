@@ -6,6 +6,7 @@ import { Head } from 'src/components/layout/head'
 
 import { Signin } from 'src/components/user/auth/signin'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LoginPage: NextPage<any> = ({ providers }) => {
   return (
     <Layout>
