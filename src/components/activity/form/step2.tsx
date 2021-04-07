@@ -1,48 +1,50 @@
 import React, { FC, useState } from 'react'
 import { Box, InputLabel, Typography } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { grey } from '@material-ui/core/colors'
 import { ImageUpload } from 'src/components/image-upload'
-import { FormikSetFieldType } from 'src/components/activity/form'
+import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 import { TextEditor } from 'src/components/util/text-editor'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {},
-  descriptionSection: {
-    marginBottom: 20,
-  },
-  label: {
-    color: grey[700],
-    marginBottom: 10,
-    fontSize: '0.9rem',
-    fontWeight: 'bold',
-  },
-  textinput: {
-    fontSize: '0.5rem',
-    // marginBottom: 15,
-    color: theme.palette.secondary.light,
-    width: '100%',
-  },
-  textEditor: {
-    border: '1px solid black',
-    backgroundColor: 'red',
-  },
-  locationLabelSection: {
-    display: 'flex',
-    marginBottom: 10,
-  },
-  locationLabel: {
-    color: grey[800],
-    fontSize: '0.9rem',
-    marginRight: 20,
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {},
+    descriptionSection: {
+      marginBottom: 20,
+    },
+    label: {
+      color: grey[700],
+      marginBottom: 10,
+      fontSize: '0.9rem',
+      fontWeight: 'bold',
+    },
+    textinput: {
+      fontSize: '0.5rem',
+      // marginBottom: 15,
+      color: theme.palette.secondary.light,
+      width: '100%',
+    },
+    textEditor: {
+      border: '1px solid black',
+      backgroundColor: 'red',
+    },
+    locationLabelSection: {
+      display: 'flex',
+      marginBottom: 10,
+    },
+    locationLabel: {
+      color: grey[800],
+      fontSize: '0.9rem',
+      marginRight: 20,
+    },
+  })
+)
 
 export interface Step2Props {
-  values: any
-  setFieldValue: FormikSetFieldType
+  values: FormValues
+  setFieldValue: FormSetFieldValue
 }
 
 export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {

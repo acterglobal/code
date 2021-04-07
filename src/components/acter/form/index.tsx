@@ -1,7 +1,9 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Box, Step, StepLabel, Stepper } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Modal } from 'src/components/util/modal'
 import { BasicInformation } from 'src/components/acter/form/basic-info'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
@@ -10,49 +12,53 @@ import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { useRouter } from 'next/router'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    width: 650,
-    minHeight: 600,
-    border: '1px solid gray',
-    padding: 20,
-    paddingBottom: 0,
-    [theme.breakpoints.down('xs')]: {
-      width: 300,
-      height: 'auto',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      width: 650,
+      minHeight: 600,
+      border: '1px solid gray',
+      padding: 20,
+      paddingBottom: 0,
+      [theme.breakpoints.down('xs')]: {
+        width: 300,
+        height: 'auto',
+      },
     },
-  },
-  fields: {
-    width: '100%',
-    height: 400,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    overflowY: 'scroll',
-  },
-}))
+    fields: {
+      width: '100%',
+      height: 400,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      overflowY: 'scroll',
+    },
+  })
+)
 
+const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
+
 const getStepContent = (
   step: number,
   interestTypes: InterestType[],
-  setFieldValue: any,
+  setFieldValue: FormSetFieldValue,
   acter: Partial<Acter>,
-  values: any
+  values: FormValues
 ) => {
   const selectedInterests =
     acter.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
-    case 0:
-      return <BasicInformation values={values} setFieldValue={setFieldValue} />
     case 1:
+      return <BasicInformation values={values} setFieldValue={setFieldValue} />
+    case 2:
       return (
         <ImageUploadSection
           setFieldValue={setFieldValue}
           initialValues={acter}
         />
       )
-    case 2:
+    case 3:
       return (
         <InterestsAddSection
           interestTypes={interestTypes}
@@ -63,9 +69,13 @@ const getStepContent = (
   }
 }
 
-export interface FormikSetFieldType {
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
-}
+export type FormValues = any
+
+export type FormSetFieldValue = (
+  field: string,
+  value: any,
+  shouldValidate?: boolean
+) => void
 
 export interface ActerFormProps {
   acter: Acter
@@ -83,11 +93,11 @@ export const ActerForm: FC<ActerFormProps> = ({
 }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [activeStep, setActiveStep] = useState(0)
-  const totalSteps = steps.length - 1
+  const [activeStep, setActiveStep] = useState(1)
+  const totalSteps = steps.length
 
   const isLastStep = () => activeStep === totalSteps
-  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
+  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 1))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
   const onStepSubmit = async (values, { setSubmitting }) => {
@@ -104,21 +114,18 @@ export const ActerForm: FC<ActerFormProps> = ({
     }
   }
 
-  const initialValues = steps.reduce(
-    (values, { initialValues }) => ({
-      ...values,
-      ...initialValues,
-      ...acter,
-    }),
-    {
-      acterTypeId: acterType.id,
-      selectedInterests: acter,
-    }
-  )
-
-  // TODO: Add validation
-  // const ActiveStep = steps[activeStep]
-  // const validationSchema = ActiveStep.validationSchema
+  const initialValues = {
+    acterTypeId: acterType.id,
+    selectedInterests: acter,
+    name: '',
+    description: '',
+    location: '',
+    url: '',
+    AvatarImage: null,
+    BannerImage: null,
+    interestIds: [],
+    ...acter,
+  }
 
   return (
     <Modal handleModalClose={() => router.back()}>
@@ -131,9 +138,9 @@ export const ActerForm: FC<ActerFormProps> = ({
           <Box className={classes.container}>
             <Form>
               <Stepper alternativeLabel activeStep={activeStep}>
-                {steps.map((step, index) => (
+                {stepLabels.map((label, index) => (
                   <Step key={index}>
-                    <StepLabel>{step.label}</StepLabel>
+                    <StepLabel>{label}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -152,7 +159,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                 <Button
                   variant="outlined"
                   color="primary"
-                  disabled={activeStep === 0 || isSubmitting}
+                  disabled={activeStep === 1 || isSubmitting}
                   onClick={handlePrev}
                 >
                   Back

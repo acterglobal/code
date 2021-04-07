@@ -1,29 +1,31 @@
 import React, { FC } from 'react'
 import { Box, InputLabel } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
-import { FormikSetFieldType } from 'src/components/activity/form'
+import { FormSetFieldValue } from 'src/components/acter/form'
 
-const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: 600,
-  },
-  label: {
-    color: grey[700],
-    marginBottom: 10,
-    fontSize: '0.9rem',
-    fontWeight: 'bold',
-  },
-})
+const useStyles = makeStyles(
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      maxWidth: 600,
+    },
+    label: {
+      color: grey[700],
+      marginBottom: 10,
+      fontSize: '0.9rem',
+      fontWeight: 'bold',
+    },
+  })
+)
 
 export interface Step3Props {
   interestTypes: InterestType[]
-  setFieldValue: FormikSetFieldType
+  setFieldValue: FormSetFieldValue
   initialValues: string[]
 }
 

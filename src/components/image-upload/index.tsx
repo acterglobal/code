@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginImageEdit from 'filepond-plugin-image-edit'
@@ -9,6 +9,7 @@ import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import axios from 'axios'
+import { FormSetFieldValue } from 'src/components/acter/form'
 
 registerPlugin(
   FilePondPluginImagePreview,
@@ -16,27 +17,29 @@ registerPlugin(
   FilePondPluginImageEdit
 )
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'relative',
-    margin: theme.spacing(1.2),
-  },
-  uploadContainer: {
-    minWidth: 230,
-    fontSize: '0.85rem',
-  },
-  button: {
-    color: 'white',
-    margin: 5,
-    height: 30,
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      margin: theme.spacing(1.2),
+    },
+    uploadContainer: {
+      minWidth: 230,
+      fontSize: '0.85rem',
+    },
+    button: {
+      color: 'white',
+      margin: 5,
+      height: 30,
+    },
+  })
+)
 
 export interface ImageUploadProps {
   imageType: string
-  setImageToFormField: any
+  setImageToFormField: FormSetFieldValue
   aspectRatio?: number
   fileUrl?: string
 }
