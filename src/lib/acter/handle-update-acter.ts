@@ -1,3 +1,5 @@
+// TODO: FIX types
+/* eslint-disable */
 import md5 from 'md5'
 import { pick } from 'lodash'
 import { uploadImage } from 'src/lib/images/upload-image'

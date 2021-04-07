@@ -66,6 +66,7 @@ const validationSchema = Yup.object({
 const SIGN_UP = 'signup'
 const SIGN_IN = 'signin'
 interface SigninProps {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   providers: any
   variant: typeof SIGN_UP | typeof SIGN_IN
 }

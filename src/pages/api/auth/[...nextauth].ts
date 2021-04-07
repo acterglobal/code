@@ -1,4 +1,5 @@
 import NextAuth, { InitOptions } from 'next-auth'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import Adapters from 'next-auth/adapters'
 import prisma from 'src/lib/prisma'
 import Email from 'src/lib/next-auth/email-provider'
@@ -80,4 +81,5 @@ const options: InitOptions = {
   jwt,
 }
 
-export default (req, res) => NextAuth(req, res, options)
+export default (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
+  NextAuth(req, res, options)

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'

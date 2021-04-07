@@ -13,6 +13,7 @@ import { ActerThemeProvider } from 'src/themes/acter-theme'
 
 import { SnackbarProvider } from 'notistack'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ActerAppProps = AppProps & { err: any }
 
 initSentry()

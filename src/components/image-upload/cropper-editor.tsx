@@ -54,16 +54,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
+type cropDataType = {
+  center: {
+    X: number
+    Y: number
+  }
+  cropAreaRatio: number
+  zoom: number
+}
+
 export interface ImageCropperProps {
-  image: any
-  aspectRatio: any
-  handleCrop: (cropData: any, imagefile: any) => void
+  image: string
+  aspectRatio: number
+  handleCrop: (cropData: cropDataType, imagefile: string) => void
 }
 
 export const ImageCropper: FC<ImageCropperProps> = (props) => {
   const { image, aspectRatio, handleCrop } = props
   const classes = useStyles()
-  const [cropper, setCropper] = useState<any>()
+  const [cropper, setCropper] = useState(null)
 
   const calculateCropData = () => {
     const cropData = cropper.getData()
@@ -110,7 +119,7 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
     >
       <Box className={classes.container}>
         <Cropper
-          src={image !== {} ? image : ''}
+          src={image || ''}
           className={classes.cropper}
           zoomable={true}
           movable={true}

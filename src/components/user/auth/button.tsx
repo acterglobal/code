@@ -24,6 +24,7 @@ export interface ButtonProps {
   label: string
   disabled?: boolean
   socailSignupType?: boolean
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   handleClick: (values: any) => Promise<void>
 }
 

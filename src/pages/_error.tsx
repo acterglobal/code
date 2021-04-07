@@ -3,6 +3,7 @@ import NextErrorComponent, { ErrorProps } from 'next/error'
 import * as Sentry from '@sentry/node'
 import { PHASE_PRODUCTION_SERVER } from 'next/constants'
 
+// eslint-disable-next-line
 export const ErrorWithSentry = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (process.env.NEXT_PUBLIC_SENTRY_DSN && !hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of

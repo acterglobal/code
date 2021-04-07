@@ -13,6 +13,7 @@ import {
 } from 'src/components/activity/form/select-organiser'
 import { grey } from '@material-ui/core/colors'
 import moment from 'moment'
+import { FormValues } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export interface Step1Props extends SelectOrganiserProps {
-  values: any
+  values: FormValues
 }
 
 export const Step1: FC<Step1Props> = ({ acters, values }) => {

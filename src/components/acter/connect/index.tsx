@@ -70,12 +70,14 @@ export interface ConnectProps {
   /**
    * Callback for when "Join" is pressed
    */
-  onJoin: (follower: Acter, acter: Acter) => Promise<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onJoin: (follower: Acter, acter: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**
    * Callback for when "Leave" is pressed
    */
-  onLeave: (follower: Acter, acter: Acter) => Promise<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onLeave: (follower: Acter, acter: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**
    * Whether an operation is in progress

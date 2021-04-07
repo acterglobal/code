@@ -84,7 +84,6 @@ export interface ActerFormProps {
   onSubmit: (any) => any
 }
 
-// TODO: Add typing
 export const ActerForm: FC<ActerFormProps> = ({
   acter,
   acterType,

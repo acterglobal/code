@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface ModalProps {
   children: React.ReactNode
   showCloseButton?: boolean
-  handleModalClose?: (any?) => any
+  handleModalClose?: (any?) => void
   disableBackdropClick?: boolean
 }
 
