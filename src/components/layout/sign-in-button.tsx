@@ -10,7 +10,7 @@ export interface SignInButtonProps
   onClick: () => void
 }
 
-export const SignInButton: FC = ({ onClick }: SignInButtonProps) => (
+export const SignInButton: FC<SignInButtonProps> = ({ onClick }) => (
   <Button color="inherit" onClick={() => onClick()} aria-label="signin-button">
     Sign in
   </Button>
