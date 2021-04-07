@@ -1,0 +1,12 @@
+export declare class ActivityMaxAggregate {
+    id: string | null;
+    startAt: Date | null;
+    endAt: Date | null;
+    isOnline: boolean | null;
+    isAllDay: boolean | null;
+    createdByUserId: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    acterId: string | null;
+    organiserId: string | null;
+}

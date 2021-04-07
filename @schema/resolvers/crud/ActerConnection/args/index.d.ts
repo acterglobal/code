@@ -1,0 +1,10 @@
+export { AggregateActerConnectionArgs } from "./AggregateActerConnectionArgs";
+export { CreateActerConnectionArgs } from "./CreateActerConnectionArgs";
+export { DeleteActerConnectionArgs } from "./DeleteActerConnectionArgs";
+export { DeleteManyActerConnectionArgs } from "./DeleteManyActerConnectionArgs";
+export { FindFirstActerConnectionArgs } from "./FindFirstActerConnectionArgs";
+export { FindManyActerConnectionArgs } from "./FindManyActerConnectionArgs";
+export { FindUniqueActerConnectionArgs } from "./FindUniqueActerConnectionArgs";
+export { UpdateActerConnectionArgs } from "./UpdateActerConnectionArgs";
+export { UpdateManyActerConnectionArgs } from "./UpdateManyActerConnectionArgs";
+export { UpsertActerConnectionArgs } from "./UpsertActerConnectionArgs";

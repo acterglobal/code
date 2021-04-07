@@ -1,0 +1,10 @@
+export { AggregateActerTypeRuleArgs } from "./AggregateActerTypeRuleArgs";
+export { CreateActerTypeRuleArgs } from "./CreateActerTypeRuleArgs";
+export { DeleteActerTypeRuleArgs } from "./DeleteActerTypeRuleArgs";
+export { DeleteManyActerTypeRuleArgs } from "./DeleteManyActerTypeRuleArgs";
+export { FindFirstActerTypeRuleArgs } from "./FindFirstActerTypeRuleArgs";
+export { FindManyActerTypeRuleArgs } from "./FindManyActerTypeRuleArgs";
+export { FindUniqueActerTypeRuleArgs } from "./FindUniqueActerTypeRuleArgs";
+export { UpdateActerTypeRuleArgs } from "./UpdateActerTypeRuleArgs";
+export { UpdateManyActerTypeRuleArgs } from "./UpdateManyActerTypeRuleArgs";
+export { UpsertActerTypeRuleArgs } from "./UpsertActerTypeRuleArgs";

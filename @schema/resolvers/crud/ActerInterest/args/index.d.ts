@@ -1,0 +1,10 @@
+export { AggregateActerInterestArgs } from "./AggregateActerInterestArgs";
+export { CreateActerInterestArgs } from "./CreateActerInterestArgs";
+export { DeleteActerInterestArgs } from "./DeleteActerInterestArgs";
+export { DeleteManyActerInterestArgs } from "./DeleteManyActerInterestArgs";
+export { FindFirstActerInterestArgs } from "./FindFirstActerInterestArgs";
+export { FindManyActerInterestArgs } from "./FindManyActerInterestArgs";
+export { FindUniqueActerInterestArgs } from "./FindUniqueActerInterestArgs";
+export { UpdateActerInterestArgs } from "./UpdateActerInterestArgs";
+export { UpdateManyActerInterestArgs } from "./UpdateManyActerInterestArgs";
+export { UpsertActerInterestArgs } from "./UpsertActerInterestArgs";

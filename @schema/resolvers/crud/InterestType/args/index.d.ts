@@ -1,0 +1,10 @@
+export { AggregateInterestTypeArgs } from "./AggregateInterestTypeArgs";
+export { CreateInterestTypeArgs } from "./CreateInterestTypeArgs";
+export { DeleteInterestTypeArgs } from "./DeleteInterestTypeArgs";
+export { DeleteManyInterestTypeArgs } from "./DeleteManyInterestTypeArgs";
+export { FindFirstInterestTypeArgs } from "./FindFirstInterestTypeArgs";
+export { FindManyInterestTypeArgs } from "./FindManyInterestTypeArgs";
+export { FindUniqueInterestTypeArgs } from "./FindUniqueInterestTypeArgs";
+export { UpdateInterestTypeArgs } from "./UpdateInterestTypeArgs";
+export { UpdateManyInterestTypeArgs } from "./UpdateManyInterestTypeArgs";
+export { UpsertInterestTypeArgs } from "./UpsertInterestTypeArgs";

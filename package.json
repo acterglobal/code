@@ -16,7 +16,6 @@
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
     "test:ci": "rm -rf .next out && jest",
     "cover": "rm -rf .next && jest --coverage",
-    "xpostinstall": "yarn generate",
     "husky-install": "husky install",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",

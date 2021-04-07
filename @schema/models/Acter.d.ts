@@ -1,0 +1,36 @@
+import { ActerConnection } from "../models/ActerConnection";
+import { ActerInterest } from "../models/ActerInterest";
+import { ActerType } from "../models/ActerType";
+import { Activity } from "../models/Activity";
+import { User } from "../models/User";
+export declare class Acter {
+    id: string;
+    acterTypeId: string;
+    name?: string | null;
+    slug?: string | null;
+    description?: string | null;
+    location?: string | null;
+    locationLat?: number | null;
+    locationLng?: number | null;
+    url?: string | null;
+    avatarUrl?: string | null;
+    bannerUrl?: string | null;
+    autoApproveFollowers: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    createdByUser?: User;
+    createdByUserId: string;
+    deletedAt?: Date | null;
+    deltedByUserId?: string | null;
+    DeletedByUser?: User | null;
+    ActerType?: ActerType;
+    Parent?: Acter | null;
+    Children?: Acter[];
+    parentActerId?: string | null;
+    Following?: ActerConnection[];
+    Followers?: ActerConnection[];
+    User?: User | null;
+    ActerInterests?: ActerInterest[];
+    Activity?: Activity | null;
+    ActivitiesOrganized?: Activity[];
+}

@@ -11,9 +11,6 @@
 !.yarn/versions
 .pnp.*
 
-# Prisma TypeGraphQL
-/@schema
-
 # testing
 /coverage
 

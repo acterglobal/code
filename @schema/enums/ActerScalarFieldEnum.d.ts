@@ -1,0 +1,20 @@
+export declare enum ActerScalarFieldEnum {
+    id = "id",
+    acterTypeId = "acterTypeId",
+    name = "name",
+    slug = "slug",
+    description = "description",
+    location = "location",
+    locationLat = "locationLat",
+    locationLng = "locationLng",
+    url = "url",
+    avatarUrl = "avatarUrl",
+    bannerUrl = "bannerUrl",
+    autoApproveFollowers = "autoApproveFollowers",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt",
+    createdByUserId = "createdByUserId",
+    deletedAt = "deletedAt",
+    deltedByUserId = "deltedByUserId",
+    parentActerId = "parentActerId"
+}
