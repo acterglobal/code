@@ -148,27 +148,6 @@ export const Signin: FC<SigninProps> = ({ providers, variant }) => {
           </Form>
         )}
       </Formik>
-      {providers.length > 0 && (
-        <Box className={classes.socialButtonsContainer}>
-          <>
-            <Typography variant="subtitle1">
-              Or get started with one of these providers
-            </Typography>
-            {Object.keys(providers)
-              .filter((key) => !['email', 'credentials'].includes(key))
-              .map((key) => {
-                const provider = providers[key]
-                return (
-                  <Button
-                    label={`Continue with ${provider.name}`}
-                    socailSignupType={true}
-                    handleClick={() => signIn(provider.id)}
-                  />
-                )
-              })}
-          </>
-        </Box>
-      )}
       <Box className={classes.socialButtonsContainer}>
         {variant === SIGN_UP ? (
           <Typography variant="body2" style={{ color: grey[600] }}>

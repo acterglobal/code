@@ -2192,15 +2192,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/types@npm:^5.1.0":
-  version: 5.1.7
-  resolution: "@material-ui/types@npm:5.1.7"
+"@material-ui/types@npm:5.1.6":
+  version: 5.1.6
+  resolution: "@material-ui/types@npm:5.1.6"
   peerDependencies:
     "@types/react": "*"
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: f53893e9b6455310e4b5aef67721f628920fc49f59e4b6e4f07c65c7d2d224714ce6287c1e0d7418a4d2ce1991573e93454f297716c4d70d9b5612de879ef89f
+  checksum: 8cfaee71ea6b0649785bd5c317629d0b92e395bb0e385f1d41047bee9dcdf53c18af40971e32b2abbb903a88955c9f05661ad1bcab41c66c0a9b693651cc3317
   languageName: node
   linkType: hard
 
@@ -4549,6 +4549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mime@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@types/mime@npm:2.0.3"
+  checksum: 6df548a912494f8579d548cd883be0425f30eaa2922283335c405e270600f49045a06d766460c0f0edabb41dff570c614d174d3c52215de3bddd11f190ec9ae9
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 3.0.4
   resolution: "@types/minimatch@npm:3.0.4"
@@ -4556,7 +4563,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/next-auth@npm:^3.1.20":
+"@types/next-auth@npm:^3.13.0":
   version: 3.13.0
   resolution: "@types/next-auth@npm:3.13.0"
   dependencies:
@@ -5513,7 +5520,8 @@ __metadata:
     "@types/express": ^4.17.11
     "@types/graphql-fields": ^1.3.3
     "@types/jest": ^26.0.20
-    "@types/next-auth": ^3.1.20
+    "@types/mime": ^2.0.3
+    "@types/next-auth": ^3.13.0
     "@types/node": ^14.14.20
     "@types/react": ^17.0.0
     "@typescript-eslint/eslint-plugin": ^4.15.1

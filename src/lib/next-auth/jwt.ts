@@ -1,5 +1,4 @@
-import { JWTOptions } from 'next-auth'
-import jwt, { JWTDecodeParams } from 'next-auth/jwt'
+import jwt, { JWTDecodeParams, JWTOptions } from 'next-auth/jwt'
 
 import { User } from '@schema'
 
@@ -14,7 +13,7 @@ export interface JWTToken {
 }
 
 export const getToken = async (req): Promise<JWTToken> =>
-  (await jwt.getToken({ req, ...jwtConfig })) as JWTToken
+  ((await jwt.getToken({ req, ...jwtConfig })) as unknown) as JWTToken
 
 type TokenUser = Omit<User, 'createdAt' | 'updatedAt'>
 

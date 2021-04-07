@@ -1,8 +1,9 @@
-import NextAuth, { InitOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Adapters from 'next-auth/adapters'
+import Providers from 'next-auth/providers'
 import prisma from 'src/lib/prisma'
-import Email from 'src/lib/next-auth/email-provider'
+import {sendVerificationRequest} from 'src/lib/next-auth/email-provider'
 import { jwtConfig as jwt } from 'src/lib/next-auth/jwt'
 
 import { User } from '@schema'
@@ -11,17 +12,19 @@ import { initSentry } from 'src/lib/sentry'
 
 initSentry()
 
-const options: InitOptions = {
+const options: NextAuthOptions = {
   providers: [
-    Email({
+    Providers.Email({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
-        port: parseInt(process.env.EMAIL_SERVER_PORT),
-        tls: {
-          rejectUnauthorized: false,
-        },
+        port: parseInt(process.env.EMAIL_SERVER_PORT), 
+        auth: {
+          user: '',
+          pass: '',
+        }
       },
       from: process.env.EMAIL_FROM,
+      sendVerificationRequest
     }),
   ],
 
@@ -81,5 +84,5 @@ const options: InitOptions = {
   jwt,
 }
 
-export default (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
+export default (req: NextApiRequest, res: NextApiResponse): Promise<void> | void =>
   NextAuth(req, res, options)

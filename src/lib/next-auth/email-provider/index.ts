@@ -2,31 +2,15 @@ import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import logger from './logger'
 
-interface GenericReturnConfig {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any
-}
-
-interface VerificationRequestParams {
-  identifier: string
-  url: string
-  baseUrl: string
-  provider: ProviderEmailOptions
-}
-
 interface ProviderEmailOptions {
   server?: string | ProviderEmailServer
   from?: string
-  maxAge?: number
-  sendVerificationRequest?: (
-    options: VerificationRequestParams
-  ) => Promise<void>
 }
 
 interface ProviderEmailServer {
   host: string
   port: number
-  auth?: ProviderEmailAuth
+  auth: ProviderEmailAuth
   tls?: TLS
 }
 
@@ -48,35 +32,19 @@ interface EmailSenderProps extends SenderProps {
   email: string
 }
 
-export default (options: ProviderEmailOptions): GenericReturnConfig => {
-  const serverObj = typeof options.server === 'object' ? options.server : {}
-  return {
-    id: 'email',
-    type: 'email',
-    name: 'Email',
-    // Server can be an SMTP connection string or a nodemailer config object
-    server: {
-      host: 'localhost',
-      port: 25,
-      auth: {
-        user: '',
-        pass: '',
-      },
-      ...serverObj,
-    },
-    from: 'NextAuth <no-reply@example.com>',
-    maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
-    sendVerificationRequest,
-    ...options,
-  }
+interface SendVerificationRequestProps {
+  identifier: string
+  url: string
+  baseUrl: string
+  provider: ProviderEmailOptions
 }
 
-const sendVerificationRequest = async ({
+export const sendVerificationRequest = async ({
   identifier: email,
   url,
   baseUrl,
   provider,
-}) => {
+}: SendVerificationRequestProps): Promise<null> => {
   const { server, from } = provider
   // Strip protocol from URL and use domain as site name
   const site = baseUrl.replace(/^https?:\/\//, '')
@@ -102,7 +70,28 @@ const sendVerificationRequest = async ({
     }
   }
 
-  nodemailer.createTransport(server).sendMail(mailObj, (error) => {
+  // Sillyness to get around server maybe being a string
+  let nodemailerServer
+  if (typeof server === 'string') {
+    nodemailerServer = {
+      host: String(server),
+      port: 1025,
+      tls: {
+        rejectUnauthorized: false
+      }
+    }
+  } else {
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {auth, ...serverWithoutAuth} = server
+    nodemailerServer = {
+      ...serverWithoutAuth,
+      tls: {
+        rejectUnauthorized: false
+      }
+    }
+  }
+
+  nodemailer.createTransport(nodemailerServer).sendMail(mailObj, (error) => {
     if (error) {
       logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
       throw 'SEND_VERIFICATION_EMAIL_ERROR' + error
