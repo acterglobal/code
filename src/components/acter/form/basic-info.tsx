@@ -6,8 +6,6 @@ import { InputLabel, Box } from '@material-ui/core'
 import { TextEditor } from 'src/components/util/text-editor'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 
-import * as Yup from 'yup'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textinput: {
