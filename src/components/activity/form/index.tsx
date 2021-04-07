@@ -1,5 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-
 import React, { FC, useState } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
@@ -100,6 +98,7 @@ export interface ActivityFormProps {
    * InterestTypes with Interests
    */
   interestTypes: InterestType[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (any) => any
 }
 
