@@ -92,5 +92,8 @@ module.exports = withPlugins([withGraphql], {
       loader: 'imgix',
       path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
     },
+    future: {
+      webpack5: true,
+    },
   },
 })

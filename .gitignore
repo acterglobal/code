@@ -2,10 +2,14 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-yarn.lock
-package-lock.json
+# Non zero-install Yarn2
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # Prisma TypeGraphQL
 /@schema
