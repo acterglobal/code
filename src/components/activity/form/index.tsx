@@ -12,7 +12,6 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
-// import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
