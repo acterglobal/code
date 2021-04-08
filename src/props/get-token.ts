@@ -7,6 +7,7 @@ import { getTokenUser } from 'src/lib/next-auth/jwt'
  * @returns a user token, or redirect if no token is found
  */
 export const getToken: ComposedGetServerSideProps = async ({ req }) => {
+  // @ts-ignore
   const tokenUser = await getTokenUser(req)
 
   //TODO: make this configurable

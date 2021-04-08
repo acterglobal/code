@@ -11,6 +11,7 @@ export const getUserProfile = (
 ): ComposedGetServerSideProps => async ({ req }) => {
   const apollo = initializeApollo()
 
+  // @ts-ignore
   const tokenUser = await getTokenUser(req)
 
   if (!tokenUser) {
