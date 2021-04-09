@@ -28,9 +28,7 @@ import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
 import { ACTIVITY } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { upsertActivity } from 'src/lib/activity/upsert-activity'
-
-export const _handleSubmit = (updateFn: (any) => any) => async (data) => {}
+import { prepareActivityValues } from 'src/lib/activity/prepare-activity-values'
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -107,10 +105,14 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   switch (acterType.name) {
     case ACTIVITY:
       Form = ActivityForm
-      updateFn = async (data): Promise<Acter> => {
+      updateFn = async (values): Promise<Acter> => {
         try {
-          debugger
-          const res = await upsertActivity(updateActivity, data)
+          const activityValues = prepareActivityValues(values).variables
+          const res = await updateActerWithPictures(
+            acter,
+            activityValues,
+            updateActivity
+          )
           return res.data.updateActivity.Acter
         } catch (err) {
           return {} as Acter
@@ -118,9 +120,9 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       }
       break
     default:
-      updateFn = async (data): Promise<Acter> => {
+      updateFn = async (values): Promise<Acter> => {
         try {
-          const res = await updateActerWithPictures(acter, data)
+          const res = await updateActerWithPictures(acter, values, updateActer)
           return res.data.createActer
         } catch (err) {
           return {} as Acter
@@ -139,7 +141,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={updateActerWithPictures(acter, updateFn)}
+          onSubmit={updateActerWithPictures(acter, acter, updateFn)}
           loading={updateActerLoading || updateActivityLoading}
         />
       </main>

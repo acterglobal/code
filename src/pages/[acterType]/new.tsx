@@ -6,7 +6,7 @@ import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { upsertActivity } from 'src/lib/activity/upsert-activity'
+import { prepareActivityValues } from 'src/lib/activity/prepare-activity-values'
 
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
@@ -31,8 +31,10 @@ import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
 
 /**
- * Returns an onSubmit handler
- * @param createActerFn Function returned from useMutation
+ * Creates an Acter/Activity then uploads the avatar & banner images and udpates Acter/Activity with URLs
+ * U
+ * @param createActerFn Function to create Acter or Activity
+ * @param createActerFn Function to update Acter or Activity
  * @param acterType The ActerType to use for Acter creation
  */
 export const _handleSubmit = (
@@ -105,7 +107,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
       Form = ActivityForm
       createFn = async (data): Promise<Acter> => {
         try {
-          const res = await upsertActivity(data, createActivity)
+          const res = await createActivity(prepareActivityValues(data))
           return res.data.createActivity.Acter
         } catch (err) {
           return {} as Acter

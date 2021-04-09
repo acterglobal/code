@@ -65,8 +65,10 @@ export interface ActivityFormProps {
    * activityTypes with all Activity types
    */
   activityTypes: ActivityType[]
+  /** Action to perform on submit
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (any) => any
+  onSubmit: (values: any) => any
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({
@@ -109,6 +111,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startAt = moment(acter.Activity.startAt)
     endAt = moment(acter.Activity.endAt)
   }
+  //TODO: create a type for htis
   const initialValues = {
     organiserActerId:
       router?.query?.organiserActerId || acter.Activity.Organiser.id || '',

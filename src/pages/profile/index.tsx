@@ -17,8 +17,12 @@ import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
-export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) =>
-  updateActerWithPictures(user.Acter, updateFn)
+//TODO: write types for formValues
+//eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+export const _handleSubmit = (user: User, updateFn: (any) => Promise<any>) => (
+  formValues: any
+): Promise<any> => updateActerWithPictures(user.Acter, formValues, updateFn)
+
 interface UserProfilePageProps {
   loading?: boolean
   error?: string

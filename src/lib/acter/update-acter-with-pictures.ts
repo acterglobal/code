@@ -10,6 +10,7 @@ export type ActerData = {
 
 export type ActerDataVariables = Partial<Acter> & {
   acterId: string
+  
   avatar: FileDescription
   banner: FileDescription
 }
@@ -30,10 +31,17 @@ export const initialValues = updateSet.reduce(
   {}
 )
 
+/**
+ * Update Acter record including possible updlaod of new avatar & banner images
+ * @param acter Acter to be updated
+ * @param formData Form data with which to update Acter
+ * @param updateActerFn Update function to save Acter info 
+ * @returns 
+ */
 export const updateActerWithPictures = async (
   acter: Acter,
   formData: Partial<Acter>,
-  updateActerFn: (data: ActerData) => Promise<any>
+  updateActerFn: (formValues: ActerData) => Promise<any>
 ): Promise<any> => {
   const variables = {
     // Start with blanks fromt he update set

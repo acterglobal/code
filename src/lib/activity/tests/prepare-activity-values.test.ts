@@ -5,20 +5,35 @@ import {
   _removeSeparateDateAndTime,
   _setIsOnline,
   ActivityDataVariables,
-} from 'src/lib/activity/upsert-activity'
+} from 'src/lib/activity/prepare-activity-values'
 
-describe('upsertActivity', () => {
+import {ExampleActivity} from 'src/__fixtures__'
+
+import {ORGANISATION} from 'src/constants'
+import { prepareDataForValidation } from 'formik'
+
+describe('prepareActivityValues', () => {
   let variables: ActivityDataVariables
 
   beforeEach(() => {
     variables = {
+      ...ExampleActivity,
+      startAt: undefined,
       startDate: moment.utc('2021-03-31'),
       startTime: moment.utc('1970-01-01T21:30:00'),
-      endDate: moment.utc('2021-004-01'),
+      endAt: undefined,
+      endDate: moment.utc('2021-04-01'),
       endTime: moment.utc('1970-01-01T10:30:00'),
       isOnline: 'true',
     }
   })
+  
+  it('should do nothing when the Acter is NOT an Activity', () => {
+    variables.Acter.ActerType.name = ORGANISATION
+    expect(() => prepareDataForValidation({variables})).not.toThrow()
+  })
+  
+  
   describe('_setStartAndEndTime', () => {
     it('should set both start and end datetime', () => {
       const data = _setStartAndEndTime({ variables })
