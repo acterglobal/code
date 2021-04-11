@@ -1,7 +1,7 @@
 import {
   _updatePicture,
   _updatePictures,
-  ActerDataVariables,
+  ActerFormData,
 } from 'src/lib/acter/update-acter-with-pictures'
 import * as UploadImage from 'src/lib/images/upload-image'
 
@@ -23,10 +23,10 @@ describe('upsertActerWithPictures', () => {
           name: 'baz',
         },
         bannerUrl: '',
-      } as ActerDataVariables
-      const data = await _updatePictures({ variables })
-      expect(data.variables.avatarUrl).toEqual('ok')
-      expect(data.variables.bannerUrl).toEqual('ok')
+      } as ActerFormData
+      const data = await _updatePictures(variables)
+      expect(data.avatarUrl).toEqual('ok')
+      expect(data.bannerUrl).toEqual('ok')
       expect(uploadFn).toBeCalledTimes(2)
     })
 
@@ -40,22 +40,22 @@ describe('upsertActerWithPictures', () => {
         },
         avatarUrl: '',
         bannerUrl: '',
-      } as ActerDataVariables
-      const data = await _updatePictures({ variables })
-      expect(data.variables.avatarUrl).toEqual('ok')
-      expect(data.variables.bannerUrl).toEqual('')
+      } as ActerFormData
+      const data = await _updatePictures(variables)
+      expect(data.avatarUrl).toEqual('ok')
+      expect(data.bannerUrl).toEqual('')
       expect(uploadFn).toBeCalledTimes(1)
     })
   })
 
   describe('_updatePicture', () => {
     it('should should return the same ActerData if no file is present', async () => {
-      const variables = {} as ActerDataVariables
+      const variables = {} as ActerFormData
       const acter = await _updatePicture('foo')(
-        Promise.resolve({ variables }),
+        Promise.resolve(variables),
         'avatar'
       )
-      expect(acter.variables.avatarUrl).toBeUndefined()
+      expect(acter.avatarUrl).toBeUndefined()
     })
 
     it('should use the existing image URL and not upload it if the name matches', async () => {
@@ -66,16 +66,16 @@ describe('upsertActerWithPictures', () => {
           name: 'bar',
         },
         avatarUrl: 'foo/bar',
-      } as ActerDataVariables
+      } as ActerFormData
       const acter = await _updatePicture('foo')(
-        Promise.resolve({ variables }),
+        Promise.resolve(variables),
         'avatar'
       )
-      expect(acter.variables.avatarUrl).toBe('foo/bar')
+      expect(acter.avatarUrl).toBe('foo/bar')
       expect(uploadFn).toBeCalledTimes(0)
     })
 
-    it('should throw an error if there was a problem uploading the imave', async () => {
+    it('should throw an error if there was a problem uploading the image', async () => {
       const err = new Error('There was an error')
       uploadImage.mockImplementation(() => {
         throw err
@@ -85,9 +85,9 @@ describe('upsertActerWithPictures', () => {
           name: 'bar',
         },
         avatarUrl: '',
-      } as ActerDataVariables
+      } as ActerFormData
       await expect(
-        _updatePicture('foo')(Promise.resolve({ variables }), 'avatar')
+        _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).rejects.toEqual(err)
     })
 
@@ -98,9 +98,9 @@ describe('upsertActerWithPictures', () => {
           name: 'bar',
         },
         avatarUrl: '',
-      } as ActerDataVariables
+      } as ActerFormData
       await expect(
-        _updatePicture('foo')(Promise.resolve({ variables }), 'avatar')
+        _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).rejects.toEqual(new Error('Could not update avatar image'))
     })
 
@@ -111,11 +111,11 @@ describe('upsertActerWithPictures', () => {
         avatar: {
           name: 'bar',
         },
-        avatarUrl: '',
-      } as ActerDataVariables
+        avatarUrl: undefined,
+      } as ActerFormData
       await expect(
-        _updatePicture('foo')(Promise.resolve({ variables }), 'avatar')
-      ).resolves.toHaveProperty('variables.avatarUrl', 'foo/bar')
+        _updatePicture('foo')(Promise.resolve(variables), 'avatar')
+      ).resolves.toHaveProperty('avatarUrl', 'foo/bar')
       expect(uploadFn).toBeCalledTimes(1)
     })
   })

@@ -1,12 +1,9 @@
-/* eslint-disable */
-
-import React, { FC } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { prepareActivityValues } from 'src/lib/activity/prepare-activity-values'
 
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
@@ -21,7 +18,6 @@ import {
   getActivityTypes,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
 import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
@@ -29,30 +25,7 @@ import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
-
-/**
- * Creates an Acter/Activity then uploads the avatar & banner images and udpates Acter/Activity with URLs
- * U
- * @param createActerFn Function to create Acter or Activity
- * @param createActerFn Function to update Acter or Activity
- * @param acterType The ActerType to use for Acter creation
- */
-export const _handleSubmit = (
-  createActerFn: (any) => any,
-  updateActerFn: (any) => any,
-  acterType: ActerType
-) => async (data) => {
-  // Create the acter so we know we have a good id & slug
-  const acter: Acter = await createActerFn({
-    variables: {
-      ...data,
-      acterTypeId: acterType.id,
-    },
-  })
-
-  // Now update it so we get the avatar and banner URLs
-  return await updateActerWithPictures(acter, data, updateActerFn)
-}
+import { getCreateFunction } from 'src/lib/acter/get-create-function'
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -99,28 +72,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     },
   })
 
-  // TODO: Refactor this
-  let Form
-  let createFn
-  switch (acterType.name) {
-    case ACTIVITY:
-      Form = ActivityForm
-      createFn = async (data): Promise<Acter> => {
-        try {
-          const res = await createActivity(prepareActivityValues(data))
-          return res.data.createActivity.Acter
-        } catch (err) {
-          return {} as Acter
-        }
-      }
-      break
-    default:
-      createFn = async (data): Promise<Acter> => {
-        const res = await createActer(data)
-        return res.data.createActer
-      }
-      Form = ActerForm
-  }
+  const Form = acterType.name === ACTIVITY ? ActivityForm : ActerForm
 
   return (
     <Layout user={user}>
@@ -131,7 +83,12 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={_handleSubmit(createFn, updateActer, acterType)}
+          onSubmit={getCreateFunction({
+            acterType,
+            createActivity,
+            createActer,
+            updateActer,
+          })}
         />
       </main>
     </Layout>

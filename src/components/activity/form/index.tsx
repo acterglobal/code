@@ -52,7 +52,7 @@ export interface ActivityFormProps {
   /**
    * The ActivityType Acter for this
    */
-  acter: Acter
+  acter?: Acter
   /**
    * The currently logged in user
    */
@@ -69,6 +69,10 @@ export interface ActivityFormProps {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => any
+  /**
+   * Whether the form is loading/saving
+   */
+  loading?: boolean
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({

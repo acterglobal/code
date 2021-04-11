@@ -3,15 +3,15 @@ import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useSnackbar } from 'notistack'
-
-import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { getUpdateFunction } from 'src/lib/acter/get-update-function'
 
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
-import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
+import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import {
   getUserProfile,
   getActerTypes,
@@ -20,26 +20,12 @@ import {
   getActer,
   getActivityTypes,
 } from 'src/props'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
 import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
 import { ACTIVITY } from 'src/constants'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { prepareActivityValues } from 'src/lib/activity/prepare-activity-values'
-
-/**
- * Returns a handler for useMutaion onComplete
- * @param router NextRouter returned from useRouter
- * @param acterType The ActerType to use for routing
- */
-export const _handleOnComplete = (
-  router: NextRouter,
-  acter: Acter
-): Promise<boolean> =>
-  router.push(`/${acterTypeAsUrl(acter.ActerType)}/${acter.slug}`)
 
 interface NewActerPageProps {
   /**
@@ -99,37 +85,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     }
   )
 
-  // TODO: Refactor this
-  let Form
-  let updateFn
-  switch (acterType.name) {
-    case ACTIVITY:
-      Form = ActivityForm
-      updateFn = async (values): Promise<Acter> => {
-        try {
-          const activityValues = prepareActivityValues(values).variables
-          const res = await updateActerWithPictures(
-            acter,
-            activityValues,
-            updateActivity
-          )
-          return res.data.updateActivity.Acter
-        } catch (err) {
-          return {} as Acter
-        }
-      }
-      break
-    default:
-      updateFn = async (values): Promise<Acter> => {
-        try {
-          const res = await updateActerWithPictures(acter, values, updateActer)
-          return res.data.createActer
-        } catch (err) {
-          return {} as Acter
-        }
-      }
-      Form = ActerForm
-  }
+  const Form = acter.ActerType.name === ACTIVITY ? ActivityForm : ActerForm
 
   return (
     <Layout user={user}>
@@ -141,7 +97,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={updateActerWithPictures(acter, acter, updateFn)}
+          onSubmit={getUpdateFunction({ acter, updateActivity, updateActer })}
           loading={updateActerLoading || updateActivityLoading}
         />
       </main>
