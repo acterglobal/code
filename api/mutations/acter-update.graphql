@@ -6,6 +6,7 @@ mutation ActerUpdate(
   $description: String
   $location: String
   $url: String
+  $useAdmins: Boolean
   $avatarUrl: String
   $bannerUrl: String
   $interestIds: [String!]!
@@ -16,6 +17,7 @@ mutation ActerUpdate(
     description: $description
     location: $location
     url: $url
+    useAdmins: $useAdmins
     avatarUrl: $avatarUrl
     bannerUrl: $bannerUrl
     interestIds: $interestIds

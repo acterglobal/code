@@ -5,8 +5,10 @@ fragment ActerDisplay on Acter {
   slug
   url
   location
+  useAdmins
   avatarUrl
   bannerUrl
+  useAdmins
   ActerType {
     id
     name

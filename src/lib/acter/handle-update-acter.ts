@@ -11,6 +11,7 @@ const updateSet = [
   'description',
   'location',
   'url',
+  'useAdmins',
   'avatarUrl',
   'bannerUrl',
   'interestIds',

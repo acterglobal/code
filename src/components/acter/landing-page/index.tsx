@@ -19,7 +19,10 @@ import {
   InfoSectionProps,
 } from 'src/components/acter/landing-page/info-section'
 import { ActivitiesList } from 'src/components/activity/list'
-import { MembersSection } from 'src/components/acter/landing-page/members-section'
+import {
+  MembersSection,
+  MembersSectionProps,
+} from 'src/components/acter/landing-page/members-section'
 import { ACTIVITIES, MEMBERS, FORUM } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
@@ -40,7 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type ActerLandingProps = HeaderSectionProps & InfoSectionProps
+export type ActerLandingProps = HeaderSectionProps &
+  InfoSectionProps &
+  MembersSectionProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -48,6 +53,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   user,
   onJoin,
   onLeave,
+  onSettingsChange,
   loading,
 }) => {
   const classes = useStyles({})
@@ -88,7 +94,11 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <ActivitiesList acter={acter} user={user} />
           </div>
           <div role="tabpanel" hidden={tab !== MEMBERS}>
-            <MembersSection acter={acter} />
+            <MembersSection
+              acter={acter}
+              onSettingsChange={onSettingsChange}
+              loading={loading}
+            />
           </div>
           <div role="tabpanel" hidden={tab !== FORUM}>
             <Typography variant="subtitle1">Coming soon...</Typography>

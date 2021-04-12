@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import pluralize from 'pluralize'
 import {
   Box,
   Divider,
@@ -12,6 +11,10 @@ import {
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ActerAvatar } from 'src/components/acter/avatar'
+import {
+  ActerUsersSettings,
+  ActerUsersSettingsProps,
+} from 'src/components/acter/landing-page/members-section/acter-users-settings'
 import { ExampleActer } from 'src/__fixtures__'
 import { Acter } from '@schema'
 
@@ -53,19 +56,35 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface DisplayMembers {
+export interface DisplayUsersProps extends ActerUsersSettingsProps {
+  /**
+   * The acter on which we are viewing members
+   */
+  acter: Acter
+  /**
+   * The list of acters we are displaying
+   */
   acters: Acter[]
-  type: string
 }
 
-export const DisplayMembers: FC<DisplayMembers> = ({ acters = [], type }) => {
+export const DisplayUsers: FC<DisplayUsersProps> = ({
+  acter,
+  acters = [],
+  onSettingsChange,
+  loading,
+}) => {
   const classes = useStyles()
 
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h5">
-        {acters.length} {pluralize(type)}
+        {acters.length} Users
       </Typography>
+      <ActerUsersSettings
+        acter={acter}
+        onSettingsChange={onSettingsChange}
+        loading={loading}
+      />
       <Divider />
 
       <List className={classes.members}>

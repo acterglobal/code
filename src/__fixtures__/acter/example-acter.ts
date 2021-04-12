@@ -22,7 +22,7 @@ export const ExampleActer: Acter = {
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
-  autoApproveFollowers: true,
+  useAdmins: false,
 }
 
 export const ExampleUserActer: Acter = {
@@ -42,7 +42,7 @@ export const ExampleUserActer: Acter = {
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
-  autoApproveFollowers: true,
+  useAdmins: false,
 }
 
 export const ExampleOrganisationActer: Acter = {
@@ -62,5 +62,5 @@ export const ExampleOrganisationActer: Acter = {
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
-  autoApproveFollowers: true,
+  useAdmins: false,
 }

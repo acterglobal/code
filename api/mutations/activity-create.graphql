@@ -6,6 +6,7 @@ mutation ActivityCreate(
   $description: String
   $location: String
   $url: String
+  $useAdmins: Boolean
   $acterTypeId: String!
   $interestIds: [String!]!
   #Activity
@@ -22,6 +23,7 @@ mutation ActivityCreate(
     description: $description
     location: $location
     url: $url
+    useAdmins: $useAdmins
     acterTypeId: $acterTypeId
     interestIds: $interestIds
 

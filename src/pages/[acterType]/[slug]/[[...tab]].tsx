@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, useState } from 'react'
 import { NextPage } from 'next'
 import { useMutation, MutationFunction } from '@apollo/client'
 import { useSnackbar } from 'notistack'
@@ -17,11 +17,16 @@ import { Head } from 'src/components/layout/head'
 import { Acter, InterestType, User } from '@schema'
 
 import { Layout } from 'src/components/layout'
-import { ActerLanding } from 'src/components/acter/landing-page'
-import { ActivityDetails } from 'src/components/activity'
+import {
+  ActerLanding,
+  ActerLandingProps,
+} from 'src/components/acter/landing-page'
+import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
+import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
+import ACTER_DISPLAY_FRAGMENT from 'api/fragments/acter-display.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -49,7 +54,8 @@ const _handleLeave = (deleteConnection: MutationFunction) => (
     },
   })
 
-const getActerView = (acter) => {
+type ActerOrActivityView = ActerLandingProps | ActivityDetailsProps
+const getActerView = (acter): FC<ActerOrActivityView> => {
   switch (acter.ActerType.name) {
     case ACTIVITY:
       return ActivityDetails
@@ -69,6 +75,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   interestTypes,
   user,
 }) => {
+  const [displayActer, setDisplayActer] = useState(acter)
   const { enqueueSnackbar } = useSnackbar()
 
   const writeCache = (cache) => {
@@ -125,6 +132,18 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       },
     }
   )
+  const [updateActer, { loading: acterUpdateLoading }] = useMutation(
+    UPDATE_ACTER,
+    {
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' })
+      },
+      onCompleted: (data) => {
+        setDisplayActer(data.updateActer)
+        enqueueSnackbar('Settings updated', { variant: 'success' })
+      },
+    }
+  )
 
   const View = getActerView(acter)
 
@@ -132,12 +151,23 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     <Layout user={user}>
       <Head title={`${acter.name} - Acter`} />
       <View
-        acter={acter}
+        acter={displayActer}
         user={user}
         interestTypes={interestTypes}
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
-        loading={creatingConnection || deletingConnection}
+        onSettingsChange={(acter) => {
+          updateActer({
+            variables: {
+              ...acter,
+              interestIds: acter.ActerInterests.map(
+                ({ Interest: { id } }) => id
+              ),
+              acterId: acter.id,
+            },
+          })
+        }}
+        loading={creatingConnection || deletingConnection || acterUpdateLoading}
       />
     </Layout>
   )
