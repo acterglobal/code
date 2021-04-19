@@ -2,11 +2,6 @@ import React, { FC } from 'react'
 import { Box, Button } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-// import {
-//   GpsFixedTwoTone as FocusIcon,
-//   Search as SearchIcon,
-// } from '@material-ui/icons'
-// import { useAutocomplete } from '@material-ui/lab'
 import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,45 +31,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: green[600],
     },
   },
-
-  searchSection: { display: 'flex' },
-  searchField: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    width: 170,
-    height: 25,
-    borderRadius: 20,
-    marginLeft: 15,
-    marginRight: 15,
-  },
-
-  input: {
-    width: 120,
-    outline: 'none',
-    border: 'none',
-  },
-  listbox: {
-    margin: 0,
-    padding: 0,
-    zIndex: 1,
-    position: 'absolute',
-    listStyle: 'none',
-    backgroundColor: theme.palette.background.paper,
-    overflow: 'auto',
-    maxHeight: 200,
-    border: '1px solid rgba(0,0,0,.25)',
-    '& li[data-focus="true"]': {
-      backgroundColor: '#4a8df6',
-      color: 'white',
-      cursor: 'pointer',
-    },
-    '& li:active': {
-      backgroundColor: '#2977f5',
-      color: 'white',
-    },
-  },
 }))
 
 export interface SelectorProps {
@@ -89,18 +45,6 @@ export const Selectors: FC<SelectorProps> = ({
   onChange,
 }) => {
   const classes = useStyles()
-
-  // const {
-  //   getRootProps,
-  //   getInputProps,
-  //   getListboxProps,
-  //   getOptionProps,
-  //   groupedOptions,
-  // } = useAutocomplete({
-  //   id: 'use-autocomplete-demo',
-  //   options: films,
-  //   getOptionLabel: (option) => option.title,
-  // })
 
   return (
     <Box className={classes.container}>
@@ -121,42 +65,6 @@ export const Selectors: FC<SelectorProps> = ({
           </Button>
         ))}
       </Box>
-
-      {/* <Box className={classes.searchSection}>
-        <Button
-          className={clsx(
-            classes.button,
-            activeSelector === 'focus' && classes.active
-          )}
-          variant="contained"
-          disableElevation
-          startIcon={<FocusIcon fontSize="inherit" style={{ fontSize: 14 }} />}
-          onClick={() => handleSelectorChange('focus')}
-        >
-          Focus
-        </Button>
-        <Box>
-          <Box className={classes.searchField} {...getRootProps()}>
-            <SearchIcon
-              fontSize="inherit"
-              style={{ fontSize: 14, fontWeight: 'bold', color: grey[600] }}
-            />
-            <input
-              disabled={true}
-              placeholder="search members"
-              className={classes.input}
-              {...getInputProps()}
-            />
-          </Box>
-          {groupedOptions.length > 0 ? (
-            <ul className={classes.listbox} {...getListboxProps()}>
-              {groupedOptions.map((option, index) => (
-                <li {...getOptionProps({ option, index })}>{option.title}</li>
-              ))}
-            </ul>
-          ) : null}
-        </Box>
-      </Box> */}
     </Box>
   )
 }
