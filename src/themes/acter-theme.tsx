@@ -22,7 +22,7 @@ export const theme = createMuiTheme({
   },
 
   props: {
-    /* disable elevation for buttons  */
+    // disable elevation for buttons
     MuiButton: {
       disableElevation: true,
     },
