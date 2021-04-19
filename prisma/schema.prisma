@@ -36,20 +36,20 @@ model Account {
 }
 
 model Acter {
-  id                   String   @id @default(uuid())
-  acterTypeId          String   @map("acter_type_id")
-  name                 String?
-  slug                 String?
-  description          String?
-  location             String?
-  locationLat          Float?   @map("location_lat")
-  locationLng          Float?   @map("location_lng")
-  url                  String?
-  avatarUrl            String?  @map("avatar_url")
-  bannerUrl            String?  @map("banner_url")
-  autoApproveFollowers Boolean  @default(true) @map("auto_approve_followers")
-  createdAt            DateTime @default(now()) @map("created_at")
-  updatedAt            DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  acterTypeId String   @map("acter_type_id")
+  name        String?
+  slug        String?
+  description String?
+  location    String?
+  locationLat Float?   @map("location_lat")
+  locationLng Float?   @map("location_lng")
+  url         String?
+  avatarUrl   String?  @map("avatar_url")
+  bannerUrl   String?  @map("banner_url")
+  useAdmins   Boolean  @default(false) @map("use_admins")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   createdByUser   User   @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")

@@ -4,7 +4,10 @@ import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
 import { DisplayMembers } from 'src/components/acter/landing-page/members-section/display-members'
-import { Acter } from '@schema'
+import {
+  DisplayUsers,
+  DisplayUsersProps,
+} from 'src/components/acter/landing-page/members-section/display-users'
 
 const useStyles = makeStyles({
   container: {
@@ -15,11 +18,13 @@ const useStyles = makeStyles({
 const PEOPLE = 'people'
 const ORGANISATIONS = 'organisations'
 
-export interface MembersSectionProps {
-  acter: Acter
-}
+export type MembersSectionProps = Omit<DisplayUsersProps, 'acters'>
 
-export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
+export const MembersSection: FC<MembersSectionProps> = ({
+  acter,
+  onSettingsChange,
+  loading,
+}) => {
   const { user, organisation } = mapFollowers(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState('people')
@@ -28,6 +33,8 @@ export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
     setActiveSelector(selector)
   }
 
+  const Display = activeSelector === PEOPLE ? DisplayUsers : DisplayMembers
+
   return (
     <Box className={classes.container}>
       <Selectors
@@ -35,9 +42,12 @@ export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
       />
-      <DisplayMembers
+      <Display
+        acter={acter}
         acters={activeSelector === PEOPLE ? user : organisation}
         type={activeSelector}
+        onSettingsChange={onSettingsChange}
+        loading={loading}
       />
     </Box>
   )

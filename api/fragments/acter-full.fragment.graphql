@@ -1,13 +1,13 @@
-#import "./acter-dislapy.fragment.graphql"
+#import "./acter-display.fragment.graphql"
 
 fragment ActerFull on Acter {
   ...ActerDisplay
-  Following(where: {Following: {is: {deletedAt: {equals: null}}}}) {
+  Following(where: { Following: { is: { deletedAt: { equals: null } } } }) {
     Following {
       ...ActerDisplay
     }
   }
-  Followers(where: {Following: {is: {deletedAt: {equals: null}}}}) {
+  Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
     Follower {
       ...ActerDisplay
     }

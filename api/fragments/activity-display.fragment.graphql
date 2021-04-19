@@ -1,4 +1,4 @@
-#import "../fragments/acter-dislapy.fragment.graphql"
+#import "../fragments/acter-display.fragment.graphql"
 
 fragment ActivityDisplay on Activity {
   id
