@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       padding: theme.spacing(0.8),
+      display: 'flex',
+      justifyContent: 'center',
     },
     dateTime: {
       fontSize: '0.6rem',
@@ -99,27 +101,29 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       </Box>
 
       <Box className={classes.info}>
-        <Typography className={classes.dateTime} variant="subtitle1">
-          {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
-        </Typography>
-
-        <StyledTooltip
-          title={activity.Acter?.name}
-          disableHoverListener={!isOverflowed}
-          aria-label="tooltip"
-        >
-          <Typography
-            ref={textElementRef}
-            className={classes.name}
-            noWrap
-            variant="h6"
-          >
-            {activity.Acter?.name}
+        <Box>
+          <Typography className={classes.dateTime} variant="subtitle1">
+            {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
           </Typography>
-        </StyledTooltip>
-        <Typography className={classes.location} variant="subtitle1">
-          {activity.isOnline ? 'Online' : activity.Acter?.location}
-        </Typography>
+
+          <StyledTooltip
+            title={activity.Acter?.name}
+            disableHoverListener={!isOverflowed}
+            aria-label="tooltip"
+          >
+            <Typography
+              ref={textElementRef}
+              className={classes.name}
+              noWrap
+              variant="h6"
+            >
+              {activity.Acter?.name}
+            </Typography>
+          </StyledTooltip>
+          <Typography className={classes.location} variant="subtitle1">
+            {activity.isOnline ? 'Online' : activity.Acter?.location}
+          </Typography>
+        </Box>
       </Box>
       <Box
         className={classes.activityType}
