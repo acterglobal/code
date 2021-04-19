@@ -6,5 +6,5 @@
  * @returns image url
  */
 
-export const getImageUrl = (imageName, imageType) =>
+export const getImageUrl = (imageName: string, imageType: string): string =>
   imageName || `assets/default-${imageType}.png`

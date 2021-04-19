@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
+import { interestTypeMap } from 'src/lib/interests/mapInterestTypes'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 import { InterestType } from '@schema'
 
@@ -36,10 +36,15 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
 
   const topLevelTypes = getTopLevelTypes(interestTypes)
 
-  const types = getSelectedInterests(interestTypes, selectedInterests)
+  const getSelectedTypes = (): string[] => {
+    const types = selectedInterests.map(
+      (interestId) => interestTypeMap(interestTypes)[interestId]
+    )
+    return types
+  }
 
   useEffect(() => {
-    setSelectedTypes(types)
+    setSelectedTypes(getSelectedTypes())
   }, [])
 
   useEffect(() => {

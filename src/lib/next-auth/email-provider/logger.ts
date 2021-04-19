@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const logger = {
   error: (errorCode, ...text) => {
     if (!console) {

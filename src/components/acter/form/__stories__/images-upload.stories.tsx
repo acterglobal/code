@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react'
+import { Meta, Story } from '@storybook/react'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 
 export default {
@@ -15,6 +15,6 @@ export default {
 
 const testSetFieldValue = () => console.log('test')
 
-export const ImagesUpload = () => (
+export const ImagesUpload: Story = () => (
   <ImageUploadSection setFieldValue={testSetFieldValue} initialValues={{}} />
 )

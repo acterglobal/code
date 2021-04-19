@@ -6,7 +6,7 @@ import { Acter } from '@schema'
  * Make ActerType name url-friendly (lowercase, plural, and slugged)
  * @param acterType The ActerType
  */
-export const acterAsUrl = (acter: Acter) => {
+export const acterAsUrl = (acter: Acter): string => {
   if (!acter.ActerType?.name) {
     throw 'ActerType must be provided'
   }

@@ -1,5 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-
 import React, { FC, useState } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
@@ -14,7 +12,6 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
-// import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,6 +97,7 @@ export interface ActivityFormProps {
    * InterestTypes with Interests
    */
   interestTypes: InterestType[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (any) => any
 }
 
