@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { useMutation, MutationFunction } from '@apollo/client'
 import { useSnackbar } from 'notistack'
@@ -26,7 +26,6 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
-import ACTER_DISPLAY_FRAGMENT from 'api/fragments/acter-display.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -76,6 +75,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   user,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
+  useEffect(() => {
+    setDisplayActer(acter)
+  }, [acter])
   const { enqueueSnackbar } = useSnackbar()
 
   const writeCache = (cache) => {
@@ -145,7 +147,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     }
   )
 
-  const View = getActerView(acter)
+  const View = getActerView(displayActer)
 
   return (
     <Layout user={user}>
