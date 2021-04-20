@@ -13,6 +13,13 @@ import { getImageUrl } from 'src/lib/images/get-image-url'
 import { DATE_FORMAT_SHORT, DATE_FORMAT_SHORT_NO_TIME } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
 
+//  TODO: put these colors in theme or somewhere
+export const activityTypeColors = {
+  Event: 'rgb(0,171,142,0.2)',
+  Project: 'rgb(30,176,1,0.2)',
+  Idea: 'rgb(249,186,57,0.2)',
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -27,8 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     info: {
-      padding: theme.spacing(1),
-      height: 100,
+      padding: theme.spacing(0.8),
+      display: 'flex',
+      justifyContent: 'center',
     },
     dateTime: {
       fontSize: '0.6rem',
@@ -41,6 +49,11 @@ const useStyles = makeStyles((theme: Theme) =>
     location: {
       fontSize: '0.6rem',
       fontWeight: theme.typography.fontWeightLight,
+    },
+    activityType: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(0.8),
+      paddingBottom: theme.spacing(0.8),
     },
   })
 )
@@ -88,27 +101,35 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       </Box>
 
       <Box className={classes.info}>
-        <Typography className={classes.dateTime} variant="subtitle1">
-          {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
-        </Typography>
-
-        <StyledTooltip
-          title={activity.Acter?.name}
-          disableHoverListener={!isOverflowed}
-          aria-label="tooltip"
-        >
-          <Typography
-            ref={textElementRef}
-            className={classes.name}
-            noWrap
-            variant="h6"
-          >
-            {activity.Acter?.name}
+        <Box>
+          <Typography className={classes.dateTime} variant="subtitle1">
+            {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
           </Typography>
-        </StyledTooltip>
-        <Typography className={classes.location} variant="subtitle1">
-          {activity.isOnline ? 'Online' : activity.Acter?.location}
-        </Typography>
+
+          <StyledTooltip
+            title={activity.Acter?.name}
+            disableHoverListener={!isOverflowed}
+            aria-label="tooltip"
+          >
+            <Typography
+              ref={textElementRef}
+              className={classes.name}
+              noWrap
+              variant="h6"
+            >
+              {activity.Acter?.name}
+            </Typography>
+          </StyledTooltip>
+          <Typography className={classes.location} variant="subtitle1">
+            {activity.isOnline ? 'Online' : activity.Acter?.location}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        className={classes.activityType}
+        style={{ backgroundColor: activityTypeColors['Idea'] }}
+      >
+        <Typography variant="caption">Event</Typography>
       </Box>
     </Box>
   )
