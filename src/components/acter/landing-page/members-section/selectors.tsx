@@ -58,7 +58,6 @@ export const Selectors: FC<SelectorProps> = ({
               activeSelector === selector && classes.active
             )}
             variant="contained"
-            disableElevation
             onClick={() => onChange(selector)}
           >
             {selector}

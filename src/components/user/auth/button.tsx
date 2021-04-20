@@ -45,7 +45,6 @@ export const Button: FC<ButtonProps> = ({
       variant="contained"
       disabled={disabled}
       onClick={handleClick}
-      disableElevation
     >
       {label}
     </MuiButton>

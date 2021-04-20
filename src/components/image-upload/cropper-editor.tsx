@@ -133,7 +133,6 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
         <Box className={classes.toolsContainer}>
           <Button
             variant="contained"
-            disableElevation
             className={classes.cropBtn}
             onClick={handleImageCrop}
             endIcon={<CropIcon />}
