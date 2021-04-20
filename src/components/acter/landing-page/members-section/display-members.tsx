@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import pluralize from 'pluralize'
 import {
   Box,
@@ -70,7 +70,7 @@ export const DisplayMembers: FC<DisplayMembers> = ({ acters = [], type }) => {
 
       <List className={classes.members}>
         {acters.map((acter) => (
-          <>
+          <Fragment key={acter.id}>
             <ListItem>
               <ListItemAvatar>
                 <ActerAvatar acter={ExampleActer} />
@@ -90,7 +90,7 @@ export const DisplayMembers: FC<DisplayMembers> = ({ acters = [], type }) => {
               variant="inset"
               component="li"
             />
-          </>
+          </Fragment>
         ))}
       </List>
     </Box>
