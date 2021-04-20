@@ -107,7 +107,10 @@ export const Search: FC = () => {
           <Box className={classes.singleResultItem}>
             <Link href="">
               <a>
-                <ActivityTile activity={ExampleActivity} />
+                <ActivityTile
+                  // @ts-ignore
+                  activity={ExampleActivity}
+                />
               </a>
             </Link>
           </Box>
