@@ -1,8 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import {
-  ActivityTile,
-  ActivityTileProps,
-} from 'src/components/activity/new-tile'
+import { ActivityTile, ActivityTileProps } from 'src/components/activity/tile'
 import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
 
 export default {
