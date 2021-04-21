@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
-import { Box, Button, Grid, Typography } from '@material-ui/core'
+import { Box, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { SearchBar } from 'src/components/search/search-bar'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
+import { FilterTabs } from 'src/components/search/filter-tabs'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,19 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexGrow: 8,
     },
-    button: {
-      height: theme.spacing(3.5),
-      minWidth: theme.spacing(18),
-      borderRadius: theme.spacing(3),
-      marginRight: theme.spacing(1),
-      color: 'black',
-      backgroundColor: 'white',
-      textTransform: 'capitalize',
-      fontSize: '0.7rem',
-      '&:hover': {
-        backgroundColor: 'white',
-      },
-    },
+
     displayResults: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -76,35 +65,14 @@ export const Search: FC = () => {
               <SearchBar />
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={() => console.log('button cliked')}
-            >
-              Filters
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={() => console.log('button cliked')}
-            >
-              Sort by
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={() => console.log('button cliked')}
-            >
-              Map View
-            </Button>
-          </Grid>
+
+          <FilterTabs />
         </Grid>
       </Box>
 
       <Box className={classes.displayResults}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-          <Box className={classes.singleResultItem}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+          <Box className={classes.singleResultItem} key={i}>
             <Link href="">
               <a>
                 <ActivityTile
