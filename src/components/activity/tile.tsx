@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       borderRadius: theme.spacing(2),
       overflow: 'hidden',
-      width: 200,
-      height: 200,
+      width: 218,
+      height: 207,
     },
     image: {
       height: 100,
@@ -116,6 +116,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           </StyledTooltip>
           <Typography className={classes.location} variant="subtitle1">
             {activity.isOnline ? 'Online' : activity.Acter?.location}
+          </Typography>
+          <Typography className={classes.location} variant="subtitle1">
+            {activity.Organiser.name}
           </Typography>
         </Box>
       </Box>
