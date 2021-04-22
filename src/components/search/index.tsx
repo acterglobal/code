@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 import { Box, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { SearchBar } from 'src/components/search/search-bar'
-import { ActivityTile } from 'src/components/activity/tile'
-import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
 import { FilterTabs } from 'src/components/search/filter-tabs'
+import {
+  DisplayResults,
+  DisplayResultsProps,
+} from 'src/components/search/display-results'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,23 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexGrow: 8,
     },
-
-    displayResults: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-    },
-    singleResultItem: {
-      margin: theme.spacing(1),
-      '& a': {
-        textDecoration: 'none',
-        color: theme.palette.text.primary,
-      },
-    },
   })
 )
 
-export const Search: FC = () => {
+export const Search: FC<DisplayResultsProps> = ({ dataType, data }) => {
   const classes = useStyles()
   return (
     <Box className={classes.root}>
@@ -70,20 +58,7 @@ export const Search: FC = () => {
         </Grid>
       </Box>
 
-      <Box className={classes.displayResults}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-          <Box className={classes.singleResultItem} key={i}>
-            <Link href="">
-              <a>
-                <ActivityTile
-                  // @ts-ignore
-                  activity={ExampleActivity}
-                />
-              </a>
-            </Link>
-          </Box>
-        ))}
-      </Box>
+      <DisplayResults dataType={dataType} data={data} />
     </Box>
   )
 }
