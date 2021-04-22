@@ -1,15 +1,19 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, ReactNode } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
-import { CloseRounded as CloseButtonIcon } from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
+import { TopBar } from 'src/components/util/modal/top-bar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
+    },
+    modalContainer: {
+      outline: 0,
+      backgroundColor: 'white',
+      overflow: 'hidden',
     },
     closeButton: {
       backgroundColor: 'white',
@@ -33,34 +37,18 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: theme.spacing(-1.5),
       },
     },
-    paper: {
-      outline: 0,
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      borderRadius: theme.spacing(2),
-      overflow: 'hidden',
-    },
-    modalContainer: {
-      display: 'flex',
-      outline: 'none',
-    },
   })
 )
 
 export interface ModalProps {
-  children: React.ReactNode
+  children: ReactNode
   showCloseButton?: boolean
   handleModalClose?: (any?) => void
   disableBackdropClick?: boolean
 }
 
 export const Modal: FC<ModalProps> = (props) => {
-  const {
-    children,
-    handleModalClose,
-    disableBackdropClick = true,
-    showCloseButton = true,
-  } = props
+  const { children, handleModalClose, disableBackdropClick = true } = props
   const classes = useStyles()
   const [open, setOpen] = useState(true)
 
@@ -86,14 +74,8 @@ export const Modal: FC<ModalProps> = (props) => {
       >
         <Fade in={open}>
           <div className={classes.modalContainer}>
-            <div className={classes.paper}>{children}</div>
-
-            {showCloseButton && (
-              <CloseButtonIcon
-                className={classes.closeButton}
-                onClick={handleClose}
-              />
-            )}
+            <TopBar handleClose={handleClose} />
+            {children}
           </div>
         </Fade>
       </MUIModal>
