@@ -3,6 +3,7 @@ import {
   ExampleUser,
   OrganisationActerType,
   UserActerType,
+  ActivityActerType,
 } from 'src/__fixtures__'
 
 export const ExampleActer: Acter = {
@@ -49,6 +50,26 @@ export const ExampleOrganisationActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f98aj',
   acterTypeId: OrganisationActerType.id,
   ActerType: OrganisationActerType,
+  name: 'Greenlight Aarhus',
+  location: 'Aarhus Denmark',
+  slug: 'my-organisation',
+  description: `Lorem ipsum dolor sit amet consectetur adipisicing
+  elit. Quam laudantium quas voluptates assumenda deserunt, sequi
+  alias veritatis vitae eum culpa amet delectus eveniet tempore
+  quibusdam repellat ut? Corrupti, consequuntur ipsam`,
+  url: 'company url',
+  avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
+  bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  createdByUserId: ExampleUser.id,
+  useAdmins: false,
+}
+
+export const ExampleActivityActer: Acter = {
+  id: '9a64149c-5641-4841-96b1-1b2ec85f98aj',
+  acterTypeId: ActivityActerType.id,
+  ActerType: ActivityActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
   slug: 'my-organisation',

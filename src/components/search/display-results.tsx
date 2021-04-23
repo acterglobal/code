@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Acter, Activity } from '@schema'
+import { Acter } from '@schema'
 import Link from 'next/link'
 import { ActivityTile } from 'src/components/activity/tile'
-
+import { ACTIVITY } from 'src/constants'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -24,19 +24,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface DisplayResultsProps {
   dataType: string
-  data: Acter[] | Activity[]
+  acters: Acter[]
 }
 
-export const DisplayResults: FC<DisplayResultsProps> = ({ dataType, data }) => {
+export const DisplayResults: FC<DisplayResultsProps> = ({
+  dataType,
+  acters,
+}) => {
   const classes = useStyles()
 
   return (
     <Box className={classes.root}>
-      {data.map((activity, i) => (
+      {acters.map((acter, i) => (
         <Box className={classes.singleItem} key={i}>
           <Link href="">
             <a>
-              {dataType === 'activity' && <ActivityTile activity={activity} />}
+              {dataType === ACTIVITY && (
+                <ActivityTile activity={acter.Activity} />
+              )}
             </a>
           </Link>
         </Box>
