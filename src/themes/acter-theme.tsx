@@ -14,7 +14,10 @@ export const theme = createMuiTheme({
   },
   typography: {
     fontFamily: 'Montserrat',
+    fontWeightLight: 400,
     fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
   },
 })
 
