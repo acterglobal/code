@@ -1,10 +1,13 @@
 import { Acter } from '@schema'
 import {
+  ActivityActerType,
+  ExampleActivity,
   ExampleUser,
   OrganisationActerType,
   UserActerType,
-  ActivityActerType,
 } from 'src/__fixtures__'
+
+// import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
 
 export const ExampleActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',
@@ -84,4 +87,5 @@ export const ExampleActivityActer: Acter = {
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
   useAdmins: false,
+  Activity: ExampleActivity,
 }
