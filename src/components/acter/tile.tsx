@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     acterType: {
       color: grey[700],
-      fontWeight: 'lighter',
+      fontWeight: theme.typography.fontWeightLight,
       fontSize: 13,
       marginBottom: theme.spacing(1),
       textTransform: 'capitalize',
     },
     title: {
-      color: grey[800],
-      fontWeight: 'bold',
+      color: grey[700],
+      fontWeight: theme.typography.fontWeightBold,
       marginBottom: 0,
       lineHeight: 1,
     },
