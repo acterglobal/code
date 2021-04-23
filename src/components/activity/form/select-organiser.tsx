@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   name: {
     color: grey[800],
     fontSize: '0.9rem',
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     marginLeft: 10,
   },
 }))

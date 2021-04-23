@@ -32,15 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dateTime: {
       fontSize: '0.6rem',
-      fontWeight: 'lighter',
+      fontWeight: theme.typography.fontWeightLight,
     },
     name: {
       fontSize: 14,
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
     },
     location: {
       fontSize: '0.6rem',
-      fontWeight: 'lighter',
+      fontWeight: theme.typography.fontWeightLight,
     },
   })
 )
@@ -50,7 +50,7 @@ const StyledTooltip = withStyles((theme: Theme) => ({
     backgroundColor: theme.palette.common.white,
     color: grey[900],
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
   },
 }))(Tooltip)
 

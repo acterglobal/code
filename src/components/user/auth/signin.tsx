@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(10),
   },
   heading: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightMedium,
     color: green[600],
     textAlign: 'center',
   },
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-between',
   },
   loginLink: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     marginLeft: 5,
   },
 }))

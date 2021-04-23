@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '20px 20px 60px 20px',
   },
   header: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     textAlign: 'center',
   },
   caption: {
     textAlign: 'center',
-    width: 250,
+    width: 300,
     margin: 'auto',
     color: theme.palette.secondary.main,
     marginBottom: 40,

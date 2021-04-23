@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   date: {
-    fontWeight: 'bolder',
+    fontWeight: theme.typography.fontWeightBold,
     [theme.breakpoints.down('xs')]: {
       fontSize: '0.7rem',
     },
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     fontSize: '1.4rem',
     margin: '3px 3px 3px 0px',
     [theme.breakpoints.down('xs')]: {
@@ -72,14 +72,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   location: {
     fontSize: '0.9rem',
-    fontWeight: 'lighter',
+    fontWeight: theme.typography.fontWeightLight,
     [theme.breakpoints.down('xs')]: {
       fontSize: '0.8rem',
     },
   },
   onlineLink: {
     fontSize: '0.9rem',
-    fontWeight: 'lighter',
+    fontWeight: theme.typography.fontWeightLight,
     color: theme.palette.primary.main,
     textDecoration: 'none',
     '&:hover': {

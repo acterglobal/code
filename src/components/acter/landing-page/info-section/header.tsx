@@ -6,7 +6,7 @@ import MarkDown from 'markdown-to-jsx'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      fontSize: '1.6rem',
+      fontWeight: 600,
       marginBottom: theme.spacing(2),
     },
     description: {
@@ -26,7 +26,7 @@ export const Header: FC<headerProps> = ({ title, description }) => {
   const classes = useStyles()
   return (
     <>
-      <Typography variant="h3" className={classes.title}>
+      <Typography variant="h6" className={classes.title}>
         {title}
       </Typography>
       <Typography variant="body2" component="p" className={classes.description}>

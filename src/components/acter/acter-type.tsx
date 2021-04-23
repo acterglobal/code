@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginLeft: 20,
     fontSize: '0.8rem',
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     lineHeight: 0.9,
   },
   caption: {

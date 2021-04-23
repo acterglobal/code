@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
     tabs: {
       marginBottom: theme.spacing(1),
     },
+    tab: {
+      fontWeight: theme.typography.fontWeightBold,
+    },
     interests: {
       overflowY: 'scroll',
     },
@@ -87,7 +90,7 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
         className={classes.tabs}
       >
         {topLevelTypes.map((type) => (
-          <Tab style={{ fontWeight: 'bold' }} label={type.name} key={type.id} />
+          <Tab className={classes.tab} label={type.name} key={type.id} />
         ))}
       </Tabs>
 

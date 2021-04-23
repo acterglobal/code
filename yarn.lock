@@ -1450,6 +1450,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/montserrat@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/@fontsource/montserrat/-/montserrat-4.2.2.tgz#a1ad54b9302d6b840618fa1294fb4aec98e2b673"
+  integrity sha512-HnlV9Xim2mYa56Bz/UIO5r26Rq/DJWlYdMWTql+TE6n3yYMe8YV6dTwPzTbkr35IsyDq6cWy0rPert9MWyA2yA==
+
 "@graphql-typed-document-node/core@^3.0.0":
   version "3.1.0"
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.1.0.tgz#0eee6373e11418bfe0b5638f654df7a4ca6a3950"

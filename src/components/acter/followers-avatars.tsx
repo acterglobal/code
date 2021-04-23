@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     section: {
       fontSize: '0.7rem',
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
       color: theme.palette.secondary.main,
       capitalize: 'title',
     },

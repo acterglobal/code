@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     title: {
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
       },
