@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
   heading: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     marginBottom: theme.spacing(2),
     textAlign: 'center',
     color: grey[800],

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   heading: {
     fontSize: '0.9rem',
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     color: grey[600],
     marginBottom: 20,
   },
@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   memberInfo: {
     marginLeft: 30,
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
   },
   name: {
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     color: grey[800],
   },
   acterType: {

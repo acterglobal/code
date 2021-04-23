@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: grey[700],
       marginBottom: 10,
       fontSize: '0.9rem',
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
     },
     textinput: {
       fontSize: '0.5rem',

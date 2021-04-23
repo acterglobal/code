@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     heading: {
-      fontWeight: 'bold',
+      marginTop: theme.spacing(2),
+      fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.primary.main,
       textAlign: 'center',
     },

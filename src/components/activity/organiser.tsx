@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   name: {
     color: theme.palette.secondary.main,
     fontSize: '0.7rem',
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
     marginLeft: 10,
   },
 }))

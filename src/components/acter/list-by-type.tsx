@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   title: {
     fontSize: '1rem',
-    fontWeight: 'bold',
+    fontWeight: theme.typography.fontWeightBold,
   },
   subttitle: {
     fontSize: '0.8rem',

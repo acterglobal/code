@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { Box, InputLabel } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
 import { FormSetFieldValue } from 'src/components/acter/form'
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
@@ -18,7 +18,7 @@ const useStyles = makeStyles(
       color: grey[700],
       marginBottom: 10,
       fontSize: '0.9rem',
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
     },
   })
 )
