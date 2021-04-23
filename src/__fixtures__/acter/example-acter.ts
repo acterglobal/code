@@ -18,8 +18,8 @@ export const ExampleActer: Acter = {
   alias veritatis vitae eum culpa amet delectus eveniet tempore
   quibusdam repellat ut? Corrupti, consequuntur ipsam`,
   url: 'company url',
-  avatarUrl: ``,
-  bannerUrl: ``,
+  avatarUrl: `https://acter-dev.imgix.net/assets/default-avatar.png`,
+  bannerUrl: `https://acter-dev.imgix.net/assets/default-banner.png`,
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
