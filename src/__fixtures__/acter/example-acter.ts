@@ -24,6 +24,7 @@ export const ExampleActer: Acter = {
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
   useAdmins: false,
+  Following: [],
 }
 
 export const ExampleUserActer: Acter = {

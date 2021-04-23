@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+import clsx from 'clsx'
 import {
   List,
   ListItem,
@@ -31,7 +33,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter }) => {
   const classes = useStyles()
   return (
     <List disablePadding={true}>
-      <ListItem divider className={classes.acterItem}>
+      <ListItem divider className={classes.acterHeaderItem}>
         <ListItemAvatar>
           <ActerAvatar acter={acter} size={4} />
         </ListItemAvatar>
@@ -68,9 +70,15 @@ interface ActerMenuItemProps {
 
 const ActerMenuItem: FC<ActerMenuItemProps> = ({ acter, Icon, path, text }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   return (
-    <ListItem className={classes.item}>
+    <ListItem
+      className={clsx({
+        [classes.item]: true,
+        [classes.currentItem]: router.query.tab?.includes(path),
+      })}
+    >
       <Link href={acterAsUrl(acter, path)}>
         <a>
           <ListItemIcon>
@@ -86,10 +94,13 @@ const ActerMenuItem: FC<ActerMenuItemProps> = ({ acter, Icon, path, text }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
-    acterItem: {
+    acterHeaderItem: {
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
+    },
+    currentItem: {
+      backgroundColor: theme.palette.secondary[500],
     },
   })
 )

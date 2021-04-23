@@ -5,7 +5,7 @@ import {
   SessionIndicatorProps,
 } from 'src/components/layout/session-indicator'
 
-import { ExampleUser } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser } from 'src/__fixtures__'
 export default {
   title: 'layout/UserSession',
   component: SessionIndicator,
@@ -24,5 +24,8 @@ export const LoggedOut = Template.bind({})
 
 export const LoggedIn = Template.bind({})
 LoggedIn.args = {
-  user: ExampleUser,
+  user: {
+    ...ExampleUser,
+    Acter: ExampleActer,
+  },
 }

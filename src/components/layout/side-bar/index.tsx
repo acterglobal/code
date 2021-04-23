@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   Box,
@@ -34,13 +34,23 @@ export interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
-  const classes = useStyles()
+  const [drawerWidth, setDrawerWidth] = useState(4)
+  const classes = useStyles({ drawerWidth })
+
+  useEffect(() => {
+    if (acter) {
+      setDrawerWidth(14)
+      return
+    }
+    setDrawerWidth(4)
+  }, [acter])
+
   return (
     <Drawer
       variant="permanent"
       anchor="left"
       open={true}
-      classes={{ paper: classes.container }}
+      classes={{ root: classes.drawer, paper: classes.drawerPaper }}
     >
       <Box className={classes.menu}>
         <List className={classes.list}>
@@ -68,7 +78,7 @@ interface IconMenuItemProps {
 }
 
 const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
-  const classes = useStyles()
+  const classes = useStyles({})
   return (
     <ListItem className={classes.item}>
       <Link href={href}>
@@ -80,12 +90,20 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+type StyleProps = {
+  drawerWidth?: number
+}
+
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
-    container: {
+    drawer: ({ drawerWidth }: StyleProps) => ({
+      width: `${drawerWidth}rem`,
+    }),
+    drawerPaper: ({ drawerWidth }: StyleProps) => ({
       display: 'flex',
       flexDirection: 'row',
+      width: `${drawerWidth}rem`,
       color: theme.palette.secondary.contrastText,
       '& .MuiDivider-root': {
         borderTopWidth: 1,
@@ -94,7 +112,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
       },
-    },
+    }),
     menu: {
       backgroundColor: theme.palette.secondary.main,
       height: '100%',

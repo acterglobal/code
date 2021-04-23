@@ -70,26 +70,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
         loading={loading}
       />
       <Grid container spacing={2}>
-        <Grid className={classes.menu} item xs={12} sm={4} md={2}>
-          <Tabs
-            tabLabels={[ACTIVITIES, MEMBERS, FORUM]}
-            initialValue={tab}
-            handleTabChange={(newTab) => {
-              router.push(
-                {
-                  pathname: router.pathname,
-                  query: {
-                    ...router.query,
-                    tab: [newTab],
-                  },
-                },
-                undefined,
-                { shallow: true }
-              )
-            }}
-          />
-        </Grid>
-        <Grid className={classes.main} item xs={12} sm={8} md={7}>
+        <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
           <div role="tabpanel" hidden={tab !== ACTIVITIES}>
             <ActivitiesList acter={acter} user={user} />
           </div>
@@ -104,7 +85,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <Typography variant="subtitle1">Coming soon...</Typography>
           </div>
         </Grid>
-        <Grid className={classes.info} item xs={12} sm={12} md={3}>
+        <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
           <InfoSection acter={acter} interestTypes={interestTypes} />
         </Grid>
       </Grid>
