@@ -1,4 +1,8 @@
-import { ExampleUser, ExampleActer } from 'src/__fixtures__'
+import {
+  ExampleUser,
+  ExampleActer,
+  ExampleActivityActer,
+} from 'src/__fixtures__'
 
 export const ExampleActivity = {
   id: '18869756-4979-4adb-b967-5cf7ca70b01a',
@@ -8,6 +12,6 @@ export const ExampleActivity = {
   createdByUserId: ExampleUser.id,
   createdAt: new Date(),
   updatedAt: new Date(),
-  Acter: ExampleActer,
+  Acter: ExampleActivityActer,
   Organiser: ExampleActer,
 }

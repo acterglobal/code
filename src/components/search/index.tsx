@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const Search: FC<DisplayResultsProps> = ({ dataType, data }) => {
+export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
   const classes = useStyles()
   return (
     <Box className={classes.root}>
@@ -58,7 +58,7 @@ export const Search: FC<DisplayResultsProps> = ({ dataType, data }) => {
         </Grid>
       </Box>
 
-      <DisplayResults dataType={dataType} data={data} />
+      <DisplayResults dataType={dataType} acters={acters} />
     </Box>
   )
 }
