@@ -72,14 +72,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   location: {
     fontSize: '0.9rem',
-    fontWeight: 'lighter',
+    fontWeight: 'initial',
     [theme.breakpoints.down('xs')]: {
       fontSize: '0.8rem',
     },
   },
   onlineLink: {
     fontSize: '0.9rem',
-    fontWeight: 'lighter',
+    fontWeight: 'initial',
     color: theme.palette.primary.main,
     textDecoration: 'none',
     '&:hover': {

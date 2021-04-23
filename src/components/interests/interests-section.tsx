@@ -22,7 +22,11 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
     <>
       {topLevelTypes.map((type) => (
         <Box role="interests-section" key={type.id}>
-          <Typography id="interest-type-name" style={{ margin: 5 }}>
+          <Typography
+            id="interest-type-name"
+            variant="body2"
+            style={{ margin: 5, fontWeight: 600 }}
+          >
             {type.name}
           </Typography>
           <InterestTypes

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     uploadContainer: {
       minWidth: 230,
       fontSize: '0.85rem',
+      fontFamily: 'Montserrat',
     },
     button: {
       color: 'white',

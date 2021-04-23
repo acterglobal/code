@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dateTime: {
       fontSize: '0.6rem',
-      fontWeight: 'lighter',
+      fontWeight: 'initial',
     },
     name: {
       fontSize: 14,
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     location: {
       fontSize: '0.6rem',
-      fontWeight: 'lighter',
+      fontWeight: 'initial',
     },
   })
 )
