@@ -5,7 +5,6 @@ import { Acter } from '@schema'
 import Link from 'next/link'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ACTIVITY } from 'src/constants'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -28,8 +27,10 @@ export interface DisplayResultsProps {
   acters: Acter[]
 }
 
-export const DisplayResults: FC<DisplayResultsProps> = (props) => {
-  const { dataType, acters } = props
+export const DisplayResults: FC<DisplayResultsProps> = ({
+  dataType,
+  acters,
+}) => {
   const classes = useStyles()
 
   return (
