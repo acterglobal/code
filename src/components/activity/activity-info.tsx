@@ -1,20 +1,17 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 import moment from 'moment'
 import {
   Computer,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   LocationOnOutlined,
   Event as CalanderIcon,
 } from '@material-ui/icons'
-import { Box, IconButton, Hidden, Typography } from '@material-ui/core'
+import { Box, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { About } from 'src/components/activity/about'
+import { activityTypeColors } from 'src/themes/colors'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityInfo: {
@@ -55,15 +52,14 @@ const useStyles = makeStyles((theme: Theme) => ({
       fontSize: '1.2rem',
     },
   },
-  iconButton: {
-    [theme.breakpoints.down('xs')]: {
-      padding: 0,
-    },
-  },
-  icon: {
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.1rem',
-    },
+  activityType: {
+    height: theme.spacing(3.5),
+    width: theme.spacing(17),
+    marginLeft: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: theme.typography.fontWeightLight,
   },
   locationContainer: {
     display: 'flex',
@@ -95,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export type ActivityInfoProps = ConnectProps
 
 export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
-  const { acter, user } = props
+  const { acter } = props
   const classes = useStyles()
 
   const format = acter.Activity.isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT
@@ -128,20 +124,12 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           <Typography className={classes.title} variant="h3">
             {acter.name}
           </Typography>
-          {acter.createdByUserId === user?.id && (
-            <>
-              <Link href={`${acterAsUrl(acter)}/edit`}>
-                <IconButton className={classes.iconButton}>
-                  <EditIcon className={classes.icon} />
-                </IconButton>
-              </Link>
-              <Link href={`${acterAsUrl(acter)}/delete`}>
-                <IconButton className={classes.iconButton}>
-                  <DeleteIcon className={classes.icon} />
-                </IconButton>
-              </Link>
-            </>
-          )}
+          <Box
+            className={classes.activityType}
+            style={{ backgroundColor: activityTypeColors[acter.Activity.type] }}
+          >
+            {acter.Activity.type}
+          </Box>
         </Box>
         <Connect {...props} />
       </Box>
