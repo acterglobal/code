@@ -16,4 +16,5 @@ export const ExampleActivity = {
   updatedAt: new Date(),
   Acter: ExampleActivityActer,
   Organiser: ExampleActer,
+  type: 'Project',
 }
