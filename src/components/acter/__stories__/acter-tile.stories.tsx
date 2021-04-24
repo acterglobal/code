@@ -5,7 +5,7 @@ import { ExampleActer } from 'src/__fixtures__'
 import { Acter } from '@schema'
 
 export default {
-  title: 'search/ActerTile',
+  title: 'Acter/ActerTile',
   component: ActerTile,
   args: {
     acter: ExampleActer,

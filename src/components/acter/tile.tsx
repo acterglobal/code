@@ -4,6 +4,7 @@ import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from 'src/lib/images/get-image-url'
+import { getActerTypeIcon } from 'src/lib/images/get-icons'
 import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       borderRadius: 7,
       height: 150,
+      minWidth: 700,
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -31,15 +33,20 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     acterType: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: theme.spacing(1),
+    },
+    acterTypeName: {
       color: grey[700],
       fontWeight: theme.typography.fontWeightLight,
       fontSize: 13,
-      marginBottom: theme.spacing(1),
       textTransform: 'capitalize',
+      marginLeft: 5,
     },
     title: {
       color: grey[700],
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightMedium,
       marginBottom: 0,
       lineHeight: 1,
     },
@@ -81,13 +88,25 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
       </Box>
 
       <Box className={classes.infoSection}>
-        <Typography variant="body2" className={classes.acterType}>
-          {acter.ActerType.name}
-        </Typography>
+        <Box className={classes.acterType}>
+          <Image
+            src={getActerTypeIcon(acter.ActerType.name)}
+            alt={acter.name}
+            width={20}
+            height={20}
+          />
+          <Typography variant="body2" className={classes.acterTypeName}>
+            {acter.ActerType.name}
+          </Typography>
+        </Box>
         <Typography variant="subtitle1" className={classes.title}>
           {acter.name}
         </Typography>
-        <Typography variant="body2" className={classes.acterType} gutterBottom>
+        <Typography
+          className={classes.acterTypeName}
+          variant="body2"
+          gutterBottom
+        >
           {acter.location}
         </Typography>
         <Box className={classes.descriptionSection}>
