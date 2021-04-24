@@ -125,9 +125,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       </Box>
       <Box
         className={classes.activityType}
-        style={{ backgroundColor: activityTypeColors['Idea'] }}
+        style={{ backgroundColor: activityTypeColors[activity.type] }}
       >
-        <Typography variant="caption">Event</Typography>
+        <Typography variant="caption">{activity.type}</Typography>
       </Box>
     </Box>
   )
