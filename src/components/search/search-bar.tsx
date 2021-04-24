@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       outline: 'none',
       border: 'none',
       flexGrow: 1,
+      fontFamily: theme.typography.fontFamily,
     },
     listbox: {
       margin: 0,
