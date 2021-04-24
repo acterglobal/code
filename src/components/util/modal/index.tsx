@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { TopBar } from 'src/components/util/modal/top-bar'
+import { TopBarProps } from 'src/components/util/modal/top-bar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,26 +30,25 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: grey[600],
       },
-      [theme.breakpoints.down('sm')]: {
-        height: theme.spacing(3),
-        width: theme.spacing(3),
-        padding: theme.spacing(0.5),
-        marginLeft: theme.spacing(-2),
-        marginTop: theme.spacing(-1.5),
-      },
     },
   })
 )
 
-export interface ModalProps {
+export interface ModalProps extends TopBarProps {
   children: ReactNode
   showCloseButton?: boolean
   handleModalClose?: (any?) => void
   disableBackdropClick?: boolean
 }
 
-export const Modal: FC<ModalProps> = (props) => {
-  const { children, handleModalClose, disableBackdropClick = true } = props
+export const Modal: FC<ModalProps> = ({
+  children,
+  handleModalClose,
+  actionButtons = null,
+  acter,
+  user,
+  disableBackdropClick = true,
+}) => {
   const classes = useStyles()
   const [open, setOpen] = useState(true)
 
@@ -74,7 +74,12 @@ export const Modal: FC<ModalProps> = (props) => {
       >
         <Fade in={open}>
           <div className={classes.modalContainer}>
-            <TopBar handleClose={handleClose} />
+            <TopBar
+              handleClose={handleClose}
+              actionButtons={actionButtons}
+              acter={acter}
+              user={user}
+            />
             {children}
           </div>
         </Fade>
