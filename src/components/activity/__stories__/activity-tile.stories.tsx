@@ -10,6 +10,22 @@ export default {
   },
 } as Meta
 
-export const Tile: Story<ActivityTileProps> = (args) => (
+export const Template: Story<ActivityTileProps> = (args) => (
   <ActivityTile {...args} />
 )
+
+export const IdeaTile = Template.bind({})
+IdeaTile.args = {
+  activity: {
+    ...ExampleActivity,
+    type: 'Idea',
+  },
+}
+
+export const ProjectTile = Template.bind({})
+ProjectTile.args = {
+  activity: {
+    ...ExampleActivity,
+    type: 'Project',
+  },
+}
