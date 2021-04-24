@@ -21,24 +21,25 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(2),
       overflow: 'hidden',
       width: 218,
-      height: 207,
+      height: 206,
     },
     image: {
       height: 100,
       position: 'relative',
     },
     info: {
-      padding: theme.spacing(0.8),
+      padding: theme.spacing(0.7),
       display: 'flex',
       justifyContent: 'center',
     },
     dateTime: {
       fontSize: '0.6rem',
       fontWeight: theme.typography.fontWeightLight,
+      lineHeight: 1,
     },
     name: {
       fontSize: 14,
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightMedium,
     },
     location: {
       fontSize: '0.6rem',
