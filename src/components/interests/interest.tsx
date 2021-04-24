@@ -4,17 +4,7 @@ import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
-
-//  TODO: put these colors in theme or somewhere
-export const interestColors = {
-  Economy: 'rgb(248, 186, 0)',
-  Environment: 'rgb(29, 177, 0)',
-  Social: 'rgb(255, 100, 78)',
-  Approach: 'rgb(84, 85, 89)',
-  Focus: 'black',
-  Tags: 'black',
-}
-const disabledColor = '#b5b5b5'
+import { disabledColor, interestColors } from 'src/themes/colors'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

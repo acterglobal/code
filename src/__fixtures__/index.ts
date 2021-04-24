@@ -3,18 +3,21 @@ export * from './interest/example-interest-type'
 export * from './interest/example-approach'
 export * from './interest/example-interest-type'
 
+import { ActivityActerType } from './acter-type/activity'
 import { GroupActerType } from './acter-type/group'
 import { NetworkActerType } from './acter-type/network'
 import { OrganisationActerType } from './acter-type/organisation'
 import { UserActerType } from './acter-type/user'
 
 export {
+  ActivityActerType,
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
   UserActerType,
 }
 export const ActerTypes = [
+  ActivityActerType,
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,

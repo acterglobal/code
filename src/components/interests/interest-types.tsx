@@ -8,7 +8,8 @@ import {
   Theme,
 } from '@material-ui/core'
 import { InterestType } from '@schema'
-import { Interest, interestColors } from 'src/components/interests/interest'
+import { Interest } from 'src/components/interests/interest'
+import { interestColors } from 'src/themes/colors'
 import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>

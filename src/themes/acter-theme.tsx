@@ -12,12 +12,20 @@ export const theme = createMuiTheme({
       default: grey[200],
     },
   },
+
   typography: {
     fontFamily: 'Montserrat',
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+  },
+
+  props: {
+    /* disable elevation for buttons  */
+    MuiButton: {
+      disableElevation: true,
+    },
   },
 })
 
