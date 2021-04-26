@@ -14,54 +14,6 @@ import { DATE_FORMAT_SHORT, DATE_FORMAT_SHORT_NO_TIME } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
 import { activityTypeColors } from 'src/themes/colors'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: 'white',
-      borderRadius: theme.spacing(2),
-      overflow: 'hidden',
-      width: 218,
-      height: 206,
-    },
-    image: {
-      height: 100,
-      position: 'relative',
-    },
-    info: {
-      padding: theme.spacing(0.7),
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    dateTime: {
-      fontSize: '0.6rem',
-      fontWeight: theme.typography.fontWeightLight,
-      lineHeight: 1,
-    },
-    name: {
-      fontSize: 14,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
-    location: {
-      fontSize: '0.6rem',
-      fontWeight: theme.typography.fontWeightLight,
-    },
-    activityType: {
-      textAlign: 'center',
-      paddingTop: theme.spacing(0.8),
-      paddingBottom: theme.spacing(0.8),
-    },
-  })
-)
-
-const StyledTooltip = withStyles((theme: Theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-    color: grey[900],
-    fontSize: 15,
-    fontWeight: theme.typography.fontWeightBold,
-  },
-}))(Tooltip)
-
 export interface ActivityTileProps {
   activity: Activity
 }
@@ -125,10 +77,61 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       </Box>
       <Box
         className={classes.activityType}
-        style={{ backgroundColor: activityTypeColors[activity.type] }}
+        style={{
+          backgroundColor: activityTypeColors[activity.ActivityType.name],
+        }}
       >
-        <Typography variant="caption">{activity.type}</Typography>
+        <Typography variant="caption">{activity.ActivityType.name}</Typography>
       </Box>
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      backgroundColor: 'white',
+      borderRadius: theme.spacing(2),
+      overflow: 'hidden',
+      width: 218,
+      height: 206,
+    },
+    image: {
+      height: 100,
+      position: 'relative',
+    },
+    info: {
+      padding: theme.spacing(0.7),
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    dateTime: {
+      fontSize: '0.6rem',
+      fontWeight: theme.typography.fontWeightLight,
+      lineHeight: 1,
+    },
+    name: {
+      fontSize: 14,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    location: {
+      fontSize: '0.6rem',
+      fontWeight: theme.typography.fontWeightLight,
+    },
+    activityType: {
+      textAlign: 'center',
+      textTransform: 'capitalize',
+      paddingTop: theme.spacing(0.8),
+      paddingBottom: theme.spacing(0.8),
+    },
+  })
+)
+
+const StyledTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: grey[900],
+    fontSize: 15,
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}))(Tooltip)
