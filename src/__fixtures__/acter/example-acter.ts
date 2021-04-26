@@ -1,6 +1,5 @@
 import { Acter } from '@schema'
 import {
-  ActivityActerType,
   ExampleUser,
   OrganisationActerType,
   UserActerType,
