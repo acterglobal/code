@@ -1,6 +1,10 @@
 import { Meta, Story } from '@storybook/react'
 import { ActivityTile, ActivityTileProps } from 'src/components/activity/tile'
-import { ExampleActivity } from 'src/__fixtures__/activity/example-activity'
+import {
+  ExampleActivity,
+  IdeaTypeActivity,
+  ProjectTypeActivity,
+} from 'src/__fixtures__/activity/example-activity'
 
 export default {
   title: 'landingpage/ActivityTile',
@@ -10,6 +14,16 @@ export default {
   },
 } as Meta
 
-export const Tile: Story<ActivityTileProps> = (args) => (
+export const Template: Story<ActivityTileProps> = (args) => (
   <ActivityTile {...args} />
 )
+
+export const IdeaTile = Template.bind({})
+IdeaTile.args = {
+  activity: IdeaTypeActivity,
+}
+
+export const ProjectTile = Template.bind({})
+ProjectTile.args = {
+  activity: ProjectTypeActivity,
+}

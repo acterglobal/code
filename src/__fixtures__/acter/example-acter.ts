@@ -1,9 +1,9 @@
 import { Acter } from '@schema'
 import {
-  ActivityActerType,
   ExampleUser,
   OrganisationActerType,
   UserActerType,
+  ActivityActerType,
 } from 'src/__fixtures__'
 
 export const ExampleActer: Acter = {

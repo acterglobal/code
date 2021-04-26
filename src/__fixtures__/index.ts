@@ -24,6 +24,18 @@ export const ActerTypes = [
   UserActerType,
 ]
 
+import { EventActivityType } from './activity-type/event'
+import { IdeaActivityType } from './activity-type/idea'
+import { ProjectActivityType } from './activity-type/project'
+
+export { EventActivityType, IdeaActivityType, ProjectActivityType }
+
+export const ActivityTypes = [
+  EventActivityType,
+  IdeaActivityType,
+  ProjectActivityType,
+]
+
 export * from './acter-connection/example-acter-connection'
 
 export * from './user/example-user'
