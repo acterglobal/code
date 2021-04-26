@@ -7,6 +7,58 @@ import { getImageUrl } from 'src/lib/images/get-image-url'
 import { getActerTypeIcon } from 'src/lib/images/get-icons'
 import { Acter } from '@schema'
 
+export interface ActerTileProps {
+  acter: Acter
+}
+
+export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
+  const classes = useStyles()
+
+  return (
+    <Box className={classes.root}>
+      <Box className={classes.image}>
+        <Image
+          src={getImageUrl(acter.avatarUrl, 'avatar')}
+          alt={acter.name}
+          layout="responsive"
+          width="100"
+          height="100"
+        />
+      </Box>
+
+      <Box className={classes.infoSection}>
+        <Box className={classes.acterType}>
+          <Image
+            src={getActerTypeIcon(acter.ActerType.name)}
+            alt={acter.name}
+            width={20}
+            height={20}
+          />
+          <Typography variant="body2" className={classes.acterTypeName}>
+            {acter.ActerType.name}
+          </Typography>
+        </Box>
+        <Typography variant="subtitle1" className={classes.title}>
+          {acter.name}
+        </Typography>
+        <Typography
+          className={classes.acterTypeName}
+          variant="body2"
+          gutterBottom
+        >
+          {acter.location}
+        </Typography>
+        <Box className={classes.descriptionSection}>
+          <Typography variant="caption" className={classes.description}>
+            {acter.description}
+          </Typography>
+          <Typography variant="caption">View more</Typography>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -67,55 +119,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
-export interface ActerTileProps {
-  acter: Acter
-}
-
-export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
-  const classes = useStyles()
-
-  return (
-    <Box className={classes.root}>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(acter.avatarUrl, 'avatar')}
-          alt={acter.name}
-          layout="responsive"
-          width="100"
-          height="100"
-        />
-      </Box>
-
-      <Box className={classes.infoSection}>
-        <Box className={classes.acterType}>
-          <Image
-            src={getActerTypeIcon(acter.ActerType.name)}
-            alt={acter.name}
-            width={20}
-            height={20}
-          />
-          <Typography variant="body2" className={classes.acterTypeName}>
-            {acter.ActerType.name}
-          </Typography>
-        </Box>
-        <Typography variant="subtitle1" className={classes.title}>
-          {acter.name}
-        </Typography>
-        <Typography
-          className={classes.acterTypeName}
-          variant="body2"
-          gutterBottom
-        >
-          {acter.location}
-        </Typography>
-        <Box className={classes.descriptionSection}>
-          <Typography variant="caption" className={classes.description}>
-            {acter.description}
-          </Typography>
-          <Typography variant="caption">View more</Typography>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
