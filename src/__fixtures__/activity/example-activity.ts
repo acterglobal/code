@@ -2,6 +2,9 @@ import {
   ExampleUser,
   ExampleActer,
   ExampleActivityActer,
+  EventActivityType,
+  IdeaActivityType,
+  ProjectActivityType,
 } from 'src/__fixtures__'
 
 export const ExampleActivity = {
@@ -16,5 +19,38 @@ export const ExampleActivity = {
   updatedAt: new Date(),
   Acter: ExampleActivityActer,
   Organiser: ExampleActer,
-  type: 'Event',
+  ActivityType: EventActivityType,
+  activityTypeId: EventActivityType.id,
+}
+
+export const ProjectTypeActivity = {
+  id: '18869756-4979-4adb-b967-5cf7ca70b01a',
+  name: 'Project Activity',
+  startAt: new Date(),
+  endAt: new Date(),
+  isAllDay: false,
+  isOnline: true,
+  createdByUserId: ExampleUser.id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Acter: ExampleActivityActer,
+  Organiser: ExampleActer,
+  ActivityType: ProjectActivityType,
+  activityTypeId: ProjectActivityType.id,
+}
+
+export const IdeaTypeActivity = {
+  id: '18869756-4979-4adb-b967-5cf7ca70b01a',
+  name: 'Idea type Activity',
+  startAt: new Date(),
+  endAt: new Date(),
+  isAllDay: false,
+  isOnline: true,
+  createdByUserId: ExampleUser.id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Acter: ExampleActivityActer,
+  Organiser: ExampleActer,
+  ActivityType: IdeaActivityType,
+  activityTypeId: IdeaActivityType.id,
 }
