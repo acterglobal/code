@@ -1,5 +1,8 @@
 export const ACTIVITY = 'activity'
 export const ACTIVITIES = 'activities'
+export const EVENT = 'event'
+export const IDEA = 'idea'
+export const PROJECT = 'project'
 export const FORUM = 'forum'
 export const GROUP = 'group'
 export const ORGANISATION = 'organisation'
