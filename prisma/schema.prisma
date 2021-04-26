@@ -146,6 +146,9 @@ model Activity {
   isOnline Boolean  @map("is_online")
   isAllDay Boolean  @default(false) @map("is_all_day")
 
+  ActivityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  activityTypeId String
+
   createdByUser   User     @relation("activity_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String   @map("created_by_user_id")
   createdAt       DateTime @default(now()) @map("created_at")
@@ -158,6 +161,14 @@ model Activity {
   organiserId String? @map("organiser_id")
 
   @@map("activities")
+}
+
+model ActivityType {
+  id   String @id @default(uuid())
+  name String @unique
+
+  Activity Activity[]
+  @@map("activity_types")
 }
 
 model Interest {

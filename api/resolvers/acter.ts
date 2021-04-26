@@ -173,12 +173,17 @@ export class ActerResolver {
       interestIds
     )
 
+    const eventType = await ctx.prisma.activityType.findUnique({
+      where: { name: 'event' },
+    })
+
     return ctx.prisma.activity.create({
       data: {
         startAt,
         endAt,
         isOnline,
         isAllDay,
+        activityTypeId: eventType.id,
         organiserId: organiserActerId,
         acterId: acter.id,
         createdByUserId: acter.createdByUserId,
