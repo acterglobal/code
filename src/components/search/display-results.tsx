@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ActerTile } from 'src/components/acter/tile'
 import { ACTIVITIES, ACTERS } from 'src/constants'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,9 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     singleItem: {
       margin: theme.spacing(1),
-      '& a': {
-        textDecoration: 'none',
-        color: theme.palette.text.primary,
+      '&:hover': {
+        cursor: 'pointer',
       },
     },
   })
@@ -32,19 +33,23 @@ export interface DisplayResultsProps {
 export const DisplayResults: FC<DisplayResultsProps> = (props) => {
   const { dataType, acters } = props
   const classes = useStyles()
+  const router = useRouter()
 
   return (
     <Box className={classes.root}>
       {acters.map((acter, i) => (
-        <Box className={classes.singleItem} key={i}>
-          <Link href="">
-            <a>
-              {dataType === ACTERS && <ActerTile acter={acter} />}
-              {dataType === ACTIVITIES && (
-                <ActivityTile activity={acter.Activity} />
-              )}
-            </a>
-          </Link>
+        <Box
+          className={classes.singleItem}
+          key={i}
+          onClick={() => {
+            console.log('url :', acterAsUrl(acter))
+            router.push(acterAsUrl(acter))
+          }}
+        >
+          {dataType === ACTERS && <ActerTile acter={acter} />}
+          {dataType === ACTIVITIES && (
+            <ActivityTile activity={acter.Activity} />
+          )}
         </Box>
       ))}
     </Box>
