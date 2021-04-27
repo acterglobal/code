@@ -65,11 +65,14 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       borderRadius: 7,
       height: 150,
-      minWidth: 700,
+      width: 700,
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
       padding: theme.spacing(0.8),
+      [theme.breakpoints.down('xs')]: {
+        width: 300,
+      },
     },
     image: {
       marginLeft: theme.spacing(2),
@@ -78,11 +81,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 100,
       height: 100,
       borderRadius: '50%',
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
     },
     infoSection: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      [theme.breakpoints.down('xs')]: {
+        overflow: 'hidden',
+      },
     },
     acterType: {
       display: 'flex',
