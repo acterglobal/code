@@ -70,9 +70,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           <Typography className={classes.location} variant="subtitle1">
             {activity.isOnline ? 'Online' : activity.Acter?.location}
           </Typography>
-          <Typography className={classes.location} variant="subtitle1">
+          {/* <Typography className={classes.location} variant="subtitle1">
             {activity.Organiser?.name}
-          </Typography>
+          </Typography> */}
         </Box>
       </Box>
       <Box
@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.7),
       display: 'flex',
       justifyContent: 'center',
+      alignItems: 'center',
     },
     dateTime: {
       fontSize: '0.6rem',

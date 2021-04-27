@@ -11,9 +11,6 @@ export const acterAsUrl = (acter: Acter): string => {
     throw 'ActerType must be provided'
   }
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
-  const acterSlugLower =
-    acter.ActerType.name === 'activity'
-      ? acter.Activity.Acter.slug.toLowerCase()
-      : acter.slug.toLowerCase()
+  const acterSlugLower = acter.slug.toLowerCase()
   return `/${acterTypeUrl}/${acterSlugLower}`
 }
