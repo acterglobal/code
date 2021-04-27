@@ -9,36 +9,6 @@ import {
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: grey[300],
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    searchSection: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '80%',
-    },
-    searchSectionItem: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(5),
-    },
-    results: {
-      color: grey[800],
-      flexGrow: 1,
-    },
-    searchInput: {
-      display: 'flex',
-      flexGrow: 8,
-    },
-  })
-)
-
 export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
   const classes = useStyles()
   return (
@@ -47,7 +17,7 @@ export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
             <Typography className={classes.results} variant="body2">
-              178 results
+              {acters.length} results
             </Typography>
             <Box className={classes.searchInput}>
               <SearchBar />
@@ -62,3 +32,34 @@ export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      backgroundColor: grey[300],
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    searchSection: {
+      display: 'flex',
+      width: '80%',
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.down('xs')]: {
+        width: '95%',
+      },
+    },
+    searchSectionItem: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    results: {
+      color: grey[800],
+      flexGrow: 1,
+    },
+    searchInput: {
+      display: 'flex',
+      flexGrow: 8,
+    },
+  })
+)

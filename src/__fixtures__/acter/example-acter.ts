@@ -72,7 +72,7 @@ export const ExampleActivityActer: Acter = {
   ActerType: ActivityActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
-  slug: 'my-organisation',
+  slug: 'greenlight-aarhus',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
   alias veritatis vitae eum culpa amet delectus eveniet tempore
