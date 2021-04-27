@@ -71,7 +71,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
             {activity.isOnline ? 'Online' : activity.Acter?.location}
           </Typography>
           <Typography className={classes.location} variant="subtitle1">
-            {activity.Organiser.name}
+            {activity.Organiser?.name}
           </Typography>
         </Box>
       </Box>
@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       width: 218,
       height: 206,
+      position: 'relative',
     },
     image: {
       height: 100,
@@ -119,6 +120,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightLight,
     },
     activityType: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
       textAlign: 'center',
       textTransform: 'capitalize',
       paddingTop: theme.spacing(0.8),
