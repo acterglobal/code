@@ -1,15 +1,18 @@
 import { NextRouter } from 'next/router'
-import { ACTIVITIES, MEMBERS, FORUM } from 'src/constants'
+import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 
 export const getLandingPageTab = (
   router: NextRouter,
   defaultTab = ''
 ): string => {
-  const tab = router.query?.tab?.length ? router.query.tab[0] : ACTIVITIES
+  if (!router.query.tab) {
+    return defaultTab
+  }
+  const tab = router.query.tab[0]
   switch (tab) {
     case ACTIVITIES:
     case MEMBERS:
-    case FORUM:
+    case FEED:
       return tab
     default:
       return defaultTab

@@ -31,13 +31,13 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
   return (
     <>
       <AppBar position="fixed" color="inherit" className={classes.appBar}>
-        <Toolbar variant="dense">
+        <Toolbar>
           <div>
             <SessionIndicator user={user} />
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar variant="dense" />
+      <Toolbar />
     </>
   )
 }

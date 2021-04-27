@@ -13,7 +13,6 @@ import {
   HeaderSection,
   HeaderSectionProps,
 } from 'src/components/acter/landing-page/header-section'
-import { Tabs } from 'src/components/util/tabs/'
 import {
   InfoSection,
   InfoSectionProps,
@@ -23,7 +22,7 @@ import {
   MembersSection,
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
-import { ACTIVITIES, MEMBERS, FORUM } from 'src/constants'
+import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,7 +57,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
 }) => {
   const classes = useStyles({})
   const router = useRouter()
-  const tab = getLandingPageTab(router, ACTIVITIES)
+  const tab = getLandingPageTab(router, FEED)
 
   return (
     <Grid className={classes.header} container>
@@ -81,7 +80,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
               loading={loading}
             />
           </div>
-          <div role="tabpanel" hidden={tab !== FORUM}>
+          <div role="tabpanel" hidden={tab !== FEED}>
             <Typography variant="subtitle1">Coming soon...</Typography>
           </div>
         </Grid>

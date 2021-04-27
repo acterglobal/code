@@ -6,6 +6,8 @@ import {
   Divider,
   List,
   ListItem,
+  MenuList,
+  MenuItem,
   createStyles,
   makeStyles,
   Theme,
@@ -53,14 +55,14 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
       classes={{ root: classes.drawer, paper: classes.drawerPaper }}
     >
       <Box className={classes.menu}>
-        <List className={classes.list}>
+        <MenuList className={classes.list}>
           <IconMenuItem Icon={ActerLogoText} href="/" text="Acter" />
           <IconMenuItem Icon={HomeIcon} href="/dashboard" text="Home" />
           <IconMenuItem Icon={WorldIcon} href="/search" text="Search" />
           <Divider />
           <FollowingList user={user} />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
-        </List>
+        </MenuList>
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
@@ -80,13 +82,13 @@ interface IconMenuItemProps {
 const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
   const classes = useStyles({})
   return (
-    <ListItem className={classes.item}>
+    <MenuItem className={classes.item}>
       <Link href={href}>
         <a>
           <Icon fontSize="large" aria-label={text} />
         </a>
       </Link>
-    </ListItem>
+    </MenuItem>
   )
 }
 
