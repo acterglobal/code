@@ -6,13 +6,51 @@ import { grey } from '@material-ui/core/colors'
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+export const SearchBar: FC = () => {
+  const classes = useStyles()
+  const {
+    getRootProps,
+    getInputProps,
+    getListboxProps,
+    getOptionProps,
+    groupedOptions,
+  } = useAutocomplete({
+    id: 'use-autocomplete-demo',
+    options: data,
+    getOptionLabel: (option) => option.title,
+  })
+  return (
+    <Box style={{ width: '100%' }}>
+      <Box className={classes.searchField} {...getRootProps()}>
+        <SearchIcon fontSize="inherit" className={classes.searchIcon} />
+        <input
+          placeholder="search"
+          className={classes.input}
+          {...getInputProps()}
+        />
+      </Box>
+      {groupedOptions.length > 0 ? (
+        <ul className={classes.listbox} {...getListboxProps()}>
+          {groupedOptions.map((option, index) => (
+            <li {...getOptionProps({ option, index })}>
+              <Typography variant="caption">{option.title}</Typography>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </Box>
+  )
+}
+
+const data = []
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     searchField: {
+      height: theme.spacing(3.5),
       display: 'flex',
       alignItems: 'center',
       backgroundColor: 'white',
-      height: theme.spacing(2.8),
       borderRadius: 20,
       padding: 3,
       paddingLeft: 10,
@@ -52,41 +90,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
-export const SearchBar: FC = () => {
-  const classes = useStyles()
-  const {
-    getRootProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    id: 'use-autocomplete-demo',
-    options: data,
-    getOptionLabel: (option) => option.title,
-  })
-  return (
-    <Box style={{ width: '100%' }}>
-      <Box className={classes.searchField} {...getRootProps()}>
-        <SearchIcon fontSize="inherit" className={classes.searchIcon} />
-        <input
-          placeholder="search"
-          className={classes.input}
-          {...getInputProps()}
-        />
-      </Box>
-      {groupedOptions.length > 0 ? (
-        <ul className={classes.listbox} {...getListboxProps()}>
-          {groupedOptions.map((option, index) => (
-            <li {...getOptionProps({ option, index })}>
-              <Typography variant="caption">{option.title}</Typography>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </Box>
-  )
-}
-
-const data = []

@@ -20,7 +20,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
         <Image
           src={getImageUrl(acter.avatarUrl, 'avatar')}
           alt={acter.name}
-          layout="responsive"
+          layout="intrinsic"
           width="100"
           height="100"
         />
@@ -77,10 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
     image: {
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(3),
-      border: '1px solid black',
+      border: '2px solid black',
       width: 100,
       height: 100,
       borderRadius: '50%',
+      overflow: 'hidden',
       [theme.breakpoints.down('xs')]: {
         display: 'none',
       },

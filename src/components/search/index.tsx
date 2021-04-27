@@ -36,7 +36,6 @@ export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: grey[300],
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
