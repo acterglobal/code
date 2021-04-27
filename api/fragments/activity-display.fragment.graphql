@@ -6,4 +6,7 @@ fragment ActivityDisplay on Activity {
   startAt
   endAt
   isAllDay
+  ActivityType {
+    name
+  }
 }
