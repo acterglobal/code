@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
-import Link from 'next/link'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ActerTile } from 'src/components/acter/tile'
 import { ACTIVITIES, ACTERS } from 'src/constants'
@@ -41,10 +40,7 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
         <Box
           className={classes.singleItem}
           key={i}
-          onClick={() => {
-            console.log('url :', acterAsUrl(acter))
-            router.push(acterAsUrl(acter))
-          }}
+          onClick={() => router.push(acterAsUrl(acter))}
         >
           {dataType === ACTERS && <ActerTile acter={acter} />}
           {dataType === ACTIVITIES && (

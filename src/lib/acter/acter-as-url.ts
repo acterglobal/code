@@ -13,7 +13,7 @@ export const acterAsUrl = (acter: Acter): string => {
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const acterSlugLower =
     acter.ActerType.name === 'activity'
-      ? acter.Activity.Acter.slug.toLocaleLowerCase()
+      ? acter.Activity.Acter.slug.toLowerCase()
       : acter.slug.toLowerCase()
   return `/${acterTypeUrl}/${acterSlugLower}`
 }
