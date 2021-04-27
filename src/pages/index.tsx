@@ -1,36 +1,32 @@
-import { NextPage, GetServerSideProps } from 'next'
+import { NextPage } from 'next'
 import { Head } from 'src/components/layout/head'
 
-import { Layout } from 'src/components/layout'
+import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { getUserProfile, searchActers } from 'src/props'
 
-import { User } from '@schema'
+import { Layout } from 'src/components/layout'
+import { Search } from 'src/components/search'
+
+import { Acter, User } from '@schema'
+
+import { ACTERS } from 'src/constants'
 
 interface HomeProps {
+  acters: Acter[]
   user?: User
 }
 
-const Home: NextPage<HomeProps> = ({ user }) => (
+const Home: NextPage<HomeProps> = ({ acters, user }) => (
   <Layout user={user}>
     <Head title="Acter" />
 
     <main>
-      <p>The platform for coordinating action on global challenges.</p>
-      <p>
-        In a world that requires new ways of collaborating, Acter help people,
-        organisations and systems build and manage small communities to large
-        ecosystems, enabling them to accelerate their impact.
-      </p>
+      <Search acters={acters} dataType={ACTERS} />
     </main>
   </Layout>
 )
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/networks/greenlight-aarhus',
-    },
-  }
-}
+export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+  composeProps(ctx, getUserProfile(false), searchActers)
 
 export default Home
