@@ -1,3 +1,4 @@
+export const ACTERS = 'acters'
 export const ACTIVITY = 'activity'
 export const ACTIVITIES = 'activities'
 export const EVENT = 'event'

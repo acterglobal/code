@@ -4,7 +4,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
 import Link from 'next/link'
 import { ActivityTile } from 'src/components/activity/tile'
-import { ACTIVITY } from 'src/constants'
+import { ActerTile } from 'src/components/acter/tile'
+import { ACTIVITIES, ACTERS } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,8 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
         <Box className={classes.singleItem} key={i}>
           <Link href="">
             <a>
-              {dataType === ACTIVITY && (
+              {dataType === ACTERS && <ActerTile acter={acter} />}
+              {dataType === ACTIVITIES && (
                 <ActivityTile activity={acter.Activity} />
               )}
             </a>
