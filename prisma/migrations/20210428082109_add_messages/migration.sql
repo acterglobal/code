@@ -5,7 +5,7 @@ CREATE TABLE "Message" (
     "content" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "message_id" TEXT,
+    "parent_id" TEXT,
     "acter_id" TEXT NOT NULL,
     "author_id" TEXT NOT NULL,
 
@@ -13,7 +13,7 @@ CREATE TABLE "Message" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Message" ADD FOREIGN KEY ("message_id") REFERENCES "Message"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Message" ADD FOREIGN KEY ("parent_id") REFERENCES "Message"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD FOREIGN KEY ("acter_id") REFERENCES "acters"("id") ON DELETE CASCADE ON UPDATE CASCADE;
