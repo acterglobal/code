@@ -74,8 +74,8 @@ model Acter {
   Activity            Activity?  @relation("acter")
   ActivitiesOrganized Activity[] @relation("organiser")
 
-  Message  Message[] @relation("messages")
-  Authored Message[] @relation("authored")
+  AttachedMessages Message[] @relation("messages")
+  AuthoredMessages Message[] @relation("authored")
 
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
