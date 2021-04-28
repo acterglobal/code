@@ -16,15 +16,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     backgroundColor: '#F2F2F2',
     width: 800,
+    height: '100%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: 700,
-      maxHeight: 545,
     },
     [theme.breakpoints.down('xs')]: {
       maxWidth: 310,
-      maxHeight: 545,
     },
     overflowY: 'scroll',
+    marginBottom: 10,
   },
   imageContainer: {
     backgroundColor: 'white',

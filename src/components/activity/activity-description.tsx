@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: 5,
+    [theme.breakpoints.down('xs')]: {
+      height: '100%',
+      overflow: 'scroll',
+    },
   },
 }))
 
