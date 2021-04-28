@@ -13,81 +13,6 @@ import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { About } from 'src/components/activity/about'
 import { activityTypeColors } from 'src/themes/colors'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  activityInfo: {
-    padding: '20px 20px 20px 30px',
-    [theme.breakpoints.down('xs')]: {
-      padding: '15px 5px 5px 10px',
-    },
-    // height: 120,
-    backgroundColor: 'white',
-  },
-  dateContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    color: green[500],
-  },
-  calanderIcon: {
-    fontSize: '1.3rem',
-    marginRight: 5,
-    [theme.breakpoints.down('xs')]: {
-      marginRight: 3,
-    },
-  },
-  date: {
-    fontWeight: theme.typography.fontWeightBold,
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '0.7rem',
-    },
-  },
-  titleContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  title: {
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: '1.4rem',
-    margin: '3px 3px 3px 0px',
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.2rem',
-    },
-  },
-  activityType: {
-    height: theme.spacing(3.5),
-    width: theme.spacing(17),
-    marginLeft: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontWeight: theme.typography.fontWeightLight,
-  },
-  locationContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    color: grey[800],
-  },
-  location: {
-    fontSize: '0.9rem',
-    fontWeight: theme.typography.fontWeightLight,
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '0.8rem',
-    },
-  },
-  onlineLink: {
-    fontSize: '0.9rem',
-    fontWeight: theme.typography.fontWeightLight,
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  titleAndJoinContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-}))
-
 export type ActivityInfoProps = ConnectProps
 
 export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
@@ -126,9 +51,12 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           </Typography>
           <Box
             className={classes.activityType}
-            style={{ backgroundColor: activityTypeColors[acter.Activity.type] }}
+            style={{
+              backgroundColor:
+                activityTypeColors[acter.Activity.ActivityType.name],
+            }}
           >
-            {acter.Activity.type}
+            {acter.Activity.ActivityType.name}
           </Box>
         </Box>
         <Connect {...props} />
@@ -136,9 +64,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline && acter.url && (
           <>
-            <Computer
-              style={{ fontSize: '1.3rem', marginRight: 5, color: green[500] }}
-            />
+            <Computer className={classes.computerIcon} />
             <a
               href={getUrl(acter.url)}
               className={classes.onlineLink}
@@ -152,9 +78,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
         )}
         {!acter.Activity.isOnline && acter.location && (
           <>
-            <LocationOnOutlined
-              style={{ fontSize: '1.3rem', marginRight: 5 }}
-            />
+            <LocationOnOutlined className={classes.locationIcon} />
             <Typography className={classes.location} variant="body2">
               {acter.location}
             </Typography>
@@ -167,3 +91,89 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  activityInfo: {
+    padding: '20px 20px 20px 30px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '15px 5px 5px 10px',
+    },
+    // height: 120,
+    backgroundColor: 'white',
+  },
+  dateContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    color: green[500],
+  },
+  calanderIcon: {
+    fontSize: '1.3rem',
+    marginRight: 5,
+    [theme.breakpoints.down('xs')]: {
+      marginRight: 3,
+    },
+  },
+  date: {
+    fontWeight: theme.typography.fontWeightBold,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.7rem',
+    },
+  },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  title: {
+    fontWeight: theme.typography.fontWeightBold,
+    fontSize: '1.4rem',
+    textTransform: 'capitalize',
+    margin: '3px 3px 3px 0px',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.2rem',
+    },
+  },
+  activityType: {
+    height: theme.spacing(3.5),
+    width: theme.spacing(17),
+    marginLeft: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: theme.typography.fontWeightLight,
+    borderRadius: 5,
+  },
+  computerIcon: {
+    fontSize: '1.3rem',
+    marginRight: 5,
+    color: green[500],
+  },
+  locationIcon: {
+    fontSize: '1.3rem',
+    marginRight: 5,
+  },
+  locationContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    color: grey[800],
+  },
+  location: {
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightLight,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.8rem',
+    },
+  },
+  onlineLink: {
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightLight,
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  titleAndJoinContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+}))

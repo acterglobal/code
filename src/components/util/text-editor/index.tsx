@@ -17,7 +17,7 @@ const useStyles = makeStyles(
       border: '1px solid',
       borderColor: grey[400],
       borderRadius: 4,
-      width: (size: widthHeightType) => size.width,
+      // minWidth: (size: widthHeightType) => size.width,
       minHeight: (size: widthHeightType) => size.height,
     },
     toolBar: {
