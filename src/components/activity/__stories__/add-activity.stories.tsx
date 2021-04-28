@@ -3,7 +3,7 @@ import { ActivityForm, ActivityFormProps } from 'src/components/activity/form'
 import { Interests, ExampleActer, ExampleUser } from 'src/__fixtures__'
 
 export default {
-  title: 'landingpage/AddActivityForm',
+  title: 'Activity/AddActivityForm',
   component: ActivityForm,
   args: {
     acter: ExampleActer,

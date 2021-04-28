@@ -19,7 +19,7 @@ const acter = {
 }
 
 export default {
-  title: 'landingpage/ActivityDetails',
+  title: 'Activity/ActivityDetails',
   component: Activity,
   args: {
     acter: acter,

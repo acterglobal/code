@@ -7,7 +7,7 @@ import {
 } from 'src/__fixtures__/activity/example-activity'
 
 export default {
-  title: 'landingpage/ActivityTile',
+  title: 'Activity/ActivityTile',
   component: ActivityTile,
   args: {
     activity: ExampleActivity,

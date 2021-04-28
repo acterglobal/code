@@ -11,7 +11,7 @@ const acter = ({
 } as unknown) as Acter
 
 export default {
-  title: 'landingpage/ActivitiesList',
+  title: 'Activity/ActivitiesList',
   component: ActivitiesList,
   args: {
     acter: acter,
