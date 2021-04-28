@@ -1,0 +1,9 @@
+#import "../fragments/acter-display.fragment.graphql"
+
+query ActersSearch {
+  acters(
+    where: { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
+  ) {
+    ...ActerDisplay
+  }
+}
