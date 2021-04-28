@@ -150,7 +150,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(displayActer)
 
   return (
-    <Layout user={user}>
+    <Layout acter={acter} user={user}>
       <Head title={`${acter.name} - Acter`} />
       <View
         acter={displayActer}

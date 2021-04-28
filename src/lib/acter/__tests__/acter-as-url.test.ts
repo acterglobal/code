@@ -14,4 +14,10 @@ describe('acterTypeAsUrl', () => {
   it('should convert an ActerType name to pluralized lower-case', () => {
     expect(acterAsUrl(ExampleActer)).toBe('/organisations/my-organisation')
   })
+
+  it('should add any additional path as provided', () => {
+    expect(acterAsUrl(ExampleActer, 'some', 'extra', 'path')).toBe(
+      '/organisations/my-organisation/some/extra/path'
+    )
+  })
 })

@@ -1,20 +1,20 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Story, Meta } from '@storybook/react'
 import { withNextRouter } from 'storybook-addon-next-router'
-import { Layout, LayoutProps } from 'src/components/layout'
+import { Sidebar, SidebarProps } from 'src/components/layout/side-bar'
+
 import {
   ExampleActer,
-  ExampleOrganisationActer,
   ExampleUser,
+  ExampleOrganisationActer,
 } from 'src/__fixtures__'
-const Content: FC = () => <main>Main content</main>
 
 export default {
-  title: 'layout/Overall',
-  component: Layout,
+  title: 'layout/Side Bar',
+  component: Sidebar,
   decorators: [withNextRouter],
   args: {
-    children: <Content />,
+    size: 50,
   },
   parameters: {
     query: {
@@ -36,7 +36,7 @@ const user = {
   },
 }
 
-const Template: Story<LayoutProps> = (args) => <Layout {...args} />
+const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />
 
 export const LoggedOut = Template.bind({})
 

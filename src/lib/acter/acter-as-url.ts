@@ -4,13 +4,15 @@ import { Acter } from '@schema'
 
 /**
  * Make ActerType name url-friendly (lowercase, plural, and slugged)
- * @param acterType The ActerType
+ * @param acter Acter for which we will build a URL
+ * @param path any additional path & querystring
+ * @returns
  */
-export const acterAsUrl = (acter: Acter): string => {
+export const acterAsUrl = (acter: Acter, ...path: string[]): string => {
   if (!acter.ActerType?.name) {
     throw 'ActerType must be provided'
   }
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const acterSlugLower = acter.slug.toLowerCase()
-  return `/${acterTypeUrl}/${acterSlugLower}`
+  return ['', acterTypeUrl, acterSlugLower, ...path].join('/')
 }
