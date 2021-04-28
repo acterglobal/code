@@ -14,12 +14,15 @@ import {
 import { grey } from '@material-ui/core/colors'
 import moment from 'moment'
 import { FormValues } from 'src/components/acter/form'
+import { SelectActivityType } from 'src/components/activity/form/select-activity-type'
+import { ActivityType } from '@schema'
 
 export interface Step1Props extends SelectOrganiserProps {
   values: FormValues
+  activityTypes: ActivityType[]
 }
 
-export const Step1: FC<Step1Props> = ({ acters, values }) => {
+export const Step1: FC<Step1Props> = ({ acters, values, activityTypes }) => {
   const classes = useStyles()
 
   if (values.isAllDay === true) {
@@ -43,6 +46,7 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
 
         <Grid container>
           <Grid item xs={6} className={classes.item}>
+            <SelectActivityType activityTypes={activityTypes} />
             <DatePickerField
               placeholder="Start Date"
               name="startDate"
@@ -113,7 +117,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: 15,
     color: theme.palette.secondary.light,
   },
-
   item: {
     marginBottom: 15,
   },

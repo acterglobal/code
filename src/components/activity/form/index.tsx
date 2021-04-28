@@ -6,7 +6,7 @@ import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
-import { Acter, InterestType, User } from '@schema'
+import { Acter, ActivityType, InterestType, User } from '@schema'
 import { Step1 } from 'src/components/activity/form/step1'
 import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
@@ -19,6 +19,7 @@ const getStepContent = (
   step: number,
   user: User,
   interestTypes: InterestType[],
+  activityTypes: ActivityType[],
   setFieldValue: FormSetFieldValue,
   values: FormValues
 ) => {
@@ -27,7 +28,13 @@ const getStepContent = (
     acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
   switch (step) {
     case 1:
-      return <Step1 acters={organisers} values={values} />
+      return (
+        <Step1
+          acters={organisers}
+          values={values}
+          activityTypes={activityTypes}
+        />
+      )
     case 2:
       return <Step2 setFieldValue={setFieldValue} values={values} />
     case 3:
@@ -54,6 +61,10 @@ export interface ActivityFormProps {
    * InterestTypes with Interests
    */
   interestTypes: InterestType[]
+  /**
+   * activityTypes with all Activity types
+   */
+  activityTypes: ActivityType[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (any) => any
 }
@@ -62,6 +73,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   acter,
   user,
   interestTypes,
+  activityTypes,
   onSubmit,
 }) => {
   const router = useRouter()
@@ -81,7 +93,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
       handleNext()
       return
     }
-
     // TODO: Final validation
     onSubmit(values)
   }
@@ -108,6 +119,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     interestIds: [],
     ...acter,
     ...acter?.Activity,
+    activityTypeId: acter?.Activity.activityTypeId,
     isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
     startDate: startAt,
     startTime: startAt,
@@ -138,6 +150,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   activeStep,
                   user,
                   interestTypes,
+                  activityTypes,
                   setFieldValue,
                   values
                 )}

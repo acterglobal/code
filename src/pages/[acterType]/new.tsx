@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React from 'react'
+import React, { FC } from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
@@ -18,10 +18,11 @@ import {
   getActerTypes,
   setActerType,
   getInterests,
+  getActivityTypes,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType, InterestType, User } from '@schema'
+import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
@@ -85,10 +86,16 @@ interface NewActerPageProps {
    * The logged in user
    */
   user?: User
+  /**
+   *  all activity types
+   */
+  activityTypes: ActivityType[]
 }
+
 export const NewActerPage: NextPage<NewActerPageProps> = ({
   acterType,
   interestTypes,
+  activityTypes,
   user,
 }) => {
   const router: NextRouter = useRouter()
@@ -142,6 +149,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           acterType={acterType}
           user={user}
           interestTypes={interestTypes}
+          activityTypes={activityTypes}
           onSubmit={_handleSubmit(createFn, updateActer, acterType)}
         />
       </main>
@@ -155,7 +163,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getUserProfile(true),
     getActerTypes,
     setActerType,
-    getInterests
+    getInterests,
+    getActivityTypes
   )
 
 export default NewActerPage
