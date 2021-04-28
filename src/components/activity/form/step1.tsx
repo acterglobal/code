@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { DatePickerField } from 'src/components/util/pickers/date-picker-field'
 import { TimePickerField } from 'src/components/util/pickers/time-picker-field'
@@ -14,42 +14,6 @@ import {
 import { grey } from '@material-ui/core/colors'
 import moment from 'moment'
 import { FormValues } from 'src/components/acter/form'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    height: 400,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  heading: {
-    fontWeight: theme.typography.fontWeightBold,
-    marginBottom: theme.spacing(2),
-    textAlign: 'center',
-    color: grey[800],
-  },
-  chooseOrganiser: {
-    marginBottom: 95,
-    borderBottomColor: 'red',
-  },
-  organiser: {
-    height: 80,
-    backgroundColor: 'blue',
-  },
-  textinput: {
-    fontSize: '0.5rem',
-    marginBottom: 15,
-    color: theme.palette.secondary.light,
-  },
-  datetimeSection: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    // marginBottom: 15,
-  },
-
-  pickerfield: {
-    width: 240,
-  },
-}))
 
 export interface Step1Props extends SelectOrganiserProps {
   values: FormValues
@@ -66,9 +30,6 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Box className={classes.container}>
-        <Typography className={classes.heading} variant="h5">
-          + Add Activity
-        </Typography>
         <SelectOrganiser acters={acters} />
 
         <Field
@@ -80,8 +41,8 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
           required={true}
         />
 
-        <Grid container style={{ width: 500 }} spacing={2}>
-          <Grid item xs={6}>
+        <Grid container>
+          <Grid item xs={6} className={classes.item}>
             <DatePickerField
               placeholder="Start Date"
               name="startDate"
@@ -126,3 +87,34 @@ export const Step1: FC<Step1Props> = ({ acters, values }) => {
     </MuiPickersUtilsProvider>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    height: 400,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  heading: {
+    fontWeight: theme.typography.fontWeightBold,
+    marginBottom: theme.spacing(2),
+    textAlign: 'center',
+    color: grey[800],
+  },
+  chooseOrganiser: {
+    marginBottom: 95,
+    borderBottomColor: 'red',
+  },
+  organiser: {
+    height: 80,
+    backgroundColor: 'blue',
+  },
+  textinput: {
+    fontSize: '0.5rem',
+    marginBottom: 15,
+    color: theme.palette.secondary.light,
+  },
+
+  item: {
+    marginBottom: 15,
+  },
+}))

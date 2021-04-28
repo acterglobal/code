@@ -14,34 +14,6 @@ import Link from 'next/link'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter, User } from '@schema'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: theme.spacing(5.5),
-      padding: 5,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    buttonsSection: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    button: {
-      textTransform: 'none',
-      height: 30,
-      fontSize: '0.8rem',
-      color: grey[700],
-    },
-    menuItem: {
-      fontSize: '0.8rem',
-      textTransform: 'capitalize',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  })
-)
-
 export interface TopBarProps {
   heading?: string
   actionButtons?: string[] | null
@@ -62,7 +34,9 @@ export const TopBar: FC<Props> = ({
   const classes = useStyles()
   return (
     <Box className={classes.root}>
-      <Typography variant="h6">{heading}</Typography>
+      <Typography variant="h6" className={classes.heading}>
+        {heading}
+      </Typography>
 
       <Box className={classes.buttonsSection}>
         {actionButtons && acter.createdByUserId === user?.id ? (
@@ -93,4 +67,35 @@ const ThreeDots: FC = () => (
   <IconButton>
     <ThreeDotsIcon />
   </IconButton>
+)
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: theme.spacing(5.5),
+      padding: 5,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    heading: {
+      marginLeft: theme.spacing(3),
+    },
+    buttonsSection: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    button: {
+      textTransform: 'none',
+      height: 30,
+      fontSize: '0.8rem',
+      color: grey[700],
+    },
+    menuItem: {
+      fontSize: '0.8rem',
+      textTransform: 'capitalize',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  })
 )
