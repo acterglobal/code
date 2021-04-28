@@ -52,7 +52,9 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
           <Typography variant="caption" className={classes.description}>
             {acter.description}
           </Typography>
-          <Typography variant="caption">View more</Typography>
+          <Typography variant="caption" className={classes.viewMore}>
+            View more
+          </Typography>
         </Box>
       </Box>
     </Box>
@@ -126,6 +128,12 @@ const useStyles = makeStyles((theme: Theme) =>
       wordBreak: 'break-all',
       overflow: 'hidden',
       width: '80%',
+    },
+    viewMore: {
+      color: 'black',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
   })
 )
