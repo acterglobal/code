@@ -160,7 +160,8 @@ export class ActerResolver {
     @Arg('endAt') endAt: Date,
     @Arg('isOnline') isOnline: boolean,
     @Arg('isAllDay') isAllDay: boolean,
-    @Arg('organiserActerId') organiserActerId: string
+    @Arg('organiserActerId') organiserActerId: string,
+    @Arg('activityTypeId') activityTypeId: string
   ): Promise<Activity> {
     const acter = await this.createActer(
       ctx,
@@ -173,17 +174,13 @@ export class ActerResolver {
       interestIds
     )
 
-    const eventType = await ctx.prisma.activityType.findUnique({
-      where: { name: 'event' },
-    })
-
     return ctx.prisma.activity.create({
       data: {
         startAt,
         endAt,
         isOnline,
         isAllDay,
-        activityTypeId: eventType.id,
+        activityTypeId: activityTypeId,
         organiserId: organiserActerId,
         acterId: acter.id,
         createdByUserId: acter.createdByUserId,
@@ -207,7 +204,8 @@ export class ActerResolver {
     @Arg('endAt') endAt: Date,
     @Arg('isOnline') isOnline: boolean,
     @Arg('isAllDay') isAllDay: boolean,
-    @Arg('organiserActerId') organiserActerId: string
+    @Arg('organiserActerId') organiserActerId: string,
+    @Arg('activityTypeId') activityTypeId: string
   ): Promise<Activity> {
     await this.updateActer(
       ctx,
@@ -229,6 +227,7 @@ export class ActerResolver {
         isOnline,
         isAllDay,
         organiserId: organiserActerId,
+        activityTypeId: activityTypeId,
       },
       where: {
         acterId,
