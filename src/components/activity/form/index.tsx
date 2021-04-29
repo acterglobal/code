@@ -119,7 +119,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     interestIds: [],
     ...acter,
     ...acter?.Activity,
-    activityTypeId: acter?.Activity.activityTypeId,
+    activityTypeId: acter?.Activity.activityTypeId || '',
     isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
     startDate: startAt,
     startTime: startAt,
