@@ -20,7 +20,7 @@ export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
               {acters.length} results
             </Typography>
             <Box className={classes.searchInput}>
-              <SearchBar />
+              <SearchBar acters={acters} />
             </Box>
           </Grid>
 

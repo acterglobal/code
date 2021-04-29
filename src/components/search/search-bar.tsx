@@ -1,12 +1,18 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Search as SearchIcon } from '@material-ui/icons'
 import { useAutocomplete } from '@material-ui/lab'
 import { Box, Typography } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Acter } from '@schema'
 
-export const SearchBar: FC = () => {
+export interface SearchBarProps {
+  acters: Acter[]
+}
+
+export const SearchBar: FC<SearchBarProps> = ({ acters }) => {
+  const [searchText, setSearchText] = useState('')
+
   const classes = useStyles()
   const {
     getRootProps,
@@ -16,9 +22,10 @@ export const SearchBar: FC = () => {
     groupedOptions,
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
-    options: data,
-    getOptionLabel: (option) => option.title,
+    options: acters,
+    getOptionLabel: (acter) => acter.name,
   })
+  console.log('input :', getInputProps())
   return (
     <Box style={{ width: '100%' }}>
       <Box className={classes.searchField} {...getRootProps()}>
@@ -33,7 +40,7 @@ export const SearchBar: FC = () => {
         <ul className={classes.listbox} {...getListboxProps()}>
           {groupedOptions.map((option, index) => (
             <li {...getOptionProps({ option, index })}>
-              <Typography variant="caption">{option.title}</Typography>
+              <Typography variant="caption">{option.name}</Typography>
             </li>
           ))}
         </ul>
@@ -41,8 +48,6 @@ export const SearchBar: FC = () => {
     </Box>
   )
 }
-
-const data = []
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
