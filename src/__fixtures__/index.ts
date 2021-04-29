@@ -44,3 +44,5 @@ export * from './acter/example-acter'
 export * from './acter/example-acter-list'
 
 export * from './activity/example-activity'
+
+export * from  './message/example-message'

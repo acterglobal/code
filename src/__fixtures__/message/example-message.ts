@@ -3,7 +3,7 @@ import { Message } from '@schema'
 import {
   ExampleUserActer,
   ExampleOrganisationActer,
-} from '../acter/example-acter'
+} from 'src/__fixtures__'
 
 export const ExampleMessage: Message = {
   id: '7757714c-f537-466c-86df-fdc5b74b56ee',
