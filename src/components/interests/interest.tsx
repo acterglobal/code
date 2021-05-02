@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => {
       alignItems: 'center',
       cursor: 'pointer',
     },
+    // TODO: refactor to use InterestType-specific classes
     outline: {
       borderColor: ({ type }: { type: string }) => interestColors[type],
       color: ({ type }: { type: string }) => interestColors[type],
@@ -95,6 +96,7 @@ export const Interest: FC<InterestProps> = ({
           : classes.outline
       )}
       onClick={handleClick}
+      role="listitem"
     >
       <Typography className={classes.name} variant="caption">
         {type === 'Tags' ? `# ${interest.name}` : interest.name}

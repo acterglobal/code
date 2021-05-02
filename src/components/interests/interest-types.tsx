@@ -108,7 +108,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     )
   } else {
     return (
-      <Box style={{ marginLeft: 25 }}>
+      <Box style={{ marginLeft: 25 }} role="list">
         {showTitle && (
           <Typography style={{ color: interestColors[type.name] }}>
             {type.name}

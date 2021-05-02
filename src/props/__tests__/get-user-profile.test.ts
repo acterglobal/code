@@ -1,95 +1,74 @@
 import { getUserProfile } from 'src/props'
+import { addApolloState, initializeApollo } from 'src/lib/apollo'
+import { getTokenUser } from 'src/lib/next-auth/jwt'
+import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
 
-import { ExampleUser } from 'src/__fixtures__/user/example-user'
+import { ExampleUser } from 'src/__fixtures__'
 
-let mockQueryResponse = {
-  loading: false,
-  error: null,
-  data: {},
-}
-jest.mock('src/lib/apollo', () => ({
-  initializeApollo: () => ({
-    query: () => mockQueryResponse,
-  }),
-}))
-
-const tokenUser = {
-  email: 'foo@example.com',
-}
+jest.mock('src/lib/apollo')
+jest.mock('src/lib/next-auth/jwt')
 
 describe('getUserProfile', () => {
-  const callGetServerSideProps = async (props = {}) => {
-    return await getUserProfile(true)({
-      //@ts-ignore
-      req: {},
-      //@ts-ignore
-      res: {},
-      query: {},
-      resolvedUrl: '',
-      props,
-    })
-  }
+  const mockInitializeApollo = initializeApollo as jest.Mock
+  const mockAddApolloState = addApolloState as jest.Mock
+  const mockGetUserToken = getTokenUser as jest.Mock
+  const context = ({} as unknown) as ComposedGetServerSidePropsContext
 
-  beforeEach(() => {
-    // eslint-disable-next-line
-    require('next-auth/client').__setMockSession({
-      user: null,
-      expires: '',
-    })
-
-    // eslint-disable-next-line
-    require('next-auth/jwt').__setMockToken({})
-
-    mockQueryResponse = {
-      loading: false,
-      error: null,
-      data: {},
-    }
+  beforeAll(() => {
+    mockAddApolloState.mockImplementation((apollo, props) => props)
   })
 
-  it('should redirect if there is no session', async () => {
-    const resp = await callGetServerSideProps()
+  beforeEach(() => {
+    mockInitializeApollo.mockReset()
+  })
+
+  it('should redirect if there is no session and user required', async () => {
+    const resp = await getUserProfile(true)(context)
+
     //@ts-ignore
     expect(resp.redirect.destination).toBe('/')
   })
 
-  it.skip('should return loading while query is in process', async () => {
-    mockQueryResponse = {
-      ...mockQueryResponse,
-      loading: true,
-    }
-    const resp = await callGetServerSideProps({ tokenUser })
-    console.log(resp)
+  it('should return empty props if there is no session and user is not required', async () => {
+    const resp = await getUserProfile(false)(context)
+
     //@ts-ignore
-    expect(resp?.props?.loading).toBe(true)
+    expect(resp.props).toStrictEqual({})
   })
 
-  it.skip('should return an error if there is one', async () => {
-    const errorString = 'there was an error'
-    mockQueryResponse = {
-      ...mockQueryResponse,
-      error: errorString,
-    }
-    const resp = await callGetServerSideProps({ tokenUser })
-    //@ts-ignore
-    expect(resp?.props?.error).toBe(errorString)
-  })
+  describe('with good user', () => {
+    beforeEach(() => {
+      mockGetUserToken.mockReturnValue({
+        id: '8ed89d94-3bc5-4be1-9bb6-dff355601e1c',
+      })
+    })
 
-  it('should return undefined if no user is found', async () => {
-    const resp = await callGetServerSideProps({ tokenUser })
-    //@ts-ignore
-    expect(resp?.props?.user).toBe(undefined)
-  })
+    it('should return loading while query is in process', async () => {
+      mockInitializeApollo.mockReturnValue({
+        query: () => Promise.resolve({ loading: true }),
+      })
+      const resp = await getUserProfile(true)(context)
+      //@ts-ignore
+      expect(resp?.props?.loading).toBe(true)
+    })
 
-  it.skip('should return the queried user', async () => {
-    mockQueryResponse = {
-      ...mockQueryResponse,
-      data: {
-        user: ExampleUser,
-      },
-    }
-    const resp = await callGetServerSideProps({ tokenUser })
-    //@ts-ignore
-    expect(resp?.props?.user).toBe(ExampleUser)
+    it('should return an error if there is one', async () => {
+      const error = 'there was an error'
+      mockInitializeApollo.mockReturnValue({
+        query: () => ({ error }),
+      })
+      const resp = await getUserProfile(true)(context)
+      //@ts-ignore
+      expect(resp?.props?.error).toBe(error)
+    })
+
+    it('should return the queried user', async () => {
+      mockInitializeApollo.mockReturnValue({
+        query: () => ({ data: { user: ExampleUser } }),
+      })
+      const resp = await getUserProfile(true)(context)
+      //@ts-ignore
+      expect(resp?.props?.user).toBe(ExampleUser)
+    })
   })
 })
