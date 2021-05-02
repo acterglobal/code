@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
 import { ActivityTile } from 'src/components/activity/tile'
@@ -19,7 +20,7 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
 
   return (
     <Box className={classes.root}>
-      {acters.map((acter, i) => (
+      {acters?.map((acter, i) => (
         <Box className={classes.singleItem} key={i}>
           <Link href={acterAsUrl(acter)} passHref>
             <a>

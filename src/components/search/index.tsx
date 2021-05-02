@@ -9,18 +9,23 @@ import {
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 
-export const Search: FC<DisplayResultsProps> = ({ dataType, acters }) => {
+export interface SearchProps extends DisplayResultsProps {
+  handleSearch: (text: string) => void
+}
+
+export const Search: FC<SearchProps> = ({ dataType, acters, handleSearch }) => {
   const classes = useStyles()
+
   return (
     <Box className={classes.root}>
       <Box className={classes.searchSection}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
             <Typography className={classes.results} variant="body2">
-              {acters.length} results
+              {acters?.length} results
             </Typography>
             <Box className={classes.searchInput}>
-              <SearchBar acters={acters} />
+              <SearchBar handleSearch={handleSearch} />
             </Box>
           </Grid>
 

@@ -1,8 +1,13 @@
 #import "../fragments/acter-display.fragment.graphql"
 
-query ActersSearch {
+query ActersSearch($searchTxt: String) {
   acters(
-    where: { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
+    where: {
+      AND: [
+        { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
+        { name: { contains: $searchTxt } }
+      ]
+    }
   ) {
     ...ActerDisplay
   }

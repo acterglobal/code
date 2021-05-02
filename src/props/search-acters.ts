@@ -4,10 +4,11 @@ import { Acter } from '@schema'
 
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 
-export const searchActers: ComposedGetServerSideProps = async () => {
+export const searchActers: ComposedGetServerSideProps = async ({ props }) => {
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
     query: SEARCH_ACTERS,
+    variables: { searchTxt: '' },
   })
 
   if (error) {

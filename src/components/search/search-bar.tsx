@@ -1,19 +1,22 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Search as SearchIcon } from '@material-ui/icons'
 import { useAutocomplete } from '@material-ui/lab'
 import { Box, Typography } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
+import { useQuery } from '@apollo/client'
+import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 
 export interface SearchBarProps {
-  acters: Acter[]
+  // acters: Acter[]
+  handleSearch: (data: string) => void
 }
 
-export const SearchBar: FC<SearchBarProps> = ({ acters }) => {
-  const [searchText, setSearchText] = useState('')
-
+export const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
   const classes = useStyles()
+  const { data } = useQuery(SEARCH_ACTERS)
+
   const {
     getRootProps,
     getInputProps,
@@ -22,10 +25,12 @@ export const SearchBar: FC<SearchBarProps> = ({ acters }) => {
     groupedOptions,
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
-    options: acters,
-    getOptionLabel: (acter) => acter.name,
+    options: data?.acters,
+    getOptionLabel: (acter: Acter) => acter.name,
+    onChange: (evt, acter: Acter) => handleSearch(acter.name),
+    // onInputChange: (evt, acter: string) => setSearchText(acter),
   })
-  console.log('input :', getInputProps())
+
   return (
     <Box style={{ width: '100%' }}>
       <Box className={classes.searchField} {...getRootProps()}>
@@ -36,6 +41,7 @@ export const SearchBar: FC<SearchBarProps> = ({ acters }) => {
           {...getInputProps()}
         />
       </Box>
+
       {groupedOptions.length > 0 ? (
         <ul className={classes.listbox} {...getListboxProps()}>
           {groupedOptions.map((option, index) => (
