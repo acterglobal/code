@@ -1,12 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 import { Interest, InterestProps } from 'src/components/interests/interest'
-import {
-  Economy,
-  Social,
-  Environment,
-  Tag,
-  Approach,
-} from '../../../__fixtures__/interest/example-interests'
+import { ExampleInterest } from 'src/__fixtures__'
 
 export default {
   title: 'interests/Interest',
@@ -16,34 +10,71 @@ export default {
 const Template: Story<InterestProps> = (args) => <Interest {...args} />
 
 export const EconomyTypeDisabled = Template.bind({})
-EconomyTypeDisabled.args = { ...Economy, selected: false, disabled: true }
+EconomyTypeDisabled.args = {
+  interest: ExampleInterest,
+  type: 'Economy',
+  selected: false,
+  disabled: true,
+}
 
 export const EconomyType = Template.bind({})
-EconomyType.args = { ...Economy, selected: false }
+EconomyType.args = {
+  interest: ExampleInterest,
+  type: 'Economy',
+  selected: false,
+}
 
 export const EconomyTypeSelected = Template.bind({})
-EconomyTypeSelected.args = { ...Economy, selected: true }
+EconomyTypeSelected.args = {
+  interest: ExampleInterest,
+  type: 'Economy',
+  selected: true,
+}
 
 export const EnvironmentType = Template.bind({})
-EnvironmentType.args = { ...Environment, selected: false }
+EnvironmentType.args = {
+  interest: ExampleInterest,
+  type: 'Environment',
+  selected: false,
+}
 
 export const EnvironmentTypeSelected = Template.bind({})
-EnvironmentTypeSelected.args = { ...Environment, selected: true }
+EnvironmentTypeSelected.args = {
+  interest: ExampleInterest,
+  type: 'Environment',
+  selected: true,
+}
 
 export const SocialType = Template.bind({})
-SocialType.args = { ...Social, selected: false }
+SocialType.args = { interest: ExampleInterest, type: 'social', selected: false }
 
 export const SocialTypeSelected = Template.bind({})
-SocialTypeSelected.args = { ...Social, selected: true }
+SocialTypeSelected.args = {
+  interest: ExampleInterest,
+  type: 'Social',
+  selected: true,
+}
 
 export const ApproachType = Template.bind({})
-ApproachType.args = { ...Approach, selected: false }
+ApproachType.args = {
+  interest: ExampleInterest,
+  type: 'Approach',
+  selected: false,
+}
 
 export const ApproachTypeSelected = Template.bind({})
-ApproachTypeSelected.args = { ...Approach, selected: true }
+ApproachTypeSelected.args = {
+  interest: ExampleInterest,
+  type: 'Approach',
+  selected: true,
+}
 
 export const TagType = Template.bind({})
-TagType.args = { ...Tag, selected: false }
+TagType.args = { interest: ExampleInterest, type: 'Tags', selected: false }
 
 export const TagTypeSelected = Template.bind({})
-TagTypeSelected.args = { ...Tag, selected: true }
+TagTypeSelected.args = {
+  interest: ExampleInterest,
+  type: 'Tags',
+  selected: true,
+}

@@ -1,4 +1,5 @@
 export * from './interest/interests'
+export * from './interest/example-interests'
 export * from './interest/example-interest-type'
 export * from './interest/example-approach'
 export * from './interest/example-interest-type'
