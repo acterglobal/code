@@ -6,18 +6,19 @@ import { ExampleActerList } from 'src/__fixtures__'
 import { GROUP, NETWORK, ORGANISATION } from 'src/constants'
 
 describe('ActerListByType', () => {
-  it.skip('should display a list of Acters ordered by ActerType', async () => {
+  it('should display a list of Acters ordered by ActerType', async () => {
     render(<ActerListByType acters={ExampleActerList} />)
-    const typeLists = screen.queryAllByRole('listitem', {
-      name: 'acter-type',
-    })
+    const typeLists = screen.queryAllByRole('list')
 
+    // We have 3 lists for each of Org, Network & Group
     expect(typeLists.length).toBe(3)
     //TODO: We should use an explicit order
     const acterTypes = [ORGANISATION, NETWORK, GROUP]
     expect(
-      typeLists.map((list) => within(list).queryByRole('heading').textContent)
-    ).toEqual(acterTypes)
+      typeLists.map(
+        (list) => within(list).queryByRole('heading', { level: 2 }).textContent
+      )
+    ).toEqual(acterTypes.map((type) => `My ${type}s`))
     typeLists.map((list, i) => {
       const links = within(list).queryAllByRole('link')
       const acterType = acterTypes[i]
@@ -26,7 +27,7 @@ describe('ActerListByType', () => {
       expect(links[0].getAttribute('href')).toMatch(
         `/${acterTypeLower}s/${acterTypeLower}-1`
       )
-      expect(links[0].textContent).toBe(`${acterType} 1`)
+      expect(links[0].textContent).toContain(`${acterType} 1`)
     })
   })
 })

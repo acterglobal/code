@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Container, Toolbar, createStyles, makeStyles } from '@material-ui/core'
+import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
 

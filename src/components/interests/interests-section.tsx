@@ -21,7 +21,7 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
   return (
     <>
       {topLevelTypes.map((type) => (
-        <Box role="interests-section" key={type.id}>
+        <Box key={type.id} role="list">
           <Typography
             id="interest-type-name"
             variant="body2"

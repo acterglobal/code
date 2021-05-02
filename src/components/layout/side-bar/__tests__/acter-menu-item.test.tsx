@@ -42,7 +42,6 @@ describe('ActerMenuItem', () => {
     render(
       <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
     )
-    screen.debug()
     const item = screen.getByRole('menuitem', { name: 'foo' })
 
     expect(item).toHaveAttribute('aria-current', 'true')
@@ -58,7 +57,6 @@ describe('ActerMenuItem', () => {
     render(
       <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
     )
-    screen.debug()
     const item = screen.getByRole('menuitem', { name: 'foo' })
 
     expect(item).toHaveAttribute('aria-current', 'true')

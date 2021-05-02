@@ -14,7 +14,6 @@ import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter } from '@schema'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { FEED } from 'src/constants'
 
 interface ActerMenuItemProps {
   acter: Acter

@@ -1,17 +1,14 @@
-jest.mock('next/router')
-
 import React from 'react'
-import { useRouter } from 'next/router'
 import { render, screen } from '@testing-library/react'
+import { MuiThemeProvider } from '@material-ui/core'
 import { ExampleActer, ExampleUser } from 'src/__fixtures__'
 import { HeaderSection } from 'src/components/acter/landing-page/header-section'
+import { theme } from 'src/themes/acter-theme'
 
 describe('[Header Section]', () => {
-  it.skip('should render the header section component with correct content', () => {
-    useRouter.mockResolvedValue()
-
+  it('should render the header section component with correct content', () => {
     render(
-      shallow(
+      <MuiThemeProvider theme={theme}>
         <HeaderSection
           acter={ExampleActer}
           user={ExampleUser}
@@ -19,7 +16,7 @@ describe('[Header Section]', () => {
           onLeave={jest.fn()}
           loading={false}
         />
-      )
+      </MuiThemeProvider>
     )
     expect(screen.getByRole('acter-name')).toHaveTextContent(
       'Greenlight Aarhus'

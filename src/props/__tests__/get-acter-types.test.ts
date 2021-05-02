@@ -1,4 +1,5 @@
 import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
+import { addApolloState, initializeApollo } from 'src/lib/apollo'
 
 jest.mock('@apollo/client', () => ({
   useMutation: () => [() => void 0, { loading: false, error: false }],
@@ -16,16 +17,27 @@ import { getActerTypes } from 'src/props'
 import { ORGANISATION } from 'src/constants'
 
 describe('getActerTypes', () => {
+  const mockInitializeApollo = initializeApollo as jest.Mock
+  const mockAddApolloState = addApolloState as jest.Mock
+
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]
   let context = ({} as unknown) as ComposedGetServerSidePropsContext
 
+  beforeAll(() => {
+    mockAddApolloState.mockImplementation((apollo, props) => props)
+  })
+
   beforeEach(() => {
+    mockInitializeApollo.mockReset()
     context = ({} as unknown) as ComposedGetServerSidePropsContext
   })
   it('should return an error if acter type query fails', async () => {
     const error = 'there was an error'
-    // eslint-disable-next-line
-    require('src/lib/apollo').__setApolloQueryResponse({ error })
+    mockInitializeApollo.mockReturnValue({
+      query: () => ({
+        error,
+      }),
+    })
 
     expect(await getActerTypes(context)).toStrictEqual(
       expect.objectContaining({
@@ -37,8 +49,8 @@ describe('getActerTypes', () => {
   })
   it('should set selected acter type as well as list of all acter types', async () => {
     // eslint-disable-next-line
-    require('src/lib/apollo').__setApolloQueryResponse({
-      data: { acterTypes },
+    mockInitializeApollo.mockReturnValue({
+      query: () => ({ data: { acterTypes } }),
     })
     context = ({
       params: { acterType: ORGANISATION },

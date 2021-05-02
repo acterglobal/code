@@ -4,8 +4,6 @@ import {
   Box,
   Drawer,
   Divider,
-  List,
-  ListItem,
   MenuList,
   MenuItem,
   createStyles,

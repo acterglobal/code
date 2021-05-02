@@ -1,5 +1,5 @@
 import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
-
+import { addApolloState, initializeApollo } from 'src/lib/apollo'
 import { OrganisationActerType, ExampleActer } from 'src/__fixtures__'
 
 import { getActer } from 'src/props'
@@ -17,6 +17,17 @@ const goodContext = ({
 } as unknown) as ComposedGetServerSidePropsContext
 
 describe('getActer', () => {
+  const mockInitializeApollo = initializeApollo as jest.Mock
+  const mockAddApolloState = addApolloState as jest.Mock
+
+  beforeAll(() => {
+    mockAddApolloState.mockImplementation((apollo, props) => props)
+  })
+
+  beforeEach(() => {
+    mockInitializeApollo.mockReset()
+  })
+
   it('should return not found when there is missing data', async () => {
     // eslint-disable-next-line
     ;[
@@ -35,8 +46,9 @@ describe('getActer', () => {
 
   it('should return an error if the acter query fails', async () => {
     const error = 'there was an error'
-    // eslint-disable-next-line
-    require('src/lib/apollo').__setApolloQueryResponse({ error })
+    mockInitializeApollo.mockReturnValue({
+      query: () => ({ error }),
+    })
 
     expect(await getActer(goodContext)).toStrictEqual(
       expect.objectContaining({ props: { error } })
@@ -45,8 +57,8 @@ describe('getActer', () => {
 
   it('should return an Acter', async () => {
     // eslint-disable-next-line
-    require('src/lib/apollo').__setApolloQueryResponse({
-      data: { findFirstActer: ExampleActer },
+    mockInitializeApollo.mockReturnValue({
+      query: () => ({ data: { findFirstActer: ExampleActer } }),
     })
     expect(await getActer(goodContext)).toStrictEqual(
       expect.objectContaining({ props: { acter: ExampleActer } })
