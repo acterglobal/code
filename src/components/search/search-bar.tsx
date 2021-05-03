@@ -9,7 +9,6 @@ import { useQuery } from '@apollo/client'
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 
 export interface SearchBarProps {
-  // acters: Acter[]
   handleSearch: (data: string) => void
 }
 
@@ -27,8 +26,7 @@ export const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
     id: 'use-autocomplete-demo',
     options: data?.acters,
     getOptionLabel: (acter: Acter) => acter.name,
-    onChange: (evt, acter: Acter) => handleSearch(acter.name),
-    // onInputChange: (evt, acter: string) => setSearchText(acter),
+    onChange: (evt, acter: Acter) => handleSearch(acter?.name),
   })
 
   return (
