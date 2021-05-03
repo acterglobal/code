@@ -34,7 +34,11 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
             width={20}
             height={20}
           />
-          <Typography variant="body2" className={classes.acterTypeName}>
+          <Typography
+            variant="body2"
+            className={classes.typeAndLocation}
+            style={{ marginLeft: 10 }}
+          >
             {acter.ActerType.name}
           </Typography>
         </Box>
@@ -42,7 +46,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
           {acter.name}
         </Typography>
         <Typography
-          className={classes.acterTypeName}
+          className={classes.typeAndLocation}
           variant="body2"
           gutterBottom
         >
@@ -101,12 +105,11 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginBottom: theme.spacing(1),
     },
-    acterTypeName: {
+    typeAndLocation: {
       color: grey[700],
       fontWeight: theme.typography.fontWeightLight,
       fontSize: 13,
       textTransform: 'capitalize',
-      marginLeft: 5,
     },
     title: {
       color: grey[700],

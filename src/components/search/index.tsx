@@ -22,7 +22,7 @@ export const Search: FC<SearchProps> = ({ dataType, acters, handleSearch }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
             <Typography className={classes.results} variant="body2">
-              {acters?.length} results
+              {acters?.length} Results
             </Typography>
             <Box className={classes.searchInput}>
               <SearchBar handleSearch={handleSearch} />

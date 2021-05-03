@@ -34,7 +34,7 @@ export const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
       <Box className={classes.searchField} {...getRootProps()}>
         <SearchIcon fontSize="inherit" className={classes.searchIcon} />
         <input
-          placeholder="search"
+          placeholder="Search"
           className={classes.input}
           {...getInputProps()}
         />
