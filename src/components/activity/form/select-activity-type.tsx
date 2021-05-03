@@ -23,16 +23,11 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
       {activityTypes.map((type, i) => (
         <Box
           key={i}
-          className={clsx(
-            classes.button,
-            i === 0 && classes.leftButton,
-            i === 1 && classes.middleButton,
-            i === 2 && classes.rightButton
-          )}
+          className={clsx(classes.button, classes[`button${i}`])}
           style={{
+            border: selectedTypeId === type.id && 0,
             backgroundColor:
               selectedTypeId === type.id && activityTypeColors[type.name],
-            border: selectedTypeId === type.id && 0,
           }}
           onClick={() => onChange(type.id)}
         >
@@ -56,23 +51,22 @@ const useStyles = makeStyles((theme: Theme) =>
       border: '1px solid',
       borderColor: grey[400],
       borderRadius: 4,
-
       textTransform: 'capitalize',
       textAlign: 'center',
       '&:hover': {
         cursor: 'pointer',
       },
     },
-    leftButton: {
+    button0: {
       borderTopRightRadius: 0,
       borderBottomRightRadius: 0,
     },
-    middleButton: {
+    button1: {
       borderRight: 0,
       borderLeft: 0,
       borderRadius: 0,
     },
-    rightButton: {
+    button2: {
       borderTopLeftRadius: 0,
       borderBottomLeftRadius: 0,
     },
