@@ -18,10 +18,11 @@ import {
   setActerType,
   getInterests,
   getActer,
+  getActivityTypes,
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType, InterestType, User } from '@schema'
+import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
@@ -53,6 +54,10 @@ interface NewActerPageProps {
    */
   interestTypes: InterestType[]
   /**
+   * All activity types
+   */
+  activityTypes: ActivityType[]
+  /**
    * The logged in user
    */
   user?: User
@@ -61,6 +66,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   acter,
   acterType,
   interestTypes,
+  activityTypes,
   user,
 }) => {
   const router: NextRouter = useRouter()
@@ -141,6 +147,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           acterType={acterType}
           user={user}
           interestTypes={interestTypes}
+          activityTypes={activityTypes}
           onSubmit={handleUpdateActer(acter, updateFn)}
           loading={updateActerLoading || updateActivityLoading}
         />
@@ -156,7 +163,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getInterests,
-    getActer
+    getActer,
+    getActivityTypes
   )
 
 export default NewActerPage

@@ -16,6 +16,7 @@ mutation ActivityUpdate(
   $endAt: DateTime!
   $isAllDay: Boolean!
   $organiserActerId: String!
+  $activityTypeId: String!
 ) {
   __typename
   updateActivity(
@@ -35,6 +36,7 @@ mutation ActivityUpdate(
     endAt: $endAt
     isAllDay: $isAllDay
     organiserActerId: $organiserActerId
+    activityTypeId: $activityTypeId
   ) {
     id
     Acter {
