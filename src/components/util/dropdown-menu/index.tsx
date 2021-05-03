@@ -9,7 +9,7 @@ import {
 interface DropdownMenuProps {
   anchorNode: ReactNode
   closeOnClick?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   anchorNode,

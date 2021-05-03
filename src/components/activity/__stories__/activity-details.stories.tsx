@@ -13,7 +13,7 @@ import {
 
 const acter = {
   ...ExampleActer,
-  Activity: ExampleActivity,
+  Activity: { ...ExampleActivity, type: 'Idea' },
   ActerInterests: [{ Interest: Interests.data.interestTypes[1].Interests[0] }],
   Followers: [{ Follower: ExampleActer }],
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
@@ -12,49 +12,6 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      minWidth: 500,
-      minHeight: 500,
-      border: '1px solid gray',
-      padding: 50,
-    },
-    fields: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    controls: {
-      // flexShrink: 0,
-    },
-    btnsContainer: {
-      display: 'flex',
-      justifyContent: 'space-evenly',
-    },
-    button: {
-      borderRadius: theme.spacing(1),
-      textTransform: 'none',
-      width: '100%',
-    },
-    statusBars: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      marginBottom: 50,
-    },
-    bar: {
-      height: 8,
-      backgroundColor: grey[200],
-      borderRadius: 10,
-      margin: 5,
-      minWidth: 130,
-    },
-    active: {
-      backgroundColor: green[500],
-    },
-  })
-)
 
 const steps = [Step1, Step2, Step3]
 const getStepContent = (
@@ -109,6 +66,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [heading, setHeading] = useState('Add Activity')
   const [activeStep, setActiveStep] = useState(1)
   const totalSteps = steps.length
 
@@ -127,6 +85,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     // TODO: Final validation
     onSubmit(values)
   }
+
+  useEffect(() => {
+    if (acter?.id) {
+      setHeading('Edit Acitvity')
+    }
+  }, [])
 
   let startAt = null
   let endAt = null
@@ -159,7 +123,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const handleModalClose = () => router.back()
 
   return (
-    <Modal handleModalClose={handleModalClose}>
+    <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik
         initialValues={initialValues}
         onSubmit={onStepSubmit}
@@ -219,3 +183,47 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     </Modal>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      width: 690,
+      borderTop: '1px solid',
+      borderTopColor: grey[300],
+      padding: 50,
+    },
+    fields: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: 570,
+    },
+    controls: {
+      // flexShrink: 0,
+    },
+    btnsContainer: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
+    },
+    button: {
+      borderRadius: theme.spacing(1),
+      textTransform: 'none',
+      width: '100%',
+    },
+    statusBars: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      marginBottom: 40,
+    },
+    bar: {
+      height: 8,
+      backgroundColor: grey[200],
+      borderRadius: 10,
+      margin: 5,
+      minWidth: 130,
+    },
+    active: {
+      backgroundColor: green[500],
+    },
+  })
+)

@@ -1,66 +1,43 @@
-import React, { FC, useState } from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import React, { FC, useState, ReactNode } from 'react'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
-import { CloseRounded as CloseButtonIcon } from '@material-ui/icons'
-import { grey } from '@material-ui/core/colors'
+import { TopBar } from 'src/components/util/modal/top-bar'
+import { TopBarProps } from 'src/components/util/modal/top-bar'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(
   createStyles({
     modal: {
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    closeButton: {
-      backgroundColor: 'white',
-      height: theme.spacing(5),
-      width: theme.spacing(5),
-      padding: theme.spacing(1),
-      borderRadius: '50%',
-      marginLeft: theme.spacing(-2),
-      marginTop: theme.spacing(-2.5),
-      cursor: 'pointer',
-      zIndex: 99,
-      color: grey[800],
-      '&:hover': {
-        color: grey[600],
-      },
-      [theme.breakpoints.down('sm')]: {
-        height: theme.spacing(3),
-        width: theme.spacing(3),
-        padding: theme.spacing(0.5),
-        marginLeft: theme.spacing(-2),
-        marginTop: theme.spacing(-1.5),
-      },
-    },
-    paper: {
-      outline: 0,
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      borderRadius: theme.spacing(2),
-      overflow: 'hidden',
+      justifyContent: 'flex-end',
     },
     modalContainer: {
-      display: 'flex',
-      outline: 'none',
+      outline: 0,
+      backgroundColor: 'white',
+    },
+    content: {
+      height: '100%',
+      overflow: 'scroll',
+      paddingBottom: 30,
     },
   })
 )
 
-export interface ModalProps {
-  children: React.ReactNode
+export interface ModalProps extends TopBarProps {
+  children: ReactNode
   showCloseButton?: boolean
   handleModalClose?: (any?) => void
   disableBackdropClick?: boolean
 }
 
-export const Modal: FC<ModalProps> = (props) => {
-  const {
-    children,
-    handleModalClose,
-    disableBackdropClick = true,
-    showCloseButton = true,
-  } = props
+export const Modal: FC<ModalProps> = ({
+  children,
+  handleModalClose,
+  actionButtons = null,
+  acter,
+  user,
+  heading,
+  disableBackdropClick = true,
+}) => {
   const classes = useStyles()
   const [open, setOpen] = useState(true)
 
@@ -72,31 +49,29 @@ export const Modal: FC<ModalProps> = (props) => {
   }
 
   return (
-    <div>
-      <MUIModal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500 }}
-        disableBackdropClick={disableBackdropClick}
-      >
-        <Fade in={open}>
-          <div className={classes.modalContainer}>
-            <div className={classes.paper}>{children}</div>
-
-            {showCloseButton && (
-              <CloseButtonIcon
-                className={classes.closeButton}
-                onClick={handleClose}
-              />
-            )}
-          </div>
-        </Fade>
-      </MUIModal>
-    </div>
+    <MUIModal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      className={classes.modal}
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{ timeout: 500 }}
+      disableBackdropClick={disableBackdropClick}
+    >
+      <Fade in={open}>
+        <div className={classes.modalContainer}>
+          <TopBar
+            handleClose={handleClose}
+            actionButtons={actionButtons}
+            acter={acter}
+            user={user}
+            heading={heading}
+          />
+          <div className={classes.content}>{children}</div>
+        </div>
+      </Fade>
+    </MUIModal>
   )
 }

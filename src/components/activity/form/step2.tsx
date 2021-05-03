@@ -10,7 +10,9 @@ import { TextEditor } from 'src/components/util/text-editor'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {},
+    container: {
+      overflow: 'scroll',
+    },
     descriptionSection: {
       marginBottom: 20,
     },

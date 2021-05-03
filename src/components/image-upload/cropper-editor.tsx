@@ -7,52 +7,10 @@ import {
   ZoomOut as ZoomOutIcon,
 } from '@material-ui/icons'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Button } from '@material-ui/core/'
+import { Box, Button, Modal } from '@material-ui/core/'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
-import { Modal } from 'src/components/util/modal'
 import { green, grey } from '@material-ui/core/colors'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    width: theme.spacing(55),
-    height: theme.spacing(50),
-    padding: theme.spacing(1),
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cropper: {
-    width: theme.spacing(54),
-    height: theme.spacing(45),
-  },
-  toolsContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  cropBtn: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    textTransform: 'none',
-    margin: theme.spacing(1),
-    '&:hover': {
-      backgroundColor: green[400],
-    },
-  },
-  tool: {
-    cursor: 'pointer',
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    backgroundColor: grey[800],
-    color: 'white',
-    marginLeft: theme.spacing(2),
-    '&:hover': {
-      backgroundColor: grey[700],
-    },
-  },
-}))
 
 type cropDataType = {
   center: {
@@ -73,6 +31,7 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
   const { image, aspectRatio, handleCrop } = props
   const classes = useStyles()
   const [cropper, setCropper] = useState(null)
+  const [openModal, setOpenModal] = useState(true)
 
   const calculateCropData = () => {
     const cropData = cropper.getData()
@@ -108,14 +67,16 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
     return { center: { X: percentX, Y: percentY }, cropAreaRatio, zoom }
   }
 
-  const handleImageCrop = () =>
+  const handleImageCrop = () => {
     handleCrop(calculateCropData(), cropper.getCroppedCanvas().toDataURL())
+    setOpenModal(false)
+  }
 
   return (
     <Modal
+      className={classes.modal}
+      open={openModal}
       disableBackdropClick={true}
-      handleModalClose={() => null}
-      showCloseButton={false}
     >
       <Box className={classes.container}>
         <Cropper
@@ -165,3 +126,49 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
     </Modal>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    width: theme.spacing(55),
+    height: theme.spacing(50),
+    padding: theme.spacing(1),
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cropper: {
+    width: theme.spacing(54),
+    height: theme.spacing(45),
+  },
+  toolsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  cropBtn: {
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+    textTransform: 'none',
+    margin: theme.spacing(1),
+    '&:hover': {
+      backgroundColor: green[400],
+    },
+  },
+  tool: {
+    cursor: 'pointer',
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    backgroundColor: grey[800],
+    color: 'white',
+    marginLeft: theme.spacing(2),
+    '&:hover': {
+      backgroundColor: grey[700],
+    },
+  },
+}))

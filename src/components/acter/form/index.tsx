@@ -11,30 +11,7 @@ import { InterestsAddSection } from 'src/components/acter/form/interests-add-sec
 import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { useRouter } from 'next/router'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      width: 650,
-      minHeight: 600,
-      border: '1px solid gray',
-      padding: 20,
-      paddingBottom: 0,
-      [theme.breakpoints.down('xs')]: {
-        width: 300,
-        height: 'auto',
-      },
-    },
-    fields: {
-      width: '100%',
-      height: 400,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      overflowY: 'scroll',
-    },
-  })
-)
+import { grey } from '@material-ui/core/colors'
 
 const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
@@ -180,3 +157,28 @@ export const ActerForm: FC<ActerFormProps> = ({
     </Modal>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      width: 650,
+      minHeight: 600,
+      borderTop: '1px solid',
+      borderTopColor: grey[300],
+      padding: 20,
+      paddingBottom: 0,
+      [theme.breakpoints.down('xs')]: {
+        width: 300,
+        height: 'auto',
+      },
+    },
+    fields: {
+      width: '100%',
+      height: 470,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      overflowY: 'scroll',
+    },
+  })
+)
