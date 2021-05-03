@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Box, Grid } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { DatePickerField } from 'src/components/util/pickers/date-picker-field'
@@ -24,6 +24,12 @@ export interface Step1Props extends SelectOrganiserProps {
 
 export const Step1: FC<Step1Props> = ({ acters, values, activityTypes }) => {
   const classes = useStyles()
+  const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
+
+  const handleSelectedType = (typeId: string) => {
+    setSelectedTypeId(typeId)
+    values.activityTypeId = typeId
+  }
 
   if (values.isAllDay === true) {
     values.endTime = moment('23.59', 'hh:mm')
@@ -44,9 +50,14 @@ export const Step1: FC<Step1Props> = ({ acters, values, activityTypes }) => {
           required={true}
         />
 
-        <Grid container>
-          <Grid item xs={6} className={classes.item}>
-            <SelectActivityType activityTypes={activityTypes} />
+        <SelectActivityType
+          activityTypes={activityTypes}
+          selectedTypeId={selectedTypeId}
+          onChange={handleSelectedType}
+        />
+
+        <Grid container style={{ width: 500 }} spacing={2}>
+          <Grid item xs={6}>
             <DatePickerField
               placeholder="Start Date"
               name="startDate"

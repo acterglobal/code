@@ -119,7 +119,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     interestIds: [],
     ...acter,
     ...acter?.Activity,
-    activityTypeId: acter?.Activity.activityTypeId || '',
+    activityTypeId:
+      acter?.Activity.activityTypeId || 'f1ea3d88-09fa-43de-9121-2f80849cb12b', // default activity type (Event) id
     isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
     startDate: startAt,
     startTime: startAt,

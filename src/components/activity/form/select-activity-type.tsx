@@ -1,49 +1,44 @@
 import React, { FC } from 'react'
-import {
-  Box,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Typography,
-} from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Field } from 'formik'
-import { Select } from 'formik-material-ui'
-import { ActivityType } from '@schema'
+import clsx from 'clsx'
 import { grey } from '@material-ui/core/colors'
+import { ActivityType } from '@schema'
+import { activityTypeColors } from 'src/themes/colors'
 
 export interface SelectActivityTypeProps {
   activityTypes: ActivityType[]
+  selectedTypeId: string
+  onChange: (typeTd: string) => void
 }
 
 export const SelectActivityType: FC<SelectActivityTypeProps> = ({
   activityTypes,
+  selectedTypeId,
+  onChange,
 }) => {
   const classes = useStyles()
-
   return (
     <Box className={classes.root}>
-      <InputLabel className={classes.label}>Activity type:</InputLabel>
-      <FormControl className={classes.field}>
-        <Field
-          className={classes.chooseType}
-          component={Select}
-          name="activityTypeId"
-          required={true}
-          displayEmpty
+      {activityTypes.map((type, i) => (
+        <Box
+          key={i}
+          className={clsx(
+            classes.button,
+            i === 0 && classes.leftButton,
+            i === 1 && classes.middleButton,
+            i === 2 && classes.rightButton
+          )}
+          style={{
+            backgroundColor:
+              selectedTypeId === type.id && activityTypeColors[type.name],
+            border: selectedTypeId === type.id && 0,
+          }}
+          onClick={() => onChange(type.id)}
         >
-          <MenuItem value="">
-            <Typography className={classes.select}>Select</Typography>
-          </MenuItem>
-          {activityTypes.map((type) => (
-            <MenuItem value={type.id} key={type.id}>
-              <Typography className={classes.name} variant="body1">
-                {type.name}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Field>
-      </FormControl>
+          {type.name}
+        </Box>
+      ))}
     </Box>
   )
 }
@@ -51,27 +46,35 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: theme.spacing(2),
       width: '100%',
-    },
-    label: {
-      marginRight: theme.spacing(2),
-    },
-    field: {
       display: 'flex',
-      justifyContent: 'flex-end',
-      width: theme.spacing(12),
+      marginBottom: theme.spacing(2),
     },
-    chooseType: {
-      textAlign: 'center',
-    },
-    select: {
-      color: grey[600],
-    },
-    name: {
+    button: {
+      flexGrow: 1,
+      padding: theme.spacing(0.5),
+      border: '1px solid',
+      borderColor: grey[400],
+      borderRadius: 4,
+
       textTransform: 'capitalize',
+      textAlign: 'center',
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
+    leftButton: {
+      borderTopRightRadius: 0,
+      borderBottomRightRadius: 0,
+    },
+    middleButton: {
+      borderRight: 0,
+      borderLeft: 0,
+      borderRadius: 0,
+    },
+    rightButton: {
+      borderTopLeftRadius: 0,
+      borderBottomLeftRadius: 0,
     },
   })
 )
