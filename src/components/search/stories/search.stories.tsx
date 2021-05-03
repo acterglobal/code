@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import { Search as SearchComponent } from 'src/components/search'
-import { DisplayResultsProps } from 'src/components/search/display-results'
+import { Search as SearchComponent, SearchProps } from 'src/components/search'
 import {
   ExampleActivityActer,
   ExampleActivity,
@@ -14,6 +13,7 @@ export default {
   args: {
     dataType: '',
     acters: [],
+    handleSearch: (text) => null,
   },
 } as Meta
 
@@ -23,9 +23,7 @@ const activities = [...Array(8).keys()].map(() => acter)
 
 const acters = [...Array(4).keys()].map(() => ExampleActer)
 
-const Template: Story<DisplayResultsProps> = (args) => (
-  <SearchComponent {...args} />
-)
+const Template: Story<SearchProps> = (args) => <SearchComponent {...args} />
 
 export const Activities = Template.bind({})
 Activities.args = {
