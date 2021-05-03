@@ -59,7 +59,7 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
           <IconMenuItem Icon={WorldIcon} href="/search" text="Search" />
           <Divider />
           <FollowingList user={user} />
-          <IconMenuItem Icon={AddIcon} href="/acter/new" text="Add Acter" />
+          <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </MenuList>
       </Box>
       {acter && (
