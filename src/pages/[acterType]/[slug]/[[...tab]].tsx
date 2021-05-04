@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { useMutation, MutationFunction } from '@apollo/client'
-import { useSnackbar } from 'notistack'
+import { MutationFunction } from '@apollo/client'
 
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
+import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 
 import {
   getUserProfile,
@@ -78,7 +78,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
-  const { enqueueSnackbar } = useSnackbar()
 
   const writeCache = (cache) => {
     cache.writeQuery({
@@ -95,57 +94,40 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     })
   }
 
-  const [createConnection, { loading: creatingConnection }] = useMutation(
-    CREATE_ACTER_CONNECTION,
-    {
-      update: (cache, { data }) => {
-        acter.Followers.push(data.createActerConnection)
-        writeCache(cache)
+  const [
+    createConnection,
+    { loading: creatingConnection },
+  ] = useNotificationMutation(CREATE_ACTER_CONNECTION, {
+    update: (cache, { data }) => {
+      acter.Followers.push(data.createActerConnection)
+      writeCache(cache)
+    },
+    getSuccessMessage: ({
+      createActerConnection: {
+        Follower: { name },
       },
-      onError: (err) => {
-        enqueueSnackbar(err.message, { variant: 'error' })
-      },
-      onCompleted: ({
-        createActerConnection: {
-          Follower: { name },
-        },
-      }) => {
-        enqueueSnackbar(`Connected to ${acter.name} as ${name}`, {
-          variant: 'success',
-        })
-      },
-    }
-  )
-  const [deleteConnection, { loading: deletingConnection }] = useMutation(
-    DELETE_ACTER_CONNECTION,
-    {
-      update: (cache, { data }) => {
-        const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
-        acter.Followers = acter.Followers.filter(withoutConnection)
-        writeCache(cache)
-      },
-      onError: (err) => {
-        enqueueSnackbar(err.message, { variant: 'error' })
-      },
-      onCompleted: () => {
-        enqueueSnackbar(`Disconnected from ${acter.name}`, {
-          variant: 'success',
-        })
-      },
-    }
-  )
-  const [updateActer, { loading: acterUpdateLoading }] = useMutation(
-    UPDATE_ACTER,
-    {
-      onError: (err) => {
-        enqueueSnackbar(err.message, { variant: 'error' })
-      },
-      onCompleted: (data) => {
-        setDisplayActer(data.updateActer)
-        enqueueSnackbar('Settings updated', { variant: 'success' })
-      },
-    }
-  )
+    }) => `Connected to ${acter.name} as ${name}`,
+  })
+  const [
+    deleteConnection,
+    { loading: deletingConnection },
+  ] = useNotificationMutation(DELETE_ACTER_CONNECTION, {
+    update: (cache, { data }) => {
+      const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
+      acter.Followers = acter.Followers.filter(withoutConnection)
+      writeCache(cache)
+    },
+    getSuccessMessage: () => `Disconnected from ${acter.name}`,
+  })
+  const [
+    updateActer,
+    { loading: acterUpdateLoading },
+  ] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: () => 'Settings updated',
+    onCompleted: (data) => {
+      setDisplayActer(data.updateActer)
+    },
+  })
 
   const View = getActerView(displayActer)
 

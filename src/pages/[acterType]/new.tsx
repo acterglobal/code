@@ -3,7 +3,8 @@ import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
-import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
@@ -19,24 +20,13 @@ import {
 } from 'src/props'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
-import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
+import { ActerType, ActivityType, InterestType, User } from '@schema'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
 import { getCreateFunction } from 'src/lib/acter/get-create-function'
-
-/**
- * Returns a handler for useMutaion onComplete
- * @param router NextRouter returned from useRouter
- * @param acterType The ActerType to use for routing
- */
-export const _handleOnComplete = (
-  router: NextRouter,
-  acter: Acter
-): Promise<boolean> =>
-  router.push(`/${acterTypeAsUrl(acter.ActerType)}/${acter.slug}`)
 
 interface NewActerPageProps {
   /**
@@ -66,10 +56,10 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const router: NextRouter = useRouter()
   const [createActivity] = useMutation(CREATE_ACTIVITY)
   const [createActer] = useMutation(MUTATE_ACTER_CREATE)
-  const [updateActer] = useMutation(UPDATE_ACTER, {
-    onCompleted: ({ updateActer }) => {
-      _handleOnComplete(router, updateActer)
-    },
+
+  const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,
+    onCompleted: ({ updateActer }) => router.push(acterAsUrl(updateActer)),
   })
 
   const Form = acterType.name === ACTIVITY ? ActivityForm : ActerForm
