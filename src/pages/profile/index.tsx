@@ -4,18 +4,28 @@ import { useMutation } from '@apollo/client'
 
 import { useSnackbar } from 'notistack'
 
-import { handleUpdateActer } from 'src/lib/acter/handle-update-acter'
+import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
 
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ProfileEdit } from 'src/components/user/profile-edit'
 
-import { InterestType, User } from '@schema'
+import { Acter, InterestType, User } from '@schema'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, getInterests } from 'src/props'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
+
+//TODO: write types for formData
+export const _handleSubmit = (
+  acter: Acter,
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateActer: (any) => Promise<any>
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+) => (formData: any): Promise<any> =>
+  updateActerWithPictures({ acter, formData, updateActer })
+
 interface UserProfilePageProps {
   loading?: boolean
   error?: string
@@ -41,7 +51,7 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
         <ProfileEdit
           user={user}
           interestTypes={interestTypes}
-          onSubmit={handleUpdateActer(user.Acter, updateUser)}
+          onSubmit={_handleSubmit(user.Acter, updateUser)}
           loading={loading}
         />
       </main>

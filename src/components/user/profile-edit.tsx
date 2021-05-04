@@ -62,7 +62,7 @@ export interface ProfileEditProps {
   interestTypes: InterestType[]
   loading: boolean
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  onSubmit: (any) => any
+  onSubmit: (data: any) => any
 }
 
 export const ProfileEdit: FC<ProfileEditProps> = ({

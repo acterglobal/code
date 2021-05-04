@@ -1,12 +1,9 @@
-/* eslint-disable */
-
-import React, { FC } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 
 import { acterTypeAsUrl } from 'src/lib/acter-types/acter-type-as-url'
-import { saveActerImages } from 'src/lib/acter/save-images'
 
 import { Layout } from 'src/components/layout'
 import { ActerForm } from 'src/components/acter/form'
@@ -28,39 +25,7 @@ import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
-
-/**
- * Returns an onSubmit handler
- * @param createActerFn Function returned from useMutation
- * @param acterType The ActerType to use for Acter creation
- */
-export const _handleSubmit = (
-  createActerFn: (any) => any,
-  updateActerFn: (any) => any,
-  acterType: ActerType
-) => async (data) => {
-  // Create the acter
-  const acter: Acter = await createActerFn({
-    variables: {
-      ...data,
-      acterTypeId: acterType.id,
-    },
-  })
-
-  // Upload images
-  await saveActerImages(acter, data)
-
-  // Update Acter with image URLs
-  return await updateActerFn({
-    variables: {
-      ...acter,
-      acterId: acter.id,
-      interestIds: data.interestIds,
-      avatarUrl: acter.avatarUrl || '',
-      bannerUrl: acter.bannerUrl || '',
-    },
-  })
-}
+import { getCreateFunction } from 'src/lib/acter/get-create-function'
 
 /**
  * Returns a handler for useMutaion onComplete
@@ -107,39 +72,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     },
   })
 
-  // TODO: Refactor this
-  let Form
-  let createFn
-  switch (acterType.name) {
-    case ACTIVITY:
-      Form = ActivityForm
-      createFn = async (data): Promise<Acter> => {
-        // Create copy of the variables
-        const variables = {
-          ...data.variables,
-        }
-        ;['start', 'end'].forEach((t) => {
-          const time = data.variables[`${t}Time`]
-          variables[`${t}At`] = data.variables[`${t}Date`]
-            .hour(time.hour())
-            .minute(time.minute())
-            .second(time.second())
-            .toDate()
-          delete variables[`${t}Date`]
-          delete variables[`${t}Time`]
-        })
-        variables.isOnline = variables.isOnline === 'true'
-        const res = await createActivity({ variables })
-        return res.data.createActivity.Acter
-      }
-      break
-    default:
-      createFn = async (data): Promise<Acter> => {
-        const res = await createActer(data)
-        return res.data.createActer
-      }
-      Form = ActerForm
-  }
+  const Form = acterType.name === ACTIVITY ? ActivityForm : ActerForm
 
   return (
     <Layout user={user}>
@@ -150,7 +83,12 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={_handleSubmit(createFn, updateActer, acterType)}
+          onSubmit={getCreateFunction({
+            acterType,
+            createActivity,
+            createActer,
+            updateActer,
+          })}
         />
       </main>
     </Layout>
