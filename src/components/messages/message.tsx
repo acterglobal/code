@@ -57,6 +57,7 @@ export const MessageBox: FC<MessageBoxProps> = ({
           <Divider className={classes.divider} />
 
           {/* Comments Section */}
+          {/* Need to map through several comments */}
           <Box className={classes.contentContainer}>
             <Box className={classes.image}>
               <Image
