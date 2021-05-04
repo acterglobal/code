@@ -13,7 +13,7 @@ export default {
   args: {
     dataType: '',
     acters: [],
-    handleSearch: (text) => null,
+    handleSearch: (text) => console.log(text),
   },
 } as Meta
 

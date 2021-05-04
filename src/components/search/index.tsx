@@ -10,7 +10,7 @@ import {
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 
-type SearchProps = DisplayResultsProps
+export type SearchProps = DisplayResultsProps
 
 export const Search: FC<SearchProps> = ({ dataType, acters }) => {
   const classes = useStyles()
