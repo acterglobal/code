@@ -10,18 +10,18 @@ import { Acter, Message } from '@schema'
 
 export interface MessageBoxProps {
   message: Message
-  comment: Message
+  comments: Message[]
   acter: Acter
 }
 
 export const MessageBox: FC<MessageBoxProps> = ({
   acter,
   message,
-  comment,
+  comments,
 }) => {
   const classes = useStyles()
 
-  console.log('This is something', comment)
+  console.log('This is something', comments)
 
   return (
     <Box className={classes.root}>
@@ -58,36 +58,38 @@ export const MessageBox: FC<MessageBoxProps> = ({
 
           {/* Comments Section */}
           {/* Need to map through several comments */}
-          <Box className={classes.contentContainer}>
-            <Box className={classes.image}>
-              <Image
-                src={getImageUrl(message.Author.avatarUrl, 'avatar')}
-                alt={acter.name}
-                layout="responsive"
-                width="50"
-                height="50"
-              />
-            </Box>
-            <Box className={classes.commentContainer}>
-              <Box>
-                <Typography variant="subtitle1" className={classes.title}>
-                  {message.Author.name}
-                </Typography>
-                <Typography
-                  className={classes.acterTypeName}
-                  variant="body2"
-                  gutterBottom
-                >
-                  {comment.Acter.name}
-                </Typography>
+          {comments.map((comment, index) => (
+            <Box key={index} className={classes.contentContainer}>
+              <Box className={classes.image}>
+                <Image
+                  src={getImageUrl(message.Author.avatarUrl, 'avatar')}
+                  alt={acter.name}
+                  layout="responsive"
+                  width="50"
+                  height="50"
+                />
               </Box>
-              <Box>
-                <Typography variant="caption" className={classes.description}>
-                  {comment.content}
-                </Typography>
+              <Box className={classes.commentContainer}>
+                <Box>
+                  <Typography variant="subtitle1" className={classes.title}>
+                    {message.Author.name}
+                  </Typography>
+                  <Typography
+                    className={classes.acterTypeName}
+                    variant="body2"
+                    gutterBottom
+                  >
+                    {comment.Acter.name}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="caption" className={classes.description}>
+                    {comment.content}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
+          ))}
 
           {/* To do Capture comments/posts */}
         </Box>
