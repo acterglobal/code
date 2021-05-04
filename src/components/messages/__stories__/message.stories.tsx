@@ -12,7 +12,7 @@ export default {
   component: MessageBox,
   args: {
     message: ExampleMessage,
-    comment: ExampleSubMessage,
+    comments: [ExampleSubMessage, ExampleSubMessage],
     acter: ExampleActer,
     // onSubmit: () => null,
   },
