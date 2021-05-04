@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
-import { Box, Grid, Typography } from '@material-ui/core'
+import React, { FC, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
+import { green, grey } from '@material-ui/core/colors'
 import { SearchBar } from 'src/components/search/search-bar'
 import { FilterTabs } from 'src/components/search/filter-tabs'
 import {
@@ -9,12 +10,20 @@ import {
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 
-export interface SearchProps extends DisplayResultsProps {
-  handleSearch: (text: string) => void
-}
+type SearchProps = DisplayResultsProps
 
-export const Search: FC<SearchProps> = ({ dataType, acters, handleSearch }) => {
+export const Search: FC<SearchProps> = ({ dataType, acters }) => {
   const classes = useStyles()
+  const router = useRouter()
+  const [searchText, setSearchText] = useState('')
+
+  const handleInputChange = (inputText: string) => {
+    setSearchText(inputText)
+  }
+
+  const handleSearch = () => {
+    router.push(`/?search=${searchText}`)
+  }
 
   return (
     <Box className={classes.root}>
@@ -25,8 +34,15 @@ export const Search: FC<SearchProps> = ({ dataType, acters, handleSearch }) => {
               {acters?.length} Results
             </Typography>
             <Box className={classes.searchInput}>
-              <SearchBar handleSearch={handleSearch} />
+              <SearchBar handleInputChange={handleInputChange} />
             </Box>
+            <Button
+              className={classes.searchButton}
+              variant="contained"
+              onClick={handleSearch}
+            >
+              <Typography variant="caption">Search</Typography>
+            </Button>
           </Grid>
 
           <FilterTabs />
@@ -64,6 +80,21 @@ const useStyles = makeStyles((theme: Theme) =>
     searchInput: {
       display: 'flex',
       flexGrow: 8,
+    },
+    searchButton: {
+      height: theme.spacing(3.5),
+      minWidth: theme.spacing(15),
+      borderRadius: theme.spacing(3),
+      marginLeft: theme.spacing(1),
+      color: 'white',
+      backgroundColor: green[500],
+      textTransform: 'capitalize',
+      '&:hover': {
+        backgroundColor: green[500],
+      },
+      [theme.breakpoints.down('sm')]: {
+        minWidth: theme.spacing(10),
+      },
     },
   })
 )

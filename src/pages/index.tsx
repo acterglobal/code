@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 import { Head } from 'src/components/layout/head'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile } from 'src/props'
-import { useLazyQuery } from '@apollo/client'
-import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
+import { getUserProfile, searchActers } from 'src/props'
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
 
@@ -18,29 +16,19 @@ interface HomeProps {
   user?: User
 }
 
-const Home: NextPage<HomeProps> = ({ user }) => {
-  const [getActers, { data }] = useLazyQuery(SEARCH_ACTERS)
-
-  useEffect(() => {
-    getActers({ variables: { searchTxt: '' } })
-  }, [])
-
+const Home: NextPage<HomeProps> = ({ user, acters }) => {
   return (
     <Layout user={user}>
       <Head title="Acter" />
 
       <main>
-        <Search
-          acters={data?.acters}
-          dataType={ACTERS}
-          handleSearch={(text) => getActers({ variables: { searchTxt: text } })}
-        />
+        <Search acters={acters} dataType={ACTERS} />
       </main>
     </Layout>
   )
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false))
+  composeProps(ctx, getUserProfile(false), searchActers)
 
 export default Home
