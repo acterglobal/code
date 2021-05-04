@@ -6,22 +6,15 @@ import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 import Image from 'next/image'
 import { getImageUrl } from 'src/lib/images/get-image-url'
-import { Acter, Message } from '@schema'
+import { Message } from '@schema'
 
 export interface MessageBoxProps {
   message: Message
   comments: Message[]
-  acter: Acter
 }
 
-export const MessageBox: FC<MessageBoxProps> = ({
-  acter,
-  message,
-  comments,
-}) => {
+export const MessageBox: FC<MessageBoxProps> = ({ message, comments }) => {
   const classes = useStyles()
-
-  console.log('This is something', comments)
 
   return (
     <Box className={classes.root}>
@@ -46,7 +39,7 @@ export const MessageBox: FC<MessageBoxProps> = ({
                 variant="body2"
                 gutterBottom
               >
-                {acter.name}
+                {message.Acter.name}
               </Typography>
               <Typography variant="caption" className={classes.description}>
                 {message.content}
@@ -56,14 +49,12 @@ export const MessageBox: FC<MessageBoxProps> = ({
 
           <Divider className={classes.divider} />
 
-          {/* Comments Section */}
-          {/* Need to map through several comments */}
           {comments.map((comment, index) => (
             <Box key={index} className={classes.contentContainer}>
               <Box className={classes.image}>
                 <Image
                   src={getImageUrl(message.Author.avatarUrl, 'avatar')}
-                  alt={acter.name}
+                  alt={message.Author.name}
                   layout="responsive"
                   width="50"
                   height="50"
@@ -90,8 +81,6 @@ export const MessageBox: FC<MessageBoxProps> = ({
               </Box>
             </Box>
           ))}
-
-          {/* To do Capture comments/posts */}
         </Box>
       </Paper>
     </Box>
@@ -114,7 +103,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     image: {
-      // marginLeft: theme.spacing(2),
       marginRight: theme.spacing(3),
       objectFit: 'cover',
       border: '1px solid black',
@@ -194,12 +182,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 0,
       lineHeight: 1,
     },
-    // descriptionSection: {
-    //   width: 400,
-    //   height: 20,
-    //   display: 'flex',
-    //   alignItems: 'flex-end',
-    // },
     description: {
       color: grey[800],
       display: '-webkit-box',

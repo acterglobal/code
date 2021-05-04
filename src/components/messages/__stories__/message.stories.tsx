@@ -1,10 +1,6 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
-import { ExampleActer } from 'src/__fixtures__'
-import {
-  ExampleMessage,
-  ExampleSubMessage,
-} from 'src/__fixtures__/message/example-message'
+import { ExampleMessage, ExampleSubMessage } from 'src/__fixtures__'
 import { MessageBox, MessageBoxProps } from 'src/components/messages/message'
 
 export default {
@@ -13,8 +9,6 @@ export default {
   args: {
     message: ExampleMessage,
     comments: [ExampleSubMessage, ExampleSubMessage],
-    acter: ExampleActer,
-    // onSubmit: () => null,
   },
 } as Meta
 
