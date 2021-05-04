@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "dev": "env-cmd next dev",
-    "build": "env-cmd next build",
+    "build": "env-cmd --silent next build",
     "start": "next start -p $PORT",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "rm -rf .next out && jest",
