@@ -36,3 +36,8 @@ Acters.args = {
   dataType: ACTERS,
   acters: acters,
 }
+export const ZeroActers = Template.bind({})
+Acters.args = {
+  dataType: ACTERS,
+  acters: [],
+}

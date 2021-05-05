@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
 import { ActivityTile } from 'src/components/activity/tile'
@@ -19,19 +19,26 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
   const classes = useStyles()
 
   return (
-    <Box className={clsx(classes.root, classes[`${dataType}`])}>
-      {acters?.map((acter, index) => (
-        <Box className={classes.singleItem} key={index}>
-          <Link href={acterAsUrl(acter)} passHref>
-            <a>
-              {dataType === ACTERS && <ActerTile acter={acter} />}
-              {dataType === ACTIVITIES && (
-                <ActivityTile activity={acter.Activity} />
-              )}
-            </a>
-          </Link>
-        </Box>
-      ))}
+    <Box className={clsx(classes.root, classes[dataType])}>
+      {acters.length !== 0 ? (
+        acters.map((acter, index) => (
+          <Box className={classes.singleItem} key={index}>
+            <Link href={acterAsUrl(acter)} passHref>
+              <a>
+                {dataType === ACTERS && <ActerTile acter={acter} />}
+                {dataType === ACTIVITIES && (
+                  <ActivityTile activity={acter.Activity} />
+                )}
+              </a>
+            </Link>
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2">
+          Your search did not return any results. Try removing search terms
+          and/or filters to see more.
+        </Typography>
+      )}
     </Box>
   )
 }
