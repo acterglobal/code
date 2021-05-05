@@ -4,15 +4,19 @@ import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { SearchBar } from 'src/components/search/search-bar'
-import { FilterTabs } from 'src/components/search/filter-tabs'
+import { FilterTabs, FilterTabsProps } from 'src/components/search/filter-tabs'
 import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 
-export type SearchProps = DisplayResultsProps
+export type SearchProps = DisplayResultsProps & FilterTabsProps
 
-export const Search: FC<SearchProps> = ({ dataType, acters }) => {
+export const Search: FC<SearchProps> = ({
+  dataType,
+  acters,
+  interestTypes,
+}) => {
   const classes = useStyles()
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
@@ -49,7 +53,7 @@ export const Search: FC<SearchProps> = ({ dataType, acters }) => {
             </Button>
           </Grid>
 
-          <FilterTabs />
+          <FilterTabs interestTypes={interestTypes} />
         </Grid>
       </Box>
 
