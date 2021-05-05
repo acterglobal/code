@@ -7,8 +7,11 @@ export default {
   title: 'Message/Message',
   component: MessageBox,
   args: {
-    message: ExampleMessage,
-    comments: [ExampleSubMessage, ExampleSubMessage],
+    message: {
+      ...ExampleMessage,
+    Comments: [ExampleSubMessage, ExampleSubMessage],
+    }
+    
   },
 } as Meta
 

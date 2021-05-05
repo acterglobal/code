@@ -10,10 +10,9 @@ import { Message } from '@schema'
 
 export interface MessageBoxProps {
   message: Message
-  comments: Message[]
 }
 
-export const MessageBox: FC<MessageBoxProps> = ({ message, comments }) => {
+export const MessageBox: FC<MessageBoxProps> = ({ message }) => {
   const classes = useStyles()
 
   return (
@@ -49,12 +48,12 @@ export const MessageBox: FC<MessageBoxProps> = ({ message, comments }) => {
 
           <Divider className={classes.divider} />
 
-          {comments.map((comment, index) => (
+          {message.Comments.map((comment, index) => (
             <Box key={index} className={classes.contentContainer}>
               <Box className={classes.image}>
                 <Image
                   src={getImageUrl(message.Author.avatarUrl, 'avatar')}
-                  alt={message.Author.name}
+                  alt={comment.Author.name}
                   layout="responsive"
                   width="50"
                   height="50"
@@ -63,7 +62,7 @@ export const MessageBox: FC<MessageBoxProps> = ({ message, comments }) => {
               <Box className={classes.commentContainer}>
                 <Box>
                   <Typography variant="subtitle1" className={classes.title}>
-                    {message.Author.name}
+                    {comment.Author.name}
                   </Typography>
                   <Typography
                     className={classes.acterTypeName}
