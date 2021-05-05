@@ -1,11 +1,11 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
 import { ExampleMessage, ExampleSubMessage } from 'src/__fixtures__'
-import { MessageBox, MessageBoxProps } from 'src/components/messages/message'
+import { Messages, MessagesProps } from 'src/components/messages/messages'
 
 export default {
   title: 'Message/Message',
-  component: MessageBox,
+  component: Messages,
   args: {
     message: {
       ...ExampleMessage,
@@ -15,4 +15,4 @@ export default {
   },
 } as Meta
 
-export const Posts: Story<MessageBoxProps> = (args) => <MessageBox {...args} />
+export const Posts: Story<MessagesProps> = (args) => <Messages {...args} />
