@@ -1,10 +1,8 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useMutation } from '@apollo/client'
-
-import { useSnackbar } from 'notistack'
 
 import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
+import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
@@ -37,11 +35,8 @@ export const UserProfilePage: NextPage<UserProfilePageProps> = ({
   user,
   interestTypes,
 }) => {
-  const { enqueueSnackbar } = useSnackbar()
-  const [updateUser, { loading }] = useMutation(UPDATE_ACTER, {
-    onCompleted: () => {
-      enqueueSnackbar('Profile updated', { variant: 'success' })
-    },
+  const [updateUser, { loading }] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: () => 'Profile updated',
   })
 
   return (

@@ -1,8 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import { useMutation } from '@apollo/client'
-import { useSnackbar } from 'notistack'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { getUpdateFunction } from 'src/lib/acter/get-update-function'
 
@@ -11,7 +9,9 @@ import { Head } from 'src/components/layout/head'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
 
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
+import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+
 import {
   getUserProfile,
   getActerTypes,
@@ -57,33 +57,20 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const { enqueueSnackbar } = useSnackbar()
-  const [updateActer, { loading: updateActerLoading }] = useMutation(
-    UPDATE_ACTER,
-    {
-      onError: (err) => {
-        enqueueSnackbar(err.message, { variant: 'error' })
-      },
-      onCompleted: (data) => {
-        enqueueSnackbar(`${data.updateActer.name} updated`, {
-          variant: 'success',
-        })
-        router.push(acterAsUrl(acter))
-      },
-    }
-  )
-  const [updateActivity, { loading: updateActivityLoading }] = useMutation(
-    UPDATE_ACTIVITY,
-    {
-      onError: (err) => {
-        enqueueSnackbar(err.message, { variant: 'error' })
-      },
-      onCompleted: () => {
-        enqueueSnackbar('Activity updated', { variant: 'success' })
-        router.push(acterAsUrl(acter))
-      },
-    }
-  )
+  const [
+    updateActer,
+    { loading: updateActerLoading },
+  ] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+    onCompleted: () => router.push(acterAsUrl(acter)),
+  })
+  const [
+    updateActivity,
+    { loading: updateActivityLoading },
+  ] = useNotificationMutation(UPDATE_ACTIVITY, {
+    getSuccessMessage: () => 'Activity updated',
+    onCompleted: () => router.push(acterAsUrl(acter)),
+  })
 
   const Form = acter.ActerType.name === ACTIVITY ? ActivityForm : ActerForm
 
