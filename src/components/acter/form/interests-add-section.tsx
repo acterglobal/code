@@ -7,23 +7,6 @@ import { interestTypeMap } from 'src/lib/interests/mapInterestTypes'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 import { InterestType } from '@schema'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      // width: 600,
-    },
-    tabs: {
-      marginBottom: theme.spacing(1),
-    },
-    tab: {
-      fontWeight: theme.typography.fontWeightBold,
-    },
-    interests: {
-      overflowY: 'scroll',
-    },
-  })
-)
-
 export interface InterestsAddSectionProps {
   interestTypes: InterestType[]
   initialValues?: FormValues
@@ -121,3 +104,20 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
     </div>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      // width: 600,
+    },
+    tabs: {
+      marginBottom: theme.spacing(1),
+    },
+    tab: {
+      fontWeight: theme.typography.fontWeightBold,
+    },
+    interests: {
+      overflowY: 'scroll',
+    },
+  })
+)
