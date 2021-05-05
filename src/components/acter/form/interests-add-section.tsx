@@ -11,10 +11,16 @@ export interface InterestsAddSectionProps {
   interestTypes: InterestType[]
   initialValues?: FormValues
   setFieldValue: FormSetFieldValue
+  showDivider?: boolean
 }
 
 export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
-  const { interestTypes, initialValues = [], setFieldValue } = props
+  const {
+    interestTypes,
+    initialValues = [],
+    setFieldValue,
+    showDivider = true,
+  } = props
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [selectedInterests, setSelectedInterests] = useState(initialValues)
@@ -94,7 +100,7 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = (props) => {
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
                   columns={true}
-                  divider={true}
+                  divider={showDivider}
                 />
               </Box>
             )}

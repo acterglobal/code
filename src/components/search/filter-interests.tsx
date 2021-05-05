@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Form, Formik } from 'formik'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
+import { grey } from '@material-ui/core/colors'
 
 type FilterInterestsProps = {
   interestTypes: InterestType[]
@@ -34,6 +35,10 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
     console.log('VALUES :', values)
   }
 
+  const handleClear = (paams) => {
+    console.log('clear')
+  }
+
   return (
     <>
       <Button
@@ -60,12 +65,35 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
       >
         <Box className={classes.popover}>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ setFieldValue }) => (
+            {({ setFieldValue, values }) => (
               <Form>
-                <InterestsAddSection
-                  interestTypes={interestTypes}
-                  setFieldValue={setFieldValue}
-                />
+                <Box className={classes.interests}>
+                  <InterestsAddSection
+                    interestTypes={interestTypes}
+                    setFieldValue={setFieldValue}
+                    showDivider={false}
+                  />
+                </Box>
+                <Box className={classes.btnsContainer}>
+                  <Button
+                    className={classes.clear}
+                    variant="text"
+                    color="primary"
+                    onClick={handleClear}
+                  >
+                    Clear
+                  </Button>
+                  <Button
+                    className={classes.save}
+                    variant="contained"
+                    color="primary"
+                    style={{ color: 'white' }}
+                    disabled={values.interestIds.length === 0}
+                    type="submit"
+                  >
+                    Apply
+                  </Button>
+                </Box>
               </Form>
             )}
           </Formik>
@@ -97,6 +125,27 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: theme.spacing(80),
       minHeight: theme.spacing(65),
       padding: theme.spacing(2),
+    },
+    interests: {
+      height: 480,
+    },
+    btnsContainer: {
+      marginTop: theme.spacing(1),
+      borderTop: '1px solid',
+      borderTopColor: grey[500],
+      padding: theme.spacing(1),
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    clear: {
+      textTransform: 'capitalize',
+      color: grey[800],
+      fontWeight: theme.typography.fontWeightBold,
+    },
+    save: {
+      textTransform: 'capitalize',
+      borderRadius: theme.spacing(3),
+      fontSize: '0.8rem',
     },
   })
 )
