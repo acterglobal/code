@@ -15,4 +15,25 @@ export const seedActivityTypes = async (
       return res
     })
   )
+
+  const eventActivityType = await prisma.activityType.findFirst({
+    where: {
+      name: 'event',
+    },
+  })
+
+  await prisma.activity.updateMany({
+    data: {
+      activityTypeId: eventActivityType.id,
+    },
+    where: {
+      activityTypeId: 'dummy',
+    },
+  })
+
+  await prisma.activityType.delete({
+    where: {
+      id: 'dummy',
+    },
+  })
 }
