@@ -1,68 +1,106 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
-import { Box } from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
-import Divider from '@material-ui/core/Divider'
-import { MessageBox } from 'src/components/messages'
+import { Box, Typography } from '@material-ui/core'
+import Image from 'next/image'
+import { getImageUrl } from 'src/lib/images/get-image-url'
 import { Message } from '@schema'
 
-export interface MessagesProps {
+export interface MessageBoxProps {
   message: Message
+  comment?: boolean
 }
 
-export const Messages: FC<MessagesProps> = ({ message }) => {
+export const MessageBox: FC<MessageBoxProps> = ({ message, comment }) => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
-      <Paper>
-        <Box className={classes.mainContainer}>
-          <Box className={classes.contentContainer}>
-            <MessageBox message={message} />
-          </Box>
-
-          <Divider className={classes.divider} />
-
-          {message.Comments.map((comment, index) => (
-            <Box key={index} className={classes.contentContainer}>
-              <MessageBox message={comment} comment />
-            </Box>
-          ))}
+    <>
+      <Box className={classes.image}>
+        <Image
+          src={getImageUrl(message.Author.avatarUrl, 'avatar')}
+          alt={message.Author.name}
+          layout="responsive"
+          width="50"
+          height="50"
+        />
+      </Box>
+      <Box
+        className={comment ? classes.commentContainer : classes.postContainer}
+      >
+        <Box>
+          <Typography variant="subtitle1" className={classes.title}>
+            {message.Author.name}
+          </Typography>
+          <Typography
+            className={classes.acterTypeName}
+            variant="body2"
+            gutterBottom
+          >
+            {message.Acter.name}
+          </Typography>
         </Box>
-      </Paper>
-    </Box>
+        <Box>
+          <Typography variant="caption" className={classes.description}>
+            {message.content}
+          </Typography>
+        </Box>
+      </Box>
+    </>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      background: 'white',
-      width: 800,
-    },
-    mainContainer: {
-      width: 700,
-      display: 'flex',
-      flexWrap: 'wrap',
+    image: {
+      marginRight: theme.spacing(3),
+      objectFit: 'cover',
+      border: '1px solid black',
+      width: 30,
+      height: 30,
       padding: theme.spacing(0.8),
+      borderRadius: '50%',
       [theme.breakpoints.down('xs')]: {
-        width: 300,
+        display: 'none',
       },
     },
-    contentContainer: {
+    postContainer: {
+      backgroundColor: 'white',
+      borderRadius: 7,
+      width: '90%',
+      padding: theme.spacing(1),
       display: 'flex',
-      flexDirection: 'row',
-      padding: theme.spacing(3),
-      [theme.breakpoints.down('xs')]: {
-        width: 300,
-      },
+      flexDirection: 'column',
+      alignItems: 'flex-start',
     },
-    divider: {
+    commentContainer: {
+      backgroundColor: grey[200],
+      borderRadius: 7,
+      width: 400,
+      padding: theme.spacing(1),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+    acterTypeName: {
       color: grey[700],
-      marginLeft: '30px',
-      width: '95%',
-      height: '2px',
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: 13,
+      textTransform: 'capitalize',
+    },
+    title: {
+      color: grey[700],
+      fontWeight: theme.typography.fontWeightMedium,
+      marginBottom: 0,
+      lineHeight: 1,
+    },
+    description: {
+      color: grey[800],
+      display: '-webkit-box',
+      boxOrient: 'vertical',
+      wordBreak: 'break-all',
+      overflow: 'hidden',
+      width: '90%',
     },
   })
 )
