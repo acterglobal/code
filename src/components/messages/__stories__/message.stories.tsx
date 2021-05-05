@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
 import { ExampleMessage, ExampleSubMessage } from 'src/__fixtures__'
-import { Messages, MessagesProps } from 'src/components/messages/messages'
+import { Messages, MessagesProps } from 'src/components/messages'
 
 export default {
   title: 'Message/Message',
@@ -9,9 +9,8 @@ export default {
   args: {
     message: {
       ...ExampleMessage,
-    Comments: [ExampleSubMessage, ExampleSubMessage],
-    }
-    
+      Comments: [ExampleSubMessage, ExampleSubMessage],
+    },
   },
 } as Meta
 
