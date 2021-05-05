@@ -31,7 +31,7 @@ export const Search: FC<SearchProps> = ({ dataType, acters }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
             <Typography className={classes.results} variant="body2">
-              {acters?.length} Results
+              {acters?.length} {acters?.length === 1 ? 'Result' : 'Results'}
             </Typography>
             <Box className={classes.searchInput}>
               <SearchBar handleInputChange={handleInputChange} />
