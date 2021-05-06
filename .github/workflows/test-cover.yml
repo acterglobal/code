@@ -32,7 +32,7 @@ jobs:
       - name: yarn install
         run: |
           yarn
-      
+
       - name: lint
         run: |
           yarn lint
@@ -40,8 +40,7 @@ jobs:
       - name: coverage tests
         run: |
           yarn cover
-      
+
       - name: build
         run: |
-          make build
-      
+          yarn build
