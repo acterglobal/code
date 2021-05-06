@@ -33,7 +33,7 @@ export const Search: FC<SearchProps> = ({ dataType, acters }) => {
             <Typography
               className={classes.results}
               variant="body2"
-              role="search-results"
+              aria-label="search-results"
             >
               {acters?.length} {acters?.length === 1 ? 'Result' : 'Results'}
             </Typography>

@@ -12,12 +12,12 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
     render(<DisplayResults dataType={ACTERS} acters={ExampleActerList} />)
-    const actersList = screen.queryAllByRole('acters')
+    const items = screen.queryAllByRole('listitem')
 
-    expect(actersList.length).toBe(9)
+    expect(items.length).toBe(9)
 
-    actersList.map((acter, i) => {
-      const links = within(acter).queryAllByRole('link')
+    items.map((item, i) => {
+      const links = within(item).queryAllByRole('link')
       const exampleActer = ExampleActerList[i]
       expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
     })
@@ -28,19 +28,15 @@ describe('Display search results', () => {
     const activities = [...Array(8).keys()].map(() => acter)
 
     render(<DisplayResults dataType={ACTIVITIES} acters={activities} />)
-    const actersList = screen.queryAllByRole('acters')
-
-    expect(actersList.length).toBe(8)
-
-    actersList.map((acter, i) => {
-      const links = within(acter).queryAllByRole('link')
-      const exampleActer = activities[i]
-
-      expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
-    })
-
     const items = screen.queryAllByRole('listitem')
-    items.map((item) => {
+
+    expect(items.length).toBe(8)
+
+    items.map((item, i) => {
+      const links = within(item).queryAllByRole('link')
+      const exampleActer = activities[i]
+      expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
+
       const type = within(item).queryByLabelText('activity-type')
       expect(type.textContent).toContain('event')
     })
@@ -50,10 +46,10 @@ describe('Display search results', () => {
     const acters = []
 
     render(<DisplayResults dataType={ACTERS} acters={acters} />)
-    const actersList = screen.queryAllByRole('acters')
-    const message = screen.queryByRole('zero-acters').textContent
+    const items = screen.queryAllByRole('listitem')
+    const message = screen.queryByLabelText('zero-acters').textContent
 
-    expect(actersList.length).toBe(0)
+    expect(items.length).toBe(0)
 
     expect(message).toBe(
       'Your search did not return any results. Try removing search terms and/or filters to see more.'

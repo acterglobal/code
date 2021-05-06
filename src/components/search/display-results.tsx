@@ -22,7 +22,7 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
     <Box className={clsx(classes.root, classes[dataType])}>
       {acters.length !== 0 ? (
         acters.map((acter, index) => (
-          <Box className={classes.singleItem} key={index} role="acters">
+          <Box className={classes.singleItem} key={index} role="listitem">
             <Link href={acterAsUrl(acter)} passHref>
               <a>
                 {dataType === ACTERS && <ActerTile acter={acter} />}
@@ -34,7 +34,7 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
           </Box>
         ))
       ) : (
-        <Typography variant="body2" role="zero-acters">
+        <Typography variant="body2" aria-label="zero-acters">
           Your search did not return any results. Try removing search terms
           and/or filters to see more.
         </Typography>
