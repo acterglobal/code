@@ -1,12 +1,10 @@
 import React, { FC, useEffect, useState, MouseEvent } from 'react'
 import { Box, Button, Popover } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Form, Formik, useFormikContext, withFormik } from 'formik'
+import { Form, Formik, useFormikContext } from 'formik'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { getInterests } from 'src/props'
 
 type FilterInterestsProps = {
   interestTypes: InterestType[]
@@ -33,24 +31,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
     interestIds: filterInterests,
   }
 
-  const getInterestNames = () => {
-    const topLevels = getTopLevelTypes(interestTypes)
-    const subTypes = topLevels.map((type) =>
-      interestTypes.filter(
-        (subtype) => type.id === subtype.parentInterestTypeId
-      )
-    )
-    const names = subTypes.map((type) => {
-      // return type.Interests.map((interest) => {
-      //   return interest.name
-      // })
-      return type
-    })
-    console.log('SUB TYPES', names)
-  }
-
   const handleSubmit = ({ interestIds }) => {
-    getInterestNames()
     setFilterInterests(interestIds)
   }
 
