@@ -39,8 +39,11 @@ describe('Display search results', () => {
       expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
     })
 
-    const activityTypes = screen.queryAllByRole('activity-type')
-    activityTypes.map((type) => expect(type).toHaveTextContent('event'))
+    const items = screen.queryAllByRole('listitem')
+    items.map((item) => {
+      const type = within(item).queryByLabelText('activity-type')
+      expect(type.textContent).toContain('event')
+    })
   })
 
   it('should display a message with no search results', async () => {

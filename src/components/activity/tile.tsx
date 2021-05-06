@@ -38,7 +38,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const endAt = moment(activity.endAt).format(format)
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} role="listitem">
       <Box className={classes.image}>
         <Image
           src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
@@ -81,7 +81,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           backgroundColor: activityTypeColors[activity.ActivityType.name],
         }}
       >
-        <Typography role="activity-type" variant="caption">
+        <Typography aria-label="activity-type" variant="caption">
           {activity.ActivityType.name}
         </Typography>
       </Box>
