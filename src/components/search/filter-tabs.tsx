@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { grey } from '@material-ui/core/colors'
 
 export const FilterTabs: FC = () => {
   const classes = useStyles()
@@ -11,21 +12,21 @@ export const FilterTabs: FC = () => {
         variant="contained"
         onClick={() => null}
       >
-        Filters
+        <Typography variant="caption">Filters</Typography>
       </Button>
       <Button
         className={classes.button}
         variant="contained"
         onClick={() => null}
       >
-        Sort by
+        <Typography variant="caption">Sort by</Typography>
       </Button>
       <Button
         className={classes.button}
         variant="contained"
         onClick={() => null}
       >
-        Map View
+        <Typography variant="caption">Map View</Typography>
       </Button>
     </Grid>
   )
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: theme.spacing(18),
       borderRadius: theme.spacing(3),
       marginRight: theme.spacing(1),
-      color: 'black',
+      color: grey[900],
       backgroundColor: 'white',
       textTransform: 'capitalize',
       fontSize: '0.7rem',

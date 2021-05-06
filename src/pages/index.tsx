@@ -1,9 +1,9 @@
+import React from 'react'
 import { NextPage } from 'next'
 import { Head } from 'src/components/layout/head'
 
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, searchActers } from 'src/props'
-
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
 
@@ -16,15 +16,17 @@ interface HomeProps {
   user?: User
 }
 
-const Home: NextPage<HomeProps> = ({ acters, user }) => (
-  <Layout user={user}>
-    <Head title="Acter" />
+const Home: NextPage<HomeProps> = ({ user, acters }) => {
+  return (
+    <Layout user={user}>
+      <Head title="Acter" />
 
-    <main>
-      <Search acters={acters} dataType={ACTERS} />
-    </main>
-  </Layout>
-)
+      <main>
+        <Search acters={acters} dataType={ACTERS} />
+      </main>
+    </Layout>
+  )
+}
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getUserProfile(false), searchActers)

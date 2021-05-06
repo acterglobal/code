@@ -81,7 +81,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
           backgroundColor: activityTypeColors[activity.ActivityType.name],
         }}
       >
-        <Typography variant="caption">{activity.ActivityType.name}</Typography>
+        <Typography aria-label="activity-type" variant="caption">
+          {activity.ActivityType.name}
+        </Typography>
       </Box>
     </Box>
   )

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
 import { ActivityTile } from 'src/components/activity/tile'
@@ -7,6 +7,7 @@ import { ActerTile } from 'src/components/acter/tile'
 import { ACTIVITIES, ACTERS } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import Link from 'next/link'
+import clsx from 'clsx'
 
 export interface DisplayResultsProps {
   dataType: string
@@ -18,19 +19,26 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
-      {acters.map((acter, i) => (
-        <Box className={classes.singleItem} key={i}>
-          <Link href={acterAsUrl(acter)} passHref>
-            <a>
-              {dataType === ACTERS && <ActerTile acter={acter} />}
-              {dataType === ACTIVITIES && (
-                <ActivityTile activity={acter.Activity} />
-              )}
-            </a>
-          </Link>
-        </Box>
-      ))}
+    <Box className={clsx(classes.root, classes[dataType])}>
+      {acters.length !== 0 ? (
+        acters.map((acter, index) => (
+          <Box className={classes.singleItem} key={index} role="listitem">
+            <Link href={acterAsUrl(acter)} passHref>
+              <a>
+                {dataType === ACTERS && <ActerTile acter={acter} />}
+                {dataType === ACTIVITIES && (
+                  <ActivityTile activity={acter.Activity} />
+                )}
+              </a>
+            </Link>
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" aria-label="zero-acters">
+          Your search did not return any results. Try removing search terms
+          and/or filters to see more.
+        </Typography>
+      )}
     </Box>
   )
 }
@@ -38,10 +46,12 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      marginTop: theme.spacing(5),
+    },
+    activities: {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      marginTop: theme.spacing(5),
     },
     singleItem: {
       margin: theme.spacing(1),
