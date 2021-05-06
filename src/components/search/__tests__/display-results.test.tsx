@@ -6,7 +6,7 @@ import {
   ExampleActivityActer,
 } from 'src/__fixtures__'
 import { DisplayResults } from 'src/components/search/display-results'
-import { ACTERS, ACTIVITY, ACTIVITIES } from 'src/constants'
+import { ACTERS, ACTIVITIES } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 describe('Display search results', () => {
@@ -37,9 +37,10 @@ describe('Display search results', () => {
       const exampleActer = activities[i]
 
       expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
-
-      expect(exampleActer.ActerType.name).toBe(ACTIVITY)
     })
+
+    const activityTypes = screen.queryAllByRole('activity-type')
+    activityTypes.map((type) => expect(type).toHaveTextContent('event'))
   })
 
   it('should display a message with no search results', async () => {
