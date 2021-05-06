@@ -14,6 +14,15 @@ describe('Display search results', () => {
     expect(results).toBe(`${acters.length} Results`)
   })
 
+  it('should display zero results', async () => {
+    const acters = []
+
+    render(<Search dataType={ACTERS} acters={acters} />)
+
+    const results = screen.queryByRole('search-results').textContent
+    expect(results).toBe(`${acters.length} Results`)
+  })
+
   it('should display one result', async () => {
     const acters = [ExampleActer]
     render(<Search dataType={ACTERS} acters={acters} />)
