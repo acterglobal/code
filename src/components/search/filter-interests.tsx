@@ -5,7 +5,8 @@ import { Form, Formik, useFormikContext, withFormik } from 'formik'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
+import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
+import { getInterests } from 'src/props'
 
 type FilterInterestsProps = {
   interestTypes: InterestType[]
@@ -32,14 +33,24 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
     interestIds: filterInterests,
   }
 
-  console.log('VALUES :', initialValues)
+  const getInterestNames = () => {
+    const topLevels = getTopLevelTypes(interestTypes)
+    const subTypes = topLevels.map((type) =>
+      interestTypes.filter(
+        (subtype) => type.id === subtype.parentInterestTypeId
+      )
+    )
+    const names = subTypes.map((type) => {
+      // return type.Interests.map((interest) => {
+      //   return interest.name
+      // })
+      return type
+    })
+    console.log('SUB TYPES', names)
+  }
 
   const handleSubmit = ({ interestIds }) => {
-    // const names = interestIds.map((id) => {
-
-    // })
-
-    // console.log('RESULT :', names)
+    getInterestNames()
     setFilterInterests(interestIds)
   }
 
