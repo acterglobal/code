@@ -4,14 +4,14 @@ import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
-import { MessageBox } from 'src/components/messages/messages'
-import { Message } from '@schema'
+import { PostBox } from 'src/components/posts/posts'
+import { Post } from '@schema'
 
-export interface MessagesProps {
-  message: Message
+export interface PostsProps {
+  post: Post
 }
 
-export const Messages: FC<MessagesProps> = ({ message }) => {
+export const Posts: FC<PostsProps> = ({ post }) => {
   const classes = useStyles()
 
   return (
@@ -19,14 +19,14 @@ export const Messages: FC<MessagesProps> = ({ message }) => {
       <Paper>
         <Box className={classes.mainContainer}>
           <Box className={classes.contentContainer}>
-            <MessageBox message={message} />
+            <PostBox post={post} />
           </Box>
 
           <Divider className={classes.divider} />
 
-          {message.Comments.map((comment, index) => (
+          {post.Comments.map((comment, index) => (
             <Box key={index} className={classes.contentContainer}>
-              <MessageBox message={comment} comment />
+              <PostBox post={comment} comment />
             </Box>
           ))}
         </Box>

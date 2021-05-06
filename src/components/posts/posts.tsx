@@ -4,22 +4,22 @@ import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from 'src/lib/images/get-image-url'
-import { Message } from '@schema'
+import { Post } from '@schema'
 
-export interface MessageBoxProps {
-  message: Message
+export interface PostBoxProps {
+  post: Post
   comment?: boolean
 }
 
-export const MessageBox: FC<MessageBoxProps> = ({ message, comment }) => {
+export const PostBox: FC<PostBoxProps> = ({ post, comment }) => {
   const classes = useStyles()
 
   return (
     <>
       <Box className={classes.image}>
         <Image
-          src={getImageUrl(message.Author.avatarUrl, 'avatar')}
-          alt={message.Author.name}
+          src={getImageUrl(post.Author.avatarUrl, 'avatar')}
+          alt={post.Author.name}
           layout="responsive"
           width="50"
           height="50"
@@ -30,19 +30,19 @@ export const MessageBox: FC<MessageBoxProps> = ({ message, comment }) => {
       >
         <Box>
           <Typography variant="subtitle1" className={classes.title}>
-            {message.Author.name}
+            {post.Author.name}
           </Typography>
           <Typography
             className={classes.acterTypeName}
             variant="body2"
             gutterBottom
           >
-            {message.Acter.name}
+            {post.Acter.name}
           </Typography>
         </Box>
         <Box>
           <Typography variant="caption" className={classes.description}>
-            {message.content}
+            {post.content}
           </Typography>
         </Box>
       </Box>
