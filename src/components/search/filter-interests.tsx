@@ -1,10 +1,11 @@
-import React, { FC, useState, MouseEvent } from 'react'
+import React, { FC, useEffect, useState, MouseEvent } from 'react'
 import { Box, Button, Popover } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Form, Formik } from 'formik'
+import { Form, Formik, useFormikContext, withFormik } from 'formik'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
+import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
 
 type FilterInterestsProps = {
   interestTypes: InterestType[]
@@ -14,29 +15,36 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
   interestTypes,
 }) => {
   const classes = useStyles()
+  const [filterInterests, setFilterInterests] = useState([])
+
+  /* Material Ui Popover stuff */
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(event.currentTarget)
-  }
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const handleClose = () => setAnchorEl(null)
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
+  /* Form stuff */
   const initialValues = {
-    interestIds: [],
+    interestIds: filterInterests,
   }
 
-  const handleSubmit = (values) => {
-    console.log('VALUES :', values)
+  console.log('VALUES :', initialValues)
+
+  const handleSubmit = ({ interestIds }) => {
+    // const names = interestIds.map((id) => {
+
+    // })
+
+    // console.log('RESULT :', names)
+    setFilterInterests(interestIds)
   }
 
-  const handleClear = (paams) => {
-    console.log('clear')
+  const handleClear = () => {
+    setFilterInterests([])
   }
 
   return (
@@ -46,8 +54,9 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
         variant="contained"
         onClick={handleClick}
       >
-        Interests
+        Interests ({filterInterests.length})
       </Button>
+
       <Popover
         id={id}
         open={open}
@@ -67,13 +76,12 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ setFieldValue, values }) => (
               <Form>
-                <Box className={classes.interests}>
-                  <InterestsAddSection
-                    interestTypes={interestTypes}
-                    setFieldValue={setFieldValue}
-                    showDivider={false}
-                  />
-                </Box>
+                <InterestsPicker
+                  interestTypes={interestTypes}
+                  setFieldValue={setFieldValue}
+                  setFilterInterests={setFilterInterests}
+                />
+
                 <Box className={classes.btnsContainer}>
                   <Button
                     className={classes.clear}
@@ -100,6 +108,29 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
         </Box>
       </Popover>
     </>
+  )
+}
+
+const InterestsPicker = ({
+  interestTypes,
+  setFieldValue,
+  setFilterInterests,
+}) => {
+  const classes = useStyles()
+  const { values } = useFormikContext()
+
+  useEffect(() => {
+    setFilterInterests(values.interestIds)
+  }, [values])
+
+  return (
+    <Box className={classes.interests}>
+      <InterestsAddSection
+        interestTypes={interestTypes}
+        setFieldValue={setFieldValue}
+        showDivider={false}
+      />
+    </Box>
   )
 }
 
