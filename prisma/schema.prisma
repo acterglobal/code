@@ -35,6 +35,12 @@ model Account {
   @@map("accounts")
 }
 
+enum ActerJoinSettings {
+  EVERYONE
+  RESTRICTED
+  INVITE_ONLY
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -51,26 +57,39 @@ model Acter {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
+  // Settings
+  userJoinSetting ActerJoinSettings @default(EVERYONE) @map("user_join_setting")
+
+  // Associations
+  // List of Interests for this Acter
+  ActerInterests ActerInterest[]
+
+  // The User that created this Acter
   createdByUser   User   @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
+  // Soft delete: if this field is set we have deleted this Acter
   deletedAt      DateTime? @map("deleted_at")
   deltedByUserId String?   @map("deleted_by_user_id")
   DeletedByUser  User?     @relation("acter_deleted_by_user", fields: [deltedByUserId], references: [id])
 
+  // The type of acter, i.e. User, Organisation, etc
   ActerType ActerType @relation(fields: [acterTypeId], references: [id])
 
+  // Create a parent/child relationship. Mostly for Organisation -> Group
   Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id])
   Children      Acter[] @relation("acter_parent")
   parentActerId String? @map("parent_acter_id")
 
+  // Follow/join/members
   Following ActerConnection[] @relation("follower")
   Followers ActerConnection[] @relation("following")
 
+  // If this has an associated User record
   User User?
 
-  ActerInterests ActerInterest[]
 
+  // If this has an associated Activity record
   Activity            Activity?  @relation("acter")
   ActivitiesOrganized Activity[] @relation("organiser")
 
