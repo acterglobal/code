@@ -181,9 +181,9 @@ model Post {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Parent   Post?  @relation("PostToPost", fields: [parentId], references: [id])
-  parentId String?   @map("parent_id")
-  Comments Post[] @relation("PostToPost")
+  Parent   Post?   @relation("PostToPost", fields: [parentId], references: [id])
+  parentId String? @map("parent_id")
+  Comments Post[]  @relation("PostToPost")
 
   Acter   Acter  @relation("posts", fields: [acterId], references: [id])
   acterId String @map("acter_id")

@@ -13,9 +13,6 @@ ALTER TABLE "Message" DROP CONSTRAINT "Message_author_id_fkey";
 -- DropForeignKey
 ALTER TABLE "Message" DROP CONSTRAINT "Message_parent_id_fkey";
 
--- AlterTable
-ALTER TABLE "activities" ALTER COLUMN "activityTypeId" DROP DEFAULT;
-
 -- DropTable
 DROP TABLE "Message";
 
