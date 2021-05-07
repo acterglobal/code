@@ -40,7 +40,8 @@ export const ActivityTypes = [
 export * from './acter-connection/example-acter-connection'
 
 export * from './user/example-user'
+
 export * from './acter/example-acter'
 export * from './acter/example-acter-list'
-
 export * from './activity/example-activity'
+export * from './post/example-post'

@@ -74,8 +74,8 @@ model Acter {
   Activity            Activity?  @relation("acter")
   ActivitiesOrganized Activity[] @relation("organiser")
 
-  AttachedMessages Message[] @relation("messages")
-  AuthoredMessages Message[] @relation("authored")
+  AttachedPosts Post[] @relation("posts")
+  AuthoredPosts Post[] @relation("authored")
 
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
@@ -174,18 +174,18 @@ model ActivityType {
   @@map("activity_types")
 }
 
-model Message {
+model Post {
   id        String   @id @default(uuid())
   subject   String
   content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Parent   Message?  @relation("MessageToMessage", fields: [parentId], references: [id])
-  parentId String?   @map("parent_id")
-  Comments Message[] @relation("MessageToMessage")
+  Parent   Post?   @relation("PostToPost", fields: [parentId], references: [id])
+  parentId String? @map("parent_id")
+  Comments Post[]  @relation("PostToPost")
 
-  Acter   Acter  @relation("messages", fields: [acterId], references: [id])
+  Acter   Acter  @relation("posts", fields: [acterId], references: [id])
   acterId String @map("acter_id")
 
   Author   Acter  @relation("authored", fields: [authorId], references: [id])
