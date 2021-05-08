@@ -1,20 +1,25 @@
-import React, { FC, useEffect, useState, MouseEvent } from 'react'
-import { Box, Button, Popover } from '@material-ui/core'
+import React, { FC, useState, MouseEvent } from 'react'
+import { Box, Button, Popover, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Form, Formik, useFormikContext } from 'formik'
-import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
+import { Form, Formik } from 'formik'
+import { InterestsPicker } from 'src/components/interests/interests-picker'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
+import { interestNameMap } from 'src/lib/interests/mapInterestTypes'
 
-type FilterInterestsProps = {
+export type FilterInterestsProps = {
   interestTypes: InterestType[]
+  applyFilters: (filterInterests: string[]) => void
+  handleSearch: (filterInterests: string[]) => void
 }
 
 export const FilterInterests: FC<FilterInterestsProps> = ({
   interestTypes,
+  applyFilters,
+  handleSearch,
 }) => {
   const classes = useStyles()
-  const [filterInterests, setFilterInterests] = useState([])
+  const [selectedInterests, setSelectedInterests] = useState([])
 
   /* Material Ui Popover stuff */
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
@@ -28,15 +33,20 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
 
   /* Form stuff */
   const initialValues = {
-    interestIds: filterInterests,
+    interestIds: selectedInterests,
   }
 
-  const handleSubmit = ({ interestIds }) => {
-    setFilterInterests(interestIds)
+  const handleSubmit = () => {
+    const interestNames = interestNameMap(interestTypes)
+    const filters = selectedInterests.map((id) => interestNames[id])
+    applyFilters(filters)
+    handleClose()
+    handleSearch(filters)
   }
 
   const handleClear = () => {
-    setFilterInterests([])
+    applyFilters([])
+    setSelectedInterests([])
   }
 
   return (
@@ -46,7 +56,10 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
         variant="contained"
         onClick={handleClick}
       >
-        Interests ({filterInterests.length})
+        <Typography variant="caption">
+          Interests{' '}
+          {selectedInterests.length > 0 && `(${selectedInterests.length})`}
+        </Typography>
       </Button>
 
       <Popover
@@ -66,13 +79,16 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
       >
         <Box className={classes.popover}>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ setFieldValue, values }) => (
+            {() => (
               <Form>
-                <InterestsPicker
-                  interestTypes={interestTypes}
-                  setFieldValue={setFieldValue}
-                  setFilterInterests={setFilterInterests}
-                />
+                <Box className={classes.interests}>
+                  <InterestsPicker
+                    interestTypes={interestTypes}
+                    selectedInterests={selectedInterests}
+                    setSelectedInterests={setSelectedInterests}
+                    showDivider={false}
+                  />
+                </Box>
 
                 <Box className={classes.btnsContainer}>
                   <Button
@@ -87,8 +103,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
                     className={classes.save}
                     variant="contained"
                     color="primary"
-                    style={{ color: 'white' }}
-                    disabled={values.interestIds.length === 0}
+                    disabled={selectedInterests.length === 0}
                     type="submit"
                   >
                     Apply
@@ -100,29 +115,6 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
         </Box>
       </Popover>
     </>
-  )
-}
-
-const InterestsPicker = ({
-  interestTypes,
-  setFieldValue,
-  setFilterInterests,
-}) => {
-  const classes = useStyles()
-  const { values } = useFormikContext()
-
-  useEffect(() => {
-    setFilterInterests(values.interestIds)
-  }, [values])
-
-  return (
-    <Box className={classes.interests}>
-      <InterestsAddSection
-        interestTypes={interestTypes}
-        setFieldValue={setFieldValue}
-        showDivider={false}
-      />
-    </Box>
   )
 }
 
@@ -169,6 +161,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'capitalize',
       borderRadius: theme.spacing(3),
       fontSize: '0.8rem',
+      color: 'white',
     },
   })
 )
