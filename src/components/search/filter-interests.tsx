@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import { InterestsPicker } from 'src/components/interests/interests-picker'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { interestNameMap } from 'src/lib/interests/mapInterestTypes'
+import { interestNameMap } from 'src/lib/interests/interest-mappings'
 
 export type FilterInterestsProps = {
   interestTypes: InterestType[]
