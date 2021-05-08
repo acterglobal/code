@@ -4,13 +4,16 @@ import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { SearchBar } from 'src/components/search/search-bar'
-import { FilterTabs, FilterTabsProps } from 'src/components/search/filter-tabs'
+import { FilterTabs } from 'src/components/search/filter-tabs'
 import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
+import { InterestType } from '@schema'
 
-export type SearchProps = DisplayResultsProps & FilterTabsProps
+export interface SearchProps extends DisplayResultsProps {
+  interestTypes: InterestType[]
+}
 
 export const Search: FC<SearchProps> = ({
   dataType,
@@ -20,13 +23,23 @@ export const Search: FC<SearchProps> = ({
   const classes = useStyles()
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
+  const [filterInterests, setFilterInterests] = useState([])
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
   }
 
-  const handleSearch = () => {
-    router.push(`/?search=${searchText}`)
+  const handleSearch = (filters) => {
+    if (filters.length === undefined) {
+      filters = filterInterests
+    }
+    router.push({
+      pathname: '/',
+      query: {
+        search: searchText,
+        interests: filters.join(','),
+      },
+    })
   }
 
   return (
@@ -53,7 +66,11 @@ export const Search: FC<SearchProps> = ({
             </Button>
           </Grid>
 
-          <FilterTabs interestTypes={interestTypes} />
+          <FilterTabs
+            interestTypes={interestTypes}
+            applyFilters={setFilterInterests}
+            handleSearch={handleSearch}
+          />
         </Grid>
       </Box>
 
