@@ -12,6 +12,7 @@ import { Step2 } from 'src/components/activity/form/step2'
 import { Step3 } from 'src/components/activity/form/step3'
 import { Modal } from 'src/components/util/modal'
 import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
+import { EVENT } from 'src/constants'
 
 const steps = [Step1, Step2, Step3]
 const getStepContent = (
@@ -115,6 +116,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startAt = moment(acter.Activity.startAt)
     endAt = moment(acter.Activity.endAt)
   }
+
+  const eventType = activityTypes.find((type) => type.name === EVENT)
+
   //TODO: create a type for htis
   const initialValues = {
     organiserActerId:
@@ -126,8 +130,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     interestIds: [],
     ...acter,
     ...acter?.Activity,
-    activityTypeId:
-      acter?.Activity.activityTypeId || 'f1ea3d88-09fa-43de-9121-2f80849cb12b', // default activity type (Event) id
+    activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
     isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
     startDate: startAt,
     startTime: startAt,
