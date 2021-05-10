@@ -21,21 +21,19 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
     showDivider = true,
   } = props
   const classes = useStyles()
-  const [value, setValue] = useState(0)
+  const [currentTab, setCurrentTab] = useState(0)
 
   const topLevelTypes = getTopLevelTypes(interestTypes)
 
-  const [selectedTypes, setSelectedTypes] = useState(
-    getSelectedTypes(selectedInterests, interestTypes)
-  )
+  const [selectedTypes, setSelectedTypes] = useState([])
 
   useEffect(() => {
     setSelectedTypes(getSelectedTypes(selectedInterests, interestTypes))
   }, [selectedInterests])
 
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  const handleChange = (event: ChangeEvent<any>, newValue: number) => {
-    setValue(newValue)
+  const handleChange = (event: ChangeEvent<any>, tab: number) => {
+    setCurrentTab(tab)
   }
 
   const handleSelectedInterest = (interest, type) => {
@@ -61,7 +59,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
   return (
     <div className={classes.root}>
       <Tabs
-        value={value}
+        value={currentTab}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
@@ -79,10 +77,10 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
           <Box
             className={classes.interests}
             role="tabpanel"
-            hidden={value !== index}
+            hidden={currentTab !== index}
             key={index}
           >
-            {value === index && (
+            {currentTab === index && (
               <Box>
                 <InterestTypes
                   type={type}
@@ -104,9 +102,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      // width: 600,
-    },
+    root: {},
     tabs: {
       marginBottom: theme.spacing(1),
     },
