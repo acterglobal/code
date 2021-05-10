@@ -1,4 +1,4 @@
-import { interestTypeMap } from 'src/lib/interests/interest-mappings'
+import { interestTypeMap } from 'src/lib/interests/map-interest-type'
 import { InterestType } from '@schema'
 
 export const getSelectedTypes = (

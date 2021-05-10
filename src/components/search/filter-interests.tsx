@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import { InterestsPicker } from 'src/components/interests/interests-picker'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { interestNameMap } from 'src/lib/interests/interest-mappings'
+import { interestNameMap } from 'src/lib/interests/map-interest-name'
 
 export type FilterInterestsProps = {
   interestTypes: InterestType[]
@@ -19,7 +19,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
   handleSearch,
 }) => {
   const classes = useStyles()
-  const [selectedInterests, setSelectedInterests] = useState([])
+  const [selectedInterestIds, setSelectedInterestIds] = useState([])
 
   /* Material Ui Popover stuff */
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
@@ -33,12 +33,12 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
 
   /* Form stuff */
   const initialValues = {
-    interestIds: selectedInterests,
+    interestIds: selectedInterestIds,
   }
 
   const handleSubmit = () => {
     const interestNames = interestNameMap(interestTypes)
-    const filters = selectedInterests.map((id) => interestNames[id])
+    const filters = selectedInterestIds.map((id) => interestNames[id])
     applyFilters(filters)
     handleClose()
     handleSearch(filters)
@@ -46,7 +46,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
 
   const handleClear = () => {
     applyFilters([])
-    setSelectedInterests([])
+    setSelectedInterestIds([])
   }
 
   return (
@@ -58,7 +58,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
       >
         <Typography variant="caption">
           Interests{' '}
-          {selectedInterests.length > 0 && `(${selectedInterests.length})`}
+          {selectedInterestIds.length > 0 && `(${selectedInterestIds.length})`}
         </Typography>
       </Button>
 
@@ -84,8 +84,8 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
                 <Box className={classes.interests}>
                   <InterestsPicker
                     interestTypes={interestTypes}
-                    selectedInterests={selectedInterests}
-                    setSelectedInterests={setSelectedInterests}
+                    selectedInterests={selectedInterestIds}
+                    setSelectedInterests={setSelectedInterestIds}
                     showDivider={false}
                   />
                 </Box>
@@ -103,7 +103,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
                     className={classes.save}
                     variant="contained"
                     color="primary"
-                    disabled={selectedInterests.length === 0}
+                    disabled={selectedInterestIds.length === 0}
                     type="submit"
                   >
                     Apply
