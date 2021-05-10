@@ -3,6 +3,7 @@ import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { Acter } from '@schema'
 
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
+import SEARCH_ACTIVITIES from 'api/queries/activities-search.graphql'
 
 type VariablesType = {
   searchText: string | string[]
@@ -19,8 +20,8 @@ export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
 
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
-    query: SEARCH_ACTERS,
-    variables: variables,
+    query: SEARCH_ACTIVITIES,
+    variables: { searchText },
   })
 
   if (error) {
@@ -31,6 +32,7 @@ export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
     }
   }
 
+  console.log('DATA :', data)
   const { acters }: { acters: Acter[] } = data
   return addApolloState(apollo, {
     props: {
