@@ -18,10 +18,6 @@ describe('getSelectedTypes', () => {
     const types = getSelectedTypes(selectedInterestIds, allInterests)
 
     expect(types).toHaveLength(4)
-
-    expect(types[0]).toBe('Environment')
-    expect(types[1]).toBe('Focus')
-    expect(types[2]).toBe('Social')
-    expect(types[3]).toBe('Tags')
+    expect(types).toStrictEqual(['Environment', 'Focus', 'Social', 'Tags'])
   })
 })
