@@ -24,6 +24,9 @@ query ActivitiesSearch(
     ...ActerFull
     Activity {
       ...ActivityDisplay
+      Acter {
+        ...ActerDisplay
+      }
       Organiser {
         ...ActerDisplay
       }
