@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: theme.typography.fontWeightLight,
+    textTransform: 'capitalize',
     borderRadius: 5,
   },
   computerIcon: {

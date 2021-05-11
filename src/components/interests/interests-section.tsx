@@ -4,6 +4,7 @@ import { InterestTypes } from 'src/components/interests/interest-types'
 import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
 import { InterestType, Interest } from '@schema'
+
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
   selected?: Interest[]

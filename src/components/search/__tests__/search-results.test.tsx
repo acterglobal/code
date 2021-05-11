@@ -8,7 +8,7 @@ describe('Display search results', () => {
   it('should display number of results', async () => {
     const acters = [...Array(4).keys()].map(() => ExampleActer)
 
-    render(<Search dataType={ACTERS} acters={acters} />)
+    render(<Search dataType={ACTERS} acters={acters} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe(`${acters.length} Results`)
@@ -17,7 +17,7 @@ describe('Display search results', () => {
   it('should display zero results', async () => {
     const acters = []
 
-    render(<Search dataType={ACTERS} acters={acters} />)
+    render(<Search dataType={ACTERS} acters={acters} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe(`${acters.length} Results`)
@@ -25,7 +25,7 @@ describe('Display search results', () => {
 
   it('should display one result', async () => {
     const acters = [ExampleActer]
-    render(<Search dataType={ACTERS} acters={acters} />)
+    render(<Search dataType={ACTERS} acters={acters} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe(`${acters.length} Result`)

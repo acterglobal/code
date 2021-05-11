@@ -4,13 +4,23 @@ import { Acter } from '@schema'
 
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 
+type VariablesType = {
+  searchText: string | string[]
+  interests?: string[]
+}
+
 export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
-  const searchText = query.search
+  const { search: searchText, interests } = query
+
+  const variables: VariablesType = { searchText }
+  if (interests) {
+    variables.interests = (<string>interests).split(',')
+  }
 
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
     query: SEARCH_ACTERS,
-    variables: { searchText },
+    variables: variables,
   })
 
   if (error) {

@@ -2,18 +2,27 @@ import React, { FC } from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
+import {
+  FilterInterests,
+  FilterInterestsProps,
+} from 'src/components/search/filter-interests'
 
-export const FilterTabs: FC = () => {
+type FilterTabsProps = FilterInterestsProps
+
+export const FilterTabs: FC<FilterTabsProps> = ({
+  interestTypes,
+  applyFilters,
+  handleSearch,
+}) => {
   const classes = useStyles()
+
   return (
     <Grid item xs={12} sm={6} className={classes.root}>
-      <Button
-        className={classes.button}
-        variant="contained"
-        onClick={() => null}
-      >
-        <Typography variant="caption">Filters</Typography>
-      </Button>
+      <FilterInterests
+        interestTypes={interestTypes}
+        applyFilters={applyFilters}
+        handleSearch={handleSearch}
+      />
       <Button
         className={classes.button}
         variant="contained"

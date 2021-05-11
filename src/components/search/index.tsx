@@ -9,20 +9,37 @@ import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
+import { InterestType } from '@schema'
 
-export type SearchProps = DisplayResultsProps
+export interface SearchProps extends DisplayResultsProps {
+  interestTypes: InterestType[]
+}
 
-export const Search: FC<SearchProps> = ({ dataType, acters }) => {
+export const Search: FC<SearchProps> = ({
+  dataType,
+  acters,
+  interestTypes,
+}) => {
   const classes = useStyles()
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
+  const [filterInterests, setFilterInterests] = useState([])
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
   }
 
-  const handleSearch = () => {
-    router.push(`/?search=${searchText}`)
+  const handleSearch = (filters) => {
+    if (filters.length === undefined) {
+      filters = filterInterests
+    }
+    router.push({
+      pathname: '/',
+      query: {
+        search: searchText,
+        interests: filters.join(','),
+      },
+    })
   }
 
   return (
@@ -49,7 +66,11 @@ export const Search: FC<SearchProps> = ({ dataType, acters }) => {
             </Button>
           </Grid>
 
-          <FilterTabs />
+          <FilterTabs
+            interestTypes={interestTypes}
+            applyFilters={setFilterInterests}
+            handleSearch={handleSearch}
+          />
         </Grid>
       </Box>
 
