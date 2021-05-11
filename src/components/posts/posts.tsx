@@ -6,12 +6,12 @@ import Image from 'next/image'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 import { Post } from '@schema'
 
-export interface PostBoxProps {
+export interface PostsProps {
   post: Post
   comment?: boolean
 }
 
-export const PostBox: FC<PostBoxProps> = ({ post, comment }) => {
+export const Posts: FC<PostsProps> = ({ post, comment }) => {
   const classes = useStyles()
 
   return (

@@ -11,17 +11,14 @@ import { User } from '@schema'
 export interface PostFormProps {
   user: User
   comment?: boolean
+  onSubmit: (values: any, submitProps: any) => void
 }
 
-export const PostForm: FC<PostFormProps> = ({ user, comment }) => {
+export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
   const classes = useStyles()
 
   const initialValues = {
     commentInput: '',
-  }
-
-  const handleSubmit = (values) => {
-    console.log(values)
   }
 
   return (
@@ -36,7 +33,11 @@ export const PostForm: FC<PostFormProps> = ({ user, comment }) => {
         />
       </Box>
       <Box className={classes.commentInputContainer}>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          enableReinitialize
+        >
           <Form className={classes.formContainer}>
             <Field
               component={TextField}
