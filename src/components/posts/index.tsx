@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
-import { PostBox } from 'src/components/posts/posts'
+import { Posts as SinglePost } from 'src/components/posts/posts'
 import { PostForm as CommentForm } from 'src/components/posts/post-form'
 import { Post, User } from '@schema'
 
@@ -15,33 +15,29 @@ export interface PostsProps {
 export const Posts: FC<PostsProps> = ({ post, user }) => {
   const classes = useStyles()
 
-  const initialValues = {
-    commentInput: '',
-  }
-
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, submitProps) => {
     console.log(values)
+    submitProps.resetForm()
   }
 
   return (
     <Box className={classes.root}>
       <Box className={classes.mainContainer}>
-        <CommentForm user={user} />
+        <CommentForm user={user} onSubmit={handleSubmit} />
       </Box>
       <Box className={classes.mainContainer}>
-        {/* <CommentForm user={user} /> */}
         <Box className={classes.contentContainer}>
-          <PostBox post={post} />
+          <SinglePost post={post} />
         </Box>
 
         <Divider className={classes.divider} />
 
         {post.Comments.map((comment, index) => (
           <Box key={index} className={classes.contentContainer}>
-            <PostBox post={comment} comment />
+            <SinglePost post={comment} comment />
           </Box>
         ))}
-        <CommentForm user={user} comment />
+        <CommentForm user={user} comment onSubmit={handleSubmit} />
       </Box>
     </Box>
   )
