@@ -11,7 +11,7 @@ import { User } from '@schema'
 export interface PostFormProps {
   user: User
   comment?: boolean
-  onSubmit: (values: any, submitProps: any) => void
+  onSubmit: (values: unknown, submitProps: unknown) => void
 }
 
 export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
