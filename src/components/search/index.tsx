@@ -16,7 +16,7 @@ export interface SearchProps extends DisplayResultsProps {
 }
 
 export const Search: FC<SearchProps> = ({
-  dataType,
+  searchType,
   acters,
   interestTypes,
 }) => {
@@ -74,7 +74,7 @@ export const Search: FC<SearchProps> = ({
         </Grid>
       </Box>
 
-      <DisplayResults dataType={dataType} acters={acters} />
+      <DisplayResults searchType={searchType} acters={acters} />
     </Box>
   )
 }

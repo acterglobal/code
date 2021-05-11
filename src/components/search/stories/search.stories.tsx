@@ -11,7 +11,7 @@ export default {
   title: 'Search/SearchPage',
   component: SearchComponent,
   args: {
-    dataType: '',
+    searchType: '',
     acters: [],
     handleSearch: (text) => console.log(text),
   },
@@ -27,17 +27,17 @@ const Template: Story<SearchProps> = (args) => <SearchComponent {...args} />
 
 export const Activities = Template.bind({})
 Activities.args = {
-  dataType: ACTIVITIES,
+  searchType: ACTIVITIES,
   acters: activities,
 }
 
 export const Acters = Template.bind({})
 Acters.args = {
-  dataType: ACTERS,
+  searchType: ACTERS,
   acters: acters,
 }
 export const ZeroActers = Template.bind({})
 Acters.args = {
-  dataType: ACTERS,
+  searchType: ACTERS,
   acters: [],
 }
