@@ -53,7 +53,7 @@ export const PostBox: FC<PostBoxProps> = ({ post, comment }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     image: {
-      marginRight: theme.spacing(3),
+      marginRight: theme.spacing(1.2),
       objectFit: 'cover',
       border: '1px solid black',
       width: 30,
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     postContainer: {
       backgroundColor: 'white',
       borderRadius: 7,
-      width: '90%',
+      width: '100%',
       padding: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxOrient: 'vertical',
       wordBreak: 'break-all',
       overflow: 'hidden',
-      width: '90%',
+      width: '97%',
     },
   })
 )
