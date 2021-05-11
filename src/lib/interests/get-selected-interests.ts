@@ -1,5 +1,11 @@
 import { Interest, InterestType } from '@schema'
 
+/**
+ * Used to group selected interests by InterestTypes
+ * @param interestTypes All Interests grouped by InterestType
+ * @param selected list of selected interests
+ * @returns list of selected interests grouped by InterestType
+ */
 export const getSelectedInterests = (
   interestTypes: InterestType[],
   selected: Interest[]
