@@ -10,7 +10,7 @@ import { Search } from 'src/components/search'
 
 import { Acter, InterestType, User } from '@schema'
 
-import { ACTERS } from 'src/constants'
+import { ACTERS, ACTIVITIES } from 'src/constants'
 
 interface HomeProps {
   acters: Acter[]
@@ -23,7 +23,11 @@ const Home: NextPage<HomeProps> = ({ acters, interestTypes, user }) => (
     <Head title="Acter" />
 
     <main>
-      <Search acters={acters} dataType={ACTERS} interestTypes={interestTypes} />
+      <Search
+        acters={acters}
+        searchType={ACTIVITIES}
+        interestTypes={interestTypes}
+      />
     </main>
   </Layout>
 )
