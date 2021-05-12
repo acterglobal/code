@@ -1,6 +1,7 @@
 import { ComposedGetServerSideProps } from 'lib/compose-props'
 import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { Acter } from '@schema'
+import { ACTERS, ACTIVITIES } from 'src/constants'
 
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 import SEARCH_ACTIVITIES from 'api/queries/activities-search.graphql'
@@ -11,17 +12,26 @@ type VariablesType = {
 }
 
 export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
-  const { search: searchText, interests } = query
+  const { search: searchText, interests, searchType } = query
 
-  const variables: VariablesType = { searchText }
+  if (searchType !== ACTERS && searchType !== ACTIVITIES) {
+    return {
+      redirect: {
+        destination: '/404',
+      },
+    }
+  }
+
+  const searchVariables: VariablesType = { searchText }
+
   if (interests) {
-    variables.interests = (<string>interests).split(',')
+    searchVariables.interests = (<string>interests).split(',')
   }
 
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
-    query: SEARCH_ACTIVITIES,
-    variables: variables,
+    query: searchType === ACTERS ? SEARCH_ACTERS : SEARCH_ACTIVITIES,
+    variables: searchVariables,
   })
 
   if (error) {
