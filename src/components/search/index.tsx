@@ -34,7 +34,7 @@ export const Search: FC<SearchProps> = ({
       filters = filterInterests
     }
     router.push({
-      pathname: '/',
+      pathname: `/search/${searchType}/`,
       query: {
         search: searchText,
         interests: filters.join(','),
