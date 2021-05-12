@@ -21,7 +21,7 @@ export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
     query: SEARCH_ACTIVITIES,
-    variables: { searchText },
+    variables: variables,
   })
 
   if (error) {
@@ -32,7 +32,6 @@ export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
     }
   }
 
-  console.log('DATA :', data)
   const { acters }: { acters: Acter[] } = data
   return addApolloState(apollo, {
     props: {
