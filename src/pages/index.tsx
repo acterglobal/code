@@ -1,38 +1,34 @@
-import React from 'react'
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { Head } from 'src/components/layout/head'
-
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile, searchActers, getInterests } from 'src/props'
-
 import { Layout } from 'src/components/layout'
-import { Search } from 'src/components/search'
-
-import { Acter, InterestType, User } from '@schema'
-
-import { ACTERS, ACTIVITIES } from 'src/constants'
+import { User } from '@schema'
 
 interface HomeProps {
-  acters: Acter[]
   user?: User
-  interestTypes: InterestType[]
 }
 
-const Home: NextPage<HomeProps> = ({ acters, interestTypes, user }) => (
+const Home: NextPage<HomeProps> = ({ user }) => (
   <Layout user={user}>
     <Head title="Acter" />
 
     <main>
-      <Search
-        acters={acters}
-        searchType={ACTIVITIES}
-        interestTypes={interestTypes}
-      />
+      <p>The platform for coordinating action on global challenges.</p>
+      <p>
+        In a world that requires new ways of collaborating, Acter help people,
+        organisations and systems build and manage small communities to large
+        ecosystems, enabling them to accelerate their impact.
+      </p>
     </main>
   </Layout>
 )
 
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false), searchActers, getInterests)
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {},
+    redirect: {
+      destination: '/search/acters',
+    },
+  }
+}
 
 export default Home
