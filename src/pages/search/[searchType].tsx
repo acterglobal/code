@@ -1,12 +1,12 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { Head } from 'src/components/layout/head'
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 import { getUserProfile, searchActers, getInterests } from 'src/props'
 import { Acter, InterestType, User } from '@schema'
-import { ACTERS, ACTIVITIES } from 'src/constants'
 
 interface SearchPageProps {
   acters: Acter[]
@@ -18,19 +18,26 @@ const SearchPage: NextPage<SearchPageProps> = ({
   acters,
   interestTypes,
   user,
-}) => (
-  <Layout user={user}>
-    <Head title="Acter" />
+}) => {
+  const router = useRouter()
+  const { searchType } = router.query
 
-    <main>
-      <Search
-        acters={acters}
-        searchType={ACTIVITIES}
-        interestTypes={interestTypes}
-      />
-    </main>
-  </Layout>
-)
+  return (
+    <Layout user={user}>
+      <Head title="Acter" />
+
+      <main>
+        <Search
+          acters={acters}
+          searchType={
+            typeof searchType === 'string' ? searchType : searchType[0]
+          }
+          interestTypes={interestTypes}
+        />
+      </main>
+    </Layout>
+  )
+}
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getUserProfile(false), searchActers, getInterests)
