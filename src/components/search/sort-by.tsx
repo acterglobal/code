@@ -1,63 +1,112 @@
-import React, { FC, useState } from 'react'
-import { Popover } from 'src/components/util/popover'
-import { Field } from 'formik'
-import { CheckboxWithLabel } from 'formik-material-ui'
-import { Box } from '@material-ui/core'
+import React, { FC, useState, MouseEvent } from 'react'
+import { Box, Button, Popover, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { DoneRounded as SelectedIcon } from '@material-ui/icons'
+import { grey } from '@material-ui/core/colors'
 
 export type SortByProps = {
-  applySortBy: (sortBy: string[]) => void
-  handleSearch: (sortBy: string[]) => void
+  sortBy: string
+  applySortBy: (sortBy: string) => void
+  handleSearch: (sortBy: string) => void
 }
 
-export const SortBy: FC<SortByProps> = ({ applySortBy, handleSearch }) => {
+export const SortBy: FC<SortByProps> = ({
+  sortBy,
+  applySortBy,
+  handleSearch,
+}) => {
   const classes = useStyles()
-  const [sortBy, setSortBy] = useState([])
 
-  const initialValues = {
-    values: sortBy,
-  }
-  const handleApply = () => {
-    applySortBy(['date'])
-    console.log()
-  }
+  /* Material Ui Popover stuff */
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) =>
+    setAnchorEl(event.currentTarget)
 
-  const handleClear = () => {
-    console.log('handle clear')
+  const handleClose = () => setAnchorEl(null)
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
+  /* ****************************************** */
+
+  const handleSelect = (sortBy: string) => {
+    applySortBy(sortBy)
+    handleClose()
   }
 
   return (
-    <Popover
-      tabLabel="Sort by"
-      numberOfSelection={2}
-      handleApply={handleApply}
-      handleClear={handleClear}
-      initialValues={initialValues}
-    >
-      <Box className={classes.container}>
-        <Field
-          component={CheckboxWithLabel}
-          type="checkbox"
-          name="dates"
-          Label={{ label: 'Dates' }}
-          onChangel={() => console.log('dates checked')}
-        />
-        <Field
-          component={CheckboxWithLabel}
-          type="checkbox"
-          name="names"
-          Label={{ label: 'Names' }}
-        />
-      </Box>
-    </Popover>
+    <>
+      <Button
+        className={classes.button}
+        variant="contained"
+        onClick={handleClick}
+      >
+        <Typography variant="caption">Sort by</Typography>
+      </Button>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        style={{ marginTop: 5 }}
+      >
+        <Box className={classes.popover}>
+          <Box className={classes.item} onClick={() => handleSelect('date')}>
+            <Typography variant="caption">Date</Typography>
+            {sortBy === 'date' && <SelectedIcon className={classes.icon} />}
+          </Box>
+          <Box className={classes.item} onClick={() => handleSelect('name')}>
+            <Typography variant="caption">Name</Typography>
+            {sortBy === 'name' && <SelectedIcon className={classes.icon} />}
+          </Box>
+        </Box>
+      </Popover>
+    </>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
+    button: {
+      height: theme.spacing(3.5),
+      minWidth: theme.spacing(18),
+      borderRadius: theme.spacing(3),
+      marginRight: theme.spacing(1),
+      color: 'black',
+      backgroundColor: 'white',
+      textTransform: 'capitalize',
+      fontSize: '0.7rem',
+      '&:hover': {
+        backgroundColor: 'white',
+      },
+      [theme.breakpoints.down('sm')]: {
+        minWidth: theme.spacing(10),
+      },
+    },
+    popover: {
+      minWidth: theme.spacing(17.5),
+      padding: theme.spacing(2),
       display: 'flex',
       flexDirection: 'column',
+    },
+    item: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: theme.spacing(4),
+      cursor: 'pointer',
+    },
+    icon: {
+      fontSize: 20,
+      color: grey[800],
     },
   })
 )

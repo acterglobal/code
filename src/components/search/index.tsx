@@ -10,6 +10,7 @@ import {
   DisplayResultsProps,
 } from 'src/components/search/display-results'
 import { InterestType } from '@schema'
+import { ACTERS } from 'src/constants'
 
 export interface SearchProps extends DisplayResultsProps {
   interestTypes: InterestType[]
@@ -24,7 +25,7 @@ export const Search: FC<SearchProps> = ({
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
-  const [sortBy, setSortBy] = useState([])
+  const [sortBy, setSortBy] = useState('date')
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
@@ -39,6 +40,7 @@ export const Search: FC<SearchProps> = ({
       query: {
         search: searchText,
         interests: filters.join(','),
+        sortBy,
       },
     })
   }
@@ -49,7 +51,12 @@ export const Search: FC<SearchProps> = ({
     <Box className={classes.root}>
       <Box className={classes.searchSection}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
+          <Grid
+            item
+            xs={12}
+            sm={searchType === ACTERS ? 8 : 6}
+            className={classes.searchSectionItem}
+          >
             <Typography
               className={classes.results}
               variant="body2"
@@ -72,6 +79,7 @@ export const Search: FC<SearchProps> = ({
           <FilterTabs
             interestTypes={interestTypes}
             applyFilters={setFilterInterests}
+            sortBy={sortBy}
             applySortBy={setSortBy}
             handleSearch={handleSearch}
           />
