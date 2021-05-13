@@ -6,12 +6,14 @@ import {
   FilterInterests,
   FilterInterestsProps,
 } from 'src/components/search/filter-interests'
+import { SortBy, SortByProps } from 'src/components/search/sort-by'
 
-type FilterTabsProps = FilterInterestsProps
+type FilterTabsProps = FilterInterestsProps & SortByProps
 
 export const FilterTabs: FC<FilterTabsProps> = ({
   interestTypes,
   applyFilters,
+  applySortBy,
   handleSearch,
 }) => {
   const classes = useStyles()
@@ -23,13 +25,14 @@ export const FilterTabs: FC<FilterTabsProps> = ({
         applyFilters={applyFilters}
         handleSearch={handleSearch}
       />
-      <Button
+      <SortBy applySortBy={applySortBy} handleSearch={handleSearch} />
+      {/* <Button
         className={classes.button}
         variant="contained"
         onClick={() => null}
       >
         <Typography variant="caption">Sort by</Typography>
-      </Button>
+      </Button> */}
       <Button
         className={classes.button}
         variant="contained"

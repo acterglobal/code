@@ -24,6 +24,7 @@ export const Search: FC<SearchProps> = ({
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
+  const [sortBy, setSortBy] = useState([])
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
@@ -41,6 +42,8 @@ export const Search: FC<SearchProps> = ({
       },
     })
   }
+
+  console.log('SORT BY', sortBy)
 
   return (
     <Box className={classes.root}>
@@ -69,6 +72,7 @@ export const Search: FC<SearchProps> = ({
           <FilterTabs
             interestTypes={interestTypes}
             applyFilters={setFilterInterests}
+            applySortBy={setSortBy}
             handleSearch={handleSearch}
           />
         </Grid>
