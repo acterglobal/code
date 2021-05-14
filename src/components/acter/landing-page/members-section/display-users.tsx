@@ -11,11 +11,6 @@ import {
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import {
-  ActerUsersSettings,
-  ActerUsersSettingsProps,
-} from 'src/components/acter/landing-page/members-section/acter-users-settings'
-import { ExampleActer } from 'src/__fixtures__'
 import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -56,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export interface DisplayUsersProps extends ActerUsersSettingsProps {
+export interface DisplayUsersProps {
   /**
    * The acter on which we are viewing members
    */
@@ -67,12 +62,7 @@ export interface DisplayUsersProps extends ActerUsersSettingsProps {
   acters: Acter[]
 }
 
-export const DisplayUsers: FC<DisplayUsersProps> = ({
-  acter,
-  acters = [],
-  onSettingsChange,
-  loading,
-}) => {
+export const DisplayUsers: FC<DisplayUsersProps> = ({ acters = [] }) => {
   const classes = useStyles()
 
   return (
@@ -80,11 +70,6 @@ export const DisplayUsers: FC<DisplayUsersProps> = ({
       <Typography className={classes.heading} variant="h5">
         {acters.length} Users
       </Typography>
-      <ActerUsersSettings
-        acter={acter}
-        onSettingsChange={onSettingsChange}
-        loading={loading}
-      />
       <Divider />
 
       <List className={classes.members}>
@@ -92,7 +77,7 @@ export const DisplayUsers: FC<DisplayUsersProps> = ({
           <>
             <ListItem>
               <ListItemAvatar>
-                <ActerAvatar acter={ExampleActer} />
+                <ActerAvatar acter={acter} />
               </ListItemAvatar>
               <ListItemText
                 classes={{
