@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react'
 import { Search } from 'src/components/search'
 import { ACTERS } from 'src/constants'
 import { ExampleActer } from 'src/__fixtures__'
+// import Router from 'next/router'
+
+// jest.mock('next/router', ()=> ({query: {searchType:'acters'}}))
 
 describe('Display search results', () => {
   it('should display number of results', async () => {

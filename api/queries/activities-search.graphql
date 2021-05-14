@@ -7,7 +7,7 @@ query ActivitiesSearch(
   $interests: [String!]
   $endsBefore: DateTime
 ) {
-  acters(
+  searchActivities(
     where: {
       AND: [
         { ActerType: { is: { name: { in: ["activity"] } } } }
