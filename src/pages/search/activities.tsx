@@ -1,12 +1,12 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { Head } from 'src/components/layout/head'
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile, searchActers, getInterests } from 'src/props'
+import { getUserProfile, searchActivities, getInterests } from 'src/props'
 import { Acter, InterestType, User } from '@schema'
+import { ACTIVITIES } from 'src/constants'
 
 interface SearchPageProps {
   acters: Acter[]
@@ -14,14 +14,11 @@ interface SearchPageProps {
   interestTypes: InterestType[]
 }
 
-const SearchPage: NextPage<SearchPageProps> = ({
+const SearchActivitiesPage: NextPage<SearchPageProps> = ({
   acters,
   interestTypes,
   user,
 }) => {
-  const router = useRouter()
-  const { searchType } = router.query
-
   return (
     <Layout user={user}>
       <Head title="Acter" />
@@ -29,9 +26,7 @@ const SearchPage: NextPage<SearchPageProps> = ({
       <main>
         <Search
           acters={acters}
-          searchType={
-            typeof searchType === 'string' ? searchType : searchType[0]
-          }
+          searchType={ACTIVITIES}
           interestTypes={interestTypes}
         />
       </main>
@@ -40,6 +35,6 @@ const SearchPage: NextPage<SearchPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false), searchActers, getInterests)
+  composeProps(ctx, getUserProfile(false), searchActivities, getInterests)
 
-export default SearchPage
+export default SearchActivitiesPage

@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {},
     redirect: {
-      destination: '/search/acters',
+      destination: '/search',
     },
   }
 }
