@@ -8,6 +8,7 @@ fragment ActerFull on Acter {
     }
   }
   Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
+    status
     Follower {
       ...ActerDisplay
     }
