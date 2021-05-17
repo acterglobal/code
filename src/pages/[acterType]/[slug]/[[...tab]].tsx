@@ -30,7 +30,7 @@ import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
 
-const _handleJoin = (createConnection: MutationFunction, user: User) => (
+const _handleJoin = (createConnection: MutationFunction) => (
   follower: Acter,
   following: Acter
 ) =>
@@ -38,7 +38,6 @@ const _handleJoin = (createConnection: MutationFunction, user: User) => (
     variables: {
       followerActerId: follower.id,
       followingActerId: following.id,
-      createdByUserId: user.id,
     },
   })
 
@@ -138,7 +137,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter={displayActer}
         user={user}
         interestTypes={interestTypes}
-        onJoin={_handleJoin(createConnection, user)}
+        onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
       />
