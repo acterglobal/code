@@ -1,5 +1,6 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
+import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
 import slugify from 'slugify'
 import { Acter, ActerJoinSettings, Activity, User } from '@schema'
 
@@ -19,7 +20,7 @@ export class ActerResolver {
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
-    const currentUser = await this.getCurrentUser(ctx)
+    const currentUser = await getCurrentUserFromContext(ctx)
 
     if (!currentUser) {
       const err = 'No user found'
@@ -95,7 +96,7 @@ export class ActerResolver {
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
-    const currentUser = await this.getCurrentUser(ctx)
+    const currentUser = await getCurrentUserFromContext(ctx)
     const acter = await ctx.prisma.acter.findUnique({
       select: {
         id: true,
@@ -253,7 +254,7 @@ export class ActerResolver {
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
-    const currentUser = await this.getCurrentUser(ctx)
+    const currentUser = await getCurrentUserFromContext(ctx)
     const acter = await ctx.prisma.acter.findUnique({
       select: {
         id: true,
@@ -273,16 +274,6 @@ export class ActerResolver {
       where: {
         id: acterId,
       },
-    })
-  }
-
-  async getCurrentUser(ctx: ActerGraphQLContext): Promise<Partial<User>> {
-    return ctx.prisma.user.findFirst({
-      select: {
-        id: true,
-        Acter: true,
-      },
-      where: { id: ctx.token.sub },
     })
   }
 }
