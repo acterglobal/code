@@ -3,11 +3,17 @@ import { render, screen } from '@testing-library/react'
 import { Search } from 'src/components/search'
 import { ACTERS } from 'src/constants'
 import { ExampleActer } from 'src/__fixtures__'
-// import Router from 'next/router'
-
-// jest.mock('next/router', ()=> ({query: {searchType:'acters'}}))
+import { useRouter } from 'next/router'
+jest.mock('next/router')
 
 describe('Display search results', () => {
+  beforeAll(() => {
+    const mockUseRouter = useRouter as jest.Mock
+    mockUseRouter.mockReturnValue({
+      query: {},
+    })
+  })
+
   it('should display number of results', async () => {
     const acters = [...Array(4).keys()].map(() => ExampleActer)
 
