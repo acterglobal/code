@@ -10,14 +10,16 @@ import { Post, User } from '@schema'
 export interface PostsProps {
   post: Post
   user: User
+  createPost: (data: string) => void
 }
 
-export const Posts: FC<PostsProps> = ({ post, user }) => {
+export const Posts: FC<PostsProps> = ({ post, user, createPost }) => {
   const classes = useStyles()
 
   const handleSubmit = (values, submitProps) => {
     console.log(values)
     submitProps.resetForm()
+    createPost(values)
   }
 
   return (

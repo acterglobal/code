@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-
 import {
   Grid,
   makeStyles,
@@ -8,7 +7,6 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -24,27 +22,16 @@ import {
 } from 'src/components/acter/landing-page/members-section'
 import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
+import { Posts, PostsProps } from 'src/components/posts'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    header: {
-      marginBottom: theme.spacing(2),
-    },
-    menu: {
-      order: 1,
-    },
-    main: {
-      order: 2,
-    },
-    info: {
-      order: 3,
-    },
-  })
-)
+import { ExamplePost, ExampleSubPost } from 'src/__fixtures__'
+
+const post = { ...ExamplePost, Comments: [ExampleSubPost, ExampleSubPost] }
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
-  MembersSectionProps
+  MembersSectionProps &
+  PostsProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -54,6 +41,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   onLeave,
   onSettingsChange,
   loading,
+  createPost,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
@@ -81,7 +69,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
-            <Typography variant="subtitle1">Coming soon...</Typography>
+            <Posts user={user} post={post} createPost={createPost} />
           </div>
         </Grid>
         <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
@@ -91,3 +79,20 @@ export const ActerLanding: FC<ActerLandingProps> = ({
     </Grid>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    header: {
+      marginBottom: theme.spacing(2),
+    },
+    menu: {
+      order: 1,
+    },
+    main: {
+      order: 2,
+    },
+    info: {
+      order: 3,
+    },
+  })
+)
