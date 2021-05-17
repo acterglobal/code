@@ -1,18 +1,11 @@
-mutation CreatePost(
-  $subject: String!
-  $content: String!
-  $acterId: String!
-  $authorId: String!
-) {
+mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
   createPost(
     data: {
-      subject: $subject
       content: $content
       Acter: { connect: { id: $acterId } }
       Author: { connect: { id: $authorId } }
     }
   ) {
-    subject
     content
     Acter {
       name
