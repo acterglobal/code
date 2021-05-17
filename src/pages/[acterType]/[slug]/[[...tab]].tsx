@@ -121,15 +121,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
     getSuccessMessage: () => `Disconnected from ${acter.name}`,
   })
-  const [
-    updateActer,
-    { loading: acterUpdateLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: () => 'Settings updated',
-    onCompleted: (data) => {
-      setDisplayActer(data.updateActer)
-    },
-  })
 
   const [createPost] = useNotificationMutation(CREATE_POST, {
     getSuccessMessage: () => 'Post created',
@@ -156,7 +147,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         interestTypes={interestTypes}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
-        loading={creatingConnection || deletingConnection || acterUpdateLoading}
+        loading={creatingConnection || deletingConnection}
         posts={posts}
         onPostCreate={handlePost}
       />
