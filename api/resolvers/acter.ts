@@ -1,27 +1,10 @@
-import { Authorized, Resolver, Mutation, Query, Arg, Ctx } from 'type-graphql'
+import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
-
 import { Acter, ActerJoinSettings, Activity, User } from '@schema'
-import {
-  getOrderBy,
-  SearchActivitiesSortBy,
-} from 'src/lib/api/resolvers/get-order-by'
 
 @Resolver(Acter)
 export class ActerResolver {
-  @Query(() => [Acter])
-  async searchActivities(
-    @Ctx() ctx: ActerGraphQLContext,
-    @Arg('searchText') searchText: string,
-    @Arg('interests', () => [String]) interests: [string],
-    @Arg('sortBy') sortBy: SearchActivitiesSortBy
-  ): Promise<Acter[]> {
-    return ctx.prisma.acter.findMany({
-      orderBy: getOrderBy(sortBy),
-    })
-  }
-
   @Authorized()
   @Mutation(() => Acter)
   async createActer(

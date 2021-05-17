@@ -6,20 +6,13 @@ query ActivitiesSearch(
   $searchText: String
   $interests: [String!]
   $endsBefore: DateTime
+  $sortBy: SearchActivitiesSortBy
 ) {
   searchActivities(
-    where: {
-      AND: [
-        { ActerType: { is: { name: { in: ["activity"] } } } }
-        { name: { contains: $searchText, mode: insensitive } }
-        {
-          ActerInterests: {
-            some: { Interest: { is: { name: { in: $interests } } } }
-          }
-        }
-        { Activity: { is: { startAt: { lte: $endsBefore } } } }
-      ]
-    }
+    searchText: $searchText
+    endsBefore: $endsBefore
+    interests: $interests
+    sortBy: $sortBy
   ) {
     ...ActerFull
     Activity {

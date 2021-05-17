@@ -64,6 +64,7 @@
     "formik": "^2.2.6",
     "formik-material-ui": "^3.0.1",
     "formik-material-ui-pickers": "^0.0.12",
+    "fp-ts": "^2.10.5",
     "graphql": "^15.4.0",
     "graphql-fields": "^2.0.3",
     "graphql-type-json": "^0.3.2",

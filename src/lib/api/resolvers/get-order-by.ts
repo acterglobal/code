@@ -1,10 +1,10 @@
 export enum SearchActivitiesSortBy {
-  DATE,
-  NAME,
+  DATE = 'DATE',
+  NAME = 'NAME',
 }
 
 type sort = Record<string, 'asc' | 'desc'>
-type ActivityDateSort = { activities: sort }
+type ActivityDateSort = { Activity: sort }
 type ActerNameSort = sort
 type SearchActivitiesOrderBy =
   | ActivityDateSort
@@ -22,8 +22,8 @@ export const getOrderBy = (
   switch (sortBy) {
     case SearchActivitiesSortBy.DATE:
       return {
-        activities: {
-          endDate: 'asc',
+        Activity: {
+          endAt: 'asc',
         },
       }
     case SearchActivitiesSortBy.NAME:
