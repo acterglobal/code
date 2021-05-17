@@ -9,10 +9,14 @@ import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
-import { InterestType } from '@schema'
-import { ACTERS } from 'src/constants'
+import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
+import { Acter, InterestType } from '@schema'
+import { ACTERS, ACTIVITIES } from 'src/constants'
 
+type SearchType = typeof ACTERS | typeof ACTIVITIES
 export interface SearchProps extends DisplayResultsProps {
+  searchType: SearchType
+  acters: Acter[]
   interestTypes: InterestType[]
 }
 
@@ -25,7 +29,7 @@ export const Search: FC<SearchProps> = ({
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
-  const [sortBy, setSortBy] = useState('date')
+  const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.NAME)
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
@@ -35,8 +39,9 @@ export const Search: FC<SearchProps> = ({
     if (filters.length === undefined) {
       filters = filterInterests
     }
+
     router.push({
-      pathname: `/search/${searchType}/`,
+      pathname: router.pathname,
       query: {
         search: searchText,
         interests: filters.join(','),

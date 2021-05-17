@@ -3,11 +3,12 @@ import { Box, Button, Popover, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { DoneRounded as SelectedIcon } from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
+import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
 
 export type SortByProps = {
-  sortBy: string
-  applySortBy: (sortBy: string) => void
-  handleSearch: (sortBy: string) => void
+  sortBy: SearchActivitiesSortBy
+  applySortBy: (sortBy: SearchActivitiesSortBy) => void
+  handleSearch: (sortBy: SearchActivitiesSortBy) => void
 }
 
 export const SortBy: FC<SortByProps> = ({
@@ -28,7 +29,7 @@ export const SortBy: FC<SortByProps> = ({
   const id = open ? 'simple-popover' : undefined
   /* ****************************************** */
 
-  const handleSelect = (sortBy: string) => {
+  const handleSelect = (sortBy: SearchActivitiesSortBy) => {
     applySortBy(sortBy)
     handleClose()
   }
@@ -59,13 +60,23 @@ export const SortBy: FC<SortByProps> = ({
         style={{ marginTop: 5 }}
       >
         <Box className={classes.popover}>
-          <Box className={classes.item} onClick={() => handleSelect('date')}>
+          <Box
+            className={classes.item}
+            onClick={() => handleSelect(SearchActivitiesSortBy.DATE)}
+          >
             <Typography variant="caption">Date</Typography>
-            {sortBy === 'date' && <SelectedIcon className={classes.icon} />}
+            {sortBy === SearchActivitiesSortBy.DATE && (
+              <SelectedIcon className={classes.icon} />
+            )}
           </Box>
-          <Box className={classes.item} onClick={() => handleSelect('name')}>
+          <Box
+            className={classes.item}
+            onClick={() => handleSelect(SearchActivitiesSortBy.NAME)}
+          >
             <Typography variant="caption">Name</Typography>
-            {sortBy === 'name' && <SelectedIcon className={classes.icon} />}
+            {sortBy === SearchActivitiesSortBy.NAME && (
+              <SelectedIcon className={classes.icon} />
+            )}
           </Box>
         </Box>
       </Popover>
