@@ -2,29 +2,20 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
-import Image from 'next/image'
-import { getImageUrl } from 'src/lib/images/get-image-url'
 import { Post } from '@schema'
+import { PostAvatar } from 'src/components/posts/post-avatar'
 
-export interface PostsProps {
+export interface SinglePostProps {
   post: Post
   comment?: boolean
 }
 
-export const Posts: FC<PostsProps> = ({ post, comment }) => {
+export const SinglePost: FC<SinglePostProps> = ({ post, comment }) => {
   const classes = useStyles()
 
   return (
     <>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(post.Author.avatarUrl, 'avatar')}
-          alt={post.Author.name}
-          layout="responsive"
-          width="50"
-          height="50"
-        />
-      </Box>
+      <PostAvatar acter={post.Author} />
       <Box
         className={comment ? classes.commentContainer : classes.postContainer}
       >
