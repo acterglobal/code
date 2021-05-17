@@ -129,6 +129,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
+  const createPost = (data) => {
+    console.log('From pages: ', data)
+  }
+
   const View = getActerView(displayActer)
 
   return (
@@ -141,6 +145,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
+        createPost={createPost}
       />
     </Layout>
   )
