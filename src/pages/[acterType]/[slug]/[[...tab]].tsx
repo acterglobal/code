@@ -25,7 +25,6 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -118,15 +117,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
     getSuccessMessage: () => `Disconnected from ${acter.name}`,
   })
-  const [
-    updateActer,
-    { loading: acterUpdateLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: () => 'Settings updated',
-    onCompleted: (data) => {
-      setDisplayActer(data.updateActer)
-    },
-  })
 
   const View = getActerView(displayActer)
 
@@ -139,7 +129,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         interestTypes={interestTypes}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
-        loading={creatingConnection || deletingConnection || acterUpdateLoading}
+        loading={creatingConnection || deletingConnection}
       />
     </Layout>
   )
