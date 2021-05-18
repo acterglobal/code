@@ -172,7 +172,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getActer,
-    getInterests
+    getInterests,
+    getPosts
   )
 
 export default ActerLandingPage
