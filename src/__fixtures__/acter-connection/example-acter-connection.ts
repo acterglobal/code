@@ -1,6 +1,6 @@
 import { v4 } from 'uuid'
 
-import { ActerConnection, ActerConnectionStatus } from '@schema'
+import { ActerConnection, ActerConnectionRole } from '@schema'
 
 export const ExampleActerConnection: ActerConnection = {
   id: v4(),
@@ -9,5 +9,5 @@ export const ExampleActerConnection: ActerConnection = {
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: v4(),
-  status: ActerConnectionStatus.MEMBER,
+  role: ActerConnectionRole.MEMBER,
 }

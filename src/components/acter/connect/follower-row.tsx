@@ -5,7 +5,7 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { AvatarGrid } from 'src/components/acter/connect/avatar-grid'
 import { MenuItem } from 'src/components/acter/connect/menu-item'
 import { ConnectProps } from 'src/components/acter/connect'
-import { Acter, ActerConnectionStatus } from '@schema'
+import { Acter, ActerConnectionRole } from '@schema'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
   follower: Acter
@@ -47,10 +47,9 @@ export const FollowerRow: FC<FollowerRowProps> = ({
         </AvatarGrid>
         <Grid>
           {verb} as <strong>{follower.name}</strong>
-          {connection &&
-            connection.status === ActerConnectionStatus.PENDING && (
-              <Box>Connection pending</Box>
-            )}
+          {connection && connection.role === ActerConnectionRole.PENDING && (
+            <Box>Connection pending</Box>
+          )}
         </Grid>
       </Grid>
     </MenuItem>

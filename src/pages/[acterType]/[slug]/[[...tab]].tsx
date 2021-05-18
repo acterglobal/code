@@ -17,7 +17,7 @@ import { Head } from 'src/components/layout/head'
 import {
   Acter,
   ActerConnection,
-  ActerConnectionStatus,
+  ActerConnectionRole,
   InterestType,
   Post,
   User,
@@ -63,12 +63,12 @@ const _handleLeave = (deleteConnection: MutationFunction) => (
 
 const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
   connection: ActerConnection,
-  status: ActerConnectionStatus
+  role: ActerConnectionRole
 ) =>
   updateConnection({
     variables: {
       connectionId: connection.id,
-      status: status,
+      role: role,
     },
   })
 

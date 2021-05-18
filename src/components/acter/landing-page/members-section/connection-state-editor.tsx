@@ -10,13 +10,13 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Save, Cancel } from '@material-ui/icons'
-import { ActerConnection, ActerConnectionStatus } from '@schema'
+import { ActerConnection, ActerConnectionRole } from '@schema'
 
 export interface ConnectionStateEditorProps {
   connection: ActerConnection
   onSubmit: (
     connection: ActerConnection,
-    status: ActerConnectionStatus
+    role: ActerConnectionRole
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any> // ApolloGraphQL mutation function
   onCancel: () => void
@@ -27,11 +27,11 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
   onCancel,
   onSubmit,
 }) => {
-  const { Follower, status } = connection
+  const { Follower, role } = connection
   const initialValues = {
-    status,
+    role,
   }
-  const handleSubmit = ({ status }) => onSubmit(connection, status)
+  const handleSubmit = ({ role }) => onSubmit(connection, role)
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ dirty, values, handleChange, handleReset, submitForm }) => {
@@ -43,17 +43,13 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
           <Form>
             <FormControl>
               <Container>
-                <Select
-                  name="status"
-                  value={values.status}
-                  onChange={handleChange}
-                >
-                  {Object.keys(ActerConnectionStatus).map((key) => (
+                <Select name="role" value={values.role} onChange={handleChange}>
+                  {Object.keys(ActerConnectionRole).map((key) => (
                     <MenuItem
                       key={`acter-${Follower.id}-connection-picker-${key}`}
                       value={key}
                     >
-                      {ActerConnectionStatus[key]}
+                      {ActerConnectionRole[key]}
                     </MenuItem>
                   ))}
                 </Select>
