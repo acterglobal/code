@@ -3,11 +3,12 @@ import { mapFollowers } from 'src/lib/acter/map-followers'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
-import { DisplayMembers } from 'src/components/acter/landing-page/members-section/display-members'
 import {
-  DisplayUsers,
-  DisplayUsersProps,
-} from 'src/components/acter/landing-page/members-section/display-users'
+  DisplayMembers,
+  DisplayMembersProps,
+  MemberType,
+} from 'src/components/acter/landing-page/members-section/display-members'
+import { ORGANISATIONS, PEOPLE } from 'src/constants'
 
 const useStyles = makeStyles({
   container: {
@@ -15,21 +16,23 @@ const useStyles = makeStyles({
   },
 })
 
-const PEOPLE = 'people'
-const ORGANISATIONS = 'organisations'
+export type MembersSectionProps = Omit<
+  DisplayMembersProps,
+  'followers' | 'type'
+>
 
-export type MembersSectionProps = Omit<DisplayUsersProps, 'acters'>
-
-export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
-  const { user, organisation } = mapFollowers(acter)
+export const MembersSection: FC<MembersSectionProps> = ({
+  acter,
+  user,
+  onConnectionStateChange,
+}) => {
+  const followers = mapFollowers(acter)
   const classes = useStyles()
-  const [activeSelector, setActiveSelector] = useState('people')
+  const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
   const handleSelectorChange = (selector) => {
     setActiveSelector(selector)
   }
-
-  const Display = activeSelector === PEOPLE ? DisplayUsers : DisplayMembers
 
   return (
     <Box className={classes.container}>
@@ -38,10 +41,14 @@ export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
       />
-      <Display
+      <DisplayMembers
         acter={acter}
-        acters={activeSelector === PEOPLE ? user : organisation}
+        followers={
+          activeSelector === PEOPLE ? followers.user : followers.organisation
+        }
         type={activeSelector}
+        user={user}
+        onConnectionStateChange={onConnectionStateChange}
       />
     </Box>
   )

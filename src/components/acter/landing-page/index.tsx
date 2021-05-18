@@ -52,6 +52,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   user,
   onJoin,
   onLeave,
+  onConnectionStateChange,
   loading,
 }) => {
   const classes = useStyles({})
@@ -73,7 +74,11 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <ActivitiesList acter={acter} user={user} />
           </div>
           <div role="tabpanel" hidden={tab !== MEMBERS}>
-            <MembersSection acter={acter} />
+            <MembersSection
+              acter={acter}
+              user={user}
+              onConnectionStateChange={onConnectionStateChange}
+            />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
             <Typography variant="subtitle1">Coming soon...</Typography>

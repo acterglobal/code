@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Box, Grid } from '@material-ui/core'
+import { getActerConnection } from 'src/lib/acter/get-acter-connection'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { AvatarGrid } from 'src/components/acter/connect/avatar-grid'
 import { MenuItem } from 'src/components/acter/connect/menu-item'
@@ -20,7 +21,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
 
-  const connection = acter.Followers.find(({ Follower: { id } }) => id)
+  const connection = getActerConnection(acter, follower)
 
   useEffect(() => {
     if (loading) {
@@ -36,7 +37,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({
     <MenuItem
       key={`connect-${follower.id}`}
       onClick={() => {
-        onClick(follower, acter)
+        onClick(acter, follower)
         setOnClick(() => noop)
       }}
     >
