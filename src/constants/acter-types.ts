@@ -1,0 +1,6 @@
+export const ACTERS = 'acters'
+export const ACTIVITY = 'activity'
+export const GROUP = 'group'
+export const NETWORK = 'network'
+export const ORGANISATION = 'organisation'
+export const USER = 'user'

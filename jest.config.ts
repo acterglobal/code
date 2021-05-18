@@ -30,6 +30,7 @@ export default {
     '/node_modules/',
     '\\.(gql|graphql)$',
     '/.next/',
+    '@schema',
   ],
 
   // Indicates which provider should be used to instrument code for coverage
