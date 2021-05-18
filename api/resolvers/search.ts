@@ -41,7 +41,7 @@ type ActerInterestsNameFilter = {
 }
 
 type EveryActerInterestClause = {
-  every: ActerInterestsNameFilter
+  some: ActerInterestsNameFilter
 }
 
 type ActivitySearchWhereClause = {
@@ -90,7 +90,7 @@ const withInterestsFilter = (interestNames: [string]) => (
     return {
       ...whereClause,
       ActerInterests: {
-        every: {
+        some: {
           Interest: {
             name: {
               in: interestNames,
