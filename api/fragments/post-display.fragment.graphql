@@ -1,0 +1,9 @@
+fragment PostDisplay on Post {
+  id
+  content
+  createdAt
+  updatedAt
+  authorId
+  acterId
+  parentId
+}
