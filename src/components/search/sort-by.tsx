@@ -8,14 +8,9 @@ import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
 export type SortByProps = {
   sortBy: SearchActivitiesSortBy
   applySortBy: (sortBy: SearchActivitiesSortBy) => void
-  handleSearch: (sortBy: SearchActivitiesSortBy) => void
 }
 
-export const SortBy: FC<SortByProps> = ({
-  sortBy,
-  applySortBy,
-  handleSearch,
-}) => {
+export const SortBy: FC<SortByProps> = ({ sortBy, applySortBy }) => {
   const classes = useStyles()
 
   /* Material Ui Popover stuff */

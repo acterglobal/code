@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
-import { useRouter } from 'next/router'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import {
@@ -9,19 +8,19 @@ import {
 } from 'src/components/search/filter-interests'
 import { SortBy, SortByProps } from 'src/components/search/sort-by'
 import { ACTERS, ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/components/search'
 
-type FilterTabsProps = FilterInterestsProps & SortByProps
+type FilterTabsProps = FilterInterestsProps &
+  SortByProps & { searchType: SearchType }
 
 export const FilterTabs: FC<FilterTabsProps> = ({
+  searchType,
   interestTypes,
   applyFilters,
   sortBy,
   applySortBy,
-  handleSearch,
 }) => {
   const classes = useStyles()
-  const router = useRouter()
-  const { searchType } = router.query
   return (
     <Grid
       item
@@ -32,15 +31,10 @@ export const FilterTabs: FC<FilterTabsProps> = ({
       <FilterInterests
         interestTypes={interestTypes}
         applyFilters={applyFilters}
-        handleSearch={handleSearch}
       />
 
       {searchType === ACTIVITIES && (
-        <SortBy
-          sortBy={sortBy}
-          applySortBy={applySortBy}
-          handleSearch={handleSearch}
-        />
+        <SortBy sortBy={sortBy} applySortBy={applySortBy} />
       )}
 
       <Button

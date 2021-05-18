@@ -2,18 +2,12 @@ import { ComposedGetServerSideProps } from 'lib/compose-props'
 import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { Acter } from '@schema'
 import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
-import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
-
-type VariablesType = {
-  searchText: string | string[]
-  interests?: string[]
-  sortBy?: SearchActivitiesSortBy
-}
+import { SearchVariablesType } from 'src/props/search-activities'
 
 export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
   const { search: searchText, interests } = query
 
-  const searchVariables: VariablesType = { searchText }
+  const searchVariables: SearchVariablesType = { searchText }
 
   if (interests) {
     searchVariables.interests = (<string>interests).split(',')

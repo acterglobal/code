@@ -13,7 +13,7 @@ import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
 import { Acter, InterestType } from '@schema'
 import { ACTERS, ACTIVITIES } from 'src/constants'
 
-type SearchType = typeof ACTERS | typeof ACTIVITIES
+export type SearchType = typeof ACTERS | typeof ACTIVITIES
 export interface SearchProps extends DisplayResultsProps {
   searchType: SearchType
   acters: Acter[]
@@ -29,28 +29,32 @@ export const Search: FC<SearchProps> = ({
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
-  const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.NAME)
+  const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
   }
 
-  const handleSearch = (filters) => {
-    if (filters.length === undefined) {
-      filters = filterInterests
-    }
+  const handleFilterInterests = (filterInterests: string[]) => {
+    setFilterInterests(filterInterests)
+    handleSearch({ searchText, filterInterests, sortBy })
+  }
 
+  const handleSortBy = (sortBy: SearchActivitiesSortBy) => {
+    setSortBy(sortBy)
+    handleSearch({ searchText, filterInterests, sortBy })
+  }
+
+  const handleSearch = ({ searchText, filterInterests, sortBy }) => {
     router.push({
       pathname: router.pathname,
       query: {
         search: searchText,
-        interests: filters.join(','),
+        interests: filterInterests.length > 0 ? filterInterests.join(',') : [],
         sortBy,
       },
     })
   }
-
-  console.log('SORT BY', sortBy)
 
   return (
     <Box className={classes.root}>
@@ -75,18 +79,20 @@ export const Search: FC<SearchProps> = ({
             <Button
               className={classes.searchButton}
               variant="contained"
-              onClick={handleSearch}
+              onClick={() =>
+                handleSearch({ searchText, filterInterests, sortBy })
+              }
             >
               <Typography variant="caption">Search</Typography>
             </Button>
           </Grid>
 
           <FilterTabs
+            searchType={searchType}
             interestTypes={interestTypes}
-            applyFilters={setFilterInterests}
+            applyFilters={handleFilterInterests}
             sortBy={sortBy}
-            applySortBy={setSortBy}
-            handleSearch={handleSearch}
+            applySortBy={handleSortBy}
           />
         </Grid>
       </Box>

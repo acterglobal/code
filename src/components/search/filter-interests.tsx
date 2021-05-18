@@ -10,16 +10,15 @@ import { interestNameMap } from 'src/lib/interests/map-interest-name'
 export type FilterInterestsProps = {
   interestTypes: InterestType[]
   applyFilters: (filterInterests: string[]) => void
-  handleSearch: (filterInterests: string[]) => void
 }
 
 export const FilterInterests: FC<FilterInterestsProps> = ({
   interestTypes,
   applyFilters,
-  handleSearch,
 }) => {
   const classes = useStyles()
   const [selectedInterestIds, setSelectedInterestIds] = useState([])
+  const interestNames = interestNameMap(interestTypes)
 
   /* Material Ui Popover stuff */
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
@@ -37,16 +36,15 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
   }
 
   const handleSubmit = () => {
-    const interestNames = interestNameMap(interestTypes)
-    const filters = selectedInterestIds.map((id) => interestNames[id])
-    applyFilters(filters)
+    const filterInterests = selectedInterestIds.map((id) => interestNames[id])
+    applyFilters(filterInterests)
     handleClose()
-    handleSearch(filters)
   }
 
   const handleClear = () => {
     applyFilters([])
     setSelectedInterestIds([])
+    handleClose()
   }
 
   return (
