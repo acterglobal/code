@@ -1,0 +1,13 @@
+#import "../fragments/post-display.fragment.graphql"
+
+query GetPosts($acterId: String) {
+  posts(where: { acterId: { equals: $acterId } }) {
+    ...PostDisplay
+    Author {
+      name
+    }
+    Acter {
+      name
+    }
+  }
+}
