@@ -1,4 +1,4 @@
-import { Acter } from '@schema'
+import { Acter, ActerJoinSettings } from '@schema'
 import {
   ExampleUser,
   OrganisationActerType,
@@ -20,69 +20,37 @@ export const ExampleActer: Acter = {
   url: 'company url',
   avatarUrl: `https://acter-dev.imgix.net/assets/default-avatar.png`,
   bannerUrl: `https://acter-dev.imgix.net/assets/default-banner.png`,
+  useAdmins: false,
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
-  useAdmins: false,
   Following: [],
+  userJoinSetting: ActerJoinSettings.EVERYONE,
 }
 
 export const ExampleUserActer: Acter = {
-  id: '9a64149c-5641-4841-96b1-1b2ec85f87ba',
+  ...ExampleActer,
   acterTypeId: UserActerType.id,
   ActerType: UserActerType,
   name: 'Malik Shaik',
   location: 'Aarhus Denmark',
   slug: 'my-organisation',
-  description: `Lorem ipsum dolor sit amet consectetur adipisicing
-  elit. Quam laudantium quas voluptates assumenda deserunt, sequi
-  alias veritatis vitae eum culpa amet delectus eveniet tempore
-  quibusdam repellat ut? Corrupti, consequuntur ipsam`,
-  url: 'company url',
-  avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
-  bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  createdByUserId: ExampleUser.id,
-  useAdmins: false,
 }
 
 export const ExampleOrganisationActer: Acter = {
-  id: '9a64149c-5641-4841-96b1-1b2ec85f98aj',
+  ...ExampleActer,
   acterTypeId: OrganisationActerType.id,
   ActerType: OrganisationActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
   slug: 'my-organisation',
-  description: `Lorem ipsum dolor sit amet consectetur adipisicing
-  elit. Quam laudantium quas voluptates assumenda deserunt, sequi
-  alias veritatis vitae eum culpa amet delectus eveniet tempore
-  quibusdam repellat ut? Corrupti, consequuntur ipsam`,
-  url: 'company url',
-  avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
-  bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  createdByUserId: ExampleUser.id,
-  useAdmins: false,
 }
 
 export const ExampleActivityActer: Acter = {
-  id: '9a64149c-5641-4841-96b1-1b2ec85f98aj',
+  ...ExampleActer,
   acterTypeId: ActivityActerType.id,
   ActerType: ActivityActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
   slug: 'greenlight-aarhus',
-  description: `Lorem ipsum dolor sit amet consectetur adipisicing
-  elit. Quam laudantium quas voluptates assumenda deserunt, sequi
-  alias veritatis vitae eum culpa amet delectus eveniet tempore
-  quibusdam repellat ut? Corrupti, consequuntur ipsam`,
-  url: 'company url',
-  avatarUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612778108/acter/acter-logo-144.png`,
-  bannerUrl: `https://res.cloudinary.com/dfglnmgmx/image/upload/v1612781078/acter/top-banner.png`,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  createdByUserId: ExampleUser.id,
-  useAdmins: false,
 }

@@ -30,7 +30,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   user,
   onJoin,
   onLeave,
-  onSettingsChange,
   loading,
   posts,
   handlePost,
@@ -54,11 +53,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <ActivitiesList acter={acter} user={user} />
           </div>
           <div role="tabpanel" hidden={tab !== MEMBERS}>
-            <MembersSection
-              acter={acter}
-              onSettingsChange={onSettingsChange}
-              loading={loading}
-            />
+            <MembersSection acter={acter} />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
             {posts.map((post, i) => (

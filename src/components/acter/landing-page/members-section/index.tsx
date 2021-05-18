@@ -20,11 +20,7 @@ const ORGANISATIONS = 'organisations'
 
 export type MembersSectionProps = Omit<DisplayUsersProps, 'acters'>
 
-export const MembersSection: FC<MembersSectionProps> = ({
-  acter,
-  onSettingsChange,
-  loading,
-}) => {
+export const MembersSection: FC<MembersSectionProps> = ({ acter }) => {
   const { user, organisation } = mapFollowers(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState('people')
@@ -46,8 +42,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
         acter={acter}
         acters={activeSelector === PEOPLE ? user : organisation}
         type={activeSelector}
-        onSettingsChange={onSettingsChange}
-        loading={loading}
       />
     </Box>
   )
