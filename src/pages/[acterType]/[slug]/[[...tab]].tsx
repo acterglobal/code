@@ -11,10 +11,11 @@ import {
   getActerTypes,
   setActerType,
   getInterests,
+  getPosts,
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
-import { Acter, InterestType, User } from '@schema'
+import { Acter, InterestType, User, Post } from '@schema'
 
 import { Layout } from 'src/components/layout'
 import {
@@ -29,6 +30,7 @@ import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
+import CREATE_POST from 'api/mutations/post-create.graphql'
 
 const _handleJoin = (createConnection: MutationFunction, user: User) => (
   follower: Acter,
@@ -67,12 +69,14 @@ interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
   user: User
+  posts: Post[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
   interestTypes,
   user,
+  posts,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   useEffect(() => {
@@ -129,8 +133,21 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const createPost = (data) => {
-    console.log('From pages: ', data)
+  const [createPost] = useNotificationMutation(CREATE_POST, {
+    getSuccessMessage: () => 'Post created',
+    onCompleted: (data) => {
+      console.log('Data ...', data)
+    },
+  })
+
+  const handlePost = async (postText) => {
+    createPost({
+      variables: {
+        content: postText,
+        acterId: acter.id,
+        authorId: user.Acter.id,
+      },
+    })
   }
 
   const View = getActerView(displayActer)
@@ -145,7 +162,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
-        createPost={createPost}
+        posts={posts}
+        handlePost={handlePost}
       />
     </Layout>
   )
@@ -158,7 +176,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getActer,
-    getInterests
+    getInterests,
+    getPosts
   )
 
 export default ActerLandingPage
