@@ -1,12 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import {
-  Grid,
-  makeStyles,
-  createStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -23,15 +17,12 @@ import {
 import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 import { Posts, PostsProps } from 'src/components/posts'
-
-import { ExamplePost, ExampleSubPost } from 'src/__fixtures__'
-
-const post = { ...ExamplePost, Comments: [ExampleSubPost, ExampleSubPost] }
+import { Post } from '@schema'
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostsProps
+  PostsProps & { posts: Post[] }
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -41,7 +32,8 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   onLeave,
   onSettingsChange,
   loading,
-  createPost,
+  posts,
+  handlePost,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
@@ -69,7 +61,9 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
-            <Posts user={user} post={post} createPost={createPost} />
+            {posts.map((post, i) => (
+              <Posts user={user} post={post} handlePost={handlePost} />
+            ))}
           </div>
         </Grid>
         <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>

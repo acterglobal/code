@@ -10,16 +10,15 @@ import { Post, User } from '@schema'
 export interface PostsProps {
   post: Post
   user: User
-  createPost: (data: string) => void
+  handlePost: (data: string) => void
 }
 
-export const Posts: FC<PostsProps> = ({ post, user, createPost }) => {
+export const Posts: FC<PostsProps> = ({ post, user, handlePost }) => {
   const classes = useStyles()
 
   const handleSubmit = (values, submitProps) => {
-    console.log(values)
     submitProps.resetForm()
-    createPost(values)
+    handlePost(values.postText)
   }
 
   return (
@@ -33,13 +32,13 @@ export const Posts: FC<PostsProps> = ({ post, user, createPost }) => {
         </Box>
 
         <Divider className={classes.divider} />
-
+        {/* 
         {post.Comments.map((comment, index) => (
           <Box key={index} className={classes.contentContainer}>
             <SinglePost post={comment} comment />
           </Box>
         ))}
-        <CommentForm user={user} comment onSubmit={handleSubmit} />
+        <CommentForm user={user} comment onSubmit={handleSubmit} /> */}
       </Box>
     </Box>
   )
