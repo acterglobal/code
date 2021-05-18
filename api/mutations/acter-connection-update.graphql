@@ -2,9 +2,9 @@
 
 mutation ActerConnectionUpdate(
   $connectionId: String!
-  $status: ActerConnectionStatus!
+  $role: ActerConnectionRole!
 ) {
-  updateActerConnection(connectionId: $connectionId, status: $status) {
+  updateActerConnection(connectionId: $connectionId, role: $role) {
     ...ActerConnectionFull
   }
 }

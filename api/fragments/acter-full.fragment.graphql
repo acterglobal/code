@@ -10,7 +10,7 @@ fragment ActerFull on Acter {
   }
   Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
     id
-    status
+    role
     Follower {
       ...ActerDisplay
     }

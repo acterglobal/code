@@ -1,11 +1,11 @@
 -- CreateEnum
-CREATE TYPE "ActerConnectionStatus" AS ENUM ('PENDING', 'MEMBER', 'ADMIN');
+CREATE TYPE "ActerConnectionRole" AS ENUM ('PENDING', 'MEMBER', 'ADMIN');
 
 -- AlterTable
-ALTER TABLE "acter_connections" ADD COLUMN     "status" "ActerConnectionStatus" NOT NULL DEFAULT E'MEMBER';
+ALTER TABLE "acter_connections" ADD COLUMN     "role" "ActerConnectionRole" NOT NULL DEFAULT E'MEMBER';
 
 -- Set creating UserActer as initial admin
-UPDATE "acter_connections" SET "status"='ADMIN' WHERE "id" IN (
+UPDATE "acter_connections" SET "role"='ADMIN' WHERE "id" IN (
   SELECT 
     "ac"."id"
   FROM "acter_connections" AS "ac"
