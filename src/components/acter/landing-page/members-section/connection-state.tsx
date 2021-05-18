@@ -10,10 +10,12 @@ import { ActerConnection } from '@schema'
 export interface ConnectionStateProps
   extends Omit<ConnectionStateEditorProps, 'onCancel'> {
   connection: ActerConnection
+  canEdit: boolean
 }
 
 export const ConnectionState: FC<ConnectionStateProps> = ({
   connection,
+  canEdit,
   onSubmit,
 }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -22,7 +24,7 @@ export const ConnectionState: FC<ConnectionStateProps> = ({
     setIsEditing(false)
   }, [connection])
 
-  if (isEditing) {
+  if (canEdit && isEditing) {
     return (
       <ConnectionStateEditor
         connection={connection}
@@ -33,10 +35,12 @@ export const ConnectionState: FC<ConnectionStateProps> = ({
   }
   return (
     <Container>
-      {connection.status}
-      <IconButton onClick={() => setIsEditing(true)}>
-        <EditIcon />
-      </IconButton>
+      {connection.role}
+      {canEdit && (
+        <IconButton onClick={() => setIsEditing(true)}>
+          <EditIcon />
+        </IconButton>
+      )}
     </Container>
   )
 }

@@ -12,12 +12,19 @@ import {
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import {
   ConnectionState,
   ConnectionStateProps,
 } from 'src/components/acter/landing-page/members-section/connection-state'
-import { Acter, ActerConnection, ActerJoinSettings, User } from '@schema'
+import {
+  Acter,
+  ActerConnection,
+  ActerConnectionRole,
+  ActerJoinSettings,
+  User,
+} from '@schema'
 
 import { ORGANISATIONS, PEOPLE } from 'src/constants'
 
@@ -47,11 +54,19 @@ export interface DisplayMembersProps {
 
 export const DisplayMembers: FC<DisplayMembersProps> = ({
   acter,
+  user,
   followers = [],
   type,
   onConnectionStateChange,
 }) => {
   const classes = useStyles()
+
+  const showJoinState = acter.userJoinSetting !== ActerJoinSettings.EVERYONE
+  const canEdit = followerHasRoleOnActer(
+    user.Acter,
+    ActerConnectionRole.ADMIN,
+    acter
+  )
 
   return (
     <Box className={classes.container}>
@@ -78,10 +93,11 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
                   primary={Follower.name}
                   secondary={Follower.ActerType.name}
                 />
-                {acter.userJoinSetting !== ActerJoinSettings.EVERYONE && (
+                {showJoinState && (
                   <ListItemSecondaryAction>
                     <ConnectionState
                       connection={connection}
+                      canEdit={canEdit}
                       onSubmit={onConnectionStateChange}
                     />
                   </ListItemSecondaryAction>

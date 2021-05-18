@@ -2,7 +2,12 @@ import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
 import slugify from 'slugify'
-import { Acter, ActerJoinSettings, Activity, User } from '@schema'
+import {
+  Acter,
+  ActerConnectionRole,
+  ActerJoinSettings,
+  Activity,
+} from '@schema'
 
 @Resolver(Acter)
 export class ActerResolver {
@@ -66,6 +71,7 @@ export class ActerResolver {
           create: [
             {
               followerActerId: currentUser.Acter.id,
+              role: ActerConnectionRole.ADMIN,
               createdByUserId,
             },
           ],
