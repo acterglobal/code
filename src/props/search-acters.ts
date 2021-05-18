@@ -26,7 +26,6 @@ export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
       },
     }
   }
-  console.log('DATA.....:', data)
   const { acters }: { acters: Acter[] } = data
   return addApolloState(apollo, {
     props: {
