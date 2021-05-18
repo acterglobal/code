@@ -209,6 +209,8 @@ model Post {
 
   Author   Acter  @relation("authored", fields: [authorId], references: [id])
   authorId String @map("author_id")
+
+  @@map("posts")
 }
 
 model Interest {
