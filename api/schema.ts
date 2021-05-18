@@ -3,7 +3,7 @@ import { resolvers } from '@schema'
 
 import { ActerResolver } from 'api/resolvers/acter'
 import { SearchResolver } from 'api/resolvers/search'
-import { ActerConnectionResolver } from 'api/resolvers/acter_connection'
+import { ActerConnectionResolver } from 'api/resolvers/acter-connection'
 
 import { authChecker } from 'api/auth-checker'
 

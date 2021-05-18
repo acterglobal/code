@@ -3,7 +3,7 @@ import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
 import {
   ActerConnection,
-  ActerConnectionStatus,
+  ActerConnectionRole,
   ActerJoinSettings,
   User,
 } from '@schema'
@@ -38,16 +38,16 @@ export class ActerConnectionResolver {
       throw err
     }
 
-    const status =
+    const role =
       followingActer.userJoinSetting === ActerJoinSettings.EVERYONE
-        ? ActerConnectionStatus.MEMBER
-        : ActerConnectionStatus.PENDING
+        ? ActerConnectionRole.MEMBER
+        : ActerConnectionRole.PENDING
 
     return ctx.prisma.acterConnection.upsert({
       create: {
         followerActerId,
         followingActerId,
-        status,
+        role,
         createdByUserId,
       },
       update: {},
@@ -65,7 +65,7 @@ export class ActerConnectionResolver {
   async updateActerConnection(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('connectionId') connectionId: string,
-    @Arg('status') status: ActerConnectionStatus
+    @Arg('role') role: ActerConnectionRole
   ): Promise<ActerConnection> {
     const currentUser = await getCurrentUserFromContext(ctx)
     if (!currentUser) {
@@ -73,8 +73,6 @@ export class ActerConnectionResolver {
       console.error(err)
       throw err
     }
-
-    console.log('User is ', currentUser)
 
     const connection = await ctx.prisma.acterConnection.findFirst({
       where: { id: connectionId },
@@ -88,17 +86,13 @@ export class ActerConnectionResolver {
       throw err
     }
 
-    console.log('Connection is', connection)
-
     const isAdmin = await ctx.prisma.acterConnection.findFirst({
       where: {
         followerActerId: currentUser.Acter.id,
         followingActerId: connection.Following.id,
-        status: ActerConnectionStatus.ADMIN,
+        role: ActerConnectionRole.ADMIN,
       },
     })
-
-    console.log('admin is ', isAdmin)
 
     if (!isAdmin) {
       const err = 'Not authorized'
@@ -111,7 +105,7 @@ export class ActerConnectionResolver {
         id: connectionId,
       },
       data: {
-        status,
+        role,
       },
     })
   }
