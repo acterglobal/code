@@ -1,0 +1,10 @@
+#import "../fragments/acter-connection-full.fragment.graphql"
+
+mutation ActerConnectionUpdate(
+  $connectionId: String!
+  $status: ActerConnectionStatus!
+) {
+  updateActerConnection(connectionId: $connectionId, status: $status) {
+    ...ActerConnectionFull
+  }
+}

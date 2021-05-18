@@ -1,13 +1,15 @@
-import { Acter } from '@schema'
+import { Acter, ActerConnection } from '@schema'
 
-export const mapFollowers = (acter: Acter): { [key: string]: Acter[] } => {
+export const mapFollowers = (
+  acter: Acter
+): { [key: string]: ActerConnection[] } => {
   return (
-    acter.Followers?.reduce((map, { Follower }) => {
-      const type = Follower.ActerType?.name || ''
+    acter.Followers?.reduce((map, connection) => {
+      const type = connection.Follower.ActerType?.name || ''
       const currentMap = map[type] || []
       return {
         ...map,
-        [type]: [...currentMap, Follower],
+        [type]: [...currentMap, connection],
       }
     }, {}) || {}
   )

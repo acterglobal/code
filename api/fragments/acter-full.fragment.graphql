@@ -3,11 +3,13 @@
 fragment ActerFull on Acter {
   ...ActerDisplay
   Following(where: { Following: { is: { deletedAt: { equals: null } } } }) {
+    id
     Following {
       ...ActerDisplay
     }
   }
   Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
+    id
     status
     Follower {
       ...ActerDisplay
