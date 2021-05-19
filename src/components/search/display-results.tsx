@@ -10,23 +10,23 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 export interface DisplayResultsProps {
-  dataType: string
+  searchType: string
   acters: Acter[]
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = (props) => {
-  const { dataType, acters } = props
+  const { searchType, acters } = props
   const classes = useStyles()
 
   return (
-    <Box className={clsx(classes.root, classes[dataType])}>
+    <Box className={clsx(classes.root, classes[searchType])}>
       {acters.length !== 0 ? (
         acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
             <Link href={acterAsUrl(acter)} passHref>
               <a>
-                {dataType === ACTERS && <ActerTile acter={acter} />}
-                {dataType === ACTIVITIES && (
+                {searchType === ACTERS && <ActerTile acter={acter} />}
+                {searchType === ACTIVITIES && (
                   <ActivityTile activity={acter.Activity} />
                 )}
               </a>
@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       '& a': {
         textDecoration: 'none',
+        color: theme.palette.text.primary,
       },
     },
   })

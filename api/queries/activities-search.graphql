@@ -1,0 +1,28 @@
+#import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/acter-full.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
+
+query ActivitiesSearch(
+  $searchText: String
+  $interests: [String!]
+  $endsBefore: DateTime
+  $sortBy: SearchActivitiesSortBy
+) {
+  searchActivities(
+    searchText: $searchText
+    endsBefore: $endsBefore
+    interests: $interests
+    sortBy: $sortBy
+  ) {
+    ...ActerFull
+    Activity {
+      ...ActivityDisplay
+      Acter {
+        ...ActerDisplay
+      }
+      Organiser {
+        ...ActerDisplay
+      }
+    }
+  }
+}

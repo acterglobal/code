@@ -6,30 +6,37 @@ import {
   FilterInterests,
   FilterInterestsProps,
 } from 'src/components/search/filter-interests'
+import { SortBy, SortByProps } from 'src/components/search/sort-by'
+import { ACTERS, ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/components/search'
 
-type FilterTabsProps = FilterInterestsProps
+type FilterTabsProps = FilterInterestsProps &
+  SortByProps & { searchType: SearchType }
 
 export const FilterTabs: FC<FilterTabsProps> = ({
+  searchType,
   interestTypes,
   applyFilters,
-  handleSearch,
+  sortBy,
+  applySortBy,
 }) => {
   const classes = useStyles()
-
   return (
-    <Grid item xs={12} sm={6} className={classes.root}>
+    <Grid
+      item
+      xs={12}
+      sm={searchType === ACTERS ? 4 : 6}
+      className={classes.root}
+    >
       <FilterInterests
         interestTypes={interestTypes}
         applyFilters={applyFilters}
-        handleSearch={handleSearch}
       />
-      <Button
-        className={classes.button}
-        variant="contained"
-        onClick={() => null}
-      >
-        <Typography variant="caption">Sort by</Typography>
-      </Button>
+
+      {searchType === ACTIVITIES && (
+        <SortBy sortBy={sortBy} applySortBy={applySortBy} />
+      )}
+
       <Button
         className={classes.button}
         variant="contained"

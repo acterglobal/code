@@ -9,14 +9,19 @@ import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
-import { InterestType } from '@schema'
+import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
+import { Acter, InterestType } from '@schema'
+import { ACTERS, ACTIVITIES } from 'src/constants'
 
+export type SearchType = typeof ACTERS | typeof ACTIVITIES
 export interface SearchProps extends DisplayResultsProps {
+  searchType: SearchType
+  acters: Acter[]
   interestTypes: InterestType[]
 }
 
 export const Search: FC<SearchProps> = ({
-  dataType,
+  searchType,
   acters,
   interestTypes,
 }) => {
@@ -24,20 +29,29 @@ export const Search: FC<SearchProps> = ({
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
+  const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
   }
 
-  const handleSearch = (filters) => {
-    if (filters.length === undefined) {
-      filters = filterInterests
-    }
+  const handleFilterInterests = (filterInterests: string[]) => {
+    setFilterInterests(filterInterests)
+    handleSearch({ searchText, filterInterests, sortBy })
+  }
+
+  const handleSortBy = (sortBy: SearchActivitiesSortBy) => {
+    setSortBy(sortBy)
+    handleSearch({ searchText, filterInterests, sortBy })
+  }
+
+  const handleSearch = ({ searchText, filterInterests, sortBy }) => {
     router.push({
-      pathname: '/',
+      pathname: router.pathname,
       query: {
         search: searchText,
-        interests: filters.join(','),
+        interests: filterInterests.length > 0 ? filterInterests.join(',') : '',
+        sortBy,
       },
     })
   }
@@ -46,7 +60,12 @@ export const Search: FC<SearchProps> = ({
     <Box className={classes.root}>
       <Box className={classes.searchSection}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} className={classes.searchSectionItem}>
+          <Grid
+            item
+            xs={12}
+            sm={searchType === ACTERS ? 8 : 6}
+            className={classes.searchSectionItem}
+          >
             <Typography
               className={classes.results}
               variant="body2"
@@ -60,21 +79,25 @@ export const Search: FC<SearchProps> = ({
             <Button
               className={classes.searchButton}
               variant="contained"
-              onClick={handleSearch}
+              onClick={() =>
+                handleSearch({ searchText, filterInterests, sortBy })
+              }
             >
               <Typography variant="caption">Search</Typography>
             </Button>
           </Grid>
 
           <FilterTabs
+            searchType={searchType}
             interestTypes={interestTypes}
-            applyFilters={setFilterInterests}
-            handleSearch={handleSearch}
+            applyFilters={handleFilterInterests}
+            sortBy={sortBy}
+            applySortBy={handleSortBy}
           />
         </Grid>
       </Box>
 
-      <DisplayResults dataType={dataType} acters={acters} />
+      <DisplayResults searchType={searchType} acters={acters} />
     </Box>
   )
 }

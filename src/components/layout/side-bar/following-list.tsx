@@ -28,6 +28,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
         [ACTIVITY, USER]
       ).map((acter) => (
         <MenuItem
+          key={`following-${acter.id}`}
           className={clsx({
             [classes.item]: true,
             [classes.currentActer]: router.query.slug === acter.slug,

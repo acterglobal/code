@@ -11,7 +11,7 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
-    render(<DisplayResults dataType={ACTERS} acters={ExampleActerList} />)
+    render(<DisplayResults searchType={ACTERS} acters={ExampleActerList} />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -27,7 +27,7 @@ describe('Display search results', () => {
     const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
     const activities = [...Array(8).keys()].map(() => acter)
 
-    render(<DisplayResults dataType={ACTIVITIES} acters={activities} />)
+    render(<DisplayResults searchType={ACTIVITIES} acters={activities} />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(8)
@@ -45,7 +45,7 @@ describe('Display search results', () => {
   it('should display a message with no search results', async () => {
     const acters = []
 
-    render(<DisplayResults dataType={ACTERS} acters={acters} />)
+    render(<DisplayResults searchType={ACTERS} acters={acters} />)
     const items = screen.queryAllByRole('listitem')
     const message = screen.queryByLabelText('zero-acters').textContent
 

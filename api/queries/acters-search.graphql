@@ -8,7 +8,9 @@ query ActersSearch($searchText: String, $interests: [String!]) {
         { name: { contains: $searchText, mode: insensitive } }
         {
           ActerInterests: {
-            some: { Interest: { is: { name: { in: $interests } } } }
+            some: {
+              Interest: { is: { name: { in: $interests, mode: insensitive } } }
+            }
           }
         }
       ]

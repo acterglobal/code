@@ -1,7 +1,6 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import slugify from 'slugify'
-
 import { Acter, ActerJoinSettings, Activity, User } from '@schema'
 
 @Resolver(Acter)
