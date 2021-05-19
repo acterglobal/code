@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import {
   MenuList,
   ListItem,
@@ -7,6 +7,8 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  Box,
+  Typography,
 } from '@material-ui/core'
 import {
   DateRangeOutlined as CalendarIcon,
@@ -35,6 +37,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
 }) => {
   if (!acter) return null
   const classes = useStyles()
+  const [openModal, setOpenModal] = useState(false)
 
   return (
     <MenuList>
@@ -68,6 +71,17 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
+    },
+    groupHeader: {
+      marginTop: theme.spacing(1),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    addIcon: {
+      fontSize: 20,
+      cursor: 'pointer',
     },
   })
 )
