@@ -157,6 +157,17 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         interestTypes={interestTypes}
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
+        onSettingsChange={(acter) => {
+          updateActer({
+            variables: {
+              ...acter,
+              interestIds: acter.ActerInterests.map(
+                ({ Interest: { id } }) => id
+              ),
+              acterId: acter.id,
+            },
+          })
+        }}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
         posts={posts}
         handlePost={handlePost}
