@@ -1,34 +1,31 @@
-import React, { FC, useState, MouseEvent, ReactNode } from 'react'
+import React, { FC, useEffect, useState, MouseEvent, ReactNode } from 'react'
 import {
   Box,
   Button,
   Popover as MUIPopover,
   Typography,
+  createStyles,
+  makeStyles,
+  Theme,
 } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Form, Formik } from 'formik'
-import { grey } from '@material-ui/core/colors'
 
 export type PopoverProps = {
   tabLabel: string
-  numberOfSelection: number
   children: ReactNode
-  handleApply: () => void
-  handleClear: () => void
-  initialValues: { values: string[] }
+  closePopover: boolean | null
 }
 
 export const Popover: FC<PopoverProps> = ({
   tabLabel,
-  numberOfSelection,
   children,
-  handleApply,
-  handleClear,
-  initialValues,
+  closePopover,
 }) => {
   const classes = useStyles()
 
-  /* Material Ui Popover stuff */
+  useEffect(() => {
+    if (closePopover !== null) handleClose()
+  }, [closePopover])
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const handleClick = (event: MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(event.currentTarget)
@@ -36,15 +33,7 @@ export const Popover: FC<PopoverProps> = ({
   const handleClose = () => setAnchorEl(null)
 
   const open = Boolean(anchorEl)
-  //   const id = open ? 'simple-popover' : undefined
-
-  /* Form stuff */
-
-  const handleSubmit = (values) => {
-    console.log(values)
-    handleClose()
-    handleApply()
-  }
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <>
@@ -53,14 +42,11 @@ export const Popover: FC<PopoverProps> = ({
         variant="contained"
         onClick={handleClick}
       >
-        <Typography variant="caption">
-          {tabLabel}
-          {numberOfSelection > 0 && numberOfSelection}
-        </Typography>
+        <Typography variant="caption">{tabLabel}</Typography>
       </Button>
 
       <MUIPopover
-        // id={id}
+        id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -74,35 +60,7 @@ export const Popover: FC<PopoverProps> = ({
         }}
         style={{ marginTop: 5 }}
       >
-        <Box className={classes.popover}>
-          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {() => (
-              <Form>
-                <Box className={classes.content}></Box>
-                {children}
-                <Box className={classes.btnsContainer}>
-                  <Button
-                    className={classes.clear}
-                    variant="text"
-                    color="primary"
-                    onClick={handleClear}
-                  >
-                    Clear
-                  </Button>
-                  <Button
-                    className={classes.save}
-                    variant="contained"
-                    color="primary"
-                    // disabled={selectedInterestIds.length === 0}
-                    type="submit"
-                  >
-                    Apply
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
-        </Box>
+        <Box className={classes.popover}>{children}</Box>
       </MUIPopover>
     </>
   )
@@ -128,30 +86,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     popover: {
       maxWidth: theme.spacing(80),
-      //   minHeight: theme.spacing(65),
-      padding: theme.spacing(2),
-    },
-    content: {
-      //   height: 480,
-    },
-    btnsContainer: {
-      marginTop: theme.spacing(1),
-      borderTop: '1px solid',
-      borderTopColor: grey[500],
-      padding: theme.spacing(1),
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    clear: {
-      textTransform: 'capitalize',
-      color: grey[800],
-      fontWeight: theme.typography.fontWeightBold,
-    },
-    save: {
-      textTransform: 'capitalize',
-      borderRadius: theme.spacing(3),
-      fontSize: '0.8rem',
-      color: 'white',
     },
   })
 )
