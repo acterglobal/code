@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
-import { SinglePost } from 'src/components/posts/post'
+import { Posts as SinglePost } from 'src/components/posts/post'
 import { PostForm as CommentForm } from 'src/components/posts/form'
 import { Post, User } from '@schema'
 

@@ -4,18 +4,20 @@ import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import { Post } from '@schema'
 import { PostAvatar } from 'src/components/posts/post-avatar'
+import { ActerAvatar } from 'src/components/acter/avatar'
 
-export interface SinglePostProps {
+export interface PostsProps {
   post: Post
   comment?: boolean
 }
 
-export const SinglePost: FC<SinglePostProps> = ({ post, comment }) => {
+export const Posts: FC<PostsProps> = ({ post, comment }) => {
   const classes = useStyles()
 
   return (
     <>
-      <PostAvatar acter={post.Author} />
+      {/* <PostAvatar acter={post.Author} /> */}
+      <ActerAvatar acter={post.Author} size={4} />
       <Box
         className={comment ? classes.commentContainer : classes.postContainer}
       >
