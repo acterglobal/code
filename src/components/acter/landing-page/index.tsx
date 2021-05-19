@@ -57,7 +57,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
             {posts.map((post, i) => (
-              <Posts user={user} post={post} handlePost={handlePost} />
+              <Posts key={i} user={user} post={post} handlePost={handlePost} />
             ))}
           </div>
         </Grid>

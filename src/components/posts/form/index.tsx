@@ -16,7 +16,7 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
   const classes = useStyles()
 
-  const [editor, setEditor] = useState(null)
+  const [editorFocus, setEditorFocus] = useState(null)
 
   const initialValues = {
     postText: '',
@@ -33,7 +33,7 @@ export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
         >
           {({ setFieldValue }) => (
             <Form className={classes.formContainer}>
-              <Box mb={1} onClick={() => editor.focus()}>
+              <Box mb={1} onClick={() => editorFocus.focus()}>
                 <InputLabel style={{ marginBottom: 5 }}>
                   Share your thoughts
                 </InputLabel>
@@ -45,7 +45,7 @@ export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
                   handleInputChange={(value) =>
                     setFieldValue('postText', value)
                   }
-                  handleFocus={(editorRef) => setEditor(editorRef)}
+                  handleFocus={(editorRef) => setEditorFocus(editorRef)}
                 />
               </Box>
               <Button

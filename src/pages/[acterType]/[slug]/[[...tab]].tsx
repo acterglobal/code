@@ -135,9 +135,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   const [createPost] = useNotificationMutation(CREATE_POST, {
     getSuccessMessage: () => 'Post created',
-    onCompleted: (data) => {
-      console.log('Data ...', data)
-    },
   })
 
   const handlePost = async (postText) => {
