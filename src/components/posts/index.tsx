@@ -2,24 +2,15 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
-import Divider from '@material-ui/core/Divider'
 import { Posts as SinglePost } from 'src/components/posts/post'
-import { PostForm as CommentForm } from 'src/components/posts/form'
-import { Post, User } from '@schema'
+import { Post } from '@schema'
 
 export interface PostsProps {
   posts: Post[]
-  user: User
-  handlePost: (data: string) => void
 }
 
-export const Posts: FC<PostsProps> = ({ posts, user, handlePost }) => {
+export const Posts: FC<PostsProps> = ({ posts }) => {
   const classes = useStyles()
-
-  const handleSubmit = (values, submitProps) => {
-    submitProps.resetForm()
-    handlePost(values.postText)
-  }
 
   return (
     <Box className={classes.root}>
@@ -27,7 +18,6 @@ export const Posts: FC<PostsProps> = ({ posts, user, handlePost }) => {
         {posts?.map((post, i) => (
           <Box className={classes.contentContainer}>
             <SinglePost key={i} post={post} />
-            {/* <Divider className={classes.divider} /> */}
           </Box>
         ))}
       </Box>
@@ -66,13 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
-    },
-    divider: {
-      color: grey[700],
-      marginLeft: 30,
-      marginBottom: 10,
-      width: '95%',
-      height: 2,
     },
     image: {
       marginTop: theme.spacing(3),
