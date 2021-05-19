@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
-import { Avatar } from 'src/components/acter/avatar'
 import Image from 'next/image'
 import { Acter } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
