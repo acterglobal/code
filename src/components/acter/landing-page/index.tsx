@@ -24,7 +24,7 @@ import { Post } from '@schema'
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostsProps & { posts: Post[] }
+  PostsProps & { posts: Post[]; handlePost: (data: string) => void }
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -71,7 +71,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <Box className={classes.root}>
               <Box className={classes.mainContainer}>
                 <PostForm user={user} onSubmit={handleSubmit} />
-                <Posts user={user} posts={posts} handlePost={handlePost} />
+                <Posts posts={posts} />
               </Box>
             </Box>
           </div>
