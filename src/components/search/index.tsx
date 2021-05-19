@@ -50,7 +50,7 @@ export const Search: FC<SearchProps> = ({
       pathname: router.pathname,
       query: {
         search: searchText,
-        interests: filterInterests.length > 0 ? filterInterests.join(',') : [],
+        interests: filterInterests.length > 0 ? filterInterests.join(',') : '',
         sortBy,
       },
     })
