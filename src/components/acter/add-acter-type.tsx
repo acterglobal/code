@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Modal } from 'src/components/util/modal'
+import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { ActerType } from 'src/components/acter/acter-type'
 import { useRouter } from 'next/router'
 
