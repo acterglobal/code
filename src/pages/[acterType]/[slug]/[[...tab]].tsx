@@ -11,7 +11,6 @@ import {
   getActerTypes,
   setActerType,
   getInterests,
-  getPosts,
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
@@ -184,8 +183,7 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getActer,
-    getInterests,
-    getPosts
+    getInterests
   )
 
 export default ActerLandingPage
