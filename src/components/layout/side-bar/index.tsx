@@ -17,21 +17,17 @@ import {
   SvgIconComponent,
 } from '@material-ui/icons'
 import { ActerLogoText } from 'src/components/icons/acter-logo-text'
-import { ActerMenu } from 'src/components/layout/side-bar/acter-menu'
-import { FollowingList } from 'src/components/layout/side-bar/following-list'
-import { Acter, User } from '@schema'
+import {
+  ActerMenu,
+  ActerMenuProps,
+} from 'src/components/layout/side-bar/acter-menu'
+import {
+  FollowingList,
+  FollowingListProps,
+} from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
-export interface SidebarProps {
-  /**
-   * Optional Acter for which to show context submenu
-   */
-  acter?: Acter
-  /**
-   * Optional logged in User
-   */
-  user?: User
-}
+export type SidebarProps = ActerMenuProps & FollowingListProps
 
 export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
@@ -62,9 +58,9 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </MenuList>
       </Box>
-      {acter && (
+      {acter && user && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} />
+          <ActerMenu acter={acter} user={user} />
         </Box>
       )}
     </Drawer>

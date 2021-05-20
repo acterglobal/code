@@ -61,7 +61,11 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
 }) => {
   const classes = useStyles()
 
-  const showJoinState = acter.userJoinSetting !== ActerJoinSettings.EVERYONE
+  const showJoinState = followerHasRoleOnActer(
+    user.Acter,
+    ActerConnectionRole.MEMBER,
+    acter
+  )
   const canEdit = followerHasRoleOnActer(
     user.Acter,
     ActerConnectionRole.ADMIN,
