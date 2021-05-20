@@ -24,7 +24,7 @@ import { Post } from '@schema'
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostsProps & { posts: Post[]; handlePost: (data: string) => void }
+  PostsProps & { onPostCreate: (data: string) => void }
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -35,7 +35,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   onSettingsChange,
   loading,
   posts,
-  handlePost,
+  onPostCreate,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
@@ -43,7 +43,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
 
   const handleSubmit = (values, submitProps) => {
     submitProps.resetForm()
-    handlePost(values.postText)
+    onPostCreate(values.postText)
   }
 
   return (

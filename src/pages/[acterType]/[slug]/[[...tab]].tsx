@@ -170,7 +170,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         }}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
         posts={posts}
-        handlePost={handlePost}
+        onPostCreate={handlePost}
       />
     </Layout>
   )
