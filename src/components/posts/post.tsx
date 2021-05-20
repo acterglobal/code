@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1.2),
       objectFit: 'cover',
       border: '1px solid black',
-      width: 30,
       height: 30,
+      width: 30,
       padding: theme.spacing(0.8),
       borderRadius: '50%',
       [theme.breakpoints.down('xs')]: {
