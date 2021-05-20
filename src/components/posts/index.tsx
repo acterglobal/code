@@ -8,7 +8,6 @@ import { PostForm as CommentForm } from 'src/components/posts/form'
 import { Post } from '@schema'
 
 export interface PostsProps {
-  // post: Post
   posts: Post[]
 }
 
