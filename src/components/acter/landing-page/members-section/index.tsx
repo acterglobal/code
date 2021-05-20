@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { mapFollowers } from 'src/lib/acter/map-followers'
+import { mapFollowersByType } from 'src/lib/acter/map-followers-by-type'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
@@ -26,7 +26,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
   user,
   onConnectionStateChange,
 }) => {
-  const followers = mapFollowers(acter)
+  const followers = mapFollowersByType(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 

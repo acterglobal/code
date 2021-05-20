@@ -1,4 +1,5 @@
 import { Acter, ActerConnectionRole } from '@schema'
+import { connectionHasAtLeastRole } from 'src/lib/acter/connection-has-at-least-role'
 
 /**
  * Determine if a given follower has at least the role given for an acter
@@ -12,39 +13,11 @@ export const followerHasRoleOnActer = (
   role: ActerConnectionRole,
   acter: Acter
 ): boolean => {
-  if (!acter.Followers?.length) {
-    return false
-  }
-
-  // Map of permissions held by a role
-  const roleMap = {
-    // Admin can only include Admin
-    [ActerConnectionRole.ADMIN]: [ActerConnectionRole.ADMIN],
-    // Member can include Admins
-    [ActerConnectionRole.MEMBER]: [
-      ActerConnectionRole.ADMIN,
-      ActerConnectionRole.MEMBER,
-    ],
-    // Pending includes everything
-    [ActerConnectionRole.PENDING]: [
-      ActerConnectionRole.ADMIN,
-      ActerConnectionRole.MEMBER,
-      ActerConnectionRole.PENDING,
-    ],
-  }
-
-  // All follower Acter.id's and their corresponding role
-  const followerCollectionRoleMap = acter.Followers.reduce(
-    (prev, connection) => ({
-      ...prev,
-      [connection.Follower.id]: connection.role,
-    }),
-    {}
+  const connection = acter.Followers?.find(
+    ({ Follower }) => follower.id === Follower.id
   )
 
-  // See if the permission map includes this Acter's Connection Status
-  const followerRole = followerCollectionRoleMap[follower.id]
-  if (roleMap[role].includes(followerRole)) return true
+  if (!connection) return false
 
-  return false
+  return connectionHasAtLeastRole(connection, role)
 }
