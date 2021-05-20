@@ -5,41 +5,24 @@ import { Box } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
 import { Posts as SinglePost } from 'src/components/posts/post'
 import { PostForm as CommentForm } from 'src/components/posts/form'
-import { Post, User } from '@schema'
+import { Post } from '@schema'
 
 export interface PostsProps {
-  post: Post
-  posts?: Post[]
-  user: User
-  onPostCreate: (data: string) => void
+  // post: Post
+  posts: Post[]
 }
 
-export const Posts: FC<PostsProps> = ({ post, user, onPostCreate }) => {
+export const Posts: FC<PostsProps> = ({ posts }) => {
   const classes = useStyles()
-
-  const handleSubmit = (values, submitProps) => {
-    submitProps.resetForm()
-    onPostCreate(values.postText)
-  }
 
   return (
     <Box className={classes.root}>
       <Box className={classes.mainContainer}>
-        <CommentForm user={user} onSubmit={handleSubmit} />
-      </Box>
-      <Box className={classes.mainContainer}>
-        <Box className={classes.contentContainer}>
-          <SinglePost post={post} />
-        </Box>
-
-        <Divider className={classes.divider} />
-        {/* 
-        {post.Comments.map((comment, index) => (
-          <Box key={index} className={classes.contentContainer}>
-            <SinglePost post={comment} comment />
+        {posts?.map((post, i) => (
+          <Box className={classes.contentContainer}>
+            <SinglePost key={i} post={post} />
           </Box>
         ))}
-        <CommentForm user={user} comment onSubmit={handleSubmit} /> */}
       </Box>
     </Box>
   )
@@ -76,13 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
-    },
-    divider: {
-      color: grey[700],
-      marginLeft: 30,
-      marginBottom: 10,
-      width: '95%',
-      height: 2,
     },
     image: {
       marginTop: theme.spacing(3),
