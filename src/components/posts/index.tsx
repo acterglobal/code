@@ -9,6 +9,7 @@ import { Post, User } from '@schema'
 
 export interface PostsProps {
   post: Post
+  posts?: Post[]
   user: User
   onPostCreate: (data: string) => void
 }

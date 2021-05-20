@@ -22,7 +22,7 @@ import { Post } from '@schema'
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostsProps & { posts: Post[] }
+  PostsProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
