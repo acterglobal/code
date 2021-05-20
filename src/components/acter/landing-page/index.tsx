@@ -32,7 +32,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   onLeave,
   loading,
   posts,
-  handlePost,
+  onPostCreate,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
@@ -56,8 +56,8 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <MembersSection acter={acter} />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
-            {posts.map((post, i) => (
-              <Posts key={i} user={user} post={post} handlePost={handlePost} />
+            {posts?.map((post, i) => (
+              <Posts key={i} user={user} post={post} onPostCreate={onPostCreate} />
             ))}
           </div>
         </Grid>

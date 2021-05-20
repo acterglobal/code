@@ -10,15 +10,15 @@ import { Post, User } from '@schema'
 export interface PostsProps {
   post: Post
   user: User
-  handlePost: (data: string) => void
+  onPostCreate: (data: string) => void
 }
 
-export const Posts: FC<PostsProps> = ({ post, user, handlePost }) => {
+export const Posts: FC<PostsProps> = ({ post, user, onPostCreate }) => {
   const classes = useStyles()
 
   const handleSubmit = (values, submitProps) => {
     submitProps.resetForm()
-    handlePost(values.postText)
+    onPostCreate(values.postText)
   }
 
   return (

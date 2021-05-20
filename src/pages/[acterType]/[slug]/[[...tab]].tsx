@@ -159,7 +159,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
         posts={posts}
-        handlePost={handlePost}
+        onPostCreate={handlePost}
       />
     </Layout>
   )
