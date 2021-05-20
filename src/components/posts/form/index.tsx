@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
 import { User } from '@schema'
 import { TextEditor } from 'src/components/util/text-editor'
-import { PostAvatar } from 'src/components/posts/post-avatar'
+import { ActerAvatar } from 'src/components/acter/avatar'
 
 export interface PostFormProps {
   user: User
@@ -24,7 +24,7 @@ export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
 
   return (
     <Box className={classes.contentContainer}>
-      <PostAvatar acter={user.Acter} />
+      <ActerAvatar acter={user.Acter} size={6} />
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}

@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import { Post } from '@schema'
-import { PostAvatar as Avatar } from 'src/components/posts/post-avatar'
+import { ActerAvatar } from 'src/components/acter/avatar'
 
 export interface PostsProps {
   post: Post
@@ -15,7 +15,7 @@ export const Posts: FC<PostsProps> = ({ post, comment }) => {
 
   return (
     <>
-      <Avatar acter={post.Author} />
+      <ActerAvatar acter={post.Author} size={6} />
       <Box
         className={comment ? classes.commentContainer : classes.postContainer}
       >
