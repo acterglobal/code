@@ -2,14 +2,14 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
-import { Posts as SinglePost } from 'src/components/posts/post'
-import { Post } from '@schema'
+import { Post } from 'src/components/posts/post'
+import { Post as Posts } from '@schema'
 
-export interface PostsProps {
-  posts: Post[]
+export interface PostListProps {
+  posts: Posts[]
 }
 
-export const Posts: FC<PostsProps> = ({ posts }) => {
+export const PostList: FC<PostListProps> = ({ posts }) => {
   const classes = useStyles()
 
   return (
@@ -17,7 +17,7 @@ export const Posts: FC<PostsProps> = ({ posts }) => {
       <Box className={classes.mainContainer}>
         {posts?.map((post, i) => (
           <Box className={classes.contentContainer}>
-            <SinglePost key={i} post={post} />
+            <Post key={i} post={post} />
           </Box>
         ))}
       </Box>

@@ -15,15 +15,15 @@ import {
   MembersSection,
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
+import { PostList, PostListProps } from 'src/components/posts'
+import { PostForm } from 'src/components/posts/form'
 import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
-import { Posts, PostsProps } from 'src/components/posts'
-import { PostForm } from 'src/components/posts/form'
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostsProps & { onPostCreate: (data: string) => void }
+  PostListProps & { onPostCreate: (data: string) => void }
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -65,7 +65,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             <Box className={classes.root}>
               <Box className={classes.mainContainer}>
                 <PostForm user={user} onSubmit={handleSubmit} />
-                <Posts posts={posts} />
+                <PostList posts={posts} />
               </Box>
             </Box>
           </div>
