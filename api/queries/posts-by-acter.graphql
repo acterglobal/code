@@ -5,6 +5,10 @@ query GetPosts($acterId: String) {
     ...PostDisplay
     Author {
       name
+      avatarUrl
+      ActerType {
+        name
+      }
     }
     Acter {
       name
