@@ -3,9 +3,9 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, InputLabel } from '@material-ui/core'
 import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
-import { User } from '@schema'
-import { TextEditor } from 'src/components/util/text-editor'
 import { ActerAvatar } from 'src/components/acter/avatar'
+import { TextEditor } from 'src/components/util/text-editor'
+import { User } from '@schema'
 
 export interface PostFormProps {
   user: User

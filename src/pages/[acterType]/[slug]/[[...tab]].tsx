@@ -26,10 +26,10 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
+import CREATE_POST from 'api/mutations/post-create.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
-import CREATE_POST from 'api/mutations/post-create.graphql'
 
 const _handleJoin = (createConnection: MutationFunction, user: User) => (
   follower: Acter,
