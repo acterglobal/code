@@ -13,6 +13,8 @@ export interface PostsProps {
 export const Posts: FC<PostsProps> = ({ post, comment }) => {
   const classes = useStyles()
 
+  console.log('Single Post',post.Author)
+
   return (
     <>
       <ActerAvatar acter={post.Author} size={6} />
