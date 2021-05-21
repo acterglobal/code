@@ -11,6 +11,8 @@ import {
   InfoSectionProps,
 } from 'src/components/acter/landing-page/info-section'
 import { ActivitiesList } from 'src/components/activity/list'
+import { Posts, PostsProps } from 'src/components/posts'
+import { PostForm } from 'src/components/posts/form'
 import {
   MembersSection,
   MembersSectionProps,

@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: '-webkit-box',
       boxOrient: 'vertical',
       wordBreak: 'break-all',
-      overflow: 'hidden',    
+      overflow: 'hidden',
     },
   })
 )
