@@ -19,7 +19,6 @@ import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 import { Posts, PostsProps } from 'src/components/posts'
 import { PostForm } from 'src/components/posts/form'
-import { Post } from '@schema'
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
