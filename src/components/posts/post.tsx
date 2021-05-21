@@ -13,7 +13,7 @@ export interface PostsProps {
 export const Posts: FC<PostsProps> = ({ post, comment }) => {
   const classes = useStyles()
 
-  console.log('Single Post',post.Author)
+  console.log('Single Post', post.Author)
 
   return (
     <>
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxOrient: 'vertical',
       wordBreak: 'break-all',
       overflow: 'hidden',
-      width: '97%',
+      // width: '97%',
     },
   })
 )
