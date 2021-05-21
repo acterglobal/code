@@ -14,7 +14,7 @@ import {
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
-import { Acter, InterestType, User } from '@schema'
+import { Acter, InterestType, User, Post } from '@schema'
 
 import { Layout } from 'src/components/layout'
 import {
@@ -26,6 +26,7 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
+import CREATE_POST from 'api/mutations/post-create.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -67,12 +68,14 @@ interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
   user: User
+  posts: Post[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
   interestTypes,
   user,
+  posts,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   useEffect(() => {
@@ -129,6 +132,20 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
+  const [createPost] = useNotificationMutation(CREATE_POST, {
+    getSuccessMessage: () => 'Post created',
+  })
+
+  const handlePost = async (postText) => {
+    createPost({
+      variables: {
+        content: postText,
+        acterId: acter.id,
+        authorId: user.Acter.id,
+      },
+    })
+  }
+
   const View = getActerView(displayActer)
 
   return (
@@ -141,6 +158,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection, user)}
         onLeave={_handleLeave(deleteConnection)}
         loading={creatingConnection || deletingConnection || acterUpdateLoading}
+        posts={posts}
+        onPostCreate={handlePost}
       />
     </Layout>
   )

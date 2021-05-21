@@ -2,42 +2,24 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
-import Divider from '@material-ui/core/Divider'
-import { Posts as SinglePost } from 'src/components/posts/posts'
-import { PostForm as CommentForm } from 'src/components/posts/post-form'
-import { Post, User } from '@schema'
+import { Post } from 'src/components/posts/post'
+import { Post as Posts } from '@schema'
 
-export interface PostsProps {
-  post: Post
-  user: User
+export interface PostListProps {
+  posts: Posts[]
 }
 
-export const Posts: FC<PostsProps> = ({ post, user }) => {
+export const PostList: FC<PostListProps> = ({ posts }) => {
   const classes = useStyles()
-
-  const handleSubmit = (values, submitProps) => {
-    console.log(values)
-    submitProps.resetForm()
-  }
 
   return (
     <Box className={classes.root}>
       <Box className={classes.mainContainer}>
-        <CommentForm user={user} onSubmit={handleSubmit} />
-      </Box>
-      <Box className={classes.mainContainer}>
-        <Box className={classes.contentContainer}>
-          <SinglePost post={post} />
-        </Box>
-
-        <Divider className={classes.divider} />
-
-        {post.Comments.map((comment, index) => (
-          <Box key={index} className={classes.contentContainer}>
-            <SinglePost post={comment} comment />
+        {posts?.map((post, i) => (
+          <Box className={classes.contentContainer}>
+            <Post key={i} post={post} />
           </Box>
         ))}
-        <CommentForm user={user} comment onSubmit={handleSubmit} />
       </Box>
     </Box>
   )
@@ -74,13 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
-    },
-    divider: {
-      color: grey[700],
-      marginLeft: 30,
-      marginBottom: 10,
-      width: '95%',
-      height: 2,
     },
     image: {
       marginTop: theme.spacing(3),

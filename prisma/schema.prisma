@@ -196,7 +196,6 @@ model ActivityType {
 
 model Post {
   id        String   @id @default(uuid())
-  subject   String
   content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -210,6 +209,8 @@ model Post {
 
   Author   Acter  @relation("authored", fields: [authorId], references: [id])
   authorId String @map("author_id")
+
+  @@map("posts")
 }
 
 model Interest {

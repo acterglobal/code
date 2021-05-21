@@ -1,11 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
-import { Form, Formik, Field } from 'formik'
-import { TextField } from 'formik-material-ui'
+import { Box, InputLabel } from '@material-ui/core'
+import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
-import Image from 'next/image'
-import { getImageUrl } from 'src/lib/images/get-image-url'
+import { TextEditor } from 'src/components/util/text-editor'
+import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
 
 export interface PostFormProps {
@@ -17,48 +16,48 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
   const classes = useStyles()
 
+  const [editorFocus, setEditorFocus] = useState(null)
+
   const initialValues = {
-    commentInput: '',
+    postText: '',
   }
 
   return (
     <Box className={classes.contentContainer}>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(user.Acter.avatarUrl, 'avatar')}
-          alt={user.name}
-          layout="responsive"
-          width="50"
-          height="50"
-        />
-      </Box>
+      <ActerAvatar acter={user.Acter} size={6} />
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
           enableReinitialize
         >
-          <Form className={classes.formContainer}>
-            <Field
-              component={TextField}
-              {...(comment
-                ? { label: 'Share your comment' }
-                : { label: 'Share your thoughts' })}
-              name="commentField"
-              variant="outlined"
-              multiline
-              rows={1}
-              className={classes.commentField}
-            />
-            <Button
-              size="small"
-              variant="outlined"
-              color="primary"
-              type="submit"
-            >
-              {comment ? 'Add Comment' : 'Post'}
-            </Button>
-          </Form>
+          {({ setFieldValue }) => (
+            <Form className={classes.formContainer}>
+              <Box mb={1} onClick={() => editorFocus.focus()}>
+                <InputLabel style={{ marginBottom: 5 }}>
+                  Share your thoughts
+                </InputLabel>
+                <TextEditor
+                  width={535}
+                  height={120}
+                  initialValue={initialValues.postText}
+                  // @ts-ignore
+                  handleInputChange={(value) =>
+                    setFieldValue('postText', value)
+                  }
+                  handleFocus={(editorRef) => setEditorFocus(editorRef)}
+                />
+              </Box>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                type="submit"
+              >
+                {comment ? 'Add Comment' : 'Post'}
+              </Button>
+            </Form>
+          )}
         </Formik>
       </Box>
     </Box>

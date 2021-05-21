@@ -1,0 +1,17 @@
+mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
+  createPost(
+    data: {
+      content: $content
+      Acter: { connect: { id: $acterId } }
+      Author: { connect: { id: $authorId } }
+    }
+  ) {
+    content
+    Acter {
+      name
+    }
+    Author {
+      name
+    }
+  }
+}
