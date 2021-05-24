@@ -89,7 +89,10 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
     <ListItem className={classes.item}>
       <Link href={href}>
         <a>
-          <Icon fontSize="large" aria-label={text} />
+          <Icon
+            fontSize={text === 'Acter' ? 'large' : 'default'}
+            aria-label={text}
+          />
         </a>
       </Link>
     </ListItem>
