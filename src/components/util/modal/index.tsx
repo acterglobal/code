@@ -5,14 +5,14 @@ import { TopBar } from 'src/components/util/modal/top-bar'
 import { TopBarProps } from 'src/components/util/modal/top-bar'
 
 export interface ModalProps extends TopBarProps {
-  openModal: boolean
+  open: boolean
   children: ReactNode
   handleModalClose?: (any?) => void
   disableBackdropClick?: boolean
 }
 // TODO: need to refactor
 export const Modal: FC<ModalProps> = ({
-  openModal,
+  open,
   children,
   handleModalClose,
   actionButtons = null,
@@ -28,14 +28,14 @@ export const Modal: FC<ModalProps> = ({
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={openModal}
+      open={open}
       // onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{ timeout: 500 }}
       disableBackdropClick={disableBackdropClick}
     >
-      <Fade in={openModal}>
+      <Fade in={open}>
         <div className={classes.modalContainer}>
           <TopBar
             handleClose={handleModalClose}

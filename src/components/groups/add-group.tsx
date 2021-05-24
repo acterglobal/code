@@ -12,16 +12,16 @@ import {
   FormGroup,
   FormLabel,
   FormHelperText,
-  Switch,
-  withStyles,
 } from '@material-ui/core'
-
+import { Switch } from 'src/components/styled/switch'
+import { Acter } from '@schema'
 export interface AddGroupProps {
+  acter: Acter
   openModal: boolean
   setModal: (open: boolean) => void
 }
 
-export const AddGroup: FC<AddGroupProps> = ({ openModal, setModal }) => {
+export const AddGroup: FC<AddGroupProps> = ({ acter, openModal, setModal }) => {
   const classes = useStyles()
 
   const [switchOn, setSwitchOn] = useState(false)
@@ -30,17 +30,21 @@ export const AddGroup: FC<AddGroupProps> = ({ openModal, setModal }) => {
     const values = { ...data, makePrivate: switchOn }
     console.log('VALUES :', values)
   }
+  const handleModalClose = () => setModal(!openModal)
 
   const initialValues = {
+    ...acter,
     name: '',
     description: '',
+    parentActerId: acter.id,
+    acterTypeId: 'c6742950-60cb-41c5-afe7-d045cb8857f9',
   }
 
   return (
     <Modal
-      openModal={openModal}
+      open={openModal}
       heading="Create work group"
-      handleModalClose={() => setModal(!openModal)}
+      handleModalClose={handleModalClose}
     >
       <Box className={classes.content}>
         <Typography className={classes.headerMessage} variant="body2">
@@ -75,10 +79,10 @@ export const AddGroup: FC<AddGroupProps> = ({ openModal, setModal }) => {
                   When a group is set to private, new members need to be
                   approved.
                 </FormHelperText>
-                <AntSwitch
-                  checked={switchOn}
-                  onChange={() => setSwitchOn(!switchOn)}
+                <Switch
                   name="makePrivate"
+                  checked={switchOn}
+                  handleSwitchChange={() => setSwitchOn(!switchOn)}
                 />
               </Box>
             </FormGroup>
@@ -144,39 +148,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
-const AntSwitch = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: 48,
-      height: 22,
-      padding: 0,
-      display: 'flex',
-    },
-    switchBase: {
-      padding: 2.5,
-      color: theme.palette.grey[500],
-      '&$checked': {
-        transform: 'translateX(24px)',
-        color: theme.palette.common.white,
-        '& + $track': {
-          opacity: 1,
-          backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.primary.main,
-        },
-      },
-    },
-    thumb: {
-      width: 18,
-      height: 18,
-      boxShadow: 'none',
-    },
-    track: {
-      border: `1px solid ${theme.palette.grey[500]}`,
-      borderRadius: 26 / 2,
-      opacity: 1,
-      backgroundColor: theme.palette.common.white,
-    },
-    checked: {},
-  })
-)(Switch)

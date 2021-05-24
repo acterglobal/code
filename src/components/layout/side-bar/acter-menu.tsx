@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import {
   MenuList,
   ListItem,
@@ -7,8 +7,6 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  Box,
-  Typography,
 } from '@material-ui/core'
 import {
   DateRangeOutlined as CalendarIcon,
@@ -22,8 +20,8 @@ import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { Acter, ActerConnectionRole, User } from '@schema'
 import { ACTIVITIES, FEED, MEMBERS, SETTINGS } from 'src/constants'
-
-export interface ActerMenuProps {
+import { GroupsSection } from 'src/components/layout/side-bar/groups-section'
+interface ActerMenuProps {
   acter?: Acter
   user?: User
 }
@@ -31,7 +29,6 @@ export interface ActerMenuProps {
 export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
   if (!acter) return null
   const classes = useStyles()
-  const [openModal, setOpenModal] = useState(false)
 
   return (
     <MenuList>
@@ -46,6 +43,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
+      <Divider />
+
+      <GroupsSection acter={acter} />
     </MenuList>
   )
 }
@@ -57,17 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
-    },
-    groupHeader: {
-      marginTop: theme.spacing(1),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    addIcon: {
-      fontSize: 20,
-      cursor: 'pointer',
     },
   })
 )

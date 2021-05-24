@@ -24,7 +24,7 @@ export const StateFullModal: FC<StateFullModalProps> = ({
 
   return (
     <Modal
-      openModal={open}
+      open={open}
       handleModalClose={handleClose}
       actionButtons={actionButtons}
       acter={acter}
