@@ -15,7 +15,7 @@
     "test": "rm -rf .next out && env-cmd jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
     "test:ci": "rm -rf .next out && jest",
-    "cover": "rm -rf .next && env-cmd jest --coverage",
+    "cover": "rm -rf .next && env-cmd --silent jest --coverage",
     "postinstall": "yarn generate",
     "husky-install": "husky install",
     "storybook": "start-storybook -s ./public -p 6006",
