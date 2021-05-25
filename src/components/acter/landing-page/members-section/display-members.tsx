@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 import pluralize from 'pluralize'
 import {
   Box,
@@ -8,12 +8,117 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  ListItemSecondaryAction,
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { ExampleActer } from 'src/__fixtures__'
-import { Acter } from '@schema'
+import {
+  ConnectionState,
+  ConnectionStateProps,
+} from 'src/components/acter/landing-page/members-section/connection-state'
+import {
+  Acter,
+  ActerConnection,
+  ActerConnectionRole,
+  ActerJoinSettings,
+  User,
+} from '@schema'
+
+import { ORGANISATIONS, PEOPLE } from 'src/constants'
+
+export type MemberType = typeof ORGANISATIONS | typeof PEOPLE
+export interface DisplayMembersProps {
+  /**
+   * The acter on which we are viewing members
+   */
+  acter: Acter
+  /**
+   * The list of acters we are displaying
+   */
+  followers: ActerConnection[]
+  /**
+   * The currently logged in user
+   */
+  user: User
+  /**
+   * The type of connection
+   */
+  type: MemberType
+  /**
+   * Action when Member state changes
+   */
+  onConnectionStateChange: ConnectionStateProps['onSubmit']
+}
+
+export const DisplayMembers: FC<DisplayMembersProps> = ({
+  acter,
+  user,
+  followers = [],
+  type,
+  onConnectionStateChange,
+}) => {
+  const classes = useStyles()
+
+  const showJoinState = followerHasRoleOnActer(
+    user.Acter,
+    ActerConnectionRole.MEMBER,
+    acter
+  )
+  const canEdit = followerHasRoleOnActer(
+    user.Acter,
+    ActerConnectionRole.ADMIN,
+    acter
+  )
+
+  return (
+    <Box className={classes.container}>
+      <Typography className={classes.heading} variant="h5">
+        {followers.length} {pluralize(type)}
+      </Typography>
+      <Divider />
+
+      <List className={classes.members}>
+        {followers.map((connection) => {
+          const { Follower } = connection
+          return (
+            <>
+              <ListItem>
+                <ListItemAvatar>
+                  <ActerAvatar acter={Follower} />
+                </ListItemAvatar>
+                <ListItemText
+                  classes={{
+                    primary: classes.name,
+                    secondary: classes.acterType,
+                  }}
+                  className={classes.memberInfo}
+                  primary={Follower.name}
+                  secondary={Follower.ActerType.name}
+                />
+                {showJoinState && (
+                  <ListItemSecondaryAction>
+                    <ConnectionState
+                      connection={connection}
+                      canEdit={canEdit}
+                      onSubmit={onConnectionStateChange}
+                    />
+                  </ListItemSecondaryAction>
+                )}
+              </ListItem>
+              <Divider
+                classes={{ root: classes.divider }}
+                variant="inset"
+                component="li"
+              />
+            </>
+          )
+        })}
+      </List>
+    </Box>
+  )
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -52,47 +157,3 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: 100,
   },
 }))
-
-export interface DisplayMembers {
-  acters: Acter[]
-  type: string
-}
-
-export const DisplayMembers: FC<DisplayMembers> = ({ acters = [], type }) => {
-  const classes = useStyles()
-
-  return (
-    <Box className={classes.container}>
-      <Typography className={classes.heading} variant="h5">
-        {acters.length} {pluralize(type)}
-      </Typography>
-      <Divider />
-
-      <List className={classes.members}>
-        {acters.map((acter) => (
-          <Fragment key={acter.id}>
-            <ListItem>
-              <ListItemAvatar>
-                <ActerAvatar acter={ExampleActer} />
-              </ListItemAvatar>
-              <ListItemText
-                classes={{
-                  primary: classes.name,
-                  secondary: classes.acterType,
-                }}
-                className={classes.memberInfo}
-                primary={acter.name}
-                secondary={acter.ActerType.name}
-              />
-            </ListItem>
-            <Divider
-              classes={{ root: classes.divider }}
-              variant="inset"
-              component="li"
-            />
-          </Fragment>
-        ))}
-      </List>
-    </Box>
-  )
-}

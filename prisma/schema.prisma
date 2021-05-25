@@ -101,11 +101,18 @@ model Acter {
   @@map("acters")
 }
 
+enum ActerConnectionRole {
+  PENDING
+  MEMBER
+  ADMIN
+}
+
 model ActerConnection {
-  id         String   @id @default(uuid())
-  isApproved Boolean? @default(true) @map("is_approved")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id         String              @id @default(uuid())
+  isApproved Boolean?            @default(true) @map("is_approved")
+  role       ActerConnectionRole @default(MEMBER)
+  createdAt  DateTime            @default(now()) @map("created_at")
+  updatedAt  DateTime            @updatedAt @map("updated_at")
 
   CreatedByUser   User   @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")

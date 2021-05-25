@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
-import { AvatarGroup } from 'src/components/acter/avatar-group'
 import { Box, Typography } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { titleCase } from 'title-case'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { Acter, ActerType } from '@schema'
-import { ORGANISATION } from 'src/constants'
+import { filterConnectionsByAtLeastRole } from 'src/lib/acter/filter-connections-by-at-least-role'
+import { mapFollowersByType } from 'src/lib/acter/map-followers-by-type'
+import { AvatarGroup } from 'src/components/acter/avatar-group'
+import { Acter, ActerConnectionRole, ActerType } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,16 +43,17 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
   const classes = useStyles()
   const router = useRouter()
 
-  const users = acter.Followers?.filter(
-    ({ Follower }) => Follower.ActerType.name === 'user'
-  ).map(({ Follower }) => Follower)
-  const organisations = acter.Followers?.filter(
-    ({ Follower }) => Follower.ActerType.name === ORGANISATION
-  ).map(({ Follower }) => Follower)
+  const followerTypeMap = mapFollowersByType(acter)
 
   return (
     <Box>
-      {[users, organisations].map((acters) => {
+      {Object.keys(followerTypeMap).map((type) => {
+        const connections = followerTypeMap[type]
+
+        const acters = filterConnectionsByAtLeastRole(
+          connections,
+          ActerConnectionRole.MEMBER
+        ).map(({ Follower }) => Follower)
         if (!acters?.length) {
           return null
         }

@@ -14,7 +14,14 @@ import {
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
 
-import { Acter, InterestType, User, Post } from '@schema'
+import {
+  Acter,
+  ActerConnection,
+  ActerConnectionRole,
+  InterestType,
+  Post,
+  User,
+} from '@schema'
 
 import { Layout } from 'src/components/layout'
 import {
@@ -25,32 +32,43 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
+import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
+import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
 
-const _handleJoin = (createConnection: MutationFunction, user: User) => (
-  follower: Acter,
-  following: Acter
+const _handleJoin = (createConnection: MutationFunction) => (
+  following: Acter,
+  follower: Acter
 ) =>
   createConnection({
     variables: {
       followerActerId: follower.id,
       followingActerId: following.id,
-      createdByUserId: user.id,
     },
   })
 
 const _handleLeave = (deleteConnection: MutationFunction) => (
-  follower: Acter,
-  following: Acter
+  following: Acter,
+  follower: Acter
 ) =>
   deleteConnection({
     variables: {
       followerActerId: follower.id,
       followingActerId: following.id,
+    },
+  })
+
+const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
+  connection: ActerConnection,
+  role: ActerConnectionRole
+) =>
+  updateConnection({
+    variables: {
+      connectionId: connection.id,
+      role: role,
     },
   })
 
@@ -123,12 +141,25 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     getSuccessMessage: () => `Disconnected from ${acter.name}`,
   })
   const [
-    updateActer,
-    { loading: acterUpdateLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: () => 'Settings updated',
-    onCompleted: (data) => {
-      setDisplayActer(data.updateActer)
+    updateConnection,
+    { loading: updatingConnection },
+  ] = useNotificationMutation(UPDATE_ACTER_CONNECTION, {
+    update: (cache, { data }) => {
+      const { updateActerConnection: connection } = data
+      const connectionIndex = acter.Followers.findIndex(
+        ({ Follower }) => Follower.id === connection.followerActerId
+      )
+      acter.Followers = [
+        ...acter.Followers.slice(0, connectionIndex),
+        connection,
+        ...acter.Followers.slice(connectionIndex + 1, acter.Followers.length),
+      ]
+      cache.writeFragment({
+        id: cache.identify(connection),
+        fragment: ACTER_CONNECTION_FRAGMENT,
+        fragmentName: 'ActerConnectionFull',
+        data: connection,
+      })
     },
   })
 
@@ -155,11 +186,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter={displayActer}
         user={user}
         interestTypes={interestTypes}
-        onJoin={_handleJoin(createConnection, user)}
-        onLeave={_handleLeave(deleteConnection)}
-        loading={creatingConnection || deletingConnection || acterUpdateLoading}
         posts={posts}
+        onJoin={_handleJoin(createConnection)}
+        onLeave={_handleLeave(deleteConnection)}
         onPostCreate={handlePost}
+        onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
+        loading={creatingConnection || deletingConnection || updatingConnection}
       />
     </Layout>
   )

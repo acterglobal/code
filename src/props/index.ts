@@ -1,3 +1,4 @@
+export * from 'src/props/check-role'
 export * from 'src/props/get-acter'
 export * from 'src/props/get-acter-types'
 export * from 'src/props/get-activity-types'

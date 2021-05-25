@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
-import { userIsFollower } from 'src/lib/acter/user-is-follower'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
-import { ACTIVITIES } from 'src/constants'
-import { Acter, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
+import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
+import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
+import { Acter, ActerConnectionRole, User } from '@schema'
+import { ACTIVITIES } from 'src/constants'
 
 export interface AddActivityButtonProps {
   acter: Acter
@@ -22,7 +22,11 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
 
   if (tab !== ACTIVITIES) return null
 
-  const canCreateActivity = userIsFollower(acter, user)
+  const canCreateActivity = followerHasRoleOnActer(
+    user.Acter,
+    ActerConnectionRole.MEMBER,
+    acter
+  )
 
   if (!canCreateActivity) return null
 

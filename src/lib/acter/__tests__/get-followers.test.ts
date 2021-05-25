@@ -1,0 +1,86 @@
+import { getFollowers } from 'src/lib/acter/get-followers'
+import { filterFollowers } from 'src/lib/acter/filter-followers'
+import {
+  ExampleActer,
+  ExampleUser,
+  ExampleUserActer,
+  ExampleActerConnection,
+} from 'src/__fixtures__'
+import { Acter } from '@schema'
+
+jest.mock('src/lib/acter/filter-followers')
+
+describe('getFollowers', () => {
+  beforeAll(() => {
+    const mockFilterFollowers = filterFollowers as jest.Mock
+    mockFilterFollowers.mockImplementation(
+      (acters: Acter[]) => (_acter: Acter) => acters
+    )
+  })
+
+  it('should return an empty array if there is no Acter or there are no Followers available', () => {
+    const user = {
+      ...ExampleUser,
+      Acter: {
+        ...ExampleUserActer,
+        Following: [],
+      },
+    }
+
+    expect(getFollowers(user, ExampleActer)).toStrictEqual([])
+  })
+
+  it('should create a list of Acters for which the current User is following', () => {
+    const acter1 = {
+      ...ExampleActer,
+      uuid: 'b554a451-d53a-4d86-8776-795351354160',
+      name: 'acter1',
+    }
+    const acter2 = {
+      ...ExampleActer,
+      uuid: 'b554a451-d53a-4d86-8776-795351354160',
+      name: 'acter2',
+    }
+    const user = {
+      ...ExampleUser,
+      Acter: {
+        ...ExampleUserActer,
+        Following: [
+          {
+            ...ExampleActerConnection,
+            Following: acter1,
+          },
+          {
+            ...ExampleActerConnection,
+            Following: acter2,
+          },
+        ],
+      },
+    }
+
+    expect(getFollowers(user, ExampleActer)).toStrictEqual([acter1, acter2])
+  })
+
+  it("should only add the current User's Acter if the given Acter was not created by the User", () => {
+    const userActer = {
+      ...ExampleUserActer,
+      Following: [ExampleActerConnection],
+    }
+    const user = {
+      ...ExampleUser,
+      Acter: userActer,
+    }
+    const acterCreatedByUser = {
+      ...ExampleActer,
+      createdByUserId: user.id,
+    }
+    const acterCreatedByAnotherUser = {
+      ...ExampleActer,
+      createdByUserId: '1c88534b-7158-40ec-81a9-31d973077916',
+    }
+
+    expect(getFollowers(user, acterCreatedByUser)).not.toContain(userActer)
+
+    expect(getFollowers(user, acterCreatedByAnotherUser)).toContain(userActer)
+  })
+})

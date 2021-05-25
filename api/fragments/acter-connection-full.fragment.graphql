@@ -2,7 +2,7 @@
 
 fragment ActerConnectionFull on ActerConnection {
   id
-  isApproved
+  role
   followerActerId
   followingActerId
   Follower {
