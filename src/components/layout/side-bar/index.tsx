@@ -17,6 +17,7 @@ import {
   SvgIconComponent,
 } from '@material-ui/icons'
 import { ActerLogoText } from 'src/components/icons/acter-logo-text'
+<<<<<<< HEAD
 import {
   ActerMenu,
   ActerMenuProps,
@@ -28,8 +29,38 @@ import {
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
 export type SidebarProps = ActerMenuProps & FollowingListProps
+=======
+import { ActerMenu } from 'src/components/layout/side-bar/acter-menu'
+import { FollowingList } from 'src/components/layout/side-bar/following-list'
+import { Acter, ActerType, User } from '@schema'
+import { commonStyles } from 'src/components/layout/side-bar/common'
 
-export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
+export interface SidebarProps {
+  /**
+   * Optional Acter for which to show context submenu
+   */
+  acter?: Acter
+  /**
+   * acter types
+   */
+  acterTypes?: ActerType[]
+  /**
+   * Optional logged in User
+   */
+  user?: User
+  /**
+   * callback to create group
+   */
+  onCreateGroup: (gropuData: Acter) => void
+}
+>>>>>>> b052432 (passing props)
+
+export const Sidebar: FC<SidebarProps> = ({
+  acter,
+  acterTypes,
+  user,
+  onCreateGroup,
+}) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
 
@@ -60,7 +91,15 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
+<<<<<<< HEAD
           <ActerMenu acter={acter} user={user} />
+=======
+          <ActerMenu
+            acter={acter}
+            acterTypes={acterTypes}
+            onCreateGroup={onCreateGroup}
+          />
+>>>>>>> b052432 (passing props)
         </Box>
       )}
     </Drawer>

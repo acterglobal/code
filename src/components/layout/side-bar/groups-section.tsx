@@ -2,13 +2,18 @@ import React, { FC, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
-import { AddGroup } from 'src/components/groups/add-group'
-import { Acter } from '@schema'
-
+import { AddGroup } from 'src/components/group/form'
+import { Acter, ActerType } from '@schema'
 export interface GroupsSectionProps {
   acter: Acter
+  acterTypes: ActerType[]
+  onCreateGroup: (groupData: Acter) => void
 }
-export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
+export const GroupsSection: FC<GroupsSectionProps> = ({
+  acter,
+  acterTypes,
+  onCreateGroup,
+}) => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
 
@@ -26,7 +31,13 @@ export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
       />
 
       {openModal && (
-        <AddGroup acter={acter} openModal={openModal} setModal={setOpenModal} />
+        <AddGroup
+          parentActer={acter}
+          acterTypes={acterTypes}
+          openModal={openModal}
+          setModal={setOpenModal}
+          onCreateGroup={onCreateGroup}
+        />
       )}
     </Box>
   )
