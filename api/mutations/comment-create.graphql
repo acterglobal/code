@@ -1,0 +1,23 @@
+mutation CreatePost(
+  $content: String!
+  $acterId: String!
+  $authorId: String!
+  $parentId: String!
+) {
+  createComment(
+    data: {
+      content: $content
+      Acter: { connect: { id: $acterId } }
+      Author: { connect: { id: $authorId } }
+      Parent: { connect: { id: $parentId } }
+    }
+  ) {
+    content
+    Acter {
+      name
+    }
+    Author {
+      name
+    }
+  }
+}
