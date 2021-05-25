@@ -7,17 +7,19 @@ import { Post as Posts } from '@schema'
 
 export interface PostsProps {
   post: Posts
-  comment?: boolean
+  commenting?: boolean
 }
 
-export const Post: FC<PostsProps> = ({ post, comment }) => {
+export const Post: FC<PostsProps> = ({ post, commenting }) => {
   const classes = useStyles()
 
   return (
     <>
-      <ActerAvatar acter={post.Author} size={6} />
+      <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
       <Box
-        className={comment ? classes.commentContainer : classes.postContainer}
+        className={
+          commenting ? classes.commentContainer : classes.postContainer
+        }
       >
         <Box>
           <Typography variant="subtitle1" className={classes.title}>

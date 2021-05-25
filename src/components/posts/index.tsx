@@ -8,10 +8,18 @@ import { Post as Posts } from '@schema'
 
 export interface PostListProps extends PostFormProps {
   posts: Posts[]
+  user: User
 }
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
   const classes = useStyles()
+  console.log('Testing index POSTS ', posts[0].Comments[0])
+
+  const handleSubmit = (values, submitProps) => {
+    submitProps.resetForm()
+    console.log(values)
+    // onCommentCreate(values.postText)
+  }
 
   return (
     <Box className={classes.root}>
@@ -22,12 +30,12 @@ export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
             <Post post={post}> 
               {post.Comments?.map((comment) => (
                 <Box key={comment.id} className={classes.contentContainer}>
-                  <Post post={comment} comment />
+                  <Post key={comment.id} post={comment} commenting />
                 </Box>
               ))}
-            </Post>
-          </Box>
-        ))}
+              <PostForm user={user} onSubmit={handleSubmit} />
+            </Box>
+          ))}
       </Box>
     </Box>
   )
@@ -55,6 +63,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
+    },
+    postItems: {
+      width: '100%',
     },
     contentContainer: {
       width: '100%',
