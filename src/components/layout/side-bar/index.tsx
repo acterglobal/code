@@ -51,7 +51,7 @@ export interface SidebarProps {
   /**
    * callback to create group
    */
-  onCreateGroup: (gropuData: Acter) => void
+  onCreateGroup: (groupData: Acter) => void
 }
 >>>>>>> b052432 (passing props)
 
@@ -118,10 +118,7 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
     <ListItem className={classes.item}>
       <Link href={href}>
         <a>
-          <Icon
-            fontSize={text === 'Acter' ? 'large' : 'default'}
-            aria-label={text}
-          />
+          <Icon fontSize="large" aria-label={text} />
         </a>
       </Link>
     </ListItem>

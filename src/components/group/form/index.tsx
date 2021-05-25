@@ -23,7 +23,7 @@ export interface AddGroupProps {
   acterTypes: ActerType[]
   openModal: boolean
   setModal: (open: boolean) => void
-  onCreateGroup: (gropuData: Acter) => void
+  onCreateGroup: (groupData: Acter) => void
 }
 
 export const AddGroup: FC<AddGroupProps> = ({
@@ -35,7 +35,7 @@ export const AddGroup: FC<AddGroupProps> = ({
 }) => {
   const classes = useStyles()
   const [switchOn, setSwitchOn] = useState(
-    parentActer.userJoinSetting === ActerJoinSettings.RESTRICTED ? true : false
+    parentActer.acterJoinSetting === ActerJoinSettings.RESTRICTED ? true : false
   )
   const acterType = getActerTypeByName(acterTypes, GROUP)
 
@@ -47,7 +47,7 @@ export const AddGroup: FC<AddGroupProps> = ({
   }
 
   const handleSubmit = (data) => {
-    data.userJoinSetting = switchOn
+    data.acterJoinSetting = switchOn
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
     console.log('ACTER', data)

@@ -189,7 +189,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         description: groupData.description,
         acterTypeId: groupData.acterTypeId,
         parentActerId: groupData.parentActerId,
-        userJoinSetting: groupData.userJoinSetting,
+        acterJoinSetting: groupData.acterJoinSetting,
         interestIds: [],
       },
     })
