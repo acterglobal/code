@@ -7,7 +7,7 @@ mutation ActerUpdate(
   $location: String
   $url: String
   $useAdmins: Boolean
-  $userJoinSetting: ActerJoinSettings
+  $acterJoinSetting: ActerJoinSettings
   $avatarUrl: String
   $bannerUrl: String
   $interestIds: [String!]!
@@ -19,7 +19,7 @@ mutation ActerUpdate(
     location: $location
     url: $url
     useAdmins: $useAdmins
-    userJoinSetting: $userJoinSetting
+    acterJoinSetting: $acterJoinSetting
     avatarUrl: $avatarUrl
     bannerUrl: $bannerUrl
     interestIds: $interestIds

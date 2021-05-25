@@ -14,8 +14,8 @@ export class ActerResolver {
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
-    @Arg('userJoinSetting', () => ActerJoinSettings, { nullable: true })
-    userJoinSetting: ActerJoinSettings,
+    @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
+    acterJoinSetting: ActerJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
@@ -57,7 +57,7 @@ export class ActerResolver {
         location,
         url,
         useAdmins,
-        userJoinSetting,
+        acterJoinSetting,
         acterTypeId,
         updatedAt: new Date(),
         createdByUserId,
@@ -89,8 +89,8 @@ export class ActerResolver {
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
-    @Arg('userJoinSetting', () => ActerJoinSettings, { nullable: true })
-    userJoinSetting: ActerJoinSettings,
+    @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
+    acterJoinSetting: ActerJoinSettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
@@ -138,7 +138,7 @@ export class ActerResolver {
         location,
         url,
         useAdmins,
-        userJoinSetting,
+        acterJoinSetting,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -160,8 +160,8 @@ export class ActerResolver {
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
-    @Arg('userJoinSetting', () => ActerJoinSettings, { nullable: true })
-    userJoinSetting: ActerJoinSettings,
+    @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
+    acterJoinSetting: ActerJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -178,7 +178,7 @@ export class ActerResolver {
       location,
       url,
       useAdmins,
-      userJoinSetting,
+      acterJoinSetting,
       acterTypeId,
       interestIds
     )
@@ -207,8 +207,8 @@ export class ActerResolver {
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
-    @Arg('userJoinSetting', () => ActerJoinSettings, { nullable: true })
-    userJoinSetting: ActerJoinSettings,
+    @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
+    acterJoinSetting: ActerJoinSettings,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -226,7 +226,7 @@ export class ActerResolver {
       location,
       url,
       useAdmins,
-      userJoinSetting,
+      acterJoinSetting,
       null,
       bannerUrl,
       interestIds

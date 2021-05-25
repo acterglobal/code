@@ -25,7 +25,7 @@ export const ExampleActer: Acter = {
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,
   Following: [],
-  userJoinSetting: ActerJoinSettings.EVERYONE,
+  acterJoinSetting: ActerJoinSettings.EVERYONE,
 }
 
 export const ExampleUserActer: Acter = {
