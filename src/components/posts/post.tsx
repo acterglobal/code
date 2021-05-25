@@ -91,7 +91,6 @@ const useStyles = makeStyles((theme: Theme) =>
       boxOrient: 'vertical',
       wordBreak: 'break-all',
       overflow: 'hidden',
-      width: '97%',
     },
   })
 )

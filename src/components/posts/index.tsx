@@ -15,9 +15,9 @@ export const PostList: FC<PostListProps> = ({ posts }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.mainContainer}>
-        {posts?.map((post, i) => (
-          <Box className={classes.contentContainer}>
-            <Post key={i} post={post} />
+        {posts?.map((post) => (
+          <Box key={post.id} className={classes.contentContainer}>
+            <Post post={post} />
           </Box>
         ))}
       </Box>
