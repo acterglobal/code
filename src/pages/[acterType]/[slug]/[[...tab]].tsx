@@ -19,6 +19,7 @@ import {
   Acter,
   ActerConnection,
   ActerConnectionRole,
+  ActerType,
   InterestType,
   Post,
   User,
@@ -31,6 +32,7 @@ import {
 } from 'src/components/acter/landing-page'
 import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 
+import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
@@ -87,6 +89,7 @@ const getActerView = (acter): FC<ActerOrActivityView> => {
 
 interface ActerLandingPageProps {
   acter: Acter
+  acterTypes: ActerType[]
   interestTypes: InterestType[]
   user: User
   posts: Post[]
@@ -94,6 +97,7 @@ interface ActerLandingPageProps {
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
+  acterTypes,
   interestTypes,
   user,
   posts,
@@ -167,6 +171,29 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       })
     },
   })
+  const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
+    getErrorMessage: () => 'Created Group',
+    onCompleted: (data) => {
+      console.log('AFTER MUTATION DATA: ', data)
+    },
+    onError: (err) => {
+      console.log('AFTER MUTATION ERROR: ', err)
+    },
+  })
+
+  const handleCreateGroup = (groupData) => {
+    console.log(groupData)
+    createActer({
+      variables: {
+        name: groupData.name,
+        description: groupData.description,
+        acterTypeId: groupData.acterTypeId,
+        parentActerId: groupData.parentActerId,
+        userJoinSetting: groupData.userJoinSetting,
+        interestIds: [],
+      },
+    })
+  }
 
   const [createPost] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
@@ -220,7 +247,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(displayActer)
 
   return (
-    <Layout acter={acter} user={user}>
+    <Layout
+      acter={acter}
+      acterTypes={acterTypes}
+      user={user}
+      onCreateGroup={handleCreateGroup}
+    >
       <Head title={`${acter.name} - Acter`} />
       <View
         acter={displayActer}
