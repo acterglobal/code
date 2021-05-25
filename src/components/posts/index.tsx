@@ -9,14 +9,14 @@ import { Post as Posts } from '@schema'
 export interface PostListProps extends PostFormProps {
   posts: Posts[]
   user: User
+  onCommentCreate: (data: any) => void
 }
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
   const classes = useStyles()
 
   const handleSubmit = (values) => {
-    console.log('These are the values', values)
-    // onCommentCreate(values.postText)
+    onCommentCreate(values)
   }
 
   return (
