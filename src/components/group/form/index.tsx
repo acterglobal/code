@@ -54,6 +54,7 @@ export const AddGroup: FC<AddGroupProps> = ({
     onCreateGroup(data)
   }
   const handleModalClose = () => setModal(!openModal)
+  const handleSwitch = () => setSwitchOn(!switchOn)
 
   return (
     <Modal
@@ -97,7 +98,7 @@ export const AddGroup: FC<AddGroupProps> = ({
                 <Switch
                   name="makePrivate"
                   checked={switchOn}
-                  handleSwitchChange={() => setSwitchOn(!switchOn)}
+                  handleSwitchChange={handleSwitch}
                 />
               </Box>
             </FormGroup>
