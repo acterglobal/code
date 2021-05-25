@@ -9,10 +9,10 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core'
-import { userIsFollower } from 'src/lib/acter/user-is-follower'
+import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
 import { ActivityTile } from 'src/components/activity/tile'
-import { Acter, Activity, User } from '@schema'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
+import { Acter, ActerConnectionRole, Activity, User } from '@schema'
 export interface ActivityListProps {
   /**
    * Organizing Acter for Activities
@@ -82,7 +82,7 @@ interface ZeroMessageProps {
 
 const ZeroMessage: FC<ZeroMessageProps> = ({ acter, activities, user }) => {
   if (activities.length <= 0) {
-    if (userIsFollower(acter, user)) {
+    if (followerHasRoleOnActer(user.Acter, ActerConnectionRole.MEMBER, acter)) {
       return (
         <DefaultMessage
           message="You have no activies."

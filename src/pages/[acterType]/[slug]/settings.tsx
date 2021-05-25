@@ -8,6 +8,7 @@ import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 
 import {
+  checkRole,
   getUserProfile,
   getActerTypes,
   getActer,
@@ -18,7 +19,7 @@ import { ActerSettings } from 'src/components/acter/settings'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
-import { Acter, User } from '@schema'
+import { Acter, ActerConnectionRole, User } from '@schema'
 
 interface ActerSettingsPageProps {
   acter: Acter
@@ -65,6 +66,13 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(true), getActerTypes, setActerType, getActer)
+  composeProps(
+    ctx,
+    getUserProfile(true),
+    getActerTypes,
+    setActerType,
+    getActer,
+    checkRole(ActerConnectionRole.ADMIN)
+  )
 
 export default ActerSettingsPage

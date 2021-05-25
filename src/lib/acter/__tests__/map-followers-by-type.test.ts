@@ -1,4 +1,4 @@
-import { mapFollowers } from 'src/lib/acter/map-followers'
+import { mapFollowersByType } from 'src/lib/acter/map-followers-by-type'
 import {
   ExampleActer,
   ExampleActerConnection,
@@ -6,14 +6,14 @@ import {
   NetworkActerType,
 } from 'src/__fixtures__'
 
-describe('mapFollowers', () => {
+describe('mapFollowersByType', () => {
   it('should fail gracefully when the provided Acter is not following anyone', () => {
     const acter = {
       ...ExampleActer,
       Following: null,
     }
 
-    const mapped = mapFollowers(acter)
+    const mapped = mapFollowersByType(acter)
     expect(mapped).toStrictEqual({})
   })
 
@@ -50,7 +50,7 @@ describe('mapFollowers', () => {
       ],
     }
 
-    const mapped = mapFollowers(acter)
+    const mapped = mapFollowersByType(acter)
     expect(mapped.organisation).toHaveLength(2)
     expect(mapped.network).toHaveLength(1)
     expect(mapped.foo).toBeFalsy()

@@ -10,7 +10,7 @@ import { User } from '@schema'
 import { ACTIVITY, USER } from 'src/constants'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
-interface FollowingListProps {
+export interface FollowingListProps {
   /**
    * Logged in User
    */
