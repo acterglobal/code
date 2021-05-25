@@ -1,13 +1,14 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
-import slugify from 'slugify'
 import {
   Acter,
   ActerConnectionRole,
   ActerJoinSettings,
   Activity,
 } from '@schema'
+import { createSlug } from 'src/lib/acter/create-acter-slug'
+import { ACTIVITY, USER } from 'src/constants'
 
 @Resolver(Acter)
 export class ActerResolver {
@@ -35,20 +36,15 @@ export class ActerResolver {
     }
     const createdByUserId = currentUser.id
 
-    // TODO create slug lib
-
-    let slugifyString
-
-    const existingParentActer = await ctx.prisma.acter.findFirst({
-      where: { id: parentActerId },
+    const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
+      select: { slug: true },
+      where: {
+        id: parentActerId,
+        ActerType: { name: { notIn: [USER, ACTIVITY] } },
+      },
     })
 
-    if (existingParentActer) {
-      slugifyString = existingParentActer.slug
-    }
-
-    slugifyString += name.toLocaleLowerCase()
-    const slug = slugify(slugifyString)
+    const slug = createSlug(name, parentActerSlug)
 
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {
