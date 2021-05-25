@@ -23,6 +23,7 @@ export class ActerResolver {
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
+    @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
@@ -34,7 +35,19 @@ export class ActerResolver {
     }
     const createdByUserId = currentUser.id
 
-    const slug = slugify(name.toLocaleLowerCase())
+    let slugifyString
+
+    const existingParentActer = await ctx.prisma.acter.findFirst({
+      where: { id: parentActerId },
+    })
+
+    if (existingParentActer) {
+      slugifyString = existingParentActer.name.toLocaleLowerCase() + ' '
+    }
+
+    slugifyString += name.toLocaleLowerCase()
+    const slug = slugify(slugifyString)
+
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {
         slug,
@@ -65,6 +78,7 @@ export class ActerResolver {
         useAdmins,
         acterJoinSetting,
         acterTypeId,
+        parentActerId,
         updatedAt: new Date(),
         createdByUserId,
         Followers: {
@@ -176,7 +190,8 @@ export class ActerResolver {
     @Arg('isOnline') isOnline: boolean,
     @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string,
-    @Arg('activityTypeId') activityTypeId: string
+    @Arg('activityTypeId') activityTypeId: string,
+    @Arg('parentActerId', { nullable: true }) parentActerId: string
   ): Promise<Activity> {
     const acter = await this.createActer(
       ctx,
@@ -187,6 +202,7 @@ export class ActerResolver {
       useAdmins,
       acterJoinSetting,
       acterTypeId,
+      parentActerId,
       interestIds
     )
 
