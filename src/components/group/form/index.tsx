@@ -14,31 +14,46 @@ import {
   FormHelperText,
 } from '@material-ui/core'
 import { Switch } from 'src/components/styled/switch'
-import { Acter } from '@schema'
+import { Acter, ActerType, ActerJoinSettings } from '@schema'
+import { getActerTypeByName } from 'src/lib/acter-types/get-acter-type-by-name'
+import { GROUP } from 'src/constants/acter-types'
+
 export interface AddGroupProps {
-  acter: Acter
+  parentActer: Acter
+  acterTypes: ActerType[]
   openModal: boolean
   setModal: (open: boolean) => void
+  onCreateGroup: (gropuData: Acter) => void
 }
 
-export const AddGroup: FC<AddGroupProps> = ({ acter, openModal, setModal }) => {
+export const AddGroup: FC<AddGroupProps> = ({
+  parentActer,
+  acterTypes,
+  openModal,
+  onCreateGroup,
+  setModal,
+}) => {
   const classes = useStyles()
-
-  const [switchOn, setSwitchOn] = useState(false)
-
-  const handleSubmit = (data) => {
-    const values = { ...data, makePrivate: switchOn }
-    console.log('VALUES :', values)
-  }
-  const handleModalClose = () => setModal(!openModal)
+  const [switchOn, setSwitchOn] = useState(
+    parentActer.userJoinSetting === ActerJoinSettings.RESTRICTED ? true : false
+  )
+  const acterType = getActerTypeByName(acterTypes, GROUP)
 
   const initialValues = {
-    ...acter,
     name: '',
     description: '',
-    parentActerId: acter.id,
-    acterTypeId: 'c6742950-60cb-41c5-afe7-d045cb8857f9',
+    parentActerId: parentActer.id,
+    acterTypeId: acterType.id,
   }
+
+  const handleSubmit = (data) => {
+    data.userJoinSetting = switchOn
+      ? ActerJoinSettings.RESTRICTED
+      : ActerJoinSettings.EVERYONE
+    console.log('ACTER', data)
+    onCreateGroup(data)
+  }
+  const handleModalClose = () => setModal(!openModal)
 
   return (
     <Modal
