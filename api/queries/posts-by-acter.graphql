@@ -10,5 +10,18 @@ query GetPosts($acterId: String) {
     Comments {
       ...PostDisplay
     }
+    Comments {
+      ...PostDisplay
+      Author {
+        name
+        avatarUrl
+        ActerType {
+          name
+        }
+      }
+      Acter {
+        name
+      }
+    }
   }
 }
