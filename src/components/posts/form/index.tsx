@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, InputLabel } from '@material-ui/core'
 import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
 import { TextEditor } from 'src/components/util/text-editor'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { User } from '@schema'
+import { User, Post } from '@schema'
 
 export interface PostFormProps {
   user: User
@@ -64,6 +64,7 @@ export const PostForm: FC<PostFormProps> = ({
                 variant="outlined"
                 color="primary"
                 type="submit"
+                onClick={() => resetForm}
               >
                 {comment ? 'Add Comment' : 'Post'}
               </Button>
