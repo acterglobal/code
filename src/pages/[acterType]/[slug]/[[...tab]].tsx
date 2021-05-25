@@ -191,17 +191,17 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     })
   }
 
-  // const [createComment] = useNotificationMutation(CREATE_POST, {
-  //   getSuccessMessage: () => 'Post created',
+  // const [createComment] = useNotificationMutation(CREATE_COMMENT, {
+  //   getSuccessMessage: () => 'Comment created',
   // })
 
-  // const handleComment = async (postText) => {
+  // const handleComment = async (comment) => {
   //   createComment({
   //     variables: {
-  //       content: postText,
+  //       content: commment.postText,
   //       acterId: acter.id,
   //       authorId: user.Acter.id,
-  //       parentId: post.id,
+  //       parentId: comment.parentId,
   //     },
   //   })
   // }

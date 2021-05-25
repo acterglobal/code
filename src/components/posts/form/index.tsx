@@ -73,6 +73,7 @@ export const PostForm: FC<PostFormProps> = ({
                 variant="outlined"
                 color="primary"
                 type="submit"
+                onClick={() => resetForm}
               >
                 {comment ? 'Add Comment' : 'Post'}
               </Button>

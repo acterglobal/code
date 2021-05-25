@@ -13,11 +13,9 @@ export interface PostListProps extends PostFormProps {
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
   const classes = useStyles()
-  console.log('Testing index POSTS ', posts[0].Comments[0])
 
-  const handleSubmit = (values, submitProps) => {
-    submitProps.resetForm()
-    console.log(values)
+  const handleSubmit = (values) => {
+    console.log('These are the values', values)
     // onCommentCreate(values.postText)
   }
 
