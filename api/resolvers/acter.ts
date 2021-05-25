@@ -35,6 +35,8 @@ export class ActerResolver {
     }
     const createdByUserId = currentUser.id
 
+    // TODO create slug lib
+
     let slugifyString
 
     const existingParentActer = await ctx.prisma.acter.findFirst({
@@ -42,7 +44,7 @@ export class ActerResolver {
     })
 
     if (existingParentActer) {
-      slugifyString = existingParentActer.name.toLocaleLowerCase() + ' '
+      slugifyString = existingParentActer.slug
     }
 
     slugifyString += name.toLocaleLowerCase()
