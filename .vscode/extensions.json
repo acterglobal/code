@@ -7,8 +7,6 @@
     "ms-vsliveshare.vsliveshare-audio",
     "esbenp.prettier-vscode",
     "prisma.prisma",
-    "netcorext.uuid-generator",
-    "github.vscode-pull-request-github",
-    "streetsidesoftware.code-spell-checker"
+    "netcorext.uuid-generator"
   ]
 }
