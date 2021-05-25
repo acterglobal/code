@@ -19,7 +19,13 @@ export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
         <PostForm user={user} onPostSubmit={onPostSubmit} />
         {posts?.map((post) => (
           <Box key={post.id} className={classes.contentContainer}>
-            <Post post={post} />
+            <Post post={post}> 
+              {post.Comments?.map((comment) => (
+                <Box key={comment.id} className={classes.contentContainer}>
+                  <Post post={comment} comment />
+                </Box>
+              ))}
+            </Post>
           </Box>
         ))}
       </Box>
