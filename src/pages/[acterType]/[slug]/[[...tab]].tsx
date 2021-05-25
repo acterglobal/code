@@ -34,7 +34,7 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
-// import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
+import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
@@ -191,20 +191,19 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     })
   }
 
-  // const [createComment] = useNotificationMutation(CREATE_COMMENT, {
-  //   getSuccessMessage: () => 'Comment created',
-  // })
-
-  // const handleComment = async (comment) => {
-  //   createComment({
-  //     variables: {
-  //       content: commment.postText,
-  //       acterId: acter.id,
-  //       authorId: user.Acter.id,
-  //       parentId: comment.parentId,
-  //     },
-  //   })
-  // }
+  const [createComment] = useNotificationMutation(CREATE_COMMENT, {
+    getSuccessMessage: () => 'Comment created',
+  })
+  const handleComment = async (comment) => {
+    createComment({
+      variables: {
+        content: comment.postText,
+        acterId: acter.id,
+        authorId: user.Acter.id,
+        parentId: comment.parentId,
+      },
+    })
+  }
 
   const View = getActerView(displayActer)
 
