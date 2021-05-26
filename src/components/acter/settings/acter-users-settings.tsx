@@ -15,7 +15,7 @@ import { Button, ButtonsContainerRight } from 'src/components/styled'
 import { Acter, ActerJoinSettings } from '@schema'
 
 interface ActerUserSettingsInitialValues {
-  acterJoinSetting: ActerJoinSettings
+  userJoinSetting: ActerJoinSettings
 }
 
 export interface ActerUsersSettingsProps {
@@ -40,7 +40,7 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
 }) => {
   const classes = useStyles()
   const initialValues: ActerUserSettingsInitialValues = {
-    acterJoinSetting: ActerJoinSettings[acter.acterJoinSetting],
+    userJoinSetting: ActerJoinSettings[acter.userJoinSetting],
   }
   return (
     <Formik
@@ -56,8 +56,8 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
             </FormLabel>
             <RadioGroup
               aria-label="member-join-setting"
-              name="acterJoinSetting"
-              value={values.acterJoinSetting}
+              name="userJoinSetting"
+              value={values.userJoinSetting}
               onChange={handleChange}
             >
               <FormControlLabel

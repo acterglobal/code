@@ -9,7 +9,7 @@ fragment ActerDisplay on Acter {
   avatarUrl
   bannerUrl
   useAdmins
-  acterJoinSetting
+  userJoinSetting
   ActerType {
     id
     name

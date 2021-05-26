@@ -59,7 +59,7 @@ model Acter {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   // Settings
-  acterJoinSetting ActerJoinSettings @default(EVERYONE) @map("acter_join_setting")
+  userJoinSetting ActerJoinSettings @default(EVERYONE) @map("user_join_setting")
 
   // Associations
   // List of Interests for this Acter
