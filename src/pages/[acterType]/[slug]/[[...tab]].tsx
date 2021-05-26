@@ -36,6 +36,7 @@ import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graph
 import CREATE_POST from 'api/mutations/post-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
+import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -97,6 +98,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   posts,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
+  const [displayPostList, setDisplayPostList] = useState(posts)
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
@@ -166,12 +168,22 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   const [createPost] = useNotificationMutation(CREATE_POST, {
     getSuccessMessage: () => 'Post created',
+    update: (cache, { data }) => {
+      const newPostList = [data.createPost, ...displayPostList]
+      setDisplayPostList(newPostList)
+      cache.writeQuery({
+        query: GET_POSTS,
+        data: {
+          posts: newPostList,
+        },
+      })
+    },
   })
 
-  const handlePost = async (postText) => {
+  const handlePost = async ({ content }) => {
     createPost({
       variables: {
-        content: postText,
+        content,
         acterId: acter.id,
         authorId: user.Acter.id,
       },
@@ -187,10 +199,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter={displayActer}
         user={user}
         interestTypes={interestTypes}
-        posts={posts}
+        posts={displayPostList}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
-        onPostCreate={handlePost}
+        onPostSubmit={handlePost}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
         loading={creatingConnection || deletingConnection || updatingConnection}
       />

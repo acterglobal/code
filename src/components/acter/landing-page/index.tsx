@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { Grid, Box, makeStyles, createStyles, Theme } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
+import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -16,34 +15,28 @@ import {
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
 import { PostList, PostListProps } from 'src/components/posts'
-import { PostForm } from 'src/components/posts/form'
 import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostListProps & { onPostCreate: (data: string) => void }
+  PostListProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
   interestTypes,
+  posts,
   user,
   onJoin,
   onLeave,
   onConnectionStateChange,
   loading,
-  posts,
-  onPostCreate,
+  onPostSubmit,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
   const tab = getLandingPageTab(router, FEED)
-
-  const handleSubmit = (values, submitProps) => {
-    submitProps.resetForm()
-    onPostCreate(values.postText)
-  }
 
   return (
     <Grid className={classes.header} container>
@@ -67,12 +60,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
-            <Box className={classes.root}>
-              <Box className={classes.mainContainer}>
-                <PostForm user={user} onSubmit={handleSubmit} />
-                <PostList posts={posts} />
-              </Box>
-            </Box>
+            <PostList user={user} posts={posts} onPostSubmit={onPostSubmit} />
           </div>
         </Grid>
         <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
@@ -96,27 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       order: 3,
-    },
-    root: {
-      background: grey[200],
-      width: 800,
-      overflow: 'hidden',
-      justifyContent: 'center',
-      padding: theme.spacing(2),
-    },
-    mainContainer: {
-      backgroundColor: 'white',
-      borderRadius: 7,
-      width: '95%',
-      display: 'flex',
-      flexWrap: 'wrap',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginBottom: theme.spacing(1),
-      padding: theme.spacing(0.1),
-      [theme.breakpoints.down('xs')]: {
-        width: 300,
-      },
     },
   })
 )

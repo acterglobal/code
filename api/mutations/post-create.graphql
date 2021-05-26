@@ -1,3 +1,5 @@
+#import "../fragments/post-display.fragment.graphql"
+
 mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
   createPost(
     data: {
@@ -6,12 +8,6 @@ mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
       Author: { connect: { id: $authorId } }
     }
   ) {
-    content
-    Acter {
-      name
-    }
-    Author {
-      name
-    }
+    ...PostDisplay
   }
 }
