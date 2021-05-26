@@ -1,10 +1,15 @@
 import React, { FC } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
-import { Sidebar, SidebarProps } from 'src/components/layout/side-bar'
+import { Sidebar } from 'src/components/layout/side-bar'
+import { Acter, ActerType, User } from '@schema'
 
-export interface LayoutProps extends SidebarProps {
+export interface LayoutProps {
+  acter?: Acter
+  acterTypes?: ActerType[]
   children: React.ReactNode
+  onCreateGroup?: (groupData: Acter) => void
+  user?: User
 }
 
 export const Layout: FC<LayoutProps> = ({
