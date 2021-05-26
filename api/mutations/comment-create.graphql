@@ -1,4 +1,4 @@
-mutation CreatePost(
+mutation CreateComment(
   $content: String!
   $acterId: String!
   $authorId: String!

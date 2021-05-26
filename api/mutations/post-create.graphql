@@ -7,6 +7,7 @@ mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
       content: $content
       Acter: { connect: { id: $acterId } }
       Author: { connect: { id: $authorId } }
+      Parent: { connect: { id: $parentId } }
     }
   ) {
     ...PostDisplay
