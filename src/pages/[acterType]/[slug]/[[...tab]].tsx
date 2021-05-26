@@ -191,7 +191,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     })
   }
 
-  const [createComment] = useNotificationMutation(CREATE_POST, {
+  const [createComment] = useNotificationMutation(CREATE_COMMENT, {
     getSuccessMessage: () => 'Comment created',
   })
 
