@@ -23,6 +23,12 @@ enum ActerJoinSettings {
   INVITE_ONLY
 }
 
+enum ActerNotificationSettings {
+  ALL_ACTIVITY
+  MENTIONS
+  NONE
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -40,7 +46,8 @@ model Acter {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   // Settings
-  acterJoinSetting ActerJoinSettings @default(EVERYONE) @map("acter_join_setting")
+  acterJoinSetting   ActerJoinSettings         @default(EVERYONE) @map("acter_join_setting")
+  acterNotifySetting ActerNotificationSettings @default(NONE) @map("acter_notify_setting")
 
   // Associations
   // List of Interests for this Acter
