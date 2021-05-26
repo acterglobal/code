@@ -15,7 +15,7 @@ describe('followerHasRoleOnActer', () => {
     const acter: Acter = {
       ...ExampleActer,
       id: 'a27e4a92-bc9c-463e-a4b8-19590d17dc65',
-      userJoinSetting: ActerJoinSettings.RESTRICTED,
+      acterJoinSetting: ActerJoinSettings.RESTRICTED,
     }
     expect(
       followerHasRoleOnActer(follower, ActerConnectionRole.ADMIN, acter)
@@ -33,7 +33,7 @@ describe('followerHasRoleOnActer', () => {
     const acter: Acter = {
       ...ExampleActer,
       id: 'a27e4a92-bc9c-463e-a4b8-19590d17dc65',
-      userJoinSetting: ActerJoinSettings.RESTRICTED,
+      acterJoinSetting: ActerJoinSettings.RESTRICTED,
       Followers: [
         {
           ...ExampleActerConnection,
@@ -54,7 +54,7 @@ describe('followerHasRoleOnActer', () => {
 
     const acter: Acter = {
       ...ExampleActer,
-      userJoinSetting: ActerJoinSettings.RESTRICTED,
+      acterJoinSetting: ActerJoinSettings.RESTRICTED,
       Followers: [
         {
           ...ExampleActerConnection,
@@ -76,7 +76,7 @@ describe('followerHasRoleOnActer', () => {
 
     const acter: Acter = {
       ...ExampleActer,
-      userJoinSetting: ActerJoinSettings.RESTRICTED,
+      acterJoinSetting: ActerJoinSettings.RESTRICTED,
       Followers: [
         {
           ...ExampleActerConnection,

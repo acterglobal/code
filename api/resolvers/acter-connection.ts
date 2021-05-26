@@ -28,7 +28,7 @@ export class ActerConnectionResolver {
     const followingActer = await ctx.prisma.acter.findFirst({
       select: {
         id: true,
-        userJoinSetting: true,
+        acterJoinSetting: true,
       },
       where: { id: followingActerId },
     })
@@ -39,7 +39,7 @@ export class ActerConnectionResolver {
     }
 
     const role =
-      followingActer.userJoinSetting === ActerJoinSettings.EVERYONE
+      followingActer.acterJoinSetting === ActerJoinSettings.EVERYONE
         ? ActerConnectionRole.MEMBER
         : ActerConnectionRole.PENDING
 
