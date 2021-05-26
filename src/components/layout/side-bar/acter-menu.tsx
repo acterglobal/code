@@ -25,7 +25,7 @@ import {
   GroupsSectionProps,
 } from 'src/components/layout/side-bar/groups-section'
 
-type ActerMenuProps = GroupsSectionProps & { user: User }
+export type ActerMenuProps = GroupsSectionProps & { user: User }
 
 export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
