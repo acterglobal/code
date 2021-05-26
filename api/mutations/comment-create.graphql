@@ -1,10 +1,10 @@
-mutation CreateComment(
+mutation CreatePost(
   $content: String!
   $acterId: String!
   $authorId: String!
   $parentId: String!
 ) {
-  createComment(
+  createPost(
     data: {
       content: $content
       Acter: { connect: { id: $acterId } }
