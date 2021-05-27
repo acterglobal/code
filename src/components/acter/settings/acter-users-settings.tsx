@@ -10,8 +10,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import { Formik, Form } from 'formik'
-import { Button, ButtonsContainerRight } from 'src/components/styled'
-
+import { FormButtons } from 'src/components/util/forms'
 import { Acter, ActerJoinSettings } from '@schema'
 
 interface ActerUserSettingsInitialValues {
@@ -77,25 +76,12 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
             </RadioGroup>
           </FormControl>
           {dirty && (
-            <ButtonsContainerRight>
-              <Button
-                variant="outlined"
-                color="primary"
-                disabled={loading || isSubmitting}
-                onClick={() => resetForm()}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ color: 'white' }}
-                disabled={loading || isSubmitting}
-                type="submit"
-              >
-                Save
-              </Button>
-            </ButtonsContainerRight>
+            <FormButtons
+              align="right"
+              loading={loading}
+              isSubmitting={isSubmitting}
+              resetForm={resetForm}
+            />
           )}
         </Form>
       )}
