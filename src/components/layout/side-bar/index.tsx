@@ -33,10 +33,15 @@ export const Sidebar: FC<SidebarProps> = ({
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
+  const router = useRouter()
 
   useEffect(() => {
     if (acter) {
       setDrawerWidth(14)
+      return
+    }
+    if (router.route === '/search') {
+      setDrawerWidth(17)
       return
     }
     setDrawerWidth(4)
@@ -69,6 +74,7 @@ export const Sidebar: FC<SidebarProps> = ({
           />
         </Box>
       )}
+      {router.route === '/search' && <SearchMenu />}
     </Drawer>
   )
 }
