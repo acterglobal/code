@@ -26,17 +26,17 @@ export const PostForm: FC<PostFormProps> = ({
 
   const initialValues = {
     content: '',
-    parentId: null,
+    // parentId: null,
   }
 
-  const handleSubmit = async (values, _actions) => {
+  const handleSubmit = async (values) => {
     post
       ? (values = {
           ...values,
           parentId: post.id,
         })
       : null
-
+    console.log(values)
     try {
       await onPostSubmit(values)
     } catch (_e) {

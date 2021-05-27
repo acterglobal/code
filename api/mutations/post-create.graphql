@@ -1,4 +1,5 @@
 #import "../fragments/post-display.fragment.graphql"
+#import "../fragments/acter-display.fragment.graphql"
 
 mutation CreatePost(
   $content: String!
@@ -15,5 +16,8 @@ mutation CreatePost(
     }
   ) {
     ...PostDisplay
+    Comments {
+      ...PostDisplay
+    }
   }
 }
