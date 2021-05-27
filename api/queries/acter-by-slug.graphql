@@ -29,5 +29,8 @@ query ActerBySlug($acterTypeId: String!, $slug: String!) {
         ...ActerDisplay
       }
     }
+    Children {
+      ...ActerDisplay
+    }
   }
 }
