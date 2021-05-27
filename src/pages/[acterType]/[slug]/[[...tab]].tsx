@@ -198,13 +198,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const handleComment = async (comment) => {
     createComment({
       variables: {
-        content: comment.postText,
+        content: comment.content,
         acterId: acter.id,
         authorId: user.Acter.id,
         parentId: comment.parentId,
       },
     })
   }
+  
 
   const View = getActerView(displayActer)
 

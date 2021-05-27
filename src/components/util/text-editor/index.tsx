@@ -50,7 +50,6 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
   const { handleInputChange, initialValue, height, width, handleFocus } = props
   const size = { height, width }
   const classes = useStyles(size)
-  console.log('From editor', initialValue)
 
   const rawData = markdownToDraft(initialValue)
   const contentState = convertFromRaw(rawData)

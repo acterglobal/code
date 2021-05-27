@@ -21,7 +21,8 @@ export const PostForm: FC<PostFormProps> = ({
   const classes = useStyles()
 
   const [editorFocus, setEditorFocus] = useState(null)
-  const [postText, setPostText] = useState('')
+  // const [postText, setPostText] = useState('')
+  // const [ toggleFormReset, setToggleFormReset ] = useState(true)
 
   const initialValues = {
     content: '',
@@ -35,8 +36,6 @@ export const PostForm: FC<PostFormProps> = ({
       // Error notification handled up the stack
     }
   }
-
-  // setFieldValue('postText', value)
 
   return (
     <Box className={classes.contentContainer}>
@@ -67,7 +66,6 @@ export const PostForm: FC<PostFormProps> = ({
                 variant="outlined"
                 color="primary"
                 type="submit"
-                // onClick={() => resetForm}
               >
                 {comment ? 'Add Comment' : 'Post'}
               </Button>
@@ -77,7 +75,12 @@ export const PostForm: FC<PostFormProps> = ({
       </Box>
     </Box>
   )
+  
 }
+
+
+  
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

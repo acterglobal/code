@@ -9,7 +9,7 @@ import { Post as Posts } from '@schema'
 export interface PostListProps extends PostFormProps {
   posts: Posts[]
   user: User
-  onCommentCreate: (data: Object) => void
+  onCommentCreate: (values: unknown) => void
 }
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
