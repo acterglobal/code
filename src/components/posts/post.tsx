@@ -14,7 +14,7 @@ export const Post: FC<PostsProps> = ({ post, commenting }) => {
   const classes = useStyles()
 
   return (
-    <>
+    <Box className={classes.postItems}>
       <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
       <Box
         className={
@@ -39,7 +39,7 @@ export const Post: FC<PostsProps> = ({ post, commenting }) => {
           </Typography>
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 
@@ -56,6 +56,11 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         display: 'none',
       },
+    },
+    postItems: {
+      display: 'flex',
+      flexDirection: 'row',
+      padding: '5px',
     },
     postContainer: {
       backgroundColor: 'white',

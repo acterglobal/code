@@ -1,11 +1,17 @@
 #import "../fragments/post-display.fragment.graphql"
 
-mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
+mutation CreatePost(
+  $content: String!
+  $acterId: String!
+  $authorId: String!
+  $parentId: String
+) {
   createPost(
     data: {
       content: $content
       Acter: { connect: { id: $acterId } }
       Author: { connect: { id: $authorId } }
+      Parent: { connect: { id: $parentId } }
     }
   ) {
     ...PostDisplay

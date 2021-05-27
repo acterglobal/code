@@ -10,28 +10,35 @@ import { User, Post } from '@schema'
 export interface PostFormProps {
   user: User
   comment?: boolean
+  post?: Post
   onPostSubmit: (values: unknown) => Promise<void>
 }
 
 export const PostForm: FC<PostFormProps> = ({
   user,
   comment,
+  post,
   onPostSubmit,
 }) => {
   const classes = useStyles()
 
   const [editorFocus, setEditorFocus] = useState(null)
-  // const [postText, setPostText] = useState('')
-  // const [ toggleFormReset, setToggleFormReset ] = useState(true)
 
   const initialValues = {
     content: '',
+    parentId: null,
   }
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values, _actions) => {
+    post
+      ? (values = {
+          ...values,
+          parentId: post.id,
+        })
+      : null
+
     try {
       await onPostSubmit(values)
-      actions.resetForm()
     } catch (_e) {
       // Error notification handled up the stack
     }
@@ -55,7 +62,7 @@ export const PostForm: FC<PostFormProps> = ({
                 <TextEditor
                   width={535}
                   height={120}
-                  initialValue={values.content}
+                  initialValue={initialValues.content}
                   // @ts-ignore
                   handleInputChange={(value) => setFieldValue('content', value)}
                   handleFocus={(editorRef) => setEditorFocus(editorRef)}
@@ -75,12 +82,7 @@ export const PostForm: FC<PostFormProps> = ({
       </Box>
     </Box>
   )
-  
 }
-
-
-  
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     contentContainer: {
+      backgroundColor: 'white',
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -100,6 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
+      marginBottom: theme.spacing(2),
     },
     image: {
       marginTop: theme.spacing(3),

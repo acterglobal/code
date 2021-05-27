@@ -4,20 +4,15 @@ import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
 import { Post } from 'src/components/posts/post'
 import { PostForm, PostFormProps } from 'src/components/posts/form'
-import { Post as Posts } from '@schema'
+import { Post as Posts, User } from '@schema'
 
 export interface PostListProps extends PostFormProps {
   posts: Posts[]
   user: User
-  onCommentCreate: (values: unknown) => void
 }
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
   const classes = useStyles()
-
-  const handleSubmit = (values) => {
-    onCommentCreate(values)
-  }
 
   return (
     <Box className={classes.root}>
@@ -25,20 +20,15 @@ export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
         <PostForm user={user} onPostSubmit={onPostSubmit} />
         {posts?.map((post) => (
           <Box key={post.id} className={classes.contentContainer}>
-            <Post post={post}> 
-              {post.Comments?.map((comment) => (
-                <Box key={comment.id} className={classes.contentContainer}>
-                  <Post key={comment.id} post={comment} commenting />
-                </Box>
-              ))}
-              <PostForm post={post} user={user} onSubmit={handleSubmit} />
-            </Box>
+            <Post post={post} />
             {post.Comments?.map((comment) => (
               <Box key={comment.id} className={classes.contentContainer}>
                 <Post key={comment.id} post={comment} commenting />
               </Box>
             ))}
-            <PostForm post={post} user={user} onSubmit={handleSubmit} />
+            <Box>
+              <PostForm post={post} user={user} onPostSubmit={onPostSubmit} />
+            </Box>
           </Box>
         ))}
       </Box>
@@ -56,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     mainContainer: {
-      backgroundColor: 'white',
       borderRadius: 7,
       width: '95%',
       display: 'flex',
@@ -69,18 +58,19 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 300,
       },
     },
-    postItems: {
-      width: '100%',
-    },
     contentContainer: {
+      backgroundColor: 'white',
+      borderRadius: 7,
       width: '100%',
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       padding: theme.spacing(1),
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
+      marginBottom: theme.spacing(1),
     },
+
     image: {
       marginTop: theme.spacing(3),
       objectFit: 'cover',

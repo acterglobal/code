@@ -3,9 +3,12 @@
 
 query GetPosts($acterId: String) {
   posts(
-    where: { acterId: { equals: $acterId } }
+    where: { acterId: { equals: $acterId }, parentId: null }
     orderBy: { createdAt: desc }
   ) {
     ...PostDisplay
+    Comments {
+      ...PostDisplay
+    }
   }
 }
