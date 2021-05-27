@@ -180,13 +180,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const handlePost = async ({ content, parentId }) => {
+  const handlePost = async ({ content }) => {
     createPost({
       variables: {
         content,
         acterId: acter.id,
         authorId: user.Acter.id,
-        parentId,
       },
     })
   }
