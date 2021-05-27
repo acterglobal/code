@@ -10,16 +10,29 @@ import { User } from '@schema'
 export interface PostFormProps {
   user: User
   comment?: boolean
-  onSubmit: (values: unknown, submitProps: unknown) => void
+  onPostSubmit: (values: unknown) => Promise<void>
 }
 
-export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
+export const PostForm: FC<PostFormProps> = ({
+  user,
+  comment,
+  onPostSubmit,
+}) => {
   const classes = useStyles()
 
   const [editorFocus, setEditorFocus] = useState(null)
 
   const initialValues = {
-    postText: '',
+    content: '',
+  }
+
+  const handleSubmit = async (values, actions) => {
+    try {
+      await onPostSubmit(values)
+      actions.resetForm()
+    } catch (_e) {
+      // Error notification handled up the stack
+    }
   }
 
   return (
@@ -28,10 +41,10 @@ export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           enableReinitialize
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form className={classes.formContainer}>
               <Box mb={1} onClick={() => editorFocus.focus()}>
                 <InputLabel style={{ marginBottom: 5 }}>
@@ -40,11 +53,9 @@ export const PostForm: FC<PostFormProps> = ({ user, comment, onSubmit }) => {
                 <TextEditor
                   width={535}
                   height={120}
-                  initialValue={initialValues.postText}
+                  initialValue={values.content}
                   // @ts-ignore
-                  handleInputChange={(value) =>
-                    setFieldValue('postText', value)
-                  }
+                  handleInputChange={(value) => setFieldValue('content', value)}
                   handleFocus={(editorRef) => setEditorFocus(editorRef)}
                 />
               </Box>
