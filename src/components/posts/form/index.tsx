@@ -37,7 +37,7 @@ export const PostForm: FC<PostFormProps> = ({
           parentId: post.id,
         })
       : null
-    console.log(values)
+
     try {
       await onPostSubmit(values)
     } catch (_e) {

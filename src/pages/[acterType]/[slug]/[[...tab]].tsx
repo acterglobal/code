@@ -34,7 +34,6 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
-import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
@@ -170,8 +169,26 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [createPost] = useNotificationMutation(CREATE_POST, {
     getSuccessMessage: () => 'Post created',
     update: (cache, { data }) => {
-      const newPostList = [data.createPost, ...displayPostList]
+      const { createPost: newPost } = data
+
+      const newPostList = [newPost, ...displayPostList]
       setDisplayPostList(newPostList)
+
+      // if (newPost.parentId == null) {
+      //   const postsData = cache.readQuery({
+      //     query: GET_POSTS,
+      //   })
+      //   console.log('This is postsData', postsData)
+      //   cache.writeQuery({
+      //     query: GET_POSTS,
+      //     data: {
+      //       posts: {
+      //         Comments: [...Comments, newPost]
+      //       }
+      //     },
+      //   })
+      // }
+
       cache.writeQuery({
         query: GET_POSTS,
         data: {
@@ -181,12 +198,13 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const handlePost = async ({ content }) => {
+  const handlePost = async ({ content, parentId }) => {
     createPost({
       variables: {
         content,
         acterId: acter.id,
         authorId: user.Acter.id,
+        parentId,
       },
     })
   }
