@@ -1,5 +1,9 @@
 # Acter
 
+## Laptop setup
+
+Head to [New laptop setup](./docs/new-laptop-setup.md)
+
 ## Getting started
 
 The application and it's dependencies are dockerized. Make sure that [Docker](http://docker.com) is set up, then run:
