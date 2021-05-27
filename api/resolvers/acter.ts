@@ -8,7 +8,7 @@ import {
   Activity,
 } from '@schema'
 import { createSlug } from 'src/lib/acter/create-acter-slug'
-import { ACTIVITY, USER } from 'src/constants'
+import { ACTIVITY, GROUP, USER } from 'src/constants'
 
 @Resolver(Acter)
 export class ActerResolver {
@@ -36,6 +36,10 @@ export class ActerResolver {
     }
     const createdByUserId = currentUser.id
 
+    const acterType = await ctx.prisma.acterType.findFirst({
+      select: { name: true },
+      where: { id: acterTypeId },
+    })
     const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
       select: { slug: true },
       where: {
@@ -44,7 +48,10 @@ export class ActerResolver {
       },
     })
 
-    const slug = createSlug(name, parentActerSlug)
+    const slug = createSlug(
+      name,
+      acterType.name === GROUP ? parentActerSlug : null
+    )
 
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {

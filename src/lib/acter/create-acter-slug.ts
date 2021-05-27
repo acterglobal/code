@@ -10,9 +10,9 @@ export const createSlug = (
   acterName: string,
   parentActerSlug: string | null = null
 ): string => {
-  let slugifyString: string
+  let slugifyString = ''
 
-  if (parentActerSlug) {
+  if (parentActerSlug !== null) {
     slugifyString = parentActerSlug + ' '
   }
   slugifyString += acterName.toLocaleLowerCase()
