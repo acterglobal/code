@@ -50,7 +50,7 @@ export const AddGroup: FC<AddGroupProps> = ({
     data.acterJoinSetting = switchOn
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    onCreateGroup(data)
+    onCreateGroup({ ...data, interestIds: [] })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)
