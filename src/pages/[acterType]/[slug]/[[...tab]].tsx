@@ -175,38 +175,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       update: (cache, { data }) => {
         const { createPost: newPost } = data
 
-        // update: (cache, { data }) => {
-        //   acter.Followers.push(data.createActerConnection)
-        //   writeCache(cache)
-        // },
-
-        const newPostList = [newPost, ...displayPostList]
-        setDisplayPostList(newPostList)
-
         if (newPost.parentId !== null) {
           posts.map((post) => {
             post.id == newPost.parentId ? post.Comments.push(newPost) : null
           })
           writeCache(cache)
-
-          // const postsData = cache.readQuery({
-          //   query: GET_POST,
-          //   variables: {
-          //     id: newPost.parentId,
-          //   },
-          // })
-          // console.log('This is postsData', postsData)
-
-          // cache.writeQuery({
-          // query: GET_POSTS,
-          // data: {
-          //   posts: {
-          //   ...postsData?.posts,
-          //
-          //   }
-          // },
-          // })
         } else {
+          const newPostList = [newPost, ...displayPostList]
+          setDisplayPostList(newPostList)
           cache.writeQuery({
             query: GET_POSTS,
             data: {
