@@ -175,34 +175,45 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       update: (cache, { data }) => {
         const { createPost: newPost } = data
 
+        // update: (cache, { data }) => {
+        //   acter.Followers.push(data.createActerConnection)
+        //   writeCache(cache)
+        // },
+
         const newPostList = [newPost, ...displayPostList]
         setDisplayPostList(newPostList)
 
-        // TODO WRITE CACHE APPEND NEW COMMENT
-        // if (newPost.parentId !== null) {
-        //   const postsData = cache.readQuery({
-        //     query: GET_POSTS,
-        //     variables:
-        //   })
-        //   console.log('This is postsData', postsData)
+        if (newPost.parentId !== null) {
+          posts.map((post) => {
+            post.id == newPost.parentId ? post.Comments.push(newPost) : null
+          })
+          writeCache(cache)
 
-        // cache.writeQuery({
-        // query: GET_POSTS,
-        // data: {
-        //   posts: {
-        //   ...postsData?.posts,
-        //
-        //   }
-        // },
-        // })
-        // }
+          // const postsData = cache.readQuery({
+          //   query: GET_POST,
+          //   variables: {
+          //     id: newPost.parentId,
+          //   },
+          // })
+          // console.log('This is postsData', postsData)
 
-        cache.writeQuery({
-          query: GET_POSTS,
-          data: {
-            posts: newPostList,
-          },
-        })
+          // cache.writeQuery({
+          // query: GET_POSTS,
+          // data: {
+          //   posts: {
+          //   ...postsData?.posts,
+          //
+          //   }
+          // },
+          // })
+        } else {
+          cache.writeQuery({
+            query: GET_POSTS,
+            data: {
+              posts: newPostList,
+            },
+          })
+        }
       },
     }
   )
