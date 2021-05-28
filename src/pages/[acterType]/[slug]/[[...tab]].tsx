@@ -42,7 +42,8 @@ import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragm
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
-import { ACTIVITY } from 'src/constants'
+import { ACTIVITY, GROUP } from 'src/constants'
+import { GroupLanding } from 'src/components/group'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -84,11 +85,13 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
     },
   })
 
-type ActerOrActivityView = ActerLandingProps | ActivityDetailsProps
-const getActerView = (acter): FC<ActerOrActivityView> => {
+type ViewTypes = ActerLandingProps | ActivityDetailsProps
+const getActerView = (acter): FC<ViewTypes> => {
   switch (acter.ActerType.name) {
     case ACTIVITY:
       return ActivityDetails
+    case GROUP:
+      return GroupLanding
     default:
       return ActerLanding
   }
@@ -239,7 +242,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   return (
     <Layout
-      acter={acter}
+      acter={acter.ActerType.name === GROUP ? acter.Parent : acter}
       acterTypes={acterTypes}
       user={user}
       onCreateGroup={_handleCreateActer(createActer)}
