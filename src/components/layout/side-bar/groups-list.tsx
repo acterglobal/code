@@ -13,15 +13,19 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 export interface GroupsList {
   acters: Acter[]
+  handleChildAvatar?: (childActer: Acter) => void
 }
 
-export const GroupsList: FC<GroupsList> = ({ acters }) => {
+export const GroupsList: FC<GroupsList> = ({ acters, handleChildAvatar }) => {
   const classes = useStyles()
 
   return (
     <Box className={classes.container}>
       {acters.map((acter) => (
-        <MenuItem className={classes.item}>
+        <MenuItem
+          className={classes.item}
+          onClick={() => handleChildAvatar(acter)}
+        >
           <Box className={classes.icon}></Box>
           <Link href={acterAsUrl(acter)}>
             <a>
