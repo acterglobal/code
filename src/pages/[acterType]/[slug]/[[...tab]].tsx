@@ -77,6 +77,13 @@ const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
     },
   })
 
+const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
+  createActer({
+    variables: {
+      ...acter,
+    },
+  })
+
 type ActerOrActivityView = ActerLandingProps | ActivityDetailsProps
 const getActerView = (acter): FC<ActerOrActivityView> => {
   switch (acter.ActerType.name) {
@@ -172,28 +179,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
   const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
-    getErrorMessage: () => 'Created Group',
-    onCompleted: (data) => {
-      console.log('AFTER MUTATION DATA: ', data)
+    update: (cache, { data }) => {
+      acter.Children.push(data.createActer)
+      writeCache(cache)
     },
-    onError: (err) => {
-      console.log('AFTER MUTATION ERROR: ', err)
-    },
+    getSuccessMessage: (data) => `${data.createActer.name} group created`,
   })
-
-  const handleCreateGroup = (groupData) => {
-    console.log(groupData)
-    createActer({
-      variables: {
-        name: groupData.name,
-        description: groupData.description,
-        acterTypeId: groupData.acterTypeId,
-        parentActerId: groupData.parentActerId,
-        acterJoinSetting: groupData.acterJoinSetting,
-        interestIds: [],
-      },
-    })
-  }
 
   const [createPost] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
@@ -251,7 +242,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       acter={acter}
       acterTypes={acterTypes}
       user={user}
-      onCreateGroup={handleCreateGroup}
+      onCreateGroup={_handleCreateActer(createActer)}
     >
       <Head title={`${acter.name} - Acter`} />
       <View
