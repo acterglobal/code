@@ -26,4 +26,7 @@ fragment ActerFull on Acter {
       }
     }
   }
+  Children {
+    ...ActerDisplay
+  }
 }
