@@ -34,6 +34,7 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
+import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
@@ -99,6 +100,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
+  const [isComment, setIsComment] = useState(false)
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
@@ -166,53 +168,52 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const [createPost] = useNotificationMutation(CREATE_POST, {
-    getSuccessMessage: () => 'Post created',
-    update: (cache, { data }) => {
-      const { createPost: newPost } = data
+  const [createPost] = useNotificationMutation(
+    isComment ? CREATE_COMMENT : CREATE_POST,
+    {
+      getSuccessMessage: () => 'Post created',
+      update: (cache, { data }) => {
+        const { createPost: newPost } = data
 
-      const newPostList = [newPost, ...displayPostList]
-      setDisplayPostList(newPostList)
+        const newPostList = [newPost, ...displayPostList]
+        setDisplayPostList(newPostList)
 
-      if (newPost.parentId !== null) {
-        const postsData = cache.readQuery({
-          query: GET_POSTS,
-        })
-        console.log('This is postsData', postsData)
+        // TODO WRITE CACHE APPEND NEW COMMENT
+        // if (newPost.parentId !== null) {
+        //   const postsData = cache.readQuery({
+        //     query: GET_POSTS,
+        //     variables:
+        //   })
+        //   console.log('This is postsData', postsData)
 
         // cache.writeQuery({
         // query: GET_POSTS,
         // data: {
         //   posts: {
         //   ...postsData?.posts,
-        //   Comments: postData?.posts.Comments.map((comment: any) =>  {
-        //     return {
-        //       ...comment,
-        //       posts:
-        //       posts.Comments.push(newPost)
-        //     }
-        //   })
+        //
         //   }
         // },
         // })
-      }
+        // }
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
-    },
-  })
+        cache.writeQuery({
+          query: GET_POSTS,
+          data: {
+            posts: newPostList,
+          },
+        })
+      },
+    }
+  )
 
-  const handlePost = async ({ content, parentId }) => {
+  const handlePost = async (values) => {
+    setIsComment(values.parentId ? true : false)
     createPost({
       variables: {
-        content,
+        ...values,
         acterId: acter.id,
         authorId: user.Acter.id,
-        parentId,
       },
     })
   }

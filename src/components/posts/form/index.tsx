@@ -27,21 +27,18 @@ export const PostForm: FC<PostFormProps> = ({
 
   const initialValues = {
     content: '',
-    // parentId: null,
+    parentId: null,
   }
 
   const handleSubmit = async (values) => {
-    values = { ...values, parentId: post ? post.id : null }
+    const submitValues = post ? { ...values, parentId: post.id } : values
 
     try {
-      await onPostSubmit(values)
+      await onPostSubmit(submitValues)
     } catch (_e) {
       // Error notification handled up the stack
     }
   }
-
-  // setFieldValue('postText', value)
-
   return (
     <Box className={classes.contentContainer}>
       <ActerAvatar acter={user.Acter} size={6} />
@@ -51,7 +48,7 @@ export const PostForm: FC<PostFormProps> = ({
           onSubmit={handleSubmit}
           enableReinitialize
         >
-          {({ setFieldValue, values }) => (
+          {({ setFieldValue }) => (
             <Form className={classes.formContainer}>
               <Box mb={1} onClick={() => editorFocus.focus()}>
                 <InputLabel style={{ marginBottom: 5 }}>
