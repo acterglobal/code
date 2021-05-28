@@ -174,20 +174,28 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       const newPostList = [newPost, ...displayPostList]
       setDisplayPostList(newPostList)
 
-      // if (newPost.parentId == null) {
-      //   const postsData = cache.readQuery({
-      //     query: GET_POSTS,
-      //   })
-      //   console.log('This is postsData', postsData)
-      //   cache.writeQuery({
-      //     query: GET_POSTS,
-      //     data: {
-      //       posts: {
-      //         Comments: [...Comments, newPost]
-      //       }
-      //     },
-      //   })
-      // }
+      if (newPost.parentId !== null) {
+        const postsData = cache.readQuery({
+          query: GET_POSTS,
+        })
+        console.log('This is postsData', postsData)
+
+        // cache.writeQuery({
+        // query: GET_POSTS,
+        // data: {
+        //   posts: {
+        //   ...postsData?.posts,
+        //   Comments: postData?.posts.Comments.map((comment: any) =>  {
+        //     return {
+        //       ...comment,
+        //       posts:
+        //       posts.Comments.push(newPost)
+        //     }
+        //   })
+        //   }
+        // },
+        // })
+      }
 
       cache.writeQuery({
         query: GET_POSTS,
