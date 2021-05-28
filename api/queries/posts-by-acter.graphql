@@ -2,22 +2,13 @@
 #import "../fragments/acter-display.fragment.graphql"
 
 query GetPosts($acterId: String) {
-  posts(where: { acterId: { equals: $acterId }, parentId: null }) {
+  posts(
+    where: { acterId: { equals: $acterId }, parentId: null }
+    orderBy: { createdAt: desc }
+  ) {
     ...PostDisplay
-    Author {
-      ...ActerDisplay
-    }
-    Acter {
-      name
-    }
     Comments {
       ...PostDisplay
-      Author {
-        ...ActerDisplay
-      }
-      Acter {
-        name
-      }
     }
   }
 }

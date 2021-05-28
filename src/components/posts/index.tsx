@@ -9,15 +9,10 @@ import { Post as Posts, User } from '@schema'
 export interface PostListProps extends PostFormProps {
   posts: Posts[]
   user: User
-  onCommentCreate: (data: Object) => void
 }
 
 export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
   const classes = useStyles()
-
-  const handleSubmit = (values) => {
-    onCommentCreate(values)
-  }
 
   return (
     <Box className={classes.root}>

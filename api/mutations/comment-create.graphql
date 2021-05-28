@@ -5,7 +5,7 @@ mutation CreatePost(
   $content: String!
   $acterId: String!
   $authorId: String!
-  $parentId: String!
+  $parentId: String
 ) {
   createPost(
     data: {
