@@ -50,7 +50,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
         )}
       </Box>
 
-      <GroupsList acters={groups} />
+      <GroupsList acters={groups} handleChildAvatar={handleChildAvatar} />
 
       {openModal && (
         <AddGroup
