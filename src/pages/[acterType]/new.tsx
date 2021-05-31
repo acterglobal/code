@@ -1,7 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import { useMutation } from '@apollo/client'
 
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
@@ -54,8 +53,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [createActivity] = useMutation(CREATE_ACTIVITY)
-  const [createActer] = useMutation(MUTATE_ACTER_CREATE)
+  const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
+  const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE)
 
   const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
     getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,
