@@ -21,7 +21,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
   return (
     <Box className={classes.container}>
       {acters.map((acter) => (
-        <MenuItem className={classes.item}>
+        <MenuItem className={classes.item} key={acter.id}>
           <Box className={classes.icon}></Box>
           <Link href={acterAsUrl(acter)}>
             <a>

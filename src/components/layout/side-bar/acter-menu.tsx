@@ -53,6 +53,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
 
       <GroupsSection
         acter={acter}
+        user={user}
         acterTypes={acterTypes}
         onCreateGroup={onCreateGroup}
       />

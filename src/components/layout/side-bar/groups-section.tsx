@@ -4,10 +4,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 import { AddGroup } from 'src/components/group/form'
 import { GroupsList } from 'src/components/layout/side-bar/groups-list'
-import { Acter, ActerType } from '@schema'
+import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
 import { GROUP } from 'src/constants'
+import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 export interface GroupsSectionProps {
   acter: Acter
+  user: User
   acterTypes: ActerType[]
   onCreateGroup: (groupData: Acter) => void
   handleChildAvatar?: (childActer: Acter) => void
@@ -16,9 +18,16 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
   acter,
   acterTypes,
   onCreateGroup,
+  user,
 }) => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
+
+  const userCanCreateGroup = userHasRoleOnActer(
+    user,
+    ActerConnectionRole.MEMBER,
+    acter
+  )
 
   const groups = acter.Children.filter(
     (child) => child.ActerType.name === GROUP
@@ -32,11 +41,13 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
     <>
       <Box className={classes.heading}>
         <Typography variant="caption">Groups</Typography>
-        <AddIcon
-          className={classes.addIcon}
-          fontSize="inherit"
-          onClick={handleAddGroup}
-        />
+        {userCanCreateGroup && (
+          <AddIcon
+            className={classes.addIcon}
+            fontSize="inherit"
+            onClick={handleAddGroup}
+          />
+        )}
       </Box>
 
       <GroupsList acters={groups} />
