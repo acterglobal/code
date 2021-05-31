@@ -16,7 +16,6 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
   acter,
   acterTypes,
   onCreateGroup,
-  handleChildAvatar,
 }) => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
@@ -40,7 +39,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
         />
       </Box>
 
-      <GroupsList acters={groups} handleChildAvatar={handleChildAvatar} />
+      <GroupsList acters={groups} />
 
       {openModal && (
         <AddGroup
