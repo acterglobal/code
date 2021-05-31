@@ -34,6 +34,7 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
+import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
@@ -99,6 +100,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
+  const [isComment, setIsComment] = useState(false)
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
@@ -166,24 +168,49 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const [createPost] = useNotificationMutation(CREATE_POST, {
-    getSuccessMessage: () => 'Post created',
-    update: (cache, { data }) => {
-      const newPostList = [data.createPost, ...displayPostList]
-      setDisplayPostList(newPostList)
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
-    },
-  })
+  const [createPost] = useNotificationMutation(
+    isComment ? CREATE_COMMENT : CREATE_POST,
+    {
+      getSuccessMessage: () => 'Post created',
+      update: (cache, { data }) => {
+        const { createPost: newPost } = data
 
-  const handlePost = async ({ content }) => {
+        if (newPost.parentId !== null) {
+          const newPostList = posts.map((post) => {
+            if (post.id === newPost.parentId) {
+              return {
+                ...post,
+                Comments: [...post.Comments, newPost],
+              }
+            }
+            return post
+          })
+          setDisplayPostList(newPostList)
+          cache.writeQuery({
+            query: GET_POSTS,
+            data: {
+              posts: newPostList,
+            },
+          })
+        } else {
+          const newPostList = [newPost, ...displayPostList]
+          setDisplayPostList(newPostList)
+          cache.writeQuery({
+            query: GET_POSTS,
+            data: {
+              posts: newPostList,
+            },
+          })
+        }
+      },
+    }
+  )
+
+  const handlePost = async (values) => {
+    setIsComment(values.parentId ? true : false)
     createPost({
       variables: {
-        content,
+        ...values,
         acterId: acter.id,
         authorId: user.Acter.id,
       },

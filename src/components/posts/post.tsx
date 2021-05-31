@@ -7,17 +7,19 @@ import { Post as Posts } from '@schema'
 
 export interface PostsProps {
   post: Posts
-  comment?: boolean
+  commenting?: boolean
 }
 
-export const Post: FC<PostsProps> = ({ post, comment }) => {
+export const Post: FC<PostsProps> = ({ post, commenting }) => {
   const classes = useStyles()
 
   return (
-    <>
-      <ActerAvatar acter={post.Author} size={6} />
+    <Box className={classes.postItems}>
+      <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
       <Box
-        className={comment ? classes.commentContainer : classes.postContainer}
+        className={
+          commenting ? classes.commentContainer : classes.postContainer
+        }
       >
         <Box>
           <Typography variant="subtitle1" className={classes.title}>
@@ -37,23 +39,16 @@ export const Post: FC<PostsProps> = ({ post, comment }) => {
           </Typography>
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    image: {
-      marginRight: theme.spacing(1.2),
-      objectFit: 'cover',
-      border: '1px solid black',
-      width: 30,
-      height: 30,
-      padding: theme.spacing(0.8),
-      borderRadius: '50%',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
+    postItems: {
+      display: 'flex',
+      flexDirection: 'row',
+      padding: '5px',
     },
     postContainer: {
       backgroundColor: 'white',
@@ -68,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: grey[200],
       borderRadius: 7,
       width: 400,
+      marginLeft: 14,
       padding: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
