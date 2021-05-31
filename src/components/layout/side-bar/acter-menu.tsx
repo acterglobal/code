@@ -13,7 +13,7 @@ import {
   PermIdentityOutlined as MembersIcon,
   SettingsOutlined as SettingsIcon,
 } from '@material-ui/icons'
-import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
+import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
@@ -39,14 +39,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
       <ActerMenuItem acter={acter} Icon={ForumIcon} path={FEED} />
       <ActerMenuItem acter={acter} Icon={CalendarIcon} path={ACTIVITIES} />
       <ActerMenuItem acter={acter} Icon={MembersIcon} path={MEMBERS} />
-      {user &&
-        followerHasRoleOnActer(
-          user.Acter,
-          ActerConnectionRole.ADMIN,
-          acter
-        ) && (
-          <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
-        )}
+      {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
+        <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
+      )}
     </MenuList>
   )
 }

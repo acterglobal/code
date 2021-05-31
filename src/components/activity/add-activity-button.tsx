@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
-import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
+import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@schema'
 import { ACTIVITIES } from 'src/constants'
 
@@ -22,8 +22,8 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
 
   if (tab !== ACTIVITIES) return null
 
-  const canCreateActivity = followerHasRoleOnActer(
-    user.Acter,
+  const canCreateActivity = userHasRoleOnActer(
+    user,
     ActerConnectionRole.MEMBER,
     acter
   )

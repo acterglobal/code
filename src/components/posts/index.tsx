@@ -4,20 +4,38 @@ import { grey } from '@material-ui/core/colors'
 import { Box } from '@material-ui/core'
 import { Post } from 'src/components/posts/post'
 import { PostForm, PostFormProps } from 'src/components/posts/form'
-import { Post as Posts, User } from '@schema'
+import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
 export interface PostListProps extends PostFormProps {
-  posts: Posts[]
+  /**
+   * Acter on which we are viewing posts
+   */
+  acter: Acter
+  /**
+   * User viewing posts
+   */
   user: User
+  /**
+   * Posts to display
+   */
+  posts: PostType[]
 }
 
-export const PostList: FC<PostListProps> = ({ posts, user, onPostSubmit }) => {
+export const PostList: FC<PostListProps> = ({
+  acter,
+  user,
+  posts,
+  onPostSubmit,
+}) => {
   const classes = useStyles()
 
   return (
     <Box className={classes.root}>
       <Box className={classes.mainContainer}>
-        <PostForm user={user} onPostSubmit={onPostSubmit} />
+        {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
+          <PostForm user={user} onPostSubmit={onPostSubmit} />
+        )}
         {posts?.map((post) => (
           <Box key={post.id} className={classes.contentContainer}>
             <Post post={post} />

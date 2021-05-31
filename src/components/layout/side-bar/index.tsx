@@ -58,7 +58,7 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </MenuList>
       </Box>
-      {acter && user && (
+      {acter && (
         <Box className={classes.subMenu}>
           <ActerMenu acter={acter} user={user} />
         </Box>
