@@ -13,10 +13,9 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 export interface GroupsList {
   acters: Acter[]
-  handleChildAvatar?: (childActer: Acter) => void
 }
 
-export const GroupsList: FC<GroupsList> = ({ acters, handleChildAvatar }) => {
+export const GroupsList: FC<GroupsList> = ({ acters }) => {
   const classes = useStyles()
 
   return (
