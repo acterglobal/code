@@ -16,8 +16,11 @@ import {
   MembersSection,
   MembersSectionProps,
 } from 'src/components/group/members-section'
+import { PostList, PostListProps } from 'src/components/posts'
 
-export type GroupLandingProps = HeaderSectionProps & MembersSectionProps
+export type GroupLandingProps = HeaderSectionProps &
+  MembersSectionProps &
+  PostListProps
 
 export const GroupLanding: FC<GroupLandingProps> = ({
   acter,
@@ -26,6 +29,8 @@ export const GroupLanding: FC<GroupLandingProps> = ({
   onLeave,
   onConnectionStateChange,
   loading,
+  posts,
+  onPostSubmit,
 }) => {
   const classes = useStyles()
   return (
@@ -39,8 +44,16 @@ export const GroupLanding: FC<GroupLandingProps> = ({
       />
       <Grid container spacing={2} className={classes.content}>
         <Grid item xs={12} md={8}>
-          <Box className={classes.posts}></Box>
+          <Box className={classes.posts}>
+            <PostList
+              user={user}
+              acter={acter}
+              posts={posts}
+              onPostSubmit={onPostSubmit}
+            />
+          </Box>
         </Grid>
+
         <Hidden smDown>
           <Grid item md={4}>
             <Box className={classes.container}>
