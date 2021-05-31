@@ -31,6 +31,7 @@ import {
   ActerLandingProps,
 } from 'src/components/acter/landing-page'
 import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
+import { GroupLanding, GroupLandingProps } from 'src/components/group'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
@@ -43,7 +44,6 @@ import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY, GROUP } from 'src/constants'
-import { GroupLanding } from 'src/components/group'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -85,7 +85,7 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
     },
   })
 
-type ViewTypes = ActerLandingProps | ActivityDetailsProps
+type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 const getActerView = (acter): FC<ViewTypes> => {
   switch (acter.ActerType.name) {
     case ACTIVITY:

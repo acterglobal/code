@@ -3,20 +3,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import MarkDown from 'markdown-to-jsx'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    title: {
-      fontWeight: 600,
-      marginBottom: theme.spacing(2),
-    },
-    description: {
-      fontSize: 12,
-      lineHeight: 1.8,
-      marginBottom: theme.spacing(2),
-    },
-  })
-)
-
 export interface headerProps {
   title: string
   description: string
@@ -35,3 +21,18 @@ export const Header: FC<headerProps> = ({ title, description }) => {
     </>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    title: {
+      fontWeight: 600,
+      marginBottom: theme.spacing(2),
+      textTransform: 'capitalize',
+    },
+    description: {
+      fontSize: 12,
+      lineHeight: 1.8,
+      marginBottom: theme.spacing(2),
+    },
+  })
+)
