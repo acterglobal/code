@@ -12,19 +12,13 @@ import {
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { followerHasRoleOnActer } from 'src/lib/acter/follower-has-role-on-acter'
+import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import {
   ConnectionState,
   ConnectionStateProps,
 } from 'src/components/acter/landing-page/members-section/connection-state'
-import {
-  Acter,
-  ActerConnection,
-  ActerConnectionRole,
-  ActerJoinSettings,
-  User,
-} from '@schema'
+import { Acter, ActerConnection, ActerConnectionRole, User } from '@schema'
 
 import { ORGANISATIONS, PEOPLE } from 'src/constants'
 
@@ -61,16 +55,12 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
 }) => {
   const classes = useStyles()
 
-  const showJoinState = followerHasRoleOnActer(
-    user.Acter,
+  const showJoinState = userHasRoleOnActer(
+    user,
     ActerConnectionRole.MEMBER,
     acter
   )
-  const canEdit = followerHasRoleOnActer(
-    user.Acter,
-    ActerConnectionRole.ADMIN,
-    acter
-  )
+  const canEdit = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (
     <Box className={classes.container}>

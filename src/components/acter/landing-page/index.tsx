@@ -60,7 +60,12 @@ export const ActerLanding: FC<ActerLandingProps> = ({
             />
           </div>
           <div role="tabpanel" hidden={tab !== FEED}>
-            <PostList user={user} posts={posts} onPostSubmit={onPostSubmit} />
+            <PostList
+              user={user}
+              acter={acter}
+              posts={posts}
+              onPostSubmit={onPostSubmit}
+            />
           </div>
         </Grid>
         <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
