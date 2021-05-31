@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import clsx from 'clsx'
 import {
-  MenuItem,
+  ListItem,
   ListItemIcon,
   ListItemText,
   createStyles,
@@ -34,7 +34,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   const isActive = router.query.tab?.includes(path)
 
   return (
-    <MenuItem
+    <ListItem
       className={clsx({
         [classes.item]: true,
         [classes.currentItem]: isActive,
@@ -49,7 +49,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
           <ListItemText primary={text ? text : path} />
         </a>
       </Link>
-    </MenuItem>
+    </ListItem>
   )
 }
 

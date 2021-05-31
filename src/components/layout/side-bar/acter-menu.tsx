@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import {
   MenuList,
-  MenuItem,
+  ListItem,
   ListItemAvatar,
   createStyles,
   makeStyles,
@@ -31,11 +31,11 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
 
   return (
     <MenuList>
-      <MenuItem divider className={classes.acterHeaderItem}>
+      <ListItem divider className={classes.acterHeaderItem}>
         <ListItemAvatar>
           <ActerAvatar acter={acter} size={4} />
         </ListItemAvatar>
-      </MenuItem>
+      </ListItem>
       <ActerMenuItem acter={acter} Icon={ForumIcon} path={FEED} />
       <ActerMenuItem acter={acter} Icon={CalendarIcon} path={ACTIVITIES} />
       <ActerMenuItem acter={acter} Icon={MembersIcon} path={MEMBERS} />

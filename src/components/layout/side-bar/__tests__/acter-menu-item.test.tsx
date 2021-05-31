@@ -24,12 +24,12 @@ describe('ActerMenuItem', () => {
         text="Bar"
       />
     )
-    expect(screen.getByRole('menuitem', { name: 'Bar' })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Bar' })).toBeTruthy()
   })
 
   it('should use the path for display text when text prop not set', () => {
     render(<ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path="foo" />)
-    expect(screen.getByRole('menuitem', { name: 'foo' })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'foo' })).toBeTruthy()
   })
 
   it('should display as selected when router tab matches path', () => {
@@ -42,9 +42,8 @@ describe('ActerMenuItem', () => {
     render(
       <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
     )
-    const item = screen.getByRole('menuitem', { name: 'foo' })
 
-    expect(item).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
   })
 
   it('should display first item as selected when tab prop not set', () => {
@@ -57,8 +56,7 @@ describe('ActerMenuItem', () => {
     render(
       <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
     )
-    const item = screen.getByRole('menuitem', { name: 'foo' })
 
-    expect(item).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
   })
 })
