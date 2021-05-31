@@ -176,10 +176,22 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         const { createPost: newPost } = data
 
         if (newPost.parentId !== null) {
-          posts.map((post) => {
-            post.id == newPost.parentId ? post.Comments.push(newPost) : null
+          const newPostList = posts.map((post) => {
+            if (post.id === newPost.parentId) {
+              return {
+                ...post,
+                Comments: [...post.Comments, newPost],
+              }
+            }
+            return post
           })
-          writeCache(cache)
+          setDisplayPostList(newPostList)
+          cache.writeQuery({
+            query: GET_POSTS,
+            data: {
+              posts: newPostList,
+            },
+          })
         } else {
           const newPostList = [newPost, ...displayPostList]
           setDisplayPostList(newPostList)

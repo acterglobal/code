@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, InputLabel } from '@material-ui/core'
 import { Form, Formik } from 'formik'
@@ -34,9 +34,8 @@ export const PostForm: FC<PostFormProps> = ({
 
     try {
       await onPostSubmit(submitValues)
-    } catch (_e) {
-      // Error notification handled up the stack
-    }
+      // eslint-disable-next-line no-empty
+    } catch (_e) {}
   }
   return (
     <Box className={classes.contentContainer}>
@@ -80,14 +79,6 @@ export const PostForm: FC<PostFormProps> = ({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      background: 'white',
-      width: 800,
-      overflow: 'hidden',
-      '& .MuiFilledInput-inputMultiline': {
-        overflow: 'hidden',
-      },
-    },
     contentContainer: {
       backgroundColor: 'white',
       width: '100%',
@@ -98,18 +89,6 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 300,
       },
       marginBottom: theme.spacing(2),
-    },
-    image: {
-      marginTop: theme.spacing(3),
-      objectFit: 'cover',
-      border: '1px solid black',
-      width: 30,
-      height: 30,
-      padding: theme.spacing(0.8),
-      borderRadius: '50%',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
     commentInputContainer: {
       borderRadius: 7,
@@ -124,9 +103,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       width: '93%',
       overflow: 'hidden',
-      margin: theme.spacing(1),
-    },
-    commentField: {
       margin: theme.spacing(1),
     },
   })

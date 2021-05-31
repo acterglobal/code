@@ -58,9 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 300,
       },
     },
-    postItems: {
-      width: '100%',
-    },
     contentContainer: {
       backgroundColor: 'white',
       borderRadius: 7,
@@ -72,19 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 300,
       },
       marginBottom: theme.spacing(1),
-    },
-
-    image: {
-      marginTop: theme.spacing(3),
-      objectFit: 'cover',
-      border: '1px solid black',
-      width: 30,
-      height: 30,
-      padding: theme.spacing(0.8),
-      borderRadius: '50%',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
   })
 )
