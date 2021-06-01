@@ -176,7 +176,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         const { createPost: newPost } = data
 
         if (newPost.parentId !== null) {
-          const newPostList = posts.map((post) => {
+          const newPostList = displayPostList.map((post) => {
             if (post.id === newPost.parentId) {
               return {
                 ...post,
