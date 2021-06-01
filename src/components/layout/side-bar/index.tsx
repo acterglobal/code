@@ -53,7 +53,7 @@ export const Sidebar: FC<SidebarProps> = ({
     >
       <Box className={classes.menu}>
         <List className={classes.list}>
-          <IconMenuItem Icon={ActerLogoText} href="/" text="Acter" />
+          <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
           <IconMenuItem Icon={HomeIcon} href="/dashboard" text="Home" />
           <IconMenuItem Icon={SearchIcon} href="/search" text="Search" />
           <Divider />
