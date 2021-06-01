@@ -125,6 +125,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
         borderColor: theme.palette.secondary.contrastText,
       },
     },
+    item: {
+      magrinLeft: 'auto',
+      marginRight: 'auto',
+    },
     subMenu: {
       backgroundColor: theme.palette.secondary[600],
       height: '100%',
