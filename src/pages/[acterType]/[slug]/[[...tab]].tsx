@@ -132,7 +132,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     cache.writeQuery({
       query: GET_ACTER,
       data: {
-        getActer: acter,
+        getActer: displayActer,
       },
     })
     cache.writeQuery({
@@ -192,7 +192,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   })
   const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
     update: (cache, { data }) => {
-      acter.Children.push(data.createActer)
+      displayActer.ActerType.name === GROUP
+        ? displayActer.Parent.Children.push(data.createActer)
+        : displayActer.Children.push(data.createActer)
       writeCache(cache)
     },
     getSuccessMessage: (data) => `${data.createActer.name} group created`,
