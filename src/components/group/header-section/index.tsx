@@ -21,10 +21,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 }) => {
   const classes = useStyles()
 
-  // const handleInfoIconClick = () => {
-  //   console.log('Info clicked')
-  // }
-
   return (
     <Box className={classes.heading}>
       <Box>
