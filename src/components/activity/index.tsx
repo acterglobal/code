@@ -8,43 +8,12 @@ import { ActivityInfo } from 'src/components/activity/activity-info'
 import { ActivityDescription } from 'src/components/activity/activity-description'
 import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
+import { PostList, PostListProps } from 'src/components/posts'
 import { InterestType } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 import { useRouter } from 'next/router'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    backgroundColor: '#F2F2F2',
-    width: 800,
-    height: '100%',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: 700,
-    },
-    [theme.breakpoints.down('xs')]: {
-      maxWidth: 310,
-    },
-    overflowY: 'scroll',
-    marginBottom: 10,
-  },
-  imageContainer: {
-    backgroundColor: 'white',
-    overflow: 'hidden',
-    objectFit: 'contain',
-  },
-  content: {
-    padding: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1),
-    },
-  },
-  membersContainer: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'flex',
-    },
-  },
-}))
-
-export interface ActivityDetailsProps extends ConnectProps {
+export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]
 }
 
@@ -52,9 +21,11 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   acter,
   interestTypes,
   user,
+  posts,
   onJoin,
   onLeave,
   loading,
+  onPostSubmit,
 }) => {
   const classes = useStyles()
 
@@ -107,7 +78,46 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
             <ActivityDescription acter={acter} interestTypes={interestTypes} />
           </Grid>
         </Hidden>
+
+        <PostList
+          user={user}
+          acter={acter}
+          posts={posts}
+          onPostSubmit={onPostSubmit}
+        />
       </Box>
     </Modal>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    backgroundColor: '#F2F2F2',
+    width: 800,
+    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 700,
+    },
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 310,
+    },
+    overflowY: 'scroll',
+    marginBottom: 10,
+  },
+  imageContainer: {
+    backgroundColor: 'white',
+    overflow: 'hidden',
+    objectFit: 'contain',
+  },
+  content: {
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1),
+    },
+  },
+  membersContainer: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+    },
+  },
+}))
