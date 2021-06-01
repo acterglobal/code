@@ -1,14 +1,12 @@
 import React, { FC } from 'react'
 
 import { SvgIcon, SvgIconProps } from '@material-ui/core'
-// import HomeLogo from 'src/components/icons/icon-svgs/home-dashboard.svg'
-
 export const HomeIcon: FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
+      width="19"
+      height="19"
+      viewBox="-3 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

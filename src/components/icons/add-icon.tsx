@@ -5,9 +5,9 @@ import { SvgIcon, SvgIconProps } from '@material-ui/core'
 export const AddIcon: FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <svg
-      width="20"
-      height="20"
-      viewBox="0 0 33 33"
+      width="22"
+      height="22"
+      viewBox="-2 0 36 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
