@@ -18,7 +18,7 @@ export const createApolloClient = (
 
   const errorLink = onError(({ networkError }) => {
     //@ts-ignore
-    if (networkError.result?.errors) {
+    if (networkError?.result?.errors) {
       console.error('Apollo GraphQL validation errors:')
       //@ts-ignore
       console.error(networkError.result.errors)
