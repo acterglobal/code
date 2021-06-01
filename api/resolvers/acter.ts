@@ -47,7 +47,7 @@ export class ActerResolver {
         ActerType: { name: { notIn: [USER, ACTIVITY] } },
       },
     })
-
+    // TODO: add logic to createslug for activities
     const slug = createSlug(
       name,
       acterType.name === GROUP ? parentActerSlug : null

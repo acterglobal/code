@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
-import { useRouter } from 'next/router'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { titleCase } from 'title-case'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { filterConnectionsByAtLeastRole } from 'src/lib/acter/filter-connections-by-at-least-role'
 import { mapFollowersByType } from 'src/lib/acter/map-followers-by-type'
 import { AvatarGroup } from 'src/components/acter/avatar-group'
@@ -29,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface FollowersAvatarsProps {
   acter: Acter
+  onAvatarClick?: () => void
 }
 
 const getActerTypeTitle = (acterType: ActerType) => {
@@ -39,9 +38,11 @@ const getActerTypeTitle = (acterType: ActerType) => {
   return `${titleCase(acterType.name)}s`
 }
 
-export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
+export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
+  acter,
+  onAvatarClick,
+}) => {
   const classes = useStyles()
-  const router = useRouter()
 
   const followerTypeMap = mapFollowersByType(acter)
 
@@ -63,7 +64,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({ acter }) => {
           <Box
             key={`${title}-followers`}
             className={classes.followers}
-            onClick={() => router.push(`${acterAsUrl(acter)}/members`)}
+            onClick={onAvatarClick}
           >
             <Typography variant="h6" className={classes.section}>
               {title} ({acters.length})

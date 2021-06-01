@@ -31,6 +31,7 @@ import {
   ActerLandingProps,
 } from 'src/components/acter/landing-page'
 import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
+import { GroupLanding, GroupLandingProps } from 'src/components/group'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
@@ -42,7 +43,7 @@ import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragm
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
-import { ACTIVITY } from 'src/constants'
+import { ACTIVITY, GROUP } from 'src/constants'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -77,11 +78,21 @@ const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
     },
   })
 
-type ActerOrActivityView = ActerLandingProps | ActivityDetailsProps
-const getActerView = (acter): FC<ActerOrActivityView> => {
+const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
+  createActer({
+    variables: {
+      ...acter,
+    },
+  })
+
+type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
+// TODO: make below to its own component
+const getActerView = (acter): FC<ViewTypes> => {
   switch (acter.ActerType.name) {
     case ACTIVITY:
       return ActivityDetails
+    case GROUP:
+      return GroupLanding
     default:
       return ActerLanding
   }
@@ -172,28 +183,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
   const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
-    getErrorMessage: () => 'Created Group',
-    onCompleted: (data) => {
-      console.log('AFTER MUTATION DATA: ', data)
+    update: (cache, { data }) => {
+      acter.Children.push(data.createActer)
+      writeCache(cache)
     },
-    onError: (err) => {
-      console.log('AFTER MUTATION ERROR: ', err)
-    },
+    getSuccessMessage: (data) => `${data.createActer.name} group created`,
   })
-
-  const handleCreateGroup = (groupData) => {
-    console.log(groupData)
-    createActer({
-      variables: {
-        name: groupData.name,
-        description: groupData.description,
-        acterTypeId: groupData.acterTypeId,
-        parentActerId: groupData.parentActerId,
-        acterJoinSetting: groupData.acterJoinSetting,
-        interestIds: [],
-      },
-    })
-  }
 
   const [createPost] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
@@ -248,10 +243,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   return (
     <Layout
-      acter={acter}
+      acter={acter.ActerType.name === GROUP ? acter.Parent : acter}
       acterTypes={acterTypes}
       user={user}
-      onCreateGroup={handleCreateGroup}
+      onCreateGroup={_handleCreateActer(createActer)}
     >
       <Head title={`${acter.name} - Acter`} />
       <View

@@ -10,12 +10,10 @@ export const createSlug = (
   acterName: string,
   parentActerSlug: string | null = null
 ): string => {
-  let slugifyString = ''
-
-  if (parentActerSlug !== null) {
-    slugifyString = parentActerSlug + ' '
-  }
-  slugifyString += acterName.toLocaleLowerCase()
+  const slugifyString =
+    parentActerSlug !== null
+      ? `${parentActerSlug} ${acterName.toLocaleLowerCase()}`
+      : acterName.toLocaleLowerCase()
 
   return slugify(slugifyString)
 }
