@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import {
   MenuList,
   ListItem,
+  Divider,
   ListItemAvatar,
   createStyles,
   makeStyles,
@@ -17,15 +18,21 @@ import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { Acter, ActerConnectionRole, User } from '@schema'
+import { ActerConnectionRole, User } from '@schema'
 import { ACTIVITIES, FEED, MEMBERS, SETTINGS } from 'src/constants'
+import {
+  GroupsSection,
+  GroupsSectionProps,
+} from 'src/components/layout/side-bar/groups-section'
 
-export interface ActerMenuProps {
-  acter?: Acter
-  user?: User
-}
+export type ActerMenuProps = GroupsSectionProps & { user: User }
 
-export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
+export const ActerMenu: FC<ActerMenuProps> = ({
+  acter,
+  user,
+  acterTypes,
+  onCreateGroup,
+}) => {
   if (!acter) return null
   const classes = useStyles()
 
@@ -42,6 +49,13 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, user }) => {
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
+      <Divider />
+
+      <GroupsSection
+        acter={acter}
+        acterTypes={acterTypes}
+        onCreateGroup={onCreateGroup}
+      />
     </MenuList>
   )
 }

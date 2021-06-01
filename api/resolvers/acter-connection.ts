@@ -5,7 +5,6 @@ import {
   ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
-  User,
 } from '@schema'
 
 @Resolver(ActerConnection)

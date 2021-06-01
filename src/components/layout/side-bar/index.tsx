@@ -29,7 +29,12 @@ import { commonStyles } from 'src/components/layout/side-bar/common'
 
 export type SidebarProps = ActerMenuProps & FollowingListProps
 
-export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
+export const Sidebar: FC<SidebarProps> = ({
+  acter,
+  acterTypes,
+  user,
+  onCreateGroup,
+}) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
 
@@ -60,7 +65,12 @@ export const Sidebar: FC<SidebarProps> = ({ acter, user }) => {
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} user={user} />
+          <ActerMenu
+            acter={acter}
+            acterTypes={acterTypes}
+            onCreateGroup={onCreateGroup}
+            user={user}
+          />
         </Box>
       )}
     </Drawer>

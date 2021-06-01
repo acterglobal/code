@@ -7,7 +7,7 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { excludeActerTypes } from 'src/lib/acter/exclude-acter-types'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
-import { ACTIVITY, USER } from 'src/constants'
+import { ACTIVITY, GROUP, USER } from 'src/constants'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
 export interface FollowingListProps {
@@ -25,7 +25,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
     <>
       {excludeActerTypes(
         user.Acter.Following.map(({ Following }) => Following),
-        [ACTIVITY, USER]
+        [ACTIVITY, USER, GROUP]
       ).map((acter) => (
         <MenuItem
           key={`following-${acter.id}`}

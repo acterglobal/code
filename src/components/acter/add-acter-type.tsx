@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Modal } from 'src/components/util/modal'
+import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { ActerType } from 'src/components/acter/acter-type'
 import { useRouter } from 'next/router'
+import { ORGANISATION, NETWORK } from 'src/constants/acter-types'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -45,8 +46,8 @@ export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
           </Typography>
         </Box>
         <Box>
-          <ActerType acterType="organisation" onClick={onClick} />
-          <ActerType acterType="network" onClick={onClick} />
+          <ActerType acterType={ORGANISATION} onClick={onClick} />
+          <ActerType acterType={NETWORK} onClick={onClick} />
         </Box>
       </Box>
     </Modal>

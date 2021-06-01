@@ -1,13 +1,14 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
-import slugify from 'slugify'
 import {
   Acter,
   ActerConnectionRole,
   ActerJoinSettings,
   Activity,
 } from '@schema'
+import { createSlug } from 'src/lib/acter/create-acter-slug'
+import { ACTIVITY, GROUP, USER } from 'src/constants'
 
 @Resolver(Acter)
 export class ActerResolver {
@@ -23,6 +24,7 @@ export class ActerResolver {
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
+    @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
@@ -34,7 +36,23 @@ export class ActerResolver {
     }
     const createdByUserId = currentUser.id
 
-    const slug = slugify(name.toLocaleLowerCase())
+    const acterType = await ctx.prisma.acterType.findFirst({
+      select: { name: true },
+      where: { id: acterTypeId },
+    })
+    const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
+      select: { slug: true },
+      where: {
+        id: parentActerId,
+        ActerType: { name: { notIn: [USER, ACTIVITY] } },
+      },
+    })
+
+    const slug = createSlug(
+      name,
+      acterType.name === GROUP ? parentActerSlug : null
+    )
+
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {
         slug,
@@ -65,6 +83,7 @@ export class ActerResolver {
         useAdmins,
         acterJoinSetting,
         acterTypeId,
+        parentActerId,
         updatedAt: new Date(),
         createdByUserId,
         Followers: {
@@ -176,7 +195,8 @@ export class ActerResolver {
     @Arg('isOnline') isOnline: boolean,
     @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string,
-    @Arg('activityTypeId') activityTypeId: string
+    @Arg('activityTypeId') activityTypeId: string,
+    @Arg('parentActerId', { nullable: true }) parentActerId: string
   ): Promise<Activity> {
     const acter = await this.createActer(
       ctx,
@@ -187,6 +207,7 @@ export class ActerResolver {
       useAdmins,
       acterJoinSetting,
       acterTypeId,
+      parentActerId,
       interestIds
     )
 

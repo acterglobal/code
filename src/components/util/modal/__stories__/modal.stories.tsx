@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react'
-import { Modal } from 'src/components/util/modal'
+import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 
 import React from 'react'
 

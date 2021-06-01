@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
-import { Modal } from 'src/components/util/modal'
+import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { Button, ButtonsContainer } from 'src/components/styled'
 
 import { Acter } from '@schema'
