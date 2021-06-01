@@ -2,7 +2,8 @@ import 'reflect-metadata'
 import { FC } from 'react'
 import { AppProps } from 'next/app'
 
-import { Provider as NextAuthProvider } from 'next-auth/client'
+// import { Provider as NextAuthProvider } from 'next-auth/client'
+import { UserProvider } from '@auth0/nextjs-auth0'
 import { ApolloProvider } from '@apollo/client'
 
 import { useApollo } from 'lib/apollo'
@@ -26,7 +27,8 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <NextAuthProvider session={pageProps.session}>
+      {/* <NextAuthProvider session={pageProps.session}> */}
+      <UserProvider>
         <ActerThemeProvider>
           <SnackbarProvider
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -35,7 +37,8 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
             <Component {...pageProps} err={err} />
           </SnackbarProvider>
         </ActerThemeProvider>
-      </NextAuthProvider>
+      </UserProvider>
+      {/* </NextAuthProvider> */}
     </ApolloProvider>
   )
 }
