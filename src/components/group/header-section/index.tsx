@@ -24,10 +24,9 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   return (
     <Box className={classes.heading}>
       <Box>
-        <Typography
-          className={classes.name}
-          variant="subtitle1"
-        >{`# ${acter.name}`}</Typography>
+        <Typography className={classes.name} variant="subtitle1">
+          # {acter.name}
+        </Typography>
       </Box>
 
       <Box>

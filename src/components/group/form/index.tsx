@@ -34,7 +34,7 @@ export const AddGroup: FC<AddGroupProps> = ({
   setModal,
 }) => {
   const classes = useStyles()
-  const [switchOn, setSwitchOn] = useState(
+  const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(
     parentActer.acterJoinSetting === ActerJoinSettings.RESTRICTED ? true : false
   )
   const acterType = getActerTypeByName(acterTypes, GROUP)
@@ -47,14 +47,14 @@ export const AddGroup: FC<AddGroupProps> = ({
   }
 
   const handleSubmit = (data) => {
-    data.acterJoinSetting = switchOn
+    data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
     onCreateGroup({ ...data, interestIds: [] })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)
-  const handleSwitch = () => setSwitchOn(!switchOn)
+  const handleSwitch = () => setIsActerJoinRestricted(!isActerJoinRestricted)
 
   return (
     <Modal
@@ -97,7 +97,7 @@ export const AddGroup: FC<AddGroupProps> = ({
                 </FormHelperText>
                 <Switch
                   name="makePrivate"
-                  checked={switchOn}
+                  checked={isActerJoinRestricted}
                   handleSwitchChange={handleSwitch}
                 />
               </Box>

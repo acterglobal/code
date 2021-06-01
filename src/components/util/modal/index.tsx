@@ -7,10 +7,10 @@ import { TopBarProps } from 'src/components/util/modal/top-bar'
 export interface ModalProps extends TopBarProps {
   open: boolean
   children: ReactNode
-  handleModalClose?: (any?) => void
+  handleModalClose: (any?) => void
   disableBackdropClick?: boolean
 }
-// TODO: need to refactor
+
 export const Modal: FC<ModalProps> = ({
   open,
   children,

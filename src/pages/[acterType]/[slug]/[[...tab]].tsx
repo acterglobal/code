@@ -86,6 +86,7 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
   })
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
+// TODO: make below to its own component
 const getActerView = (acter): FC<ViewTypes> => {
   switch (acter.ActerType.name) {
     case ACTIVITY:

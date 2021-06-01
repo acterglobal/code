@@ -3,7 +3,7 @@ import {
   Box,
   createStyles,
   makeStyles,
-  MenuItem,
+  ListItem,
   Theme,
   Typography,
 } from '@material-ui/core'
@@ -21,14 +21,14 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
   return (
     <Box className={classes.container}>
       {acters.map((acter) => (
-        <MenuItem className={classes.item} key={acter.id}>
+        <ListItem className={classes.item} key={acter.id}>
           <Box className={classes.icon}></Box>
           <Link href={acterAsUrl(acter)}>
             <a>
               <Typography variant="body2">{acter.name}</Typography>
             </a>
           </Link>
-        </MenuItem>
+        </ListItem>
       ))}
     </Box>
   )
