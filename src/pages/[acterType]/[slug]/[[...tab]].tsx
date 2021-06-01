@@ -85,16 +85,13 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
       ...acter,
     },
   })
-const _handleUpdateActer = (updateActer: MutationFunction) => (
-  acter: Acter
-) => {
-  console.log('upated acter: ', acter)
-  return updateActer({
+const _handleUpdateActer = (updateActer: MutationFunction) => (acter: Acter) =>
+  updateActer({
     variables: {
+      acterId: acter.id,
       ...acter,
     },
   })
-}
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 // TODO: make below to its own component
@@ -201,9 +198,12 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     getSuccessMessage: (data) => `${data.createActer.name} group created`,
   })
   const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
+    update: (cache, { data }) => {
+      const { updateActer: updatedActer } = data
+      setDisplayActer({ ...updatedActer })
+      writeCache(cache)
+    },
     getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-    onError: (data) => console.log('ERROR :', data),
-    // onCompleted: () => router.push(acterAsUrl(acter)),
   })
 
   const [createPost] = useNotificationMutation(
@@ -259,7 +259,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   return (
     <Layout
-      acter={acter.ActerType.name === GROUP ? acter.Parent : acter}
+      acter={
+        acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
+      }
       acterTypes={acterTypes}
       user={user}
       onGroupSubmit={_handleCreateActer(createActer)}
