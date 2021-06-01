@@ -31,7 +31,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
   user,
   acterTypes,
-  onCreateGroup,
+  onGroupSubmit,
 }) => {
   if (!acter) return null
   const classes = useStyles()
@@ -55,7 +55,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         acter={acter}
         user={user}
         acterTypes={acterTypes}
-        onCreateGroup={onCreateGroup}
+        onGroupSubmit={onGroupSubmit}
       />
     </MenuList>
   )

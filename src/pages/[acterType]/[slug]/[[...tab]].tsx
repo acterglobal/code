@@ -34,6 +34,7 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import { GroupLanding, GroupLandingProps } from 'src/components/group'
 
 import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
+import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
@@ -84,6 +85,16 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
       ...acter,
     },
   })
+const _handleUpdateActer = (updateActer: MutationFunction) => (
+  acter: Acter
+) => {
+  console.log('upated acter: ', acter)
+  return updateActer({
+    variables: {
+      ...acter,
+    },
+  })
+}
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 // TODO: make below to its own component
@@ -189,6 +200,11 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
     getSuccessMessage: (data) => `${data.createActer.name} group created`,
   })
+  const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+    onError: (data) => console.log('ERROR :', data),
+    // onCompleted: () => router.push(acterAsUrl(acter)),
+  })
 
   const [createPost] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
@@ -246,17 +262,19 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       acter={acter.ActerType.name === GROUP ? acter.Parent : acter}
       acterTypes={acterTypes}
       user={user}
-      onCreateGroup={_handleCreateActer(createActer)}
+      onGroupSubmit={_handleCreateActer(createActer)}
     >
       <Head title={`${acter.name} - Acter`} />
       <View
         acter={displayActer}
+        acterTypes={acterTypes}
         user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={handlePost}
+        onGroupSubmit={_handleUpdateActer(updateActer)}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
         loading={creatingConnection || deletingConnection || updatingConnection}
       />

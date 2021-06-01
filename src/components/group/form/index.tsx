@@ -18,19 +18,21 @@ import { Acter, ActerType, ActerJoinSettings } from '@schema'
 import { getActerTypeByName } from 'src/lib/acter-types/get-acter-type-by-name'
 import { GROUP } from 'src/constants/acter-types'
 
-export interface AddGroupProps {
+export interface GroupFormProps {
+  acter?: Acter
   parentActer: Acter
   acterTypes: ActerType[]
   openModal: boolean
   setModal: (open: boolean) => void
-  onCreateGroup: (groupData: Acter) => void
+  onGroupSubmit: (groupData: Acter) => void
 }
 
-export const AddGroup: FC<AddGroupProps> = ({
+export const GroupForm: FC<GroupFormProps> = ({
+  acter,
   parentActer,
   acterTypes,
   openModal,
-  onCreateGroup,
+  onGroupSubmit,
   setModal,
 }) => {
   const classes = useStyles()
@@ -44,13 +46,15 @@ export const AddGroup: FC<AddGroupProps> = ({
     description: '',
     parentActerId: parentActer.id,
     acterTypeId: acterType.id,
+    ...acter,
   }
 
   const handleSubmit = (data) => {
     data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    onCreateGroup({ ...data, interestIds: [] })
+    console.log(data.acterJoinSetting)
+    onGroupSubmit({ ...data, interestIds: [] })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)
