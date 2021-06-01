@@ -7,12 +7,10 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import {
-  DateRangeOutlined as CalendarIcon,
-  ForumOutlined as ForumIcon,
-  PermIdentityOutlined as MembersIcon,
-  SettingsOutlined as SettingsIcon,
-} from '@material-ui/icons'
+import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
+import { MembersIcon } from 'src/components/icons/members-icon'
+import { ForumIcon } from 'src/components/icons/forum-icon'
+import { ActivitiesIcon } from 'src/components/icons/activities-icon'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
@@ -43,7 +41,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         </ListItemAvatar>
       </ListItem>
       <ActerMenuItem acter={acter} Icon={ForumIcon} path={FEED} />
-      <ActerMenuItem acter={acter} Icon={CalendarIcon} path={ACTIVITIES} />
+      <ActerMenuItem acter={acter} Icon={ActivitiesIcon} path={ACTIVITIES} />
       <ActerMenuItem acter={acter} Icon={MembersIcon} path={MEMBERS} />
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />

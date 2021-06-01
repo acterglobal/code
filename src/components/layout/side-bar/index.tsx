@@ -10,13 +10,11 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import {
-  AddCircleOutline as AddIcon,
-  HomeOutlined as HomeIcon,
-  LanguageOutlined as WorldIcon,
-  SvgIconComponent,
-} from '@material-ui/icons'
-import { ActerLogoText } from 'src/components/icons/acter-logo-text'
+import { SvgIconComponent } from '@material-ui/icons'
+import { ActerIcon } from 'src/components/icons/acter-icon'
+import { HomeIcon } from 'src/components/icons/home-icon'
+import { AddIcon } from 'src/components/icons/add-icon'
+import { SearchIcon } from 'src/components/icons/search-icon'
 import {
   ActerMenu,
   ActerMenuProps,
@@ -57,7 +55,7 @@ export const Sidebar: FC<SidebarProps> = ({
         <List className={classes.list}>
           <IconMenuItem Icon={ActerLogoText} href="/" text="Acter" />
           <IconMenuItem Icon={HomeIcon} href="/dashboard" text="Home" />
-          <IconMenuItem Icon={WorldIcon} href="/search" text="Search" />
+          <IconMenuItem Icon={SearchIcon} href="/search" text="Search" />
           <Divider />
           <FollowingList user={user} />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
