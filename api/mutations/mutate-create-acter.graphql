@@ -5,6 +5,7 @@ mutation CreateActer(
   $url: String
   $useAdmins: Boolean
   $acterTypeId: String!
+  $acterJoinSetting: ActerJoinSettings
   $interestIds: [String!]!
   $parentActerId: String
 ) {
@@ -15,6 +16,7 @@ mutation CreateActer(
     url: $url
     useAdmins: $useAdmins
     acterTypeId: $acterTypeId
+    acterJoinSetting: $acterJoinSetting
     interestIds: $interestIds
     parentActerId: $parentActerId
   ) {
