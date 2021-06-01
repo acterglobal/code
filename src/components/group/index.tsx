@@ -86,11 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       marginTop: theme.spacing(2),
     },
-    posts: {
-      borderRadius: theme.spacing(1),
-      backgroundColor: 'white',
-      height: 300,
-    },
+    posts: {},
     container: {
       backgroundColor: 'white',
       padding: theme.spacing(2),
