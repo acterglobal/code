@@ -29,4 +29,10 @@ fragment ActerFull on Acter {
   Children {
     ...ActerDisplay
   }
+  Parent {
+    ...ActerDisplay
+    Children {
+      ...ActerDisplay
+    }
+  }
 }
