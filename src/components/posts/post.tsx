@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     postItems: {
       display: 'flex',
       flexDirection: 'row',
-      padding: '5px',
+      padding: 5,
     },
     postContainer: {
       backgroundColor: 'white',
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
     commentContainer: {
       backgroundColor: grey[200],
       borderRadius: 7,
-      width: 400,
+      width: '80%',
       marginLeft: 14,
       padding: theme.spacing(1),
       display: 'flex',
@@ -82,10 +82,8 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: 1,
     },
     description: {
-      color: grey[800],
-      display: '-webkit-box',
-      boxOrient: 'vertical',
-      wordBreak: 'break-all',
+      color: grey[700],
+      hyphens: 'auto',
       overflow: 'hidden',
     },
   })

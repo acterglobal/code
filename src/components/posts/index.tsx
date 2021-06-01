@@ -31,47 +31,47 @@ export const PostList: FC<PostListProps> = ({
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.mainContainer}>
-        {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
-          <PostForm user={user} onPostSubmit={onPostSubmit} />
-        )}
-        {posts?.map((post) => (
-          <Box key={post.id} className={classes.contentContainer}>
-            <Post post={post} />
-            {post.Comments?.map((comment) => (
-              <Box key={comment.id} className={classes.contentContainer}>
-                <Post key={comment.id} post={comment} commenting />
-              </Box>
-            ))}
-            <Box>
-              <PostForm post={post} user={user} onPostSubmit={onPostSubmit} />
+    <Box className={classes.mainContainer}>
+      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
+        <PostForm user={user} onPostSubmit={onPostSubmit} />
+      )}
+      {posts?.map((post) => (
+        <Box key={post.id} className={classes.contentContainer}>
+          <Post post={post} />
+          {post.Comments?.map((comment) => (
+            <Box key={comment.id} className={classes.contentContainer}>
+              <Post key={comment.id} post={comment} commenting />
             </Box>
+          ))}
+          <Box>
+            <PostForm post={post} user={user} onPostSubmit={onPostSubmit} />
           </Box>
-        ))}
-      </Box>
+        </Box>
+      ))}
     </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      background: grey[200],
-      width: 800,
-      overflow: 'hidden',
-      justifyContent: 'center',
-      padding: theme.spacing(2),
-    },
+    // root: {
+    //   background: 'red',
+    //   width: '100%',
+    //   overflow: 'hidden',
+    //   justifyContent: 'center',
+    //   borderRadius: 7,
+    //   // padding: theme.spacing(2),
+    // },
     mainContainer: {
+      backgroundcOlor: 'blue',
       borderRadius: 7,
-      width: '95%',
+      width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
-      marginLeft: 'auto',
-      marginRight: 'auto',
+      // marginLeft: 'auto',
+      // marginRight: 'auto',
       marginBottom: theme.spacing(1),
-      padding: theme.spacing(0.1),
+      // padding: theme.spacing(0.1),
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
