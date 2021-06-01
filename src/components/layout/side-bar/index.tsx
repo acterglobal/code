@@ -11,10 +11,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
-import { ActerIcon } from 'src/components/icons/acter-icon'
-import { HomeIcon } from 'src/components/icons/home-icon'
-import { AddIcon } from 'src/components/icons/add-icon'
-import { SearchIcon } from 'src/components/icons/search-icon'
+import { ActerIcon, HomeIcon, AddIcon, SearchIcon } from 'src/components/icons'
 import {
   ActerMenu,
   ActerMenuProps,

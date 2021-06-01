@@ -8,9 +8,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
-import { MembersIcon } from 'src/components/icons/members-icon'
-import { ForumIcon } from 'src/components/icons/forum-icon'
-import { ActivitiesIcon } from 'src/components/icons/activities-icon'
+import { ForumIcon, MembersIcon, ActivitiesIcon } from 'src/components/icons'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
