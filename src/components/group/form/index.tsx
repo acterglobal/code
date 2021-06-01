@@ -22,6 +22,8 @@ export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
   acterTypes: ActerType[]
+  modalHeading: string
+  submitButtonLabel: string
   openModal: boolean
   setModal: (open: boolean) => void
   onGroupSubmit: (groupData: Acter) => void
@@ -31,6 +33,8 @@ export const GroupForm: FC<GroupFormProps> = ({
   acter,
   parentActer,
   acterTypes,
+  modalHeading,
+  submitButtonLabel,
   openModal,
   onGroupSubmit,
   setModal,
@@ -62,7 +66,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   return (
     <Modal
       open={openModal}
-      heading="Create work group"
+      heading={modalHeading}
       handleModalClose={handleModalClose}
     >
       <Box className={classes.content}>
@@ -113,7 +117,7 @@ export const GroupForm: FC<GroupFormProps> = ({
                 variant="contained"
                 type="submit"
               >
-                Create
+                {submitButtonLabel}
               </Button>
             </Box>
           </Form>

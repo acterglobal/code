@@ -56,6 +56,8 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
         <AddGroup
           parentActer={acter}
           acterTypes={acterTypes}
+          modalHeading="Create work group"
+          submitButtonLabel="Create"
           openModal={openModal}
           setModal={setOpenModal}
           onGroupSubmit={onGroupSubmit}
