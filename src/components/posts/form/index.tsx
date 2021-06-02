@@ -14,12 +14,7 @@ export interface PostFormProps {
   onPostSubmit: (values: unknown) => Promise<void>
 }
 
-export const PostForm: FC<PostFormProps> = ({
-  user,
-  comment,
-  post,
-  onPostSubmit,
-}) => {
+export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
   const classes = useStyles()
 
   const [editorFocus, setEditorFocus] = useState(null)
@@ -39,7 +34,7 @@ export const PostForm: FC<PostFormProps> = ({
   }
   return (
     <Box className={classes.contentContainer}>
-      <ActerAvatar acter={user.Acter} size={6} />
+      <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}
@@ -49,7 +44,7 @@ export const PostForm: FC<PostFormProps> = ({
           {({ setFieldValue }) => (
             <Form className={classes.formContainer}>
               <Box mb={1} onClick={() => editorFocus.focus()}>
-                <InputLabel style={{ marginBottom: 3 }}>
+                <InputLabel className={classes.formInputLabel}>
                   {post ? 'Leave a comment' : 'Share your thoughts'}
                 </InputLabel>
                 <TextEditor
@@ -67,7 +62,7 @@ export const PostForm: FC<PostFormProps> = ({
                 color="primary"
                 type="submit"
               >
-                {comment ? 'Add Comment' : 'Post'}
+                {post ? 'Add Comment' : 'Post'}
               </Button>
             </Form>
           )}
@@ -104,6 +99,11 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       overflow: 'hidden',
       margin: theme.spacing(1),
+      fontSize: 11,
+    },
+    formInputLabel: {
+      marginBottom: 3,
+      fontSize: 13,
     },
   })
 )
