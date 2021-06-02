@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Grid, Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -49,24 +49,28 @@ export const ActerLanding: FC<ActerLandingProps> = ({
       />
       <Grid container spacing={2}>
         <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
-          <div role="tabpanel" hidden={tab !== ACTIVITIES}>
+          <Box role="tabpanel" hidden={tab !== ACTIVITIES}>
             <ActivitiesList acter={acter} user={user} />
-          </div>
-          <div role="tabpanel" hidden={tab !== MEMBERS}>
+          </Box>
+          <Box role="tabpanel" hidden={tab !== MEMBERS}>
             <MembersSection
               acter={acter}
               user={user}
               onConnectionStateChange={onConnectionStateChange}
             />
-          </div>
-          <div role="tabpanel" hidden={tab !== FEED}>
+          </Box>
+          <Box
+            role="tabpanel"
+            hidden={tab !== FEED}
+            className={classes.postList}
+          >
             <PostList
               user={user}
               acter={acter}
               posts={posts}
               onPostSubmit={onPostSubmit}
             />
-          </div>
+          </Box>
         </Grid>
         <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
           <InfoSection acter={acter} interestTypes={interestTypes} />
@@ -89,6 +93,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       order: 3,
+    },
+    postList: {
+      marginLeft: 10,
     },
   })
 )

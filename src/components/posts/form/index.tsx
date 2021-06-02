@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, InputLabel } from '@material-ui/core'
 import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
+import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User, Post } from '@schema'
@@ -14,12 +15,7 @@ export interface PostFormProps {
   onPostSubmit: (values: unknown) => Promise<void>
 }
 
-export const PostForm: FC<PostFormProps> = ({
-  user,
-  comment,
-  post,
-  onPostSubmit,
-}) => {
+export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
   const classes = useStyles()
 
   const [editorFocus, setEditorFocus] = useState(null)
@@ -37,9 +33,18 @@ export const PostForm: FC<PostFormProps> = ({
       // eslint-disable-next-line no-empty
     } catch (_e) {}
   }
+
   return (
-    <Box className={classes.contentContainer}>
-      <ActerAvatar acter={user.Acter} size={6} />
+    <Box
+      className={clsx(
+        classes.contentContainer,
+        post && classes.contentContainerComment
+      )}
+    >
+      <Box style={{ marginTop: post ? 8 : 15 }}>
+        <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
+      </Box>
+
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}
@@ -47,10 +52,15 @@ export const PostForm: FC<PostFormProps> = ({
           enableReinitialize
         >
           {({ setFieldValue }) => (
-            <Form className={classes.formContainer}>
+            <Form
+              className={clsx(
+                classes.formContainer,
+                post && classes.contentContainerComment
+              )}
+            >
               <Box mb={1} onClick={() => editorFocus.focus()}>
-                <InputLabel style={{ marginBottom: 5 }}>
-                  Share your thoughts
+                <InputLabel className={classes.formInputLabel}>
+                  {post ? 'Leave a comment' : 'Share your thoughts'}
                 </InputLabel>
                 <TextEditor
                   width={535}
@@ -67,7 +77,7 @@ export const PostForm: FC<PostFormProps> = ({
                 color="primary"
                 type="submit"
               >
-                {comment ? 'Add Comment' : 'Post'}
+                {post ? 'Add Comment' : 'Post'}
               </Button>
             </Form>
           )}
@@ -90,10 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginBottom: theme.spacing(2),
     },
+    contentContainerComment: {
+      marginLeft: 5,
+    },
     commentInputContainer: {
       borderRadius: 7,
-      width: 700,
-      padding: theme.spacing(1),
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
@@ -101,9 +113,14 @@ const useStyles = makeStyles((theme: Theme) =>
     formContainer: {
       display: 'flex',
       flexDirection: 'column',
-      width: '93%',
+      width: '100%',
       overflow: 'hidden',
-      margin: theme.spacing(1),
+      padding: theme.spacing(1),
+      fontSize: 11,
+    },
+    formInputLabel: {
+      marginBottom: 3,
+      fontSize: 13,
     },
   })
 )
