@@ -116,9 +116,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
   const [isComment, setIsComment] = useState(false)
+
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
+
+  useEffect(() => {
+    setDisplayPostList(posts)
+  }, [posts])
 
   const writeCache = (cache) => {
     cache.writeQuery({
@@ -198,7 +203,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         const { createPost: newPost } = data
 
         if (newPost.parentId !== null) {
-          const newPostList = posts.map((post) => {
+          const newPostList = displayPostList.map((post) => {
             if (post.id === newPost.parentId) {
               return {
                 ...post,
