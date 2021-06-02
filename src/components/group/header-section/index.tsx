@@ -38,10 +38,9 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     <>
       <Box className={classes.heading}>
         <Box className={classes.titleSection}>
-          <Typography
-            className={classes.name}
-            variant="subtitle1"
-          >{`# ${acter.name}`}</Typography>
+          <Typography className={classes.name} variant="subtitle1">
+            # {acter.name}
+          </Typography>
           <IconButton onClick={handleClick}>
             <EditIcon fontSize="small" />
           </IconButton>
