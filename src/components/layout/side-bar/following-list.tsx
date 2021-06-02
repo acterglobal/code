@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { MenuItem, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { ListItem, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { excludeActerTypes } from 'src/lib/acter/exclude-acter-types'
 import { ActerAvatar } from 'src/components/acter/avatar'
@@ -27,7 +27,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
         user.Acter.Following.map(({ Following }) => Following),
         [ACTIVITY, USER, GROUP]
       ).map((acter) => (
-        <MenuItem
+        <ListItem
           key={`following-${acter.id}`}
           className={clsx({
             [classes.item]: true,
@@ -39,7 +39,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
               <ActerAvatar acter={acter} size={4} />
             </a>
           </Link>
-        </MenuItem>
+        </ListItem>
       ))}
     </>
   )
