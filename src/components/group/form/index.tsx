@@ -18,25 +18,36 @@ import { Acter, ActerType, ActerJoinSettings } from '@schema'
 import { getActerTypeByName } from 'src/lib/acter-types/get-acter-type-by-name'
 import { GROUP } from 'src/constants/acter-types'
 
-export interface AddGroupProps {
+export interface GroupFormProps {
+  acter?: Acter
   parentActer: Acter
   acterTypes: ActerType[]
+  modalHeading: string
+  submitButtonLabel: string
   openModal: boolean
   setModal: (open: boolean) => void
-  onCreateGroup: (groupData: Acter) => void
+  onGroupSubmit: (groupData: Acter) => void
 }
 
-export const AddGroup: FC<AddGroupProps> = ({
+export const GroupForm: FC<GroupFormProps> = ({
+  acter,
   parentActer,
   acterTypes,
+  modalHeading,
+  submitButtonLabel,
   openModal,
-  onCreateGroup,
+  onGroupSubmit,
   setModal,
 }) => {
   const classes = useStyles()
-  const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(
-    parentActer.acterJoinSetting === ActerJoinSettings.RESTRICTED ? true : false
-  )
+
+  const joinSetting = acter
+    ? acter.acterJoinSetting
+    : parentActer.acterJoinSetting
+  const setting = joinSetting === ActerJoinSettings.RESTRICTED
+
+  const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
+
   const acterType = getActerTypeByName(acterTypes, GROUP)
 
   const initialValues = {
@@ -44,13 +55,14 @@ export const AddGroup: FC<AddGroupProps> = ({
     description: '',
     parentActerId: parentActer.id,
     acterTypeId: acterType.id,
+    ...acter,
   }
 
   const handleSubmit = (data) => {
     data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    onCreateGroup({ ...data, interestIds: [] })
+    onGroupSubmit({ ...data, interestIds: [] })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)
@@ -59,7 +71,7 @@ export const AddGroup: FC<AddGroupProps> = ({
   return (
     <Modal
       open={openModal}
-      heading="Create work group"
+      heading={modalHeading}
       handleModalClose={handleModalClose}
     >
       <Box className={classes.content}>
@@ -110,7 +122,7 @@ export const AddGroup: FC<AddGroupProps> = ({
                 variant="contained"
                 type="submit"
               >
-                Create
+                {submitButtonLabel}
               </Button>
             </Box>
           </Form>

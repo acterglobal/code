@@ -33,7 +33,7 @@ export const Sidebar: FC<SidebarProps> = ({
   acter,
   acterTypes,
   user,
-  onCreateGroup,
+  onGroupSubmit,
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
@@ -68,7 +68,7 @@ export const Sidebar: FC<SidebarProps> = ({
           <ActerMenu
             acter={acter}
             acterTypes={acterTypes}
-            onCreateGroup={onCreateGroup}
+            onGroupSubmit={onGroupSubmit}
             user={user}
           />
         </Box>

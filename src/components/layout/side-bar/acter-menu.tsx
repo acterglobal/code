@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import {
-  MenuList,
   ListItem,
   Divider,
   ListItemAvatar,
@@ -31,13 +30,13 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
   user,
   acterTypes,
-  onCreateGroup,
+  onGroupSubmit,
 }) => {
   if (!acter) return null
   const classes = useStyles()
 
   return (
-    <MenuList>
+    <>
       <ListItem divider className={classes.acterHeaderItem}>
         <ListItemAvatar>
           <ActerAvatar acter={acter} size={4} />
@@ -55,9 +54,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         acter={acter}
         user={user}
         acterTypes={acterTypes}
-        onCreateGroup={onCreateGroup}
+        onGroupSubmit={onGroupSubmit}
       />
-    </MenuList>
+    </>
   )
 }
 

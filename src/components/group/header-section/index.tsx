@@ -1,44 +1,75 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import {
   Box,
   createStyles,
+  IconButton,
   makeStyles,
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Acter } from '@schema'
+import { Acter, ActerType } from '@schema'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
+import { GroupForm as EditGroup } from 'src/components/group/form'
+import { Edit as EditIcon } from '@material-ui/icons'
+
 export interface HeaderSectionProps extends ConnectProps {
   acter: Acter
+  acterTypes: ActerType[]
+  onGroupSubmit: (groupData: Acter) => void
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
+  acterTypes,
   user,
+  onGroupSubmit,
   onJoin,
   onLeave,
   loading,
 }) => {
   const classes = useStyles()
+  const [openModal, setOpenModal] = useState(false)
+
+  const handleClick = () => {
+    setOpenModal(true)
+  }
 
   return (
-    <Box className={classes.heading}>
-      <Box>
-        <Typography className={classes.name} variant="subtitle1">
-          # {acter.name}
-        </Typography>
+    <>
+      <Box className={classes.heading}>
+        <Box className={classes.titleSection}>
+          <Typography className={classes.name} variant="subtitle1">
+            # {acter.name}
+          </Typography>
+          <IconButton onClick={handleClick}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </Box>
+
+        <Box>
+          <Connect
+            acter={acter}
+            user={user}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            loading={loading}
+          />
+        </Box>
       </Box>
 
-      <Box>
-        <Connect
+      {openModal && (
+        <EditGroup
           acter={acter}
-          user={user}
-          onJoin={onJoin}
-          onLeave={onLeave}
-          loading={loading}
+          parentActer={acter.Parent}
+          acterTypes={acterTypes}
+          modalHeading="Update work group"
+          submitButtonLabel="Update"
+          openModal={openModal}
+          setModal={setOpenModal}
+          onGroupSubmit={onGroupSubmit}
         />
-      </Box>
-    </Box>
+      )}
+    </>
   )
 }
 
@@ -50,6 +81,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+    },
+    titleSection: {
+      display: 'flex',
+      alignItems: 'center',
     },
     name: {
       textTransform: 'capitalize',

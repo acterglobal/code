@@ -8,7 +8,7 @@ export interface LayoutProps {
   acter?: Acter
   acterTypes?: ActerType[]
   children: React.ReactNode
-  onCreateGroup?: (groupData: Acter) => void
+  onGroupSubmit?: (groupData: Acter) => void
   user?: User
 }
 
@@ -17,7 +17,7 @@ export const Layout: FC<LayoutProps> = ({
   acterTypes,
   user,
   children,
-  onCreateGroup,
+  onGroupSubmit,
 }) => {
   const classes = useStyles()
 
@@ -27,7 +27,7 @@ export const Layout: FC<LayoutProps> = ({
         acter={acter}
         acterTypes={acterTypes}
         user={user}
-        onCreateGroup={onCreateGroup}
+        onGroupSubmit={onGroupSubmit}
       />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar user={user} />

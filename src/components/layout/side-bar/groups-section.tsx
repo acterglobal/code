@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
-import { AddGroup } from 'src/components/group/form'
+import { GroupForm as AddGroup } from 'src/components/group/form'
 import { GroupsList } from 'src/components/layout/side-bar/groups-list'
 import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
 import { GROUP } from 'src/constants'
@@ -11,13 +11,13 @@ export interface GroupsSectionProps {
   acter: Acter
   user: User
   acterTypes: ActerType[]
-  onCreateGroup: (groupData: Acter) => void
+  onGroupSubmit: (groupData: Acter) => void
   handleChildAvatar?: (childActer: Acter) => void
 }
 export const GroupsSection: FC<GroupsSectionProps> = ({
   acter,
   acterTypes,
-  onCreateGroup,
+  onGroupSubmit,
   user,
 }) => {
   const classes = useStyles()
@@ -56,9 +56,11 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
         <AddGroup
           parentActer={acter}
           acterTypes={acterTypes}
+          modalHeading="Create work group"
+          submitButtonLabel="Create"
           openModal={openModal}
           setModal={setOpenModal}
-          onCreateGroup={onCreateGroup}
+          onGroupSubmit={onGroupSubmit}
         />
       )}
     </>
