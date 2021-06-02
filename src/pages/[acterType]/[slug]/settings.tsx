@@ -19,15 +19,17 @@ import { ActerSettings } from 'src/components/acter/settings'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 
-import { Acter, ActerConnectionRole, User } from '@schema'
+import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
 
 interface ActerSettingsPageProps {
   acter: Acter
+  acterTypes: ActerType[]
   user: User
 }
 
 export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   acter,
+  acterTypes,
   user,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
@@ -42,7 +44,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   })
 
   return (
-    <Layout acter={displayActer} user={user}>
+    <Layout acter={displayActer} acterTypes={acterTypes} user={user}>
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
