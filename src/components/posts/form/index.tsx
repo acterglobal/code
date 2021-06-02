@@ -49,8 +49,8 @@ export const PostForm: FC<PostFormProps> = ({
           {({ setFieldValue }) => (
             <Form className={classes.formContainer}>
               <Box mb={1} onClick={() => editorFocus.focus()}>
-                <InputLabel style={{ marginBottom: 5 }}>
-                  Share your thoughts
+                <InputLabel style={{ marginBottom: 3 }}>
+                  {post ? 'Leave a comment' : 'Share your thoughts'}
                 </InputLabel>
                 <TextEditor
                   width={535}
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     commentInputContainer: {
       borderRadius: 7,
-      width: 700,
+      width: '100%',
       padding: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
     formContainer: {
       display: 'flex',
       flexDirection: 'column',
-      width: '93%',
+      width: '100%',
       overflow: 'hidden',
       margin: theme.spacing(1),
     },

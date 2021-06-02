@@ -72,17 +72,19 @@ const useStyles = makeStyles((theme: Theme) =>
     acterTypeName: {
       color: grey[700],
       fontWeight: theme.typography.fontWeightLight,
-      fontSize: 13,
+      fontSize: 11,
       textTransform: 'capitalize',
     },
     title: {
       color: grey[700],
       fontWeight: theme.typography.fontWeightMedium,
+      fontSize: 11,
       marginBottom: 0,
       lineHeight: 1,
     },
     description: {
       color: grey[700],
+      fontSize: 13,
       hyphens: 'auto',
       overflow: 'hidden',
     },
