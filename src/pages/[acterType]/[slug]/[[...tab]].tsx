@@ -101,9 +101,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
   const [isComment, setIsComment] = useState(false)
+
   useEffect(() => {
     setDisplayActer(acter)
   }, [acter])
+
+  useEffect(() => {
+    setDisplayPostList(posts)
+  }, [posts])
 
   const writeCache = (cache) => {
     cache.writeQuery({
