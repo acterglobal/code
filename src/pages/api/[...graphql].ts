@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-micro'
 import prisma from 'src/lib/prisma'
 import { initSentry } from 'src/lib/sentry'
-import { getToken } from 'src/lib/next-auth/jwt'
+import { getSession } from '@auth0/nextjs-auth0'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
 
 import { schema } from 'api/schema'
@@ -11,10 +11,10 @@ initSentry()
 
 const server = new ApolloServer({
   schema,
-  context: async ({ req }): Promise<ActerGraphQLContext> => {
-    const token = await getToken(req)
+  context: ({ req, res }): ActerGraphQLContext => {
+    const session = getSession(req, res)
     return {
-      token,
+      session,
       prisma,
     }
   },

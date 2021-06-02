@@ -1,17 +1,16 @@
+import { getSession } from '@auth0/nextjs-auth0'
 import { getUserProfile } from 'src/props'
 import { addApolloState, initializeApollo } from 'src/lib/apollo'
-import { getTokenUser } from 'src/lib/next-auth/jwt'
 import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
-
 import { ExampleUser } from 'src/__fixtures__'
 
+jest.mock('@auth0/nextjs-auth0')
 jest.mock('src/lib/apollo')
-jest.mock('src/lib/next-auth/jwt')
 
 describe('getUserProfile', () => {
   const mockInitializeApollo = initializeApollo as jest.Mock
   const mockAddApolloState = addApolloState as jest.Mock
-  const mockGetUserToken = getTokenUser as jest.Mock
+  const mockGetSession = getSession as jest.Mock
   const context = ({} as unknown) as ComposedGetServerSidePropsContext
 
   beforeAll(() => {
@@ -38,8 +37,11 @@ describe('getUserProfile', () => {
 
   describe('with good user', () => {
     beforeEach(() => {
-      mockGetUserToken.mockReturnValue({
-        id: '8ed89d94-3bc5-4be1-9bb6-dff355601e1c',
+      mockGetSession.mockReturnValue({
+        user: {
+          id: '8ed89d94-3bc5-4be1-9bb6-dff355601e1c',
+          email: 'test@example.com',
+        },
       })
     })
 

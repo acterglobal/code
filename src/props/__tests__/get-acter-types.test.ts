@@ -4,7 +4,6 @@ import { addApolloState, initializeApollo } from 'src/lib/apollo'
 jest.mock('@apollo/client', () => ({
   useMutation: () => [() => void 0, { loading: false, error: false }],
 }))
-jest.mock('next-auth/client')
 jest.mock('src/lib/apollo')
 
 import {

@@ -13,7 +13,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ProfileButton } from 'src/components/user/profile-button'
 
-import { Acter } from '@schema'
+import { User } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuItem: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 export interface SessionIndicatorProps {
-  user?: Acter
+  user?: User
 }
 
 export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {

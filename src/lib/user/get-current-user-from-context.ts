@@ -9,6 +9,6 @@ export const getCurrentUserFromContext = async (
       id: true,
       Acter: true,
     },
-    where: { id: ctx.token.sub },
+    where: { id: ctx.session?.user?.id },
   })
 }

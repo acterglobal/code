@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-import { JWTToken } from 'src/lib/next-auth/jwt'
+import { Session } from '@auth0/nextjs-auth0'
 
 export interface ActerGraphQLContext {
   prisma: PrismaClient
-  token: JWTToken
+  session: Session
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { signIn } from 'next-auth/client'
+import { useRouter } from 'next/router'
 import { getFollowers } from 'src/lib/acter/get-followers'
 import { ConnectButton } from 'src/components/acter/connect/connect-button'
 import { FollowerRow } from 'src/components/acter/connect/follower-row'
@@ -41,8 +41,13 @@ export const Connect: FC<ConnectProps> = ({
   onLeave,
   loading,
 }) => {
+  const router = useRouter()
   if (!user) {
-    return <ConnectButton onClick={() => signIn()}>Join</ConnectButton>
+    return (
+      <ConnectButton onClick={() => router.push('/api/auth/login')}>
+        Join
+      </ConnectButton>
+    )
   }
 
   const followers = getFollowers(user, acter)

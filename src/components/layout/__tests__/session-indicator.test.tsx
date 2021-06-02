@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event'
 import { SessionIndicator } from 'src/components/layout/session-indicator'
 import { ExampleUser, ExampleActer } from 'src/__fixtures__'
 
-jest.mock('next-auth/client')
-
 const user = {
   ...ExampleUser,
   Acter: ExampleActer,
@@ -47,21 +45,5 @@ describe('SessionIndicator', () => {
       screen.queryByRole('progressbar', { name: 'session-loading-indicator' })
     ).toBeFalsy()
     expect(screen.queryByRole('button', { name: 'signin-button' })).toBeFalsy()
-  })
-
-  it('should call the signout function when sign out is clicked', async () => {
-    const mockSignOut = jest.fn()
-    // eslint-disable-next-line
-    require('next-auth/client').__setMockSignOut(mockSignOut)
-    render(<SessionIndicator user={user} />)
-    const profileButton = await screen.findByRole('button', {
-      name: 'profile-button',
-    })
-    expect(profileButton).toBeTruthy()
-    userEvent.click(profileButton)
-    const logoutLink = await screen.findByRole('menuitem', { name: 'Sign Out' })
-    expect(logoutLink).toBeTruthy()
-    userEvent.click(logoutLink)
-    expect(mockSignOut).toHaveBeenCalledTimes(1)
   })
 })
