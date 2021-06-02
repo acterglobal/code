@@ -10,7 +10,6 @@ export interface ModalProps extends TopBarProps {
   handleModalClose: (any?) => void
   disableBackdropClick?: boolean
 }
-// TODO: need to refactor
 export const Modal: FC<ModalProps> = ({
   open,
   children,

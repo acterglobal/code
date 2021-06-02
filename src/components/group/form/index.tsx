@@ -41,19 +41,13 @@ export const GroupForm: FC<GroupFormProps> = ({
 }) => {
   const classes = useStyles()
 
-  const acterJoinSetting = acter
-    ? acter.acterJoinSetting === ActerJoinSettings.RESTRICTED
-      ? true
-      : false
-    : parentActer.acterJoinSetting === ActerJoinSettings.RESTRICTED
-    ? true
-    : false
+  const joinSetting = acter
+    ? acter.acterJoinSetting
+    : parentActer.acterJoinSetting
+  const setting = joinSetting === ActerJoinSettings.RESTRICTED
 
-  const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(
-    acterJoinSetting
-  )
-  console.log('acter types :', acterTypes)
-  console.log('group :', GROUP)
+  const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
+
   const acterType = getActerTypeByName(acterTypes, GROUP)
 
   const initialValues = {
