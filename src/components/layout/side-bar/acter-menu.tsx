@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import {
-  MenuList,
   ListItem,
   Divider,
   ListItemAvatar,
@@ -37,7 +36,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   const classes = useStyles()
 
   return (
-    <MenuList>
+    <>
       <ListItem divider className={classes.acterHeaderItem}>
         <ListItemAvatar>
           <ActerAvatar acter={acter} size={4} />
@@ -57,7 +56,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         acterTypes={acterTypes}
         onGroupSubmit={onGroupSubmit}
       />
-    </MenuList>
+    </>
   )
 }
 
