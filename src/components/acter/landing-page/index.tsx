@@ -59,7 +59,11 @@ export const ActerLanding: FC<ActerLandingProps> = ({
               onConnectionStateChange={onConnectionStateChange}
             />
           </Box>
-          <Box role="tabpanel" hidden={tab !== FEED} style={{ marginLeft: 10 }}>
+          <Box
+            role="tabpanel"
+            hidden={tab !== FEED}
+            className={classes.postList}
+          >
             <PostList
               user={user}
               acter={acter}
@@ -89,6 +93,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       order: 3,
+    },
+    postList: {
+      marginLeft: 10,
     },
   })
 )

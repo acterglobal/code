@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, InputLabel } from '@material-ui/core'
 import { Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
+import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User, Post } from '@schema'
@@ -32,9 +33,18 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
       // eslint-disable-next-line no-empty
     } catch (_e) {}
   }
+
   return (
-    <Box className={classes.contentContainer}>
-      <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
+    <Box
+      className={clsx(
+        classes.contentContainer,
+        post && classes.contentContainerComment
+      )}
+    >
+      <Box style={{ marginTop: post ? 8 : 15 }}>
+        <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
+      </Box>
+
       <Box className={classes.commentInputContainer}>
         <Formik
           initialValues={initialValues}
@@ -42,7 +52,12 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
           enableReinitialize
         >
           {({ setFieldValue }) => (
-            <Form className={classes.formContainer}>
+            <Form
+              className={clsx(
+                classes.formContainer,
+                post && classes.contentContainerComment
+              )}
+            >
               <Box mb={1} onClick={() => editorFocus.focus()}>
                 <InputLabel className={classes.formInputLabel}>
                   {post ? 'Leave a comment' : 'Share your thoughts'}
@@ -85,10 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginBottom: theme.spacing(2),
     },
+    contentContainerComment: {
+      marginLeft: 5,
+    },
     commentInputContainer: {
       borderRadius: 7,
       width: '100%',
-      padding: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
@@ -98,7 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       width: '100%',
       overflow: 'hidden',
-      margin: theme.spacing(1),
+      padding: theme.spacing(1),
       fontSize: 11,
     },
     formInputLabel: {
