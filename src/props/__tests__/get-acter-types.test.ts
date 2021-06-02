@@ -5,6 +5,7 @@ jest.mock('@apollo/client', () => ({
   useMutation: () => [() => void 0, { loading: false, error: false }],
 }))
 jest.mock('src/lib/apollo')
+jest.mock('@auth0/nextjs-auth0')
 
 import {
   GroupActerType,

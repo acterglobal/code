@@ -78,7 +78,6 @@
     "moment": "^2.29.1",
     "mui-rff": "^3.0.3",
     "next": "^v10.2.2",
-    "next-auth": "^3.2.0-canary",
     "next-compose-plugins": "^2.2.1",
     "next-graphql-loader": "^1.0.1",
     "notistack": "^1.0.5",

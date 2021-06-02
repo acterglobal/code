@@ -4,6 +4,7 @@ import { OrganisationActerType, ExampleActer } from 'src/__fixtures__'
 
 import { getActer } from 'src/props'
 
+jest.mock('@auth0/nextjs-auth0')
 jest.mock('src/lib/apollo')
 
 const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
