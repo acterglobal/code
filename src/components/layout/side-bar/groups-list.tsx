@@ -22,10 +22,9 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
     <Box className={classes.container}>
       {acters.map((acter) => (
         <ListItem className={classes.item} key={acter.id}>
-          <Box className={classes.icon}></Box>
           <Link href={acterAsUrl(acter)}>
             <a>
-              <Typography variant="body2">{acter.name}</Typography>
+              <Typography variant="body2"># {acter.name}</Typography>
             </a>
           </Link>
         </ListItem>
@@ -47,13 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecoration: 'none',
         textTransform: 'capitalize',
       },
-    },
-    icon: {
-      backgroundColor: '#B28956',
-      height: 10,
-      width: 10,
-      borderRadius: '50%',
-      marginRight: 10,
     },
   })
 )
