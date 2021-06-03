@@ -8,7 +8,7 @@ import { Acter, User } from '@schema'
  * @returns A list of Acters
  */
 export const getFollowers = (user: User, acter: Acter): Acter[] => {
-  if (!user.Acter?.Following?.length) {
+  if (!user.Acter?.Following) {
     return []
   }
 

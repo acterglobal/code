@@ -18,12 +18,21 @@ describe('getFollowers', () => {
     )
   })
 
-  it('should return an empty array if there is no Acter or there are no Followers available', () => {
+  it('should return an empty array if there is no Acter', () => {
+    const user = {
+      ...ExampleUser,
+      Acter: null,
+    }
+
+    expect(getFollowers(user, ExampleActer)).toStrictEqual([])
+  })
+
+  it('should return an empty array if there are no Followers', () => {
     const user = {
       ...ExampleUser,
       Acter: {
         ...ExampleUserActer,
-        Following: [],
+        Followers: null,
       },
     }
 
