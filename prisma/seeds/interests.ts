@@ -75,6 +75,13 @@ const interestTypes: interestTypeMap[] = [
     name: 'Approach',
     sortOrder: 2,
     interests: [
+      { name: 'Arts', description: '', sdgNumber: '' },
+      { name: 'Biomimicry', description: '', sdgNumber: '' },
+      { name: 'Blockades', description: '', sdgNumber: '' },
+      { name: 'Campaigns', description: '', sdgNumber: '' },
+      { name: 'Capacity building', description: '', sdgNumber: '' },
+      { name: 'Circular economy', description: '', sdgNumber: '' },
+      { name: 'Civil Disobedience', description: '', sdgNumber: '' },
       { name: 'Collaboration', description: '', sdgNumber: '' },
       { name: 'Conferences', description: '', sdgNumber: '' },
       { name: 'Debate', description: '', sdgNumber: '' },

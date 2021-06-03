@@ -31,7 +31,7 @@ export const seedActivityTypes = async (
     },
   })
 
-  await prisma.activityType.delete({
+  await prisma.activityType.deleteMany({
     where: {
       id: 'dummy',
     },
