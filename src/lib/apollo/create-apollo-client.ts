@@ -16,6 +16,7 @@ export const createApolloClient = (
   })
   const errorLink = onError(({ networkError }) => {
     if (networkError) {
+      //@ts-ignore
       console.error(networkError.result.errors)
     }
   })

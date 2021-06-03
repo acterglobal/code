@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { Button as SaveButton } from 'src/components/user/auth/button'
+import { Button as SaveButton } from 'src/components/styled/button'
 import { ImageUpload } from 'src/components/image-upload/index'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType, User } from '@schema'
@@ -166,11 +166,9 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
                 md={3}
                 className={classes.submitButtonContainer}
               >
-                <SaveButton
-                  label="Save"
-                  disabled={loading}
-                  handleClick={props.submitForm}
-                />
+                <SaveButton disabled={loading} onClick={props.submitForm}>
+                  Save
+                </SaveButton>
               </Grid>
               <Grid item xs={12} md={3}>
                 <Button
