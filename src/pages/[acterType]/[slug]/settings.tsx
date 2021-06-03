@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { NextPage } from 'next'
-
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
-
 import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
-import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
-
 import {
   checkRole,
   getUserProfile,
@@ -14,13 +10,10 @@ import {
   getActer,
   setActerType,
 } from 'src/props'
-
 import { ActerSettings } from 'src/components/acter/settings'
-
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
-
 import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
-
+import { useUpdateActer } from 'src/lib/acter/use-update-acter'
+import { useCreateActer } from 'src/lib/acter/use-create-acter'
 interface ActerSettingsPageProps {
   acter: Acter
   acterTypes: ActerType[]
@@ -33,33 +26,24 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   user,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
-  const [
-    updateActer,
-    { loading: acterUpdateLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: () => 'Settings updated',
-    onCompleted: (data) => {
-      setDisplayActer(data.updateActer)
-    },
-  })
+  const [createActer] = useCreateActer(displayActer)
+  const [updateActer, { loading: acterUpdateLoading }] = useUpdateActer(
+    displayActer,
+    setDisplayActer
+  )
 
   return (
-    <Layout acter={displayActer} acterTypes={acterTypes} user={user}>
+    <Layout
+      acter={displayActer}
+      acterTypes={acterTypes}
+      user={user}
+      onGroupSubmit={createActer}
+    >
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
           acter={displayActer}
-          onSettingsChange={(acter) => {
-            updateActer({
-              variables: {
-                ...acter,
-                interestIds: acter.ActerInterests.map(
-                  ({ Interest: { id } }) => id
-                ),
-                acterId: acter.id,
-              },
-            })
-          }}
+          onSettingsChange={updateActer}
           loading={acterUpdateLoading}
         />
       </main>

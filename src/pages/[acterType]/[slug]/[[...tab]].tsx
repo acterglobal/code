@@ -1,10 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { MutationFunction } from '@apollo/client'
-
 import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
-
 import {
   getUserProfile,
   getActer,
@@ -14,7 +12,6 @@ import {
   getPosts,
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
-
 import {
   Acter,
   ActerConnection,
@@ -24,7 +21,6 @@ import {
   Post,
   User,
 } from '@schema'
-
 import { Layout } from 'src/components/layout'
 import {
   ActerLanding,
@@ -32,9 +28,6 @@ import {
 } from 'src/components/acter/landing-page'
 import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import { GroupLanding, GroupLandingProps } from 'src/components/group'
-
-import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import CREATE_POST from 'api/mutations/post-create.graphql'
@@ -45,6 +38,8 @@ import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY, GROUP } from 'src/constants'
+import { useCreateActer } from 'src/lib/acter/use-create-acter'
+import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -76,22 +71,6 @@ const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
     variables: {
       connectionId: connection.id,
       role: role,
-    },
-  })
-
-const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
-  createActer({
-    variables: {
-      ...acter,
-      interestIds:
-        acter.ActerInterests?.map(({ Interest: { id } }) => id) || [],
-    },
-  })
-const _handleUpdateActer = (updateActer: MutationFunction) => (acter: Acter) =>
-  updateActer({
-    variables: {
-      acterId: acter.id,
-      ...acter,
     },
   })
 
@@ -197,23 +176,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       })
     },
   })
-  const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
-    update: (cache, { data }) => {
-      acter.ActerType.name === GROUP
-        ? acter.Parent.Children.push(data.createActer)
-        : acter.Children.push(data.createActer)
-      writeCache(cache)
-    },
-    getSuccessMessage: (data) => `${data.createActer.name} group created`,
-  })
-  const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
-    update: (cache, { data }) => {
-      const { updateActer: updatedActer } = data
-      setDisplayActer({ ...updatedActer })
-      writeCache(cache)
-    },
-    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-  })
 
   const [createPost] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
@@ -265,6 +227,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   }
 
   const View = getActerView(displayActer)
+  const [createActer] = useCreateActer(displayActer)
+  const [updateActer] = useUpdateActer(displayActer, setDisplayActer)
 
   return (
     <Layout
@@ -273,7 +237,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       }
       acterTypes={acterTypes}
       user={user}
-      onGroupSubmit={_handleCreateActer(createActer)}
+      onGroupSubmit={createActer}
     >
       <Head title={`${acter.name} - Acter`} />
       <View
@@ -285,7 +249,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={handlePost}
-        onGroupSubmit={_handleUpdateActer(updateActer)}
+        onGroupSubmit={updateActer}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
         loading={creatingConnection || deletingConnection || updatingConnection}
       />
