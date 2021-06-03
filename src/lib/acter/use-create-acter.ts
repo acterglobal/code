@@ -5,6 +5,11 @@ import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import { GROUP } from 'src/constants/acter-types'
 import { Acter } from '@schema'
 
+/**
+ * Custom hook that creates new acter
+ * @param acter
+ * @returns handle method to create acter
+ */
 export const useCreateActer = (acter: Acter) => {
   const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
     update: (cache, { data }) => {
@@ -22,12 +27,12 @@ export const useCreateActer = (acter: Acter) => {
     getSuccessMessage: (data) => `${data.createActer.name} group created`,
   })
 
-  const _handleCreateActer = (acter: Acter) =>
+  const handleCreateActer = (acter: Acter) =>
     createActer({
       variables: {
         ...acter,
       },
     })
 
-  return [_handleCreateActer]
+  return [handleCreateActer]
 }
