@@ -197,9 +197,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   })
   const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
     update: (cache, { data }) => {
-      displayActer.ActerType.name === GROUP
-        ? displayActer.Parent.Children.push(data.createActer)
-        : displayActer.Children.push(data.createActer)
+      acter.ActerType.name === GROUP
+        ? acter.Parent.Children.push(data.createActer)
+        : acter.Children.push(data.createActer)
       writeCache(cache)
     },
     getSuccessMessage: (data) => `${data.createActer.name} group created`,
