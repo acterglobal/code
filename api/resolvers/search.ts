@@ -32,6 +32,10 @@ type InClause = InsensitiveMode & {
   in: [string]
 }
 
+type EqualsClause = {
+  equals: string | null
+}
+
 type InterestNameInClause = {
   name: InClause
 }
@@ -46,9 +50,10 @@ type EveryActerInterestClause = {
 
 type ActivitySearchWhereClause = {
   name?: ActivityNameWhereClause
+  deletedAt?: EqualsClause
   Activity?: ActivityEndsBeforeClause
   ActerInterests?: EveryActerInterestClause
-  ActerType: Record<'name', 'activity'>
+  ActerType?: Record<'name', 'activity'>
 }
 
 const withNameSearch = (name: string) => (
@@ -115,13 +120,15 @@ export class SearchResolver {
     @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
-    const whereIsActivity: ActivitySearchWhereClause = {
+    const activitySearch: ActivitySearchWhereClause = {
+      deletedAt: { equals: null },
       ActerType: {
         name: ACTIVITY,
       },
     }
+
     const where = pipe(
-      whereIsActivity,
+      activitySearch,
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
       withInterestsFilter(interests)
