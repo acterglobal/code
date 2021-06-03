@@ -24,9 +24,6 @@ module.exports = {
         }
       )
     )
-    config.resolve.alias['next-auth/client'] = require.resolve(
-      '../src/__mocks__/next-auth'
-    )
     return config
   },
 }

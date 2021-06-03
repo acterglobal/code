@@ -1,10 +1,9 @@
+jest.mock('src/lib/apollo')
+
 import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
 import { addApolloState, initializeApollo } from 'src/lib/apollo'
 import { OrganisationActerType, ExampleActer } from 'src/__fixtures__'
-
-import { getActer } from 'src/props'
-
-jest.mock('src/lib/apollo')
+import { getActer } from 'src/props/get-acter'
 
 const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
 const goodContext = ({

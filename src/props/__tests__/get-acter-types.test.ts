@@ -1,20 +1,14 @@
-import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
-import { addApolloState, initializeApollo } from 'src/lib/apollo'
-
-jest.mock('@apollo/client', () => ({
-  useMutation: () => [() => void 0, { loading: false, error: false }],
-}))
-jest.mock('next-auth/client')
 jest.mock('src/lib/apollo')
 
+import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
+import { addApolloState, initializeApollo } from 'src/lib/apollo'
+import { getActerTypes } from 'src/props/get-acter-types'
+import { ORGANISATION } from 'src/constants'
 import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
 } from 'src/__fixtures__'
-
-import { getActerTypes } from 'src/props'
-import { ORGANISATION } from 'src/constants'
 
 describe('getActerTypes', () => {
   const mockInitializeApollo = initializeApollo as jest.Mock

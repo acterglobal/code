@@ -1,20 +1,21 @@
+// TODO: figure out how to test this. For some reason when Jest tries to include Auth0 it throws "Maximum call stack size exceeded"
 import { initializeApollo, addApolloState } from 'src/lib/apollo'
 import { ComposedGetServerSideProps } from 'lib/compose-props'
-import { getTokenUser } from 'src/lib/next-auth/jwt'
+import { getSession } from '@auth0/nextjs-auth0'
 
-import { User } from '@schema'
+import { Acter } from '@schema'
 
-import GET_USER from 'api/queries/user-by-id.graphql'
+import GET_USER from 'api/queries/user-by-email.graphql'
 
 export const getUserProfile = (
   requireUser = true
-): ComposedGetServerSideProps => async ({ req }) => {
+): ComposedGetServerSideProps => async ({ req, res }) => {
   const apollo = initializeApollo()
 
   // @ts-ignore
-  const tokenUser = await getTokenUser(req)
+  const session = await getSession(req, res)
 
-  if (!tokenUser) {
+  if (!session) {
     if (requireUser) {
       return {
         props: {},
@@ -31,7 +32,8 @@ export const getUserProfile = (
 
   const { loading, error, data } = await apollo.query({
     query: GET_USER,
-    variables: { id: tokenUser.id },
+    // TODO: refactor this to use separate accounts with possible merge
+    variables: { email: session.user.email },
   })
 
   if (loading) {
@@ -50,7 +52,7 @@ export const getUserProfile = (
     }
   }
 
-  const { user }: { user: User } = data
+  const { user }: { user: Acter } = data
   return addApolloState(apollo, {
     props: {
       user,

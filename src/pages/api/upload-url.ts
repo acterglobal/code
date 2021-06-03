@@ -1,7 +1,6 @@
 import aws from 'aws-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-import { getTokenUser } from 'src/lib/next-auth/jwt'
+import { getSession } from '@auth0/nextjs-auth0'
 import { initSentry } from 'src/lib/sentry'
 
 initSentry()
@@ -10,7 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const tokenUser = await getTokenUser(req)
+  const tokenUser = getSession(req, res)?.user?.email
   if (!tokenUser) {
     return res.status(401).send(null)
   }

@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
 
 import { onError } from '@apollo/client/link/error'
 
@@ -14,6 +15,12 @@ export const createApolloClient = (
   const ssrMode = typeof window === 'undefined'
   const httpLink = new HttpLink({
     uri,
+  })
+  const errorLink = onError(({ networkError }) => {
+    if (networkError) {
+      //@ts-ignore
+      console.error(networkError.result.errors)
+    }
   })
 
   const errorLink = onError(({ networkError }) => {

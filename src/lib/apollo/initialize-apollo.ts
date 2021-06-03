@@ -5,7 +5,6 @@ import {
 } from '@apollo/client'
 import merge from 'deepmerge'
 import { isEqual } from 'lodash'
-
 import { createApolloClient } from './create-apollo-client'
 import { ApolloClientType } from './types'
 
