@@ -1,18 +1,21 @@
+import { MutationResult } from '@apollo/client'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import { Acter } from '@schema'
+import { HandleMethod } from 'src/lib/acter/use-create-acter'
 
 /**
  * Custom hook that updates acter
  * @param acter
- * @returns handle method to create acter
+ * @returns handle method to update acter
+ * @returns mutation results from apollo
  */
-export const useUpdateActer = (acter: Acter, setActer: any) => {
-  const [
-    updateActer,
-    { loading: acterUpdateLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
+export const useUpdateActer = (
+  acter: Acter,
+  setActer: React.Dispatch<React.SetStateAction<Acter>>
+): [HandleMethod, MutationResult] => {
+  const [updateActer, mutationResult] = useNotificationMutation(UPDATE_ACTER, {
     update: (cache, { data }) => {
       const { updateActer: updatedActer } = data
       setActer(updatedActer)
@@ -24,12 +27,9 @@ export const useUpdateActer = (acter: Acter, setActer: any) => {
       })
     },
     getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-    // onCompleted: (data) => {
-    //   setActer(data.updateActer)
-    // },
   })
 
-  const handleUpdateActer = (acter: Acter) => {
+  const handleUpdateActer = (acter: Acter) =>
     updateActer({
       variables: {
         ...acter,
@@ -37,7 +37,6 @@ export const useUpdateActer = (acter: Acter, setActer: any) => {
         acterId: acter.id,
       },
     })
-  }
 
-  return { acterUpdateLoading, handleUpdateActer }
+  return [handleUpdateActer, mutationResult]
 }
