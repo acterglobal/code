@@ -33,6 +33,7 @@ import {
 import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import { GroupLanding, GroupLandingProps } from 'src/components/group'
 
+import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
@@ -44,7 +45,6 @@ import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY, GROUP } from 'src/constants'
-import { useCreateActer } from 'src/lib/apollo/use-create-acter'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -79,6 +79,12 @@ const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
     },
   })
 
+const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
+  createActer({
+    variables: {
+      ...acter,
+    },
+  })
 const _handleUpdateActer = (updateActer: MutationFunction) => (acter: Acter) =>
   updateActer({
     variables: {
@@ -189,7 +195,15 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       })
     },
   })
-
+  const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE, {
+    update: (cache, { data }) => {
+      acter.ActerType.name === GROUP
+        ? acter.Parent.Children.push(data.createActer)
+        : acter.Children.push(data.createActer)
+      writeCache(cache)
+    },
+    getSuccessMessage: (data) => `${data.createActer.name} group created`,
+  })
   const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
     update: (cache, { data }) => {
       const { updateActer: updatedActer } = data
@@ -249,7 +263,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   }
 
   const View = getActerView(displayActer)
-  const [_handleCreateActer] = useCreateActer(displayActer)
 
   return (
     <Layout
@@ -258,7 +271,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       }
       acterTypes={acterTypes}
       user={user}
-      onGroupSubmit={_handleCreateActer}
+      onGroupSubmit={_handleCreateActer(createActer)}
     >
       <Head title={`${acter.name} - Acter`} />
       <View

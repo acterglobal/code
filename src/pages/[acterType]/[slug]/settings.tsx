@@ -6,7 +6,6 @@ import { Head } from 'src/components/layout/head'
 
 import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
-import { useCreateActer } from 'src/lib/apollo/use-create-acter'
 
 import {
   checkRole,
@@ -43,15 +42,9 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
       setDisplayActer(data.updateActer)
     },
   })
-  const [_handleCreateActer] = useCreateActer(displayActer)
 
   return (
-    <Layout
-      acter={displayActer}
-      acterTypes={acterTypes}
-      user={user}
-      onGroupSubmit={_handleCreateActer}
-    >
+    <Layout acter={displayActer} acterTypes={acterTypes} user={user}>
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
