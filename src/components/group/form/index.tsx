@@ -62,7 +62,7 @@ export const GroupForm: FC<GroupFormProps> = ({
     data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    onGroupSubmit({ ...data, interestIds: [] })
+    onGroupSubmit({ ...data })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)

@@ -83,6 +83,8 @@ const _handleCreateActer = (createActer: MutationFunction) => (acter: Acter) =>
   createActer({
     variables: {
       ...acter,
+      interestIds:
+        acter.ActerInterests?.map(({ Interest: { id } }) => id) || [],
     },
   })
 const _handleUpdateActer = (updateActer: MutationFunction) => (acter: Acter) =>
