@@ -80,7 +80,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                 variant="outlined"
                 color="primary"
                 type="submit"
-                // onClick={() => setClearText(true)}
               >
                 {post ? 'Add Comment' : 'Post'}
               </Button>
