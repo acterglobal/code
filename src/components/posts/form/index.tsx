@@ -18,20 +18,23 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
   const classes = useStyles()
 
-  const [editorFocus, setEditorFocus] = useState(null)
-
   const initialValues = {
     content: '',
     parentId: null,
   }
 
-  const handleSubmit = async (values) => {
-    const submitValues = post ? { ...values, parentId: post.id } : values
+  const [editorFocus, setEditorFocus] = useState(null)
+  const [clearText, setClearText] = useState(false)
 
-    try {
-      await onPostSubmit(submitValues)
-      // eslint-disable-next-line no-empty
-    } catch (_e) {}
+  const handleSubmit = (values) => {
+    const submitValues = post ? { ...values, parentId: post.id } : values
+    onPostSubmit(submitValues)
+    setClearText(true)
+  }
+
+  const handleFocus = (editorRef) => {
+    setEditorFocus(editorRef)
+    setClearText(false)
   }
 
   return (
@@ -68,7 +71,8 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                   initialValue={initialValues.content}
                   // @ts-ignore
                   handleInputChange={(value) => setFieldValue('content', value)}
-                  handleFocus={(editorRef) => setEditorFocus(editorRef)}
+                  handleFocus={handleFocus}
+                  clearTextEditor={clearText}
                 />
               </Box>
               <Button

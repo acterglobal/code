@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
@@ -44,10 +44,17 @@ export interface TextEditorProps extends widthHeightType {
   initialValue: string
   handleInputChange: (data: string) => void
   handleFocus: (ref) => void
+  clearTextEditor?: boolean
 }
 
-export const TextEditor: FC<TextEditorProps> = (props) => {
-  const { handleInputChange, initialValue, height, width, handleFocus } = props
+export const TextEditor: FC<TextEditorProps> = ({
+  handleInputChange,
+  initialValue,
+  height,
+  width,
+  handleFocus,
+  clearTextEditor,
+}) => {
   const size = { height, width }
   const classes = useStyles(size)
 
@@ -56,6 +63,12 @@ export const TextEditor: FC<TextEditorProps> = (props) => {
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(contentState)
   )
+
+  useEffect(() => {
+    if (clearTextEditor) {
+      setEditorState(EditorState.createEmpty())
+    }
+  }, [clearTextEditor])
 
   const onEditorStateChange = async (data) => {
     const rawObject = convertToRaw(data.getCurrentContent())
