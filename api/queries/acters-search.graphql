@@ -6,6 +6,7 @@ query ActersSearch($searchText: String, $interests: [String!]) {
       AND: [
         { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
         { name: { contains: $searchText, mode: insensitive } }
+        { deletedAt: { equals: null } }
         {
           ActerInterests: {
             some: {
