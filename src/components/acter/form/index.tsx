@@ -90,6 +90,9 @@ export const ActerForm: FC<ActerFormProps> = ({
     }
   }
 
+  const handleModalClose = () =>
+    acter ? router.back() : router.push('/dashboard')
+
   //TODO: create type for this
   const initialValues = {
     acterTypeId: acterType.id,
@@ -105,7 +108,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   }
 
   return (
-    <Modal handleModalClose={() => router.back()}>
+    <Modal handleModalClose={handleModalClose}>
       <Formik
         initialValues={initialValues}
         onSubmit={onStepSubmit}
