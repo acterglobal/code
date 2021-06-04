@@ -4,13 +4,7 @@ import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
 export const ActivitiesIcon: FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
-    <svg
-      width="19"
-      height="18"
-      viewBox="0 0 19 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="2.5" width="18" height="15" rx="2.5" stroke="#C0C1C2" />
       <line x1="5.5" y1="5" x2="5.5" stroke="#C0C1C2" />
       <line x1="19" y1="7.5" y2="7.5" stroke="#C0C1C2" />
