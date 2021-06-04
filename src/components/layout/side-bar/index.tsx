@@ -112,6 +112,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
         borderColor: theme.palette.secondary.contrastText,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(2),
       },
     }),
     menu: {
