@@ -26,6 +26,7 @@ import {
   FollowingListProps,
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
+import { subMenuBackgroundColor } from 'src/themes/colors'
 
 export type SidebarProps = ActerMenuProps & FollowingListProps
 
@@ -131,7 +132,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       },
     },
     subMenu: {
-      backgroundColor: theme.palette.secondary[600],
+      backgroundColor: subMenuBackgroundColor,
       height: '100%',
       width: '10rem',
       color: theme.palette.secondary.contrastText,

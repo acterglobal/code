@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import {
   Box,
-  Button,
   Grid,
   Typography,
   createStyles,
@@ -15,54 +14,12 @@ import { ImageUpload } from 'src/components/image-upload/index'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      margin: `${theme.spacing(2)}px auto`,
-      padding: theme.spacing(4),
-      minWidth: 350,
-      maxWidth: 960,
-      //TODO: make this reusable
-      backgroundColor: theme.palette.background.paper,
-      borderColor: theme.palette.divider,
-      borderWidth: 'thin',
-      borderStyle: 'solid',
-      borderRadius: theme.spacing(1),
-    },
-    fieldsContainer: {
-      minHeight: 300,
-      overflowY: 'scroll',
-    },
-    textinput: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
-    },
-    interests: {
-      width: '100%',
-    },
-    buttonContainer: {
-      paddingTop: theme.spacing(2),
-      justifyContent: 'flex-end',
-    },
-    submitButtonContainer: {
-      marginRight: theme.spacing(1),
-      width: '100%',
-    },
-    secondButton: {
-      width: '100%',
-      color: grey[700],
-      borderRadius: theme.spacing(3),
-    },
-  })
-)
-
+import { Acter } from '@schema'
 export interface ProfileEditProps {
   user: User
   interestTypes: InterestType[]
   loading: boolean
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  onSubmit: (data: any) => any
+  onSubmit: (data: Acter) => void
 }
 
 export const ProfileEdit: FC<ProfileEditProps> = ({
@@ -89,11 +46,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
   return (
     <Box className={classes.container}>
       <Typography variant="h4">Tell us about yourself</Typography>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        // validationSchema={validationSchema}
-      >
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {(props) => (
           <Form>
             <Grid container>
@@ -166,18 +119,13 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
                 md={3}
                 className={classes.submitButtonContainer}
               >
-                <SaveButton disabled={loading} onClick={props.submitForm}>
+                <SaveButton
+                  className={classes.saveButton}
+                  disabled={loading}
+                  onClick={props.submitForm}
+                >
                   Save
                 </SaveButton>
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <Button
-                  className={classes.secondButton}
-                  variant="outlined"
-                  onClick={() => null}
-                >
-                  Complete later
-                </Button>
               </Grid>
             </Grid>
           </Form>
@@ -186,3 +134,52 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: `${theme.spacing(2)}px auto`,
+      padding: theme.spacing(4),
+      minWidth: 350,
+      maxWidth: 960,
+      //TODO: make this reusable
+      backgroundColor: theme.palette.background.paper,
+      borderColor: theme.palette.divider,
+      borderWidth: 'thin',
+      borderStyle: 'solid',
+      borderRadius: theme.spacing(1),
+    },
+    fieldsContainer: {
+      minHeight: 300,
+      overflowY: 'scroll',
+    },
+    textinput: {
+      width: '100%',
+      marginBottom: theme.spacing(2),
+    },
+    interests: {
+      width: '100%',
+    },
+    buttonContainer: {
+      paddingTop: theme.spacing(2),
+      justifyContent: 'flex-end',
+    },
+    submitButtonContainer: {
+      marginRight: theme.spacing(1),
+      width: '100%',
+    },
+    secondButton: {
+      width: '100%',
+      color: grey[700],
+      borderRadius: theme.spacing(3),
+    },
+    saveButton: {
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+        color: 'white',
+      },
+    },
+  })
+)
