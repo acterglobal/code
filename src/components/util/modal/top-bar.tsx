@@ -1,13 +1,10 @@
 import React, { FC } from 'react'
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Typography,
-} from '@material-ui/core'
+import { Box, IconButton, MenuItem, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
+import {
+  MoreVert as ThreeDotsIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import Link from 'next/link'
@@ -51,13 +48,9 @@ export const TopBar: FC<Props> = ({
           <ThreeDots />
         )}
 
-        <Button
-          className={classes.button}
-          variant="outlined"
-          onClick={handleClose}
-        >
-          Close
-        </Button>
+        <IconButton className={classes.button} onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
       </Box>
     </Box>
   )

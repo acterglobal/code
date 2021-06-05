@@ -7,6 +7,7 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
     item: {
       '& a': {
         display: 'flex',
+        alignItems: 'center',
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
       },

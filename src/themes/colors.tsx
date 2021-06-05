@@ -14,3 +14,4 @@ export const interestColors = {
 }
 
 export const disabledColor = '#b5b5b5'
+export const subMenuBackgroundColor = '#545559'
