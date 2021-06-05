@@ -20,7 +20,7 @@ export const getUserProfile = (
       return {
         props: {},
         redirect: {
-          destination: '/',
+          destination: '/401',
         },
       }
     }
