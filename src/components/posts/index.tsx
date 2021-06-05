@@ -30,6 +30,10 @@ export const PostList: FC<PostListProps> = ({
 }) => {
   const classes = useStyles()
 
+  if (!user) {
+    return null
+  }
+
   return (
     <Box className={classes.mainContainer}>
       {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
