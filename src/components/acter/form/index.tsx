@@ -12,6 +12,7 @@ import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { useRouter } from 'next/router'
 import { grey } from '@material-ui/core/colors'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
@@ -91,7 +92,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   }
 
   const handleModalClose = () =>
-    acter ? router.back() : router.push('/dashboard')
+    router.push(acter ? acterAsUrl(acter) : '/dashboard')
 
   //TODO: create type for this
   const initialValues = {
