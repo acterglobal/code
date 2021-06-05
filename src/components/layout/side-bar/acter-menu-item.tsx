@@ -46,7 +46,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
           <ListItemIcon>
             <Icon color="inherit" />
           </ListItemIcon>
-          <ListItemText primary={text ? text : path} />
+          <ListItemText className={classes.list} primary={text ? text : path} />
         </a>
       </Link>
     </ListItem>
@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
     ...commonStyles(theme),
     currentItem: {
       backgroundColor: theme.palette.secondary[500],
+    },
+    list: {
+      textTransform: 'capitalize',
     },
   })
 )

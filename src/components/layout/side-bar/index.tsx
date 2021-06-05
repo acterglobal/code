@@ -10,13 +10,8 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import {
-  AddCircleOutline as AddIcon,
-  HomeOutlined as HomeIcon,
-  LanguageOutlined as WorldIcon,
-  SvgIconComponent,
-} from '@material-ui/icons'
-import { ActerLogoText } from 'src/components/icons/acter-logo-text'
+import { SvgIconComponent } from '@material-ui/icons'
+import { ActerIcon, HomeIcon, AddIcon, SearchIcon } from 'src/components/icons'
 import {
   ActerMenu,
   ActerMenuProps,
@@ -55,9 +50,9 @@ export const Sidebar: FC<SidebarProps> = ({
     >
       <Box className={classes.menu}>
         <List className={classes.list}>
-          <IconMenuItem Icon={ActerLogoText} href="/" text="Acter" />
+          <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
           <IconMenuItem Icon={HomeIcon} href="/dashboard" text="Home" />
-          <IconMenuItem Icon={WorldIcon} href="/search" text="Search" />
+          <IconMenuItem Icon={SearchIcon} href="/search" text="Search" />
           <Divider />
           <FollowingList user={user} />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
@@ -117,6 +112,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
         borderColor: theme.palette.secondary.contrastText,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(1.4),
       },
     }),
     menu: {
@@ -129,6 +125,11 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       '& .MuiListItem-divider': {
         borderColor: theme.palette.secondary.contrastText,
       },
+    },
+    item: {
+      magrinLeft: 'auto',
+      marginRight: 'auto',
+      paddingBottom: 0,
     },
     subMenu: {
       backgroundColor: theme.palette.secondary[600],
