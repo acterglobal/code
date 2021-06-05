@@ -1,4 +1,4 @@
-#import "../fragments/acter-display.fragment.graphql"
+#import "./acter-display.fragment.graphql"
 
 fragment ActivityDisplay on Activity {
   id
@@ -9,5 +9,8 @@ fragment ActivityDisplay on Activity {
   activityTypeId
   ActivityType {
     name
+  }
+  Organiser {
+    ...ActerDisplay
   }
 }

@@ -12,6 +12,7 @@ import { PostList, PostListProps } from 'src/components/posts'
 import { InterestType } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 import { useRouter } from 'next/router'
+import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]
@@ -31,9 +32,13 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
   const router = useRouter()
 
+  const handleModalClose = () => {
+    router.push(`${acterAsUrl(acter.Activity.Organiser)}/activities`)
+  }
+
   return (
     <Modal
-      handleModalClose={() => router.back()}
+      handleModalClose={handleModalClose}
       actionButtons={['edit', 'delete']}
       acter={acter}
       user={user}
