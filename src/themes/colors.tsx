@@ -15,3 +15,4 @@ export const interestColors = {
 
 export const disabledColor = '#b5b5b5'
 export const subMenuBackgroundColor = '#545559'
+export const menuActiveTabColor = 'rgba(196, 196, 196, 0.18)'

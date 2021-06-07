@@ -22,6 +22,8 @@ import {
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { subMenuBackgroundColor } from 'src/themes/colors'
+import { useRouter } from 'next/router'
+import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
 
 export type SidebarProps = ActerMenuProps & FollowingListProps
 
