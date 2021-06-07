@@ -45,15 +45,18 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
               <Container>
                 <Select name="role" value={values.role} onChange={handleChange}>
                   {Object.keys(ActerConnectionRole).map((key) => {
-                    ActerConnectionRole[key] !==
-                      ActerConnectionRole.PENDING && (
-                      <MenuItem
-                        key={`acter-${Follower.id}-connection-picker-${key}`}
-                        value={key}
-                      >
-                        {ActerConnectionRole[key]}
-                      </MenuItem>
-                    )
+                    if (
+                      ActerConnectionRole[key] !== ActerConnectionRole.PENDING
+                    ) {
+                      return (
+                        <MenuItem
+                          key={`acter-${Follower.id}-connection-picker-${key}`}
+                          value={key}
+                        >
+                          {ActerConnectionRole[key]}
+                        </MenuItem>
+                      )
+                    }
                   })}
                 </Select>
                 <IconButton onClick={submitForm}>
