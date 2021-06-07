@@ -27,14 +27,14 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
   onCancel,
   onSubmit,
 }) => {
-  const { Follower, role } = connection
+  const { Follower } = connection
   const initialValues = {
-    role,
+    role: ActerConnectionRole.MEMBER,
   }
   const handleSubmit = ({ role }) => onSubmit(connection, role)
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ dirty, values, handleChange, handleReset, submitForm }) => {
+      {({ values, handleChange, handleReset, submitForm }) => {
         const handleCancel = () => {
           handleReset()
           onCancel()
@@ -44,16 +44,19 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
             <FormControl>
               <Container>
                 <Select name="role" value={values.role} onChange={handleChange}>
-                  {Object.keys(ActerConnectionRole).map((key) => (
-                    <MenuItem
-                      key={`acter-${Follower.id}-connection-picker-${key}`}
-                      value={key}
-                    >
-                      {ActerConnectionRole[key]}
-                    </MenuItem>
-                  ))}
+                  {Object.keys(ActerConnectionRole).map((key) => {
+                    ActerConnectionRole[key] !==
+                      ActerConnectionRole.PENDING && (
+                      <MenuItem
+                        key={`acter-${Follower.id}-connection-picker-${key}`}
+                        value={key}
+                      >
+                        {ActerConnectionRole[key]}
+                      </MenuItem>
+                    )
+                  })}
                 </Select>
-                <IconButton disabled={!dirty} onClick={submitForm}>
+                <IconButton onClick={submitForm}>
                   <Save />
                 </IconButton>
                 <IconButton onClick={handleCancel}>
