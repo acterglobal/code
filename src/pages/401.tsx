@@ -8,7 +8,7 @@ import { Box, Link } from 'src/components/styled'
 
 const Custom404: NextPage = () => {
   const router = useRouter()
-  const handleRedirectBack = () => router.back()
+  const handleRedirectBack = () => router.push('api/auth/login')
 
   return (
     <Layout>
@@ -16,7 +16,7 @@ const Custom404: NextPage = () => {
       <Box mt={20}>
         <Typography variant="body1">
           You are not authorized to view this page. Please{' '}
-          <Link onClick={handleRedirectBack}>go back</Link> and try again.
+          <Link onClick={handleRedirectBack}>login</Link> and try again.
         </Typography>
       </Box>
     </Layout>
