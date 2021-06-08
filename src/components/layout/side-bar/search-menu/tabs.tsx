@@ -3,9 +3,10 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
 import { ACTERS, ACTIVITIES } from 'src/constants'
 import { menuActiveTabColor } from 'src/themes/colors'
+import { SearchType } from 'src/components/search'
 
 export interface SearchTabsProps {
-  activeTab: string
+  activeTab: SearchType
   handleTabClick: (tab: string) => void
 }
 

@@ -80,7 +80,9 @@ export const Sidebar: FC<SidebarProps> = ({
           />
         </Box>
       )}
-      {searchType && <SearchMenu />}
+      {searchType && (
+        <SearchMenu acterTypes={acterTypes} searchType={searchType} />
+      )}
     </Drawer>
   )
 }

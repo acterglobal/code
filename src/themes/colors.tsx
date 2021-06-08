@@ -1,7 +1,7 @@
 export const activityTypeColors = {
-  event: 'rgb(0,171,142,0.2)',
-  project: 'rgb(30,176,1,0.2)',
-  idea: 'rgb(249,186,57,0.2)',
+  event: '#CCEEE8',
+  project: '#D2EFCC',
+  idea: '#FEF1D7',
 }
 
 export const interestColors = {

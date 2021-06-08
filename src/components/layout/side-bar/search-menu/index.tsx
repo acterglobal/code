@@ -7,15 +7,23 @@ import {
   Typography,
 } from '@material-ui/core'
 import { SearchIcon } from 'src/components/icons/search-icon'
-import { ACTERS, ACTIVITIES } from 'src/constants'
+import { ACTIVITIES } from 'src/constants'
 import { subMenuBackgroundColor } from 'src/themes/colors'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
+import { SearchTypes } from 'src/components/layout/side-bar/search-menu/types'
 import { grey } from '@material-ui/core/colors'
 import { useRouter } from 'next/router'
+import { SearchType } from 'src/components/search'
+import { ActerType, ActivityType } from '@schema'
 
-export const SearchMenu: FC = () => {
+export interface SearchMenuProps {
+  acterTypes: ActerType[] | ActivityType[]
+  searchType: SearchType
+}
+
+export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
-  const [activeTab, setActiveTab] = useState(ACTERS)
+  const [activeTab, setActiveTab] = useState(searchType)
   const router = useRouter()
 
   const handleTabClick = (searchType) => {
@@ -31,6 +39,8 @@ export const SearchMenu: FC = () => {
       </Box>
 
       <SearchTabs activeTab={activeTab} handleTabClick={handleTabClick} />
+
+      <SearchTypes acterTypes={acterTypes} activeTab={activeTab} />
     </Box>
   )
 }

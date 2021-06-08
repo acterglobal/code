@@ -1,37 +1,30 @@
 import React, { FC } from 'react'
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { Switch } from 'src/components/styled/switch'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { ActerType, ActivityType } from '@schema'
-
+import { Type } from 'src/components/layout/side-bar/search-menu/type'
+import { SearchType } from 'src/components/search'
+import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
 export interface SearchTypesProps {
-  acterTypes?: ActerType[]
-  activityTypes?: ActivityType[]
+  activeTab: SearchType
+  acterTypes: ActerType[] | ActivityType[]
 }
 
 export const SearchTypes: FC<SearchTypesProps> = ({
+  activeTab,
   acterTypes,
-  activityTypes,
 }) => {
   const classes = useStyles()
-  console.log('acter types ', acterTypes)
-  console.log('activity types ', activityTypes)
   return (
     <Box className={classes.root}>
-      <Box className={classes.typeSection}>
-        <Box className={classes.type}>
-          <Box className={classes.icon}></Box>
-          <Typography className={classes.typeName} variant="body1">
-            Events
-          </Typography>
-        </Box>
-        <Switch name="events" checked={true} handleSwitchChange={() => null} />
-      </Box>
+      {acterTypes.map((type) => {
+        if (
+          type.name !== USER &&
+          type.name !== ACTIVITY &&
+          type.name !== GROUP
+        ) {
+          return <Type acterTypeName={type.name} activeTab={activeTab} />
+        }
+      })}
     </Box>
   )
 }
@@ -40,25 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(2),
-    },
-    typeSection: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    type: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    typeName: {
-      marginLeft: theme.spacing(1.5),
-      fontWeight: theme.typography.fontWeightLight,
-    },
-    icon: {
-      height: 12,
-      width: 12,
-      borderRadius: '50%',
-      backgroundColor: 'white',
     },
   })
 )
