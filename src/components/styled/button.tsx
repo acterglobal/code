@@ -9,7 +9,7 @@ export const Button = withStyles(
     root: {
       borderRadius: 50,
       textTransform: 'none',
-      width: 200,
+      width: 100,
     },
   })
 )(MuiButton)

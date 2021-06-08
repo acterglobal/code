@@ -75,14 +75,17 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                   clearTextEditor={clearText}
                 />
               </Box>
-              <Button
-                size="small"
-                variant="outlined"
-                color="primary"
-                type="submit"
-              >
-                {post ? 'Add Comment' : 'Post'}
-              </Button>
+              <Box className={classes.buttonContainer}>
+                <Button
+                  size="small"
+                  variant={post ? 'outlined' : 'contained'}
+                  color="primary"
+                  type="submit"
+                  style={{ color: post ? null : 'FFFFFF' }}
+                >
+                  {post ? 'Comment' : 'Post'}
+                </Button>
+              </Box>
             </Form>
           )}
         </Formik>
@@ -125,6 +128,11 @@ const useStyles = makeStyles((theme: Theme) =>
     formInputLabel: {
       marginBottom: 3,
       fontSize: 13,
+    },
+    buttonContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      color: 'white',
     },
   })
 )
