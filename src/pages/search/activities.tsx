@@ -20,7 +20,7 @@ const SearchActivitiesPage: NextPage<SearchPageProps> = ({
   user,
 }) => {
   return (
-    <Layout user={user}>
+    <Layout user={user} searchType={ACTIVITIES}>
       <Head title="Acter" />
 
       <main>

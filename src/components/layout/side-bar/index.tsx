@@ -22,32 +22,36 @@ import {
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { subMenuBackgroundColor } from 'src/themes/colors'
-import { useRouter } from 'next/router'
 import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
+import { SearchType } from 'src/components/search'
 
-export type SidebarProps = ActerMenuProps & FollowingListProps
+export type SidebarProps = ActerMenuProps &
+  FollowingListProps & {
+    searchType?: SearchType
+  }
 
 export const Sidebar: FC<SidebarProps> = ({
   acter,
   acterTypes,
+  searchType,
   user,
   onGroupSubmit,
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
-  const router = useRouter()
 
   useEffect(() => {
     if (acter) {
       setDrawerWidth(14)
       return
     }
-    if (router.route === '/search') {
+    if (searchType) {
       setDrawerWidth(17)
       return
     }
+
     setDrawerWidth(4)
-  }, [acter])
+  }, [acter, searchType])
 
   return (
     <Drawer
@@ -76,7 +80,7 @@ export const Sidebar: FC<SidebarProps> = ({
           />
         </Box>
       )}
-      {router.route === '/search' && <SearchMenu />}
+      {searchType && <SearchMenu />}
     </Drawer>
   )
 }
