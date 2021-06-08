@@ -19,7 +19,6 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
     interestTypes,
     selected
   )
-
   const selectedTopLevel = getSelectedTopLevelTypes(
     typesWithSelectedInterests,
     selected
