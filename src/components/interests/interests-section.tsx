@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
 import {
-  getTopLevelTypes,
   getSelectedTopLevelTypes,
   getSelectedInterests,
 } from 'src/lib/interests'
@@ -20,9 +19,11 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
     interestTypes,
     selected
   )
-  const topLevelTypes = getTopLevelTypes(typesWithSelectedInterests)
 
-  const selectedTopLevel = getSelectedTopLevelTypes(topLevelTypes, selected)
+  const selectedTopLevel = getSelectedTopLevelTypes(
+    typesWithSelectedInterests,
+    selected
+  )
 
   return (
     <>

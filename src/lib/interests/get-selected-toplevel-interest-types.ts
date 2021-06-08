@@ -1,20 +1,28 @@
+import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
 import { Interest, InterestType } from '@schema'
 
 export const getSelectedTopLevelTypes = (
-  topLevelTypes: InterestType[],
+  typesWithSelectedInterests: InterestType[],
   selected: Interest[]
 ): InterestType[] => {
-  const selectedTopLevel = []
-  topLevelTypes.map((type) => {
-    selected.map((select) => {
-      type.id === select.InterestType.id ||
-      type.id === select.InterestType.parentInterestTypeId
-        ? selectedTopLevel.includes(type)
-          ? null
-          : selectedTopLevel.push(type)
-        : null
-    })
-  })
+  const topLevelTypes = getTopLevelTypes(typesWithSelectedInterests)
+  const topLevelTypeIds = topLevelTypes.map(({ id }) => id)
 
-  return selectedTopLevel
+  const selectedTopLevelTypeMap = selected.reduce<Record<string, InterestType>>(
+    (prev, { InterestType: type }) => {
+      if (
+        topLevelTypeIds[type.id] ||
+        topLevelTypeIds[type.parentInterestTypeId]
+      ) {
+        return {
+          ...prev,
+          [type.id]: type,
+        }
+      }
+      return prev
+    },
+    {}
+  )
+
+  return Object.values(selectedTopLevelTypeMap)
 }
