@@ -27,14 +27,14 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
   onCancel,
   onSubmit,
 }) => {
-  const { Follower } = connection
+  const { Follower, role } = connection
   const initialValues = {
-    role: ActerConnectionRole.MEMBER,
+    role,
   }
   const handleSubmit = ({ role }) => onSubmit(connection, role)
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ values, handleChange, handleReset, submitForm }) => {
+      {({ dirty, values, handleChange, handleReset, submitForm }) => {
         const handleCancel = () => {
           handleReset()
           onCancel()
@@ -44,25 +44,19 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
             <FormControl>
               <Container>
                 <Select name="role" value={values.role} onChange={handleChange}>
-                  {Object.keys(ActerConnectionRole).map((key) => {
-                    if (
-                      ActerConnectionRole[key] !== ActerConnectionRole.PENDING
-                    ) {
-                      return (
-                        <MenuItem
-                          key={`acter-${Follower.id}-connection-picker-${key}`}
-                          value={key}
-                        >
-                          {ActerConnectionRole[key]}
-                        </MenuItem>
-                      )
-                    }
-                  })}
+                  {Object.keys(ActerConnectionRole).map((key) => (
+                    <MenuItem
+                      key={`acter-${Follower.id}-connection-picker-${key}`}
+                      value={key}
+                    >
+                      {ActerConnectionRole[key]}
+                    </MenuItem>
+                  ))}
                 </Select>
                 <IconButton onClick={submitForm}>
                   <Save />
                 </IconButton>
-                <IconButton onClick={handleCancel}>
+                <IconButton disabled={!dirty} onClick={handleCancel}>
                   <Cancel />
                 </IconButton>
               </Container>
