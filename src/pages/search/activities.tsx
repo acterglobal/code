@@ -11,7 +11,7 @@ import {
   getActivityTypes,
 } from 'src/props'
 import { Acter, ActivityType, InterestType, User } from '@schema'
-import { ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/constants'
 
 interface SearchPageProps {
   acters: Acter[]
@@ -27,13 +27,17 @@ const SearchActivitiesPage: NextPage<SearchPageProps> = ({
   user,
 }) => {
   return (
-    <Layout user={user} searchType={ACTIVITIES} acterTypes={activityTypes}>
+    <Layout
+      user={user}
+      searchType={SearchType.ACTIVITIES}
+      acterTypes={activityTypes}
+    >
       <Head title="Acter" />
 
       <main>
         <Search
           acters={acters}
-          searchType={ACTIVITIES}
+          searchType={SearchType.ACTIVITIES}
           interestTypes={interestTypes}
         />
       </main>
