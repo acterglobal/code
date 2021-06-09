@@ -10,7 +10,7 @@ import { Switch } from 'src/components/styled/switch'
 import { SearchType } from 'src/components/search'
 import { ACTIVITIES } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
-import { size } from 'src/constants/sizes'
+import { Size } from 'src/constants/sizes'
 
 export interface TypeProps {
   activeTab: SearchType
@@ -32,7 +32,7 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
       </Box>
       <Switch
         name="events"
-        size={size.SMALL}
+        size={Size.SMALL}
         checked={true}
         handleSwitchChange={() => null}
       />

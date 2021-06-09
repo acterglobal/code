@@ -5,15 +5,15 @@ import {
   Switch as MUISwitch,
   Theme,
 } from '@material-ui/core'
-import { size } from 'src/constants/sizes'
+import { Size } from 'src/constants/sizes'
 
-const { SMALL, MEDIUM } = size
+const { SMALL, MEDIUM } = Size
 
 export interface SwitchProps {
   name: string
   checked: boolean
   handleSwitchChange: (switchStatus: boolean) => void
-  size?: size
+  size?: Size
 }
 
 export const Switch: FC<SwitchProps> = ({
