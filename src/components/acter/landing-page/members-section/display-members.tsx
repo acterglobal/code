@@ -91,7 +91,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
                   <ListItemSecondaryAction>
                     <ConnectionState
                       connection={connection}
-                      canEdit={canEdit}
+                      canEdit={canEdit && Follower.id !== user.Acter.id}
                       onSubmit={onConnectionStateChange}
                     />
                   </ListItemSecondaryAction>

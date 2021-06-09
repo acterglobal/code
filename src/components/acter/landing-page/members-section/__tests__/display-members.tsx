@@ -8,6 +8,8 @@ import {
 } from 'src/__fixtures__'
 import { ORGANISATIONS } from 'src/constants'
 
+const mockFunction = jest.fn()
+
 describe('<DisplayMembers>', () => {
   it('should display when there are no acters', () => {
     render(
@@ -16,12 +18,13 @@ describe('<DisplayMembers>', () => {
         user={ExampleUser}
         followers={[]}
         type={ORGANISATIONS}
+        onConnectionStateChange={mockFunction}
       />
     )
     expect(
       screen.getByRole('heading', { name: '0 organisations' })
     ).toBeTruthy()
-    expect(screen.queryByRole('listitm')).toBeFalsy()
+    expect(screen.queryByRole('listitem')).toBeFalsy()
   })
 
   it('should display a list of members', async () => {
@@ -54,6 +57,7 @@ describe('<DisplayMembers>', () => {
         user={ExampleUser}
         followers={connections}
         type={ORGANISATIONS}
+        onConnectionStateChange={mockFunction}
       />
     )
     expect(
