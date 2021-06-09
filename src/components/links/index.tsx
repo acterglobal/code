@@ -2,11 +2,11 @@ import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
-import { AddIcon } from 'src/components/icons'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { LinkForm, LinkFormProps } from 'src/components/links/form/link'
 
 // export interface LinkProps extends LinkFormProps {
-//   link
+//   TO DO AFTER DB SCHEMA UPDATE
 // }
 
 export const Links: FC = () => {
@@ -53,16 +53,19 @@ export const Links: FC = () => {
 
       <Divider variant="middle" />
 
-      {toggleForm && (
-        <Box className={classes.formContainer}>
-          <LinkForm onSubmit={handleSubmit} />
-        </Box>
-      )}
-      <Box className={classes.addLink}>
+      <Box>
         <IconButton onClick={handleClick}>
-          <AddIcon className={classes.addIcon} />
+          <AddCircleIcon />
         </IconButton>
       </Box>
+
+      {toggleForm && (
+        <Box className={classes.formContainer}>
+          <Box className={classes.inputContainer}>
+            <LinkForm onSubmit={handleSubmit} />
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }
@@ -85,13 +88,15 @@ const useStyles = makeStyles((theme: Theme) =>
     formContainer: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
+      justifyContent: 'center',
+      marginLeft: 85,
+    },
+    inputContainer: {
+      marginRight: 45,
     },
     divider: {
       backgroundColor: grey[900],
       marginTop: 8,
     },
-    addLink: {},
-    addIcon: {},
   })
 )

@@ -1,12 +1,8 @@
 import React, { FC } from 'react'
 import { Formik, Form, Field } from 'formik'
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  IconButton,
-  Theme,
-} from '@material-ui/core'
+import { TextField } from 'formik-material-ui'
+
+import { createStyles, makeStyles, IconButton, Theme } from '@material-ui/core'
 import { Save, Edit, Delete } from '@material-ui/icons'
 
 export interface LinkFormProps {
@@ -32,15 +28,39 @@ export const LinkForm: FC<LinkFormProps> = ({ onSubmit, data }) => {
     >
       {({ dirty }) => (
         <Form>
-          <Field name="name" required className={classes.formInput} />
-          <Field name="url" required className={classes.formInput} />
+          <Field
+            name="name"
+            required
+            className={classes.formInput}
+            component={TextField}
+            size="small"
+            variant="outlined"
+            margin="dense"
+            placeholder="Enter your link's name"
+            InputProps={{
+              className: classes.input,
+            }}
+          />
+          <Field
+            name="url"
+            required
+            className={classes.formInput}
+            component={TextField}
+            size="small"
+            variant="outlined"
+            margin="dense"
+            placeholder="Enter your URL"
+            InputProps={{
+              className: classes.input,
+            }}
+          />
 
-          <IconButton type="submit">
+          <IconButton className={classes.icons} type="submit">
             {dirty || !data ? <Save /> : <Edit />}
           </IconButton>
 
           {data && (
-            <IconButton onClick={handleDelete}>
+            <IconButton className={classes.icons} onClick={handleDelete}>
               <Delete />
             </IconButton>
           )}
@@ -55,7 +75,15 @@ const useStyles = makeStyles((theme: Theme) =>
     formInput: {
       margin: 10,
       borderRadius: 4,
-      width: 200,
+      width: 300,
+      padding: 10,
+    },
+    input: {
+      backgroundColor: 'white',
+      fontSize: 12,
+    },
+    icons: {
+      marginTop: 10,
     },
   })
 )
