@@ -11,9 +11,8 @@ import {
 } from 'src/components/search/display-results'
 import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
 import { Acter, InterestType } from '@schema'
-import { ACTERS, ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/constants'
 
-export type SearchType = typeof ACTERS | typeof ACTIVITIES
 export interface SearchProps extends DisplayResultsProps {
   searchType: SearchType
   acters: Acter[]
@@ -63,7 +62,7 @@ export const Search: FC<SearchProps> = ({
           <Grid
             item
             xs={12}
-            sm={searchType === ACTERS ? 8 : 6}
+            sm={searchType === SearchType.ACTERS ? 8 : 6}
             className={classes.searchSectionItem}
           >
             <Typography

@@ -22,12 +22,18 @@ import {
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { subMenuBackgroundColor } from 'src/themes/colors'
+import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
+import { SearchType } from 'src/constants'
 
-export type SidebarProps = ActerMenuProps & FollowingListProps
+export type SidebarProps = ActerMenuProps &
+  FollowingListProps & {
+    searchType?: SearchType
+  }
 
 export const Sidebar: FC<SidebarProps> = ({
   acter,
   acterTypes,
+  searchType,
   user,
   onGroupSubmit,
 }) => {
@@ -39,8 +45,13 @@ export const Sidebar: FC<SidebarProps> = ({
       setDrawerWidth(14)
       return
     }
+    if (searchType) {
+      setDrawerWidth(17)
+      return
+    }
+
     setDrawerWidth(4)
-  }, [acter])
+  }, [acter, searchType])
 
   return (
     <Drawer
@@ -68,6 +79,9 @@ export const Sidebar: FC<SidebarProps> = ({
             user={user}
           />
         </Box>
+      )}
+      {searchType && (
+        <SearchMenu acterTypes={acterTypes} searchType={searchType} />
       )}
     </Drawer>
   )

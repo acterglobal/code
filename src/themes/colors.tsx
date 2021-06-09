@@ -1,7 +1,7 @@
 export const activityTypeColors = {
-  event: 'rgb(0,171,142,0.2)',
-  project: 'rgb(30,176,1,0.2)',
-  idea: 'rgb(249,186,57,0.2)',
+  event: '#CCEEE8',
+  project: '#D2EFCC',
+  idea: '#FEF1D7',
 }
 
 export const interestColors = {
@@ -15,3 +15,4 @@ export const interestColors = {
 
 export const disabledColor = '#b5b5b5'
 export const subMenuBackgroundColor = '#545559'
+export const menuActiveTabColor = 'rgba(196, 196, 196, 0.18)'

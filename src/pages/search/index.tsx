@@ -4,29 +4,36 @@ import { Head } from 'src/components/layout/head'
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
 import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile, searchActers, getInterests } from 'src/props'
-import { Acter, InterestType, User } from '@schema'
-import { ACTERS } from 'src/constants'
+import {
+  getUserProfile,
+  searchActers,
+  getInterests,
+  getActerTypes,
+} from 'src/props'
+import { Acter, ActerType, InterestType, User } from '@schema'
+import { SearchType } from 'src/constants'
 
 interface SearchPageProps {
   acters: Acter[]
-  user?: User
+  acterTypes: ActerType[]
   interestTypes: InterestType[]
+  user?: User
 }
 
 const SearchPage: NextPage<SearchPageProps> = ({
   acters,
+  acterTypes,
   interestTypes,
   user,
 }) => {
   return (
-    <Layout user={user}>
+    <Layout user={user} searchType={SearchType.ACTERS} acterTypes={acterTypes}>
       <Head title="Acter" />
 
       <main>
         <Search
           acters={acters}
-          searchType={ACTERS}
+          searchType={SearchType.ACTERS}
           interestTypes={interestTypes}
         />
       </main>
@@ -35,6 +42,12 @@ const SearchPage: NextPage<SearchPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false), searchActers, getInterests)
+  composeProps(
+    ctx,
+    getUserProfile(false),
+    getActerTypes,
+    searchActers,
+    getInterests
+  )
 
 export default SearchPage
