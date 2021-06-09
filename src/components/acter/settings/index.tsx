@@ -11,6 +11,7 @@ import {
   SettingsMenu,
   SettingsSectionHeading,
 } from 'src/components/util/settings-layout'
+import { ActerSettingsMenu } from 'src/constants/acter-settings-menu'
 import { Links as LinkSection } from 'src/components/links'
 import { Acter } from '@schema'
 
@@ -23,19 +24,23 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
   onSettingsChange,
   loading,
 }) => {
-  const [showContent, setShowContent] = useState('members')
+  const [showContent, setShowContent] = useState(ActerSettingsMenu.MEMBERS)
   const handleClick = (content) => {
     setShowContent(content)
   }
   return (
     <SettingsContainer>
       <SettingsMenu>
-        <MenuItem onClick={() => handleClick('members')}>Members</MenuItem>
-        <MenuItem onClick={() => handleClick('links')}>Links</MenuItem>
+        <MenuItem onClick={() => handleClick(ActerSettingsMenu.MEMBERS)}>
+          Members
+        </MenuItem>
+        <MenuItem onClick={() => handleClick(ActerSettingsMenu.LINKS)}>
+          Links
+        </MenuItem>
       </SettingsMenu>
 
       <SettingsContent>
-        {showContent === 'members' && (
+        {showContent === ActerSettingsMenu.MEMBERS && (
           <>
             <SettingsSectionHeading>Join</SettingsSectionHeading>
             <ActerUsersSettings
@@ -45,7 +50,7 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
             />
           </>
         )}
-        {showContent === 'links' && <LinkSection />}
+        {showContent === ActerSettingsMenu.LINKS && <LinkSection />}
       </SettingsContent>
     </SettingsContainer>
   )
