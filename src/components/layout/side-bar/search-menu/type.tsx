@@ -7,8 +7,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Switch } from 'src/components/styled/switch'
-import { SearchType } from 'src/components/search'
-import { ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
 import { Size } from 'src/constants'
 
@@ -23,7 +22,7 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.type}>
-        {activeTab === ACTIVITIES && (
+        {activeTab === SearchType.ACTIVITIES && (
           <ActivityTypeIcon activityType={acterTypeName} />
         )}
         <Typography className={classes.typeName} variant="body2">

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { ActerType, ActivityType } from '@schema'
 import { Type } from 'src/components/layout/side-bar/search-menu/type'
-import { SearchType } from 'src/components/search'
+import { SearchType } from 'src/constants'
 import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
 
 export interface SearchTypesProps {
@@ -18,11 +18,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
   return (
     <Box className={classes.root}>
       {acterTypes.map((type) => {
-        if (
-          type.name !== USER &&
-          type.name !== ACTIVITY &&
-          type.name !== GROUP
-        ) {
+        if (![ACTIVITY, GROUP, USER].includes(type.name)) {
           return <Type acterTypeName={type.name} activeTab={searchType} />
         }
       })}

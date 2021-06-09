@@ -1,16 +1,17 @@
 import React, { FC } from 'react'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
-import { ACTERS, ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/constants'
 import { menuActiveTabColor } from 'src/themes/colors'
-import { SearchType } from 'src/components/search'
 import Link from 'next/link'
+
 export interface SearchTabsProps {
   activeTab: SearchType
 }
 
 export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
   const classes = useStyles()
+  const { ACTERS, ACTIVITIES } = SearchType
   const searchTypes = [ACTIVITIES, ACTERS]
 
   return (

@@ -7,8 +7,7 @@ import {
   FilterInterestsProps,
 } from 'src/components/search/filter-interests'
 import { SortBy, SortByProps } from 'src/components/search/sort-by'
-import { ACTERS, ACTIVITIES } from 'src/constants'
-import { SearchType } from 'src/components/search'
+import { SearchType } from 'src/constants'
 
 type FilterTabsProps = FilterInterestsProps &
   SortByProps & { searchType: SearchType }
@@ -25,7 +24,7 @@ export const FilterTabs: FC<FilterTabsProps> = ({
     <Grid
       item
       xs={12}
-      sm={searchType === ACTERS ? 4 : 6}
+      sm={searchType === SearchType.ACTERS ? 4 : 6}
       className={classes.root}
     >
       <FilterInterests
@@ -33,7 +32,7 @@ export const FilterTabs: FC<FilterTabsProps> = ({
         applyFilters={applyFilters}
       />
 
-      {searchType === ACTIVITIES && (
+      {searchType === SearchType.ACTIVITIES && (
         <SortBy sortBy={sortBy} applySortBy={applySortBy} />
       )}
 

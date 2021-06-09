@@ -23,7 +23,7 @@ import {
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { subMenuBackgroundColor } from 'src/themes/colors'
 import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
-import { SearchType } from 'src/components/search'
+import { SearchType } from 'src/constants'
 
 export type SidebarProps = ActerMenuProps &
   FollowingListProps & {
