@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { MenuItem } from '@material-ui/core'
 import {
@@ -11,6 +11,7 @@ import {
   SettingsMenu,
   SettingsSectionHeading,
 } from 'src/components/util/settings-layout'
+import { Link as LinkSection } from 'src/components/link'
 import { Acter } from '@schema'
 
 export interface ActerSettingsProps extends ActerUsersSettingsProps {
@@ -22,18 +23,29 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
   onSettingsChange,
   loading,
 }) => {
+  const [showContent, setShowContent] = useState('members')
+  const handleClick = (content) => {
+    setShowContent(content)
+  }
   return (
     <SettingsContainer>
       <SettingsMenu>
-        <MenuItem>Members</MenuItem>
+        <MenuItem onClick={() => handleClick('members')}>Members</MenuItem>
+        <MenuItem onClick={() => handleClick('links')}>Links</MenuItem>
       </SettingsMenu>
+
       <SettingsContent>
-        <SettingsSectionHeading>Join</SettingsSectionHeading>
-        <ActerUsersSettings
-          acter={acter}
-          onSettingsChange={onSettingsChange}
-          loading={loading}
-        />
+        {showContent === 'members' && (
+          <>
+            <SettingsSectionHeading>Join</SettingsSectionHeading>
+            <ActerUsersSettings
+              acter={acter}
+              onSettingsChange={onSettingsChange}
+              loading={loading}
+            />
+          </>
+        )}
+        {showContent === 'links' && <LinkSection />}
       </SettingsContent>
     </SettingsContainer>
   )
