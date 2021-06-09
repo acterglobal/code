@@ -7,17 +7,22 @@ import {
   IconButton,
   Theme,
 } from '@material-ui/core'
-import { Save } from '@material-ui/icons'
+import { Save, Edit, Delete } from '@material-ui/icons'
 
 export interface LinkFormProps {
   onSubmit: (values: any) => void
+  data?: any
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ onSubmit }) => {
+export const LinkForm: FC<LinkFormProps> = ({ onSubmit, data }) => {
   const classes = useStyles()
   const initialValues = {
-    linkName: '',
-    link: '',
+    name: data?.name || '',
+    url: data?.url || '',
+  }
+
+  const handleDelete = (id) => {
+    // Delete callback
   }
   return (
     <Formik
@@ -25,14 +30,20 @@ export const LinkForm: FC<LinkFormProps> = ({ onSubmit }) => {
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {() => (
+      {({ dirty }) => (
         <Form>
-          <Field name="linkName" required className={classes.formInput} />
-          <Field name="link" required className={classes.formInput} />
+          <Field name="name" required className={classes.formInput} />
+          <Field name="url" required className={classes.formInput} />
 
           <IconButton type="submit">
-            <Save />
+            {dirty || !data ? <Save /> : <Edit />}
           </IconButton>
+
+          {data && (
+            <IconButton onClick={handleDelete}>
+              <Delete />
+            </IconButton>
+          )}
         </Form>
       )}
     </Formik>
@@ -44,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     formInput: {
       margin: 10,
       borderRadius: 4,
+      width: 200,
     },
   })
 )

@@ -13,6 +13,17 @@ export const Links: FC = () => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
+  const links = [
+    {
+      name: 'Google',
+      url: 'https://www.google.com',
+    },
+    {
+      name: 'Facebook',
+      url: 'https//www.facebook.com',
+    },
+  ]
+
   const handleSubmit = (data) => {
     console.log('Form data', data)
     setToggleForm(!toggleForm)
@@ -33,6 +44,12 @@ export const Links: FC = () => {
         </Typography>
       </Box>
       <Divider variant="middle" />
+
+      {links.map((link) => (
+        <Box className={classes.formContainer}>
+          <LinkForm data={link} onSubmit={handleSubmit} />
+        </Box>
+      ))}
 
       {toggleForm && (
         <Box className={classes.formContainer}>
@@ -66,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
     formContainer: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
     },
     divider: {
       backgroundColor: grey[900],
