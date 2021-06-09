@@ -7,11 +7,11 @@ import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
 
 export interface SearchTypesProps {
   acterTypes: (ActerType | ActivityType)[]
-  activeTab: SearchType
+  searchType: SearchType
 }
 
 export const SearchTypes: FC<SearchTypesProps> = ({
-  activeTab,
+  searchType,
   acterTypes,
 }) => {
   const classes = useStyles()
@@ -23,7 +23,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
           type.name !== ACTIVITY &&
           type.name !== GROUP
         ) {
-          return <Type acterTypeName={type.name} activeTab={activeTab} />
+          return <Type acterTypeName={type.name} activeTab={searchType} />
         }
       })}
     </Box>

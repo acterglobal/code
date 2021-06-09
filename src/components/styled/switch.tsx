@@ -5,7 +5,7 @@ import {
   Switch as MUISwitch,
   Theme,
 } from '@material-ui/core'
-import { Size } from 'src/constants/sizes'
+import { Size } from 'src/constants'
 
 const { SMALL, MEDIUM } = Size
 

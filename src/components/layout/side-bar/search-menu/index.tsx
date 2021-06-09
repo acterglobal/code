@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import {
   Box,
   createStyles,
@@ -7,40 +7,36 @@ import {
   Typography,
 } from '@material-ui/core'
 import { SearchIcon } from 'src/components/icons/search-icon'
-import { ACTIVITIES } from 'src/constants'
 import { subMenuBackgroundColor } from 'src/themes/colors'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
-import { SearchTypes } from 'src/components/layout/side-bar/search-menu/types'
+import {
+  SearchTypes,
+  SearchTypesProps,
+} from 'src/components/layout/side-bar/search-menu/types'
 import { grey } from '@material-ui/core/colors'
-import { useRouter } from 'next/router'
-import { SearchType } from 'src/components/search'
-import { ActerType, ActivityType } from '@schema'
 
-export interface SearchMenuProps {
-  acterTypes: (ActerType | ActivityType)[]
-  searchType: SearchType
-}
+export type SearchMenuProps = SearchTypesProps
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
-  const [activeTab, setActiveTab] = useState(searchType)
-  const router = useRouter()
-
-  const handleTabClick = (searchType) => {
-    setActiveTab(searchType)
-    router.push(searchType === ACTIVITIES ? `/search/${searchType}` : '/search')
-  }
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.heading}>
-        <SearchIcon fontSize="inherit" className={classes.searchIcon} />
-        <Typography variant="caption">Public search</Typography>
-      </Box>
+      <HeaderSection />
 
-      <SearchTabs activeTab={activeTab} handleTabClick={handleTabClick} />
+      <SearchTabs activeTab={searchType} />
 
-      <SearchTypes acterTypes={acterTypes} activeTab={activeTab} />
+      <SearchTypes acterTypes={acterTypes} searchType={searchType} />
+    </Box>
+  )
+}
+
+const HeaderSection = () => {
+  const classes = useStyles()
+  return (
+    <Box className={classes.heading}>
+      <SearchIcon fontSize="inherit" className={classes.searchIcon} />
+      <Typography variant="caption">Public search</Typography>
     </Box>
   )
 }

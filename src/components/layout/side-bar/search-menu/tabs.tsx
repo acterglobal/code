@@ -4,31 +4,30 @@ import clsx from 'clsx'
 import { ACTERS, ACTIVITIES } from 'src/constants'
 import { menuActiveTabColor } from 'src/themes/colors'
 import { SearchType } from 'src/components/search'
-
+import Link from 'next/link'
 export interface SearchTabsProps {
   activeTab: SearchType
-  handleTabClick: (tab: string) => void
 }
 
-export const SearchTabs: FC<SearchTabsProps> = ({
-  activeTab,
-  handleTabClick,
-}) => {
+export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
   const classes = useStyles()
   const searchTypes = [ACTIVITIES, ACTERS]
 
   return (
     <Box className={classes.tabs}>
       {searchTypes.map((searchType) => (
-        <Box
-          className={clsx({
-            [classes.tab]: true,
-            [classes.activeTab]: activeTab === searchType,
-          })}
-          onClick={() => handleTabClick(searchType)}
+        <Link
+          href={searchType === ACTIVITIES ? `/search/${searchType}` : '/search'}
         >
-          {searchType}
-        </Box>
+          <Box
+            className={clsx({
+              [classes.tab]: true,
+              [classes.activeTab]: activeTab === searchType,
+            })}
+          >
+            {searchType}
+          </Box>
+        </Link>
       ))}
     </Box>
   )
