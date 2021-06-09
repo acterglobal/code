@@ -3,13 +3,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import { AddIcon } from 'src/components/icons'
-import { LinkForm, LinkFormProps } from 'src/components/link/form/link'
+import { LinkForm, LinkFormProps } from 'src/components/links/form/link'
 
 // export interface LinkProps extends LinkFormProps {
 //   link
 // }
 
-export const Link: FC = () => {
+export const Links: FC = () => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 

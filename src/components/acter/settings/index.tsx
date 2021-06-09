@@ -11,7 +11,7 @@ import {
   SettingsMenu,
   SettingsSectionHeading,
 } from 'src/components/util/settings-layout'
-import { Link as LinkSection } from 'src/components/link'
+import { Links as LinkSection } from 'src/components/links'
 import { Acter } from '@schema'
 
 export interface ActerSettingsProps extends ActerUsersSettingsProps {
