@@ -4,9 +4,10 @@ import { ActerType, ActivityType } from '@schema'
 import { Type } from 'src/components/layout/side-bar/search-menu/type'
 import { SearchType } from 'src/components/search'
 import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
+
 export interface SearchTypesProps {
+  acterTypes: (ActerType | ActivityType)[]
   activeTab: SearchType
-  acterTypes: ActerType[] | ActivityType[]
 }
 
 export const SearchTypes: FC<SearchTypesProps> = ({

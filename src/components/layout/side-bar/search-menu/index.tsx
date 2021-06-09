@@ -17,7 +17,7 @@ import { SearchType } from 'src/components/search'
 import { ActerType, ActivityType } from '@schema'
 
 export interface SearchMenuProps {
-  acterTypes: ActerType[] | ActivityType[]
+  acterTypes: (ActerType | ActivityType)[]
   searchType: SearchType
 }
 
