@@ -53,10 +53,10 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
                     </MenuItem>
                   ))}
                 </Select>
-                <IconButton onClick={submitForm}>
+                <IconButton disabled={!dirty} onClick={submitForm}>
                   <Save />
                 </IconButton>
-                <IconButton disabled={!dirty} onClick={handleCancel}>
+                <IconButton onClick={handleCancel}>
                   <Cancel />
                 </IconButton>
               </Container>
