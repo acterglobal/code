@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
-import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { getSelectedInterests } from 'src/lib/interests/get-selected-interests'
+import {
+  getSelectedTopLevelTypes,
+  getSelectedInterests,
+} from 'src/lib/interests'
 import { InterestType, Interest } from '@schema'
 
 export interface InterestsSectionProps {
@@ -17,11 +19,14 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
     interestTypes,
     selected
   )
-  const topLevelTypes = getTopLevelTypes(typesWithSelectedInterests)
+  const selectedTopLevel = getSelectedTopLevelTypes(
+    typesWithSelectedInterests,
+    selected
+  )
 
   return (
     <>
-      {topLevelTypes.map((type) => (
+      {selectedTopLevel.map((type) => (
         <Box key={type.id} role="list">
           <Typography
             id="interest-type-name"

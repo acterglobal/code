@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import { Interests } from 'src/__fixtures__'
 
 describe('Interest Section', () => {
-  it('should render 3 top level interest types (Focus, Approach, Tag)', () => {
+  it.skip('should render 3 top level interest types (Focus, Approach, Tag)', () => {
     // Take first 2 from each type
     const selectedInterests = Interests.data.interestTypes.reduce(
       (interests, type) => [...interests, ...type.Interests.slice(0, 2)],
