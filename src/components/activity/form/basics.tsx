@@ -17,12 +17,16 @@ import { FormValues } from 'src/components/acter/form'
 import { SelectActivityType } from 'src/components/activity/form/select-activity-type'
 import { ActivityType } from '@schema'
 
-export interface Step1Props extends SelectOrganiserProps {
+export interface BasicsStepProps extends SelectOrganiserProps {
   values: FormValues
   activityTypes: ActivityType[]
 }
 
-export const Step1: FC<Step1Props> = ({ acters, values, activityTypes }) => {
+export const BasicsStep: FC<BasicsStepProps> = ({
+  acters,
+  values,
+  activityTypes,
+}) => {
   const classes = useStyles()
   const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
 
@@ -50,11 +54,13 @@ export const Step1: FC<Step1Props> = ({ acters, values, activityTypes }) => {
           required={true}
         />
 
-        <SelectActivityType
-          activityTypes={activityTypes}
-          selectedTypeId={selectedTypeId}
-          onChange={handleSelectedType}
-        />
+        {values.id && (
+          <SelectActivityType
+            activityTypes={activityTypes}
+            selectedTypeId={selectedTypeId}
+            onChange={handleSelectedType}
+          />
+        )}
 
         <Grid container style={{ width: 500 }} spacing={2}>
           <Grid item xs={6}>

@@ -12,7 +12,7 @@ import { Activity } from '@schema'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 import { DATE_FORMAT_SHORT, DATE_FORMAT_SHORT_NO_TIME } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
-import { activityTypeColors } from 'src/themes/colors'
+import { activityTypeBackgroundColors } from 'src/themes/colors'
 
 export interface ActivityTileProps {
   activity: Activity
@@ -78,7 +78,8 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       <Box
         className={classes.activityType}
         style={{
-          backgroundColor: activityTypeColors[activity.ActivityType.name],
+          backgroundColor:
+            activityTypeBackgroundColors[activity.ActivityType.name],
         }}
       >
         <Typography aria-label="activity-type" variant="caption">

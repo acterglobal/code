@@ -11,7 +11,7 @@ import { green, grey } from '@material-ui/core/colors'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { About } from 'src/components/activity/about'
-import { activityTypeColors } from 'src/themes/colors'
+import { activityTypeBackgroundColors } from 'src/themes/colors'
 
 export type ActivityInfoProps = ConnectProps
 
@@ -53,7 +53,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
             className={classes.activityType}
             style={{
               backgroundColor:
-                activityTypeColors[acter.Activity.ActivityType.name],
+                activityTypeBackgroundColors[acter.Activity.ActivityType.name],
             }}
           >
             {acter.Activity.ActivityType.name}

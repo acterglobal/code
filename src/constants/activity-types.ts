@@ -1,3 +1,5 @@
-export const EVENT = 'event'
-export const IDEA = 'idea'
-export const PROJECT = 'project'
+export enum ActivityTypes {
+  EVENT = 'event',
+  IDEA = 'idea',
+  PROJECT = 'project',
+}
