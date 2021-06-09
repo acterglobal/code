@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
     },
     item: {
-      height: 25,
       '& a': {
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
