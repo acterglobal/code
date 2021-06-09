@@ -51,6 +51,8 @@ export const Links: FC = () => {
         </Box>
       ))}
 
+      <Divider variant="middle" />
+
       {toggleForm && (
         <Box className={classes.formContainer}>
           <LinkForm onSubmit={handleSubmit} />
@@ -83,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
     formContainer: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-evenly',
     },
     divider: {
       backgroundColor: grey[900],
