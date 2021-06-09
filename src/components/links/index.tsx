@@ -4,25 +4,15 @@ import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { LinkForm, LinkFormProps } from 'src/components/links/form/link'
+import { ExampleLink } from 'src/__fixtures__'
 
 // export interface LinkProps extends LinkFormProps {
-//   TO DO AFTER DB SCHEMA UPDATE
+//   TO DO
 // }
 
 export const Links: FC = () => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
-
-  const links = [
-    {
-      name: 'Google',
-      url: 'https://www.google.com',
-    },
-    {
-      name: 'Facebook',
-      url: 'https//www.facebook.com',
-    },
-  ]
 
   const handleSubmit = (data) => {
     console.log('Form data', data)
@@ -45,7 +35,7 @@ export const Links: FC = () => {
       </Box>
       <Divider variant="middle" />
 
-      {links.map((link) => (
+      {ExampleLink.map((link) => (
         <Box className={classes.formContainer}>
           <LinkForm data={link} onSubmit={handleSubmit} />
         </Box>
