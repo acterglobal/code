@@ -9,21 +9,30 @@ import {
   getActerTypes,
   getActer,
   setActerType,
+  getLinks,
 } from 'src/props'
 import { ActerSettings } from 'src/components/acter/settings'
-import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
+import {
+  Acter,
+  ActerConnectionRole,
+  ActerType,
+  User,
+  Link as LinkType,
+} from '@schema'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 interface ActerSettingsPageProps {
   acter: Acter
   acterTypes: ActerType[]
   user: User
+  links: LinkType[]
 }
 
 export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   acter,
   acterTypes,
   user,
+  links,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [createActer] = useCreateActer(displayActer)
@@ -38,6 +47,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
       acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createActer}
+      links={links}
     >
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
@@ -45,6 +55,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           acter={displayActer}
           onSettingsChange={updateActer}
           loading={acterUpdateLoading}
+          links={links}
         />
       </main>
     </Layout>
@@ -58,7 +69,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getActer,
-    checkRole(ActerConnectionRole.ADMIN)
+    checkRole(ActerConnectionRole.ADMIN),
+    getLinks
   )
 
 export default ActerSettingsPage

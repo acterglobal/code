@@ -35,6 +35,7 @@ export const Sidebar: FC<SidebarProps> = ({
   acterTypes,
   searchType,
   user,
+  links,
   onGroupSubmit,
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
@@ -77,6 +78,7 @@ export const Sidebar: FC<SidebarProps> = ({
             acterTypes={acterTypes}
             onGroupSubmit={onGroupSubmit}
             user={user}
+            links={links}
           />
         </Box>
       )}

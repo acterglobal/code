@@ -5,12 +5,19 @@ import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { LinkForm, LinkFormProps } from 'src/components/links/form/link'
 import { ExampleLink } from 'src/__fixtures__'
+import {
+  Acter,
+  ActerConnectionRole,
+  ActerType,
+  User,
+  Link as LinkType,
+} from '@schema'
 
-// export interface LinkProps extends LinkFormProps {
-//   TO DO
-// }
+export interface LinkProps extends LinkFormProps {
+  links: LinkType[]
+}
 
-export const Links: FC = () => {
+export const Links: FC<LinkProps> = ({ links }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
@@ -35,9 +42,9 @@ export const Links: FC = () => {
       </Box>
       <Divider variant="middle" />
 
-      {ExampleLink.map((link) => (
+      {links.map((link) => (
         <Box className={classes.formContainer}>
-          <LinkForm data={link} onSubmit={handleSubmit} />
+          <LinkForm link={link} onSubmit={handleSubmit} />
         </Box>
       ))}
 

@@ -6,6 +6,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  LinkTypeMap,
 } from '@material-ui/core'
 import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
 import { ForumIcon, MembersIcon, ActivitiesIcon } from 'src/components/icons'
@@ -13,18 +14,22 @@ import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { ActerConnectionRole, User } from '@schema'
+import { ActerConnectionRole, User, Link as LinkType } from '@schema'
 import { ACTIVITIES, FORUM, MEMBERS, SETTINGS } from 'src/constants'
 import {
   GroupsSection,
   GroupsSectionProps,
 } from 'src/components/layout/side-bar/groups-section'
 
-export type ActerMenuProps = GroupsSectionProps & { user: User }
+export type ActerMenuProps = GroupsSectionProps & {
+  user: User
+  links: LinkType[]
+}
 
 export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
   user,
+  links,
   acterTypes,
   onGroupSubmit,
 }) => {
@@ -45,6 +50,10 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
       <Divider />
+
+      {links.map((link) => {
+        'This is a link' + link
+      })}
 
       <GroupsSection
         acter={acter}

@@ -1,20 +1,20 @@
 import React, { FC } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
-
 import { createStyles, makeStyles, IconButton, Theme } from '@material-ui/core'
 import { Save, Edit, Delete } from '@material-ui/icons'
+import { Acter, ActerConnectionRole, ActerType, User, Link } from '@schema'
 
 export interface LinkFormProps {
-  onSubmit: (values: any) => void
-  data?: any
+  link?: Link
+  onSubmit?: (values: any) => void
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ onSubmit, data }) => {
+export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
   const classes = useStyles()
   const initialValues = {
-    name: data?.name || '',
-    url: data?.url || '',
+    name: link?.name || '',
+    url: link?.url || '',
   }
 
   const handleDelete = (id) => {
@@ -56,10 +56,10 @@ export const LinkForm: FC<LinkFormProps> = ({ onSubmit, data }) => {
           />
 
           <IconButton className={classes.icons} type="submit">
-            {dirty || !data ? <Save /> : <Edit />}
+            {dirty || !link ? <Save /> : <Edit />}
           </IconButton>
 
-          {data && (
+          {link && (
             <IconButton className={classes.icons} onClick={handleDelete}>
               <Delete />
             </IconButton>

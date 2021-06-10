@@ -10,6 +10,7 @@ import {
   setActerType,
   getInterests,
   getPosts,
+  getLinks,
 } from 'src/props'
 import { Head } from 'src/components/layout/head'
 import {
@@ -20,6 +21,7 @@ import {
   InterestType,
   Post,
   User,
+  Link,
 } from '@schema'
 import { Layout } from 'src/components/layout'
 import {
@@ -93,6 +95,7 @@ interface ActerLandingPageProps {
   interestTypes: InterestType[]
   user: User
   posts: Post[]
+  links: Link[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
@@ -101,6 +104,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   interestTypes,
   user,
   posts,
+  links,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
@@ -238,6 +242,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createActer}
+      links={links}
     >
       <Head title={`${acter.name} - Acter`} />
       <View
@@ -246,6 +251,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
+        links={links}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={handlePost}
@@ -265,7 +271,8 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     setActerType,
     getActer,
     getInterests,
-    getPosts
+    getPosts,
+    getLinks
   )
 
 export default ActerLandingPage
