@@ -3,21 +3,14 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { LinkForm, LinkFormProps } from 'src/components/links/form/link'
-import { ExampleLink } from 'src/__fixtures__'
-import {
-  Acter,
-  ActerConnectionRole,
-  ActerType,
-  User,
-  Link as LinkType,
-} from '@schema'
+import { LinkForm, LinkFormProps } from 'src/components/links/form'
+import { Link as LinkType } from '@schema'
 
 export interface LinkProps extends LinkFormProps {
   links: LinkType[]
 }
 
-export const Links: FC<LinkProps> = ({ links }) => {
+export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
@@ -44,7 +37,7 @@ export const Links: FC<LinkProps> = ({ links }) => {
 
       {links.map((link) => (
         <Box className={classes.formContainer}>
-          <LinkForm link={link} onSubmit={handleSubmit} />
+          <LinkForm key={link.id} link={link} onLinkSubmit={onLinkSubmit} />
         </Box>
       ))}
 
@@ -59,7 +52,7 @@ export const Links: FC<LinkProps> = ({ links }) => {
       {toggleForm && (
         <Box className={classes.formContainer}>
           <Box className={classes.inputContainer}>
-            <LinkForm onSubmit={handleSubmit} />
+            <LinkForm onLinkSubmit={onLinkSubmit} />
           </Box>
         </Box>
       )}

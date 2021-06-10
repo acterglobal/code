@@ -19,8 +19,13 @@ import {
   User,
   Link as LinkType,
 } from '@schema'
+import CREATE_LINK from 'api/mutations/link-create.graphql'
+import GET_LINKS from 'api/queries/links-by-acter.graphql'
+
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
+import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+
 interface ActerSettingsPageProps {
   acter: Acter
   acterTypes: ActerType[]
@@ -35,11 +40,37 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   links,
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
+  const [displayLinks, setDisplayLinks] = useState(links)
   const [createActer] = useCreateActer(displayActer)
   const [updateActer, { loading: acterUpdateLoading }] = useUpdateActer(
     displayActer,
     setDisplayActer
   )
+
+  const [createLink] = useNotificationMutation(CREATE_LINK, {
+    update: (cache, { data }) => {
+      const { createLink: newLink } = data
+      const newDisplayLinks = [...displayLinks, newLink]
+      setDisplayLinks(newDisplayLinks)
+      cache.writeQuery({
+        query: GET_LINKS,
+        data: {
+          links: newDisplayLinks,
+        },
+      })
+    },
+    getSuccessMessage: () => 'Link created',
+  })
+
+  const handleLinks = async (values) => {
+    createLink({
+      variables: {
+        ...values,
+        acterId: acter.id,
+        userId: user.id,
+      },
+    })
+  }
 
   return (
     <Layout
@@ -55,7 +86,8 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           acter={displayActer}
           onSettingsChange={updateActer}
           loading={acterUpdateLoading}
-          links={links}
+          links={displayLinks}
+          onLinkSubmit={handleLinks}
         />
       </main>
     </Layout>

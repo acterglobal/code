@@ -3,14 +3,14 @@ import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, IconButton, Theme } from '@material-ui/core'
 import { Save, Edit, Delete } from '@material-ui/icons'
-import { Acter, ActerConnectionRole, ActerType, User, Link } from '@schema'
+import { Link } from '@schema'
 
 export interface LinkFormProps {
   link?: Link
-  onSubmit?: (values: any) => void
+  onLinkSubmit: (values: unknown) => Promise<void>
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
+export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
   const classes = useStyles()
   const initialValues = {
     name: link?.name || '',
@@ -24,7 +24,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onSubmit}
+      onSubmit={onLinkSubmit}
     >
       {({ dirty }) => (
         <Form>

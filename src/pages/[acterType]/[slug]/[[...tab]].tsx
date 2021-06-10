@@ -251,7 +251,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
-        links={links}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={handlePost}

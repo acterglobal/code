@@ -5,13 +5,7 @@ import { Box, Divider } from '@material-ui/core'
 import { Post } from 'src/components/posts/post'
 import { PostForm, PostFormProps } from 'src/components/posts/form'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
-import {
-  Acter,
-  ActerConnectionRole,
-  Post as PostType,
-  User,
-  Link as LinkType,
-} from '@schema'
+import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
 export interface PostListProps extends PostFormProps {
   /**
@@ -26,18 +20,15 @@ export interface PostListProps extends PostFormProps {
    * Posts to display
    */
   posts: PostType[]
-  links: LinkType[]
 }
 
 export const PostList: FC<PostListProps> = ({
   acter,
   user,
   posts,
-  links,
   onPostSubmit,
 }) => {
   const classes = useStyles()
-  // console.log(links)
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

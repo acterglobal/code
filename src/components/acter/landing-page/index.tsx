@@ -28,7 +28,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   interestTypes,
   posts,
   user,
-  links,
   onJoin,
   onLeave,
   onConnectionStateChange,
@@ -70,7 +69,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
               acter={acter}
               posts={posts}
               onPostSubmit={onPostSubmit}
-              links={links}
             />
           </Box>
         </Grid>

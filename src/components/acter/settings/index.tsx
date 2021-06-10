@@ -12,26 +12,28 @@ import {
   SettingsSectionHeading,
 } from 'src/components/util/settings-layout'
 import { ActerSettingsMenu } from 'src/constants/acter-settings-menu'
-import { Links as LinkSection } from 'src/components/links'
+import { Links as LinkSection, LinkProps } from 'src/components/links'
 import { Acter, Link as LinkType } from '@schema'
 
-export interface ActerSettingsProps extends ActerUsersSettingsProps {
-  acter: Acter
-  links: LinkType[]
-}
+// export interface ActerSettingsProps extends ActerUsersSettingsProps {
+//   acter: Acter
+//   links: LinkType[]
+// }
+
+export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
 
 export const ActerSettings: FC<ActerSettingsProps> = ({
   acter,
   links,
   onSettingsChange,
   loading,
+  onLinkSubmit,
 }) => {
   const [showContent, setShowContent] = useState(ActerSettingsMenu.MEMBERS)
   const handleClick = (content) => {
     setShowContent(content)
   }
 
-  console.log(links)
   return (
     <SettingsContainer>
       <SettingsMenu>
@@ -55,7 +57,7 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
           </>
         )}
         {showContent === ActerSettingsMenu.LINKS && (
-          <LinkSection links={links} />
+          <LinkSection links={links} onLinkSubmit={onLinkSubmit} />
         )}
       </SettingsContent>
     </SettingsContainer>
