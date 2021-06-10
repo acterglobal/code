@@ -1,0 +1,20 @@
+#import "../fragments/link-display.fragment.graphql"
+#import "../fragments/acter-display.fragment.graphql"
+
+mutation CreateLink(
+  $name: String!
+  $url: String!
+  $acterId: String!
+  $userId: String!
+) {
+  createLink(
+    data: {
+      name: $name
+      url: $url
+      Acter: { connect: { id: $acterId } }
+      createdByUser: { connect: { id: $userId } }
+    }
+  ) {
+    ...LinkDisplay
+  }
+}
