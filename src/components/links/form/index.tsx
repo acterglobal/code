@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { createStyles, makeStyles, IconButton, Theme } from '@material-ui/core'
+import { createStyles, makeStyles, IconButton } from '@material-ui/core'
 import { Save, Edit, Delete } from '@material-ui/icons'
 import { Link } from '@schema'
 
 export interface LinkFormProps {
   link?: Link
-  onLinkSubmit: (values: unknown) => Promise<void>
+  onSubmit?: (values: any) => void
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
+export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
   const classes = useStyles()
   const initialValues = {
     name: link?.name || '',
@@ -24,7 +24,10 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onLinkSubmit}
+      onSubmit={(values, { resetForm }) => {
+        resetForm()
+        onSubmit(values)
+      }}
     >
       {({ dirty }) => (
         <Form>
@@ -70,7 +73,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     formInput: {
       margin: 10,

@@ -8,15 +8,16 @@ import { Link as LinkType } from '@schema'
 
 export interface LinkProps extends LinkFormProps {
   links: LinkType[]
+  onLinkSubmit: (values: unknown) => Promise<void>
 }
 
 export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
-  const handleSubmit = (data) => {
-    console.log('Form data', data)
+  const handleSubmit = (values) => {
     setToggleForm(!toggleForm)
+    onLinkSubmit(values)
   }
 
   const handleClick = () => {
@@ -37,7 +38,7 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
 
       {links.map((link) => (
         <Box className={classes.formContainer}>
-          <LinkForm key={link.id} link={link} onLinkSubmit={onLinkSubmit} />
+          <LinkForm key={link.id} link={link} onSubmit={handleSubmit} />
         </Box>
       ))}
 
@@ -52,7 +53,7 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
       {toggleForm && (
         <Box className={classes.formContainer}>
           <Box className={classes.inputContainer}>
-            <LinkForm onLinkSubmit={onLinkSubmit} />
+            <LinkForm onSubmit={onLinkSubmit} />
           </Box>
         </Box>
       )}

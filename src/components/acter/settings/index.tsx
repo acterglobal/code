@@ -13,7 +13,7 @@ import {
 } from 'src/components/util/settings-layout'
 import { ActerSettingsMenu } from 'src/constants/acter-settings-menu'
 import { Links as LinkSection, LinkProps } from 'src/components/links'
-import { Acter, Link as LinkType } from '@schema'
+// import { Acter, Link as LinkType } from '@schema'
 
 // export interface ActerSettingsProps extends ActerUsersSettingsProps {
 //   acter: Acter

@@ -78,7 +78,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
       acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createActer}
-      links={links}
+      links={displayLinks}
     >
       <Head title={`${acter.name} Settings - Acter`} />
       <main>

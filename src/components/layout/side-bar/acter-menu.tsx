@@ -6,7 +6,6 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  LinkTypeMap,
 } from '@material-ui/core'
 import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
 import { ForumIcon, MembersIcon, ActivitiesIcon } from 'src/components/icons'
@@ -19,7 +18,8 @@ import { ACTIVITIES, FORUM, MEMBERS, SETTINGS } from 'src/constants'
 import {
   GroupsSection,
   GroupsSectionProps,
-} from 'src/components/layout/side-bar/groups-section'
+} from 'src/components/layout/side-bar/groups/groups-section'
+import { LinkSection } from 'src/components/layout/side-bar/links/links-section'
 
 export type ActerMenuProps = GroupsSectionProps & {
   user: User
@@ -51,9 +51,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       )}
       <Divider />
 
-      {links.map((link) => {
-        'This is a link' + link
-      })}
+      <LinkSection links={links} />
+
+      <Divider />
 
       <GroupsSection
         acter={acter}
