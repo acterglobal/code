@@ -97,6 +97,8 @@ model Acter {
   AttachedPosts Post[] @relation("posts")
   AuthoredPosts Post[] @relation("authored")
 
+  AttachedLinks Link[] @relation("links")
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -220,6 +222,22 @@ model Post {
   @@map("posts")
 }
 
+model Link {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  Acter   Acter  @relation("links", fields: [acterId], references: [id])
+  acterId String @map("acter_id")
+
+  createdByUser   User   @relation("link_created_by_user", fields: [createdByUserId], references: [id])
+  createdByUserId String @map("created_by_user_id")
+
+  @@map("links")
+}
+
 model Interest {
   id          String  @id @default(uuid())
   name        String
@@ -276,6 +294,8 @@ model User {
 
   ActersCreated    Acter[]           @relation("acter_created_by_user")
   ActerConnections ActerConnection[] @relation("acter_connection_created_by_user")
+
+  LinksCreated Link[] @relation("link_created_by_user")
 
   ActerInterest ActerInterest[] @relation("acter_interest_created_by_user")
 
