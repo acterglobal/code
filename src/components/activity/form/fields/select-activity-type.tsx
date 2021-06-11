@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { grey } from '@material-ui/core/colors'
 import { ActivityType } from '@schema'
-import { activityTypeBackgroundColors } from 'src/themes/colors'
+import { activityTypeColors } from 'src/themes/colors'
 
 export interface SelectActivityTypeProps {
   activityTypes: ActivityType[]
@@ -27,8 +27,7 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
           style={{
             border: selectedTypeId === type.id && 0,
             backgroundColor:
-              selectedTypeId === type.id &&
-              activityTypeBackgroundColors[type.name],
+              selectedTypeId === type.id && activityTypeColors[type.name],
           }}
           onClick={() => onChange(type.id)}
         >

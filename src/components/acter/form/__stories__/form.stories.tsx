@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from 'src/components/acter/form'
 
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer, Interests } from 'src/__fixtures__'
 
 import {
   GroupActerType,
@@ -18,6 +18,7 @@ export default {
   },
   args: {
     acter: ExampleActer,
+    interestTypes: Interests.data.interestTypes,
   },
 } as Meta
 

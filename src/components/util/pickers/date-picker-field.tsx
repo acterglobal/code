@@ -24,7 +24,7 @@ export const DatePickerField: FC<DatePickerProps> = (props) => {
   return (
     <Field
       component={KeyboardDatePicker}
-      autoOk
+      fullWidth
       disablePast
       label={label}
       name={name}

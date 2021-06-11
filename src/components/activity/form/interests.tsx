@@ -4,7 +4,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
 import { InterestType } from '@schema'
-import { FormSetFieldValue } from 'src/components/acter/form'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,25 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface InterestsStepProps {
   interestTypes: InterestType[]
-  setFieldValue: FormSetFieldValue
   initialValues: string[]
 }
 
-export const InterestsStep: FC<InterestsStepProps> = ({
-  interestTypes,
-  setFieldValue,
-  initialValues,
-}) => {
+export const InterestsStep: FC<InterestsStepProps> = ({ interestTypes }) => {
   const classes = useStyles()
   return (
     <Box className={classes.container}>
       <InputLabel className={classes.label}>Choose interests</InputLabel>
       <Box>
-        <InterestsAddSection
-          interestTypes={interestTypes}
-          setFieldValue={setFieldValue}
-          initialValues={initialValues}
-        />
+        <InterestsAddSection interestTypes={interestTypes} />
       </Box>
     </Box>
   )

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import clsx from 'clsx'
+import { useFormikContext } from 'formik'
 import {
   List,
   ListItem,
@@ -9,7 +10,6 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { FormSetFieldValue } from 'src/components/acter/form'
 import { activityTypeColors } from 'src/themes/colors'
 import { NavigateNextOutlined } from '@material-ui/icons'
 
@@ -17,17 +17,20 @@ import { ActivityType } from '@schema'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]
-  setFieldValue: FormSetFieldValue
   onClick: () => void
+}
+
+export interface ActivityTypeStepValues {
+  activityTypeId: string
 }
 
 export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
   activityTypes,
-  setFieldValue,
   onClick,
 }) => {
   const classes = useStyles()
-  const handleSubmit = (value) => {
+  const { setFieldValue } = useFormikContext()
+  const handleClick = (value) => {
     setFieldValue('activityTypeId', value)
     onClick()
   }
@@ -38,7 +41,7 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
           key={`activity-type-${type.id}`}
           className={clsx(classes.activityListItem, classes[type.name])}
           button={true}
-          onClick={() => handleSubmit(type.id)}
+          onClick={() => handleClick(type.id)}
         >
           <ListItemText>{type.name}</ListItemText>
           <ListItemSecondaryAction>

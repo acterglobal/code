@@ -30,12 +30,16 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
 }) => {
   const classes = useStyles()
 
+  const interestIds = user.Acter.ActerInterests.map(
+    ({ Interest }) => Interest.id
+  )
   const initialValues = {
     avatar: user.Acter.avatarUrl,
     description: user.Acter.description,
     location: user.Acter.location,
     name: user.Acter.name,
     email: user.email,
+    interestIds,
   }
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -103,13 +107,7 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
                 />
               </Grid>
               <Grid item className={classes.interests} md={12}>
-                <InterestsAddSection
-                  interestTypes={interestTypes}
-                  initialValues={user.Acter.ActerInterests.map(
-                    ({ Interest }) => Interest.id
-                  )}
-                  setFieldValue={props.setFieldValue}
-                />
+                <InterestsAddSection interestTypes={interestTypes} />
               </Grid>
             </Grid>
             <Grid container className={classes.buttonContainer}>

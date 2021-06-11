@@ -52,6 +52,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
       <InputLabel className={classes.label}>Show activity in:</InputLabel>
       <Field
         className={classes.chooseOrganiser}
+        fullWidth
         component={Select}
         name="organiserActerId"
         label="Show activity in:"

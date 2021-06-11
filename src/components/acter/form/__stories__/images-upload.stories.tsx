@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react'
+import { withFormik } from 'storybook-formik'
 import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
 
 export default {
@@ -11,10 +12,7 @@ export default {
   argTypes: {
     onFile: { action: 'File' },
   },
+  decorators: [withFormik],
 } as Meta
 
-const testSetFieldValue = () => console.log('test')
-
-export const ImagesUpload: Story = () => (
-  <ImageUploadSection setFieldValue={testSetFieldValue} initialValues={{}} />
-)
+export const ImagesUpload: Story = () => <ImageUploadSection />
