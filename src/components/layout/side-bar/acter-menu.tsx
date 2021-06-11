@@ -13,18 +13,23 @@ import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { ActerConnectionRole, User } from '@schema'
+import { ActerConnectionRole, User, Link as LinkType } from '@schema'
 import { ACTIVITIES, FORUM, MEMBERS, SETTINGS } from 'src/constants'
 import {
   GroupsSection,
   GroupsSectionProps,
-} from 'src/components/layout/side-bar/groups-section'
+} from 'src/components/layout/side-bar/groups/groups-section'
+import { LinkSection } from 'src/components/layout/side-bar/links/links-section'
 
-export type ActerMenuProps = GroupsSectionProps & { user: User }
+export type ActerMenuProps = GroupsSectionProps & {
+  user: User
+  links: LinkType[]
+}
 
 export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
   user,
+  links,
   acterTypes,
   onGroupSubmit,
 }) => {
@@ -44,6 +49,10 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
+      <Divider />
+
+      <LinkSection links={links} />
+
       <Divider />
 
       <GroupsSection

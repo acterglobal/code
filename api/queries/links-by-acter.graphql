@@ -1,0 +1,19 @@
+#import "../fragments/link-display.fragment.graphql"
+#import "../fragments/acter-display.fragment.graphql"
+
+query GetLinks($acterId: String) {
+  links(
+    where: { acterId: { equals: $acterId } }
+    orderBy: { createdAt: desc }
+  ) {
+    ...LinkDisplay
+    createdByUser {
+      id
+      name
+      email
+      Acter {
+        ...ActerDisplay
+      }
+    }
+  }
+}

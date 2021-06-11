@@ -2,8 +2,9 @@ import React, { FC } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
-import { Acter, ActerType, User } from '@schema'
+import { Acter, ActerType, User, Link as LinkType } from '@schema'
 import { SearchType } from 'src/constants'
+
 export interface LayoutProps {
   acter?: Acter
   acterTypes?: ActerType[]
@@ -11,12 +12,14 @@ export interface LayoutProps {
   onGroupSubmit?: (groupData: Acter) => void
   searchType?: SearchType
   user?: User
+  links?: LinkType[]
 }
 
 export const Layout: FC<LayoutProps> = ({
   acter,
   acterTypes,
   user,
+  links,
   children,
   searchType,
   onGroupSubmit,
@@ -31,6 +34,7 @@ export const Layout: FC<LayoutProps> = ({
         user={user}
         searchType={searchType}
         onGroupSubmit={onGroupSubmit}
+        links={links}
       />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar user={user} />

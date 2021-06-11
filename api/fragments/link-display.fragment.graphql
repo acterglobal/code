@@ -1,0 +1,19 @@
+#import "../fragments/acter-display.fragment.graphql"
+
+fragment LinkDisplay on Link {
+  id
+  name
+  url
+  updatedAt
+  Acter {
+    id
+    name
+  }
+  createdByUser {
+    id
+    email
+    Acter {
+      ...ActerDisplay
+    }
+  }
+}
