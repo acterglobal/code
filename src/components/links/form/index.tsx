@@ -3,14 +3,15 @@ import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, IconButton } from '@material-ui/core'
 import { Save, Edit, Delete } from '@material-ui/icons'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Link } from '@schema'
 
 export interface LinkFormProps {
   link?: Link
-  onSubmit?: (values: any) => void
+  onLinkSubmit: (values: unknown) => Promise<void>
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
+export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
   const classes = useStyles()
   const initialValues = {
     name: link?.name || '',
@@ -26,7 +27,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
       enableReinitialize
       onSubmit={(values, { resetForm }) => {
         resetForm()
-        onSubmit(values)
+        onLinkSubmit(values)
       }}
     >
       {({ dirty }) => (
@@ -59,7 +60,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onSubmit }) => {
           />
 
           <IconButton className={classes.icons} type="submit">
-            {dirty || !link ? <Save /> : <Edit />}
+            {dirty || !link ? <CheckCircleIcon /> : <Edit />}
           </IconButton>
 
           {link && (

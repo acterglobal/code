@@ -3,22 +3,17 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+import CancelIcon from '@material-ui/icons/Cancel'
 import { LinkForm, LinkFormProps } from 'src/components/links/form'
 import { Link as LinkType } from '@schema'
 
 export interface LinkProps extends LinkFormProps {
   links: LinkType[]
-  onLinkSubmit: (values: unknown) => Promise<void>
 }
 
 export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
-
-  const handleSubmit = (values) => {
-    setToggleForm(!toggleForm)
-    onLinkSubmit(values)
-  }
 
   const handleClick = () => {
     setToggleForm(!toggleForm)
@@ -38,25 +33,27 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
 
       {links.map((link) => (
         <Box className={classes.formContainer}>
-          <LinkForm key={link.id} link={link} onSubmit={handleSubmit} />
+          <LinkForm key={link.id} link={link} onLinkSubmit={onLinkSubmit} />
         </Box>
       ))}
 
       <Divider variant="middle" />
 
-      <Box>
-        <IconButton onClick={handleClick}>
-          <AddCircleIcon />
-        </IconButton>
-      </Box>
-
-      {toggleForm && (
-        <Box className={classes.formContainer}>
-          <Box className={classes.inputContainer}>
-            <LinkForm onSubmit={onLinkSubmit} />
-          </Box>
+      <Box className={classes.formItemsContainer}>
+        <Box>
+          <IconButton onClick={handleClick}>
+            {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
+          </IconButton>
         </Box>
-      )}
+
+        {toggleForm && (
+          <Box className={classes.formContainer}>
+            <Box className={classes.inputContainer}>
+              <LinkForm onLinkSubmit={onLinkSubmit} />
+            </Box>
+          </Box>
+        )}
+      </Box>
     </Box>
   )
 }
@@ -75,6 +72,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subHeadingText: {
       fontWeight: theme.typography.fontWeightLight,
+    },
+    formItemsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 3,
     },
     formContainer: {
       display: 'flex',
