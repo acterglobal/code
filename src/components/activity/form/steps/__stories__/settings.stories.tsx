@@ -23,7 +23,7 @@ export default {
     formik: {
       initialValues: {
         organiserActerId: '',
-        postToActerIds: [],
+        followerIds: [],
       } as SettingsStepValues,
     },
   },

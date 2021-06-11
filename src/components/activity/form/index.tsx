@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { flattenFollowing } from 'src/lib/acter/flatten-following'
+import { getFollowers } from 'src/lib/acter/get-followers'
 import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
 import {
   ActivityTypeStep,
@@ -29,7 +29,7 @@ import {
 } from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { Acter, User } from '@schema'
-import { ActivityTypes } from 'src/constants'
+import { ACTIVITY, ActivityTypes } from 'src/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
@@ -40,10 +40,10 @@ const getSteps = (acter?: Acter) => {
 }
 
 export interface ActivityFormProps
-  extends ActivityTypeStepProps,
+  extends Omit<ActivityTypeStepProps, 'onClick'>,
     BasicsStepProps,
     DetailsStepProps,
-    SettingsStepProps {
+    Omit<SettingsStepProps, 'acters'> {
   /**
    * The ActivityType Acter for this
    */
@@ -129,6 +129,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     location: '',
     url: '',
     interestIds,
+    followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [],
     ...acter,
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
@@ -142,15 +143,29 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endAt,
   }
 
-  // TODO: Add validation
+  // Fake an acter to determine potential followers when this is a new Activity
+  const checkActer = acter
+    ? acter
+    : ({
+        id: '',
+        createdByUserId: user.id,
+        ActerType: {
+          name: ACTIVITY,
+        },
+        Activity: {
+          organiserId: '',
+        },
+      } as Acter)
+  const acters = getFollowers(user, checkActer)
 
   const handleModalClose = () => router.back()
+
+  // TODO: Add validation
 
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
         {({ isSubmitting }) => {
-          const organisers = flattenFollowing(user.Acter)
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -168,10 +183,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                     />
                   )}
                   {steps[activeStep] === BasicsStep && (
-                    <BasicsStep
-                      acters={organisers}
-                      activityTypes={activityTypes}
-                    />
+                    <BasicsStep activityTypes={activityTypes} />
+                  )}
+                  {steps[activeStep] == SettingsStep && (
+                    <SettingsStep acters={acters} />
                   )}
                   {steps[activeStep] === DetailsStep && (
                     <DetailsStep interestTypes={interestTypes} />

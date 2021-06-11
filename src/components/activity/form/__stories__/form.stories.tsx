@@ -44,6 +44,7 @@ export default {
     layout: 'padded',
     formik: {
       initialValues: {
+        followerIds: [],
         activityTypeId: '',
         bannerUrl: '',
         description: '',

@@ -5,46 +5,36 @@ import { CheckboxWithLabel } from 'formik-material-ui'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { Acter } from '@schema'
 
-export interface SelectPostToActersProps {
+export interface SelectFollowersProps {
   acters: Acter[]
 }
 
-export interface SelectPostToActersValues {
+export interface SelectFollowersValues {
   organiserActerId: string
-  postToActerIds: string[]
+  followerIds: string[]
 }
 
-export const SelectPostToActers: FC<SelectPostToActersProps> = ({ acters }) => {
+export const SelectFollowers: FC<SelectFollowersProps> = ({ acters }) => {
   const classes = useStyles()
   const {
-    values: { postToActerIds = [], organiserActerId = '' },
-    setFieldValue,
-  } = useFormikContext<SelectPostToActersValues>()
-
-  const handleCheck = (acterId) => ({
-    currentTarget: { checked },
-  }: React.SyntheticEvent<HTMLInputElement>) => {
-    return setFieldValue(
-      'postToActerIds',
-      getNewActerIds(postToActerIds, acterId, checked)
-    )
-  }
+    values: { followerIds = [], organiserActerId = '' },
+  } = useFormikContext<SelectFollowersValues>()
 
   return (
     <>
       {acters.map((acter) => {
         const isOrganiser = acter.id === organiserActerId
-        const isInPostToList = postToActerIds.includes(acter.id)
+        const isInPostToList = followerIds.includes(acter.id)
         return (
-          <Box className={classes.container}>
+          <Box className={classes.container} key={`follower-acter-${acter.id}`}>
             <Field
               fullWidth
               component={CheckboxWithLabel}
               type="checkbox"
-              name="postToActerIds"
+              name="followerIds"
+              value={acter.id}
               checked={isInPostToList || isOrganiser}
               disabled={isOrganiser}
-              onChange={handleCheck(acter.id)}
             />
             <ActerAvatar acter={acter} />
 
@@ -54,18 +44,6 @@ export const SelectPostToActers: FC<SelectPostToActersProps> = ({ acters }) => {
       })}
     </>
   )
-}
-
-const getNewActerIds = (
-  acterIdList: string[],
-  acterId: string,
-  checked: boolean
-): string[] => {
-  if (checked && !acterIdList.includes(acterId)) {
-    return [...acterIdList, acterId]
-  }
-
-  return acterIdList.filter((id) => id !== acterId)
 }
 
 const useStyles = makeStyles((theme: Theme) =>

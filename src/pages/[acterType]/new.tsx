@@ -21,7 +21,7 @@ import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
 
 import { ActerType, ActivityType, InterestType, User } from '@schema'
 
-import MUTATE_ACTER_CREATE from 'api/mutations/mutate-create-acter.graphql'
+import ACTER_CREATE from 'api/mutations/acter-create.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
 import { ACTIVITY } from 'src/constants'
@@ -54,7 +54,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }) => {
   const router: NextRouter = useRouter()
   const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
-  const [createActer] = useNotificationMutation(MUTATE_ACTER_CREATE)
+  const [createActer] = useNotificationMutation(ACTER_CREATE)
 
   const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
     getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,

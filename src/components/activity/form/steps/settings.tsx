@@ -6,22 +6,16 @@ import {
   SelectOrganiserValues,
 } from 'src/components/activity/form/fields/select-organiser'
 import {
-  SelectPostToActers,
-  SelectPostToActersProps,
-  SelectPostToActersValues,
-} from 'src/components/activity/form/fields/select-post-to-acters'
+  SelectFollowers,
+  SelectFollowersProps,
+  SelectFollowersValues,
+} from 'src/components/activity/form/fields/select-followers'
 import { FormLabel } from 'src/components/styled/form-label'
 import { FormSection } from 'src/components/styled/form-section'
-import { Acter } from '@schema'
 
-export interface SettingsStepProps
-  extends SelectOrganiserProps,
-    SelectPostToActersProps {
-  acters: Acter[]
-}
+export type SettingsStepProps = SelectOrganiserProps & SelectFollowersProps
 
-export type SettingsStepValues = SelectPostToActersValues &
-  SelectOrganiserValues
+export type SettingsStepValues = SelectFollowersValues & SelectOrganiserValues
 
 export const SettingsStep: FC<SettingsStepProps> = ({ acters }) => {
   return (
@@ -33,7 +27,7 @@ export const SettingsStep: FC<SettingsStepProps> = ({ acters }) => {
 
       <FormSection>
         <FormLabel>Where should this be posted?</FormLabel>
-        <SelectPostToActers acters={acters} />
+        <SelectFollowers acters={acters} />
       </FormSection>
     </Box>
   )

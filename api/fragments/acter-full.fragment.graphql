@@ -1,4 +1,5 @@
 #import "./acter-display.fragment.graphql"
+#import "./activity-display.fragment.graphql"
 
 fragment ActerFull on Acter {
   ...ActerDisplay
@@ -6,6 +7,12 @@ fragment ActerFull on Acter {
     id
     Following {
       ...ActerDisplay
+      Activity {
+        ...ActivityDisplay
+        Acter {
+          ...ActerDisplay
+        }
+      }
     }
   }
   Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {

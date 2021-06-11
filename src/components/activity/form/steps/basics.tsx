@@ -1,15 +1,11 @@
 import React, { FC, useState } from 'react'
 import { Moment } from 'moment'
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
-import {} from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import MomentUtils from '@date-io/moment'
-import {
-  SelectOrganiser,
-  SelectOrganiserProps,
-} from 'src/components/activity/form/fields/select-organiser'
 import moment from 'moment'
 import { SelectActivityType } from 'src/components/activity/form/fields/select-activity-type'
 import {
@@ -23,7 +19,7 @@ import {
 import { FormSection } from 'src/components/styled/form-section'
 import { ActivityType } from '@schema'
 
-export interface BasicsStepProps extends SelectOrganiserProps {
+export interface BasicsStepProps {
   activityTypes: ActivityType[]
 }
 
@@ -38,7 +34,7 @@ export interface BasicsStepValues
   endTime: Moment
 }
 
-export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
+export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
   const classes = useStyles()
   const { values } = useFormikContext<BasicsStepValues>()
   const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
@@ -56,10 +52,6 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Box className={classes.container}>
-        <FormSection>
-          <SelectOrganiser acters={acters} />
-        </FormSection>
-
         <FormSection>
           <Field
             className={classes.textinput}
@@ -93,21 +85,19 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      height: 400,
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    section: {
-      marginBottom: theme.spacing(2),
-      width: '100%',
-    },
-    textinput: {
-      fontSize: '0.5rem',
-      marginBottom: 15,
-      color: theme.palette.secondary.light,
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    height: 400,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  section: {
+    marginBottom: theme.spacing(2),
+    width: '100%',
+  },
+  textinput: {
+    fontSize: '0.5rem',
+    marginBottom: 15,
+    color: theme.palette.secondary.light,
+  },
+}))

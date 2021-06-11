@@ -11,6 +11,7 @@ mutation ActerUpdate(
   $avatarUrl: String
   $bannerUrl: String
   $interestIds: [String!]!
+  $followerIds: [String!]!
 ) {
   updateActer(
     acterId: $acterId
@@ -23,6 +24,7 @@ mutation ActerUpdate(
     avatarUrl: $avatarUrl
     bannerUrl: $bannerUrl
     interestIds: $interestIds
+    followerIds: $followerIds
   ) {
     ...ActerFull
   }

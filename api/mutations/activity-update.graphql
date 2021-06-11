@@ -10,6 +10,7 @@ mutation ActivityUpdate(
   $useAdmins: Boolean
   $bannerUrl: String
   $interestIds: [String!]!
+  $followerIds: [String!]!
   #Activity
   $isOnline: Boolean!
   $startAt: DateTime!
@@ -29,6 +30,7 @@ mutation ActivityUpdate(
     useAdmins: $useAdmins
     bannerUrl: $bannerUrl
     interestIds: $interestIds
+    followerIds: $followerIds
 
     # Activity
     isOnline: $isOnline
