@@ -23,13 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export interface Step3Props {
+export interface InterestsStepProps {
   interestTypes: InterestType[]
   setFieldValue: FormSetFieldValue
   initialValues: string[]
 }
 
-export const Step3: FC<Step3Props> = ({
+export const InterestsStep: FC<InterestsStepProps> = ({
   interestTypes,
   setFieldValue,
   initialValues,

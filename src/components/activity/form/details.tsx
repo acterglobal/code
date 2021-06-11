@@ -44,12 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export interface Step2Props {
+export interface DetailsStepProps {
   values: FormValues
   setFieldValue: FormSetFieldValue
 }
 
-export const Step2: FC<Step2Props> = ({ setFieldValue, values }) => {
+export const DetailsStep: FC<DetailsStepProps> = ({
+  setFieldValue,
+  values,
+}) => {
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
 

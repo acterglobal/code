@@ -7,46 +7,19 @@ import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
 import { Acter, ActivityType, InterestType, User } from '@schema'
-import { Step1 } from 'src/components/activity/form/step1'
-import { Step2 } from 'src/components/activity/form/step2'
-import { Step3 } from 'src/components/activity/form/step3'
+import { ActivityTypeStep } from 'src/components/activity/form/type'
+import { BasicsStep } from 'src/components/activity/form/basics'
+import { DetailsStep } from 'src/components/activity/form/details'
+import { InterestsStep } from 'src/components/activity/form/interests'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
-import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
-import { EVENT } from 'src/constants'
+import { ActivityTypes } from 'src/constants'
 
-const steps = [Step1, Step2, Step3]
-const getStepContent = (
-  acter: Acter,
-  step: number,
-  user: User,
-  interestTypes: InterestType[],
-  activityTypes: ActivityType[],
-  setFieldValue: FormSetFieldValue,
-  values: FormValues
-) => {
-  const organisers = flattenFollowing(user.Acter)
-  const selectedInterests =
-    acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
-  switch (step) {
-    case 1:
-      return (
-        <Step1
-          acters={organisers}
-          values={values}
-          activityTypes={activityTypes}
-        />
-      )
-    case 2:
-      return <Step2 setFieldValue={setFieldValue} values={values} />
-    case 3:
-      return (
-        <Step3
-          interestTypes={interestTypes}
-          setFieldValue={setFieldValue}
-          initialValues={selectedInterests}
-        />
-      )
+const getSteps = (acter?: Acter) => {
+  if (acter?.id) {
+    return [BasicsStep, DetailsStep, InterestsStep]
   }
+
+  return [ActivityTypeStep, BasicsStep, DetailsStep, InterestsStep]
 }
 
 export interface ActivityFormProps {
@@ -86,11 +59,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const router = useRouter()
   const classes = useStyles()
   const [heading, setHeading] = useState('Add Activity')
-  const [activeStep, setActiveStep] = useState(1)
-  const totalSteps = steps.length
+  const steps = getSteps(acter)
+  const [activeStep, setActiveStep] = useState(0)
 
-  const isLastStep = () => activeStep === totalSteps
-  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 1))
+  const totalSteps = steps.length
+  const isLastStep = () => activeStep + 1 === totalSteps
+  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
   const onStepSubmit = (values, formikBag) => {
@@ -117,7 +91,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endAt = moment(acter.Activity.endAt)
   }
 
-  const eventType = activityTypes.find((type) => type.name === EVENT)
+  const eventType = activityTypes.find(
+    (type) => type.name === ActivityTypes.EVENT
+  )
 
   //TODO: create a type for htis
   const initialValues = {
@@ -147,62 +123,90 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onStepSubmit}
-        // validationSchema={validationSchema}
-      >
-        {({ isSubmitting, setFieldValue, values }) => (
-          <Form>
-            <Box className={classes.container}>
-              <Box className={classes.fields}>
-                {getStepContent(
-                  acter,
-                  activeStep,
-                  user,
-                  interestTypes,
-                  activityTypes,
-                  setFieldValue,
-                  values
+      <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
+        {({ isSubmitting, setFieldValue, values }) => {
+          const organisers = flattenFollowing(user.Acter)
+          const selectedInterests =
+            acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
+          return (
+            <Form className={classes.form}>
+              <Box className={classes.container}>
+                <Box
+                  className={clsx(
+                    classes.fields,
+                    steps[activeStep] === ActivityTypeStep &&
+                      classes.typeButtons
+                  )}
+                >
+                  {steps[activeStep] === ActivityTypeStep && (
+                    <ActivityTypeStep
+                      activityTypes={activityTypes}
+                      setFieldValue={setFieldValue}
+                      onClick={handleNext}
+                    />
+                  )}
+                  {steps[activeStep] === BasicsStep && (
+                    <BasicsStep
+                      acters={organisers}
+                      values={values}
+                      activityTypes={activityTypes}
+                    />
+                  )}
+                  {steps[activeStep] === DetailsStep && (
+                    <DetailsStep
+                      setFieldValue={setFieldValue}
+                      values={values}
+                    />
+                  )}
+                  {steps[activeStep] === InterestsStep && (
+                    <InterestsStep
+                      interestTypes={interestTypes}
+                      setFieldValue={setFieldValue}
+                      initialValues={selectedInterests}
+                    />
+                  )}
+                </Box>
+
+                {steps[activeStep] !== ActivityTypeStep && (
+                  <>
+                    <Box className={classes.statusBars}>
+                      {steps.map((step, index) => (
+                        <Box
+                          key={index}
+                          className={clsx(
+                            classes.bar,
+                            activeStep >= index && classes.active
+                          )}
+                        ></Box>
+                      ))}
+                    </Box>
+                    <Box className={classes.btnsContainer}>
+                      <Button
+                        variant="text"
+                        color="primary"
+                        className={classes.button}
+                        disabled={activeStep === 0 || isSubmitting}
+                        onClick={handlePrev}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ color: 'white' }}
+                        className={classes.button}
+                        disabled={isSubmitting}
+                        type="submit"
+                      >
+                        {isLastStep() ? 'Submit' : 'Next'}
+                      </Button>
+                    </Box>
+                  </>
                 )}
               </Box>
-
-              <Box className={classes.statusBars}>
-                {steps.map((step, index) => (
-                  <Box
-                    key={index}
-                    className={clsx(
-                      classes.bar,
-                      activeStep - 1 >= index && classes.active
-                    )}
-                  ></Box>
-                ))}
-              </Box>
-
-              <Box className={classes.btnsContainer}>
-                <Button
-                  variant="text"
-                  color="primary"
-                  className={classes.button}
-                  disabled={activeStep === 1 || isSubmitting}
-                  onClick={handlePrev}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ color: 'white' }}
-                  className={classes.button}
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isLastStep() ? 'Submit' : 'Next'}
-                </Button>
-              </Box>
-            </Box>
-          </Form>
-        )}
+            </Form>
+          )
+        }}
       </Formik>
     </Modal>
   )
@@ -210,16 +214,23 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    form: { height: '100%' },
     container: {
+      display: 'flex',
+      flexDirection: 'column',
       width: 690,
+      height: '100%',
       borderTop: '1px solid',
       borderTopColor: grey[300],
       padding: 50,
     },
     fields: {
+      flexGrow: 1,
+      justifyContent: 'center',
+    },
+    typeButtons: {
       display: 'flex',
       flexDirection: 'column',
-      height: 570,
     },
     controls: {
       // flexShrink: 0,
