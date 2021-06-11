@@ -9,6 +9,7 @@ mutation ActivityCreate(
   $useAdmins: Boolean
   $acterTypeId: String!
   $interestIds: [String!]!
+  $followerIds: [String!]!
   #Activity
   $isOnline: Boolean!
   $startAt: DateTime!
@@ -27,6 +28,7 @@ mutation ActivityCreate(
     useAdmins: $useAdmins
     acterTypeId: $acterTypeId
     interestIds: $interestIds
+    followerIds: $followerIds
 
     # Activity
     isOnline: $isOnline

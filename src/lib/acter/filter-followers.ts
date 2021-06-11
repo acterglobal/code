@@ -27,9 +27,9 @@ export const filterFollowers = (acter: Acter) => (
     // Networks cannot connect to anything
     case NETWORK:
       return false
-    // Orgs can only connect to Networks
+    // Orgs can only connect to Networks or Activities
     case ORGANISATION:
-      return acter.ActerType.name === NETWORK
+      return [ACTIVITY, NETWORK].includes(acter.ActerType.name)
     // Users can connect to anything
     case USER:
       return true

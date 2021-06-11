@@ -25,7 +25,9 @@ export class ActerResolver {
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
-    @Arg('interestIds', () => [String]) interestIds: [string]
+    @Arg('interestIds', () => [String]) interestIds: [string],
+    @Arg('followerIds', () => [String], { nullable: true })
+    followerIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
 
@@ -73,6 +75,11 @@ export class ActerResolver {
       throw err
     }
 
+    const followerConnectList = followerIds.map((id) => ({
+      followerActerId: id,
+      createdByUserId,
+    }))
+
     return ctx.prisma.acter.create({
       data: {
         name,
@@ -88,6 +95,7 @@ export class ActerResolver {
         createdByUserId,
         Followers: {
           create: [
+            ...followerConnectList,
             {
               followerActerId: currentUser.Acter.id,
               role: ActerConnectionRole.ADMIN,
@@ -119,7 +127,9 @@ export class ActerResolver {
     acterJoinSetting: ActerJoinSettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
-    @Arg('interestIds', () => [String]) interestIds: [string]
+    @Arg('interestIds', () => [String]) interestIds: [string],
+    @Arg('followerIds', () => [String], { nullable: true })
+    followerIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
     const acter = await ctx.prisma.acter.findUnique({
@@ -127,6 +137,7 @@ export class ActerResolver {
         id: true,
         createdByUserId: true,
         ActerInterests: true,
+        Followers: true,
       },
       where: { id: acterId },
     })
@@ -139,22 +150,46 @@ export class ActerResolver {
       throw 'Not authorized'
     }
 
-    // Every interestId from new interestId list that does NOT currently exist
+    //TODO: DRY up how we do the same logic for both interests and followers
     const currentInterestIdMap = acter.ActerInterests.reduce(
       (map, { interestId }) => ({ ...map, [interestId]: true }),
       {}
     )
+    // Every interestId from new interestId list that does NOT currently exist
     const createActerInterests = interestIds
       .filter((id) => !currentInterestIdMap[id])
       .map((interestId) => ({ interestId, createdByUserId: currentUser.id }))
 
-    // Every interestId from CURRENT interestId list that does not exist in the new list
     const newInterestIdMap = interestIds.reduce(
       (map, interestId) => ({ ...map, [interestId]: true }),
       {}
     )
+    // Every interestId from CURRENT interestId list that does not exist in the new list
     const deleteActerInterests = acter.ActerInterests.filter(
       ({ interestId }) => !newInterestIdMap[interestId]
+    ).map(({ id }) => ({ id }))
+
+    const currentFollowerIdMap = acter.Followers.reduce(
+      (map, { followerActerId }) => ({ ...map, [followerActerId]: true }),
+      {}
+    )
+    // Every new followerActerId that does not exist in the DB
+    const createFollowers = followerIds
+      .filter((id) => !currentFollowerIdMap[id])
+      .map((followerActerId) => ({
+        followerActerId,
+        createdByUserId: currentUser.id,
+      }))
+    const newFollowerIdMap = followerIds.reduce(
+      (map, id) => ({
+        ...map,
+        [id]: true,
+      }),
+      {}
+    )
+    // Every current/db followerActer that does not occurr in the new list
+    const deleteFollowers = acter.Followers.filter(
+      ({ followerActerId }) => !newFollowerIdMap[followerActerId]
     ).map(({ id }) => ({ id }))
 
     return await ctx.prisma.acter.update({
@@ -171,6 +206,10 @@ export class ActerResolver {
         ActerInterests: {
           create: createActerInterests,
           delete: deleteActerInterests,
+        },
+        Followers: {
+          create: createFollowers,
+          delete: deleteFollowers,
         },
       },
       where: { id: acterId },
@@ -196,7 +235,9 @@ export class ActerResolver {
     @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string,
     @Arg('activityTypeId') activityTypeId: string,
-    @Arg('parentActerId', { nullable: true }) parentActerId: string
+    @Arg('parentActerId', { nullable: true }) parentActerId: string,
+    @Arg('followerIds', () => [String], { nullable: true })
+    followerIds: [string]
   ): Promise<Activity> {
     const acter = await this.createActer(
       ctx,
@@ -208,7 +249,8 @@ export class ActerResolver {
       acterJoinSetting,
       acterTypeId,
       parentActerId,
-      interestIds
+      interestIds,
+      followerIds
     )
 
     return ctx.prisma.activity.create({
@@ -244,7 +286,9 @@ export class ActerResolver {
     @Arg('isOnline') isOnline: boolean,
     @Arg('isAllDay') isAllDay: boolean,
     @Arg('organiserActerId') organiserActerId: string,
-    @Arg('activityTypeId') activityTypeId: string
+    @Arg('activityTypeId') activityTypeId: string,
+    @Arg('followerIds', () => [String], { nullable: true })
+    followerIds: [string]
   ): Promise<Activity> {
     await this.updateActer(
       ctx,
@@ -257,7 +301,8 @@ export class ActerResolver {
       acterJoinSetting,
       null,
       bannerUrl,
-      interestIds
+      interestIds,
+      followerIds
     )
 
     return ctx.prisma.activity.update({

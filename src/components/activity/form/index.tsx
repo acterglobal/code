@@ -5,33 +5,45 @@ import { Form, Formik } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { flattenFollowing } from 'src/lib/acter/flatten-following'
+import { getFollowers } from 'src/lib/acter/get-followers'
 import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
 import {
   ActivityTypeStep,
+  ActivityTypeStepProps,
   ActivityTypeStepValues,
 } from 'src/components/activity/form/steps/type'
 import {
   BasicsStep,
+  BasicsStepProps,
   BasicsStepValues,
 } from 'src/components/activity/form/steps/basics'
 import {
   DetailsStep,
+  DetailsStepProps,
   DetailsStepValues,
 } from 'src/components/activity/form/steps/details'
+import {
+  SettingsStep,
+  SettingsStepProps,
+  SettingsStepValues,
+} from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
-import { Acter, ActivityType, InterestType, User } from '@schema'
-import { ActivityTypes } from 'src/constants'
+import { Acter, User } from '@schema'
+import { ACTIVITY, ActivityTypes } from 'src/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
-    return [BasicsStep, DetailsStep]
+    return [BasicsStep, SettingsStep, DetailsStep]
   }
 
-  return [ActivityTypeStep, BasicsStep, DetailsStep]
+  return [ActivityTypeStep, BasicsStep, SettingsStep, DetailsStep]
 }
 
-export interface ActivityFormProps {
+export interface ActivityFormProps
+  extends Omit<ActivityTypeStepProps, 'onClick'>,
+    BasicsStepProps,
+    DetailsStepProps,
+    Omit<SettingsStepProps, 'acters'> {
   /**
    * The ActivityType Acter for this
    */
@@ -40,14 +52,6 @@ export interface ActivityFormProps {
    * The currently logged in user
    */
   user: User
-  /**
-   * InterestTypes with Interests
-   */
-  interestTypes: InterestType[]
-  /**
-   * activityTypes with all Activity types
-   */
-  activityTypes: ActivityType[]
   /** Action to perform on submit
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,7 +65,8 @@ export interface ActivityFormProps {
 export interface ActivityFormValues
   extends ActivityTypeStepValues,
     BasicsStepValues,
-    DetailsStepValues {
+    DetailsStepValues,
+    SettingsStepValues {
   startAt: Moment
   endAt: Moment
 }
@@ -124,6 +129,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     location: '',
     url: '',
     interestIds,
+    followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [],
     ...acter,
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
@@ -137,15 +143,29 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endAt,
   }
 
-  // TODO: Add validation
+  // Fake an acter to determine potential followers when this is a new Activity
+  const checkActer = acter
+    ? acter
+    : ({
+        id: '',
+        createdByUserId: user.id,
+        ActerType: {
+          name: ACTIVITY,
+        },
+        Activity: {
+          organiserId: '',
+        },
+      } as Acter)
+  const acters = getFollowers(user, checkActer)
 
   const handleModalClose = () => router.back()
+
+  // TODO: Add validation
 
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
         {({ isSubmitting }) => {
-          const organisers = flattenFollowing(user.Acter)
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -163,10 +183,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                     />
                   )}
                   {steps[activeStep] === BasicsStep && (
-                    <BasicsStep
-                      acters={organisers}
-                      activityTypes={activityTypes}
-                    />
+                    <BasicsStep activityTypes={activityTypes} />
+                  )}
+                  {steps[activeStep] == SettingsStep && (
+                    <SettingsStep acters={acters} />
                   )}
                   {steps[activeStep] === DetailsStep && (
                     <DetailsStep interestTypes={interestTypes} />

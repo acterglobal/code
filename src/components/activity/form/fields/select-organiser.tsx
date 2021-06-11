@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, MenuItem, InputLabel, Typography } from '@material-ui/core'
+import { Box, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Field } from 'formik'
@@ -9,11 +9,6 @@ import { Acter } from '@schema'
 import { NETWORK, ORGANISATION } from 'src/constants'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  label: {
-    color: grey[700],
-    marginBottom: 5,
-    fontSize: '0.9rem',
-  },
   chooseOrganiser: {
     marginBottom: 25,
   },
@@ -40,6 +35,10 @@ export interface SelectOrganiserProps {
   acters: Acter[]
 }
 
+export interface SelectOrganiserValues {
+  organiserActerId: string
+}
+
 export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
@@ -48,28 +47,25 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   )
 
   return (
-    <>
-      <InputLabel className={classes.label}>Show activity in:</InputLabel>
-      <Field
-        className={classes.chooseOrganiser}
-        fullWidth
-        component={Select}
-        name="organiserActerId"
-        label="Show activity in:"
-        // displayEmpty
-        required={true}
-      >
-        {organisers.map((acter) => (
-          <MenuItem value={acter.id} key={`organiser-${acter.id}`}>
-            <Box className={classes.organiserContainer}>
-              <ActerAvatar acter={acter} size={4} />
-              <Typography className={classes.name} variant="body1">
-                {acter.name}
-              </Typography>
-            </Box>
-          </MenuItem>
-        ))}
-      </Field>
-    </>
+    <Field
+      className={classes.chooseOrganiser}
+      fullWidth
+      component={Select}
+      name="organiserActerId"
+      label="Show activity in:"
+      // displayEmpty
+      required={true}
+    >
+      {organisers.map((acter) => (
+        <MenuItem value={acter.id} key={`organiser-${acter.id}`}>
+          <Box className={classes.organiserContainer}>
+            <ActerAvatar acter={acter} size={4} />
+            <Typography className={classes.name} variant="body1">
+              {acter.name}
+            </Typography>
+          </Box>
+        </MenuItem>
+      ))}
+    </Field>
   )
 }

@@ -25,10 +25,22 @@ export interface ActivityListProps {
 }
 
 export const ActivitiesList: FC<ActivityListProps> = ({ acter, user }) => {
-  const allActivities = useMemo(
+  const allActivitiesOrganised = useMemo(
     () => acter.ActivitiesOrganized?.filter((a) => a.Acter) || [],
     [acter.ActivitiesOrganized]
   )
+  const allActivitiesFollowed = useMemo(
+    () =>
+      acter.Following?.reduce(
+        (memo, { Following }) =>
+          Following.Activity ? [...memo, Following.Activity] : memo,
+        [] as Activity[]
+      ),
+    [acter.Following]
+  )
+
+  // TODO: Sort
+  const allActivities = [...allActivitiesOrganised, ...allActivitiesFollowed]
   const now = moment()
   const futureActivities = useMemo(
     () => allActivities.filter((a) => now.isSameOrBefore(a.startAt)),
@@ -60,7 +72,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({ acter, user }) => {
           <StyledActivityBox key={activity.id}>
             <Link
               href="/activities/[slug]"
-              as={`/activities/${activity.Acter.slug}`}
+              as={`/activities/${activity.Acter?.slug}`}
               passHref
             >
               <a>

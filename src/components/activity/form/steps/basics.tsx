@@ -6,10 +6,6 @@ import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import MomentUtils from '@date-io/moment'
-import {
-  SelectOrganiser,
-  SelectOrganiserProps,
-} from 'src/components/activity/form/fields/select-organiser'
 import moment from 'moment'
 import { SelectActivityType } from 'src/components/activity/form/fields/select-activity-type'
 import {
@@ -20,9 +16,10 @@ import {
   StartEndTimeDatePicker,
   StartEndTimeDatePickerValues,
 } from 'src/components/activity/form/fields/start-end-date-time-picker'
+import { FormSection } from 'src/components/styled/form-section'
 import { ActivityType } from '@schema'
 
-export interface BasicsStepProps extends SelectOrganiserProps {
+export interface BasicsStepProps {
   activityTypes: ActivityType[]
 }
 
@@ -37,7 +34,7 @@ export interface BasicsStepValues
   endTime: Moment
 }
 
-export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
+export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
   const classes = useStyles()
   const { values } = useFormikContext<BasicsStepValues>()
   const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
@@ -55,11 +52,7 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Box className={classes.container}>
-        <Box className={classes.section}>
-          <SelectOrganiser acters={acters} />
-        </Box>
-
-        <Box className={classes.section}>
+        <FormSection>
           <Field
             className={classes.textinput}
             fullWidth
@@ -69,24 +62,24 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
             name="name"
             required={true}
           />
-        </Box>
+        </FormSection>
 
         {values.id && (
-          <Box className={classes.section}>
+          <FormSection>
             <SelectActivityType
               activityTypes={activityTypes}
               selectedTypeId={selectedTypeId}
               onChange={handleSelectedType}
             />
-          </Box>
+          </FormSection>
         )}
-        <Box className={classes.section}>
+        <FormSection>
           <StartEndTimeDatePicker />
-        </Box>
+        </FormSection>
 
-        <Box className={classes.section}>
+        <FormSection>
           <LocationVenuePicker />
-        </Box>
+        </FormSection>
       </Box>
     </MuiPickersUtilsProvider>
   )
