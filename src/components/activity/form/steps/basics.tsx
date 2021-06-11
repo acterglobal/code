@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
 import { Moment } from 'moment'
-import { Box } from '@material-ui/core'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import {} from '@material-ui/core/styles'
 import MomentUtils from '@date-io/moment'
 import {
   SelectOrganiser,
@@ -20,6 +20,7 @@ import {
   StartEndTimeDatePicker,
   StartEndTimeDatePickerValues,
 } from 'src/components/activity/form/fields/start-end-date-time-picker'
+import { FormSection } from 'src/components/styled/form-section'
 import { ActivityType } from '@schema'
 
 export interface BasicsStepProps extends SelectOrganiserProps {
@@ -55,11 +56,11 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Box className={classes.container}>
-        <Box className={classes.section}>
+        <FormSection>
           <SelectOrganiser acters={acters} />
-        </Box>
+        </FormSection>
 
-        <Box className={classes.section}>
+        <FormSection>
           <Field
             className={classes.textinput}
             fullWidth
@@ -69,42 +70,44 @@ export const BasicsStep: FC<BasicsStepProps> = ({ acters, activityTypes }) => {
             name="name"
             required={true}
           />
-        </Box>
+        </FormSection>
 
         {values.id && (
-          <Box className={classes.section}>
+          <FormSection>
             <SelectActivityType
               activityTypes={activityTypes}
               selectedTypeId={selectedTypeId}
               onChange={handleSelectedType}
             />
-          </Box>
+          </FormSection>
         )}
-        <Box className={classes.section}>
+        <FormSection>
           <StartEndTimeDatePicker />
-        </Box>
+        </FormSection>
 
-        <Box className={classes.section}>
+        <FormSection>
           <LocationVenuePicker />
-        </Box>
+        </FormSection>
       </Box>
     </MuiPickersUtilsProvider>
   )
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    height: 400,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  section: {
-    marginBottom: theme.spacing(2),
-    width: '100%',
-  },
-  textinput: {
-    fontSize: '0.5rem',
-    marginBottom: 15,
-    color: theme.palette.secondary.light,
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      height: 400,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    section: {
+      marginBottom: theme.spacing(2),
+      width: '100%',
+    },
+    textinput: {
+      fontSize: '0.5rem',
+      marginBottom: 15,
+      color: theme.palette.secondary.light,
+    },
+  })
+)

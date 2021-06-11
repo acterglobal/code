@@ -6,48 +6,44 @@ import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
-<<<<<<< HEAD
 import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
 import {
   ActivityTypeStep,
+  ActivityTypeStepProps,
   ActivityTypeStepValues,
 } from 'src/components/activity/form/steps/type'
 import {
   BasicsStep,
+  BasicsStepProps,
   BasicsStepValues,
 } from 'src/components/activity/form/steps/basics'
 import {
   DetailsStep,
+  DetailsStepProps,
   DetailsStepValues,
 } from 'src/components/activity/form/steps/details'
+import {
+  SettingsStep,
+  SettingsStepProps,
+  SettingsStepValues,
+} from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
-import { Acter, ActivityType, InterestType, User } from '@schema'
-=======
-import { Acter, ActivityType, InterestType, User } from '@schema'
-import { ActivityTypeStep } from 'src/components/activity/form/type'
-import { BasicsStep } from 'src/components/activity/form/basics'
-import { DetailsStep } from 'src/components/activity/form/details'
-import { InterestsStep } from 'src/components/activity/form/interests'
-import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
+import { Acter, User } from '@schema'
 import { ActivityTypes } from 'src/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
-<<<<<<< HEAD
-    return [BasicsStep, DetailsStep]
+    return [BasicsStep, SettingsStep, DetailsStep]
   }
 
-  return [ActivityTypeStep, BasicsStep, DetailsStep]
-=======
-    return [BasicsStep, DetailsStep, InterestsStep]
-  }
-
-  return [ActivityTypeStep, BasicsStep, DetailsStep, InterestsStep]
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
+  return [ActivityTypeStep, BasicsStep, SettingsStep, DetailsStep]
 }
 
-export interface ActivityFormProps {
+export interface ActivityFormProps
+  extends ActivityTypeStepProps,
+    BasicsStepProps,
+    DetailsStepProps,
+    SettingsStepProps {
   /**
    * The ActivityType Acter for this
    */
@@ -56,14 +52,6 @@ export interface ActivityFormProps {
    * The currently logged in user
    */
   user: User
-  /**
-   * InterestTypes with Interests
-   */
-  interestTypes: InterestType[]
-  /**
-   * activityTypes with all Activity types
-   */
-  activityTypes: ActivityType[]
   /** Action to perform on submit
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,7 +65,8 @@ export interface ActivityFormProps {
 export interface ActivityFormValues
   extends ActivityTypeStepValues,
     BasicsStepValues,
-    DetailsStepValues {
+    DetailsStepValues,
+    SettingsStepValues {
   startAt: Moment
   endAt: Moment
 }
@@ -127,10 +116,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
   )
-<<<<<<< HEAD
   const interestIds = getInterestIdsFromActer(acter)
-=======
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
 
   //TODO: create a type for htis
   const initialValues: ActivityFormValues = {
@@ -163,15 +149,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
-<<<<<<< HEAD
         {({ isSubmitting }) => {
           const organisers = flattenFollowing(user.Acter)
-=======
-        {({ isSubmitting, setFieldValue, values }) => {
-          const organisers = flattenFollowing(user.Acter)
-          const selectedInterests =
-            acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -185,48 +164,22 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   {steps[activeStep] === ActivityTypeStep && (
                     <ActivityTypeStep
                       activityTypes={activityTypes}
-<<<<<<< HEAD
-=======
-                      setFieldValue={setFieldValue}
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
                       onClick={handleNext}
                     />
                   )}
                   {steps[activeStep] === BasicsStep && (
                     <BasicsStep
                       acters={organisers}
-<<<<<<< HEAD
-=======
-                      values={values}
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
                       activityTypes={activityTypes}
                     />
                   )}
                   {steps[activeStep] === DetailsStep && (
-<<<<<<< HEAD
                     <DetailsStep interestTypes={interestTypes} />
-=======
-                    <DetailsStep
-                      setFieldValue={setFieldValue}
-                      values={values}
-                    />
-                  )}
-                  {steps[activeStep] === InterestsStep && (
-                    <InterestsStep
-                      interestTypes={interestTypes}
-                      setFieldValue={setFieldValue}
-                      initialValues={selectedInterests}
-                    />
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
                   )}
                 </Box>
 
                 {steps[activeStep] !== ActivityTypeStep && (
-<<<<<<< HEAD
                   <Box className={classes.footer}>
-=======
-                  <>
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
                     <Box className={classes.statusBars}>
                       {steps.map((step, index) => (
                         <Box
@@ -259,11 +212,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                         {isLastStep() ? 'Submit' : 'Next'}
                       </Button>
                     </Box>
-<<<<<<< HEAD
                   </Box>
-=======
-                  </>
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
                 )}
               </Box>
             </Form>
@@ -274,26 +223,16 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   )
 }
 
-<<<<<<< HEAD
 const useStyles = makeStyles((theme: Theme) => {
   const containerPadding = 4
   const containerHeight = `calc(100vh - ${theme.spacing(containerPadding)}px)`
   return createStyles({
     form: { height: containerHeight },
-=======
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: { height: '100%' },
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
     container: {
       display: 'flex',
       flexDirection: 'column',
       width: 690,
-<<<<<<< HEAD
       height: containerHeight,
-=======
-      height: '100%',
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
       borderTop: '1px solid',
       borderTopColor: grey[300],
       paddingTop: theme.spacing(containerPadding),
@@ -303,7 +242,6 @@ const useStyles = makeStyles((theme: Theme) =>
     fields: {
       flexGrow: 1,
       justifyContent: 'center',
-<<<<<<< HEAD
       overflow: 'scroll',
       zIndex: 1,
     },
@@ -314,8 +252,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(containerPadding),
       backgroundColor: 'white',
       zIndex: 2,
-=======
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type)
     },
     typeButtons: {
       display: 'flex',

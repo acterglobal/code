@@ -27,15 +27,7 @@ export interface InterestsStepProps {
   initialValues: string[]
 }
 
-<<<<<<< HEAD:src/components/activity/form/interests.tsx
 export const InterestsStep: FC<InterestsStepProps> = ({ interestTypes }) => {
-=======
-export const InterestsStep: FC<InterestsStepProps> = ({
-  interestTypes,
-  setFieldValue,
-  initialValues,
-}) => {
->>>>>>> e61e5c5 (Add step to the beginning of Activity create for picking type):src/components/activity/form/step3.tsx
   const classes = useStyles()
   return (
     <Box className={classes.container}>
