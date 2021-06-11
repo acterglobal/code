@@ -22,6 +22,7 @@ import {
 import CREATE_LINK from 'api/mutations/link-create.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
 import UPDATE_LINK from 'api/mutations/link-update.graphql'
+import DELETE_LINK from 'api/mutations/delete-link.graphql'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
@@ -102,6 +103,30 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     }
   }
 
+  const [deleteLink] = useNotificationMutation(DELETE_LINK, {
+    update: (cache, { data }) => {
+      const { deleteLink: deletedLink } = data
+      const newDisplayLinks = displayLinks.filter(
+        (link) => link.id !== deletedLink.id
+      )
+      setDisplayLinks(newDisplayLinks)
+      cache.writeQuery({
+        query: GET_LINKS,
+        data: {
+          links: newDisplayLinks,
+        },
+      })
+    },
+    getSuccessMessage: () => 'Link deleted',
+  })
+  const handleDeleteLink = async (id: unknown) => {
+    deleteLink({
+      variables: {
+        linkId: id,
+      },
+    })
+  }
+
   return (
     <Layout
       acter={displayActer}
@@ -118,6 +143,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           loading={acterUpdateLoading}
           links={displayLinks}
           onLinkSubmit={handleLinks}
+          onLinkDelete={handleDeleteLink}
         />
       </main>
     </Layout>

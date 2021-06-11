@@ -9,9 +9,14 @@ import { Link } from '@schema'
 export interface LinkFormProps {
   link?: Link
   onLinkSubmit: (values: unknown) => Promise<void>
+  onLinkDelete?: (values: unknown) => Promise<void>
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
+export const LinkForm: FC<LinkFormProps> = ({
+  link,
+  onLinkSubmit,
+  onLinkDelete,
+}) => {
   const classes = useStyles()
   const initialValues = {
     id: link?.id || null,
@@ -19,8 +24,9 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
     url: link?.url || '',
   }
 
-  const handleDelete = (id) => {
-    // Delete callback
+  const onDelete = () => {
+    const { id } = link
+    onLinkDelete(id)
   }
   return (
     <Formik
@@ -65,7 +71,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
           </IconButton>
 
           {link && (
-            <IconButton className={classes.icons} onClick={handleDelete}>
+            <IconButton className={classes.icons} onClick={onDelete}>
               <Delete />
             </IconButton>
           )}
