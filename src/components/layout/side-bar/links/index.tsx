@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     item: {
       height: 20,
       '& a': {
-        color: theme.palette.primary.main,
+        color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         textTransform: 'capitalize',
       },
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     links: {
       transition: 'transform .2s',
       '&:hover': {
-        color: theme.palette.secondary.contrastText,
+        color: theme.palette.primary.main,
         transform: 'scale(1.1)',
       },
     },

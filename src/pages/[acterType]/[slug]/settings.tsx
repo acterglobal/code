@@ -21,6 +21,7 @@ import {
 } from '@schema'
 import CREATE_LINK from 'api/mutations/link-create.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
+import UPDATE_LINK from 'api/mutations/link-update.graphql'
 
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
@@ -62,14 +63,44 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     getSuccessMessage: () => 'Link created',
   })
 
+  const [updateLink] = useNotificationMutation(UPDATE_LINK, {
+    update: (cache, { data }) => {
+      const { updateLink: newLink } = data
+      const newDisplayLinks = displayLinks.map((link) => {
+        if (link.id === newLink.id) {
+          return newLink
+        }
+        return link
+      })
+      setDisplayLinks(newDisplayLinks)
+      cache.writeQuery({
+        query: GET_LINKS,
+        data: {
+          links: newDisplayLinks,
+        },
+      })
+    },
+  })
+
   const handleLinks = async (values) => {
-    createLink({
-      variables: {
-        ...values,
-        acterId: acter.id,
-        userId: user.id,
-      },
-    })
+    {
+      values.id
+        ? updateLink({
+            variables: {
+              ...values,
+              linkId: values.id,
+              acterId: acter.id,
+              userId: user.id,
+            },
+          })
+        : createLink({
+            variables: {
+              ...values,
+              acterId: acter.id,
+              userId: user.id,
+            },
+          })
+    }
   }
 
   return (

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, IconButton } from '@material-ui/core'
-import { Save, Edit, Delete } from '@material-ui/icons'
+import { Edit, Delete } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Link } from '@schema'
 
@@ -14,6 +14,7 @@ export interface LinkFormProps {
 export const LinkForm: FC<LinkFormProps> = ({ link, onLinkSubmit }) => {
   const classes = useStyles()
   const initialValues = {
+    id: link?.id || null,
     name: link?.name || '',
     url: link?.url || '',
   }

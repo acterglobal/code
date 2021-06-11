@@ -1,0 +1,7 @@
+mutation DeleteLink($linkId: String!) {
+  deleteLink(where: { id: $linkId }) {
+    id
+    name
+    url
+  }
+}

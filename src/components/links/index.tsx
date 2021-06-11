@@ -32,8 +32,8 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit }) => {
       <Divider variant="middle" />
 
       {links.map((link) => (
-        <Box className={classes.formContainer}>
-          <LinkForm key={link.id} link={link} onLinkSubmit={onLinkSubmit} />
+        <Box key={link.id} className={classes.formContainer}>
+          <LinkForm link={link} onLinkSubmit={onLinkSubmit} />
         </Box>
       ))}
 
