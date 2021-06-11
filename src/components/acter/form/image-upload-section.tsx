@@ -1,26 +1,26 @@
 import React, { FC } from 'react'
+import { useFormikContext } from 'formik'
 import { ImageUpload } from 'src/components/image-upload'
-import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 
-export interface ImageUploadProps {
-  initialValues: FormValues
-  setFieldValue: FormSetFieldValue
+export interface ImageUploadValues {
+  avatarUrl: string
+  bannerUrl: string
 }
 
-export const ImageUploadSection: FC<ImageUploadProps> = (props) => {
-  const { initialValues, setFieldValue } = props
+export const ImageUploadSection: FC = () => {
+  const { values, setFieldValue } = useFormikContext<ImageUploadValues>()
   return (
     <div style={{ display: 'flex' }}>
       <ImageUpload
         imageType="avatar"
         setImageToFormField={setFieldValue}
-        fileUrl={initialValues.avatarUrl}
+        fileUrl={values.avatarUrl}
       />
       <ImageUpload
         aspectRatio={24 / 5}
         imageType="banner"
         setImageToFormField={setFieldValue}
-        fileUrl={initialValues.bannerUrl}
+        fileUrl={values.bannerUrl}
       />
     </div>
   )

@@ -1,25 +1,34 @@
 import React, { FC, useState, useEffect } from 'react'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { flattenFollowing } from 'src/lib/acter/flatten-following'
-import { Acter, ActivityType, InterestType, User } from '@schema'
-import { ActivityTypeStep } from 'src/components/activity/form/type'
-import { BasicsStep } from 'src/components/activity/form/basics'
-import { DetailsStep } from 'src/components/activity/form/details'
-import { InterestsStep } from 'src/components/activity/form/interests'
+import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
+import {
+  ActivityTypeStep,
+  ActivityTypeStepValues,
+} from 'src/components/activity/form/steps/type'
+import {
+  BasicsStep,
+  BasicsStepValues,
+} from 'src/components/activity/form/steps/basics'
+import {
+  DetailsStep,
+  DetailsStepValues,
+} from 'src/components/activity/form/steps/details'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
+import { Acter, ActivityType, InterestType, User } from '@schema'
 import { ActivityTypes } from 'src/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
-    return [BasicsStep, DetailsStep, InterestsStep]
+    return [BasicsStep, DetailsStep]
   }
 
-  return [ActivityTypeStep, BasicsStep, DetailsStep, InterestsStep]
+  return [ActivityTypeStep, BasicsStep, DetailsStep]
 }
 
 export interface ActivityFormProps {
@@ -47,6 +56,14 @@ export interface ActivityFormProps {
    * Whether the form is loading/saving
    */
   loading?: boolean
+}
+
+export interface ActivityFormValues
+  extends ActivityTypeStepValues,
+    BasicsStepValues,
+    DetailsStepValues {
+  startAt: Moment
+  endAt: Moment
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({
@@ -94,27 +111,30 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
   )
+  const interestIds = getInterestIdsFromActer(acter)
 
   //TODO: create a type for htis
-  const initialValues = {
+  const initialValues: ActivityFormValues = {
     organiserActerId:
-      router?.query?.organiserActerId || acter.Activity.Organiser.id || '',
+      router?.query?.organiserActerId?.toString() ||
+      acter?.Activity?.Organiser?.id ||
+      '',
     name: '',
     description: '',
     location: '',
     url: '',
-    interestIds: [],
+    interestIds,
     ...acter,
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
-    isOnline: acter?.Activity.isOnline ? 'true' : 'false' || null,
+    isOnline: acter?.Activity.isOnline || false,
     startDate: startAt,
     startTime: startAt,
-    startAt: startAt,
+    startAt,
     isAllDay: acter?.Activity.isAllDay ? true : false,
     endDate: endAt,
     endTime: endAt,
-    endAt: endAt,
+    endAt,
   }
 
   // TODO: Add validation
@@ -124,10 +144,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
-        {({ isSubmitting, setFieldValue, values }) => {
+        {({ isSubmitting }) => {
           const organisers = flattenFollowing(user.Acter)
-          const selectedInterests =
-            acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -141,34 +159,22 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   {steps[activeStep] === ActivityTypeStep && (
                     <ActivityTypeStep
                       activityTypes={activityTypes}
-                      setFieldValue={setFieldValue}
                       onClick={handleNext}
                     />
                   )}
                   {steps[activeStep] === BasicsStep && (
                     <BasicsStep
                       acters={organisers}
-                      values={values}
                       activityTypes={activityTypes}
                     />
                   )}
                   {steps[activeStep] === DetailsStep && (
-                    <DetailsStep
-                      setFieldValue={setFieldValue}
-                      values={values}
-                    />
-                  )}
-                  {steps[activeStep] === InterestsStep && (
-                    <InterestsStep
-                      interestTypes={interestTypes}
-                      setFieldValue={setFieldValue}
-                      initialValues={selectedInterests}
-                    />
+                    <DetailsStep interestTypes={interestTypes} />
                   )}
                 </Box>
 
                 {steps[activeStep] !== ActivityTypeStep && (
-                  <>
+                  <Box className={classes.footer}>
                     <Box className={classes.statusBars}>
                       {steps.map((step, index) => (
                         <Box
@@ -201,7 +207,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                         {isLastStep() ? 'Submit' : 'Next'}
                       </Button>
                     </Box>
-                  </>
+                  </Box>
                 )}
               </Box>
             </Form>
@@ -212,21 +218,35 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: { height: '100%' },
+const useStyles = makeStyles((theme: Theme) => {
+  const containerPadding = 4
+  const containerHeight = `calc(100vh - ${theme.spacing(containerPadding)}px)`
+  return createStyles({
+    form: { height: containerHeight },
     container: {
       display: 'flex',
       flexDirection: 'column',
       width: 690,
-      height: '100%',
+      height: containerHeight,
       borderTop: '1px solid',
       borderTopColor: grey[300],
-      padding: 50,
+      paddingTop: theme.spacing(containerPadding),
+      paddingLeft: theme.spacing(containerPadding),
+      paddingRight: theme.spacing(containerPadding),
     },
     fields: {
       flexGrow: 1,
       justifyContent: 'center',
+      overflow: 'scroll',
+      zIndex: 1,
+    },
+    footer: {
+      flexGrow: 0,
+      minHeight: 110,
+      marginTop: theme.spacing(containerPadding),
+      marginBottom: theme.spacing(containerPadding),
+      backgroundColor: 'white',
+      zIndex: 2,
     },
     typeButtons: {
       display: 'flex',
@@ -261,4 +281,4 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: green[500],
     },
   })
-)
+})

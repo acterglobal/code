@@ -5,47 +5,27 @@ import { Form, Formik } from 'formik'
 import { Box, Step, StepLabel, Stepper } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
-import { BasicInformation } from 'src/components/acter/form/basic-info'
-import { ImageUploadSection } from 'src/components/acter/form/image-upload-section'
-import { InterestsAddSection } from 'src/components/acter/form/interests-add-section'
+import {
+  BasicInformation,
+  BasicInformationValues,
+} from 'src/components/acter/form/basic-info'
+import {
+  ImageUploadSection,
+  ImageUploadValues,
+} from 'src/components/acter/form/image-upload-section'
+import {
+  InterestsAddSection,
+  InterestAddSectionValues,
+} from 'src/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { useRouter } from 'next/router'
 import { grey } from '@material-ui/core/colors'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
 
 const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
-
-const getStepContent = (
-  step: number,
-  interestTypes: InterestType[],
-  setFieldValue: FormSetFieldValue,
-  acter: Partial<Acter>,
-  values: FormValues
-) => {
-  const selectedInterests =
-    acter.ActerInterests?.map(({ Interest: { id } }) => id) || []
-  switch (step) {
-    case 1:
-      return <BasicInformation values={values} setFieldValue={setFieldValue} />
-    case 2:
-      return (
-        <ImageUploadSection
-          setFieldValue={setFieldValue}
-          initialValues={acter}
-        />
-      )
-    case 3:
-      return (
-        <InterestsAddSection
-          interestTypes={interestTypes}
-          setFieldValue={setFieldValue}
-          initialValues={selectedInterests}
-        />
-      )
-  }
-}
 
 export type FormValues = any
 
@@ -62,6 +42,15 @@ export interface ActerFormProps {
   onSubmit: (any) => any
 }
 
+export interface ActerFormValues
+  extends BasicInformationValues,
+    ImageUploadValues,
+    InterestAddSectionValues {
+  acterTypeId: string
+  AvatarImage: string
+  BannerImage: string
+}
+
 export const ActerForm: FC<ActerFormProps> = ({
   acter,
   acterType,
@@ -70,11 +59,11 @@ export const ActerForm: FC<ActerFormProps> = ({
 }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
 
-  const isLastStep = () => activeStep === totalSteps
-  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 1))
+  const isLastStep = () => activeStep + 1 === totalSteps
+  const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
   const onStepSubmit = async (values, { setSubmitting }) => {
@@ -94,17 +83,20 @@ export const ActerForm: FC<ActerFormProps> = ({
   const handleModalClose = () =>
     router.push(acter ? acterAsUrl(acter) : '/dashboard')
 
+  const interestIds = getInterestIdsFromActer(acter)
+
   //TODO: create type for this
-  const initialValues = {
+  const initialValues: ActerFormValues = {
     acterTypeId: acterType.id,
-    selectedInterests: acter,
     name: '',
     description: '',
     location: '',
     url: '',
     AvatarImage: null,
+    avatarUrl: '',
     BannerImage: null,
-    interestIds: [],
+    bannerUrl: '',
+    interestIds,
     ...acter,
   }
 
@@ -115,7 +107,7 @@ export const ActerForm: FC<ActerFormProps> = ({
         onSubmit={onStepSubmit}
         // validationSchema={validationSchema}
       >
-        {({ isSubmitting, setFieldValue, values }) => (
+        {({ isSubmitting }) => (
           <Box className={classes.container}>
             <Form>
               <Stepper alternativeLabel activeStep={activeStep}>
@@ -127,12 +119,12 @@ export const ActerForm: FC<ActerFormProps> = ({
               </Stepper>
 
               <Box className={classes.fields}>
-                {getStepContent(
-                  activeStep,
-                  interestTypes,
-                  setFieldValue,
-                  initialValues,
-                  values
+                {steps[activeStep] === BasicInformation && <BasicInformation />}
+                {steps[activeStep] === ImageUploadSection && (
+                  <ImageUploadSection />
+                )}
+                {steps[activeStep] === InterestsAddSection && (
+                  <InterestsAddSection interestTypes={interestTypes} />
                 )}
               </Box>
 

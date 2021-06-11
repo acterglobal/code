@@ -1,31 +1,21 @@
 import React, { FC, useState } from 'react'
-import { Field } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { InputLabel, Box } from '@material-ui/core'
 import { TextEditor } from 'src/components/util/text-editor'
-import { FormSetFieldValue, FormValues } from 'src/components/acter/form'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textinput: {
-      width: '90%',
-      fontSize: '0.5rem',
-      marginBottom: 20,
-      color: theme.palette.secondary.light,
-    },
-  })
-)
-
-export interface BasicInformationProps {
-  setFieldValue: FormSetFieldValue
-  values: FormValues
+export interface BasicInformationValues {
+  name: string
+  description: string
+  location: string
+  url: string
 }
 
-export const BasicInformation: FC<BasicInformationProps> = (props) => {
-  const { setFieldValue, values } = props
+export const BasicInformation: FC = () => {
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
+  const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   return (
     <>
@@ -64,3 +54,14 @@ export const BasicInformation: FC<BasicInformationProps> = (props) => {
     </>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    textinput: {
+      width: '90%',
+      fontSize: '0.5rem',
+      marginBottom: 20,
+      color: theme.palette.secondary.light,
+    },
+  })
+)

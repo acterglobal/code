@@ -25,6 +25,7 @@ export const TimePickerField: FC<TimePickerProps> = (props) => {
   return (
     <Field
       component={KeyboardTimePicker}
+      fullWidth
       label={label}
       name={name}
       placeholder={placeholder}

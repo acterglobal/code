@@ -16,7 +16,7 @@ export interface InterestsPickerProps {
 export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
   const {
     interestTypes,
-    selectedInterests,
+    selectedInterests = [],
     setSelectedInterests,
     showDivider = true,
   } = props
