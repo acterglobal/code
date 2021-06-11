@@ -22,7 +22,6 @@ import {
 import CREATE_LINK from 'api/mutations/link-create.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
 import UPDATE_LINK from 'api/mutations/link-update.graphql'
-
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'

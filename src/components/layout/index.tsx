@@ -12,7 +12,7 @@ export interface LayoutProps {
   onGroupSubmit?: (groupData: Acter) => void
   searchType?: SearchType
   user?: User
-  links: LinkType[]
+  links?: LinkType[]
 }
 
 export const Layout: FC<LayoutProps> = ({
