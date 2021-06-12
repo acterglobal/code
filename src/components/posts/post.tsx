@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import Markdown from 'markdown-to-jsx'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import { ActerAvatar } from 'src/components/acter/avatar'
@@ -35,7 +36,7 @@ export const Post: FC<PostsProps> = ({ post, commenting }) => {
         </Box>
         <Box>
           <Typography variant="caption" className={classes.description}>
-            {post.content}
+            <Markdown>{post.content}</Markdown>
           </Typography>
         </Box>
       </Box>
