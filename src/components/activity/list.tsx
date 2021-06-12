@@ -25,22 +25,18 @@ export interface ActivityListProps {
 }
 
 export const ActivitiesList: FC<ActivityListProps> = ({ acter, user }) => {
-  const allActivitiesOrganised = useMemo(
-    () => acter.ActivitiesOrganized?.filter((a) => a.Acter) || [],
-    [acter.ActivitiesOrganized]
-  )
-  const allActivitiesFollowed = useMemo(
-    () =>
-      acter.Following?.reduce(
-        (memo, { Following }) =>
-          Following.Activity ? [...memo, Following.Activity] : memo,
-        [] as Activity[]
-      ),
-    [acter.Following]
+  const allActivitiesOrganised =
+    acter.ActivitiesOrganized?.filter((a) => a.Acter) || []
+  const allActivitiesFollowed = acter.Following?.reduce(
+    (memo, { Following }) =>
+      Following.Activity ? [...memo, Following.Activity] : memo,
+    [] as Activity[]
   )
 
-  // TODO: Sort
-  const allActivities = [...allActivitiesOrganised, ...allActivitiesFollowed]
+  const allActivities = [
+    ...allActivitiesOrganised,
+    ...allActivitiesFollowed,
+  ].sort((a, b) => moment(a.startAt).valueOf() - moment(b.startAt).valueOf())
   const now = moment()
   const futureActivities = useMemo(
     () => allActivities.filter((a) => now.isSameOrBefore(a.startAt)),
