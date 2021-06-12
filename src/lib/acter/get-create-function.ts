@@ -70,6 +70,7 @@ const _acterCreate = async ({
 }: InternalCreateActerProps): Promise<Acter> => {
   // Make sure ActerType ID is set
   const variables = {
+    followerIds: [],
     ...data,
     acterTypeId: acterType.id,
   }
