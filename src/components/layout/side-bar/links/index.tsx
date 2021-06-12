@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(0.2),
     },
     item: {
-      height: 20,
       '& a': {
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
