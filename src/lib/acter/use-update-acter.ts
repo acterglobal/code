@@ -32,6 +32,7 @@ export const useUpdateActer = (
   const handleUpdateActer = (acter: Acter) =>
     updateActer({
       variables: {
+        followerIds: [],
         ...acter,
         interestIds: acter.ActerInterests.map(({ Interest: { id } }) => id),
         acterId: acter.id,

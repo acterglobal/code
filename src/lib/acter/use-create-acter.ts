@@ -38,6 +38,7 @@ export const useCreateActer = (
   const handleCreateActer = (acter: Acter) =>
     createActer({
       variables: {
+        followerIds: [],
         ...acter,
         interestIds:
           acter.ActerInterests?.map(({ Interest: { id } }) => id) || [],
