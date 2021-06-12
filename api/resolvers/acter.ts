@@ -42,18 +42,22 @@ export class ActerResolver {
       select: { name: true },
       where: { id: acterTypeId },
     })
-    const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
-      select: { slug: true },
-      where: {
-        id: parentActerId,
-        ActerType: { name: { notIn: [USER, ACTIVITY] } },
-      },
-    })
-    // TODO: add logic to createslug for activities
-    const slug = createSlug(
-      name,
-      acterType.name === GROUP ? parentActerSlug : null
-    )
+
+    // TODO: refactor to be functional
+    let slug
+    if (parentActerId) {
+      const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
+        select: { slug: true },
+        where: {
+          id: parentActerId,
+          ActerType: { name: { notIn: [USER, ACTIVITY] } },
+        },
+      })
+      // TODO: add logic to createslug for activities
+      slug = createSlug(name, acterType.name === GROUP ? parentActerSlug : null)
+    } else {
+      slug = createSlug(name)
+    }
 
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {
@@ -75,10 +79,17 @@ export class ActerResolver {
       throw err
     }
 
-    const followerConnectList = followerIds.map((id) => ({
-      followerActerId: id,
-      createdByUserId,
-    }))
+    const followerConnectList = [
+      ...followerIds.map((id) => ({
+        followerActerId: id,
+        createdByUserId,
+      })),
+      {
+        followerActerId: currentUser.Acter.id,
+        role: ActerConnectionRole.ADMIN,
+        createdByUserId,
+      },
+    ]
 
     return ctx.prisma.acter.create({
       data: {
@@ -94,14 +105,7 @@ export class ActerResolver {
         updatedAt: new Date(),
         createdByUserId,
         Followers: {
-          create: [
-            ...followerConnectList,
-            {
-              followerActerId: currentUser.Acter.id,
-              role: ActerConnectionRole.ADMIN,
-              createdByUserId,
-            },
-          ],
+          create: followerConnectList,
         },
         ActerInterests: {
           create: interestIds.map((interestId) => ({
@@ -188,9 +192,9 @@ export class ActerResolver {
       {}
     )
     // Every current/db followerActer that does not occurr in the new list
-    const deleteFollowers = acter.Followers.filter(
-      ({ followerActerId }) => !newFollowerIdMap[followerActerId]
-    ).map(({ id }) => ({ id }))
+    // const deleteFollowers = acter.Followers.filter(
+    //   ({ followerActerId }) => !newFollowerIdMap[followerActerId]
+    // ).map(({ id }) => ({ id }))
 
     return await ctx.prisma.acter.update({
       data: {
@@ -209,7 +213,7 @@ export class ActerResolver {
         },
         Followers: {
           create: createFollowers,
-          delete: deleteFollowers,
+          // delete: deleteFollowers,
         },
       },
       where: { id: acterId },

@@ -21,6 +21,7 @@ export const initialValues = {
   avatarUrl: '',
   bannerUrl: '',
   interestIds: [],
+  followerIds: [],
 }
 
 interface UpdateActerWithPicturesProps {
