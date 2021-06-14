@@ -59,61 +59,6 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
 
   const [createLink] = useCreateLink(acter, user, displayLinks, setDisplayLinks)
 
-  // const [createLink] = useNotificationMutation(CREATE_LINK, {
-  //   update: (cache, { data }) => {
-  //     const { createLink: newLink } = data
-  //     const newDisplayLinks = [...displayLinks, newLink]
-  //     setDisplayLinks(newDisplayLinks)
-  //     cache.writeQuery({
-  //       query: GET_LINKS,
-  //       data: {
-  //         links: newDisplayLinks,
-  //       },
-  //     })
-  //   },
-  //   getSuccessMessage: () => 'Link created',
-  // })
-
-  const [updateLink] = useNotificationMutation(UPDATE_LINK, {
-    update: (cache, { data }) => {
-      const { updateLink: newLink } = data
-      const newDisplayLinks = displayLinks.map((link) => {
-        if (link.id === newLink.id) {
-          return newLink
-        }
-        return link
-      })
-      setDisplayLinks(newDisplayLinks)
-      cache.writeQuery({
-        query: GET_LINKS,
-        data: {
-          links: newDisplayLinks,
-        },
-      })
-    },
-  })
-
-  // const handleLinks = async (values) => {
-  //   {
-  //     values.id
-  //       ? updateLink({
-  //           variables: {
-  //             ...values,
-  //             linkId: values.id,
-  //             acterId: acter.id,
-  //             userId: user.id,
-  //           },
-  //         })
-  //       : createLink({
-  //           variables: {
-  //             ...values,
-  //             acterId: acter.id,
-  //             userId: user.id,
-  //           },
-  //         })
-  //   }
-  // }
-
   const [deleteLink] = useNotificationMutation(DELETE_LINK, {
     update: (cache, { data }) => {
       const { deleteLink: deletedLink } = data

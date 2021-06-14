@@ -2,15 +2,16 @@ import { MutationResult } from '@apollo/client'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 
 import CREATE_LINK from 'api/mutations/link-create.graphql'
+import UPDATE_LINK from 'api/mutations/link-update.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
 import { Acter, User, Link as LinkType } from '@schema'
 
 export type HandleMethod = (values: unknown) => Promise<void>
 
 /**
- * Custom hook that creates new acter
- * @param acter
- * @returns handle method to create acter
+ * Custom hook that creates and updates new link
+ * @param link
+ * @returns handle method to create and update link
  * @returns mutation results from apollo
  */
 export const useCreateLink = (
@@ -34,17 +35,36 @@ export const useCreateLink = (
     getSuccessMessage: () => 'Link created',
   })
 
+  const [updateLink] = useNotificationMutation(UPDATE_LINK, {
+    update: (cache, { data }) => {
+      const { updateLink: newLink } = data
+      const newDisplayLinks = displayLinks.map((link) => {
+        if (link.id === newLink.id) {
+          return newLink
+        }
+        return link
+      })
+      setDisplayLinks(newDisplayLinks)
+      cache.writeQuery({
+        query: GET_LINKS,
+        data: {
+          links: newDisplayLinks,
+        },
+      })
+    },
+  })
+
   const handleLinks = async (values) => {
     {
       values.id
-        ? {
-            // variables: {
-            //   ...values,
-            //   linkId: values.id,
-            //   acterId: acter.id,
-            //   userId: user.id,
-            // },
-          }
+        ? updateLink({
+            variables: {
+              ...values,
+              linkId: values.id,
+              acterId: acter.id,
+              userId: user.id,
+            },
+          })
         : createLink({
             variables: {
               ...values,
@@ -54,32 +74,6 @@ export const useCreateLink = (
           })
     }
   }
-
-  // const [createActer, mutationResult] = useNotificationMutation(ACTER_CREATE, {
-  //   update: (cache, { data }) => {
-  //     acter.ActerType.name === GROUP
-  //       ? acter.Parent.Children.push(data.createActer)
-  //       : acter.Children.push(data.createActer)
-
-  //     cache.writeQuery({
-  //       query: GET_ACTER,
-  //       data: {
-  //         getActer: acter,
-  //       },
-  //     })
-  //   },
-  //   getSuccessMessage: (data) => `${data.createActer.name} group created`,
-  // })
-
-  // const handleCreateActer = (acter: Acter) =>
-  //   createActer({
-  //     variables: {
-  //       followerIds: [],
-  //       ...acter,
-  //       interestIds:
-  //         acter.ActerInterests?.map(({ Interest: { id } }) => id) || [],
-  //     },
-  //   })
 
   return [handleLinks, mutationResult]
 }
