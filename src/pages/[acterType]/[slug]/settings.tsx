@@ -19,15 +19,13 @@ import {
   User,
   Link as LinkType,
 } from '@schema'
-import CREATE_LINK from 'api/mutations/link-create.graphql'
-import GET_LINKS from 'api/queries/links-by-acter.graphql'
-import UPDATE_LINK from 'api/mutations/link-update.graphql'
-import DELETE_LINK from 'api/mutations/delete-link.graphql'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useCreateLink } from 'src/lib/links/use-create-link'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
+import { useCreateUpdateLink } from 'src/lib/links/use-create-update-link'
+import { useDeleteLink } from 'src/lib/links/use-delete-link'
 
 interface ActerSettingsPageProps {
   acter: Acter
@@ -57,31 +55,13 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     }
   )
 
-  const [createLink] = useCreateLink(acter, user, displayLinks, setDisplayLinks)
-
-  const [deleteLink] = useNotificationMutation(DELETE_LINK, {
-    update: (cache, { data }) => {
-      const { deleteLink: deletedLink } = data
-      const newDisplayLinks = displayLinks.filter(
-        (link) => link.id !== deletedLink.id
-      )
-      setDisplayLinks(newDisplayLinks)
-      cache.writeQuery({
-        query: GET_LINKS,
-        data: {
-          links: newDisplayLinks,
-        },
-      })
-    },
-    getSuccessMessage: () => 'Link deleted',
-  })
-  const handleDeleteLink = async (id: unknown) => {
-    deleteLink({
-      variables: {
-        linkId: id,
-      },
-    })
-  }
+  const [handleLink] = useCreateUpdateLink(
+    acter,
+    user,
+    displayLinks,
+    setDisplayLinks
+  )
+  const [handleDeleteLink] = useDeleteLink(displayLinks, setDisplayLinks)
 
   return (
     <Layout
@@ -98,7 +78,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           onSettingsChange={updateGroup}
           loading={updateGroupLoading}
           links={displayLinks}
-          onLinkSubmit={createLink}
+          onLinkSubmit={handleLink}
           onLinkDelete={handleDeleteLink}
         />
       </main>

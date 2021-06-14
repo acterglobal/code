@@ -1,6 +1,5 @@
 import { MutationResult } from '@apollo/client'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
-
 import CREATE_LINK from 'api/mutations/link-create.graphql'
 import UPDATE_LINK from 'api/mutations/link-update.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
@@ -14,7 +13,7 @@ export type HandleMethod = (values: unknown) => Promise<void>
  * @returns handle method to create and update link
  * @returns mutation results from apollo
  */
-export const useCreateLink = (
+export const useCreateUpdateLink = (
   acter: Acter,
   user: User,
   displayLinks: LinkType[],
