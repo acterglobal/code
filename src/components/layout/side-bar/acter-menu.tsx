@@ -14,7 +14,10 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { ActerConnectionRole, User, Link as LinkType } from '@schema'
-import { ACTIVITIES, FORUM, MEMBERS, SETTINGS } from 'src/constants'
+import { ActerMenu as ActerMenuEnum } from 'src/constants'
+
+const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
+
 import {
   GroupsSection,
   GroupsSectionProps,
