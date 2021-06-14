@@ -12,7 +12,7 @@ export interface PostFormProps {
   user: User
   comment?: boolean
   post?: Post
-  onPostSubmit: (values: unknown) => Promise<void>
+  onPostSubmit: (values: { content: string; parentId: string }) => Promise<void>
 }
 
 export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
