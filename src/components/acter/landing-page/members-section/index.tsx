@@ -8,7 +8,9 @@ import {
   DisplayMembersProps,
   MemberType,
 } from 'src/components/acter/landing-page/members-section/display-members'
-import { ORGANISATIONS, PEOPLE } from 'src/constants'
+import { ActerMenu } from 'src/constants'
+
+const { ORGANISATIONS, PEOPLE } = ActerMenu
 
 const useStyles = makeStyles({
   container: {

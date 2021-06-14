@@ -1,8 +1,10 @@
-export const ACTIVITIES = 'activities'
-export const FEED = 'feed'
-export const FORUM = 'forum'
-export const MEMBERS = 'members'
-export const SETTINGS = 'settings'
-export const PEOPLE = 'people'
-export const ORGANISATIONS = 'organisations'
-export const GROUPS = 'groups'
+export enum ActerMenu {
+  ACTIVITIES = 'activities',
+  FEED = 'feed',
+  FORUM = 'forum',
+  MEMBERS = 'members',
+  SETTINGS = 'settings',
+  PEOPLE = 'people',
+  ORGANISATIONS = 'organisations',
+  GROUPS = 'groups',
+}

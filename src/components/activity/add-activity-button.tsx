@@ -6,7 +6,7 @@ import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@schema'
-import { ACTIVITIES } from 'src/constants'
+import { ActerMenu } from 'src/constants'
 
 export interface AddActivityButtonProps {
   acter: Acter
@@ -20,7 +20,7 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
   const router = useRouter()
   const tab = getLandingPageTab(router)
 
-  if (tab !== ACTIVITIES) return null
+  if (tab !== ActerMenu.ACTIVITIES) return null
 
   const canCreateActivity = userHasRoleOnActer(
     user,
