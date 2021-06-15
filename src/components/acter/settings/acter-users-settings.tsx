@@ -35,7 +35,6 @@ export interface ActerUsersSettingsProps {
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
   acter,
   onSettingsChange,
-  loading,
 }) => {
   const classes = useStyles()
   const initialValues: ActerUserSettingsInitialValues = {
@@ -47,7 +46,7 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
       enableReinitialize
       onSubmit={(values) => onSettingsChange({ ...acter, ...values })}
     >
-      {({ handleChange, isSubmitting, dirty, resetForm, values }) => (
+      {({ handleChange, values }) => (
         <Form>
           <FormControl component="fieldset" fullWidth>
             <FormLabel className={classes.fieldLabel} component="legend">
@@ -75,14 +74,7 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
               />
             </RadioGroup>
           </FormControl>
-          {dirty && (
-            <FormButtons
-              align="right"
-              loading={loading}
-              isSubmitting={isSubmitting}
-              resetForm={resetForm}
-            />
-          )}
+          <FormButtons align="right" hideUnlessDirty={true} />
         </Form>
       )}
     </Formik>

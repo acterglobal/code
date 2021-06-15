@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useFormikContext } from 'formik'
 import {
   Button,
   ButtonsContainer,
@@ -11,26 +12,26 @@ export interface FormButtonsProps {
   saveText?: string
   cancelText?: string
   align: SubmitButtonAlignment
-  loading: boolean
-  isSubmitting: boolean
-  resetForm: () => void
+  hideUnlessDirty?: boolean
 }
 
 export const FormButtons: FC<FormButtonsProps> = ({
   saveText = 'Save',
   cancelText = 'Cancel',
   align = 'left',
-  loading,
-  isSubmitting,
-  resetForm,
+  hideUnlessDirty = false,
 }) => {
   const Container = align === 'left' ? ButtonsContainer : ButtonsContainerRight
+  const { dirty, isSubmitting, resetForm } = useFormikContext()
+
+  if (hideUnlessDirty && !dirty) return null
+
   return (
     <Container>
       <Button
         variant="outlined"
         color="primary"
-        disabled={loading || isSubmitting}
+        disabled={isSubmitting}
         onClick={() => resetForm()}
       >
         {cancelText}
@@ -39,7 +40,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
         variant="contained"
         color="primary"
         style={{ color: 'white' }}
-        disabled={loading || isSubmitting}
+        disabled={isSubmitting}
         type="submit"
       >
         {saveText}
