@@ -31,32 +31,34 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit, onLinkDelete }) => {
       </Box>
       <Divider variant="middle" />
 
-      {links.map((link) => (
-        <Box key={link.id} className={classes.formContainer}>
-          <LinkForm
-            link={link}
-            onLinkSubmit={onLinkSubmit}
-            onLinkDelete={onLinkDelete}
-          />
-        </Box>
-      ))}
-
-      <Divider variant="middle" />
-
-      <Box className={classes.formItemsContainer}>
-        <Box>
-          <IconButton onClick={handleClick}>
-            {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
-          </IconButton>
-        </Box>
-
-        {toggleForm && (
-          <Box className={classes.formContainer}>
-            <Box className={classes.inputContainer}>
-              <LinkForm onLinkSubmit={onLinkSubmit} />
-            </Box>
+      <Box className={classes.content}>
+        {links.map((link) => (
+          <Box key={link.id} className={classes.formContainer}>
+            <LinkForm
+              link={link}
+              onLinkSubmit={onLinkSubmit}
+              onLinkDelete={onLinkDelete}
+            />
           </Box>
-        )}
+        ))}
+
+        <Divider variant="middle" />
+
+        <Box className={classes.formItemsContainer}>
+          <Box>
+            <IconButton onClick={handleClick}>
+              {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
+            </IconButton>
+          </Box>
+
+          {toggleForm && (
+            <Box className={classes.formContainer}>
+              <Box className={classes.inputContainer}>
+                <LinkForm onLinkSubmit={onLinkSubmit} />
+              </Box>
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   )
@@ -77,6 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
     subHeadingText: {
       fontWeight: theme.typography.fontWeightLight,
     },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
     formItemsContainer: {
       display: 'flex',
       flexDirection: 'row',
@@ -86,7 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
-      marginLeft: 85,
+      // marginLeft: 85,
     },
     inputContainer: {
       marginRight: 45,
