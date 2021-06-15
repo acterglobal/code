@@ -140,10 +140,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       marginRight: 'auto',
       paddingBottom: 0,
     },
-    divider: {
-      backgroundColor: 'red',
-      marginBottom: 10,
-    },
     subMenu: ({ drawerWidth }: StyleProps) => ({
       backgroundColor: subMenuBackgroundColor,
       height: '100%',
