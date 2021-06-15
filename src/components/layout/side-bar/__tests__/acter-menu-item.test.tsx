@@ -33,7 +33,7 @@ describe('ActerMenuItem', () => {
   })
 
   it('should display as selected when router tab matches path', () => {
-    const fooTab = 'foo'
+    const fooTab = 'activities'
     mockNextRouter.mockReturnValue({
       query: {
         tab: [fooTab],
@@ -47,7 +47,7 @@ describe('ActerMenuItem', () => {
   })
 
   it('should display first item as selected when tab prop not set', () => {
-    const fooTab = 'foo'
+    const fooTab = 'forum'
     mockNextRouter.mockReturnValue({
       query: {
         tab: [fooTab],

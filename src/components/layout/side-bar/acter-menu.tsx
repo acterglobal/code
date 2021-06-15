@@ -15,14 +15,13 @@ import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { ActerConnectionRole, User, Link as LinkType } from '@schema'
 import { ActerMenu as ActerMenuEnum } from 'src/constants'
-
-const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
-
 import {
   GroupsSection,
   GroupsSectionProps,
 } from 'src/components/layout/side-bar/groups/groups-section'
 import { LinkSection } from 'src/components/layout/side-bar/links/links-section'
+
+const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 
 export type ActerMenuProps = GroupsSectionProps & {
   user: User
@@ -75,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
+      height: 50,
     },
   })
 )

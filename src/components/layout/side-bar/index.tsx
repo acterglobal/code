@@ -42,12 +42,8 @@ export const Sidebar: FC<SidebarProps> = ({
   const classes = useStyles({ drawerWidth })
 
   useEffect(() => {
-    if (acter) {
-      setDrawerWidth(14)
-      return
-    }
-    if (searchType) {
-      setDrawerWidth(17)
+    if (acter || searchType) {
+      setDrawerWidth(15)
       return
     }
 
@@ -146,11 +142,11 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       marginRight: 'auto',
       paddingBottom: 0,
     },
-    subMenu: {
+    subMenu: ({ drawerWidth }: StyleProps) => ({
       backgroundColor: subMenuBackgroundColor,
       height: '100%',
-      width: '10rem',
+      width: `${drawerWidth}rem`,
       color: theme.palette.secondary.contrastText,
-    },
+    }),
   })
 )

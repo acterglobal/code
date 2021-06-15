@@ -12,8 +12,10 @@ export const ConnectButton = withStyles((theme: Theme) =>
       backgroundColor: theme.palette.primary.main,
       color: 'white',
       textTransform: 'capitalize',
+      fontWeight: theme.typography.fontWeightRegular,
       '&:hover': {
-        backgroundColor: theme.palette.primary.light,
+        // backgroundColor: theme.palette.primary.light,
+        backgroundColor: theme.palette.primary.main,
       },
     },
   })

@@ -9,6 +9,7 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
 import { ACTIVITY, GROUP, USER } from 'src/constants'
 import { commonStyles } from 'src/components/layout/side-bar/common'
+import { subMenuBackgroundColor } from 'src/themes/colors'
 
 export interface FollowingListProps {
   /**
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
     currentActer: {
-      backgroundColor: theme.palette.secondary[600],
+      backgroundColor: subMenuBackgroundColor,
     },
   })
 )

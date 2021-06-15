@@ -44,5 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
         textTransform: 'capitalize',
       },
     },
+    name: {
+      fontWeight: theme.typography.fontWeightLight,
+    },
   })
 )

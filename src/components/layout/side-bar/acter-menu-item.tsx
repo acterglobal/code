@@ -14,6 +14,8 @@ import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter } from '@schema'
 import { commonStyles } from 'src/components/layout/side-bar/common'
+import { ActerMenu } from 'src/constants'
+import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 interface ActerMenuItemProps {
   acter: Acter
@@ -31,7 +33,9 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   const classes = useStyles()
   const router = useRouter()
 
-  const isActive = router.query.tab?.includes(path)
+  const tab = getLandingPageTab(router, ActerMenu.FORUM)
+
+  const isActive = path === tab
 
   return (
     <ListItem
@@ -58,7 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
     currentItem: {
-      backgroundColor: theme.palette.secondary[500],
+      '& .MuiListItemText-primary': {
+        fontWeight: theme.typography.fontWeightBold,
+      },
     },
     itemText: {
       textTransform: 'capitalize',

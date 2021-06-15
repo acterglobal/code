@@ -59,7 +59,7 @@ export const Connect: FC<ConnectProps> = ({
 
   return (
     <DropdownMenu
-      anchorNode={<ConnectButton>Connect</ConnectButton>}
+      anchorNode={<ConnectButton>Join</ConnectButton>}
       closeOnClick={false}
     >
       {followers.map((follower) => (

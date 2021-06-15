@@ -29,5 +29,8 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
       '& .MuiListItem-divider': {
         borderColor: theme.palette.secondary.contrastText,
       },
+      '& .MuiListItemText-primary': {
+        fontWeight: theme.typography.fontWeightLight,
+      },
     },
   })

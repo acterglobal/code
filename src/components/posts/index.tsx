@@ -64,7 +64,6 @@ export const PostList: FC<PostListProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainContainer: {
-      backgroundcOlor: 'blue',
       borderRadius: 7,
       width: '100%',
       display: 'flex',
