@@ -45,19 +45,17 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit, onLinkDelete }) => {
         <Divider variant="middle" />
 
         <Box className={classes.formItemsContainer}>
-          <Box>
+          {toggleForm && (
+            <Box>
+              <LinkForm onLinkSubmit={onLinkSubmit} />
+            </Box>
+          )}
+
+          <Box className={classes.toggleContainer}>
             <IconButton onClick={handleClick}>
               {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
             </IconButton>
           </Box>
-
-          {toggleForm && (
-            <Box className={classes.formContainer}>
-              <Box className={classes.inputContainer}>
-                <LinkForm onLinkSubmit={onLinkSubmit} />
-              </Box>
-            </Box>
-          )}
         </Box>
       </Box>
     </Box>
@@ -82,24 +80,24 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       display: 'flex',
       flexDirection: 'column',
+    },
+    formContainer: {
+      display: 'flex',
+      flexDirection: 'row',
       justifyContent: 'center',
     },
     formItemsContainer: {
       display: 'flex',
       flexDirection: 'row',
       marginTop: 3,
-    },
-    formContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      // marginLeft: 85,
-    },
-    inputContainer: {
-      marginRight: 45,
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
     divider: {
       backgroundColor: grey[900],
+      marginTop: 8,
+    },
+    toggleContainer: {
       marginTop: 8,
     },
   })

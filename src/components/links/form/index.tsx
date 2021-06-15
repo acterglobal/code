@@ -71,12 +71,12 @@ export const LinkForm: FC<LinkFormProps> = ({
             </Box>
 
             <Box className={classes.iconsContainer}>
-              <IconButton className={classes.icons} type="submit">
+              <IconButton type="submit">
                 {dirty || !link ? <CheckCircleIcon /> : <Edit />}
               </IconButton>
 
               {link && (
-                <IconButton className={classes.icons} onClick={onDelete}>
+                <IconButton onClick={onDelete}>
                   <Delete />
                 </IconButton>
               )}
@@ -94,7 +94,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexWrap: 'wrap',
       margin: 5,
-      // justifyContent: 'center',
       [theme.breakpoints.down(1322)]: {
         width: 'fit-content',
       },
@@ -103,17 +102,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'wrap',
-      // backgroundColor: 'red',
       padding: 0,
     },
     formInput: {
       margin: 10,
       borderRadius: 4,
       width: 300,
-      // padding: 0,
-      // [theme.breakpoints.down(1322)]: {
-      //   padding: 0,
-      // },
     },
     input: {
       backgroundColor: 'white',
@@ -122,12 +116,6 @@ const useStyles = makeStyles((theme: Theme) =>
     iconsContainer: {
       display: 'flex',
       flexDirection: 'row',
-    },
-    icons: {
-      // marginTop: 10,
-      [theme.breakpoints.down(1322)]: {
-        marginTop: 0,
-      },
     },
   })
 )
