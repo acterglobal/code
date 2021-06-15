@@ -6,9 +6,10 @@ import { Selectors } from 'src/components/acter/landing-page/members-section/sel
 import {
   DisplayMembers,
   DisplayMembersProps,
-  MemberType,
 } from 'src/components/acter/landing-page/members-section/display-members'
-import { ORGANISATIONS, PEOPLE } from 'src/constants'
+import { MemberType } from 'src/constants'
+
+const { ORGANISATIONS, PEOPLE } = MemberType
 
 const useStyles = makeStyles({
   container: {

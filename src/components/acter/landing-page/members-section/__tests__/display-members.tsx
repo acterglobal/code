@@ -6,7 +6,9 @@ import {
   ExampleActerConnection,
   ExampleUser,
 } from 'src/__fixtures__'
-import { ORGANISATIONS } from 'src/constants'
+import { ActerMenu } from 'src/constants'
+
+const { ORGANISATIONS } = ActerMenu
 
 const mockFunction = jest.fn()
 

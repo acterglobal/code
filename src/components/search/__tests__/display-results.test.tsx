@@ -6,8 +6,10 @@ import {
   ExampleActivityActer,
 } from 'src/__fixtures__'
 import { DisplayResults } from 'src/components/search/display-results'
-import { ACTERS, ACTIVITIES } from 'src/constants'
+import { SearchType } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+
+const { ACTIVITIES, ACTERS } = SearchType
 
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {

@@ -20,9 +20,7 @@ import {
 } from 'src/components/acter/landing-page/members-section/connection-state'
 import { Acter, ActerConnection, ActerConnectionRole, User } from '@schema'
 
-import { ORGANISATIONS, PEOPLE } from 'src/constants'
-
-export type MemberType = typeof ORGANISATIONS | typeof PEOPLE
+import { MemberType } from 'src/constants'
 export interface DisplayMembersProps {
   /**
    * The acter on which we are viewing members

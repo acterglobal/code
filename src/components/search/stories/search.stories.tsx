@@ -5,7 +5,9 @@ import {
   ExampleActivity,
   ExampleActer,
 } from 'src/__fixtures__'
-import { ACTIVITIES, ACTERS } from 'src/constants'
+import { SearchType } from 'src/constants'
+
+const { ACTIVITIES, ACTERS } = SearchType
 
 export default {
   title: 'Search/SearchPage',

@@ -1,5 +1,7 @@
 import { NextRouter } from 'next/router'
-import { ACTIVITIES, MEMBERS, FEED } from 'src/constants'
+import { ActerMenu } from 'src/constants'
+
+const { ACTIVITIES, MEMBERS, FEED } = ActerMenu
 
 export const getLandingPageTab = (
   router: NextRouter,
