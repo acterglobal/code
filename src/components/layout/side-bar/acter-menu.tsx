@@ -7,8 +7,12 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
-import { ForumIcon, MembersIcon, ActivitiesIcon } from 'src/components/icons'
+import {
+  ForumIcon,
+  MembersIcon,
+  ActivitiesIcon,
+  SettingsIcon,
+} from 'src/components/icons'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
@@ -51,7 +55,8 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
-      <Divider />
+
+      {links.length !== 0 && <Divider className={classes.divider} />}
 
       <LinkSection links={links} />
 
@@ -75,6 +80,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
       height: 50,
+      marginBottom: 5,
+    },
+    divider: {
+      marginTop: 8,
     },
   })
 )

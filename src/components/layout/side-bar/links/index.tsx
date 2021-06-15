@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Box, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Link as LinkType } from '@schema'
+import { subMenuTextColor } from 'src/themes/colors'
 
 export interface LinkListProps {
   links: LinkType[]
@@ -50,16 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       '& a': {
-        color: theme.palette.secondary.contrastText,
+        color: subMenuTextColor,
         textDecoration: 'none',
         textTransform: 'capitalize',
+        fontWeight: theme.typography.fontWeightLight,
+        fontSize: '0.8rem',
       },
     },
     links: {
-      transition: 'transform .2s',
       '&:hover': {
-        color: theme.palette.primary.main,
-        transform: 'scale(1.1)',
+        color: 'white',
       },
     },
   })

@@ -10,6 +10,7 @@ import {
 import { Acter } from '@schema'
 import { Link } from 'src/components/util/anchor-link'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { subMenuTextColor } from 'src/themes/colors'
 
 export interface GroupsList {
   acters: Acter[]
@@ -39,13 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       '& a': {
-        color: theme.palette.secondary.contrastText,
+        color: subMenuTextColor,
         textDecoration: 'none',
         textTransform: 'capitalize',
       },
     },
     name: {
       fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
     },
   })
 )

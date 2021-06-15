@@ -7,13 +7,12 @@ import {
   Typography,
 } from '@material-ui/core'
 import { SearchIcon } from 'src/components/icons/search-icon'
-import { subMenuBackgroundColor } from 'src/themes/colors'
+import { subMenuBackgroundColor, subMenuTextColor } from 'src/themes/colors'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
 import {
   SearchTypes,
   SearchTypesProps,
 } from 'src/components/layout/side-bar/search-menu/types'
-import { grey } from '@material-ui/core/colors'
 
 export type SearchMenuProps = SearchTypesProps
 
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: subMenuBackgroundColor,
       height: '100%',
       width: '15rem',
-      color: grey[200],
+      color: subMenuTextColor,
       fontWeight: theme.typography.fontWeightLight,
     },
     heading: {

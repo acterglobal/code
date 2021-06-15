@@ -1,4 +1,5 @@
 import { createStyles, StyleRules, Theme } from '@material-ui/core'
+import { subMenuTextColor } from 'src/themes/colors'
 
 type CommonStyleRules = StyleRules<'item'>
 
@@ -21,7 +22,7 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
       '& .MuiListItemIcon-root': {
         color: theme.palette.secondary.contrastText,
         minWidth: 'auto',
-        paddingRight: theme.spacing(1),
+        paddingRight: theme.spacing(0.5),
       },
       '& .MuiListItemText-root': {
         color: theme.palette.secondary.contrastText,
@@ -31,6 +32,8 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
       },
       '& .MuiListItemText-primary': {
         fontWeight: theme.typography.fontWeightLight,
+        fontSize: theme.spacing(1.8),
+        color: subMenuTextColor,
       },
     },
   })

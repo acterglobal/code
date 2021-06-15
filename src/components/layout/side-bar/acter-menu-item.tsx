@@ -64,7 +64,11 @@ const useStyles = makeStyles((theme: Theme) =>
     currentItem: {
       '& .MuiListItemText-primary': {
         fontWeight: theme.typography.fontWeightBold,
+        color: '#fff',
       },
+    },
+    icon: {
+      height: theme.spacing(2),
     },
     itemText: {
       textTransform: 'capitalize',
