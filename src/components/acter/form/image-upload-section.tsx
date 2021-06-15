@@ -8,18 +8,13 @@ export interface ImageUploadValues {
 }
 
 export const ImageUploadSection: FC = () => {
-  const { values, setFieldValue } = useFormikContext<ImageUploadValues>()
+  const { values } = useFormikContext<ImageUploadValues>()
   return (
     <div style={{ display: 'flex' }}>
-      <ImageUpload
-        imageType="avatar"
-        setImageToFormField={setFieldValue}
-        fileUrl={values.avatarUrl}
-      />
+      <ImageUpload imageType="avatar" fileUrl={values.avatarUrl} />
       <ImageUpload
         aspectRatio={24 / 5}
         imageType="banner"
-        setImageToFormField={setFieldValue}
         fileUrl={values.bannerUrl}
       />
     </div>

@@ -57,7 +57,6 @@ export const ProfileEdit: FC<ProfileEditProps> = ({
               <Grid item sm={12} md={4}>
                 <ImageUpload
                   imageType="avatar"
-                  setImageToFormField={props.setFieldValue}
                   fileUrl={user.Acter.avatarUrl}
                 />
               </Grid>

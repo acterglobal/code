@@ -31,7 +31,6 @@ export const DetailsStep: FC<DetailsStepProps> = ({ interestTypes }) => {
         <ImageUpload
           aspectRatio={72 / 25}
           imageType="banner"
-          setImageToFormField={setFieldValue}
           fileUrl={values.bannerUrl}
         />
       </FormSection>
