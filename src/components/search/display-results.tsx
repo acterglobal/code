@@ -4,11 +4,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Acter } from '@schema'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ActerTile } from 'src/components/acter/tile'
-import { ACTIVITIES, ACTERS } from 'src/constants'
+import { SearchType } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import Link from 'next/link'
 import clsx from 'clsx'
 
+const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
   searchType: string
   acters: Acter[]
