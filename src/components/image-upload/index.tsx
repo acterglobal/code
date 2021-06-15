@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
+import { useFormikContext } from 'formik'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
@@ -9,7 +10,6 @@ import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import axios from 'axios'
-import { FormSetFieldValue } from 'src/components/acter/form'
 
 registerPlugin(
   FilePondPluginImagePreview,
@@ -40,18 +40,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface ImageUploadProps {
   imageType: string
-  setImageToFormField: FormSetFieldValue
   aspectRatio?: number
   fileUrl?: string
 }
 
 export const ImageUpload: FC<ImageUploadProps> = ({
   imageType,
-  setImageToFormField,
   aspectRatio = 1,
   fileUrl,
 }) => {
   const classes = useStyles()
+  const { setFieldValue } = useFormikContext()
   const pond: RefObject<FilePond> = createRef()
 
   const [image, setImage] = useState(null)
@@ -131,7 +130,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     if (pond.current.getFile()) {
       const { file } = pond.current.getFile()
       setFiles([file])
-      setImageToFormField(`${imageType}`, file)
+      setFieldValue(imageType, file)
     }
   }
 
