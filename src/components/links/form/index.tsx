@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, IconButton } from '@material-ui/core'
-import { Edit, Delete } from '@material-ui/icons'
+import { Delete } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Link } from '@schema'
 
@@ -71,9 +71,11 @@ export const LinkForm: FC<LinkFormProps> = ({
             </Box>
 
             <Box className={classes.iconsContainer}>
-              <IconButton type="submit">
-                {dirty || !link ? <CheckCircleIcon /> : <Edit />}
-              </IconButton>
+              {dirty && (
+                <IconButton type="submit">
+                  <CheckCircleIcon />
+                </IconButton>
+              )}
 
               {link && (
                 <IconButton onClick={onDelete}>

@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toggleContainer: {
       marginTop: 8,
+      marginRight: 8,
     },
   })
 )
