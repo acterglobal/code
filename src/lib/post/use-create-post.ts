@@ -17,43 +17,71 @@ export type HandleMethod = (values: unknown) => Promise<void>
 export const useCreatePost = (
   acter: Acter,
   user: User,
-  displayPostsList: Post[],
-  setPosts: React.Dispatch<React.SetStateAction<Post[]>>
+  displayPostList: Post[],
+  setDisplayPostList: React.Dispatch<React.SetStateAction<Post[]>>
 ): [HandleMethod, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
+
+  const createNewPostList = (newPost, displayPostList) => {
+    if (newPost.parentId !== null) {
+      const newPostList = displayPostList.map((post) => {
+        if (post.id === newPost.parentId) {
+          return {
+            ...post,
+            Comments: [...post.Comments, newPost],
+          }
+        }
+        return post
+      })
+    } else {
+      const newPostList = [newPost, ...displayPostList]
+      return newPostList
+    }
+  }
+
   const [createPost, mutationResult] = useNotificationMutation(
     isComment ? CREATE_COMMENT : CREATE_POST,
     {
       update: (cache, { data }) => {
         const { createPost: newPost } = data
 
-        if (newPost.parentId !== null) {
-          const newPostList = displayPostsList.map((post) => {
-            if (post.id === newPost.parentId) {
-              return {
-                ...post,
-                Comments: [...post.Comments, newPost],
-              }
-            }
-            return post
-          })
-          setPosts(newPostList)
-          cache.writeQuery({
-            query: GET_POSTS,
-            data: {
-              posts: newPostList,
-            },
-          })
-        } else {
-          const newPostList = [newPost, ...displayPostsList]
-          setPosts(newPostList)
-          cache.writeQuery({
-            query: GET_POSTS,
-            data: {
-              posts: newPostList,
-            },
-          })
-        }
+        const newPostList = createNewPostList(newPost, displayPostList)
+
+        setDisplayPostList(newPostList)
+        cache.writeQuery({
+          query: GET_POSTS,
+          data: {
+            posts: newPostList,
+          },
+        })
+
+        // if (newPost.parentId !== null) {
+        //   const newPostList = displayPostsList.map((post) => {
+        //     if (post.id === newPost.parentId) {
+        //       return {
+        //         ...post,
+        //         Comments: [...post.Comments, newPost],
+        //       }
+        //     }
+        //     return post
+        //   })
+        //   setPosts(newPostList)
+        //   cache.writeQuery({
+        //     query: GET_POSTS,
+        //     data: {
+        //       posts: newPostList,
+        //     },
+        //   })
+        // } else {
+        //   const newPostList = [newPost, ...displayPostsList]
+        //   setPosts(newPostList)
+        //   cache.writeQuery({
+        //     query: GET_POSTS,
+        //     data: {
+        //       posts: newPostList,
+        //     },
+        //   })
+        // }
       },
       getSuccessMessage: () => 'Post created',
     }
