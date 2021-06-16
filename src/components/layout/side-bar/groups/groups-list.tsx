@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
         color: subMenuTextColor,
         textDecoration: 'none',
         textTransform: 'capitalize',
+        '&:hover': {
+          color: '#fff',
+        },
       },
     },
     name: {

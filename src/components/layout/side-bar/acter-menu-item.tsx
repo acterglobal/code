@@ -71,6 +71,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(2),
     },
     itemText: {
+      '& .MuiListItemText-primary': {
+        '&:hover': {
+          color: '#fff',
+        },
+      },
+
       textTransform: 'capitalize',
     },
   })
