@@ -109,6 +109,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       overflow: 'hidden',
       fontSize: 11,
+      [theme.breakpoints.down(1160)]: {
+        width: '95%',
+      },
     },
     field: {
       padding: theme.spacing(1.5),
@@ -122,6 +125,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: theme.typography.fontFamily,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: 11,
+    },
+    markdown: {
+      [theme.breakpoints.down(1160)]: {
+        width: '95%',
+      },
     },
     buttonContainer: {
       marginTop: theme.spacing(1),
