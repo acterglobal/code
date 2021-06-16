@@ -15,10 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       alignItems: 'center',
-      borderRadius: theme.spacing(12),
+      borderRadius: theme.spacing(10),
       borderColor: theme.palette.grey[600],
       borderSize: 1,
       borderStyle: 'solid',
+      height: 40,
     },
     text: {
       fontSize: theme.typography.fontSize * 1.1,
