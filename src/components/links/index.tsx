@@ -31,32 +31,32 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit, onLinkDelete }) => {
       </Box>
       <Divider variant="middle" />
 
-      {links.map((link) => (
-        <Box key={link.id} className={classes.formContainer}>
-          <LinkForm
-            link={link}
-            onLinkSubmit={onLinkSubmit}
-            onLinkDelete={onLinkDelete}
-          />
-        </Box>
-      ))}
+      <Box className={classes.content}>
+        {links.map((link) => (
+          <Box key={link.id} className={classes.formContainer}>
+            <LinkForm
+              link={link}
+              onLinkSubmit={onLinkSubmit}
+              onLinkDelete={onLinkDelete}
+            />
+          </Box>
+        ))}
 
-      <Divider variant="middle" />
+        <Divider variant="middle" />
 
-      <Box className={classes.formItemsContainer}>
-        <Box>
-          <IconButton onClick={handleClick}>
-            {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
-          </IconButton>
-        </Box>
-
-        {toggleForm && (
-          <Box className={classes.formContainer}>
-            <Box className={classes.inputContainer}>
+        <Box className={classes.formItemsContainer}>
+          {toggleForm && (
+            <Box>
               <LinkForm onLinkSubmit={onLinkSubmit} />
             </Box>
+          )}
+
+          <Box className={classes.toggleContainer}>
+            <IconButton onClick={handleClick}>
+              {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
+            </IconButton>
           </Box>
-        )}
+        </Box>
       </Box>
     </Box>
   )
@@ -77,23 +77,29 @@ const useStyles = makeStyles((theme: Theme) =>
     subHeadingText: {
       fontWeight: theme.typography.fontWeightLight,
     },
-    formItemsContainer: {
+    content: {
       display: 'flex',
-      flexDirection: 'row',
-      marginTop: 3,
+      flexDirection: 'column',
     },
     formContainer: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
-      marginLeft: 85,
     },
-    inputContainer: {
-      marginRight: 45,
+    formItemsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 3,
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
     divider: {
       backgroundColor: grey[900],
       marginTop: 8,
+    },
+    toggleContainer: {
+      marginTop: 8,
+      marginRight: 8,
     },
   })
 )
