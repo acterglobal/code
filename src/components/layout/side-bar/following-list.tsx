@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { ListItem, createStyles, makeStyles, Theme } from '@material-ui/core'
@@ -35,9 +35,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
           })}
         >
           <Link href={acterAsUrl(acter)}>
-            <a>
-              <ActerAvatar acter={acter} size={4} />
-            </a>
+            <ActerAvatar acter={acter} size={4} />
           </Link>
         </ListItem>
       ))}

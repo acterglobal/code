@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import {
   Box,
   Drawer,
@@ -100,9 +100,7 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
   return (
     <ListItem className={classes.item}>
       <Link href={href}>
-        <a>
-          <Icon fontSize="large" aria-label={text} />
-        </a>
+        <Icon fontSize="large" aria-label={text} />
       </Link>
     </ListItem>
   )
