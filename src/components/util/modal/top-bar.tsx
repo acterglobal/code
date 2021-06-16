@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter, User } from '@schema'
 

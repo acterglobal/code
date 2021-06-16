@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import clsx from 'clsx'
 import {
   ListItem,
@@ -42,15 +42,13 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
       aria-current={isActive}
     >
       <Link href={acterAsUrl(acter, path)}>
-        <a>
-          <ListItemIcon>
-            <Icon color="inherit" />
-          </ListItemIcon>
-          <ListItemText
-            className={classes.itemText}
-            primary={text ? text : path}
-          />
-        </a>
+        <ListItemIcon>
+          <Icon color="inherit" />
+        </ListItemIcon>
+        <ListItemText
+          className={classes.itemText}
+          primary={text ? text : path}
+        />
       </Link>
     </ListItem>
   )

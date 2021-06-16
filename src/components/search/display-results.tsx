@@ -6,7 +6,7 @@ import { ActivityTile } from 'src/components/activity/tile'
 import { ActerTile } from 'src/components/acter/tile'
 import { SearchType } from 'src/constants'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import clsx from 'clsx'
 
 const { ACTIVITIES, ACTERS } = SearchType
@@ -25,12 +25,10 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
         acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
             <Link href={acterAsUrl(acter)} passHref>
-              <a>
-                {searchType === ACTERS && <ActerTile acter={acter} />}
-                {searchType === ACTIVITIES && (
-                  <ActivityTile activity={acter.Activity} />
-                )}
-              </a>
+              {searchType === ACTERS && <ActerTile acter={acter} />}
+              {searchType === ACTIVITIES && (
+                <ActivityTile activity={acter.Activity} />
+              )}
             </Link>
           </Box>
         ))
