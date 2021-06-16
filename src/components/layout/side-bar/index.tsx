@@ -21,7 +21,6 @@ import {
   FollowingListProps,
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { subMenuBackgroundColor, subMenuTextColor } from 'src/themes/colors'
 import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
 import { SearchType } from 'src/constants'
 
@@ -118,14 +117,14 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       width: `${drawerWidth}rem`,
       color: theme.palette.secondary.contrastText,
       '& .MuiDivider-root': {
-        backgroundColor: subMenuTextColor,
+        backgroundColor: theme.palette.secondary.light,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         marginBottom: theme.spacing(1.4),
       },
     }),
     menu: {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary.dark,
       height: '100%',
     },
     list: {
@@ -141,10 +140,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       paddingBottom: 0,
     },
     subMenu: ({ drawerWidth }: StyleProps) => ({
-      backgroundColor: subMenuBackgroundColor,
+      backgroundColor: theme.palette.secondary.main,
       height: '100%',
       width: `${drawerWidth}rem`,
-      color: subMenuTextColor,
+      color: theme.palette.secondary.contrastText,
       '& .MuiListItem-root': {
         paddingTop: 3,
         paddingBottom: 3,
