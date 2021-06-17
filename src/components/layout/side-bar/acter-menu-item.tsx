@@ -47,7 +47,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
     >
       <Link href={acterAsUrl(acter, path)}>
         <ListItemIcon>
-          <Icon color="inherit" />
+          <Icon color="inherit" className={classes.icon} />
         </ListItemIcon>
         <ListItemText
           className={classes.itemText}

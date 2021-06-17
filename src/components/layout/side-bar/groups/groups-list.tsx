@@ -23,7 +23,9 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
       {acters.map((acter) => (
         <ListItem className={classes.item} key={acter.id}>
           <Link href={acterAsUrl(acter)}>
-            <Typography variant="body2"># {acter.name}</Typography>
+            <Typography className={classes.name} variant="body2">
+              # {acter.name}
+            </Typography>
           </Link>
         </ListItem>
       ))}
