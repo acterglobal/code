@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import { ActivityTile, ActivityTileProps } from 'src/components/activity/tile'
+import { ExampleActer } from 'src/__fixtures__'
 import {
   ExampleActivity,
   IdeaTypeActivity,
@@ -26,4 +27,38 @@ IdeaTile.args = {
 export const ProjectTile = Template.bind({})
 ProjectTile.args = {
   activity: ProjectTypeActivity,
+}
+
+export const SmallContent = Template.bind({})
+SmallContent.args = {
+  activity: {
+    ...ExampleActivity,
+    Acter: {
+      ...ExampleActer,
+      name: 'Small content',
+    },
+  },
+}
+export const MediumContent = Template.bind({})
+MediumContent.args = {
+  activity: {
+    ...ExampleActivity,
+    Acter: {
+      ...ExampleActer,
+      name: 'Medium activity content',
+    },
+  },
+}
+export const LargeContent = Template.bind({})
+LargeContent.args = {
+  activity: {
+    ...ExampleActivity,
+    Acter: {
+      ...ExampleActer,
+      name: 'Very Large activity content',
+      location: 'Aarhus Jutland Denmark very long location',
+    },
+
+    isOnline: '',
+  },
 }

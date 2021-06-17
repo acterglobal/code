@@ -48,32 +48,30 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       </Box>
 
       <Box className={classes.info}>
-        <Box>
-          <Typography className={classes.dateTime} variant="subtitle1">
-            {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
-          </Typography>
+        <Typography className={classes.dateTime} variant="subtitle1">
+          {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
+        </Typography>
 
-          <StyledTooltip
-            title={activity.Acter?.name}
-            disableHoverListener={!isOverflowed}
-            aria-label="tooltip"
+        <StyledTooltip
+          title={activity.Acter?.name}
+          disableHoverListener={!isOverflowed}
+          aria-label="tooltip"
+        >
+          <Typography
+            ref={textElementRef}
+            className={classes.name}
+            noWrap
+            variant="h6"
           >
-            <Typography
-              ref={textElementRef}
-              className={classes.name}
-              noWrap
-              variant="h6"
-            >
-              {activity.Acter?.name}
-            </Typography>
-          </StyledTooltip>
-          <Typography className={classes.location} variant="subtitle1">
-            {activity.isOnline ? 'Online' : activity.Acter?.location}
+            {activity.Acter?.name}
           </Typography>
-          <Typography className={classes.location} variant="subtitle1">
-            {activity.Organiser?.name}
-          </Typography>
-        </Box>
+        </StyledTooltip>
+        <Typography className={classes.location} variant="subtitle1">
+          {activity.isOnline ? 'Online' : activity.Acter?.location}
+        </Typography>
+        <Typography className={classes.location} variant="subtitle1">
+          {activity.Organiser?.name}
+        </Typography>
       </Box>
       <Box
         className={classes.activityType}
@@ -107,8 +105,16 @@ const useStyles = makeStyles((theme: Theme) =>
     info: {
       padding: theme.spacing(0.7),
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      maxWidth: '80%',
+      margin: 'auto',
+    },
+    container: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     dateTime: {
       fontSize: '0.6rem',
@@ -122,6 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
     location: {
       fontSize: '0.6rem',
       fontWeight: theme.typography.fontWeightLight,
+      overflow: 'scroll',
     },
     activityType: {
       position: 'absolute',
