@@ -18,11 +18,14 @@ export const useCreatePost = (
   acter: Acter,
   user: User,
   displayPostList: Post[],
-  setDisplayPostList: React.Dispatch<React.SetStateAction<Post[]>>
+  onComplete: (postList: Post[]) => void
 ): [HandleMethod, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
 
-  const createNewPostList = (newPost, displayPostList) => {
+  const createNewPostList = (
+    newPost: { parentId: string },
+    displayPostList: any[]
+  ) => {
     if (newPost.parentId !== null) {
       const newPostList = displayPostList.map((post) => {
         if (post.id === newPost.parentId) {
@@ -48,7 +51,8 @@ export const useCreatePost = (
 
         const newPostList = createNewPostList(newPost, displayPostList)
 
-        setDisplayPostList(newPostList)
+        onComplete(newPostList)
+
         cache.writeQuery({
           query: GET_POSTS,
           data: {
@@ -56,7 +60,7 @@ export const useCreatePost = (
           },
         })
       },
-      getSuccessMessage: () => 'Post created',
+      getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
     }
   )
 
