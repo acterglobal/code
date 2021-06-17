@@ -33,6 +33,7 @@ export const useCreatePost = (
         }
         return post
       })
+      return newPostList
     } else {
       const newPostList = [newPost, ...displayPostList]
       return newPostList
@@ -54,34 +55,6 @@ export const useCreatePost = (
             posts: newPostList,
           },
         })
-
-        // if (newPost.parentId !== null) {
-        //   const newPostList = displayPostsList.map((post) => {
-        //     if (post.id === newPost.parentId) {
-        //       return {
-        //         ...post,
-        //         Comments: [...post.Comments, newPost],
-        //       }
-        //     }
-        //     return post
-        //   })
-        //   setPosts(newPostList)
-        //   cache.writeQuery({
-        //     query: GET_POSTS,
-        //     data: {
-        //       posts: newPostList,
-        //     },
-        //   })
-        // } else {
-        //   const newPostList = [newPost, ...displayPostsList]
-        //   setPosts(newPostList)
-        //   cache.writeQuery({
-        //     query: GET_POSTS,
-        //     data: {
-        //       posts: newPostList,
-        //     },
-        //   })
-        // }
       },
       getSuccessMessage: () => 'Post created',
     }
