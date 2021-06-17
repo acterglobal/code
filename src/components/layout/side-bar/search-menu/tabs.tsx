@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
 import { SearchType } from 'src/constants'
-import { menuActiveTabColor, subMenuBackgroundColor } from 'src/themes/colors'
+import { menuActiveTabColor } from 'src/themes/colors'
 import Link from 'next/link'
 
 export interface SearchTabsProps {
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     activeTab: {
       height: '100%',
-      backgroundColor: subMenuBackgroundColor,
+      backgroundColor: theme.palette.secondary.main,
       color: 'white',
       fontWeight: theme.typography.fontWeightBold,
     },
