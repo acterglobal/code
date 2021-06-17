@@ -4,15 +4,19 @@ import { render, screen } from '@testing-library/react'
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { ExampleActer } from 'src/__fixtures__'
+import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 jest.mock('next/router')
+jest.mock('src/lib/acter/get-landing-page-tab')
 
 describe('ActerMenuItem', () => {
   const mockNextRouter = useRouter as jest.Mock
+  const mockGetLandingPageTab = getLandingPageTab as jest.Mock
 
   beforeEach(() => {
     mockNextRouter.mockClear()
     mockNextRouter.mockReturnValue({ query: {} })
+    mockGetLandingPageTab.mockReturnValue('foo')
   })
 
   it('should render an item', () => {
@@ -33,7 +37,7 @@ describe('ActerMenuItem', () => {
   })
 
   it('should display as selected when router tab matches path', () => {
-    const fooTab = 'activities'
+    const fooTab = 'foo'
     mockNextRouter.mockReturnValue({
       query: {
         tab: [fooTab],
@@ -47,7 +51,7 @@ describe('ActerMenuItem', () => {
   })
 
   it('should display first item as selected when tab prop not set', () => {
-    const fooTab = 'forum'
+    const fooTab = 'foo'
     mockNextRouter.mockReturnValue({
       query: {
         tab: [fooTab],
