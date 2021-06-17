@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: 50,
   },
   link: {
     display: 'flex',
@@ -37,7 +39,7 @@ export const TopBar: FC<TopBarProps> = ({ user }) => {
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <div style={{ height: 50 }}></div>
     </>
   )
 }

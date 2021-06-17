@@ -5,7 +5,6 @@ import {
   MoreVert as ThreeDotsIcon,
   Close as CloseIcon,
 } from '@material-ui/icons'
-import { grey } from '@material-ui/core/colors'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { Link } from 'src/components/util/anchor-link'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
@@ -73,8 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: grey[700],
-      color: grey[200],
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
     },
     heading: {
       marginLeft: theme.spacing(3),
@@ -87,8 +86,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'none',
       height: 30,
       fontSize: '0.8rem',
-      color: grey[200],
-      borderColor: grey[200],
+      color: theme.palette.secondary.contrastText,
+      borderColor: theme.palette.secondary.contrastText,
     },
     menuItem: {
       fontSize: '0.8rem',
@@ -97,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     threeDots: {
-      color: grey[200],
+      color: theme.palette.secondary.contrastText,
     },
   })
 )

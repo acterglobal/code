@@ -37,7 +37,7 @@ export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tabs: {
-      height: theme.spacing(5),
+      height: theme.spacing(4),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       cursor: 'pointer',
-      fontSize: theme.spacing(1.8),
+      fontSize: theme.spacing(1.5),
       textTransform: 'capitalize',
     },
     activeTab: {

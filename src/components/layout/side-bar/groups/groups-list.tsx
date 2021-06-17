@@ -42,7 +42,14 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         textTransform: 'capitalize',
+        '&:hover': {
+          color: '#fff',
+        },
       },
+    },
+    name: {
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
     },
   })
 )

@@ -26,7 +26,7 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
           <ActivityTypeIcon activityType={acterTypeName} />
         )}
         <Typography className={classes.typeName} variant="body2">
-          {acterTypeName}
+          {acterTypeName}s
         </Typography>
       </Box>
       <Switch
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(1.5),
     },
     type: {
       display: 'flex',
@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     typeName: {
       marginLeft: theme.spacing(2),
       fontWeight: theme.typography.fontWeightLight,
+      fontSize: theme.spacing(1.5),
       textTransform: 'capitalize',
     },
     icon: {

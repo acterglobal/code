@@ -69,7 +69,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                   width={535}
                   height={120}
                   initialValue={initialValues.content}
-                  // @ts-ignore
                   handleInputChange={(value) => setFieldValue('content', value)}
                   handleFocus={handleFocus}
                   clearTextEditor={clearText}
@@ -81,7 +80,7 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                   variant={post ? 'outlined' : 'contained'}
                   color="primary"
                   type="submit"
-                  style={{ color: post ? null : 'FFFFFF' }}
+                  style={{ color: post ? null : '#FFFFFF' }}
                 >
                   {post ? 'Comment' : 'Post'}
                 </Button>
@@ -98,6 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentContainer: {
       backgroundColor: 'white',
+      borderRadius: 7,
       width: '100%',
       display: 'flex',
       flexDirection: 'row',

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
     currentActer: {
-      backgroundColor: theme.palette.secondary[600],
+      backgroundColor: theme.palette.secondary.main,
     },
   })
 )
