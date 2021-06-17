@@ -50,7 +50,9 @@ export const Connect: FC<ConnectProps> = ({
     )
   }
 
-  const followers = getFollowers(user, acter)
+  const followers = getFollowers(user, acter).filter(
+    (follower) => follower.id !== acter.Activity.Organiser.id
+  )
   if (!followers.length) {
     return null
   }
