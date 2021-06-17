@@ -26,7 +26,7 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
           <ActivityTypeIcon activityType={acterTypeName} />
         )}
         <Typography className={classes.typeName} variant="body2">
-          {`${acterTypeName}s`}
+          ${acterTypeName}s
         </Typography>
       </Box>
       <Switch
