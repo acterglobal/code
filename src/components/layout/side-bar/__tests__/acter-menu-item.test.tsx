@@ -63,4 +63,14 @@ describe('ActerMenuItem', () => {
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
   })
+
+  it('should set inactive tab', () => {
+    mockGetLandingPageTab.mockReturnValue('bar')
+    render(<ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={'foo'} />)
+
+    expect(screen.getByRole('listitem')).toHaveAttribute(
+      'aria-current',
+      'false'
+    )
+  })
 })
