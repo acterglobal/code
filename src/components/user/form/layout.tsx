@@ -10,25 +10,23 @@ import { ProfileSettingsPages } from 'src/constants'
 
 export const ProfileFormLayout: FC = ({ children }) => {
   const router = useRouter()
-  const { INFO, INTERESTS } = ProfileSettingsPages
   // Get the value after the last /
-  const page = router.pathname.match(/\/([^/]*)$/)
-  const selectedPage = page?.length ? page[1] : page
+  const route = router.pathname.match(/\/([^/]*)$/)
+  const selectedPage = route?.length ? route[1] : route
   return (
     <SettingsContainer>
       <SettingsMenu>
-        <SettingsLinkMenuItem
-          href={`/profile/${INFO}`}
-          isActive={selectedPage === INFO}
-        >
-          {ProfileSettingsPages.INFO}
-        </SettingsLinkMenuItem>
-        <SettingsLinkMenuItem
-          href={`/profile/${INTERESTS}`}
-          isActive={selectedPage === INTERESTS}
-        >
-          {ProfileSettingsPages.INTERESTS}
-        </SettingsLinkMenuItem>
+        {Object.keys(ProfileSettingsPages).map((key) => {
+          const page = ProfileSettingsPages[key]
+          return (
+            <SettingsLinkMenuItem
+              href={`/profile/${page}`}
+              isActive={selectedPage === page}
+            >
+              {page}
+            </SettingsLinkMenuItem>
+          )
+        })}
       </SettingsMenu>
       <SettingsContent>{children}</SettingsContent>
     </SettingsContainer>
