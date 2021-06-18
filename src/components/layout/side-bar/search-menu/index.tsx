@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import {
   Box,
   createStyles,
@@ -8,15 +8,20 @@ import {
 } from '@material-ui/core'
 import { SearchIcon } from 'src/components/icons/search-icon'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
+import { useRouter } from 'next/router'
 import {
   SearchTypes,
   SearchTypesProps,
 } from 'src/components/layout/side-bar/search-menu/types'
+import { ActivityTypes } from 'src/constants'
+const { EVENT, IDEA, PROJECT } = ActivityTypes
 
 export type SearchMenuProps = SearchTypesProps
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
+  const router = useRouter()
+  const [filterSubTypes, setFilterSubTypes] = useState([IDEA])
 
   return (
     <Box className={classes.root}>
@@ -24,7 +29,12 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
 
       <SearchTabs activeTab={searchType} />
 
-      {/* <SearchTypes acterTypes={acterTypes} searchType={searchType} /> */}
+      <SearchTypes
+        acterTypes={acterTypes}
+        searchType={searchType}
+        filterSubTypes={filterSubTypes}
+        setFilterSubTypes={setFilterSubTypes}
+      />
     </Box>
   )
 }

@@ -9,15 +9,25 @@ import {
 import { Switch } from 'src/components/styled/switch'
 import { SearchType } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
-import { Size } from 'src/constants'
+import { Size, ActivityTypes } from 'src/constants'
 
 export interface TypeProps {
   activeTab: SearchType
   acterTypeName: string
+  filterSubTypes: ActivityTypes[]
+  setFilterSubTypes: any
 }
 
-export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
+export const Type: FC<TypeProps> = ({
+  activeTab,
+  acterTypeName,
+  filterSubTypes,
+  setFilterSubTypes,
+}) => {
   const classes = useStyles()
+  const handleChange = (params) => {
+    setFilterSubTypes([acterTypeName])
+  }
 
   return (
     <Box className={classes.root}>
@@ -32,8 +42,8 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
       <Switch
         name="events"
         size={Size.SMALL}
-        checked={true}
-        onChange={() => null}
+        checked={filterSubTypes.includes(acterTypeName)}
+        onChange={handleChange}
       />
     </Box>
   )
