@@ -12,7 +12,7 @@ export interface SearchTabsProps {
 export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
   const classes = useStyles()
   const { ACTERS, ACTIVITIES } = SearchType
-  const searchTypes = [ACTIVITIES, ACTERS]
+  const searchTypes = [ACTERS, ACTIVITIES]
 
   return (
     <Box className={classes.tabs}>
@@ -44,16 +44,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tab: {
       width: '100%',
+      height: '100%',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       cursor: 'pointer',
       fontSize: theme.spacing(1.5),
       textTransform: 'capitalize',
+      backgroundColor: menuActiveTabColor,
     },
     activeTab: {
       height: '100%',
-      backgroundColor: menuActiveTabColor,
+      backgroundColor: theme.palette.secondary.main,
       color: 'white',
       fontWeight: theme.typography.fontWeightBold,
     },
