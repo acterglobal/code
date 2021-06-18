@@ -1,8 +1,8 @@
 #import "../fragments/link-display.fragment.graphql"
 
-mutation UpdateLink($linkId: String!, $name: String, $url: String) {
+mutation UpdateLink($id: String!, $name: String, $url: String) {
   updateLink(
-    where: { id: $linkId }
+    where: { id: $id }
     data: { name: { set: $name }, url: { set: $url } }
   ) {
     ...LinkDisplay
