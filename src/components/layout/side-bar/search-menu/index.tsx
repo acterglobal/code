@@ -13,14 +13,18 @@ import {
   SearchTypes,
   SearchTypesProps,
 } from 'src/components/layout/side-bar/search-menu/types'
+import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
 
 export type SearchMenuProps = SearchTypesProps
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
   const router = useRouter()
+  const subTypes = acterTypes.filter(
+    (type) => ![ACTIVITY, GROUP, USER].includes(type.name)
+  )
   const [filterSubTypes, setFilterSubTypes] = useState(
-    acterTypes.map((type) => type.name)
+    subTypes.map((type) => type.name)
   )
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
       <SearchTabs activeTab={searchType} />
 
       <SearchTypes
-        acterTypes={acterTypes}
+        acterTypes={subTypes}
         searchType={searchType}
         filterSubTypes={filterSubTypes}
         setFilterSubTypes={setFilterSubTypes}

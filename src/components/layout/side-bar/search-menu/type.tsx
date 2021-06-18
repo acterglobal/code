@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
 import {
   Box,
   createStyles,
@@ -9,14 +9,16 @@ import {
 import { Switch } from 'src/components/styled/switch'
 import { SearchType } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
-import { Size, ActivityTypes } from 'src/constants'
+import { Size } from 'src/constants'
 import { remove } from 'lodash'
 
-export interface TypeProps {
+export interface SearchTypeProps {
+  filterSubTypes: string[]
+  setFilterSubTypes: Dispatch<SetStateAction<string[]>>
+}
+export interface TypeProps extends SearchTypeProps {
   activeTab: SearchType
   acterTypeName: string
-  filterSubTypes: ActivityTypes[]
-  setFilterSubTypes: any
 }
 
 export const Type: FC<TypeProps> = ({

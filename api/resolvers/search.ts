@@ -56,11 +56,7 @@ type ActivityTypeNameInClause = {
 }
 
 type ActivityTypeNameFilter = {
-  Interest: ActivityTypeNameInClause
-}
-
-type EveryActivityTypeClause = {
-  some: ActivityTypeNameFilter
+  ActivityType: ActivityTypeNameInClause
 }
 
 type ActivitySearchWhereClause = {
@@ -127,19 +123,19 @@ const withInterestsFilter = (interestNames: [string]) => (
 const withActivityTypesFilter = (activityTypes: [string]) => (
   whereClause: ActivitySearchWhereClause
 ) => {
-  if (activityTypes && activityTypes.length > 0) {
-    return {
-      ...whereClause,
-      Activity: {
-        ActivityType: {
-          name: {
-            in: activityTypes,
-            mode: 'insensitive',
-          },
+  // if (activityTypes && activityTypes.length > 0) {
+  return {
+    ...whereClause,
+    Activity: {
+      ActivityType: {
+        name: {
+          in: activityTypes,
+          mode: 'insensitive',
         },
       },
-    }
+    },
   }
+  // }
   return whereClause
 }
 
@@ -167,7 +163,7 @@ export class SearchResolver {
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
       withInterestsFilter(interests),
-      withActivityTypesFilter(types)
+      withActivityTypesFilter(types || [])
     )
 
     return ctx.prisma.acter.findMany({
