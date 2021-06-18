@@ -27,6 +27,7 @@ export const ExampleActer: Acter = {
   createdByUserId: ExampleUser.id,
   Following: [],
   acterJoinSetting: ActerJoinSettings.EVERYONE,
+  acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
 }
 
 export const ExampleUserActer: Acter = {
