@@ -13,15 +13,15 @@ import {
   SearchTypes,
   SearchTypesProps,
 } from 'src/components/layout/side-bar/search-menu/types'
-import { ActivityTypes } from 'src/constants'
-const { EVENT, IDEA, PROJECT } = ActivityTypes
 
 export type SearchMenuProps = SearchTypesProps
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [filterSubTypes, setFilterSubTypes] = useState([EVENT, IDEA, PROJECT])
+  const [filterSubTypes, setFilterSubTypes] = useState(
+    acterTypes.map((type) => type.name)
+  )
 
   useEffect(() => {
     router.push({

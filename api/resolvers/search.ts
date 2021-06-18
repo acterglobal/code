@@ -9,6 +9,8 @@ import {
 import { ACTIVITY } from 'src/constants'
 import { ActivityTypes } from 'src/constants/activity-types'
 
+const { EVENT, IDEA, PROJECT } = ActivityTypes
+
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
 })
