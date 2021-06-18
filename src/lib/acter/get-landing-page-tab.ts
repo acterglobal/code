@@ -1,7 +1,7 @@
 import { NextRouter } from 'next/router'
 import { ActerMenu } from 'src/constants'
 
-const { ACTIVITIES, MEMBERS, FEED, FORUM, SETTINGS } = ActerMenu
+const { ACTIVITIES, MEMBERS, FORUM, SETTINGS } = ActerMenu
 
 export const getLandingPageTab = (
   router: NextRouter,
@@ -20,7 +20,6 @@ export const getLandingPageTab = (
   switch (tab) {
     case ACTIVITIES:
     case MEMBERS:
-    case FEED:
     case FORUM:
       return tab
     default:

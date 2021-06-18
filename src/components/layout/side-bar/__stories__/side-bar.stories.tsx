@@ -19,7 +19,7 @@ export default {
   parameters: {
     query: {
       slug: ExampleActer.slug,
-      tab: ['feed'],
+      tab: ['forum'],
     },
   },
 } as Meta

@@ -1,6 +1,5 @@
 export enum ActerMenu {
   ACTIVITIES = 'activities',
-  FEED = 'feed',
   FORUM = 'forum',
   MEMBERS = 'members',
   SETTINGS = 'settings',
