@@ -122,7 +122,7 @@ const withInterestsFilter = (interestNames: [string]) => (
   return whereClause
 }
 
-const withActivityTypesFilter = (activityTypes: [ActivityTypes]) => (
+const withActivityTypesFilter = (activityTypes: [string]) => (
   whereClause: ActivitySearchWhereClause
 ) => {
   if (activityTypes && activityTypes.length > 0) {
@@ -149,6 +149,7 @@ export class SearchResolver {
     @Arg('searchText', { nullable: true }) searchText: string,
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
+    @Arg('types', () => [String], { nullable: true }) types: [string],
     @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
@@ -164,7 +165,7 @@ export class SearchResolver {
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
       withInterestsFilter(interests),
-      withActivityTypesFilter(['event'])
+      withActivityTypesFilter(['event', 'idea'])
     )
 
     return ctx.prisma.acter.findMany({

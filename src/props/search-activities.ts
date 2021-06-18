@@ -8,17 +8,21 @@ export type SearchVariablesType = {
   searchText: string | string[]
   interests?: string[]
   sortBy?: SearchActivitiesSortBy
+  types?: string[]
 }
 
 export const searchActivities: ComposedGetServerSideProps = async ({
   query,
 }) => {
-  const { search: searchText, interests } = query
+  const { search: searchText, interests, types } = query
 
   const searchVariables: SearchVariablesType = { searchText }
 
   if (interests) {
     searchVariables.interests = (<string>interests).split(',')
+  }
+  if (types) {
+    searchVariables.types = (<string>types).split(',')
   }
 
   const sortBy = Array.isArray(query.sortBy) ? query.sortBy.pop() : query.sortBy

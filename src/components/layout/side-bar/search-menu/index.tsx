@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import {
   Box,
   createStyles,
@@ -21,7 +21,17 @@ export type SearchMenuProps = SearchTypesProps
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [filterSubTypes, setFilterSubTypes] = useState([IDEA])
+  const [filterSubTypes, setFilterSubTypes] = useState([EVENT, IDEA, PROJECT])
+
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        types: filterSubTypes.length > 0 ? filterSubTypes.join(',') : '',
+      },
+    })
+  }, [filterSubTypes])
 
   return (
     <Box className={classes.root}>

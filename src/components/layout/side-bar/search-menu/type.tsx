@@ -10,6 +10,7 @@ import { Switch } from 'src/components/styled/switch'
 import { SearchType } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
 import { Size, ActivityTypes } from 'src/constants'
+import { remove } from 'lodash'
 
 export interface TypeProps {
   activeTab: SearchType
@@ -25,8 +26,16 @@ export const Type: FC<TypeProps> = ({
   setFilterSubTypes,
 }) => {
   const classes = useStyles()
-  const handleChange = (params) => {
-    setFilterSubTypes([acterTypeName])
+
+  const handleChange = () => {
+    const newFilterSubTypes = [...filterSubTypes]
+
+    if (newFilterSubTypes.includes(acterTypeName)) {
+      remove(newFilterSubTypes, (item) => item === acterTypeName)
+      setFilterSubTypes([...newFilterSubTypes])
+    } else {
+      setFilterSubTypes([...newFilterSubTypes, acterTypeName])
+    }
   }
 
   return (
