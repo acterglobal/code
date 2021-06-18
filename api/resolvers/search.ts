@@ -165,7 +165,7 @@ export class SearchResolver {
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
       withInterestsFilter(interests),
-      withActivityTypesFilter(['event', 'idea'])
+      withActivityTypesFilter(types)
     )
 
     return ctx.prisma.acter.findMany({
