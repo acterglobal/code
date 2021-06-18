@@ -5,11 +5,10 @@ fragment ActerDisplay on Acter {
   slug
   url
   location
-  useAdmins
   avatarUrl
   bannerUrl
-  useAdmins
   acterJoinSetting
+  acterNotifySetting
   ActerType {
     id
     name

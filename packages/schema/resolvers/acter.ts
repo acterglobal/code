@@ -5,6 +5,7 @@ import {
   Acter,
   ActerConnectionRole,
   ActerJoinSettings,
+  ActerNotificationSettings,
   Activity,
 } from '@acter/schema/types'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
@@ -132,6 +133,10 @@ export class ActerResolver {
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
+    @Arg('acterNotifySetting', () => ActerNotificationSettings, {
+      nullable: true,
+    })
+    acterNotifySetting: ActerNotificationSettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -189,13 +194,13 @@ export class ActerResolver {
         followerActerId,
         createdByUserId: currentUser.id,
       }))
-    const newFollowerIdMap = followerIds.reduce(
-      (map, id) => ({
-        ...map,
-        [id]: true,
-      }),
-      {}
-    )
+    // const newFollowerIdMap = followerIds.reduce(
+    //   (map, id) => ({
+    //     ...map,
+    //     [id]: true,
+    //   }),
+    //   {}
+    // )
     // Every current/db followerActer that does not occurr in the new list
     // const deleteFollowers = acter.Followers.filter(
     //   ({ followerActerId }) => !newFollowerIdMap[followerActerId]
@@ -209,6 +214,7 @@ export class ActerResolver {
         url,
         useAdmins,
         acterJoinSetting,
+        acterNotifySetting,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -288,7 +294,12 @@ export class ActerResolver {
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
-    @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
+    @Arg('acterNotifySetting', () => ActerNotificationSettings, {
+      nullable: true,
+    })
+    acterNotifySetting: ActerNotificationSettings,
+    @Arg('bannerUrl', { nullable: true })
+    bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
     @Arg('endAt') endAt: Date,
@@ -308,6 +319,7 @@ export class ActerResolver {
       url,
       useAdmins,
       acterJoinSetting,
+      acterNotifySetting,
       null,
       bannerUrl,
       interestIds,
