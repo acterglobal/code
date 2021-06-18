@@ -42,6 +42,7 @@ import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY, GROUP } from 'src/constants'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
+import { updateActerGroups } from 'src/lib/group/update-acter-groups'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -231,8 +232,16 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   }
 
   const View = getActerView(displayActer)
-  const [createActer] = useCreateActer(displayActer)
-  const [updateActer] = useUpdateActer(displayActer, setDisplayActer)
+
+  const [createGroup] = useCreateActer({
+    onCompleted: ({ createActer }) => {
+      setDisplayActer(updateActerGroups(displayActer, createActer))
+    },
+  })
+  const [updateGroup] = useUpdateActer(displayActer, {
+    onCompleted: ({ updateActer }) =>
+      setDisplayActer(updateActerGroups(displayActer, updateActer)),
+  })
 
   return (
     <Layout
@@ -241,7 +250,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       }
       acterTypes={acterTypes}
       user={user}
-      onGroupSubmit={createActer}
+      onGroupSubmit={createGroup}
       links={links}
     >
       <Head title={`${acter.name} - Acter`} />
@@ -254,7 +263,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={handlePost}
-        onGroupSubmit={updateActer}
+        onGroupSubmit={updateGroup}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
         loading={creatingConnection || deletingConnection || updatingConnection}
       />

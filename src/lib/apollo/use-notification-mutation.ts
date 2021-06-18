@@ -9,7 +9,8 @@ import {
 } from '@apollo/client'
 import { useSnackbar } from 'notistack'
 
-interface UseMutationOptions<TData, TVariables> extends MutationHookOptions {
+export interface UseMutationOptions<TData, TVariables>
+  extends MutationHookOptions<TData, TVariables> {
   variables?: TVariables
   getErrorMessage?: (data: ApolloError) => string
   getSuccessMessage?: (data: TData) => string
@@ -22,17 +23,17 @@ interface UseMutationOptions<TData, TVariables> extends MutationHookOptions {
  * @param options Apollo mutation options
  * @returns The same thing that ApolloGraphQL's useMutation() function does
  */
-export function useNotificationMutation<
+export const useNotificationMutation = <
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   TData = any,
   TVariables = OperationVariables
 >(
   mutation: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: UseMutationOptions<TData, TVariables>
-): MutationTuple<TData, TVariables> {
+): MutationTuple<TData, TVariables> => {
   const { enqueueSnackbar } = useSnackbar()
   const { getErrorMessage, getSuccessMessage, ...restOptions } = options || {}
-  return useMutation(mutation, {
+  return useMutation<TData, OperationVariables>(mutation, {
     ...restOptions,
     onError: (err) => {
       const message =

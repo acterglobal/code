@@ -26,6 +26,7 @@ import DELETE_LINK from 'api/mutations/delete-link.graphql'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+import { updateActerGroups } from 'src/lib/group/update-acter-groups'
 
 interface ActerSettingsPageProps {
   acter: Acter
@@ -42,10 +43,17 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayLinks, setDisplayLinks] = useState(links)
-  const [createActer] = useCreateActer(displayActer)
-  const [updateActer, { loading: acterUpdateLoading }] = useUpdateActer(
+  const [createGroup] = useCreateActer({
+    onCompleted: ({ createActer }) => {
+      setDisplayActer(updateActerGroups(displayActer, createActer))
+    },
+  })
+  const [updateGroup, { loading: updateGroupLoading }] = useUpdateActer(
     displayActer,
-    setDisplayActer
+    {
+      onCompleted: ({ updateActer }) =>
+        setDisplayActer(updateActerGroups(displayActer, updateActer)),
+    }
   )
 
   const [createLink] = useNotificationMutation(CREATE_LINK, {
@@ -132,15 +140,15 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
       acter={displayActer}
       acterTypes={acterTypes}
       user={user}
-      onGroupSubmit={createActer}
+      onGroupSubmit={createGroup}
       links={displayLinks}
     >
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
           acter={displayActer}
-          onSettingsChange={updateActer}
-          loading={acterUpdateLoading}
+          onSettingsChange={updateGroup}
+          loading={updateGroupLoading}
           links={displayLinks}
           onLinkSubmit={handleLinks}
           onLinkDelete={handleDeleteLink}
