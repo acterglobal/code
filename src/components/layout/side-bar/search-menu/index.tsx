@@ -24,7 +24,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
 
       <SearchTabs activeTab={searchType} />
 
-      <SearchTypes acterTypes={acterTypes} searchType={searchType} />
+      {/* <SearchTypes acterTypes={acterTypes} searchType={searchType} /> */}
     </Box>
   )
 }
