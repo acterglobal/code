@@ -33,6 +33,7 @@ export const SmallContent = Template.bind({})
 SmallContent.args = {
   activity: {
     ...ExampleActivity,
+    endAt: new Date().getDate() + 10,
     Acter: {
       ...ExampleActer,
       name: 'Small content',
@@ -45,7 +46,7 @@ MediumContent.args = {
     ...ExampleActivity,
     Acter: {
       ...ExampleActer,
-      name: 'Medium activity content',
+      name: 'Medium activity title goes here more',
     },
   },
 }
@@ -55,7 +56,7 @@ LargeContent.args = {
     ...ExampleActivity,
     Acter: {
       ...ExampleActer,
-      name: 'Very Large activity content',
+      name: 'Very very very very very long title for this activity content',
       location: 'Aarhus Jutland Denmark very long location',
     },
 
