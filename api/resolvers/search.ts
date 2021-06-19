@@ -52,14 +52,14 @@ type ActivityTypeNameInClause = {
   name: InClause
 }
 
-type ActivityTypeNameFilter = {
+type ActivityTypeNameFilterClause = {
   ActivityType: ActivityTypeNameInClause
 }
 
 type ActivitySearchWhereClause = {
   name?: ActivityNameWhereClause
   deletedAt?: EqualsClause
-  Activity?: ActivityEndsBeforeClause | ActivityTypeNameFilter
+  Activity?: ActivityEndsBeforeClause | ActivityTypeNameFilterClause
   ActerInterests?: EveryActerInterestClause
   ActerType?: Record<'name', 'activity'>
 }
