@@ -21,9 +21,7 @@ export const searchActivities: ComposedGetServerSideProps = async ({
   if (interests) {
     searchVariables.interests = (<string>interests).split(',')
   }
-  if (types) {
-    searchVariables.types = (<string>types).split(',')
-  }
+  searchVariables.types = types ? (<string>types).split(',') : []
 
   const sortBy = Array.isArray(query.sortBy) ? query.sortBy.pop() : query.sortBy
   searchVariables.sortBy =

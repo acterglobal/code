@@ -7,9 +7,6 @@ import {
   SearchActivitiesSortBy,
 } from 'src/lib/api/resolvers/get-order-by'
 import { ACTIVITY } from 'src/constants'
-import { ActivityTypes } from 'src/constants/activity-types'
-
-const { EVENT, IDEA, PROJECT } = ActivityTypes
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
@@ -62,7 +59,7 @@ type ActivityTypeNameFilter = {
 type ActivitySearchWhereClause = {
   name?: ActivityNameWhereClause
   deletedAt?: EqualsClause
-  Activity?: ActivityEndsBeforeClause
+  Activity?: ActivityEndsBeforeClause | ActivityTypeNameFilter
   ActerInterests?: EveryActerInterestClause
   ActerType?: Record<'name', 'activity'>
 }
@@ -122,8 +119,7 @@ const withInterestsFilter = (interestNames: [string]) => (
 
 const withActivityTypesFilter = (activityTypes: [string]) => (
   whereClause: ActivitySearchWhereClause
-) => {
-  // if (activityTypes && activityTypes.length > 0) {
+): ActivitySearchWhereClause => {
   return {
     ...whereClause,
     Activity: {
@@ -135,8 +131,6 @@ const withActivityTypesFilter = (activityTypes: [string]) => (
       },
     },
   }
-  // }
-  return whereClause
 }
 
 @Resolver(Acter)
@@ -163,7 +157,7 @@ export class SearchResolver {
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
       withInterestsFilter(interests),
-      withActivityTypesFilter(types || [])
+      withActivityTypesFilter(types)
     )
 
     return ctx.prisma.acter.findMany({
