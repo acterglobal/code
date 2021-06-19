@@ -9,17 +9,20 @@ import {
 import { SearchIcon } from 'src/components/icons/search-icon'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
 import { useRouter } from 'next/router'
-import {
-  SearchTypes,
-  SearchTypesProps,
-} from 'src/components/layout/side-bar/search-menu/types'
+import { SearchTypes } from 'src/components/layout/side-bar/search-menu/types'
 import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
+import { ActerType, ActivityType } from '@schema'
+import { SearchType } from 'src/constants'
 
-export type SearchMenuProps = SearchTypesProps
+export interface SearchMenuProps {
+  acterTypes: (ActerType | ActivityType)[]
+  searchType: SearchType
+}
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
   const router = useRouter()
+
   const subTypes = acterTypes.filter(
     (type) => ![ACTIVITY, GROUP, USER].includes(type.name)
   )
