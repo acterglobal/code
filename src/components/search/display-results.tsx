@@ -5,7 +5,7 @@ import { Acter } from '@schema'
 import { ActivityTile } from 'src/components/activity/tile'
 import { ActerTile } from 'src/components/acter/tile'
 import { SearchType } from 'src/constants'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Link } from 'src/components/util/anchor-link'
 import clsx from 'clsx'
 

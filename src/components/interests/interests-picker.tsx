@@ -2,8 +2,8 @@ import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from 'src/components/interests/interest-types'
-import { getTopLevelTypes } from 'src/lib/interests/get-toplevel-types'
-import { getSelectedTypes } from 'src/lib/interests/get-selected-types'
+import { getTopLevelTypes } from '@acter/lib/interests/get-toplevel-types'
+import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
 import { InterestType } from '@schema'
 
 export interface InterestsPickerProps {

@@ -5,7 +5,7 @@ import { FollowersAvatars } from 'src/components/acter/followers-avatars'
 import { InterestsSection } from 'src/components/interests/interests-section'
 import { useRouter } from 'next/router'
 import { Acter, InterestType } from '@schema'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 export interface InfoSectionProps {
   acter: Acter
   interestTypes: InterestType[]

@@ -13,7 +13,7 @@ import {
   ActivitiesIcon,
   SettingsIcon,
 } from 'src/components/icons'
-import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'

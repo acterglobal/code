@@ -4,10 +4,10 @@ import { render, screen } from '@testing-library/react'
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { ExampleActer } from 'src/__fixtures__'
-import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
+import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 
 jest.mock('next/router')
-jest.mock('src/lib/acter/get-landing-page-tab')
+jest.mock('@acter/lib/acter/get-landing-page-tab')
 
 describe('ActerMenuItem', () => {
   const mockNextRouter = useRouter as jest.Mock

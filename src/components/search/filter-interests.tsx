@@ -6,7 +6,7 @@ import { InterestsPicker } from 'src/components/interests/interests-picker'
 import { InterestType } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Popover } from 'src/components/util/popover'
-import { interestNameMap } from 'src/lib/interests/map-interest-name'
+import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 
 export type FilterInterestsProps = {
   interestTypes: InterestType[]

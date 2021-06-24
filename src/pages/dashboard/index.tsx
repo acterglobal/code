@@ -2,7 +2,10 @@ import React from 'react'
 import { NextPage } from 'next'
 import { User } from '@schema'
 
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 import { getUserProfile } from 'src/props'
 
 import { Layout } from 'src/components/layout'

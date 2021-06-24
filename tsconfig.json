@@ -19,7 +19,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "*": ["*", "src/*"]
+      "@acter/*": ["packages/*"],
+      "*": ["*", "src/*"],
     }
   },
   "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"],

@@ -14,8 +14,8 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { AddActivityButton } from 'src/components/activity/add-activity-button'
-import { getImageUrl } from 'src/lib/images/get-image-url'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 //  ? custom styles
 const useStyles = makeStyles((theme: Theme) =>

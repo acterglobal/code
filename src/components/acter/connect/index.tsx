@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { getFollowers } from 'src/lib/acter/get-followers'
+import { getFollowers } from '@acter/lib/acter/get-followers'
 import { ConnectButton } from 'src/components/acter/connect/connect-button'
 import { FollowerRow } from 'src/components/acter/connect/follower-row'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'

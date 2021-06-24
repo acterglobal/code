@@ -1,7 +1,7 @@
-jest.mock('src/lib/apollo')
+jest.mock('@acter/lib/apollo')
 
-import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
-import { addApolloState, initializeApollo } from 'src/lib/apollo'
+import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
+import { addApolloState, initializeApollo } from '@acter/lib/apollo'
 import { getActerTypes } from 'src/props/get-acter-types'
 import { ActerTypes } from 'src/constants'
 import {

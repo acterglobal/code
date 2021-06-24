@@ -3,7 +3,10 @@ import { NextPage } from 'next'
 import { Head } from 'src/components/layout/head'
 import { Layout } from 'src/components/layout'
 import { Search } from 'src/components/search'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 import {
   getUserProfile,
   searchActivities,

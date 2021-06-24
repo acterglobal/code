@@ -11,7 +11,10 @@ import {
   setActerType,
   getActer,
 } from 'src/props'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 
 import { ActerDeleteConfirmDialog } from 'src/components/acter/delete-confirm-dialog'
 

@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Box, Grid } from '@material-ui/core'
-import { getActerConnection } from 'src/lib/acter/get-acter-connection'
+import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { AvatarGrid } from 'src/components/acter/connect/avatar-grid'
 import { MenuItem } from 'src/components/acter/connect/menu-item'

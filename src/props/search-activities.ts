@@ -1,8 +1,8 @@
-import { ComposedGetServerSideProps } from 'lib/compose-props'
-import { initializeApollo, addApolloState } from 'src/lib/apollo'
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 import { Acter } from '@schema'
 import SEARCH_ACTIVITIES from 'api/queries/activities-search.graphql'
-import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
+import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 
 export type SearchVariablesType = {
   searchText: string | string[]

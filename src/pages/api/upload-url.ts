@@ -1,7 +1,7 @@
 import aws from 'aws-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from '@auth0/nextjs-auth0'
-import { initSentry } from 'src/lib/sentry'
+import { initSentry } from '@acter/lib/sentry'
 
 initSentry()
 

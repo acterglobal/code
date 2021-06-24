@@ -1,16 +1,19 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { getUpdateFunction } from 'src/lib/acter/get-update-function'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ActerForm } from 'src/components/acter/form'
 import { ActivityForm } from 'src/components/activity/form'
 
-import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
-import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 
 import {
   getUserProfile,

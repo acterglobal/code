@@ -1,13 +1,13 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { ActerGraphQLContext } from 'src/contexts/graphql-api'
-import { getCurrentUserFromContext } from 'src/lib/user/get-current-user-from-context'
+import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import {
   Acter,
   ActerConnectionRole,
   ActerJoinSettings,
   Activity,
 } from '@schema'
-import { createSlug } from 'src/lib/acter/create-acter-slug'
+import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from 'src/constants'
 
 const { ACTIVITY, USER, GROUP } = ActerTypes

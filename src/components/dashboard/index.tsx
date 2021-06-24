@@ -6,7 +6,7 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core'
-import { flattenFollowing } from 'src/lib/acter/flatten-following'
+import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { ActerListByType } from 'src/components/acter/list-by-type'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
 

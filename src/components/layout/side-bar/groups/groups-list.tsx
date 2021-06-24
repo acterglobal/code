@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import { Acter } from '@schema'
 import { Link } from 'src/components/util/anchor-link'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 export interface GroupsList {
   acters: Acter[]

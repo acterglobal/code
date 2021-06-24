@@ -5,8 +5,8 @@ import { Form, Formik } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { getFollowers } from 'src/lib/acter/get-followers'
-import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
+import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import {
   ActivityTypeStep,
   ActivityTypeStepProps,

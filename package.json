@@ -7,6 +7,9 @@
   "author": "Damon Toal-Rossi <damon@vestervand.com>",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "env-cmd --silent next dev",
     "build": "env-cmd --silent next build",

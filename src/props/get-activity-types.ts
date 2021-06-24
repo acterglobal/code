@@ -1,5 +1,5 @@
-import { ComposedGetServerSideProps } from 'lib/compose-props'
-import { initializeApollo } from 'src/lib/apollo'
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { initializeApollo } from '@acter/lib/apollo'
 
 import { ActivityType } from '@schema'
 

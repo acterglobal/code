@@ -1,4 +1,4 @@
-import { ComposedGetServerSidePropsContext } from 'src/lib/compose-props'
+import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
 
 import {
   GroupActerType,

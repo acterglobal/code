@@ -6,7 +6,7 @@ import { GroupForm as AddGroup } from 'src/components/group/form'
 import { GroupsList } from 'src/components/layout/side-bar/groups/groups-list'
 import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
 import { ActerTypes } from 'src/constants'
-import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 export interface GroupsSectionProps {
   acter: Acter
   user: User

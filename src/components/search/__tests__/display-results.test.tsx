@@ -7,7 +7,7 @@ import {
 } from 'src/__fixtures__'
 import { DisplayResults } from 'src/components/search/display-results'
 import { SearchType } from 'src/constants'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 const { ACTIVITIES, ACTERS } = SearchType
 

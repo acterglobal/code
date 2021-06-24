@@ -5,7 +5,7 @@ import { Acter } from '@schema'
 import {
   getOrderBy,
   SearchActivitiesSortBy,
-} from 'src/lib/api/resolvers/get-order-by'
+} from '@acter/lib/api/resolvers/get-order-by'
 import { ActerTypes } from 'src/constants'
 
 registerEnumType(SearchActivitiesSortBy, {
