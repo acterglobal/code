@@ -6,8 +6,6 @@ import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 import { DatePickerField } from '@acter/components/util/pickers/date-picker-field'
 import { TimePickerField } from '@acter/components/util/pickers/time-picker-field'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
 
 export interface StartEndTimeDatePickerValues {
   isAllDay: boolean
@@ -20,51 +18,49 @@ export interface StartEndTimeDatePickerValues {
 export const StartEndTimeDatePicker: FC = () => {
   const { values } = useFormikContext<StartEndTimeDatePickerValues>()
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <DatePickerField
-            placeholder="Start Date"
-            name="startDate"
-            required={true}
-          />
-        </Grid>
-        {!values.isAllDay && (
-          <Grid item xs={6}>
-            <TimePickerField
-              placeholder="Start Time"
-              name="startTime"
-              required={true}
-            />
-          </Grid>
-        )}
-
-        <Grid item xs={6}>
-          <DatePickerField
-            placeholder="End Date"
-            name="endDate"
-            required={true}
-          />
-        </Grid>
-        {!values.isAllDay && (
-          <Grid item xs={6}>
-            <TimePickerField
-              placeholder="End Time"
-              name="endTime"
-              required={true}
-            />
-          </Grid>
-        )}
-        <Grid item xs={12}>
-          <Field
-            component={CheckboxWithLabel}
-            type="checkbox"
-            name="isAllDay"
-            Label={{ label: 'All day activity', style: { color: grey[700] } }}
-            inputProps={{ 'aria-label': 'all day activity' }}
-          />
-        </Grid>
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <DatePickerField
+          placeholder="Start Date"
+          name="startDate"
+          required={true}
+        />
       </Grid>
-    </MuiPickersUtilsProvider>
+      {!values.isAllDay && (
+        <Grid item xs={6}>
+          <TimePickerField
+            placeholder="Start Time"
+            name="startTime"
+            required={true}
+          />
+        </Grid>
+      )}
+
+      <Grid item xs={6}>
+        <DatePickerField
+          placeholder="End Date"
+          name="endDate"
+          required={true}
+        />
+      </Grid>
+      {!values.isAllDay && (
+        <Grid item xs={6}>
+          <TimePickerField
+            placeholder="End Time"
+            name="endTime"
+            required={true}
+          />
+        </Grid>
+      )}
+      <Grid item xs={12}>
+        <Field
+          component={CheckboxWithLabel}
+          type="checkbox"
+          name="isAllDay"
+          Label={{ label: 'All day activity', style: { color: grey[700] } }}
+          inputProps={{ 'aria-label': 'all day activity' }}
+        />
+      </Grid>
+    </Grid>
   )
 }
