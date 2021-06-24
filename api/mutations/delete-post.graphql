@@ -1,0 +1,11 @@
+#import "../fragments/post-display.fragment.graphql"
+
+mutation DeletePost($postId: String!) {
+  deleteManyPost(
+    where: {
+      OR: [{ id: { equals: $postId } }, { parentId: { equals: $postId } }]
+    }
+  ) {
+    count
+  }
+}

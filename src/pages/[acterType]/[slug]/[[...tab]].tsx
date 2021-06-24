@@ -43,6 +43,7 @@ import { ACTIVITY, GROUP } from 'src/constants'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
+import { useDeletePost } from 'src/lib/post/use-delete-post'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -242,6 +243,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: ({ updateActer }) =>
       setDisplayActer(updateActerGroups(displayActer, updateActer)),
   })
+
+  const [deletePost] = useDeletePost(displayPostList, (postList) =>
+    setDisplayPostList(postList)
+  )
 
   return (
     <Layout
