@@ -27,6 +27,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   onLeave,
   loading,
   onPostSubmit,
+  onPostDelete,
 }) => {
   const classes = useStyles()
 
@@ -89,6 +90,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
           acter={acter}
           posts={posts}
           onPostSubmit={onPostSubmit}
+          onPostDelete={onPostDelete}
         />
       </Box>
     </Modal>
