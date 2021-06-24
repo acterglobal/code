@@ -7,10 +7,22 @@ import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 import { Acter } from '@acter/schema/types'
 
-export type HandleMethod = (
-  acter: Acter
+export type ActerVariables = Acter & {
+  acterId?: string
+  interestIds: string[]
+  followerIds: string
+}
+
+type CreateActerData = {
+  createActer: Acter
+}
+
+type CreateActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
+
+export type HandleMethod<TData> = (
+  acter: ActerVariables
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => Promise<FetchResult<any, Record<string, any>, Record<string, any>>>
+) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
 
 /**
  * Custom hook that creates new acter
@@ -19,31 +31,36 @@ export type HandleMethod = (
  * @returns mutation results from apollo
  */
 export const useCreateActer = (
-  acter: Acter
-): [HandleMethod, MutationResult] => {
-  const [createActer, mutationResult] = useNotificationMutation(ACTER_CREATE, {
-    update: (cache, { data }) => {
-      acter.ActerType.name === ActerTypes.GROUP
-        ? acter.Parent.Children.push(data.createActer)
-        : acter.Children.push(data.createActer)
+  options?: CreateActerOptions
+): [HandleMethod<CreateActerData>, MutationResult] => {
+  const [createActer, mutationResult] = useNotificationMutation<
+    CreateActerData,
+    ActerVariables
+  >(ACTER_CREATE, {
+    ...options,
+    update: (cache, result) => {
+      typeof options?.update === 'function' && options.update(cache, result)
+      const {
+        data: { createActer },
+      } = result
 
       cache.writeQuery({
         query: GET_ACTER,
         data: {
-          getActer: acter,
+          getActer: createActer,
         },
       })
     },
-    getSuccessMessage: (data) => `${data.createActer.name} group created`,
+    getSuccessMessage: (data: CreateActerData) =>
+      `${data.createActer.name} group created`,
   })
 
-  const handleCreateActer = (acter: Acter) =>
+  const handleCreateActer = (acter: ActerVariables) =>
     createActer({
       variables: {
         followerIds: [],
+        interestIds: [],
         ...acter,
-        interestIds:
-          acter.ActerInterests?.map(({ Interest: { id } }) => id) || [],
       },
     })
 

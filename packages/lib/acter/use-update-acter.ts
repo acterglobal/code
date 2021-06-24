@@ -22,28 +22,38 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
  */
 export const useUpdateActer = (
   acter: Acter,
-  setActer: React.Dispatch<React.SetStateAction<Acter>>
-): [HandleMethod, MutationResult] => {
-  const [updateActer, mutationResult] = useNotificationMutation(UPDATE_ACTER, {
-    update: (cache, { data }) => {
-      const { updateActer: updatedActer } = data
-      setActer(updatedActer)
+  options?: UpdateActerOptions
+): [HandleMethod<UpdateActerData>, MutationResult] => {
+  const [updateActer, mutationResult] = useNotificationMutation<
+    UpdateActerData,
+    ActerVariables
+  >(UPDATE_ACTER, {
+    ...options,
+    update: (cache, result) => {
+      typeof options?.update === 'function' && options.update(cache, result)
+      const {
+        data: { updateActer },
+      } = result
       cache.writeQuery({
         query: GET_ACTER,
         data: {
-          getActer: acter,
+          getActer: updateActer,
         },
       })
     },
-    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+    getSuccessMessage: (data: UpdateActerData) =>
+      `${data.updateActer.name} updated`,
   })
 
-  const handleUpdateActer = (acter: Acter) =>
+  const handleUpdateActer = (updatedActer: ActerVariables) =>
     updateActer({
       variables: {
         followerIds: [],
         ...acter,
-        interestIds: acter.ActerInterests.map(({ Interest: { id } }) => id),
+        ...updatedActer,
+        interestIds: updatedActer.interestIds
+          ? updatedActer.interestIds
+          : acter.ActerInterests.map(({ Interest: { id } }) => id),
         acterId: acter.id,
       },
     })
