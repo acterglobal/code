@@ -1,105 +1,64 @@
 import React, { FC } from 'react'
-import clsx from 'clsx'
-import Link, { LinkProps } from 'next/link'
 
 import {
   Grid,
   MenuList,
-  MenuItem,
-  MenuItemProps,
   Typography,
   createStyles,
-  makeStyles,
+  withStyles,
   Theme,
 } from '@material-ui/core'
 
-export const SettingsContainer: FC = ({ children }) => {
-  const classes = useStyles()
-  return (
-    <Grid className={classes.container} container>
-      {children}
-    </Grid>
-  )
-}
+export const SettingsContainer: FC = ({ children }) => (
+  <StyledSettingsContainer container>{children}</StyledSettingsContainer>
+)
 
-export const SettingsMenu: FC = ({ children }) => {
-  const classes = useStyles()
-  return (
-    <Grid className={classes.menu} item xs={2}>
-      <MenuList>{children}</MenuList>
-    </Grid>
-  )
-}
-
-interface SettingsMenuItemProps extends MenuItemProps {
-  isActive?: boolean
-}
-export const SettingsMenuItem: FC<SettingsMenuItemProps> = (props) => {
-  const classes = useStyles()
-  const { isActive, ...restProps } = props
-  return (
-    <MenuItem
-      {...restProps}
-      className={clsx(classes.item, isActive && classes.activeItem)}
-      button={false}
-    >
-      {props.children}
-    </MenuItem>
-  )
-}
-
-type SettingsLinkMenuItemProps = SettingsMenuItemProps & LinkProps
-export const SettingsLinkMenuItem: FC<SettingsLinkMenuItemProps> = (props) => {
-  const classes = useStyles()
-  return (
-    <SettingsMenuItem {...props}>
-      <Link {...props}>
-        <a className={classes.link}>{props.children}</a>
-      </Link>
-    </SettingsMenuItem>
-  )
-}
-
-export const SettingsContent: FC = ({ children }) => {
-  const classes = useStyles()
-  return (
-    <Grid className={classes.content} item xs={10}>
-      {children}
-    </Grid>
-  )
-}
-
-export const SettingsSectionHeading: FC = ({ children }) => {
-  const classes = useStyles()
-  return (
-    <Typography className={classes.sectionHeading} variant="h2">
-      {children}
-    </Typography>
-  )
-}
-
-const useStyles = makeStyles((theme: Theme) =>
+const StyledSettingsContainer = withStyles((theme: Theme) =>
   createStyles({
-    container: {
+    root: {
       padding: theme.spacing(4),
     },
-    menu: {
+  })
+)(Grid)
+
+export const SettingsMenu: FC = ({ children }) => (
+  <StyledSettingsMenu item xs={2}>
+    <MenuList>{children}</MenuList>
+  </StyledSettingsMenu>
+)
+
+const StyledSettingsMenu = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
       borderRight: `1px solid ${theme.palette.grey[500]}`,
     },
-    item: {},
-    activeItem: {
-      fontWeight: theme.typography.fontWeightBold,
-    },
-    link: {
-      textDecoration: 'none',
-      color: theme.palette.secondary.main,
-      textTransform: 'capitalize',
-    },
-    content: {
+  })
+)(Grid)
+
+export const SettingsContent: FC = ({ children }) => (
+  <StyledSettingsContent item xs={10}>
+    {children}
+  </StyledSettingsContent>
+)
+
+const StyledSettingsContent = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
       paddingLeft: theme.spacing(5),
       '& h2': {},
     },
-    sectionHeading: {
+  })
+)(Grid)
+
+export const SettingsSectionHeading: FC = ({ children }) => (
+  <StyledSettingsSectionHeading variant="h2">
+    {children}
+  </StyledSettingsSectionHeading>
+)
+
+const StyledSettingsSectionHeading = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
       width: '75%',
       fontSize: '1.2rem',
       paddingBottom: theme.spacing(1),
@@ -107,4 +66,4 @@ const useStyles = makeStyles((theme: Theme) =>
       borderBottom: `1px solid ${theme.palette.grey[500]}`,
     },
   })
-)
+)(Typography)
