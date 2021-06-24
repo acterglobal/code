@@ -23,7 +23,7 @@ export const useCreateActer = (
 ): [HandleMethod, MutationResult] => {
   const [createActer, mutationResult] = useNotificationMutation(ACTER_CREATE, {
     update: (cache, { data }) => {
-      acter.ActerType.name === GROUP
+      acter.ActerType.name === ActerTypes.GROUP
         ? acter.Parent.Children.push(data.createActer)
         : acter.Children.push(data.createActer)
 
