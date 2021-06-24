@@ -1,5 +1,3 @@
-#import "../fragments/post-display.fragment.graphql"
-
 mutation DeletePost($postId: String!) {
   deleteManyPost(
     where: {

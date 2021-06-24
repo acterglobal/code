@@ -4,7 +4,7 @@ import DELETE_POST from 'api/mutations/delete-post.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import { Post } from '@schema'
 
-export type HandleMethod = (values: unknown) => Promise<void>
+export type HandleMethod = (id: unknown) => Promise<void>
 
 /**
  * Custom hook that updates a post
@@ -23,7 +23,7 @@ export const useDeletePost = (
         const { deletePost: deletedPost } = data
 
         const newPostList = displayPostList.filter(
-          (post) => post.id !== deletedPost.id
+          (post) => post.id !== deletedPost
         )
 
         onComplete(newPostList)
@@ -39,7 +39,7 @@ export const useDeletePost = (
     }
   )
 
-  const handleDeletePost = async (id: unknown) => {
+  const deletePost = async (id: unknown) => {
     deleteManyPost({
       variables: {
         postId: id,
@@ -47,5 +47,5 @@ export const useDeletePost = (
     })
   }
 
-  return [handleDeletePost, mutationResult]
+  return [deletePost, mutationResult]
 }

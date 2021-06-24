@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider } from '@material-ui/core'
-import { Post } from 'src/components/posts/post'
+import { Post, PostsProps } from 'src/components/posts/post'
 import { PostForm, PostFormProps } from 'src/components/posts/form'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
-export interface PostListProps extends PostFormProps {
+export interface PostListProps extends PostFormProps, PostsProps {
   /**
    * Acter on which we are viewing posts
    */
@@ -27,6 +27,7 @@ export const PostList: FC<PostListProps> = ({
   user,
   posts,
   onPostSubmit,
+  onPostDelete,
 }) => {
   const classes = useStyles()
 
@@ -45,11 +46,16 @@ export const PostList: FC<PostListProps> = ({
       )}
       {posts?.map((post) => (
         <Box key={post.id} className={classes.contentContainer}>
-          <Post post={post} />
+          <Post post={post} onPostDelete={onPostDelete} />
           <Divider variant="middle" className={classes.divider} />
           {post.Comments?.map((comment) => (
             <Box key={comment.id} className={classes.contentContainer}>
-              <Post key={comment.id} post={comment} commenting />
+              <Post
+                key={comment.id}
+                post={comment}
+                commenting
+                onPostDelete={onPostDelete}
+              />
             </Box>
           ))}
           <Box>
