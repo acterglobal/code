@@ -1,10 +1,10 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 import { Typography } from '@material-ui/core'
-import { Box, Link } from 'src/components/styled'
+import { Box, Link } from '@acter/components/styled'
 
 const Custom404: NextPage = () => {
   const router = useRouter()

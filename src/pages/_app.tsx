@@ -9,7 +9,7 @@ import { useApollo } from '@acter/lib/apollo'
 import { initSentry } from '@acter/lib/sentry'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { ActerThemeProvider } from 'src/themes/acter-theme'
+import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 
 import { SnackbarProvider } from 'notistack'
 

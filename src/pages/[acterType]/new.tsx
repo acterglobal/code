@@ -5,10 +5,10 @@ import { useRouter, NextRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 
-import { Layout } from 'src/components/layout'
-import { ActerForm } from 'src/components/acter/form'
-import { ActivityForm } from 'src/components/activity/form'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { ActerForm } from '@acter/components/acter/form'
+import { ActivityForm } from '@acter/components/activity/form'
+import { Head } from '@acter/components/layout/head'
 
 import {
   getUserProfile,

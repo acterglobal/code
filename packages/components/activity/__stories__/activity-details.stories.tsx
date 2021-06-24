@@ -1,0 +1,33 @@
+import React, { FC } from 'react'
+import { Meta } from '@storybook/react'
+import {
+  ActivityDetails as Activity,
+  ActivityDetailsProps,
+} from '@acter/components/activity'
+import {
+  ExampleActivity,
+  ExampleActer,
+  Interests,
+  ExampleUser,
+} from 'src/__fixtures__'
+
+const acter = {
+  ...ExampleActer,
+  Activity: { ...ExampleActivity, type: 'Idea' },
+  ActerInterests: [{ Interest: Interests.data.interestTypes[1].Interests[0] }],
+  Followers: [{ Follower: ExampleActer }],
+}
+
+export default {
+  title: 'Activity/ActivityDetails',
+  component: Activity,
+  args: {
+    acter: acter,
+    interestTypes: Interests.data.interestTypes,
+    user: ExampleUser,
+  },
+} as Meta
+
+export const ActivityDetails: FC<ActivityDetailsProps> = (args) => (
+  <Activity {...args} />
+)

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NextPage } from 'next'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -14,7 +14,7 @@ import {
   setActerType,
   getLinks,
 } from 'src/props'
-import { ActerSettings } from 'src/components/acter/settings'
+import { ActerSettings } from '@acter/components/acter/settings'
 import {
   Acter,
   ActerConnectionRole,

@@ -4,10 +4,10 @@ import { useRouter, NextRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
-import { ActerForm } from 'src/components/acter/form'
-import { ActivityForm } from 'src/components/activity/form'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
+import { ActerForm } from '@acter/components/acter/form'
+import { ActivityForm } from '@acter/components/activity/form'
 
 import {
   composeProps,

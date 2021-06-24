@@ -2,8 +2,8 @@
 /* eslint-disable */
 import React from 'react'
 import { NextPage } from 'next'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 
 import {
   Box,

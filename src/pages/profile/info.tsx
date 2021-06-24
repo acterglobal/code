@@ -1,9 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
-import { ProfileInfoForm } from 'src/components/user/form/info'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
+import { ProfileInfoForm } from '@acter/components/user/form/info'
 import { InterestType, User } from '@schema'
 import {
   composeProps,

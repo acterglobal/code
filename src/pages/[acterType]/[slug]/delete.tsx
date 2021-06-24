@@ -16,7 +16,7 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 
-import { ActerDeleteConfirmDialog } from 'src/components/acter/delete-confirm-dialog'
+import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
 
 import { Acter } from '@schema'
 import DELETE_ACTER from 'api/mutations/acter-delete.graphql'

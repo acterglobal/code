@@ -74,7 +74,7 @@ Used for shared test fixtures
 
 Module mocks. Currently only used for Storybook.
 
-### `src/components`
+### `@acter/components`
 
 All components, tests, and stories. The components folder will be organized by major functional area, with common elements in a `shared` folder and organized by functionality.
 
@@ -90,6 +90,6 @@ Next.js api and pages live in this folder. Pages will contain any data loading b
 
 Assets for Storybook
 
-### `src/themes`
+### `@acter/components/themes`
 
 Material-UI theme files
