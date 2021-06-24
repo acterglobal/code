@@ -16,36 +16,35 @@ export const useDeletePost = (
   displayPostList: Post[],
   onComplete: (postList: Post[]) => void
 ): [HandleMethod, MutationResult] => {
-  const [deleteManyPost, mutationResult] = useNotificationMutation(
-    DELETE_POST,
-    {
-      update: (cache, { data }) => {
-        const { deletePost: deletedPost } = data
+  const [deletePost, mutationResult] = useNotificationMutation(DELETE_POST, {
+    update: (cache, { data }) => {
+      const { deletePost: deletedPostId } = data
+      console.log('This is inside', data)
 
-        const newPostList = displayPostList.filter(
-          (post) => post.id !== deletedPost
-        )
+      const newPostList = displayPostList.filter(
+        (post) => post.id !== deletedPostId
+      )
 
-        onComplete(newPostList)
+      onComplete(newPostList)
 
-        cache.writeQuery({
-          query: GET_POSTS,
-          data: {
-            posts: newPostList,
-          },
-        })
-      },
-      getSuccessMessage: () => 'Post deleted',
-    }
-  )
+      cache.writeQuery({
+        query: GET_POSTS,
+        data: {
+          posts: newPostList,
+        },
+      })
+    },
+    getSuccessMessage: () => 'Post deleted',
+  })
 
-  const deletePost = async (id: unknown) => {
-    deleteManyPost({
+  const handleDeletePost = async (id: string) => {
+    // console.log('This is handleDelete', id)
+    deletePost({
       variables: {
         postId: id,
       },
     })
   }
 
-  return [deletePost, mutationResult]
+  return [handleDeletePost, mutationResult]
 }
