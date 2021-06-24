@@ -27,7 +27,7 @@ import { ActerType, ActivityType, InterestType, User } from '@schema'
 import ACTER_CREATE from 'api/mutations/acter-create.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { getCreateFunction } from '@acter/lib/acter/get-create-function'
 
 interface NewActerPageProps {

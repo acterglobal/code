@@ -18,7 +18,7 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { ActerConnectionRole, User, Link as LinkType } from '@schema'
-import { ActerMenu as ActerMenuEnum } from 'src/constants'
+import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import {
   GroupsSection,
   GroupsSectionProps,

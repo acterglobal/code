@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 import { menuActiveTabColor } from 'src/themes/colors'
 import Link from 'next/link'
 

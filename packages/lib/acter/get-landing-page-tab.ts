@@ -1,5 +1,5 @@
 import { NextRouter } from 'next/router'
-import { ActerMenu } from 'src/constants'
+import { ActerMenu } from '@acter/lib/constants'
 
 const { ACTIVITIES, MEMBERS, FORUM, SETTINGS } = ActerMenu
 

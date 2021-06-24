@@ -14,7 +14,7 @@ import {
   getActivityTypes,
 } from 'src/props'
 import { Acter, ActivityType, InterestType, User } from '@schema'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {
   acters: Acter[]

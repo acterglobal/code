@@ -29,7 +29,7 @@ import {
 } from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { Acter, User } from '@schema'
-import { ActerTypes, ActivityTypes } from 'src/constants'
+import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {

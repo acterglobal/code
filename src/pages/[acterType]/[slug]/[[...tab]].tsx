@@ -39,7 +39,7 @@ import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graph
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { updateActerGroups } from '@acter/lib/group/update-acter-groups'

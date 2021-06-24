@@ -6,7 +6,7 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
 import { Acter } from '@schema'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 
 const { ORGANISATION, NETWORK } = ActerTypes
 

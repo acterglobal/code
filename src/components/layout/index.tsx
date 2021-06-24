@@ -3,7 +3,7 @@ import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from 'src/components/layout/top-bar'
 import { Sidebar } from 'src/components/layout/side-bar'
 import { Acter, ActerType, User, Link as LinkType } from '@schema'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 export interface LayoutProps {
   acter?: Acter

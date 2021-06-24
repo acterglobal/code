@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
 import { Acter, ActerType, Activity } from '@schema'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { updateActerWithPictures } from '@acter/lib/acter/update-acter-with-pictures'
 
 const { ACTIVITY } = ActerTypes

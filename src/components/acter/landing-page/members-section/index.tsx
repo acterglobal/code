@@ -7,7 +7,7 @@ import {
   DisplayMembers,
   DisplayMembersProps,
 } from 'src/components/acter/landing-page/members-section/display-members'
-import { MemberType } from 'src/constants'
+import { MemberType } from '@acter/lib/constants'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 

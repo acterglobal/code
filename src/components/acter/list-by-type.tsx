@@ -13,7 +13,7 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { grey } from '@material-ui/core/colors'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 

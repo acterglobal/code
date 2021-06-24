@@ -28,7 +28,7 @@ import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 
 interface NewActerPageProps {
   /**

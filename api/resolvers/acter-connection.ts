@@ -1,5 +1,5 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
-import { ActerGraphQLContext } from 'src/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 
 import {

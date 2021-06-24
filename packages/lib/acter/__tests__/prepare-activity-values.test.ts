@@ -9,7 +9,7 @@ import {
 
 import { ExampleActivity } from 'src/__fixtures__'
 
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { prepareDataForValidation } from 'formik'
 
 describe('prepareActivityValues', () => {

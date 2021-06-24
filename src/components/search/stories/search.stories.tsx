@@ -5,7 +5,7 @@ import {
   ExampleActivity,
   ExampleActer,
 } from 'src/__fixtures__'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 const { ACTIVITIES, ACTERS } = SearchType
 

@@ -1,4 +1,4 @@
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
 import { updateActerWithPictures } from '@acter/lib/acter/update-acter-with-pictures'
 import { Acter, Activity } from '@schema'

@@ -15,7 +15,7 @@ import {
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
 import { PostList, PostListProps } from 'src/components/posts'
-import { ActerMenu } from 'src/constants'
+import { ActerMenu } from '@acter/lib/constants'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 
 const { ACTIVITIES, MEMBERS, FORUM } = ActerMenu

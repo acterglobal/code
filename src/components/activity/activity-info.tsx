@@ -8,7 +8,7 @@ import {
 import { Box, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
-import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from 'src/constants'
+import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { Connect, ConnectProps } from 'src/components/acter/connect'
 import { About } from 'src/components/activity/about'
 import { activityTypeBackgroundColors } from 'src/themes/colors'

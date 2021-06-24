@@ -6,7 +6,7 @@ import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@schema'
-import { ActerMenu } from 'src/constants'
+import { ActerMenu } from '@acter/lib/constants'
 
 export interface AddActivityButtonProps {
   acter: Acter

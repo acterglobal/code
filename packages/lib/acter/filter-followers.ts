@@ -1,5 +1,5 @@
 import { Acter } from '@schema'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 
 const { ACTIVITY, NETWORK, ORGANISATION, USER } = ActerTypes
 

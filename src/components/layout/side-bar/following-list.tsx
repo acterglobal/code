@@ -7,7 +7,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes

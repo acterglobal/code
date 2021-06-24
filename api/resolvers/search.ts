@@ -1,12 +1,12 @@
 import { pipe } from 'fp-ts/function'
 import { Resolver, Query, Arg, Ctx, registerEnumType } from 'type-graphql'
-import { ActerGraphQLContext } from 'src/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { Acter } from '@schema'
 import {
   getOrderBy,
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',

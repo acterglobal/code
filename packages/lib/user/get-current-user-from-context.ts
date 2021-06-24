@@ -1,4 +1,4 @@
-import { ActerGraphQLContext } from 'src/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { User } from '@schema'
 
 export const getCurrentUserFromContext = async (

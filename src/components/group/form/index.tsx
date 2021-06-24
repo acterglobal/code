@@ -16,7 +16,7 @@ import {
 import { Switch } from 'src/components/styled/switch'
 import { Acter, ActerType, ActerJoinSettings } from '@schema'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
-import { ActerTypes } from 'src/constants/acter-types'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 
 export interface GroupFormProps {
   acter?: Acter

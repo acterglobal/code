@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-micro'
 import prisma from '@acter/lib/prisma'
 import { initSentry } from '@acter/lib/sentry'
 import { getSession } from '@auth0/nextjs-auth0'
-import { ActerGraphQLContext } from 'src/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 
 import { schema } from 'api/schema'
 

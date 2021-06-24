@@ -6,7 +6,7 @@ import {
   FilterInterestsProps,
 } from 'src/components/search/filter-interests'
 import { SortBy, SortByProps } from 'src/components/search/sort-by'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 type FilterTabsProps = FilterInterestsProps &
   SortByProps & { searchType: SearchType }

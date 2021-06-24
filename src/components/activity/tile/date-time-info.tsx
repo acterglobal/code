@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import moment from 'moment'
-import { DAY_MONTH_FORMAT_SHORT, TIME_FORMAT_SHORT } from 'src/constants'
+import { DAY_MONTH_FORMAT_SHORT, TIME_FORMAT_SHORT } from '@acter/lib/constants'
 
 import {
   Box,

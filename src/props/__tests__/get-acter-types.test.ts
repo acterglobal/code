@@ -3,7 +3,7 @@ jest.mock('@acter/lib/apollo')
 import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
 import { addApolloState, initializeApollo } from '@acter/lib/apollo'
 import { getActerTypes } from 'src/props/get-acter-types'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import {
   GroupActerType,
   NetworkActerType,

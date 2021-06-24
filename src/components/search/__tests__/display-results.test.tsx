@@ -6,7 +6,7 @@ import {
   ExampleActivityActer,
 } from 'src/__fixtures__'
 import { DisplayResults } from 'src/components/search/display-results'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 const { ACTIVITIES, ACTERS } = SearchType
