@@ -1,18 +1,9 @@
 import { MutationResult } from '@apollo/client'
-import {
-  useNotificationMutation,
-  UseMutationOptions,
-} from '@acter/lib/apollo/use-notification-mutation'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import { Acter } from '@schema'
-import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
-
-export type UpdateActerData = {
-  updateActer: Acter
-}
-
-type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
+import { HandleMethod } from '@acter/lib/acter/use-create-acter'
 
 /**
  * Custom hook that updates acter
@@ -22,38 +13,28 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
  */
 export const useUpdateActer = (
   acter: Acter,
-  options?: UpdateActerOptions
-): [HandleMethod<UpdateActerData>, MutationResult] => {
-  const [updateActer, mutationResult] = useNotificationMutation<
-    UpdateActerData,
-    ActerVariables
-  >(UPDATE_ACTER, {
-    ...options,
-    update: (cache, result) => {
-      typeof options?.update === 'function' && options.update(cache, result)
-      const {
-        data: { updateActer },
-      } = result
+  setActer: React.Dispatch<React.SetStateAction<Acter>>
+): [HandleMethod, MutationResult] => {
+  const [updateActer, mutationResult] = useNotificationMutation(UPDATE_ACTER, {
+    update: (cache, { data }) => {
+      const { updateActer: updatedActer } = data
+      setActer(updatedActer)
       cache.writeQuery({
         query: GET_ACTER,
         data: {
-          getActer: updateActer,
+          getActer: acter,
         },
       })
     },
-    getSuccessMessage: (data: UpdateActerData) =>
-      `${data.updateActer.name} updated`,
+    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
   })
 
-  const handleUpdateActer = (updatedActer: ActerVariables) =>
+  const handleUpdateActer = (acter: Acter) =>
     updateActer({
       variables: {
         followerIds: [],
         ...acter,
-        ...updatedActer,
-        interestIds: updatedActer.interestIds
-          ? updatedActer.interestIds
-          : acter.ActerInterests.map(({ Interest: { id } }) => id),
+        interestIds: acter.ActerInterests.map(({ Interest: { id } }) => id),
         acterId: acter.id,
       },
     })
