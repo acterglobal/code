@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { MutationResult } from '@apollo/client'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 import DELETE_POST from 'api/mutations/delete-post.graphql'
@@ -16,32 +17,73 @@ export const useDeletePost = (
   displayPostList: Post[],
   onComplete: (postList: Post[]) => void
 ): [HandleMethod, MutationResult] => {
+  const [isComment, setIsComment] = useState(false)
+
+  const deletingComment = (deletedPost, displayPostList) => {
+    const newPostList = displayPostList.map((post) => {
+      if (post.id === deletedPost.parentId) {
+        const newComments = post.Comments.filter(
+          (comment) => comment.id !== deletedPost.id
+        )
+        return {
+          ...post,
+          Comments: newComments,
+        }
+      }
+      return post
+    })
+    return newPostList
+  }
+
+  const deletingPost = (deletedPost, displayPostList) => {
+    const removedCommentsList = displayPostList.map((post) => {
+      if (post.id === deletedPost.parentId) {
+        return {
+          ...post,
+          Comments: [],
+        }
+      }
+      return post
+    })
+
+    const newPostList = removedCommentsList.filter(
+      (post) => post.id !== deletedPost.id
+    )
+    return newPostList
+  }
   const [deletePost, mutationResult] = useNotificationMutation(DELETE_POST, {
     update: (cache, { data }) => {
-      const { deletePost: deletedPostId } = data
-      console.log('This is inside', data)
+      const { deletePost: deletedPost } = data
+      console.log('This is comment', isComment)
 
-      const newPostList = displayPostList.filter(
-        (post) => post.id !== deletedPostId
-      )
-
-      onComplete(newPostList)
-
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
+      if (isComment) {
+        const newPostList = deletingComment(deletedPost, displayPostList)
+        onComplete(newPostList)
+        cache.writeQuery({
+          query: GET_POSTS,
+          data: {
+            posts: newPostList,
+          },
+        })
+      } else {
+        const newPostList = deletingPost(deletedPost, displayPostList)
+        onComplete(newPostList)
+        cache.writeQuery({
+          query: GET_POSTS,
+          data: {
+            posts: newPostList,
+          },
+        })
+      }
     },
-    getSuccessMessage: () => 'Post deleted',
+    getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })
 
-  const handleDeletePost = async (id: string) => {
-    // console.log('This is handleDelete', id)
+  const handleDeletePost = async (values) => {
+    setIsComment(values.parentId ? true : false)
     deletePost({
       variables: {
-        postId: id,
+        postId: values.id,
       },
     })
   }

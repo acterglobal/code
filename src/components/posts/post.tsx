@@ -12,15 +12,14 @@ import { Post as PostType } from '@schema'
 export interface PostsProps {
   post?: PostType
   commenting?: boolean
-  onPostDelete: (id: string) => Promise<void>
+  onPostDelete: (id: unknown) => Promise<void>
 }
 
 export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
   const classes = useStyles()
 
   const onDelete = () => {
-    const { id } = post
-    onPostDelete(id)
+    onPostDelete(post)
   }
 
   return (

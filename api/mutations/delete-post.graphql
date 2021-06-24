@@ -1,20 +1,6 @@
 mutation DeletePost($postId: String!) {
   deletePost(where: { id: $postId }) {
     id
-    content
-    createdAt
-    updatedAt
-    authorId
-    acterId
     parentId
-    Comments {
-      id
-      content
-      createdAt
-      updatedAt
-      authorId
-      acterId
-      parentId
-    }
   }
 }
