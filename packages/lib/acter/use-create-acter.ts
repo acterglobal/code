@@ -2,7 +2,7 @@ import { MutationResult, FetchResult } from '@apollo/client'
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import ACTER_CREATE from 'api/mutations/acter-create.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
-import { GROUP } from 'src/constants/acter-types'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { Acter } from '@schema'
 
 export type HandleMethod = (
@@ -21,7 +21,7 @@ export const useCreateActer = (
 ): [HandleMethod, MutationResult] => {
   const [createActer, mutationResult] = useNotificationMutation(ACTER_CREATE, {
     update: (cache, { data }) => {
-      acter.ActerType.name === GROUP
+      acter.ActerType.name === ActerTypes.GROUP
         ? acter.Parent.Children.push(data.createActer)
         : acter.Children.push(data.createActer)
 
