@@ -1,16 +1,14 @@
 import React, { FC } from 'react'
 import {
   FormControl,
-  FormControlLabel,
   FormLabel,
-  Radio,
   RadioGroup,
   createStyles,
   makeStyles,
   Theme,
 } from '@material-ui/core'
 import { Formik, Form } from 'formik'
-import { FormButtons } from 'src/components/util/forms'
+import { FormButtons, SettingsRadio } from 'src/components/util/forms'
 import { Acter, ActerJoinSettings } from '@schema'
 
 interface ActerUserSettingsInitialValues {
@@ -58,19 +56,13 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
               value={values.acterJoinSetting}
               onChange={handleChange}
             >
-              <FormControlLabel
-                className={classes.radioLabel}
-                value={ActerJoinSettings.EVERYONE}
-                control={<Radio />}
+              <SettingsRadio
                 label="Everyone"
-                labelPlacement="start"
+                value={ActerJoinSettings.EVERYONE}
               />
-              <FormControlLabel
-                className={classes.radioLabel}
-                value={ActerJoinSettings.RESTRICTED}
-                control={<Radio />}
+              <SettingsRadio
                 label="Restricted (needs approval)"
-                labelPlacement="start"
+                value={ActerJoinSettings.RESTRICTED}
               />
             </RadioGroup>
           </FormControl>
@@ -84,10 +76,6 @@ export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     fieldLabel: {
-      color: theme.palette.grey[600],
-    },
-    radioLabel: {
-      justifyContent: 'space-between',
       color: theme.palette.grey[600],
     },
   })
