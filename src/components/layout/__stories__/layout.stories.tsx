@@ -9,8 +9,6 @@ import {
   ExampleUser,
 } from 'src/__fixtures__'
 
-const { FORUM } = ActerMenu
-
 const Content: FC = () => <main>Main content</main>
 
 export default {
@@ -23,7 +21,7 @@ export default {
   parameters: {
     query: {
       slug: ExampleActer.slug,
-      tab: [FORUM],
+      tab: [ActerMenu.FORUM],
     },
   },
 } as Meta
