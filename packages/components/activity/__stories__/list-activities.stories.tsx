@@ -6,7 +6,7 @@ import {
   ActivityListProps,
 } from '@acter/components/activity/list'
 import { ExampleActer, ExampleActivity, ExampleUser } from 'src/__fixtures__'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 const acter = ({
   ...ExampleActer,

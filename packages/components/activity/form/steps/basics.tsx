@@ -15,7 +15,7 @@ import {
   StartEndTimeDatePickerValues,
 } from '@acter/components/activity/form/fields/start-end-date-time-picker'
 import { FormSection } from '@acter/components/styled/form-section'
-import { ActivityType } from '@schema'
+import { ActivityType } from '@acter/schema/types'
 
 export interface BasicsStepProps {
   activityTypes: ActivityType[]

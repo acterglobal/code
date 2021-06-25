@@ -1,5 +1,5 @@
 import { v4 } from 'uuid'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import {
   ExampleActer,
   GroupActerType,

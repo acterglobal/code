@@ -1,4 +1,4 @@
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 
 /**
  * Use to get top level type of interests

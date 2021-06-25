@@ -10,14 +10,14 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Save, Cancel } from '@material-ui/icons'
-import { ActerConnection, ActerConnectionRole } from '@schema'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
 
 export interface ConnectionStateEditorProps {
   connection: ActerConnection
   onSubmit: (
     connection: ActerConnection,
     role: ActerConnectionRole
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
   ) => Promise<any> // ApolloGraphQL mutation function
   onCancel: () => void
 }

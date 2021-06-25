@@ -8,7 +8,7 @@ import {
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 
 export interface TopBarProps {
   heading?: string

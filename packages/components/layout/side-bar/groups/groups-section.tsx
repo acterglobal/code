@@ -4,7 +4,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupForm as AddGroup } from '@acter/components/group/form'
 import { GroupsList } from '@acter/components/layout/side-bar/groups/groups-list'
-import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
+import {
+  Acter,
+  ActerConnectionRole,
+  ActerType,
+  User,
+} from '@acter/schema/types'
 import { ActerTypes } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 export interface GroupsSectionProps {

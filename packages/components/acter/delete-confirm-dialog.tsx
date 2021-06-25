@@ -3,7 +3,7 @@ import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Button, ButtonsContainer } from '@acter/components/styled'
 
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 export interface ActerDeleteConfirmDialogProps {
   /**

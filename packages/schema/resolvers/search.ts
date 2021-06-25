@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/function'
 import { Resolver, Query, Arg, Ctx, registerEnumType } from 'type-graphql'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import {
   getOrderBy,
   SearchActivitiesSortBy,

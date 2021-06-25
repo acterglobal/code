@@ -1,6 +1,6 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 
-import { ActerConnectionRole } from '@schema'
+import { ActerConnectionRole } from '@acter/schema/types'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
 
 export const checkRole = (

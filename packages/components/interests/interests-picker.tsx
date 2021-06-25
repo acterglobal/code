@@ -4,7 +4,7 @@ import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { getTopLevelTypes } from '@acter/lib/interests/get-toplevel-types'
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 
 export interface InterestsPickerProps {
   interestTypes: InterestType[]
@@ -31,7 +31,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
     setSelectedTypes(getSelectedTypes(selectedInterests, interestTypes))
   }, [selectedInterests])
 
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line  @acter/schema/typescript-eslint/no-explicit-any
   const handleChange = (event: ChangeEvent<any>, tab: number) => {
     setCurrentTab(tab)
   }

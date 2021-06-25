@@ -6,7 +6,7 @@ import {
   ActerConnectionRole,
   ActerJoinSettings,
   Activity,
-} from '@schema'
+} from '@acter/schema/types'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 

@@ -13,7 +13,7 @@ import {
 import { activityTypeColors } from '@acter/components/themes/colors'
 import { NavigateNextOutlined } from '@material-ui/icons'
 
-import { ActivityType } from '@schema'
+import { ActivityType } from '@acter/schema/types'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]

@@ -21,7 +21,7 @@ import {
   ActerType,
   User,
   Link as LinkType,
-} from '@schema'
+} from '@acter/schema/types'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'

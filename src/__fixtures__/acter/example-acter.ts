@@ -1,4 +1,4 @@
-import { Acter, ActerJoinSettings } from '@schema'
+import { Acter, ActerJoinSettings } from '@acter/schema/types'
 import {
   ExampleUser,
   OrganisationActerType,

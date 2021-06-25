@@ -3,7 +3,7 @@ import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { getSession } from '@auth0/nextjs-auth0'
 
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 

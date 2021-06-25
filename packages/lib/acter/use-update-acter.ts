@@ -5,7 +5,7 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 
 export type UpdateActerData = {

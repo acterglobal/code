@@ -1,4 +1,4 @@
-import { Acter, ActerConnection } from '@schema'
+import { Acter, ActerConnection } from '@acter/schema/types'
 
 /**
  * Function to look for an ActerConnection on `acter` for a given `follower`

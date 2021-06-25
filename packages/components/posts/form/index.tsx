@@ -6,7 +6,7 @@ import { Button } from '@acter/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { User, Post } from '@schema'
+import { User, Post } from '@acter/schema/types'
 
 export interface PostFormProps {
   user: User

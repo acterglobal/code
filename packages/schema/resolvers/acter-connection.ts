@@ -6,7 +6,7 @@ import {
   ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
-} from '@schema'
+} from '@acter/schema/types'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {

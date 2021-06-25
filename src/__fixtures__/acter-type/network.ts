@@ -1,4 +1,4 @@
-import { ActerType } from '@schema'
+import { ActerType } from '@acter/schema/types'
 import { ActerTypes } from '@acter/lib/constants'
 
 export const NetworkActerType: ActerType = {

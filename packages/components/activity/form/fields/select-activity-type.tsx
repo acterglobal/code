@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { grey } from '@material-ui/core/colors'
-import { ActivityType } from '@schema'
+import { ActivityType } from '@acter/schema/types'
 import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
 
 export interface SelectActivityTypeProps {

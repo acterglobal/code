@@ -1,4 +1,4 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @acter/schema/typescript-eslint/no-explicit-any */
 
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
@@ -18,7 +18,7 @@ import {
   InterestAddSectionValues,
 } from '@acter/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from '@acter/components/styled'
-import { Acter, ActerType, InterestType } from '@schema'
+import { Acter, ActerType, InterestType } from '@acter/schema/types'
 import { useRouter } from 'next/router'
 import { grey } from '@material-ui/core/colors'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

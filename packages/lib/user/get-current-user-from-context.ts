@@ -1,5 +1,5 @@
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 
 export const getCurrentUserFromContext = async (
   ctx: ActerGraphQLContext

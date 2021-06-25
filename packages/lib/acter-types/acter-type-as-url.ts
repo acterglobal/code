@@ -1,6 +1,6 @@
 import pluralize from 'pluralize'
 
-import { ActerType } from '@schema'
+import { ActerType } from '@acter/schema/types'
 
 /**
  * Make ActerType name url-friendly (lowercase, plural, and slugged)

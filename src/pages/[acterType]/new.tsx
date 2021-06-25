@@ -22,7 +22,12 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 
-import { ActerType, ActivityType, InterestType, User } from '@schema'
+import {
+  ActerType,
+  ActivityType,
+  InterestType,
+  User,
+} from '@acter/schema/types'
 
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'

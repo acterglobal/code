@@ -18,7 +18,12 @@ import {
   ConnectionState,
   ConnectionStateProps,
 } from '@acter/components/acter/landing-page/members-section/connection-state'
-import { Acter, ActerConnection, ActerConnectionRole, User } from '@schema'
+import {
+  Acter,
+  ActerConnection,
+  ActerConnectionRole,
+  User,
+} from '@acter/schema/types'
 
 import { MemberType } from '@acter/lib/constants'
 export interface DisplayMembersProps {

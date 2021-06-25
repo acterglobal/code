@@ -1,5 +1,5 @@
 import { buildSchemaSync } from 'type-graphql'
-import { resolvers } from '@schema'
+import { resolvers } from '@acter/schema/types'
 
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { SearchResolver } from '@acter/schema/resolvers/search'

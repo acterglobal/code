@@ -9,7 +9,7 @@ import { ActivityDescription } from '@acter/components/activity/activity-descrip
 import { Participates } from '@acter/components/activity/participates'
 import { Organiser } from '@acter/components/activity/organiser'
 import { PostList, PostListProps } from '@acter/components/posts'
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

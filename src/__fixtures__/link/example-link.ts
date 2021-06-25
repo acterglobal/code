@@ -1,4 +1,4 @@
-import { Link } from '@schema'
+import { Link } from '@acter/schema/types'
 
 import { ExampleUser, ExampleActer } from 'src/__fixtures__'
 

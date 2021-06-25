@@ -3,7 +3,7 @@ import { Field, useFormikContext } from 'formik'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { CheckboxWithLabel } from 'formik-material-ui'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 export interface SelectFollowersProps {
   acters: Acter[]

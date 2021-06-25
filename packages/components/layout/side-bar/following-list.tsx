@@ -6,7 +6,7 @@ import { ListItem, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 

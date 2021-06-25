@@ -12,7 +12,7 @@ import {
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
-import { Acter, ActerConnectionRole, Activity, User } from '@schema'
+import { Acter, ActerConnectionRole, Activity, User } from '@acter/schema/types'
 export interface ActivityListProps {
   /**
    * Organizing Acter for Activities

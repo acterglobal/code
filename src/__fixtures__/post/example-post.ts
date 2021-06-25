@@ -1,4 +1,4 @@
-import { Post } from '@schema'
+import { Post } from '@acter/schema/types'
 
 import { ExampleUserActer, ExampleOrganisationActer } from 'src/__fixtures__'
 

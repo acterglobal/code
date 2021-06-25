@@ -1,4 +1,4 @@
-import { ActivityType } from '@schema'
+import { ActivityType } from '@acter/schema/types'
 import { ActivityTypes } from '@acter/lib/constants'
 
 export const IdeaActivityType: ActivityType = {

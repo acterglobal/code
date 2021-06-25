@@ -25,7 +25,7 @@ import {
   Post,
   User,
   Link,
-} from '@schema'
+} from '@acter/schema/types'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,

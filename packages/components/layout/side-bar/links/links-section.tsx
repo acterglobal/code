@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { LinksList } from '@acter/components/layout/side-bar/links'
-import { Link as LinkType } from '@schema'
+import { Link as LinkType } from '@acter/schema/types'
 
 export interface LinkSectionProps {
   links: LinkType[]

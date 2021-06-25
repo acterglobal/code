@@ -1,5 +1,5 @@
 import { interestTypeMap } from '@acter/lib/interests/map-interest-type'
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 
 /**
  * Used to get InterestType names by providing interest ids

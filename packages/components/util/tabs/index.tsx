@@ -47,7 +47,7 @@ export const Tabs: FC<TabProps> = ({
       orientation="vertical"
       value={initialValue}
       indicatorColor="primary"
-      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line  @acter/schema/typescript-eslint/no-explicit-any
       onChange={(evt: React.ChangeEvent<any>, value: string) => {
         handleTabChange(value)
       }}

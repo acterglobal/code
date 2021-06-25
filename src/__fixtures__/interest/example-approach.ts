@@ -1,4 +1,4 @@
-import { Interest } from '@schema'
+import { Interest } from '@acter/schema/types'
 
 import { ExampleInterestType } from 'src/__fixtures__'
 

@@ -5,7 +5,7 @@ import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 
 export interface ConnectProps {
   /**
@@ -19,13 +19,13 @@ export interface ConnectProps {
   /**
    * Callback for when "Join" is pressed
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
   onJoin: (acter: Acter, follower: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**
    * Callback for when "Leave" is pressed
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
   onLeave: (acter: Acter, follower: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**

@@ -7,7 +7,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { ProfileButton } from '@acter/components/user/profile-button'
 
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuItem: {

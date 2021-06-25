@@ -5,7 +5,7 @@ import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
 } from '@acter/lib/interests'
-import { InterestType, Interest } from '@schema'
+import { InterestType, Interest } from '@acter/schema/types'
 
 export interface InterestsSectionProps {
   interestTypes: InterestType[]

@@ -1,6 +1,6 @@
 import { pipe } from 'ramda'
 import { Moment } from 'moment'
-import { Activity } from '@schema'
+import { Activity } from '@acter/schema/types'
 
 export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
   startDate?: Moment
@@ -59,7 +59,7 @@ export const _removeSeparateDateAndTime = (
   formData: ActivityFormData
 ): ActivityFormData => {
   // Create copy of data without everything before ...activity
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @acter/schema/typescript-eslint/no-unused-vars
   const { startDate, startTime, endDate, endTime, ...activity } = formData
 
   return activity
