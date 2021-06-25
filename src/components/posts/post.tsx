@@ -8,6 +8,8 @@ import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { Post as PostType } from '@schema'
+import moment from 'moment'
+import clsx from 'clsx'
 
 export interface PostsProps {
   post?: PostType
@@ -22,18 +24,26 @@ export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
     onPostDelete(post)
   }
 
+  const timeStamp = moment(post.updatedAt).fromNow()
+
   return (
-    <Box className={classes.postItems}>
+    <Box className={clsx(classes.post, commenting && classes.comment)}>
       <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
       <Box
-        className={
-          commenting ? classes.commentContainer : classes.postContainer
-        }
+        // className={
+        //   commenting ? classes.comment : classes.postContainer
+        // }
+        className={classes.postContent}
       >
         <Box>
-          <Typography variant="subtitle1" className={classes.title}>
-            {post.Author.name}
-          </Typography>
+          <Box className={classes.topSection}>
+            <Typography variant="h6" className={classes.title}>
+              {post.Author.name}
+            </Typography>
+            <Typography variant="body2" className={classes.timeStamp}>
+              {timeStamp}
+            </Typography>
+          </Box>
           <Typography
             className={classes.acterTypeName}
             variant="body2"
@@ -59,46 +69,62 @@ export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    postItems: {
+    post: {
       display: 'flex',
       flexDirection: 'row',
       padding: 5,
+      paddingTop: 10,
+      // width: '100%',
     },
-    postContainer: {
-      backgroundColor: 'white',
+    postContent: {
+      marginLeft: theme.spacing(1),
+      marginTop: 5,
+      // backgroundColor: 'grey',
       borderRadius: 7,
       width: '100%',
-      padding: theme.spacing(1),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
+      // padding: theme.spacing(1),
+      // display: 'flex',
+      // flexDirection: 'column',
+      // alignItems: 'flex-start',
     },
-    commentContainer: {
+    comment: {
       backgroundColor: grey[200],
       borderRadius: 7,
-      width: '80%',
-      marginLeft: 14,
+      // width: '90%',
+      marginLeft: 8,
+      marginRight: 16,
+      marginBottom: 10,
       padding: theme.spacing(1),
       display: 'flex',
-      flexDirection: 'column',
+      // flexDirection: 'column',
       alignItems: 'flex-start',
     },
     acterTypeName: {
       color: grey[700],
-      fontWeight: theme.typography.fontWeightLight,
+      // fontWeight: theme.typography.fontWeightLight,
       fontSize: 11,
       textTransform: 'capitalize',
     },
     title: {
       color: grey[700],
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: theme.typography.fontWeightBold,
       fontSize: 11,
       marginBottom: 0,
       lineHeight: 1,
     },
+    topSection: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    timeStamp: {
+      fontSize: 10,
+      marginLeft: theme.spacing(1),
+      fontWeight: theme.typography.fontWeightLight,
+      color: grey[600],
+    },
     description: {
       color: grey[700],
-      fontSize: 13,
+      fontSize: 12,
       hyphens: 'auto',
       overflow: 'hidden',
     },

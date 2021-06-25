@@ -49,12 +49,12 @@ export const PostList: FC<PostListProps> = ({
           <Post post={post} onPostDelete={onPostDelete} />
           <Divider variant="middle" className={classes.divider} />
           {post.Comments?.map((comment) => (
-            <Box
+            <Post
               key={`post-${post.id}-comment-${comment.id}`}
-              className={classes.contentContainer}
-            >
-              <Post post={comment} commenting onPostDelete={onPostDelete} />
-            </Box>
+              post={comment}
+              commenting
+              onPostDelete={onPostDelete}
+            />
           ))}
           <Box>
             <PostForm post={post} user={user} onPostSubmit={onPostSubmit} />
@@ -69,7 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainContainer: {
       borderRadius: 7,
-      width: '100%',
+      width: '90%',
+      margin: 'auto',
       display: 'flex',
       flexWrap: 'wrap',
       marginBottom: theme.spacing(1),
@@ -88,10 +89,15 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 300,
       },
       marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
     },
     divider: {
       backgroundColor: grey[500],
       marginTop: 8,
+      marginBottom: 16,
+    },
+    commentSection: {
+      marginLeft: theme.spacing(6),
     },
   })
 )
