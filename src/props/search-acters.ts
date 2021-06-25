@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 import { Acter } from '@schema'
-import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
+import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import { SearchVariablesType } from 'src/props/search-activities'
 
 export const searchActers: ComposedGetServerSideProps = async ({ query }) => {

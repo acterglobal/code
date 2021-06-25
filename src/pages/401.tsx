@@ -8,7 +8,7 @@ import { Box, Link } from '@acter/components/styled'
 
 const Custom404: NextPage = () => {
   const router = useRouter()
-  const handleRedirectBack = () => router.push('api/auth/login')
+  const handleRedirectBack = () => router.push('@acter/schema/auth/login')
 
   return (
     <Layout>

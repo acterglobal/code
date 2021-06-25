@@ -3,7 +3,7 @@ import { initializeApollo } from '@acter/lib/apollo'
 
 import { ActivityType } from '@schema'
 
-import QUERY_ACTIVITY_TYPES from 'api/queries/query-activity-types.graphql'
+import QUERY_ACTIVITY_TYPES from '@acter/schema/queries/query-activity-types.graphql'
 
 /**
  * Gets all known ActivityTypes

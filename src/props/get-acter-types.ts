@@ -3,7 +3,7 @@ import { initializeApollo } from '@acter/lib/apollo'
 
 import { ActerType } from '@schema'
 
-import QUERY_ACTER_TYPES from 'api/queries/query-acter-types.graphql'
+import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
 
 /**
  * Gets all known ActerTypes

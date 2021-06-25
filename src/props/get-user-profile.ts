@@ -5,7 +5,7 @@ import { getSession } from '@auth0/nextjs-auth0'
 
 import { Acter } from '@schema'
 
-import GET_USER from 'api/queries/user-by-email.graphql'
+import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 
 export const getUserProfile = (
   requireUser = true

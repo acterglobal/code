@@ -5,7 +5,7 @@ import { initSentry } from '@acter/lib/sentry'
 import { getSession } from '@auth0/nextjs-auth0'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 
-import { schema } from 'api/schema'
+import { schema } from '@acter/schema/schema'
 
 initSentry()
 
