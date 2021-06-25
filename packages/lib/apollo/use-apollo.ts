@@ -3,7 +3,7 @@ import { initializeApollo } from './initialize-apollo'
 import { ApolloClientType } from './types'
 import { APOLLO_STATE_PROP_NAME } from './constants'
 
-// eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PageProps = { [key: string]: any }
 
 export function useApollo({

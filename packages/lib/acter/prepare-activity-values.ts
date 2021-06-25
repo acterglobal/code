@@ -59,7 +59,7 @@ export const _removeSeparateDateAndTime = (
   formData: ActivityFormData
 ): ActivityFormData => {
   // Create copy of data without everything before ...activity
-  // eslint-disable-next-line @acter/schema/typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { startDate, startTime, endDate, endTime, ...activity } = formData
 
   return activity

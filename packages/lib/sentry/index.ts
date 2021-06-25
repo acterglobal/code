@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node'
 import { RewriteFrames } from '@sentry/integrations'
 
-// eslint-disable-next-line @acter/schema/typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const initSentry = () => {
   if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     const integrations = []
