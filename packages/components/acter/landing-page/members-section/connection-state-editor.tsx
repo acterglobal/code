@@ -17,7 +17,7 @@ export interface ConnectionStateEditorProps {
   onSubmit: (
     connection: ActerConnection,
     role: ActerConnectionRole
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
   ) => Promise<any> // ApolloGraphQL mutation function
   onCancel: () => void
 }

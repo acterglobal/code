@@ -27,7 +27,7 @@ export const initialValues = {
 interface UpdateActerWithPicturesProps {
   acter: Acter
   formData?: Partial<Acter>
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
   updateActer: (data: ActerFormData) => Promise<any>
 }
 
@@ -42,7 +42,7 @@ export const updateActerWithPictures = async ({
   acter,
   formData = {},
   updateActer,
-}: //eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: //eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
 UpdateActerWithPicturesProps): Promise<any> => {
   const variables = {
     // Start with blanks fromt he update set
@@ -61,10 +61,10 @@ UpdateActerWithPicturesProps): Promise<any> => {
   )(variables)
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
+//eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
 const _updateActer = (updateActer: (any) => any) => (
   variables: ActerFormData
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
 ): Promise<any> => updateActer({ variables })
 
 /**

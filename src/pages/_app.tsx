@@ -13,7 +13,7 @@ import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 
 import { SnackbarProvider } from 'notistack'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
 type ActerAppProps = AppProps & { err: any }
 
 initSentry()
