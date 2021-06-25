@@ -9,9 +9,9 @@ import { Link } from '@schema'
 
 export interface LinkFormProps {
   link?: Link
-  onLinkSubmit: (values: unknown) => Promise<void>
-  onLinkUpdate?: (values: unknown) => Promise<void>
-  onLinkDelete?: (values: unknown) => Promise<void>
+  onLinkSubmit: (values: Link) => Promise<void>
+  onLinkUpdate?: (values: Link) => Promise<void>
+  onLinkDelete?: (values: Link) => Promise<void>
 }
 
 export const LinkForm: FC<LinkFormProps> = ({
@@ -33,8 +33,7 @@ export const LinkForm: FC<LinkFormProps> = ({
   }
 
   const onDelete = () => {
-    const { id } = link
-    onLinkDelete(id)
+    onLinkDelete(link)
   }
 
   return (

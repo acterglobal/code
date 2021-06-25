@@ -1,10 +1,28 @@
 import { MutationResult } from '@apollo/client'
-import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+import {
+  UseMutationOptions,
+  useNotificationMutation,
+} from 'src/lib/apollo/use-notification-mutation'
 import UPDATE_LINK from 'api/mutations/link-update.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
 import { Acter, User, Link as LinkType } from '@schema'
 
+export type LinkVariables = LinkType & {
+  linkId: string
+  acterId: string
+  userId: string
+}
+
+type UpdateLinkData = {
+  updateLink: LinkType
+}
+
 export type HandleMethod = (values: unknown) => Promise<void>
+
+export type UpdateLinkOptions = UseMutationOptions<
+  UpdateLinkData,
+  LinkVariables
+>
 
 /**
  * Custom hook that updates a link
@@ -16,11 +34,19 @@ export const useUpdateLink = (
   acter: Acter,
   user: User,
   displayLinks: LinkType[],
-  onComplete: (links: LinkType[]) => void
+  onComplete: (links: LinkType[]) => void,
+  options?: UpdateLinkOptions
 ): [HandleMethod, MutationResult] => {
-  const [updateLink, mutationResult] = useNotificationMutation(UPDATE_LINK, {
-    update: (cache, { data }) => {
-      const { updateLink: newLink } = data
+  const [updateLink, mutationResult] = useNotificationMutation<
+    UpdateLinkData,
+    LinkVariables
+  >(UPDATE_LINK, {
+    ...options,
+    update: (cache, result) => {
+      typeof options?.update === 'function' && options.update(cache, result)
+      const {
+        data: { updateLink: newLink },
+      } = result
 
       const newDisplayLinks = displayLinks.map((link) => {
         if (link.id === newLink.id) {
@@ -41,7 +67,9 @@ export const useUpdateLink = (
     getSuccessMessage: () => 'Link updated',
   })
 
-  const handleLink = async (values) => {
+  const handleLink = async (
+    values: LinkType & { linkId: string; acterId: string; userId: string }
+  ) => {
     updateLink({
       variables: {
         ...values,

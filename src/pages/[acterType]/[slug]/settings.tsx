@@ -55,13 +55,9 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     }
   )
 
-  const [createLink] = useCreateLink(acter, user, displayLinks, (links) =>
-    setDisplayLinks(links)
-  )
-  const [updateLink] = useUpdateLink(acter, user, displayLinks, (links) =>
-    setDisplayLinks(links)
-  )
-  const [handleDeleteLink] = useDeleteLink(displayLinks, setDisplayLinks)
+  const [createLink] = useCreateLink(acter, user, displayLinks, setDisplayLinks)
+  const [updateLink] = useUpdateLink(acter, user, displayLinks, setDisplayLinks)
+  const [deleteLink] = useDeleteLink(displayLinks, setDisplayLinks)
 
   return (
     <Layout
@@ -80,7 +76,7 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           links={displayLinks}
           onLinkSubmit={createLink}
           onLinkUpdate={updateLink}
-          onLinkDelete={handleDeleteLink}
+          onLinkDelete={deleteLink}
         />
       </main>
     </Layout>
