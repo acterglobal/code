@@ -9,7 +9,7 @@ import {
   ExampleUser,
 } from 'src/__fixtures__'
 
-const { ACTIVITIES, MEMBERS, FORUM } = ActerMenu
+const { FORUM } = ActerMenu
 
 const Content: FC = () => <main>Main content</main>
 
