@@ -1,5 +1,5 @@
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
-import { Interests } from 'src/__fixtures__/interest/interests'
+import { Interests } from '@acter/schema/fixtures/interest/interests'
 
 const allInterests = Interests.data.interestTypes
 const selectedInterestIds = [

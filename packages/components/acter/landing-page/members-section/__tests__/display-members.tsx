@@ -5,7 +5,7 @@ import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUser,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 import { MemberType } from '@acter/lib/constants'
 
 const { ORGANISATIONS } = MemberType

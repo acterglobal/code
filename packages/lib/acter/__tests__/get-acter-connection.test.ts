@@ -1,5 +1,5 @@
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
-import { ExampleActer, ExampleActerConnection } from 'src/__fixtures__'
+import { ExampleActer, ExampleActerConnection } from '@acter/schema/fixtures'
 
 describe('getActerConnection', () => {
   it('should return an ActerConnection if the acter and follower are already connected', () => {

@@ -5,7 +5,7 @@ import {
   ExampleUser,
   ExampleUserActer,
   ExampleActerConnection,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 import { Acter } from '@acter/schema/types'
 
 jest.mock('@acter/lib/acter/filter-followers')

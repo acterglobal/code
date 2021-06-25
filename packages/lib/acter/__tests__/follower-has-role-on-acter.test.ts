@@ -3,7 +3,7 @@ import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUserActer,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 import {
   Acter,
   ActerConnectionRole,

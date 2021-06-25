@@ -5,7 +5,7 @@ import {
   NetworkActerType,
   UserActerType,
   ActivityActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 export const ExampleActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',

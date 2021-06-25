@@ -4,7 +4,7 @@ import {
   ExampleActerList,
   ExampleActivity,
   ExampleActivityActer,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

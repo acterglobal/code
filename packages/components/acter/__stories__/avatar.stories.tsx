@@ -10,7 +10,7 @@ import {
   GroupActerType,
   OrganisationActerType,
   NetworkActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 export default {
   title: 'acter/Avatar',

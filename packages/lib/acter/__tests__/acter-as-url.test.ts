@@ -1,5 +1,5 @@
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 describe('acterTypeAsUrl', () => {
   it('should throw an error if no ActerType name is provided', () => {

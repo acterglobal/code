@@ -1,7 +1,11 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
-import { ExamplePost, ExampleSubPost, ExampleActer } from 'src/__fixtures__'
-import { ExampleUser } from 'src/__fixtures__'
+import {
+  ExamplePost,
+  ExampleSubPost,
+  ExampleActer,
+} from '@acter/schema/fixtures'
+import { ExampleUser } from '@acter/schema/fixtures'
 import { PostList, PostListProps } from '@acter/components/posts'
 
 export default {

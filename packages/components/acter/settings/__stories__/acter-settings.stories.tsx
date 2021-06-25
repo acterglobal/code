@@ -5,7 +5,7 @@ import {
   ActerSettingsProps,
 } from '@acter/components/acter/settings'
 
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
   title: 'acter/Settings',

@@ -31,7 +31,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
     setSelectedTypes(getSelectedTypes(selectedInterests, interestTypes))
   }, [selectedInterests])
 
-  // eslint-disable-next-line  @acter/schema/typescript-eslint/no-explicit-any
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const handleChange = (event: ChangeEvent<any>, tab: number) => {
     setCurrentTab(tab)
   }

@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 
-import { ExampleActerList } from 'src/__fixtures__'
+import { ExampleActerList } from '@acter/schema/fixtures'
 
 import {
   ActerListByType,

@@ -7,7 +7,7 @@ import {
   ExampleOrganisationActer,
   ExampleUserActer,
   OrganisationActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 describe('filterFollowers', () => {
   it('should not allow an Acter to follow itself', () => {

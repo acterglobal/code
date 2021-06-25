@@ -19,13 +19,13 @@ export interface ConnectProps {
   /**
    * Callback for when "Join" is pressed
    */
-  // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onJoin: (acter: Acter, follower: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**
    * Callback for when "Leave" is pressed
    */
-  // eslint-disable-next-line @acter/schema/typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onLeave: (acter: Acter, follower: Acter) => Promise<any> //ApolloGraphQL mutation function
 
   /**

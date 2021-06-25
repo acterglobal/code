@@ -1,4 +1,4 @@
-/* eslint-disable  @acter/schema/typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'

@@ -1,6 +1,6 @@
 import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
-import { ExampleActivity, ExampleActer } from 'src/__fixtures__'
+import { ExampleActivity, ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('@acter/lib/acter/prepare-activity-values')
 

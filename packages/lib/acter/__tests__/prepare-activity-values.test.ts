@@ -7,7 +7,7 @@ import {
   ActivityFormData,
 } from '@acter/lib/acter/prepare-activity-values'
 
-import { ExampleActivity } from 'src/__fixtures__'
+import { ExampleActivity } from '@acter/schema/fixtures'
 
 import { ActerTypes } from '@acter/lib/constants'
 import { prepareDataForValidation } from 'formik'

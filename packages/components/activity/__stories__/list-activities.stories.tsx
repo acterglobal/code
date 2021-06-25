@@ -5,7 +5,11 @@ import {
   ActivitiesList,
   ActivityListProps,
 } from '@acter/components/activity/list'
-import { ExampleActer, ExampleActivity, ExampleUser } from 'src/__fixtures__'
+import {
+  ExampleActer,
+  ExampleActivity,
+  ExampleUser,
+} from '@acter/schema/fixtures'
 import { Acter } from '@acter/schema/types'
 
 const acter = ({

@@ -1,5 +1,5 @@
 import { connectionHasAtLeastRole } from '@acter/lib/acter/connection-has-at-least-role'
-import { ExampleActerConnection } from 'src/__fixtures__'
+import { ExampleActerConnection } from '@acter/schema/fixtures'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
 
 describe('connectionHasAtLeastRole', () => {

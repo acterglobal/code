@@ -7,8 +7,7 @@ import {
   ExampleActer,
   ExampleOrganisationActer,
   ExampleUser,
-} from 'src/__fixtures__'
-
+} from '@acter/schema/fixtures'
 const Content: FC = () => <main>Main content</main>
 
 export default {

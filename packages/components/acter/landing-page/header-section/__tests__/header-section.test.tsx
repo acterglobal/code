@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MuiThemeProvider } from '@material-ui/core'
-import { ExampleActer, ExampleUser } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
 import { theme } from '@acter/components/themes/acter-theme'
 

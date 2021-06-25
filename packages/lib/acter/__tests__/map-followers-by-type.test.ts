@@ -4,7 +4,7 @@ import {
   ExampleActerConnection,
   OrganisationActerType,
   NetworkActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 describe('mapFollowersByType', () => {
   it('should fail gracefully when the provided Acter is not following anyone', () => {

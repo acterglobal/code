@@ -1,6 +1,9 @@
 import { Post } from '@acter/schema/types'
 
-import { ExampleUserActer, ExampleOrganisationActer } from 'src/__fixtures__'
+import {
+  ExampleUserActer,
+  ExampleOrganisationActer,
+} from '@acter/schema/fixtures'
 
 export const ExamplePost: Post = {
   id: '7757714c-f537-466c-86df-fdc5b74b56ee',

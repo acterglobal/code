@@ -9,7 +9,7 @@ import {
   ExampleActer,
   Interests,
   ExampleUser,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 const acter = {
   ...ExampleActer,

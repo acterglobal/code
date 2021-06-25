@@ -5,7 +5,7 @@ import {
   DetailsStepProps,
   DetailsStepValues,
 } from '@acter/components/activity/form/steps/details'
-import { Interests } from 'src/__fixtures__'
+import { Interests } from '@acter/schema/fixtures'
 
 export default {
   title: 'Activity/Form/Steps/Details',

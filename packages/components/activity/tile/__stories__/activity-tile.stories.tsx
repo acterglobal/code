@@ -3,12 +3,12 @@ import {
   ActivityTile,
   ActivityTileProps,
 } from '@acter/components/activity/tile'
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer } from '@acter/schema/fixtures'
 import {
   ExampleActivity,
   IdeaTypeActivity,
   ProjectTypeActivity,
-} from 'src/__fixtures__/activity/example-activity'
+} from '@acter/schema/fixtures/activity/example-activity'
 
 export default {
   title: 'Activity/ActivityTile',

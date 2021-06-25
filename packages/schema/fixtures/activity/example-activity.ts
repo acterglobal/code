@@ -5,7 +5,7 @@ import {
   EventActivityType,
   IdeaActivityType,
   ProjectActivityType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 export const ExampleActivity = {
   id: '18869756-4979-4adb-b967-5cf7ca70b01a',

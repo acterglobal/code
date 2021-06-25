@@ -15,7 +15,7 @@ import {
   Interests,
   ExampleActivityActer,
   ExampleActivity,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 const args: ActivityFormProps = {
   activityTypes: ActivityTypes,

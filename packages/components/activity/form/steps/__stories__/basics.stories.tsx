@@ -6,7 +6,7 @@ import {
   BasicsStepProps,
   BasicsStepValues,
 } from '@acter/components/activity/form/steps/basics'
-import { ExampleActer, ActivityTypes } from 'src/__fixtures__'
+import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
 
 export default {
   title: 'Activity/Form/Steps/Basics',

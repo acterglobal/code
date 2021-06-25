@@ -4,7 +4,7 @@ import {
   ActerLanding,
   ActerLandingProps,
 } from '@acter/components/acter/landing-page/index'
-import { ExampleActer, ExampleUser } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
   title: 'landingpage/LandingPage',
