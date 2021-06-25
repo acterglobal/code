@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { FC } from 'react'
 import {
   Box,
   createStyles,
@@ -14,7 +14,7 @@ import { remove } from 'lodash'
 
 export interface SearchTypeProps {
   filterSubTypes: string[]
-  setFilterSubTypes: Dispatch<SetStateAction<string[]>>
+  onChange: (acterTypeNames: string[]) => void
 }
 export interface TypeProps extends SearchTypeProps {
   activeTab: SearchType
@@ -25,7 +25,7 @@ export const Type: FC<TypeProps> = ({
   activeTab,
   acterTypeName,
   filterSubTypes,
-  setFilterSubTypes,
+  onChange,
 }) => {
   const classes = useStyles()
 
@@ -34,9 +34,9 @@ export const Type: FC<TypeProps> = ({
 
     if (newFilterSubTypes.includes(acterTypeName)) {
       remove(newFilterSubTypes, (item) => item === acterTypeName)
-      setFilterSubTypes([...newFilterSubTypes])
+      onChange([...newFilterSubTypes])
     } else {
-      setFilterSubTypes([...newFilterSubTypes, acterTypeName])
+      onChange([...newFilterSubTypes, acterTypeName])
     }
   }
 

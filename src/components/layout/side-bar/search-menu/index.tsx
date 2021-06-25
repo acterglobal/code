@@ -50,7 +50,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
         acterTypes={subTypes}
         searchType={searchType}
         filterSubTypes={filterSubTypes}
-        setFilterSubTypes={setFilterSubTypes}
+        onChange={setFilterSubTypes}
       />
     </Box>
   )

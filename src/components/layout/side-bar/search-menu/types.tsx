@@ -16,7 +16,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
   acterTypes,
   filterSubTypes,
   searchType,
-  setFilterSubTypes,
+  onChange,
 }) => {
   const classes = useStyles()
 
@@ -27,7 +27,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
           acterTypeName={type.name}
           activeTab={searchType}
           filterSubTypes={filterSubTypes}
-          setFilterSubTypes={setFilterSubTypes}
+          onChange={onChange}
         />
       ))}
     </Box>
