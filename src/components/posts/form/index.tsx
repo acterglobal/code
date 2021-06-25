@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
-import { Field, Form, Formik, useFormikContext } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
@@ -25,7 +25,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
     parentId: null,
   }
 
-  const [editorFocus, setEditorFocus] = useState(null)
   const [clearText, setClearText] = useState(false)
 
   const handleSubmit = (values, formikBag) => {
@@ -35,26 +34,14 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
     setClearText(true)
   }
 
-  const handleFocus = (editorRef) => {
-    setEditorFocus(editorRef)
+  const handleFocus = () => {
     setClearText(false)
   }
 
   return (
-    <Box
-      className={clsx(
-        classes.root
-        // post && classes.contentContainerComment
-      )}
-    >
+    <Box className={classes.root}>
       <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
-      {/* <Box style={{ marginTop: post ? 8 : 15 }}>
-        <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
-      </Box> */}
-      {/* <Box
-        className={classes.formContainer}
-        // style={{ width: '100%' }}
-      > */}
+
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -62,7 +49,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
       >
         {({ setFieldValue, values }) => (
           <Form className={clsx(classes.form, post && classes.comment)}>
-            {/* <Box onClick={() => editorFocus.focus()}> */}
             {post ? (
               <Field
                 name="content"
@@ -82,7 +68,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                 placeholder="Write a post..."
               />
             )}
-            {/* </Box> */}
             <Box
               className={clsx(
                 classes.buttonContainer,
@@ -103,7 +88,6 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
         )}
       </Formik>
     </Box>
-    // </Box>
   )
 }
 
@@ -122,50 +106,32 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginBottom: theme.spacing(2),
     },
-    // postInput: {
-    //   marginLeft: theme.spacing(2),
-    //   marginTop: 2,
-    //   '& input': {
-    //     height: 46,
-    //     borderColor: grey[400],
-    //     border: '1.1px solid',
-    //     borderRadius: 8,
-    //     paddingLeft: 20,
-    //     fontFamily: theme.typography.fontFamily,
-    //   },
-    // },
-    comment: {
-      marginLeft: 5,
-    },
-    // formContainer: {
-    //   borderRadius: 10,
-    //   width: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   alignItems: 'flex-start',
-    // },
     form: {
       marginTop: 3,
       marginLeft: 10,
       paddingRight: 10,
-      // display: 'flex',
+      display: 'flex',
       flexDirection: 'column',
       width: '100%',
       overflow: 'hidden',
       fontSize: 11,
     },
+    comment: {
+      marginLeft: 5,
+      marginTop: 0,
+    },
     field: {
       padding: theme.spacing(1),
       width: '100%',
+      height: 35,
       backgroundColor: grey[200],
       borderColor: grey[200],
-      borderRadius: 7,
+      borderRadius: 6,
       border: 'none',
       outline: 'none',
-    },
-    formInputLabel: {
-      marginBottom: 3,
-      fontSize: 13,
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: 11,
     },
     buttonContainer: {
       marginTop: theme.spacing(1),

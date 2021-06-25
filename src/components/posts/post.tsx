@@ -29,12 +29,7 @@ export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
   return (
     <Box className={clsx(classes.post, commenting && classes.comment)}>
       <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
-      <Box
-        // className={
-        //   commenting ? classes.comment : classes.postContainer
-        // }
-        className={classes.postContent}
-      >
+      <Box className={classes.postContent}>
         <Box>
           <Box className={classes.topSection}>
             <Typography variant="h6" className={classes.title}>
@@ -74,34 +69,25 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'row',
       padding: 5,
       paddingTop: 10,
-      // width: '100%',
     },
     postContent: {
       marginLeft: theme.spacing(1),
       marginTop: 5,
-      // backgroundColor: 'grey',
       borderRadius: 7,
       width: '100%',
-      // padding: theme.spacing(1),
-      // display: 'flex',
-      // flexDirection: 'column',
-      // alignItems: 'flex-start',
     },
     comment: {
       backgroundColor: grey[200],
       borderRadius: 7,
-      // width: '90%',
       marginLeft: 8,
       marginRight: 16,
       marginBottom: 10,
       padding: theme.spacing(1),
       display: 'flex',
-      // flexDirection: 'column',
       alignItems: 'flex-start',
     },
     acterTypeName: {
       color: grey[700],
-      // fontWeight: theme.typography.fontWeightLight,
       fontSize: 11,
       textTransform: 'capitalize',
     },
