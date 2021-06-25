@@ -11,7 +11,12 @@ export interface LinkProps extends LinkFormProps {
   links: LinkType[]
 }
 
-export const Links: FC<LinkProps> = ({ links, onLinkSubmit, onLinkDelete }) => {
+export const Links: FC<LinkProps> = ({
+  links,
+  onLinkSubmit,
+  onLinkUpdate,
+  onLinkDelete,
+}) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
@@ -37,6 +42,7 @@ export const Links: FC<LinkProps> = ({ links, onLinkSubmit, onLinkDelete }) => {
             <LinkForm
               link={link}
               onLinkSubmit={onLinkSubmit}
+              onLinkUpdate={onLinkUpdate}
               onLinkDelete={onLinkDelete}
             />
           </Box>

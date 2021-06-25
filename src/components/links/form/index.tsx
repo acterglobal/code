@@ -10,12 +10,14 @@ import { Link } from '@schema'
 export interface LinkFormProps {
   link?: Link
   onLinkSubmit: (values: unknown) => Promise<void>
+  onLinkUpdate?: (values: unknown) => Promise<void>
   onLinkDelete?: (values: unknown) => Promise<void>
 }
 
 export const LinkForm: FC<LinkFormProps> = ({
   link,
   onLinkSubmit,
+  onLinkUpdate,
   onLinkDelete,
 }) => {
   const classes = useStyles()
@@ -25,18 +27,21 @@ export const LinkForm: FC<LinkFormProps> = ({
     url: link?.url || '',
   }
 
+  const handleSubmit = (values, formikbag) => {
+    link ? onLinkUpdate(values) : onLinkSubmit(values)
+    formikbag.resetForm()
+  }
+
   const onDelete = () => {
     const { id } = link
     onLinkDelete(id)
   }
+
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={(values, { resetForm }) => {
-        resetForm()
-        onLinkSubmit(values)
-      }}
+      onSubmit={handleSubmit}
     >
       {({ dirty }) => (
         <Form>

@@ -24,7 +24,7 @@ import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useCreateLink } from 'src/lib/links/use-create-link'
 import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
-import { useCreateUpdateLink } from 'src/lib/links/use-create-update-link'
+import { useUpdateLink } from 'src/lib/links/use-update-link'
 import { useDeleteLink } from 'src/lib/links/use-delete-link'
 
 interface ActerSettingsPageProps {
@@ -55,7 +55,10 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     }
   )
 
-  const [handleLink] = useCreateUpdateLink(acter, user, displayLinks, (links) =>
+  const [createLink] = useCreateLink(acter, user, displayLinks, (links) =>
+    setDisplayLinks(links)
+  )
+  const [updateLink] = useUpdateLink(acter, user, displayLinks, (links) =>
     setDisplayLinks(links)
   )
   const [handleDeleteLink] = useDeleteLink(displayLinks, setDisplayLinks)
@@ -75,7 +78,8 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
           onSettingsChange={updateGroup}
           loading={updateGroupLoading}
           links={displayLinks}
-          onLinkSubmit={handleLink}
+          onLinkSubmit={createLink}
+          onLinkUpdate={updateLink}
           onLinkDelete={handleDeleteLink}
         />
       </main>
