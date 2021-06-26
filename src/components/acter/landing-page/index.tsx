@@ -52,7 +52,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
         onLeave={onLeave}
         loading={loading}
       />
-      <Grid container spacing={2} style={{ marginRight: 4 }}>
+      <Grid container spacing={2} className={classes.content}>
         <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
           <Box role="tabpanel" hidden={tab !== ACTIVITIES}>
             <ActivitiesList acter={acter} user={user} />
@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
       marginBottom: theme.spacing(2),
+    },
+    content: {
+      marginRight: 4,
     },
     menu: {
       order: 1,

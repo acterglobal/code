@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik, FormikBag } from 'formik'
 import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
@@ -10,24 +10,32 @@ import { User, Post as PostType } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
+type PostFormValues = {
+  content: string
+  parentId: string | null
+}
+
 export interface PostFormProps {
   user: User
   comment?: boolean
   post?: PostType
-  onPostSubmit: (values: { content: string; parentId: string }) => Promise<void>
+  onPostSubmit: (values: PostFormValues) => Promise<void>
 }
 
 export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
   const classes = useStyles()
 
-  const initialValues = {
+  const initialValues: PostFormValues = {
     content: '',
     parentId: null,
   }
 
   const [clearText, setClearText] = useState(false)
 
-  const handleSubmit = (values, formikBag) => {
+  const handleSubmit = (
+    values: PostFormValues,
+    formikBag: FormikBag<PostFormProps, PostFormValues>
+  ) => {
     const submitValues = post ? { ...values, parentId: post.id } : values
     onPostSubmit(submitValues)
     formikBag.resetForm()
@@ -39,7 +47,7 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
   }
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.container}>
       <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
 
       <Formik
@@ -93,7 +101,7 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    container: {
       backgroundColor: 'white',
       borderRadius: 7,
       width: '100%',

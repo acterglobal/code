@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'flex-start',
     },
     acterTypeName: {
-      color: grey[700],
+      color: grey[600],
       fontSize: 11,
       textTransform: 'capitalize',
     },
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     timeStamp: {
-      fontSize: 10,
+      fontSize: 9,
       marginLeft: theme.spacing(1),
       fontWeight: theme.typography.fontWeightLight,
       color: grey[600],
