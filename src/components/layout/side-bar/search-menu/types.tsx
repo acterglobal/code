@@ -8,12 +8,12 @@ import {
 import { SearchType } from 'src/constants'
 
 export interface SearchTypesProps extends SearchTypeProps {
-  acterTypes: (ActerType | ActivityType)[]
+  subTypes: (ActerType | ActivityType)[]
   searchType: SearchType
 }
 
 export const SearchTypes: FC<SearchTypesProps> = ({
-  acterTypes,
+  subTypes,
   filterSubTypes,
   searchType,
   onChange,
@@ -22,9 +22,9 @@ export const SearchTypes: FC<SearchTypesProps> = ({
 
   return (
     <Box className={classes.root}>
-      {acterTypes.map((type) => (
+      {subTypes.map((type) => (
         <Type
-          acterTypeName={type.name}
+          subTypeName={type.name}
           activeTab={searchType}
           filterSubTypes={filterSubTypes}
           onChange={onChange}

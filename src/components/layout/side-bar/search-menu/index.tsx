@@ -47,7 +47,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
       <SearchTabs activeTab={searchType} />
 
       <SearchTypes
-        acterTypes={subTypes}
+        subTypes={subTypes}
         searchType={searchType}
         filterSubTypes={filterSubTypes}
         onChange={setFilterSubTypes}

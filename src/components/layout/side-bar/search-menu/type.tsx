@@ -18,12 +18,12 @@ export interface SearchTypeProps {
 }
 export interface TypeProps extends SearchTypeProps {
   activeTab: SearchType
-  acterTypeName: string
+  subTypeName: string
 }
 
 export const Type: FC<TypeProps> = ({
   activeTab,
-  acterTypeName,
+  subTypeName,
   filterSubTypes,
   onChange,
 }) => {
@@ -32,11 +32,11 @@ export const Type: FC<TypeProps> = ({
   const handleChange = () => {
     const newFilterSubTypes = [...filterSubTypes]
 
-    if (newFilterSubTypes.includes(acterTypeName)) {
-      remove(newFilterSubTypes, (item) => item === acterTypeName)
+    if (newFilterSubTypes.includes(subTypeName)) {
+      remove(newFilterSubTypes, (item) => item === subTypeName)
       onChange([...newFilterSubTypes])
     } else {
-      onChange([...newFilterSubTypes, acterTypeName])
+      onChange([...newFilterSubTypes, subTypeName])
     }
   }
 
@@ -44,16 +44,16 @@ export const Type: FC<TypeProps> = ({
     <Box className={classes.root}>
       <Box className={classes.type}>
         {activeTab === SearchType.ACTIVITIES && (
-          <ActivityTypeIcon activityType={acterTypeName} />
+          <ActivityTypeIcon activityType={subTypeName} />
         )}
         <Typography className={classes.typeName} variant="body2">
-          {acterTypeName}s
+          {subTypeName}s
         </Typography>
       </Box>
       <Switch
-        name="events"
+        name={subTypeName}
         size={Size.SMALL}
-        checked={filterSubTypes.includes(acterTypeName)}
+        checked={filterSubTypes.includes(subTypeName)}
         onChange={handleChange}
       />
     </Box>
