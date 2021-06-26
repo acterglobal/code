@@ -33,7 +33,7 @@ export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
         name="events"
         size={Size.SMALL}
         checked={true}
-        handleSwitchChange={() => null}
+        onChange={() => null}
       />
     </Box>
   )

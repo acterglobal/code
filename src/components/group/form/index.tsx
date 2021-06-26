@@ -110,7 +110,7 @@ export const GroupForm: FC<GroupFormProps> = ({
                 <Switch
                   name="makePrivate"
                   checked={isActerJoinRestricted}
-                  handleSwitchChange={handleSwitch}
+                  onChange={handleSwitch}
                 />
               </Box>
             </FormGroup>

@@ -12,17 +12,17 @@ const { SMALL, MEDIUM } = Size
 export interface SwitchProps {
   name: string
   checked: boolean
-  handleSwitchChange: (switchStatus: boolean) => void
+  onChange: (switchStatus: boolean) => void
   size?: Size
 }
 
 export const Switch: FC<SwitchProps> = ({
   name,
   checked,
-  handleSwitchChange,
+  onChange,
   size = MEDIUM,
 }) => {
-  const handleChange = () => handleSwitchChange(!checked)
+  const handleChange = () => onChange(!checked)
   const StyledSwitch = getSwitch(size)
   return <StyledSwitch checked={checked} onChange={handleChange} name={name} />
 }
