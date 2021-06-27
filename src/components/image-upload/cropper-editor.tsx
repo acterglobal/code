@@ -9,6 +9,8 @@ import {
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button, Modal } from '@material-ui/core/'
 import Cropper from 'react-cropper'
+import clsx from 'clsx'
+
 import 'cropperjs/dist/cropper.css'
 import { green, grey } from '@material-ui/core/colors'
 
@@ -78,7 +80,12 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
       open={openModal}
       disableBackdropClick={true}
     >
-      <Box className={classes.container}>
+      <Box
+        className={clsx(
+          classes.container,
+          aspectRatio === 1 && classes.roundSelection
+        )}
+      >
         <Cropper
           src={image || ''}
           className={classes.cropper}
@@ -135,13 +142,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   container: {
     width: theme.spacing(55),
-    height: theme.spacing(50),
+    height: theme.spacing(51),
     padding: theme.spacing(1),
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  roundSelection: {
+    '& .cropper-view-box, .cropper-crop-box': {
+      borderRadius: '50%',
+    },
   },
   cropper: {
     width: theme.spacing(54),
