@@ -14,8 +14,6 @@ export type PostVariables = {
 
 // What returns after deletion
 type DeletePostData = {
-  // id: string
-  // parentId: string
   deletePost: {
     id: string
     parentId: string
@@ -42,7 +40,7 @@ export const useDeletePost = (
 ): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
 
-  const deletingComment = (deletedPost, displayPostList) => {
+  const deleteCommentFromPostList = (deletedPost, displayPostList) => {
     const newPostList = displayPostList.map((post) => {
       if (post.id === deletedPost.parentId) {
         const newComments = post.Comments.filter(
@@ -58,7 +56,7 @@ export const useDeletePost = (
     return newPostList
   }
 
-  const deletingPost = (deletedPost, displayPostList) => {
+  const deletePostFromPostList = (deletedPost, displayPostList) => {
     const removedCommentsList = displayPostList.map((post) => {
       if (post.id === deletedPost.parentId) {
         return {
@@ -87,8 +85,8 @@ export const useDeletePost = (
       } = result
 
       const newPostList = isComment
-        ? deletingComment(deletedPost, displayPostList)
-        : deletingPost(deletedPost, displayPostList)
+        ? deleteCommentFromPostList(deletedPost, displayPostList)
+        : deletePostFromPostList(deletedPost, displayPostList)
 
       onComplete(newPostList)
 

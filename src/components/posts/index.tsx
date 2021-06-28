@@ -45,17 +45,15 @@ export const PostList: FC<PostListProps> = ({
         <PostForm user={user} onPostSubmit={onPostSubmit} />
       )}
       {posts?.map((post) => (
-        <Box key={post.id} className={classes.contentContainer}>
+        <Box key={`post-${post.id}`} className={classes.contentContainer}>
           <Post post={post} onPostDelete={onPostDelete} />
           <Divider variant="middle" className={classes.divider} />
           {post.Comments?.map((comment) => (
-            <Box key={comment.id} className={classes.contentContainer}>
-              <Post
-                key={comment.id}
-                post={comment}
-                commenting
-                onPostDelete={onPostDelete}
-              />
+            <Box
+              key={`post-${post.id}-comment-${comment.id}`}
+              className={classes.contentContainer}
+            >
+              <Post post={comment} commenting onPostDelete={onPostDelete} />
             </Box>
           ))}
           <Box>
