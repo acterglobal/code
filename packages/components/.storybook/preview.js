@@ -1,6 +1,6 @@
 import React from 'react'
 import * as nextImage from 'next/image'
-import { ActerThemeProvider } from '../@acter/components/themes/acter-theme'
+import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

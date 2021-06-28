@@ -3,7 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../**/*.stories.mdx', '../**/*.stories.@(ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -15,7 +15,7 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       // WTF TsconfigPathsPlutin should take care of this but does not >:(
-      '@schema': path.resolve(process.cwd(), '@schema'),
+      '@schema': path.resolve(process.cwd(), '../../@schema'),
     }
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(
