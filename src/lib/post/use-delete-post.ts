@@ -1,11 +1,32 @@
 import { useState } from 'react'
-import { MutationResult } from '@apollo/client'
-import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+import { MutationResult, FetchResult } from '@apollo/client'
+import {
+  UseMutationOptions,
+  useNotificationMutation,
+} from 'src/lib/apollo/use-notification-mutation'
 import DELETE_POST from 'api/mutations/delete-post.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
-import { Post } from '@schema'
+import { Post as PostType } from '@schema'
 
-export type HandleMethod = (id: unknown) => Promise<void>
+export type PostVariables = {
+  postId: string
+}
+
+// What returns after deletion
+type DeletePostData = {
+  // id: string
+  // parentId: string
+  deletePost: {
+    id: string
+    parentId: string
+  }
+}
+
+type DeletePostOptions = UseMutationOptions<DeletePostData, PostVariables>
+
+export type HandleMethod<TData> = (
+  postId: PostVariables
+) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
 
 /**
  * Custom hook that deletes a post
@@ -13,10 +34,12 @@ export type HandleMethod = (id: unknown) => Promise<void>
  * @returns handle method to delete post
  * @returns mutation results from apollo
  */
+
 export const useDeletePost = (
-  displayPostList: Post[],
-  onComplete: (postList: Post[]) => void
-): [HandleMethod, MutationResult] => {
+  displayPostList: PostType[],
+  onComplete: (postList: PostType[]) => void,
+  options?: DeletePostOptions
+): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
 
   const deletingComment = (deletedPost, displayPostList) => {
@@ -51,14 +74,24 @@ export const useDeletePost = (
     )
     return newPostList
   }
-  const [deletePost, mutationResult] = useNotificationMutation(DELETE_POST, {
-    update: (cache, { data }) => {
-      const { deletePost: deletedPost } = data
+
+  const [deletePost, mutationResult] = useNotificationMutation<
+    DeletePostData,
+    PostVariables
+  >(DELETE_POST, {
+    ...options,
+    update: (cache, result) => {
+      typeof options?.update === 'function' && options.update(cache, result)
+      const {
+        data: { deletePost: deletedPost },
+      } = result
 
       const newPostList = isComment
         ? deletingComment(deletedPost, displayPostList)
         : deletingPost(deletedPost, displayPostList)
+
       onComplete(newPostList)
+
       cache.writeQuery({
         query: GET_POSTS,
         data: {
