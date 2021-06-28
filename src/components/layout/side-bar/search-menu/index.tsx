@@ -11,7 +11,7 @@ import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
 import { useRouter } from 'next/router'
 import { SearchTypes } from 'src/components/layout/side-bar/search-menu/types'
 import { ActerType, ActivityType } from '@schema'
-import { SearchType, ActerTypes } from 'src/constants'
+import { SearchType, ActerTypes } from '@acter/lib/constants'
 
 export interface SearchMenuProps {
   acterTypes: (ActerType | ActivityType)[]

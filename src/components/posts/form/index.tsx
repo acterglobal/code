@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
 import { Post as PostType, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { Size } from 'src/constants'
+import { Size } from '@acter/lib/constants'
 
 export type PostFormValues = PostType & {
   postId: string

@@ -2,10 +2,10 @@ import { MutationResult } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from 'src/lib/apollo/use-notification-mutation'
+} from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_POST from 'api/mutations/post-update.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
-import { updateNewPostList } from 'src/lib/post/update-post-new-postlist'
+import { updateNewPostList } from '@acter/lib/post/update-post-new-postlist'
 import { Post as PostType } from '@schema'
 
 export type PostVariables = PostType & {

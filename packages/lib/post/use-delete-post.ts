@@ -3,10 +3,10 @@ import { MutationResult } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from 'src/lib/apollo/use-notification-mutation'
+} from '@acter/lib/apollo/use-notification-mutation'
 import DELETE_POST from 'api/mutations/delete-post.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
-import { getNewPostList } from 'src/lib/post/delete-update-postlist'
+import { getNewPostList } from '@acter/lib/post/delete-update-postlist'
 import { Post as PostType } from '@schema'
 
 export type PostVariables = {

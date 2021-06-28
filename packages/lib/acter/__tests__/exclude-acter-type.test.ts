@@ -1,5 +1,5 @@
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
-import { ACTIVITY, USER } from '@acter/lib/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { ExampleOrganisationActer, ExampleUserActer } from 'src/__fixtures__'
 
 describe('excludeActerTypes', () => {

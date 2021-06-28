@@ -2,7 +2,7 @@ import { MutationResult } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from 'src/lib/apollo/use-notification-mutation'
+} from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_LINK from 'api/mutations/link-create.graphql'
 import GET_LINKS from 'api/queries/links-by-acter.graphql'
 import { Acter, User, Link as LinkType } from '@schema'

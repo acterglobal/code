@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { withNextRouter } from 'storybook-addon-next-router'
 import { Layout, LayoutProps } from 'src/components/layout'
-import { ActerMenu } from 'src/constants'
+import { ActerMenu } from '@acter/lib/constants'
 import {
   ExampleActer,
   ExampleOrganisationActer,

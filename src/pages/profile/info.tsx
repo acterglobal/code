@@ -1,11 +1,14 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useUpdateActer } from 'src/lib/acter/use-update-acter'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
 import { ProfileInfoForm } from 'src/components/user/form/info'
 import { InterestType, User } from '@schema'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 import { getUserProfile } from 'src/props'
 
 interface UserProfilePageProps {
