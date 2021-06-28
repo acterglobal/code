@@ -48,10 +48,18 @@ type EveryActerInterestClause = {
   some: ActerInterestsNameFilter
 }
 
+type ActivityTypeNameInClause = {
+  name: InClause
+}
+
+type ActivityTypeNameFilterClause = {
+  ActivityType: ActivityTypeNameInClause
+}
+
 type ActivitySearchWhereClause = {
   name?: ActivityNameWhereClause
   deletedAt?: EqualsClause
-  Activity?: ActivityEndsBeforeClause
+  Activity?: ActivityEndsBeforeClause | ActivityTypeNameFilterClause
   ActerInterests?: EveryActerInterestClause
   ActerType?: Record<'name', 'activity'>
 }
@@ -109,6 +117,22 @@ const withInterestsFilter = (interestNames: [string]) => (
   return whereClause
 }
 
+const withActivityTypesFilter = (activityTypes: [string]) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  return {
+    ...whereClause,
+    Activity: {
+      ActivityType: {
+        name: {
+          in: activityTypes,
+          mode: 'insensitive',
+        },
+      },
+    },
+  }
+}
+
 @Resolver(Acter)
 export class SearchResolver {
   @Query(() => [Acter])
@@ -117,6 +141,7 @@ export class SearchResolver {
     @Arg('searchText', { nullable: true }) searchText: string,
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
+    @Arg('types', () => [String], { nullable: true }) types: [string],
     @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
@@ -131,7 +156,8 @@ export class SearchResolver {
       activitySearch,
       withNameSearch(searchText),
       withEndsBeforeSearch(endsBefore),
-      withInterestsFilter(interests)
+      withInterestsFilter(interests),
+      withActivityTypesFilter(types)
     )
 
     return ctx.prisma.acter.findMany({

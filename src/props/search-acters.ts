@@ -5,13 +5,14 @@ import SEARCH_ACTERS from 'api/queries/acters-search.graphql'
 import { SearchVariablesType } from 'src/props/search-activities'
 
 export const searchActers: ComposedGetServerSideProps = async ({ query }) => {
-  const { search: searchText, interests } = query
+  const { search: searchText, interests, types } = query
 
   const searchVariables: SearchVariablesType = { searchText }
 
   if (interests) {
     searchVariables.interests = (<string>interests).split(',')
   }
+  searchVariables.types = types ? (<string>types).split(',') : []
 
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
