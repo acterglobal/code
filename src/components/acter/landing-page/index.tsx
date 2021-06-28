@@ -18,7 +18,7 @@ import { PostList, PostListProps } from 'src/components/posts'
 import { ActerMenu } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
-const { ACTIVITIES, MEMBERS, FEED } = ActerMenu
+const { ACTIVITIES, MEMBERS, FORUM } = ActerMenu
 
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
@@ -38,7 +38,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
 }) => {
   const classes = useStyles({})
   const router = useRouter()
-  const tab = getLandingPageTab(router, FEED)
+  const tab = getLandingPageTab(router, FORUM)
 
   return (
     <Grid className={classes.header} container>
@@ -63,7 +63,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           </Box>
           <Box
             role="tabpanel"
-            hidden={tab !== FEED}
+            hidden={tab !== FORUM}
             className={classes.postList}
           >
             <PostList

@@ -2,11 +2,13 @@ import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { withNextRouter } from 'storybook-addon-next-router'
 import { Layout, LayoutProps } from 'src/components/layout'
+import { ActerMenu } from 'src/constants'
 import {
   ExampleActer,
   ExampleOrganisationActer,
   ExampleUser,
 } from 'src/__fixtures__'
+
 const Content: FC = () => <main>Main content</main>
 
 export default {
@@ -19,7 +21,7 @@ export default {
   parameters: {
     query: {
       slug: ExampleActer.slug,
-      tab: ['feed'],
+      tab: [ActerMenu.FORUM],
     },
   },
 } as Meta
