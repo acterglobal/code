@@ -8,9 +8,9 @@ import { Post } from '@schema'
 export type HandleMethod = (id: unknown) => Promise<void>
 
 /**
- * Custom hook that updates a post
+ * Custom hook that deletes a post
  * @param post
- * @returns handle method to update post
+ * @returns handle method to delete post
  * @returns mutation results from apollo
  */
 export const useDeletePost = (
@@ -54,27 +54,17 @@ export const useDeletePost = (
   const [deletePost, mutationResult] = useNotificationMutation(DELETE_POST, {
     update: (cache, { data }) => {
       const { deletePost: deletedPost } = data
-      console.log('This is comment', isComment)
 
-      if (isComment) {
-        const newPostList = deletingComment(deletedPost, displayPostList)
-        onComplete(newPostList)
-        cache.writeQuery({
-          query: GET_POSTS,
-          data: {
-            posts: newPostList,
-          },
-        })
-      } else {
-        const newPostList = deletingPost(deletedPost, displayPostList)
-        onComplete(newPostList)
-        cache.writeQuery({
-          query: GET_POSTS,
-          data: {
-            posts: newPostList,
-          },
-        })
-      }
+      const newPostList = isComment
+        ? deletingComment(deletedPost, displayPostList)
+        : deletingPost(deletedPost, displayPostList)
+      onComplete(newPostList)
+      cache.writeQuery({
+        query: GET_POSTS,
+        data: {
+          posts: newPostList,
+        },
+      })
     },
     getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })
