@@ -22,9 +22,7 @@ type DeletePostData = {
 
 type DeletePostOptions = UseMutationOptions<DeletePostData, PostVariables>
 
-export type HandleMethod<TData> = (
-  postId: PostVariables
-) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
+export type HandleMethod<TData> = (post: PostType) => Promise<void>
 
 /**
  * Custom hook that deletes a post
