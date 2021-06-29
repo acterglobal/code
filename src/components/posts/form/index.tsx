@@ -70,7 +70,7 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
                   height={120}
                   initialValue={initialValues.content}
                   handleInputChange={(value) => setFieldValue('content', value)}
-                  handleFocus={handleFocus}
+                  editorRef={handleFocus}
                   clearTextEditor={clearText}
                 />
               </Box>
