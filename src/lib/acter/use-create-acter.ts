@@ -17,7 +17,7 @@ type CreateActerData = {
   createActer: Acter
 }
 
-type CreataActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
+type CreateActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
 
 export type HandleMethod<TData> = (
   acter: ActerVariables
@@ -31,7 +31,7 @@ export type HandleMethod<TData> = (
  * @returns mutation results from apollo
  */
 export const useCreateActer = (
-  options?: CreataActerOptions
+  options?: CreateActerOptions
 ): [HandleMethod<CreateActerData>, MutationResult] => {
   const [createActer, mutationResult] = useNotificationMutation<
     CreateActerData,
