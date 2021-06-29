@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MutationResult, FetchResult } from '@apollo/client'
+import { MutationResult } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -12,7 +12,6 @@ export type PostVariables = {
   postId: string
 }
 
-// What returns after deletion
 type DeletePostData = {
   deletePost: {
     id: string
@@ -20,9 +19,12 @@ type DeletePostData = {
   }
 }
 
-type DeletePostOptions = UseMutationOptions<DeletePostData, PostVariables>
+interface DeletePostOptions
+  extends UseMutationOptions<DeletePostData, PostVariables> {
+  onCompleted: (DeletePostData) => PostType[] | void
+}
 
-export type HandleMethod<TData> = (post: PostType) => Promise<void>
+export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 
 /**
  * Custom hook that deletes a post
@@ -33,7 +35,6 @@ export type HandleMethod<TData> = (post: PostType) => Promise<void>
 
 export const useDeletePost = (
   displayPostList: PostType[],
-  onComplete: (postList: PostType[]) => void,
   options?: DeletePostOptions
 ): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
@@ -76,6 +77,19 @@ export const useDeletePost = (
     PostVariables
   >(DELETE_POST, {
     ...options,
+    onCompleted: (result) => {
+      const { deletePost: deletedPost } = result
+
+      const newPostList = isComment
+        ? deleteCommentFromPostList(deletedPost, displayPostList)
+        : deletePostFromPostList(deletedPost, displayPostList)
+
+      typeof options?.onCompleted === 'function' &&
+        options.onCompleted(newPostList)
+
+      return newPostList
+    },
+
     update: (cache, result) => {
       typeof options?.update === 'function' && options.update(cache, result)
       const {
@@ -85,8 +99,6 @@ export const useDeletePost = (
       const newPostList = isComment
         ? deleteCommentFromPostList(deletedPost, displayPostList)
         : deletePostFromPostList(deletedPost, displayPostList)
-
-      onComplete(newPostList)
 
       cache.writeQuery({
         query: GET_POSTS,
