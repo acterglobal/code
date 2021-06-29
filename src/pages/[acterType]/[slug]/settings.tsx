@@ -57,7 +57,9 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   const [createLink] = useCreateLink(acter, user, displayLinks, {
     onCompleted: setDisplayLinks,
   })
-  const [updateLink] = useUpdateLink(acter, user, displayLinks, setDisplayLinks)
+  const [updateLink] = useUpdateLink(acter, user, displayLinks, {
+    onCompleted: setDisplayLinks,
+  })
   const [deleteLink] = useDeleteLink(displayLinks, {
     onCompleted: setDisplayLinks,
   })

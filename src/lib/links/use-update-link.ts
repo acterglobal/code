@@ -17,12 +17,12 @@ type UpdateLinkData = {
   updateLink: LinkType
 }
 
-export type HandleMethod = (values: unknown) => Promise<void>
+interface UpdateLinkOptions
+  extends UseMutationOptions<UpdateLinkData, LinkVariables> {
+  onCompleted: (UpdateLinkData) => LinkType[] | void
+}
 
-export type UpdateLinkOptions = UseMutationOptions<
-  UpdateLinkData,
-  LinkVariables
->
+export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that updates a link
@@ -34,9 +34,19 @@ export const useUpdateLink = (
   acter: Acter,
   user: User,
   displayLinks: LinkType[],
-  onComplete: (links: LinkType[]) => void,
   options?: UpdateLinkOptions
-): [HandleMethod, MutationResult] => {
+): [HandleMethod<UpdateLinkData>, MutationResult] => {
+  const getNewDisplayLinks = (displayLinks, updatedLink) => {
+    const newDisplayLinks = displayLinks.map((link) => {
+      if (link.id === updatedLink.id) {
+        return updatedLink
+      }
+      return link
+    })
+
+    return newDisplayLinks
+  }
+
   const [updateLink, mutationResult] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
@@ -45,17 +55,10 @@ export const useUpdateLink = (
     update: (cache, result) => {
       typeof options?.update === 'function' && options.update(cache, result)
       const {
-        data: { updateLink: newLink },
+        data: { updateLink: updatedLink },
       } = result
 
-      const newDisplayLinks = displayLinks.map((link) => {
-        if (link.id === newLink.id) {
-          return newLink
-        }
-        return link
-      })
-
-      onComplete(newDisplayLinks)
+      const newDisplayLinks = getNewDisplayLinks(displayLinks, updatedLink)
 
       cache.writeQuery({
         query: GET_LINKS,
@@ -63,6 +66,16 @@ export const useUpdateLink = (
           links: newDisplayLinks,
         },
       })
+    },
+    onCompleted: (result) => {
+      const { updateLink: updatedLink } = result
+
+      const newDisplayLinks = getNewDisplayLinks(displayLinks, updatedLink)
+
+      typeof options?.onCompleted === 'function' &&
+        options.onCompleted(newDisplayLinks)
+
+      return newDisplayLinks
     },
     getSuccessMessage: () => 'Link updated',
   })
