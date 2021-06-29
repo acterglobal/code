@@ -39,7 +39,10 @@ export const useDeletePost = (
 ): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
 
-  const deleteCommentFromPostList = (deletedPost, displayPostList) => {
+  const deleteCommentFromPostList = (
+    deletedPost: { id: string; parentId: string },
+    displayPostList: PostType[]
+  ) => {
     const newPostList = displayPostList.map((post) => {
       if (post.id === deletedPost.parentId) {
         const newComments = post.Comments.filter(
@@ -55,7 +58,10 @@ export const useDeletePost = (
     return newPostList
   }
 
-  const deletePostFromPostList = (deletedPost, displayPostList) => {
+  const deletePostFromPostList = (
+    deletedPost: { id: string; parentId: string },
+    displayPostList: PostType[]
+  ) => {
     const removedCommentsList = displayPostList.map((post) => {
       if (post.id === deletedPost.parentId) {
         return {
@@ -72,33 +78,28 @@ export const useDeletePost = (
     return newPostList
   }
 
+  const getNewPostList = (
+    deletedPost: { id: string; parentId: string },
+    displayPostList: PostType[]
+  ) => {
+    const newPostList = isComment
+      ? deleteCommentFromPostList(deletedPost, displayPostList)
+      : deletePostFromPostList(deletedPost, displayPostList)
+    return newPostList
+  }
+
   const [deletePost, mutationResult] = useNotificationMutation<
     DeletePostData,
     PostVariables
   >(DELETE_POST, {
     ...options,
-    onCompleted: (result) => {
-      const { deletePost: deletedPost } = result
-
-      const newPostList = isComment
-        ? deleteCommentFromPostList(deletedPost, displayPostList)
-        : deletePostFromPostList(deletedPost, displayPostList)
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newPostList)
-
-      return newPostList
-    },
-
     update: (cache, result) => {
       typeof options?.update === 'function' && options.update(cache, result)
       const {
         data: { deletePost: deletedPost },
       } = result
 
-      const newPostList = isComment
-        ? deleteCommentFromPostList(deletedPost, displayPostList)
-        : deletePostFromPostList(deletedPost, displayPostList)
+      const newPostList = getNewPostList(deletedPost, displayPostList)
 
       cache.writeQuery({
         query: GET_POSTS,
@@ -106,6 +107,16 @@ export const useDeletePost = (
           posts: newPostList,
         },
       })
+    },
+    onCompleted: (result) => {
+      const { deletePost: deletedPost } = result
+
+      const newPostList = getNewPostList(deletedPost, displayPostList)
+
+      typeof options?.onCompleted === 'function' &&
+        options.onCompleted(newPostList)
+
+      return newPostList
     },
     getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })
