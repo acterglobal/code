@@ -56,7 +56,6 @@ export const TextEditor: FC<TextEditorProps> = ({
   useEffect(() => {
     if (clearTextEditor) {
       setEditorState(EditorState.createEmpty())
-      setHideToolbar(true)
     }
   }, [clearTextEditor])
 
