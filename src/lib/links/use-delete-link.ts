@@ -20,7 +20,7 @@ interface DeleteLinkOptions
   onCompleted: (DeleteLinkData) => LinkType[] | void
 }
 
-export type HandleMethod = (values: unknown) => Promise<void>
+export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that deletes a link
@@ -31,7 +31,7 @@ export type HandleMethod = (values: unknown) => Promise<void>
 export const useDeleteLink = (
   displayLinks: LinkType[],
   options?: DeleteLinkOptions
-): [HandleMethod, MutationResult] => {
+): [HandleMethod<DeleteLinkData>, MutationResult] => {
   const [deleteLink, mutationResult] = useNotificationMutation<
     DeleteLinkData,
     LinkVariables

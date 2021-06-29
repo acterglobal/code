@@ -16,26 +16,25 @@ type CreateLinkData = {
   createLink: LinkType
 }
 
-export type HandleMethod = (values: unknown) => Promise<void>
+interface CreateLinkOptions
+  extends UseMutationOptions<CreateLinkData, LinkVariables> {
+  onCompleted: (CreateLinkData) => LinkType[] | void
+}
 
-export type CreateLinkOptions = UseMutationOptions<
-  CreateLinkData,
-  LinkVariables
->
+export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
- * Custom hook that creates new link
+ * Custom hook that creates a new link
  * @param link
- * @returns handle method to create and update link
+ * @returns handle method to create a new link
  * @returns mutation results from apollo
  */
 export const useCreateLink = (
   acter: Acter,
   user: User,
   displayLinks: LinkType[],
-  onComplete: (links: LinkType[]) => void,
   options?: CreateLinkOptions
-): [HandleMethod, MutationResult] => {
+): [HandleMethod<CreateLinkData>, MutationResult] => {
   const [createLink, mutationResult] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
@@ -49,14 +48,22 @@ export const useCreateLink = (
 
       const newDisplayLinks = [...displayLinks, newLink]
 
-      onComplete(newDisplayLinks)
-
       cache.writeQuery({
         query: GET_LINKS,
         data: {
           links: newDisplayLinks,
         },
       })
+    },
+    onCompleted: (result) => {
+      const { createLink: newLink } = result
+
+      const newDisplayLinks = [...displayLinks, newLink]
+
+      typeof options?.onCompleted === 'function' &&
+        options.onCompleted(newDisplayLinks)
+
+      return newDisplayLinks
     },
     getSuccessMessage: () => 'Link created',
   })
