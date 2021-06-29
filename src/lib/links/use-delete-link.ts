@@ -15,12 +15,12 @@ type DeleteLinkData = {
   deleteLink: LinkType
 }
 
-export type HandleMethod = (values: unknown) => Promise<void>
+interface DeleteLinkOptions
+  extends UseMutationOptions<DeleteLinkData, LinkVariables> {
+  onCompleted: (DeleteLinkData) => LinkType[] | void
+}
 
-export type DeleteLinkOptions = UseMutationOptions<
-  DeleteLinkData,
-  LinkVariables
->
+export type HandleMethod = (values: unknown) => Promise<void>
 
 /**
  * Custom hook that deletes a link
@@ -30,7 +30,6 @@ export type DeleteLinkOptions = UseMutationOptions<
  */
 export const useDeleteLink = (
   displayLinks: LinkType[],
-  onComplete: (links: LinkType[]) => void,
   options?: DeleteLinkOptions
 ): [HandleMethod, MutationResult] => {
   const [deleteLink, mutationResult] = useNotificationMutation<
@@ -47,7 +46,7 @@ export const useDeleteLink = (
       const newDisplayLinks = displayLinks.filter(
         (link) => link.id !== deletedLink.id
       )
-      onComplete(newDisplayLinks)
+
       cache.writeQuery({
         query: GET_LINKS,
         data: {
@@ -55,10 +54,22 @@ export const useDeleteLink = (
         },
       })
     },
+    onCompleted: (result) => {
+      const { deleteLink: deletedLink } = result
+
+      const newDisplayLinks = displayLinks.filter(
+        (link) => link.id !== deletedLink.id
+      )
+
+      typeof options?.onCompleted === 'function' &&
+        options.onCompleted(newDisplayLinks)
+
+      return newDisplayLinks
+    },
     getSuccessMessage: () => 'Link deleted',
   })
 
-  const handleDeleteLink = async (values) => {
+  const handleDeleteLink = async (values: LinkType & { linkId: string }) => {
     deleteLink({
       variables: {
         ...values,
