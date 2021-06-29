@@ -44,7 +44,7 @@ export const DetailsStep: FC<DetailsStepProps> = ({ interestTypes }) => {
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
-          handleFocus={(editorRef) => setEditor(editorRef)}
+          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
       <FormSection>

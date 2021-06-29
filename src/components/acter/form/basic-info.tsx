@@ -34,7 +34,7 @@ export const BasicInformation: FC = () => {
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
-          handleFocus={(editorRef) => setEditor(editorRef)}
+          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </Box>
 

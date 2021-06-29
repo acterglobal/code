@@ -27,7 +27,7 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
-  handleFocus: (ref) => void
+  editorRef: (ref) => void
   clearTextEditor?: boolean
   hideEditorToolbar?: boolean
   placeholder?: string
@@ -39,15 +39,13 @@ export const TextEditor: FC<TextEditorProps> = ({
   height,
   width,
   borderStyles,
-  handleFocus,
+  editorRef,
   clearTextEditor,
-  hideEditorToolbar = false,
   placeholder,
   toolbarSize,
 }) => {
   const size = { height, width }
   const classes = useStyles({ size, borderStyles, toolbarSize })
-  const [hideToolbar, setHideToolbar] = useState(hideEditorToolbar)
 
   const rawData = markdownToDraft(initialValue)
   const contentState = convertFromRaw(rawData)
@@ -80,12 +78,12 @@ export const TextEditor: FC<TextEditorProps> = ({
       // @ts-ignore
       editorState={editorState}
       onEditorStateChange={onEditorStateChange}
-      editorRef={(ref) => handleFocus(ref)}
+      editorRef={editorRef}
+      placeholder={placeholder}
       blockStyleFn={customBlockStyleFn}
       wrapperClassName={classes.wrapper}
       editorClassName={classes.editor}
       toolbarClassName={classes.toolBar}
-      toolbarHidden={hideToolbar}
       toolbar={{
         options: ['inline', 'blockType', 'list'],
         inline: {
@@ -105,9 +103,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           outdent: { className: classes.list },
         },
       }}
-      placeholder={placeholder}
-      onFocus={() => (hideEditorToolbar ? setHideToolbar(false) : null)}
-      onBlur={() => (hideEditorToolbar ? setHideToolbar(true) : null)}
     />
   )
 }
