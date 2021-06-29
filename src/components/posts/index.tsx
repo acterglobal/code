@@ -3,11 +3,14 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider } from '@material-ui/core'
 import { Post, PostsProps } from 'src/components/posts/post'
-import { PostForm, PostFormProps } from 'src/components/posts/form'
+import {
+  PostFormSection,
+  PostFormSectionProps,
+} from 'src/components/posts/form/post-form-section'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
-export interface PostListProps extends PostFormProps, PostsProps {
+export interface PostListProps extends PostFormSectionProps {
   /**
    * Acter on which we are viewing posts
    */
@@ -42,7 +45,7 @@ export const PostList: FC<PostListProps> = ({
   return (
     <Box className={classes.mainContainer}>
       {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
-        <PostForm user={user} onPostSubmit={onPostSubmit} />
+        <PostFormSection user={user} onPostSubmit={onPostSubmit} />
       )}
       {posts?.map((post) => (
         <Box key={`post-${post.id}`} className={classes.contentContainer}>
@@ -57,7 +60,11 @@ export const PostList: FC<PostListProps> = ({
             />
           ))}
           <Box>
-            <PostForm post={post} user={user} onPostSubmit={onPostSubmit} />
+            <PostFormSection
+              post={post}
+              user={user}
+              onPostSubmit={onPostSubmit}
+            />
           </Box>
         </Box>
       ))}
@@ -98,6 +105,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     commentSection: {
       marginLeft: theme.spacing(6),
+    },
+    field: {
+      height: 35,
+      padding: theme.spacing(1),
+      fontSize: 11,
+      outline: 'none',
+      width: '100%',
+      borderColor: grey[200],
+      borderRadius: 6,
+      border: '1px solid ',
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
     },
   })
 )

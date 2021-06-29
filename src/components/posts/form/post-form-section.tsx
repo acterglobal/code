@@ -1,0 +1,98 @@
+import React, { FC, useState } from 'react'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import { ActerAvatar } from 'src/components/acter/avatar'
+import { User } from '@schema'
+import { grey } from '@material-ui/core/colors'
+import { PostForm, PostFormProps } from 'src/components/posts/form'
+import clsx from 'clsx'
+
+export interface PostFormSectionProps extends PostFormProps {
+  user: User
+}
+
+export const PostFormSection: FC<PostFormSectionProps> = ({
+  user,
+  post,
+  onPostSubmit,
+}) => {
+  const classes = useStyles()
+  const [showForm, setShowForm] = useState(false)
+
+  const handleClick = () => setShowForm(true)
+
+  const handleHideForm = () => setShowForm(false)
+
+  return (
+    <Box className={classes.container}>
+      <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
+
+      <Box className={clsx(classes.form, post && classes.commentForm)}>
+        {!showForm ? (
+          <Box
+            onClick={handleClick}
+            className={clsx(classes.field, post && classes.commentField)}
+          >
+            {post ? 'Comment...' : 'Write post...'}
+          </Box>
+        ) : (
+          <PostForm
+            post={post}
+            onPostSubmit={onPostSubmit}
+            hideForm={handleHideForm}
+          />
+        )}
+      </Box>
+    </Box>
+  )
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      backgroundColor: 'white',
+      borderRadius: 7,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      padding: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        width: 300,
+      },
+      marginBottom: theme.spacing(2),
+    },
+    form: {
+      marginTop: 4,
+      marginLeft: 10,
+      paddingRight: 10,
+      width: '100%',
+    },
+    commentForm: {
+      marginTop: 0,
+      marginLeft: 5,
+      paddingRight: 5,
+    },
+    field: {
+      padding: theme.spacing(1.5),
+      width: '100%',
+      height: 40,
+      borderColor: grey[500],
+      borderRadius: 6,
+      border: '1px solid',
+      outline: 'none',
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: 11,
+      color: grey[500],
+    },
+    commentField: {
+      border: 'none',
+      height: 35,
+      padding: theme.spacing(1.3),
+      paddingLeft: theme.spacing(1.5),
+      backgroundColor: grey[200],
+      color: grey[600],
+    },
+  })
+)

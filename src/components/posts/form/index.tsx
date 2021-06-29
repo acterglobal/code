@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import { Field, Form, Formik, FormikBag } from 'formik'
@@ -16,21 +16,31 @@ type PostFormValues = {
 }
 
 export interface PostFormProps {
-  user: User
   comment?: boolean
   post?: PostType
+  hideForm?: () => void
   onPostSubmit: (values: PostFormValues) => Promise<void>
 }
 
-export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
+export const PostForm: FC<PostFormProps> = ({
+  hideForm,
+  post,
+  onPostSubmit,
+}) => {
   const classes = useStyles()
 
   const initialValues: PostFormValues = {
     content: '',
     parentId: null,
   }
-
+  const [editor, setEditor] = useState(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const [clearText, setClearText] = useState(false)
+
+  editor?.focus()
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
 
   const handleSubmit = (
     values: PostFormValues,
@@ -40,96 +50,76 @@ export const PostForm: FC<PostFormProps> = ({ user, post, onPostSubmit }) => {
     onPostSubmit(submitValues)
     formikBag.resetForm()
     setClearText(true)
+    hideForm()
   }
 
-  const handleFocus = () => {
+  const handleEditorRef = (editorRef) => {
+    setEditor(editorRef)
     setClearText(false)
   }
 
   return (
-    <Box className={classes.container}>
-      <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
-
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        enableReinitialize
-      >
-        {({ setFieldValue, values }) => (
-          <Form className={clsx(classes.form, post && classes.comment)}>
-            {post ? (
-              <Field
-                name="content"
-                placeholder="Comment..."
-                className={classes.field}
-              />
-            ) : (
-              <TextEditor
-                height={25}
-                borderStyles={{ radius: 8 }}
-                toolbarSize={Size.SMALL}
-                initialValue={initialValues.content}
-                hideEditorToolbar={true}
-                handleInputChange={(value) => setFieldValue('content', value)}
-                handleFocus={handleFocus}
-                clearTextEditor={clearText}
-                placeholder="Write a post..."
-              />
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      enableReinitialize
+    >
+      {({ setFieldValue, values }) => (
+        <Form className={classes.form}>
+          {post ? (
+            <Field
+              name="content"
+              placeholder="Comment..."
+              className={classes.field}
+              innerRef={inputRef}
+            />
+          ) : (
+            <TextEditor
+              height={25}
+              borderStyles={{ radius: 8, color: grey[500] }}
+              toolbarSize={Size.SMALL}
+              initialValue={initialValues.content}
+              handleInputChange={(value) => setFieldValue('content', value)}
+              clearTextEditor={clearText}
+              placeholder="Write a post..."
+              editorRef={handleEditorRef}
+            />
+          )}
+          <Box
+            className={clsx(
+              classes.buttonContainer,
+              values.content === '' && classes.hideButton
             )}
-            <Box
-              className={clsx(
-                classes.buttonContainer,
-                values.content === '' && classes.hideButton
-              )}
+          >
+            <Button
+              size="small"
+              variant={post ? 'outlined' : 'contained'}
+              color="primary"
+              type="submit"
+              style={{ color: post ? null : '#FFFFFF' }}
             >
-              <Button
-                size="small"
-                variant={post ? 'outlined' : 'contained'}
-                color="primary"
-                type="submit"
-                style={{ color: post ? null : '#FFFFFF' }}
-              >
-                {post ? 'Comment' : 'Post'}
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+              {post ? 'Comment' : 'Post'}
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      backgroundColor: 'white',
-      borderRadius: 7,
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      padding: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        width: 300,
-      },
-      marginBottom: theme.spacing(2),
-    },
     form: {
-      marginTop: 3,
-      marginLeft: 10,
-      paddingRight: 10,
+      // marginBottom: theme.spacing(1),
+      paddingRight: 2,
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
       overflow: 'hidden',
       fontSize: 11,
     },
-    comment: {
-      marginLeft: 5,
-      marginTop: 0,
-    },
     field: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(1.5),
       width: '100%',
       height: 35,
       backgroundColor: grey[200],
