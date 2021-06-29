@@ -110,7 +110,6 @@ export const PostForm: FC<PostFormProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     form: {
-      // marginBottom: theme.spacing(1),
       paddingRight: 2,
       display: 'flex',
       flexDirection: 'column',

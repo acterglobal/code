@@ -106,17 +106,5 @@ const useStyles = makeStyles((theme: Theme) =>
     commentSection: {
       marginLeft: theme.spacing(6),
     },
-    field: {
-      height: 35,
-      padding: theme.spacing(1),
-      fontSize: 11,
-      outline: 'none',
-      width: '100%',
-      borderColor: grey[200],
-      borderRadius: 6,
-      border: '1px solid ',
-      fontFamily: theme.typography.fontFamily,
-      fontWeight: theme.typography.fontWeightRegular,
-    },
   })
 )
