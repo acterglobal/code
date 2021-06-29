@@ -1,4 +1,4 @@
-import { Post as PostType } from '@schema'
+import { Post as PostType } from '@acter/schema/types'
 import { deletePostFromPostList } from '@acter/lib/post/delete-post-from-postlist'
 import { deleteCommentFromPostList } from '@acter/lib/post/delete-comment-from-postlist'
 

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
-import { Post } from '@schema'
+import { Post } from '@acter/schema/types'
 import moment from 'moment'
 
 export interface PostInfoProps {

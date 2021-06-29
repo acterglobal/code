@@ -7,7 +7,7 @@ import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { ProfileInterestsForm } from '@acter/components/user/form/interests'
 
-import { InterestType, User } from '@schema'
+import { InterestType, User } from '@acter/schema/types'
 
 import {
   composeProps,

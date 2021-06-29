@@ -15,7 +15,10 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       // WTF TsconfigPathsPlutin should take care of this but does not >:(
-      '@schema': path.resolve(process.cwd(), '../../@schema'),
+      '@acter/schema/types': path.resolve(
+        process.cwd(),
+        '../../@acter/schema/types'
+      ),
     }
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(

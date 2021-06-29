@@ -4,10 +4,10 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import DELETE_POST from 'api/mutations/delete-post.graphql'
-import GET_POSTS from 'api/queries/posts-by-acter.graphql'
+import DELETE_POST from '@acter/schema/mutations/delete-post.graphql'
+import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 import { getNewPostList } from '@acter/lib/post/delete-update-postlist'
-import { Post as PostType } from '@schema'
+import { Post as PostType } from '@acter/schema/types'
 
 export type PostVariables = {
   postId: string
