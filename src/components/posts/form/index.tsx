@@ -14,18 +14,33 @@ export type PostFormValues = {
   parentId: string | null
 }
 
-export interface PostFormProps {
-  comment?: boolean
-  post?: PostType
-  onPostSubmit: (values: PostType) => void
+export type PostFormValues = PostType & {
+  postId: string
+  content: string
+  parentId: string | null
 }
 
-export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
+export interface PostFormProps {
+  comment?: boolean
+  parentPost?: PostType
+  post?: PostType
+  onPostSubmit?: (values: PostFormValues) => Promise<void>
+  onPostUpdate?: (values: PostFormValues) => Promise<void>
+}
+
+export const PostForm: FC<PostFormProps> = ({
+  user,
+  parentPost,
+  post,
+  onPostSubmit,
+  onPostUpdate,
+}) => {
   const classes = useStyles()
 
-  const initialValues: PostFormValues = {
-    content: '',
+  const initialValues = {
+    content: post ? post.content : '',
     parentId: null,
+    ...post,
   }
   const [editor, setEditor] = useState(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -40,8 +55,14 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
     values,
     formikBag: FormikBag<PostFormProps, PostType>
   ) => {
-    const submitValues = post ? { ...values, parentId: post.id } : values
-    onPostSubmit(submitValues)
+    if (post) {
+      onPostUpdate(values)
+    } else {
+      const submitValues = parentPost
+        ? { ...values, parentId: parentPost.id }
+        : values
+      onPostSubmit(submitValues)
+    }
     formikBag.resetForm()
     setClearText(true)
   }
@@ -59,7 +80,7 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
     >
       {({ setFieldValue, values }) => (
         <Form className={classes.form}>
-          {post ? (
+          {parentPost ? (
             <Field
               name="content"
               placeholder="Comment..."
@@ -86,12 +107,12 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
           >
             <Button
               size="small"
-              variant={post ? 'outlined' : 'contained'}
+              variant={parentPost ? 'outlined' : 'contained'}
               color="primary"
               type="submit"
-              style={{ color: post ? null : '#FFFFFF' }}
+              style={{ color: parentPost ? null : '#FFFFFF' }}
             >
-              {post ? 'Comment' : 'Post'}
+              {parentPost ? 'Comment' : 'Post'}
             </Button>
           </Box>
         </Form>

@@ -31,6 +31,7 @@ export const PostList: FC<PostListProps> = ({
   posts,
   onPostSubmit,
   onPostDelete,
+  onPostUpdate,
 }) => {
   const classes = useStyles()
 
@@ -49,14 +50,21 @@ export const PostList: FC<PostListProps> = ({
       )}
       {posts?.map((post) => (
         <Box key={`post-${post.id}`} className={classes.contentContainer}>
-          <Post post={post} onPostDelete={onPostDelete} />
+          <Post
+            post={post}
+            user={user}
+            onPostUpdate={onPostUpdate}
+            onPostDelete={onPostDelete}
+          />
           <Box className={classes.commentSection}>
             <Divider className={classes.divider} />
             {post.Comments?.map((comment) => (
               <Post
                 key={`post-${post.id}-comment-${comment.id}`}
                 post={comment}
+                parentPost={post}
                 commenting
+                onPostUpdate={onPostUpdate}
                 onPostDelete={onPostDelete}
               />
             ))}

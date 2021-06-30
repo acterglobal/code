@@ -61,10 +61,11 @@ export const useUpdatePost = (
 
       return newPostList
     },
-    getSuccessMessage: () => 'Post created',
+    getSuccessMessage: () => 'Post updated',
   })
 
   const handlePost = async (values: PostVariables) => {
+    console.log('This is handlePost ', values)
     updatePost({
       variables: {
         ...values,

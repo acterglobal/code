@@ -28,6 +28,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   loading,
   onPostSubmit,
   onPostDelete,
+  onPostUpdate,
 }) => {
   const classes = useStyles()
 

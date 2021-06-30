@@ -38,6 +38,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
   posts,
   onPostSubmit,
   onPostDelete,
+  onPostUpdate,
 }) => {
   const classes = useStyles()
   return (

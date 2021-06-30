@@ -3,89 +3,70 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Markdown from 'markdown-to-jsx'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
+import { DropdownMenu } from 'src/components/util/dropdown-menu'
+import { PostForm, PostFormProps } from 'src/components/posts/form'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { Post as Posts } from '@schema'
+import { Post as Posts, User } from '@schema'
 
-export interface PostsProps {
+export interface PostsProps extends PostFormProps {
   post: Posts
+  user: User
   commenting?: boolean
 }
 
-export const Post: FC<PostsProps> = ({ post, commenting }) => {
+export const Post: FC<PostsProps> = ({
+  post,
+  user,
+  onPostUpdate,
+  commenting,
+}) => {
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
+  const [toggleForm, setToggleForm] = useState(false)
 
-  const menuOptions = ['Edit', 'Delete']
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
+  const onEdit = () => {
+    setToggleForm(!toggleForm)
   }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  // const ITEM_HEIGHT = 48
 
   return (
-    <Box className={classes.postItems}>
-      <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
-      <Box
-        className={
-          commenting ? classes.commentContainer : classes.postContainer
-        }
-      >
-        <Box>
-          <Typography variant="subtitle1" className={classes.title}>
-            {post.Author.name}
-          </Typography>
-          <Typography
-            className={classes.acterTypeName}
-            variant="body2"
-            gutterBottom
+    <>
+      {toggleForm ? (
+        <PostForm user={user} post={post} onPostUpdate={onPostUpdate} />
+      ) : (
+        <Box className={classes.postItems}>
+          <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
+          <Box
+            className={
+              commenting ? classes.commentContainer : classes.postContainer
+            }
           >
-            {post.Acter.name}
-          </Typography>
+            <Box>
+              <Typography variant="subtitle1" className={classes.title}>
+                {post.Author.name}
+              </Typography>
+              <Typography
+                className={classes.acterTypeName}
+                variant="body2"
+                gutterBottom
+              >
+                {post.Acter.name}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="caption" className={classes.description}>
+                <Markdown>{post.content}</Markdown>
+              </Typography>
+            </Box>
+            <Box>
+              <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
+                <MenuItem onClick={onEdit}>Edit</MenuItem>
+              </DropdownMenu>
+            </Box>
+          </Box>
         </Box>
-        <Box>
-          <IconButton
-            aria-label="more"
-            aria-controls="long-menu"
-            aria-haspopup="true"
-            style={{ backgroundColor: 'red' }}
-            onClick={handleClick}
-          ></IconButton>
-          <Menu
-            id="long-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                // maxHeight: ITEM_HEIGHT * 4.5,
-                width: '20ch',
-              },
-            }}
-          >
-            {menuOptions.map((option) => (
-              <MenuItem key={option} onClick={handleClose}>
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-        <Box>
-          <Typography variant="caption" className={classes.description}>
-            <Markdown>{post.content}</Markdown>
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+      )}
+    </>
   )
 }
 

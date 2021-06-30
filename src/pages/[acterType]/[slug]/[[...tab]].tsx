@@ -227,6 +227,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={createPost}
+        onPostUpdate={updatePost}
         onGroupSubmit={updateGroup}
         onPostDelete={deletePost}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
