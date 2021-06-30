@@ -7,9 +7,10 @@ import {
 import CREATE_POST from 'api/mutations/post-create.graphql'
 import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
+import { createNewPostList } from 'src/lib/post/create-post-new-postlist'
 import { Post as PostType, Acter, User } from '@schema'
 
-export type PostVariables = {
+export type PostVariables = PostType & {
   acterId: string
   authorId: string
 }
@@ -22,7 +23,7 @@ interface CreatePostOptions
   onCompleted: (DeletePostData) => PostType[] | void
 }
 
-export type HandleMethod = (post: PostType | TData) => Promise<void>
+export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 
 /**
  * Custom hook that creates new post
@@ -33,30 +34,10 @@ export type HandleMethod = (post: PostType | TData) => Promise<void>
 export const useCreatePost = (
   acter: Acter,
   user: User,
-  displayPostList: PostType[]
-): [HandleMethod<CreatePostOptions>, MutationResult] => {
+  displayPostList: PostType[],
+  options?: CreatePostOptions
+): [HandleMethod<CreatePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
-
-  const createNewPostList = (
-    newPost: { parentId: string },
-    displayPostList: PostType[]
-  ) => {
-    if (newPost.parentId !== null) {
-      const newPostList = displayPostList.map((post) => {
-        if (post.id === newPost.parentId) {
-          return {
-            ...post,
-            Comments: [...post.Comments, newPost],
-          }
-        }
-        return post
-      })
-      return newPostList
-    } else {
-      const newPostList = [newPost, ...displayPostList]
-      return newPostList
-    }
-  }
 
   const [createPost, mutationResult] = useNotificationMutation<
     CreatePostData,
@@ -91,7 +72,7 @@ export const useCreatePost = (
     getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
   })
 
-  const handlePost = async (values) => {
+  const handlePost = async (values: PostType) => {
     setIsComment(values.parentId ? true : false)
     createPost({
       variables: {
