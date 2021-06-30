@@ -11,7 +11,7 @@ import { ActerAvatar } from 'src/components/acter/avatar'
 import { Post as PostType, User } from '@schema'
 import { _handleSubmit } from 'src/pages/profile'
 
-export interface PostsProps extends PostFormValues {
+export interface PostsProps {
   post: PostType
   user: User
   parentPost?: PostType
