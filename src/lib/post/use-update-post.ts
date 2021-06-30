@@ -65,7 +65,6 @@ export const useUpdatePost = (
   })
 
   const handlePost = async (values: PostVariables) => {
-    console.log('This is handlePost ', values)
     updatePost({
       variables: {
         ...values,

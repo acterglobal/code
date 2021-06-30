@@ -21,7 +21,7 @@ export interface PostFormProps {
   post?: PostType
   onPostSubmit?: (values: PostFormValues) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => void
-  onFormCancel?: () => void
+  cancelForm?: () => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
@@ -30,7 +30,7 @@ export const PostForm: FC<PostFormProps> = ({
   post,
   onPostSubmit,
   onPostUpdate,
-  onFormCancel,
+  cancelForm,
 }) => {
   const classes = useStyles()
 
@@ -52,6 +52,7 @@ export const PostForm: FC<PostFormProps> = ({
     values,
     formikBag: FormikBag<PostFormProps, PostType>
   ) => {
+  
     if (post) {
       onPostUpdate(values)
     } else {
@@ -67,7 +68,7 @@ export const PostForm: FC<PostFormProps> = ({
   const handleEditorRef = (editorRef) => {
     setEditor(editorRef)
   const onCancel = () => {
-    onFormCancel()
+    cancelForm()
   }
 
   const handleFocus = (editorRef) => {
