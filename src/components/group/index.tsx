@@ -61,6 +61,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
               posts={posts}
               onPostSubmit={onPostSubmit}
               onPostDelete={onPostDelete}
+              onPostUpdate={onPostUpdate}
             />
           </Box>
         </Grid>

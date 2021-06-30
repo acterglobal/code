@@ -92,6 +92,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
           posts={posts}
           onPostSubmit={onPostSubmit}
           onPostDelete={onPostDelete}
+          onPostUpdate={onPostUpdate}
         />
       </Box>
     </Modal>
