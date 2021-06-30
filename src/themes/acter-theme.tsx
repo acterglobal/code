@@ -1,15 +1,20 @@
 import React, { FC } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import 'src/themes/fonts'
 
 export const theme = createMuiTheme({
   palette: {
     primary: green,
-    secondary: grey,
+    secondary: {
+      main: '#545559',
+      dark: '#2A2A2A',
+      light: '#D5D5D5',
+      contrastText: '#D5D5D5',
+    },
     background: {
-      default: grey[200],
+      default: '#EEEDF0',
     },
   },
 

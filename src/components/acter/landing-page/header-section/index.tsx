@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import {
   Box,
   Hidden,
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     avatarImage: {
-      borderRadius: theme.spacing(2),
-      borderColor: theme.palette.primary.main,
+      borderRadius: '50%',
+      borderColor: theme.palette.secondary.main,
       marginLeft: theme.spacing(6) + 2,
       width: 130,
       height: 130,

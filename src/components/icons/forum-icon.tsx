@@ -4,7 +4,7 @@ import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
 export const ForumIcon: FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
-    <svg viewBox="0 -1 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 2 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M6.2832 10.2451C9.45266 12.3581 12.358 11.0375 12.358 11.0375C12.358 11.0375 13.8547 11.1255 13.9427 11.8298L13.6786 9.98097C14.8231 8.48428 16.584 5.22678 12.0939 3.37793"
         stroke="#D5D5D5"

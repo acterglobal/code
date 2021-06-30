@@ -53,13 +53,13 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         textTransform: 'capitalize',
+        fontWeight: theme.typography.fontWeightLight,
+        fontSize: '0.8rem',
       },
     },
     links: {
-      transition: 'transform .2s',
       '&:hover': {
-        color: theme.palette.primary.main,
-        transform: 'scale(1.1)',
+        color: 'white',
       },
     },
   })

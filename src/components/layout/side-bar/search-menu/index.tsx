@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import {
   Box,
   createStyles,
@@ -7,18 +7,38 @@ import {
   Typography,
 } from '@material-ui/core'
 import { SearchIcon } from 'src/components/icons/search-icon'
-import { subMenuBackgroundColor } from 'src/themes/colors'
 import { SearchTabs } from 'src/components/layout/side-bar/search-menu/tabs'
-import {
-  SearchTypes,
-  SearchTypesProps,
-} from 'src/components/layout/side-bar/search-menu/types'
-import { grey } from '@material-ui/core/colors'
+import { useRouter } from 'next/router'
+import { SearchTypes } from 'src/components/layout/side-bar/search-menu/types'
+import { USER, ACTIVITY, GROUP } from 'src/constants/acter-types'
+import { ActerType, ActivityType } from '@schema'
+import { SearchType } from 'src/constants'
 
-export type SearchMenuProps = SearchTypesProps
+export interface SearchMenuProps {
+  acterTypes: (ActerType | ActivityType)[]
+  searchType: SearchType
+}
 
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
+  const router = useRouter()
+
+  const subTypes = acterTypes.filter(
+    (type) => ![ACTIVITY, GROUP, USER].includes(type.name)
+  )
+  const [filterSubTypes, setFilterSubTypes] = useState(
+    subTypes.map((type) => type.name)
+  )
+
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        types: filterSubTypes.length > 0 ? filterSubTypes.join(',') : '',
+      },
+    })
+  }, [filterSubTypes])
 
   return (
     <Box className={classes.root}>
@@ -26,7 +46,12 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
 
       <SearchTabs activeTab={searchType} />
 
-      <SearchTypes acterTypes={acterTypes} searchType={searchType} />
+      <SearchTypes
+        subTypes={subTypes}
+        searchType={searchType}
+        filterSubTypes={filterSubTypes}
+        onChange={setFilterSubTypes}
+      />
     </Box>
   )
 }
@@ -44,14 +69,14 @@ const HeaderSection = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: subMenuBackgroundColor,
+      backgroundColor: theme.palette.secondary.main,
       height: '100%',
       width: '15rem',
-      color: grey[200],
+      color: theme.palette.secondary.contrastText,
       fontWeight: theme.typography.fontWeightLight,
     },
     heading: {
-      height: theme.spacing(8),
+      height: 50,
       padding: theme.spacing(2),
       borderBottom: '1px solid white',
       display: 'flex',

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'

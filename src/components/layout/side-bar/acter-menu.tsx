@@ -7,22 +7,25 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { SettingsOutlined as SettingsIcon } from '@material-ui/icons'
-import { ForumIcon, MembersIcon, ActivitiesIcon } from 'src/components/icons'
+import {
+  ForumIcon,
+  MembersIcon,
+  ActivitiesIcon,
+  SettingsIcon,
+} from 'src/components/icons'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { ActerConnectionRole, User, Link as LinkType } from '@schema'
 import { ActerMenu as ActerMenuEnum } from 'src/constants'
-
-const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
-
 import {
   GroupsSection,
   GroupsSectionProps,
 } from 'src/components/layout/side-bar/groups/groups-section'
 import { LinkSection } from 'src/components/layout/side-bar/links/links-section'
+
+const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 
 export type ActerMenuProps = GroupsSectionProps & {
   user: User
@@ -52,7 +55,8 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
-      <Divider />
+
+      {links.length !== 0 && <Divider className={classes.divider} />}
 
       <LinkSection links={links} />
 
@@ -75,6 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
+      height: 50,
+      marginBottom: 5,
+    },
+    divider: {
+      marginTop: 8,
     },
   })
 )

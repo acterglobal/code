@@ -5,6 +5,7 @@
 query ActivitiesSearch(
   $searchText: String
   $interests: [String!]
+  $types: [String!]
   $endsBefore: DateTime
   $sortBy: SearchActivitiesSortBy
 ) {
@@ -12,6 +13,7 @@ query ActivitiesSearch(
     searchText: $searchText
     endsBefore: $endsBefore
     interests: $interests
+    types: $types
     sortBy: $sortBy
   ) {
     ...ActerFull

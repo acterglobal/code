@@ -2,7 +2,7 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react'
 import { withNextRouter } from 'storybook-addon-next-router'
 import { Sidebar, SidebarProps } from 'src/components/layout/side-bar'
-
+import { ActerMenu } from 'src/constants'
 import {
   ExampleActer,
   ExampleUser,
@@ -19,7 +19,7 @@ export default {
   parameters: {
     query: {
       slug: ExampleActer.slug,
-      tab: ['feed'],
+      tab: [ActerMenu.FORUM],
     },
   },
 } as Meta

@@ -40,7 +40,9 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
   return (
     <>
       <Box className={classes.heading}>
-        <Typography variant="caption">Groups</Typography>
+        <Typography className={classes.text} variant="caption">
+          Groups
+        </Typography>
         {userCanCreateGroup && (
           <AddIcon
             className={classes.addIcon}
@@ -76,9 +78,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
     },
+    text: {
+      fontWeight: theme.typography.fontWeightLight,
+      color: theme.palette.secondary.contrastText,
+    },
     addIcon: {
       fontSize: 20,
       cursor: 'pointer',
+      color: theme.palette.secondary.contrastText,
     },
   })
 )

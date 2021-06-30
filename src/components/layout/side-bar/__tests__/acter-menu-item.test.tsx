@@ -4,15 +4,19 @@ import { render, screen } from '@testing-library/react'
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from 'src/components/layout/side-bar/acter-menu-item'
 import { ExampleActer } from 'src/__fixtures__'
+import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 jest.mock('next/router')
+jest.mock('src/lib/acter/get-landing-page-tab')
 
 describe('ActerMenuItem', () => {
   const mockNextRouter = useRouter as jest.Mock
+  const mockGetLandingPageTab = getLandingPageTab as jest.Mock
 
   beforeEach(() => {
     mockNextRouter.mockClear()
     mockNextRouter.mockReturnValue({ query: {} })
+    mockGetLandingPageTab.mockReturnValue('foo')
   })
 
   it('should render an item', () => {
@@ -58,5 +62,15 @@ describe('ActerMenuItem', () => {
     )
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
+  })
+
+  it('should set inactive tab', () => {
+    mockGetLandingPageTab.mockReturnValue('bar')
+    render(<ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={'foo'} />)
+
+    expect(screen.getByRole('listitem')).toHaveAttribute(
+      'aria-current',
+      'false'
+    )
   })
 })

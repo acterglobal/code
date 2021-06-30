@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import {
   Box,
   Drawer,
@@ -21,7 +21,6 @@ import {
   FollowingListProps,
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
-import { subMenuBackgroundColor } from 'src/themes/colors'
 import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
 import { SearchType } from 'src/constants'
 
@@ -42,12 +41,8 @@ export const Sidebar: FC<SidebarProps> = ({
   const classes = useStyles({ drawerWidth })
 
   useEffect(() => {
-    if (acter) {
-      setDrawerWidth(14)
-      return
-    }
-    if (searchType) {
-      setDrawerWidth(17)
+    if (acter || searchType) {
+      setDrawerWidth(15)
       return
     }
 
@@ -100,9 +95,7 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
   return (
     <ListItem className={classes.item}>
       <Link href={href}>
-        <a>
-          <Icon fontSize="large" aria-label={text} />
-        </a>
+        <Icon fontSize="large" aria-label={text} />
       </Link>
     </ListItem>
   )
@@ -124,16 +117,14 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       width: `${drawerWidth}rem`,
       color: theme.palette.secondary.contrastText,
       '& .MuiDivider-root': {
-        borderTopWidth: 1,
-        borderTopStyle: 'solid',
-        borderColor: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.secondary.light,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         marginBottom: theme.spacing(1.4),
       },
     }),
     menu: {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary.dark,
       height: '100%',
     },
     list: {
@@ -148,11 +139,15 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       marginRight: 'auto',
       paddingBottom: 0,
     },
-    subMenu: {
-      backgroundColor: subMenuBackgroundColor,
+    subMenu: ({ drawerWidth }: StyleProps) => ({
+      backgroundColor: theme.palette.secondary.main,
       height: '100%',
-      width: '10rem',
+      width: `${drawerWidth}rem`,
       color: theme.palette.secondary.contrastText,
-    },
+      '& .MuiListItem-root': {
+        paddingTop: 3,
+        paddingBottom: 3,
+      },
+    }),
   })
 )

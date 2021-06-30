@@ -47,7 +47,7 @@ export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
-        Part of:
+        Host:
       </Typography>
       <Box
         className={classes.organiserContainer}

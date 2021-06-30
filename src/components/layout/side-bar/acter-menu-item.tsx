@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import clsx from 'clsx'
 import {
   ListItem,
@@ -14,6 +14,8 @@ import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { Acter } from '@schema'
 import { commonStyles } from 'src/components/layout/side-bar/common'
+import { ActerMenu } from 'src/constants'
+import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
 interface ActerMenuItemProps {
   acter: Acter
@@ -31,7 +33,9 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   const classes = useStyles()
   const router = useRouter()
 
-  const isActive = router.query.tab?.includes(path)
+  const tab = getLandingPageTab(router, ActerMenu.FORUM)
+
+  const isActive = path === tab
 
   return (
     <ListItem
@@ -42,15 +46,13 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
       aria-current={isActive}
     >
       <Link href={acterAsUrl(acter, path)}>
-        <a>
-          <ListItemIcon>
-            <Icon color="inherit" />
-          </ListItemIcon>
-          <ListItemText
-            className={classes.itemText}
-            primary={text ? text : path}
-          />
-        </a>
+        <ListItemIcon>
+          <Icon color="inherit" className={classes.icon} />
+        </ListItemIcon>
+        <ListItemText
+          className={classes.itemText}
+          primary={text ? text : path}
+        />
       </Link>
     </ListItem>
   )
@@ -60,9 +62,21 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
     currentItem: {
-      backgroundColor: theme.palette.secondary[500],
+      '& .MuiListItemText-primary': {
+        fontWeight: theme.typography.fontWeightBold,
+        color: '#fff',
+      },
+    },
+    icon: {
+      height: theme.spacing(2),
     },
     itemText: {
+      '& .MuiListItemText-primary': {
+        '&:hover': {
+          color: '#fff',
+        },
+      },
+
       textTransform: 'capitalize',
     },
   })

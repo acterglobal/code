@@ -1,13 +1,7 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-
-import {
-  Button,
-  Link as MuiLink,
-  MenuItem,
-  Typography,
-} from '@material-ui/core'
+import { Link } from 'src/components/util/anchor-link'
+import { Button, Link as MuiLink, MenuItem } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
@@ -65,11 +59,7 @@ export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
       </MenuItem>
       <MenuItem className={classes.menuItem}>
         <Link href="/api/auth/logout">
-          <a>
-            <Typography variant="body2" className={classes.text}>
-              Sign Out
-            </Typography>
-          </a>
+          <MuiLink className={classes.text}>Sign Out</MuiLink>
         </Link>
       </MenuItem>
     </DropdownMenu>

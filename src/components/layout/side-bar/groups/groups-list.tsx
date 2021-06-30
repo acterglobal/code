@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Acter } from '@schema'
-import Link from 'next/link'
+import { Link } from 'src/components/util/anchor-link'
 import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 
 export interface GroupsList {
@@ -23,9 +23,9 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
       {acters.map((acter) => (
         <ListItem className={classes.item} key={acter.id}>
           <Link href={acterAsUrl(acter)}>
-            <a>
-              <Typography variant="body2"># {acter.name}</Typography>
-            </a>
+            <Typography className={classes.name} variant="body2">
+              # {acter.name}
+            </Typography>
           </Link>
         </ListItem>
       ))}
@@ -44,7 +44,14 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         textTransform: 'capitalize',
+        '&:hover': {
+          color: '#fff',
+        },
       },
+    },
+    name: {
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
     },
   })
 )

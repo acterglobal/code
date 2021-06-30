@@ -10,30 +10,51 @@ import { Switch } from 'src/components/styled/switch'
 import { SearchType } from 'src/constants'
 import { activityTypeColors } from 'src/themes/colors'
 import { Size } from 'src/constants'
+import { remove } from 'lodash'
 
-export interface TypeProps {
+export interface SearchTypeProps {
+  filterSubTypes: string[]
+  onChange: (acterTypeNames: string[]) => void
+}
+export interface TypeProps extends SearchTypeProps {
   activeTab: SearchType
-  acterTypeName: string
+  subTypeName: string
 }
 
-export const Type: FC<TypeProps> = ({ activeTab, acterTypeName }) => {
+export const Type: FC<TypeProps> = ({
+  activeTab,
+  subTypeName,
+  filterSubTypes,
+  onChange,
+}) => {
   const classes = useStyles()
+
+  const handleChange = () => {
+    const newFilterSubTypes = [...filterSubTypes]
+
+    if (newFilterSubTypes.includes(subTypeName)) {
+      remove(newFilterSubTypes, (item) => item === subTypeName)
+      onChange([...newFilterSubTypes])
+    } else {
+      onChange([...newFilterSubTypes, subTypeName])
+    }
+  }
 
   return (
     <Box className={classes.root}>
       <Box className={classes.type}>
         {activeTab === SearchType.ACTIVITIES && (
-          <ActivityTypeIcon activityType={acterTypeName} />
+          <ActivityTypeIcon activityType={subTypeName} />
         )}
         <Typography className={classes.typeName} variant="body2">
-          {acterTypeName}
+          {subTypeName}s
         </Typography>
       </Box>
       <Switch
-        name="events"
+        name={subTypeName}
         size={Size.SMALL}
-        checked={true}
-        handleSwitchChange={() => null}
+        checked={filterSubTypes.includes(subTypeName)}
+        onChange={handleChange}
       />
     </Box>
   )
@@ -55,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(1.5),
     },
     type: {
       display: 'flex',
@@ -64,6 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
     typeName: {
       marginLeft: theme.spacing(2),
       fontWeight: theme.typography.fontWeightLight,
+      fontSize: theme.spacing(1.5),
       textTransform: 'capitalize',
     },
     icon: {

@@ -46,7 +46,7 @@ export const PostList: FC<PostListProps> = ({
       {posts?.map((post) => (
         <Box key={post.id} className={classes.contentContainer}>
           <Post post={post} />
-          <Divider variant="middle" />
+          <Divider variant="middle" className={classes.divider} />
           {post.Comments?.map((comment) => (
             <Box key={comment.id} className={classes.contentContainer}>
               <Post key={comment.id} post={comment} commenting />
@@ -64,7 +64,6 @@ export const PostList: FC<PostListProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainContainer: {
-      backgroundcOlor: 'blue',
       borderRadius: 7,
       width: '100%',
       display: 'flex',
