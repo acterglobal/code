@@ -6,6 +6,7 @@ import {
 } from 'src/lib/apollo/use-notification-mutation'
 import DELETE_POST from 'api/mutations/delete-post.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
+import { getNewPostList } from 'src/lib/post/delete-update-postlist'
 import { Post as PostType } from '@schema'
 
 export type PostVariables = {
@@ -39,55 +40,6 @@ export const useDeletePost = (
 ): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
 
-  const deleteCommentFromPostList = (
-    deletedPost: { id: string; parentId: string },
-    displayPostList: PostType[]
-  ) => {
-    const newPostList = displayPostList.map((post) => {
-      if (post.id === deletedPost.parentId) {
-        const newComments = post.Comments.filter(
-          (comment) => comment.id !== deletedPost.id
-        )
-        return {
-          ...post,
-          Comments: newComments,
-        }
-      }
-      return post
-    })
-    return newPostList
-  }
-
-  const deletePostFromPostList = (
-    deletedPost: { id: string; parentId: string },
-    displayPostList: PostType[]
-  ) => {
-    const removedCommentsList = displayPostList.map((post) => {
-      if (post.id === deletedPost.parentId) {
-        return {
-          ...post,
-          Comments: [],
-        }
-      }
-      return post
-    })
-
-    const newPostList = removedCommentsList.filter(
-      (post) => post.id !== deletedPost.id
-    )
-    return newPostList
-  }
-
-  const getNewPostList = (
-    deletedPost: { id: string; parentId: string },
-    displayPostList: PostType[]
-  ) => {
-    const newPostList = isComment
-      ? deleteCommentFromPostList(deletedPost, displayPostList)
-      : deletePostFromPostList(deletedPost, displayPostList)
-    return newPostList
-  }
-
   const [deletePost, mutationResult] = useNotificationMutation<
     DeletePostData,
     PostVariables
@@ -99,7 +51,11 @@ export const useDeletePost = (
         data: { deletePost: deletedPost },
       } = result
 
-      const newPostList = getNewPostList(deletedPost, displayPostList)
+      const newPostList = getNewPostList(
+        deletedPost,
+        displayPostList,
+        isComment
+      )
 
       cache.writeQuery({
         query: GET_POSTS,
@@ -111,7 +67,11 @@ export const useDeletePost = (
     onCompleted: (result) => {
       const { deletePost: deletedPost } = result
 
-      const newPostList = getNewPostList(deletedPost, displayPostList)
+      const newPostList = getNewPostList(
+        deletedPost,
+        displayPostList,
+        isComment
+      )
 
       typeof options?.onCompleted === 'function' &&
         options.onCompleted(newPostList)

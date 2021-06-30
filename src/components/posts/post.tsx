@@ -12,7 +12,7 @@ import { Post as PostType } from '@schema'
 export interface PostsProps {
   post?: PostType
   commenting?: boolean
-  onPostDelete: (post: PostType) => Promise<any>
+  onPostDelete: (post: PostType) => Promise<void>
 }
 
 export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {

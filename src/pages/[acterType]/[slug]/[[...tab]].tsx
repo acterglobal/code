@@ -245,9 +245,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   })
 
   const [deletePost] = useDeletePost(displayPostList, {
-    onCompleted: (postList) => {
-      setDisplayPostList(postList)
-    },
+    onCompleted: setDisplayPostList,
   })
 
   return (
