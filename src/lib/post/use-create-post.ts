@@ -72,7 +72,7 @@ export const useCreatePost = (
     getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
   })
 
-  const handlePost = async (values: PostType) => {
+  const handlePost = async (values: PostVariables) => {
     setIsComment(values.parentId ? true : false)
     createPost({
       variables: {
