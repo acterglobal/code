@@ -80,9 +80,7 @@ export const useUpdateLink = (
     getSuccessMessage: () => 'Link updated',
   })
 
-  const handleLink = async (
-    values: LinkType & { linkId: string; acterId: string; userId: string }
-  ) => {
+  const handleLink = async (values: LinkVariables) => {
     updateLink({
       variables: {
         ...values,

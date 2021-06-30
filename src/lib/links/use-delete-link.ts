@@ -69,7 +69,7 @@ export const useDeleteLink = (
     getSuccessMessage: () => 'Link deleted',
   })
 
-  const handleDeleteLink = async (values: LinkType & { linkId: string }) => {
+  const handleDeleteLink = async (values: LinkVariables) => {
     deleteLink({
       variables: {
         ...values,
