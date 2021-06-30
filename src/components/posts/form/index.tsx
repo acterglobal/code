@@ -9,11 +9,6 @@ import { Post as PostType } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
-export type PostFormValues = {
-  content: string
-  parentId: string | null
-}
-
 export type PostFormValues = PostType & {
   postId: string
   content: string
@@ -26,6 +21,7 @@ export interface PostFormProps {
   post?: PostType
   onPostSubmit?: (values: PostFormValues) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => void
+  onFormCancel: () => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
@@ -34,6 +30,7 @@ export const PostForm: FC<PostFormProps> = ({
   post,
   onPostSubmit,
   onPostUpdate,
+  onFormCancel,
 }) => {
   const classes = useStyles()
 
@@ -69,6 +66,12 @@ export const PostForm: FC<PostFormProps> = ({
 
   const handleEditorRef = (editorRef) => {
     setEditor(editorRef)
+  const onCancel = () => {
+    onFormCancel()
+  }
+
+  const handleFocus = (editorRef) => {
+    setEditorFocus(editorRef)
     setClearText(false)
   }
 

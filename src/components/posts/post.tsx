@@ -33,6 +33,10 @@ export const Post: FC<PostsProps> = ({
     setToggleForm(!toggleForm)
   }
 
+  const handleCancel = () => {
+    setToggleForm(!toggleForm)
+  }
+
   const handleSubmit = (values: PostFormValues) => {
     setToggleForm(!toggleForm)
     onPostUpdate(values)
@@ -46,6 +50,7 @@ export const Post: FC<PostsProps> = ({
           post={post}
           parentPost={parentPost}
           onPostUpdate={handleSubmit}
+          onFormCancel={handleCancel}
         />
       ) : (
         <Box className={classes.postItems}>
