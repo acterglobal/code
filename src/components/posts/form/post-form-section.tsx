@@ -4,7 +4,11 @@ import { Box } from '@material-ui/core'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import { PostForm, PostFormProps } from 'src/components/posts/form'
+import {
+  PostForm,
+  PostFormProps,
+  PostFormValues,
+} from 'src/components/posts/form'
 import clsx from 'clsx'
 
 export interface PostFormSectionProps extends PostFormProps {
@@ -21,7 +25,10 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
 
   const handleClick = () => setShowForm(true)
 
-  const handleHideForm = () => setShowForm(false)
+  const handlePostSubmit = (data: PostFormValues) => {
+    setShowForm(false)
+    onPostSubmit(data)
+  }
 
   return (
     <Box className={classes.container}>
@@ -36,11 +43,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
             {post ? 'Comment...' : 'Write post...'}
           </Box>
         ) : (
-          <PostForm
-            post={post}
-            onPostSubmit={onPostSubmit}
-            hideForm={handleHideForm}
-          />
+          <PostForm post={post} onPostSubmit={handlePostSubmit} />
         )}
       </Box>
     </Box>
@@ -51,7 +54,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       backgroundColor: 'white',
-      borderRadius: 7,
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -63,22 +65,22 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     form: {
-      marginTop: 4,
-      marginLeft: 10,
-      paddingRight: 10,
+      marginTop: theme.spacing(0.5),
+      marginLeft: theme.spacing(1.2),
+      paddingRight: theme.spacing(1.2),
       width: '100%',
     },
     commentForm: {
       marginTop: 0,
-      marginLeft: 5,
-      paddingRight: 5,
+      marginLeft: theme.spacing(0.6),
+      paddingRight: theme.spacing(0.6),
     },
     field: {
       padding: theme.spacing(1.5),
       width: '100%',
       height: 40,
       borderColor: grey[500],
-      borderRadius: 6,
+      borderRadius: theme.spacing(1),
       border: '1px solid',
       outline: 'none',
       fontFamily: theme.typography.fontFamily,
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     commentField: {
       border: 'none',
-      height: 35,
+      height: theme.spacing(4.5),
       padding: theme.spacing(1.3),
       paddingLeft: theme.spacing(1.5),
       backgroundColor: grey[200],

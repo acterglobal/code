@@ -10,7 +10,7 @@ import { User, Post as PostType } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
-type PostFormValues = {
+export type PostFormValues = {
   content: string
   parentId: string | null
 }
@@ -18,15 +18,10 @@ type PostFormValues = {
 export interface PostFormProps {
   comment?: boolean
   post?: PostType
-  hideForm?: () => void
   onPostSubmit: (values: PostFormValues) => Promise<void>
 }
 
-export const PostForm: FC<PostFormProps> = ({
-  hideForm,
-  post,
-  onPostSubmit,
-}) => {
+export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
   const classes = useStyles()
 
   const initialValues: PostFormValues = {
@@ -50,7 +45,6 @@ export const PostForm: FC<PostFormProps> = ({
     onPostSubmit(submitValues)
     formikBag.resetForm()
     setClearText(true)
-    hideForm()
   }
 
   const handleEditorRef = (editorRef) => {
@@ -120,10 +114,10 @@ const useStyles = makeStyles((theme: Theme) =>
     field: {
       padding: theme.spacing(1.5),
       width: '100%',
-      height: 35,
+      height: theme.spacing(4.5),
       backgroundColor: grey[200],
       borderColor: grey[200],
-      borderRadius: 6,
+      borderRadius: theme.spacing(1),
       border: 'none',
       outline: 'none',
       fontFamily: theme.typography.fontFamily,

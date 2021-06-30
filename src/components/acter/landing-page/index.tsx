@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     content: {
-      marginRight: 4,
+      marginRight: theme.spacing(0.5),
     },
     menu: {
       order: 1,
