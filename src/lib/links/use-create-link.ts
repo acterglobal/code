@@ -25,7 +25,7 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that creates a new link
- * @param link
+ * @params acter user displayLinks
  * @returns handle method to create a new link
  * @returns mutation results from apollo
  */

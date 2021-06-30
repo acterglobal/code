@@ -24,7 +24,7 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that deletes a link
- * @param link
+ * @param displayLinks
  * @returns handle method to delete a link
  * @returns mutation results from apollo
  */
