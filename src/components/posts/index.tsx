@@ -4,13 +4,18 @@ import { grey } from '@material-ui/core/colors'
 import { Box, Divider } from '@material-ui/core'
 import { Post, PostsProps } from 'src/components/posts/post/index'
 import {
+  PostForm,
   PostFormSection,
   PostFormSectionProps,
+  PostFormValues,
 } from 'src/components/posts/form/post-form-section'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
-export interface PostListProps extends PostFormSectionProps, PostsProps {
+export interface PostListProps
+  extends PostFormProps,
+    PostFormSectionProps,
+    PostsProps {
   /**
    * Acter on which we are viewing posts
    */
@@ -23,6 +28,10 @@ export interface PostListProps extends PostFormSectionProps, PostsProps {
    * Posts to display
    */
   posts: PostType[]
+  /**
+   * Callback function to update Posts
+   */
+  onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
 export const PostList: FC<PostListProps> = ({

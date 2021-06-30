@@ -6,21 +6,25 @@ import { Box, Typography } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
-import { PostForm, PostFormProps } from 'src/components/posts/form'
+import { PostForm, PostFormValues } from 'src/components/posts/form'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { Post as Posts, User } from '@schema'
+import { Post as PostType, User } from '@schema'
+import { _handleSubmit } from 'src/pages/profile'
 
-export interface PostsProps extends PostFormProps {
-  post: Posts
+export interface PostsProps extends PostFormValues {
+  post: PostType
   user: User
+  parentPost?: PostType
   commenting?: boolean
+  onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
 export const Post: FC<PostsProps> = ({
   post,
-  user,
-  onPostUpdate,
   commenting,
+  user,
+  parentPost,
+  onPostUpdate,
 }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
@@ -29,10 +33,20 @@ export const Post: FC<PostsProps> = ({
     setToggleForm(!toggleForm)
   }
 
+  const handleSubmit = (values: PostFormValues) => {
+    setToggleForm(!toggleForm)
+    onPostUpdate(values)
+  }
+
   return (
     <>
       {toggleForm ? (
-        <PostForm user={user} post={post} onPostUpdate={onPostUpdate} />
+        <PostForm
+          user={user}
+          post={post}
+          parentPost={parentPost}
+          onPostUpdate={handleSubmit}
+        />
       ) : (
         <Box className={classes.postItems}>
           <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />

@@ -25,7 +25,7 @@ export interface PostFormProps {
   parentPost?: PostType
   post?: PostType
   onPostSubmit?: (values: PostFormValues) => Promise<void>
-  onPostUpdate?: (values: PostFormValues) => Promise<void>
+  onPostUpdate?: (values: PostFormValues) => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
@@ -37,7 +37,7 @@ export const PostForm: FC<PostFormProps> = ({
 }) => {
   const classes = useStyles()
 
-  const initialValues = {
+  const initialValues: Post = {
     content: post ? post.content : '',
     parentId: null,
     ...post,
