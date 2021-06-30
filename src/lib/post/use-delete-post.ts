@@ -29,7 +29,7 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 
 /**
  * Custom hook that deletes a post
- * @param post
+ * @param displayPostList
  * @returns handle method to delete post
  * @returns mutation results from apollo
  */
