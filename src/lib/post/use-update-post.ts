@@ -5,6 +5,7 @@ import {
 } from 'src/lib/apollo/use-notification-mutation'
 import UPDATE_POST from 'api/mutations/post-update.graphql'
 import GET_POSTS from 'api/queries/posts-by-acter.graphql'
+import { updateNewPostList } from 'src/lib/post/update-post-new-postlist'
 import { Post as PostType } from '@schema'
 
 export type PostVariables = PostType & {
@@ -41,12 +42,7 @@ export const useUpdatePost = (
         data: { updatePost: newPost },
       } = result
 
-      const newPostList = displayPostList.map((post) => {
-        if (post.id === newPost.id) {
-          return newPost
-        }
-        return post
-      })
+      const newPostList = updateNewPostList(newPost, displayPostList)
 
       cache.writeQuery({
         query: GET_POSTS,
@@ -58,12 +54,7 @@ export const useUpdatePost = (
     onCompleted: (result) => {
       const { updatePost: newPost } = result
 
-      const newPostList = displayPostList.map((post) => {
-        if (post.id === newPost.id) {
-          return newPost
-        }
-        return post
-      })
+      const newPostList = updateNewPostList(newPost, displayPostList)
 
       typeof options?.onCompleted === 'function' &&
         options.onCompleted(newPostList)
