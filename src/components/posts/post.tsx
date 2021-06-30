@@ -72,11 +72,11 @@ export const Post: FC<PostsProps> = ({
                 <Markdown>{post.content}</Markdown>
               </Typography>
             </Box>
-            <Box>
-              <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
-                <MenuItem onClick={onEdit}>Edit</MenuItem>
-              </DropdownMenu>
-            </Box>
+          </Box>
+          <Box>
+            <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
+              <MenuItem onClick={onEdit}>Edit</MenuItem>
+            </DropdownMenu>
           </Box>
         </Box>
       )}
