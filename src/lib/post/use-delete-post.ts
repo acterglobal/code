@@ -14,10 +14,7 @@ export type PostVariables = {
 }
 
 type DeletePostData = {
-  deletePost: {
-    id: string
-    parentId: string
-  }
+  deletePost: PostType
 }
 
 interface DeletePostOptions
@@ -81,7 +78,7 @@ export const useDeletePost = (
     getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })
 
-  const handleDeletePost = async (values) => {
+  const handleDeletePost = async (values: PostType) => {
     setIsComment(values.parentId ? true : false)
     deletePost({
       variables: {

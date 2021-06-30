@@ -1,7 +1,7 @@
 import { Post as PostType } from '@schema'
 
 export const deleteCommentFromPostList = (
-  deletedPost: { id: string; parentId: string },
+  deletedPost: PostType,
   displayPostList: PostType[]
 ): PostType[] => {
   const newPostList = displayPostList.map((post) => {
