@@ -15,13 +15,11 @@ export interface PostsProps {
   post: PostType
   user: User
   parentPost?: PostType
-  commenting?: boolean
   onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
 export const Post: FC<PostsProps> = ({
   post,
-  commenting,
   user,
   parentPost,
   onPostUpdate,
@@ -54,10 +52,10 @@ export const Post: FC<PostsProps> = ({
         />
       ) : (
         <Box className={classes.postItems}>
-          <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
+          <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
           <Box
             className={
-              commenting ? classes.commentContainer : classes.postContainer
+              parentPost ? classes.commentContainer : classes.postContainer
             }
           >
             <Box>

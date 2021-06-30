@@ -19,6 +19,7 @@ export interface PostFormProps {
   comment?: boolean
   parentPost?: PostType
   post?: PostType
+  user: User
   onPostSubmit?: (values: PostFormValues) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => void
   cancelForm?: () => void

@@ -73,6 +73,7 @@ export const PostList: FC<PostListProps> = ({
                 post={comment}
                 parentPost={post}
                 commenting
+                user={user}
                 onPostUpdate={onPostUpdate}
                 onPostDelete={onPostDelete}
               />
