@@ -21,7 +21,7 @@ export interface PostFormProps {
   post?: PostType
   onPostSubmit?: (values: PostFormValues) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => void
-  onFormCancel: () => void
+  onFormCancel?: () => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
