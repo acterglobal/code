@@ -6,12 +6,12 @@ import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { User, Post } from '@schema'
+import { User, Post as PostType } from '@schema'
 
 export interface PostFormProps {
   user: User
   comment?: boolean
-  post?: Post
+  post?: PostType
   onPostSubmit: (values: { content: string; parentId: string }) => Promise<void>
 }
 

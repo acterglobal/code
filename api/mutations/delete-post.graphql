@@ -1,0 +1,6 @@
+mutation DeletePost($postId: String!) {
+  deletePost(where: { id: $postId }) {
+    id
+    parentId
+  }
+}

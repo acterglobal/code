@@ -3,16 +3,24 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Markdown from 'markdown-to-jsx'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
+import MenuItem from '@material-ui/core/MenuItem'
+import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
+import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { Post as Posts } from '@schema'
+import { Post as PostType } from '@schema'
 
 export interface PostsProps {
-  post: Posts
+  post?: PostType
   commenting?: boolean
+  onPostDelete: (post: PostType) => Promise<void>
 }
 
-export const Post: FC<PostsProps> = ({ post, commenting }) => {
+export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
   const classes = useStyles()
+
+  const onDelete = () => {
+    onPostDelete(post)
+  }
 
   return (
     <Box className={classes.postItems}>
@@ -39,6 +47,11 @@ export const Post: FC<PostsProps> = ({ post, commenting }) => {
             <Markdown>{post.content}</Markdown>
           </Typography>
         </Box>
+      </Box>
+      <Box>
+        <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
+          <MenuItem onClick={onDelete}>Delete</MenuItem>
+        </DropdownMenu>
       </Box>
     </Box>
   )
