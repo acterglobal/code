@@ -24,10 +24,11 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that deletes a link
- * @param displayLinks
- * @returns handle method to delete a link
- * @returns mutation results from apollo
+ * @param displayLinks - current list of links that belong this the acter
+ * @param options - mutation options e.g. data or variables
+ * @returns updated list of links without deleted link
  */
+
 export const useDeleteLink = (
   displayLinks: LinkType[],
   options?: DeleteLinkOptions

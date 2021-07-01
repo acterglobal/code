@@ -25,10 +25,13 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that creates a new link
- * @params acter user displayLinks
- * @returns handle method to create a new link
- * @returns mutation results from apollo
+ * @param acter new link belongs to
+ * @param user that creates the new link
+ * @param displayLinks - current list of links that belong this the acter
+ * @param options - mutation options e.g. data or variables
+ * @returns updated list of links with new link
  */
+
 export const useCreateLink = (
   acter: Acter,
   user: User,

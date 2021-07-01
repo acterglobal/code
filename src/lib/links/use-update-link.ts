@@ -26,9 +26,11 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 /**
  * Custom hook that updates a link
- * @params acter user displayLinks
- * @returns handle method to create and update link
- * @returns mutation results from apollo
+ * @param acter updated link belongs to
+ * @param user that updates the link
+ * @param displayLinks - current list of links that belong this the acter
+ * @param options - mutation options e.g. data or variables
+ * @returns updated list of links with updated link
  */
 export const useUpdateLink = (
   acter: Acter,
