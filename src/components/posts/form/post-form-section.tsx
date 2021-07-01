@@ -31,7 +31,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   }
 
   return (
-    <Box className={classes.container}>
+    <Box className={clsx(classes.container, post && classes.comment)}>
       <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
 
       <Box className={clsx(classes.form, post && classes.commentForm)}>
@@ -55,25 +55,30 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       backgroundColor: 'white',
       width: '100%',
+      borderRadius: theme.spacing(1),
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
       padding: theme.spacing(1),
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
       [theme.breakpoints.down('xs')]: {
         width: 300,
       },
       marginBottom: theme.spacing(2),
     },
+    comment: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
     form: {
       marginTop: theme.spacing(0.5),
       marginLeft: theme.spacing(1.2),
-      paddingRight: theme.spacing(1.2),
       width: '100%',
     },
     commentForm: {
       marginTop: 0,
       marginLeft: theme.spacing(0.6),
-      paddingRight: theme.spacing(0.6),
     },
     field: {
       padding: theme.spacing(1.5),

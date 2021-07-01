@@ -5,8 +5,7 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
-import { ActerAvatar } from 'src/components/acter/avatar'
-import { User, Post as PostType } from '@schema'
+import { Post as PostType } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
@@ -18,7 +17,7 @@ export type PostFormValues = {
 export interface PostFormProps {
   comment?: boolean
   post?: PostType
-  onPostSubmit: (values: PostFormValues) => Promise<void>
+  onPostSubmit: (values: PostFormValues) => void
 }
 
 export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
