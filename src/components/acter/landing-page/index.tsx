@@ -16,7 +16,6 @@ import {
 } from 'src/components/acter/landing-page/members-section'
 import { PostsProps } from 'src/components/posts/post'
 import { PostList, PostListProps } from 'src/components/posts'
-// import { PostFormProps } from 'src/components/posts/form/index'
 import { ActerMenu } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
 
@@ -26,7 +25,6 @@ export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
   PostListProps
-// PostFormProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,

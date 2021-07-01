@@ -22,7 +22,7 @@ export interface PostFormProps {
   user: User
   onPostSubmit?: (values: PostFormValues) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => void
-  cancelForm?: () => void
+  onCancel?: () => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
@@ -31,12 +31,12 @@ export const PostForm: FC<PostFormProps> = ({
   post,
   onPostSubmit,
   onPostUpdate,
-  cancelForm,
+  onCancel,
 }) => {
   const classes = useStyles()
 
   const initialValues: Post = {
-    content: post ? post.content : '',
+    content: post?.content || '',
     parentId: null,
     ...post,
   }
@@ -48,12 +48,8 @@ export const PostForm: FC<PostFormProps> = ({
   useEffect(() => {
     inputRef.current?.focus()
   }, [inputRef])
-
-  const handleSubmit = (
-    values,
-    formikBag: FormikBag<PostFormProps, PostType>
-  ) => {
   
+  const handleSubmit = (values: PostFormValues, formikBag: FormikBag<PostFormProps, PostType>) => {
     if (post) {
       onPostUpdate(values)
     } else {
@@ -68,8 +64,9 @@ export const PostForm: FC<PostFormProps> = ({
 
   const handleEditorRef = (editorRef) => {
     setEditor(editorRef)
-  const onCancel = () => {
-    cancelForm()
+  
+  const handleCancel = () => {
+    onCancel()
   }
 
   const handleFocus = (editorRef) => {

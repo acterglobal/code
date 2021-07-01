@@ -27,11 +27,11 @@ export const Post: FC<PostsProps> = ({
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
-  const onEdit = () => {
+  const handleEdit = () => {
     setToggleForm(!toggleForm)
   }
 
-  const onCancel = () => {
+  const handleCancel = () => {
     setToggleForm(!toggleForm)
   }
 
@@ -40,50 +40,50 @@ export const Post: FC<PostsProps> = ({
     onPostUpdate(values)
   }
 
+  if (toggleForm) {
+    return (
+      <PostForm
+        user={user}
+        post={post}
+        parentPost={parentPost}
+        onPostUpdate={handleSubmit}
+        onCancel={handleCancel}
+      />
+    )
+  }
+
   return (
-    <>
-      {toggleForm ? (
-        <PostForm
-          user={user}
-          post={post}
-          parentPost={parentPost}
-          onPostUpdate={handleSubmit}
-          cancelForm={onCancel}
-        />
-      ) : (
-        <Box className={classes.postItems}>
-          <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
-          <Box
-            className={
-              parentPost ? classes.commentContainer : classes.postContainer
-            }
+    <Box className={classes.postItems}>
+      <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
+      <Box
+        className={
+          parentPost ? classes.commentContainer : classes.postContainer
+        }
+      >
+        <Box>
+          <Typography variant="subtitle1" className={classes.title}>
+            {post.Author.name}
+          </Typography>
+          <Typography
+            className={classes.acterTypeName}
+            variant="body2"
+            gutterBottom
           >
-            <Box>
-              <Typography variant="subtitle1" className={classes.title}>
-                {post.Author.name}
-              </Typography>
-              <Typography
-                className={classes.acterTypeName}
-                variant="body2"
-                gutterBottom
-              >
-                {post.Acter.name}
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="caption" className={classes.description}>
-                <Markdown>{post.content}</Markdown>
-              </Typography>
-            </Box>
-          </Box>
-          <Box>
-            <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
-              <MenuItem onClick={onEdit}>Edit</MenuItem>
-            </DropdownMenu>
-          </Box>
+            {post.Acter.name}
+          </Typography>
         </Box>
-      )}
-    </>
+        <Box>
+          <Typography variant="caption" className={classes.description}>
+            <Markdown>{post.content}</Markdown>
+          </Typography>
+        </Box>
+      </Box>
+      <Box>
+        <DropdownMenu anchorNode={<ThreeDotsIcon />} closeOnClick>
+          <MenuItem onClick={handleEdit}>Edit</MenuItem>
+        </DropdownMenu>
+      </Box>
+    </Box>
   )
 }
 
