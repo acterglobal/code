@@ -2,4 +2,5 @@ export enum ActivityTypes {
   EVENT = 'event',
   IDEA = 'idea',
   PROJECT = 'project',
+  MEETING = 'meeting',
 }

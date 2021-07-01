@@ -30,6 +30,8 @@ import {
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Acter, User } from '@acter/schema/types'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
+import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
 
 const getSteps = (acter?: Acter) => {
@@ -113,13 +115,11 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startAt = moment(acter.Activity.startAt)
     endAt = moment(acter.Activity.endAt)
   }
-
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
   )
   const interestIds = getInterestIdsFromActer(acter)
 
-  //TODO: create a type for htis
   const initialValues: ActivityFormValues = {
     organiserActerId:
       router?.query?.organiserActerId?.toString() ||
@@ -161,12 +161,16 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   const handleModalClose = () => router.back()
 
+  const isMeetingType = (typeId: string): boolean =>
+    getActivityTypeNameById(typeId, activityTypes) === ActivityTypes.MEETING ||
+    false
+
   // TODO: Add validation
 
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
-        {({ isSubmitting }) => {
+        {({ isSubmitting, values }) => {
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -183,14 +187,21 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                       onClick={handleNext}
                     />
                   )}
-                  {steps[activeStep] === BasicsStep && (
-                    <BasicsStep activityTypes={activityTypes} />
-                  )}
-                  {steps[activeStep] == SettingsStep && (
-                    <SettingsStep acters={acters} />
-                  )}
-                  {steps[activeStep] === DetailsStep && (
-                    <DetailsStep interestTypes={interestTypes} />
+                  {isMeetingType(values.activityTypeId) &&
+                  steps[activeStep] !== ActivityTypeStep ? (
+                    <MeetingStep activityTypes={activityTypes} />
+                  ) : (
+                    <>
+                      {steps[activeStep] === BasicsStep && (
+                        <BasicsStep activityTypes={activityTypes} />
+                      )}
+                      {steps[activeStep] == SettingsStep && (
+                        <SettingsStep acters={acters} />
+                      )}
+                      {steps[activeStep] === DetailsStep && (
+                        <DetailsStep interestTypes={interestTypes} />
+                      )}
+                    </>
                   )}
                 </Box>
 
