@@ -1,11 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import moment from 'moment'
 import { withFormik } from 'storybook-formik'
-import {
-  MeetingStep,
-  MeetingStepProps,
-  MeetingStepValues,
-} from '@acter/components/activity/form/steps/meeting'
+import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
 
 export default {
@@ -29,12 +25,12 @@ export default {
         startTime: moment(),
         endDate: moment(),
         endTime: moment(),
-      } as MeetingStepValues,
+      },
     },
   },
 } as Meta
 
-const Template: Story<MeetingStepProps> = (args) => (
+const Template: Story = (args) => (
   <div style={{ width: 600 }}>
     <MeetingStep {...args} />
   </div>
