@@ -9,6 +9,7 @@ import {
   PostFormProps,
   PostFormValues,
 } from 'src/components/posts/form'
+import { Post as PostType } from '@schema'
 import clsx from 'clsx'
 
 export interface PostFormSectionProps extends PostFormProps {
@@ -25,7 +26,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
 
   const handleClick = () => setShowForm(true)
 
-  const handlePostSubmit = (data: PostFormValues) => {
+  const handlePostSubmit = (data: PostType) => {
     setShowForm(false)
     onPostSubmit(data)
   }

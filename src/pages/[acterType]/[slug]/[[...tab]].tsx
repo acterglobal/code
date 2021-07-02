@@ -192,11 +192,11 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       setDisplayActer(updateActerGroups(displayActer, updateActer)),
   })
 
-  const [deletePost] = useDeletePost(displayPostList, {
+  const [createPost] = useCreatePost(acter, user, displayPostList, {
     onCompleted: setDisplayPostList,
   })
 
-  const [createPost] = useCreatePost(acter, user, displayPostList, {
+  const [deletePost] = useDeletePost(displayPostList, {
     onCompleted: setDisplayPostList,
   })
 
