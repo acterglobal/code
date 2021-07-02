@@ -6,7 +6,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { getUserProfile } from 'src/props'
+import { getUserProfile } from 'props'
 
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'

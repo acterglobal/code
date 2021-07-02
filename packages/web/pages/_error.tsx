@@ -1,6 +1,6 @@
 import React from 'react'
 import NextErrorComponent, { ErrorProps } from 'next/error'
-import * as Sentry from '@sentry/node'
+import * as Sentry from '@sentry/nextjs'
 import { PHASE_PRODUCTION_SERVER } from 'next/constants'
 
 // eslint-disable-next-line

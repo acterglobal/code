@@ -14,7 +14,7 @@ import {
   getInterests,
   getPosts,
   getLinks,
-} from 'src/props'
+} from 'props'
 import { Head } from '@acter/components/layout/head'
 import {
   Acter,
