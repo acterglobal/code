@@ -37,7 +37,7 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
   }, [inputRef])
 
   const handleSubmit = (
-    values: any,
+    values,
     formikBag: FormikBag<PostFormProps, PostType>
   ) => {
     const submitValues = post ? { ...values, parentId: post.id } : values
