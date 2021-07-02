@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heading: {
       marginLeft: theme.spacing(3),
+      textTransform: 'capitalize',
     },
     buttonsSection: {
       display: 'flex',

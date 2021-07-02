@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
@@ -83,18 +83,24 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
-  const [heading, setHeading] = useState('Add Activity')
+  const [heading, setHeading] = useState('')
+  const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
+
   const steps = getSteps(acter)
   const [activeStep, setActiveStep] = useState(0)
-
   const totalSteps = steps.length
   const isLastStep = () => activeStep + 1 === totalSteps
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
-  const onStepSubmit = (values, formikBag) => {
+  const [activityType, setActivityType] = useState(null)
+
+  const onStepSubmit = (
+    values: ActivityFormValues,
+    formikBag: FormikBag<ActivityFormProps, ActivityFormValues>
+  ) => {
     const { setSubmitting } = formikBag
-    if (!isLastStep()) {
+    if (!isLastStep() && activityType !== ActivityTypes.MEETING) {
       setSubmitting(false)
       handleNext()
       return
@@ -105,9 +111,28 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   useEffect(() => {
     if (acter?.id) {
-      setHeading('Edit Activity')
+      setActivityType(acter.Activity.ActivityType.name)
+      setHeading(`Edit ${acter.Activity.ActivityType.name}`)
+      setSubmitButtonLabel('Save')
     }
   }, [])
+
+  useEffect(() => {
+    if (activityType && !acter?.id) {
+      setHeading(`Add ${activityType}`)
+    }
+  }, [activityType])
+
+  useEffect(() => {
+    if (steps[activeStep] === ActivityTypeStep) {
+      setHeading(`Add Activity`)
+    }
+  }, [activeStep])
+
+  const handleOnClick = (activityTypeId: string) => {
+    setActivityType(getActivityTypeNameById(activityTypeId, activityTypes))
+    handleNext()
+  }
 
   let startAt = null
   let endAt = null
@@ -161,16 +186,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   const handleModalClose = () => router.back()
 
-  const isMeetingType = (typeId: string): boolean =>
-    getActivityTypeNameById(typeId, activityTypes) === ActivityTypes.MEETING ||
-    false
-
   // TODO: Add validation
 
   return (
     <Modal handleModalClose={handleModalClose} heading={heading}>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
-        {({ isSubmitting, values }) => {
+        {({ isSubmitting }) => {
           return (
             <Form className={classes.form}>
               <Box className={classes.container}>
@@ -184,12 +205,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   {steps[activeStep] === ActivityTypeStep && (
                     <ActivityTypeStep
                       activityTypes={activityTypes}
-                      onClick={handleNext}
+                      onClick={handleOnClick}
                     />
                   )}
-                  {isMeetingType(values.activityTypeId) &&
+                  {activityType === ActivityTypes.MEETING &&
                   steps[activeStep] !== ActivityTypeStep ? (
-                    <MeetingStep activityTypes={activityTypes} />
+                    <MeetingStep />
                   ) : (
                     <>
                       {steps[activeStep] === BasicsStep && (
@@ -227,7 +248,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                         disabled={isSubmitting}
                         type="submit"
                       >
-                        {isLastStep() ? 'Submit' : 'Next'}
+                        {isLastStep() || activityType === ActivityTypes.MEETING
+                          ? submitButtonLabel
+                          : 'Next'}
                       </Button>
                     </Box>
                   </Box>

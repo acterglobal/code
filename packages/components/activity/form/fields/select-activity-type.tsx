@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { grey } from '@material-ui/core/colors'
 import { ActivityType } from '@acter/schema/types'
 import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
+import { ActivityTypes } from '@acter/lib/constants'
 
 export interface SelectActivityTypeProps {
   activityTypes: ActivityType[]
@@ -20,21 +21,25 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
   const classes = useStyles()
   return (
     <Box className={classes.root}>
-      {activityTypes.map((type, i) => (
-        <Box
-          key={i}
-          className={clsx(classes.button, classes[`button${i}`])}
-          style={{
-            border: selectedTypeId === type.id && 0,
-            backgroundColor:
-              selectedTypeId === type.id &&
-              activityTypeBackgroundColors[type.name],
-          }}
-          onClick={() => onChange(type.id)}
-        >
-          {type.name}
-        </Box>
-      ))}
+      {activityTypes.map((type, i) => {
+        if (type.name !== ActivityTypes.MEETING) {
+          return (
+            <Box
+              key={`activity-type-${type.id}`}
+              className={clsx(classes.button, classes[`button${i}`])}
+              style={{
+                border: selectedTypeId === type.id && 0,
+                backgroundColor:
+                  selectedTypeId === type.id &&
+                  activityTypeBackgroundColors[type.name],
+              }}
+              onClick={() => onChange(type.id)}
+            >
+              {type.name}
+            </Box>
+          )
+        }
+      })}
     </Box>
   )
 }

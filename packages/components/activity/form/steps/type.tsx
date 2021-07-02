@@ -17,7 +17,7 @@ import { ActivityType } from '@acter/schema/types'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]
-  onClick: () => void
+  onClick: (activityTypeId: string) => void
 }
 
 export interface ActivityTypeStepValues {
@@ -30,9 +30,9 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
 }) => {
   const classes = useStyles()
   const { setFieldValue } = useFormikContext()
-  const handleClick = (value) => {
-    setFieldValue('activityTypeId', value)
-    onClick()
+  const handleClick = (activityTypeId: string) => {
+    setFieldValue('activityTypeId', activityTypeId)
+    onClick(activityTypeId)
   }
   return (
     <List>
