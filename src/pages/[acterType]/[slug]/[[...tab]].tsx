@@ -32,11 +32,8 @@ import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
 import { GroupLanding, GroupLandingProps } from 'src/components/group'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
-import CREATE_POST from 'api/mutations/post-create.graphql'
-import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
-import GET_POSTS from 'api/queries/posts-by-acter.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
 import { ACTIVITY, GROUP } from 'src/constants'
@@ -44,6 +41,7 @@ import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
 import { useDeletePost } from 'src/lib/post/use-delete-post'
+import { useCreatePost } from 'src/lib/post/use-create-post'
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,
@@ -110,7 +108,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }) => {
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
-  const [isComment, setIsComment] = useState(false)
 
   useEffect(() => {
     setDisplayActer(acter)
@@ -183,55 +180,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     },
   })
 
-  const [createPost] = useNotificationMutation(
-    isComment ? CREATE_COMMENT : CREATE_POST,
-    {
-      getSuccessMessage: () => 'Post created',
-      update: (cache, { data }) => {
-        const { createPost: newPost } = data
-
-        if (newPost.parentId !== null) {
-          const newPostList = displayPostList.map((post) => {
-            if (post.id === newPost.parentId) {
-              return {
-                ...post,
-                Comments: [...post.Comments, newPost],
-              }
-            }
-            return post
-          })
-          setDisplayPostList(newPostList)
-          cache.writeQuery({
-            query: GET_POSTS,
-            data: {
-              posts: newPostList,
-            },
-          })
-        } else {
-          const newPostList = [newPost, ...displayPostList]
-          setDisplayPostList(newPostList)
-          cache.writeQuery({
-            query: GET_POSTS,
-            data: {
-              posts: newPostList,
-            },
-          })
-        }
-      },
-    }
-  )
-
-  const handlePost = async (values) => {
-    setIsComment(values.parentId ? true : false)
-    createPost({
-      variables: {
-        ...values,
-        acterId: acter.id,
-        authorId: user.Acter.id,
-      },
-    })
-  }
-
   const View = getActerView(displayActer)
 
   const [createGroup] = useCreateActer({
@@ -242,6 +190,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [updateGroup] = useUpdateActer(displayActer, {
     onCompleted: ({ updateActer }) =>
       setDisplayActer(updateActerGroups(displayActer, updateActer)),
+  })
+
+  const [createPost] = useCreatePost(acter, user, displayPostList, {
+    onCompleted: setDisplayPostList,
   })
 
   const [deletePost] = useDeletePost(displayPostList, {
@@ -267,7 +219,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         posts={displayPostList}
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
-        onPostSubmit={handlePost}
+        onPostSubmit={createPost}
         onGroupSubmit={updateGroup}
         onPostDelete={deletePost}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}

@@ -17,7 +17,7 @@ export type PostFormValues = {
 export interface PostFormProps {
   comment?: boolean
   post?: PostType
-  onPostSubmit: (values: PostFormValues) => void
+  onPostSubmit: (values: PostType) => void
 }
 
 export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
@@ -37,8 +37,8 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
   }, [inputRef])
 
   const handleSubmit = (
-    values: PostFormValues,
-    formikBag: FormikBag<PostFormProps, PostFormValues>
+    values,
+    formikBag: FormikBag<PostFormProps, PostType>
   ) => {
     const submitValues = post ? { ...values, parentId: post.id } : values
     onPostSubmit(submitValues)

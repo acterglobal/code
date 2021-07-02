@@ -4,11 +4,8 @@ import { Box } from '@material-ui/core'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
 import { grey } from '@material-ui/core/colors'
-import {
-  PostForm,
-  PostFormProps,
-  PostFormValues,
-} from 'src/components/posts/form'
+import { PostForm, PostFormProps } from 'src/components/posts/form'
+import { Post as PostType } from '@schema'
 import clsx from 'clsx'
 
 export interface PostFormSectionProps extends PostFormProps {
@@ -25,7 +22,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
 
   const handleClick = () => setShowForm(true)
 
-  const handlePostSubmit = (data: PostFormValues) => {
+  const handlePostSubmit = (data: PostType) => {
     setShowForm(false)
     onPostSubmit(data)
   }
