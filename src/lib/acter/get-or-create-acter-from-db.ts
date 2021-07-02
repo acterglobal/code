@@ -1,7 +1,7 @@
 import prisma from 'src/lib/prisma'
 import { getActerTypeFromDB } from 'src/lib/acter-types/get-acter-type-from-db'
 import { getUniqueActerSlugFromDB } from 'src/lib/acter/get-unique-acter-slug-from-db'
-import { USER } from 'src/constants/acter-types'
+import { ActerTypes } from 'src/constants'
 import { Acter, User } from '@schema'
 
 export const getOrCreateActerFromDB = async (user: User): Promise<Acter> => {
@@ -9,7 +9,7 @@ export const getOrCreateActerFromDB = async (user: User): Promise<Acter> => {
 
   const name = user.email.match(/^(.*)@/)[1]
   const slug = await getUniqueActerSlugFromDB(name)
-  const userActerType = await getActerTypeFromDB(USER)
+  const userActerType = await getActerTypeFromDB(ActerTypes.USER)
 
   const userWithActer = await prisma.user.update({
     include: {

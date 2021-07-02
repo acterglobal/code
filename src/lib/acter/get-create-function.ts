@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 import { prepareActivityValues } from 'src/lib/acter/prepare-activity-values'
 import { Acter, ActerType, Activity } from '@schema'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
+
+const { ACTIVITY } = ActerTypes
 
 type MutationFn = (data: any) => Promise<any>
 

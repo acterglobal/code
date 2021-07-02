@@ -1,5 +1,7 @@
 import { Acter } from '@schema'
-import { ACTIVITY, NETWORK, ORGANISATION, USER } from 'src/constants'
+import { ActerTypes } from 'src/constants'
+
+const { ACTIVITY, NETWORK, ORGANISATION, USER } = ActerTypes
 
 /**
  * A curry function for determining if Acter `follower` can follow Acter `acter`

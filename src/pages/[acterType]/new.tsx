@@ -24,7 +24,7 @@ import { ActerType, ActivityType, InterestType, User } from '@schema'
 import ACTER_CREATE from 'api/mutations/acter-create.graphql'
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { getCreateFunction } from 'src/lib/acter/get-create-function'
 
 interface NewActerPageProps {
@@ -61,7 +61,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     onCompleted: ({ updateActer }) => router.push(acterAsUrl(updateActer)),
   })
 
-  const Form = acterType.name === ACTIVITY ? ActivityForm : ActerForm
+  const Form = acterType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
     <Layout user={user}>

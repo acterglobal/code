@@ -7,9 +7,10 @@ import { acterAsUrl } from 'src/lib/acter/acter-as-url'
 import { excludeActerTypes } from 'src/lib/acter/exclude-acter-types'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import { User } from '@schema'
-import { ACTIVITY, GROUP, USER } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 
+const { ACTIVITY, GROUP, USER } = ActerTypes
 export interface FollowingListProps {
   /**
    * Logged in User

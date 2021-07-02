@@ -1,8 +1,8 @@
 import { Acter } from '@schema'
-import { GROUP } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 
 export const updateActerGroups = (acter: Acter, group: Acter): Acter => {
-  return acter.ActerType.name === GROUP
+  return acter.ActerType.name === ActerTypes.GROUP
     ? {
         ...group,
         Parent: {

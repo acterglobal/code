@@ -8,7 +8,9 @@ import {
   Activity,
 } from '@schema'
 import { createSlug } from 'src/lib/acter/create-acter-slug'
-import { ACTIVITY, GROUP, USER } from 'src/constants'
+import { ActerTypes } from 'src/constants'
+
+const { ACTIVITY, USER, GROUP } = ActerTypes
 
 @Resolver(Acter)
 export class ActerResolver {

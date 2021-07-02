@@ -6,7 +6,9 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
 import { Acter } from '@schema'
-import { NETWORK, ORGANISATION } from 'src/constants'
+import { ActerTypes } from 'src/constants'
+
+const { ORGANISATION, NETWORK } = ActerTypes
 
 const useStyles = makeStyles((theme: Theme) => ({
   chooseOrganiser: {

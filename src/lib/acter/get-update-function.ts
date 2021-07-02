@@ -1,7 +1,9 @@
 import { Acter, Activity } from '@schema'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { prepareActivityValues } from 'src/lib/acter/prepare-activity-values'
 import { updateActerWithPictures } from 'src/lib/acter/update-acter-with-pictures'
+
+const { ACTIVITY } = ActerTypes
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MutationFunction = (data: any) => Promise<any>

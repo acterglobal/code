@@ -16,7 +16,7 @@ import {
 import { Switch } from 'src/components/styled/switch'
 import { Acter, ActerType, ActerJoinSettings } from '@schema'
 import { getActerTypeByName } from 'src/lib/acter-types/get-acter-type-by-name'
-import { GROUP } from 'src/constants/acter-types'
+import { ActerTypes } from 'src/constants/acter-types'
 
 export interface GroupFormProps {
   acter?: Acter
@@ -48,7 +48,7 @@ export const GroupForm: FC<GroupFormProps> = ({
 
   const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
 
-  const acterType = getActerTypeByName(acterTypes, GROUP)
+  const acterType = getActerTypeByName(acterTypes, ActerTypes.GROUP)
 
   const initialValues = {
     name: '',

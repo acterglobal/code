@@ -4,7 +4,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { ActerType } from 'src/components/acter/acter-type'
 import { useRouter } from 'next/router'
-import { ORGANISATION, NETWORK } from 'src/constants/acter-types'
+import { ActerTypes } from 'src/constants/acter-types'
+
+const { ORGANISATION, NETWORK } = ActerTypes
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
