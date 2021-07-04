@@ -10,26 +10,6 @@ import { ActerTypes } from 'src/constants'
 
 const { ORGANISATION, NETWORK } = ActerTypes
 
-const useStyles = makeStyles((theme: Theme) => ({
-  chooseOrganiser: {
-    marginBottom: 25,
-  },
-  organiserContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  organiser: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-  },
-  name: {
-    color: grey[800],
-    fontSize: '0.9rem',
-    fontWeight: theme.typography.fontWeightBold,
-    marginLeft: 10,
-  },
-}))
-
 export interface SelectOrganiserProps {
   /**
    * A list of potential Organiser Acters
@@ -45,7 +25,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    [ORGANISATION, NETWORK].includes(name)
+    [ORGANISATION, NETWORK].includes(ActerTypes[name])
   )
 
   return (
@@ -71,3 +51,23 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
     </Field>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  chooseOrganiser: {
+    marginBottom: 25,
+  },
+  organiserContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  organiser: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  name: {
+    color: grey[800],
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+    marginLeft: 10,
+  },
+}))

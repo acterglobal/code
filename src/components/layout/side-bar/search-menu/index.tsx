@@ -25,7 +25,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const { USER, ACTIVITY, GROUP } = ActerTypes
 
   const subTypes = acterTypes.filter(
-    (type) => ![ACTIVITY, GROUP, USER].includes(type.name)
+    (type) => ![ACTIVITY, GROUP, USER].includes(ActerTypes[type.name])
   )
   const [filterSubTypes, setFilterSubTypes] = useState(
     subTypes.map((type) => type.name)
