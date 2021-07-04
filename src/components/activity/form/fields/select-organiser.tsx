@@ -25,7 +25,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    [ORGANISATION, NETWORK].includes(ActerTypes[name])
+    [ORGANISATION, NETWORK].includes(name as ActerTypes)
   )
 
   return (
