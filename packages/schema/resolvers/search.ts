@@ -69,8 +69,9 @@ type ActivityTypeClause = {
 }
 
 type ActerTypeNameClause = {
-  name: 'activity'
+  name: ActerTypes.ACTIVITY
 }
+
 type ActerTypeClause = {
   ActerType: ActerTypeNameClause
 }
