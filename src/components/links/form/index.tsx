@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, FormikBag } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, IconButton } from '@material-ui/core'
@@ -7,36 +7,50 @@ import { Delete } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Link } from '@schema'
 
+export type LinkFormValues = Link & {
+  id: string | null
+  name: string
+  url: string
+}
+
 export interface LinkFormProps {
   link?: Link
-  onLinkSubmit: (values: unknown) => Promise<void>
-  onLinkDelete?: (values: unknown) => Promise<void>
+  onLinkSubmit: (values: LinkFormValues) => Promise<void>
+  onLinkUpdate?: (values: LinkFormValues) => Promise<void>
+  onLinkDelete?: (values: LinkFormValues) => Promise<void>
 }
 
 export const LinkForm: FC<LinkFormProps> = ({
   link,
   onLinkSubmit,
+  onLinkUpdate,
   onLinkDelete,
 }) => {
   const classes = useStyles()
-  const initialValues = {
+  const initialValues: LinkFormValues = {
     id: link?.id || null,
     name: link?.name || '',
     url: link?.url || '',
+    ...link,
+  }
+
+  const handleSubmit = (
+    values: LinkFormValues,
+    formikbag: FormikBag<LinkFormProps, Link>
+  ) => {
+    link ? onLinkUpdate(values) : onLinkSubmit(values)
+    formikbag.resetForm()
   }
 
   const onDelete = () => {
-    const { id } = link
-    onLinkDelete(id)
+    onLinkDelete(link)
   }
+
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={(values, { resetForm }) => {
-        resetForm()
-        onLinkSubmit(values)
-      }}
+      onSubmit={handleSubmit}
     >
       {({ dirty }) => (
         <Form>
