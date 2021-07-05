@@ -7,7 +7,7 @@ import {
 } from 'src/__fixtures__'
 
 import { setActerType } from 'src/props/set-acter-type'
-import { ORGANISATION } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 
 describe('setActerType', () => {
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]
@@ -28,7 +28,7 @@ describe('setActerType', () => {
   it('should set selected acter type as well as list of all acter types', async () => {
     context = ({
       props: { acterTypes },
-      params: { acterType: `${ORGANISATION}s` },
+      params: { acterType: `${ActerTypes.ORGANISATION}s` },
     } as unknown) as ComposedGetServerSidePropsContext
 
     expect(await setActerType(context)).toStrictEqual({

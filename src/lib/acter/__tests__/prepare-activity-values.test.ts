@@ -9,7 +9,7 @@ import {
 
 import { ExampleActivity } from 'src/__fixtures__'
 
-import { ORGANISATION } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { prepareDataForValidation } from 'formik'
 
 describe('prepareActivityValues', () => {
@@ -29,7 +29,7 @@ describe('prepareActivityValues', () => {
   })
 
   it('should do nothing when the Acter is NOT an Activity', () => {
-    formData.Acter.ActerType.name = ORGANISATION
+    formData.Acter.ActerType.name = ActerTypes.ORGANISATION
     expect(() => prepareDataForValidation({ formData })).not.toThrow()
   })
 

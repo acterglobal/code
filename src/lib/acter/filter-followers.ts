@@ -1,5 +1,7 @@
 import { Acter } from '@schema'
-import { ACTIVITY, NETWORK, ORGANISATION, USER } from 'src/constants'
+import { ActerTypes } from 'src/constants'
+
+const { ACTIVITY, NETWORK, ORGANISATION, USER } = ActerTypes
 
 /**
  * A curry function for determining if Acter `follower` can follow Acter `acter`
@@ -29,7 +31,7 @@ export const filterFollowers = (acter: Acter) => (
       return acter.ActerType.name === ACTIVITY
     // Orgs can only connect to Networks or Activities
     case ORGANISATION:
-      return [ACTIVITY, NETWORK].includes(acter.ActerType.name)
+      return [ACTIVITY, NETWORK].includes(acter.ActerType.name as ActerTypes)
     // Users can connect to anything
     case USER:
       return true

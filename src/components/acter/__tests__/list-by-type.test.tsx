@@ -3,7 +3,9 @@ import { render, screen, within } from '@testing-library/react'
 
 import { ActerListByType } from 'src/components/acter/list-by-type'
 import { ExampleActerList } from 'src/__fixtures__'
-import { GROUP, NETWORK, ORGANISATION } from 'src/constants'
+import { ActerTypes } from 'src/constants'
+
+const { GROUP, NETWORK, ORGANISATION } = ActerTypes
 
 describe('ActerListByType', () => {
   it('should display a list of Acters ordered by ActerType', async () => {

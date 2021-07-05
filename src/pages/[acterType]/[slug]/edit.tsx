@@ -25,7 +25,7 @@ import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
 
 import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 
 interface NewActerPageProps {
   /**
@@ -72,7 +72,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     onCompleted: () => router.push(acterAsUrl(acter)),
   })
 
-  const Form = acter.ActerType.name === ACTIVITY ? ActivityForm : ActerForm
+  const Form =
+    acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
     <Layout user={user}>

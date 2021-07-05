@@ -5,7 +5,7 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupForm as AddGroup } from 'src/components/group/form'
 import { GroupsList } from 'src/components/layout/side-bar/groups/groups-list'
 import { Acter, ActerConnectionRole, ActerType, User } from '@schema'
-import { GROUP } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 export interface GroupsSectionProps {
   acter: Acter
@@ -30,7 +30,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
   )
 
   const groups = acter.Children.filter(
-    (child) => child.ActerType.name === GROUP
+    (child) => child.ActerType.name === ActerTypes.GROUP
   )
 
   const handleAddGroup = () => {

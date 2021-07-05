@@ -6,7 +6,7 @@ import {
   getOrderBy,
   SearchActivitiesSortBy,
 } from 'src/lib/api/resolvers/get-order-by'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
@@ -148,7 +148,7 @@ export class SearchResolver {
     const activitySearch: ActivitySearchWhereClause = {
       deletedAt: { equals: null },
       ActerType: {
-        name: ACTIVITY,
+        name: ActerTypes.ACTIVITY,
       },
     }
 

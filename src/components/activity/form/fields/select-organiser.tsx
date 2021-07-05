@@ -6,27 +6,9 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from 'components/acter/avatar'
 import { Acter } from '@schema'
-import { NETWORK, ORGANISATION } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  chooseOrganiser: {
-    marginBottom: 25,
-  },
-  organiserContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  organiser: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-  },
-  name: {
-    color: grey[800],
-    fontSize: '0.9rem',
-    fontWeight: theme.typography.fontWeightBold,
-    marginLeft: 10,
-  },
-}))
+const { ORGANISATION, NETWORK } = ActerTypes
 
 export interface SelectOrganiserProps {
   /**
@@ -43,7 +25,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    [ORGANISATION, NETWORK].includes(name)
+    [ORGANISATION, NETWORK].includes(name as ActerTypes)
   )
 
   return (
@@ -69,3 +51,23 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
     </Field>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  chooseOrganiser: {
+    marginBottom: 25,
+  },
+  organiserContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  organiser: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  name: {
+    color: grey[800],
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+    marginLeft: 10,
+  },
+}))

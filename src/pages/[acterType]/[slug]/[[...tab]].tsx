@@ -36,12 +36,14 @@ import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graph
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
-import { ACTIVITY, GROUP } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { useCreateActer } from 'src/lib/acter/use-create-acter'
 import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
 import { useDeletePost } from 'src/lib/post/use-delete-post'
 import { useCreatePost } from 'src/lib/post/use-create-post'
+
+const { ACTIVITY, GROUP } = ActerTypes
 
 const _handleJoin = (createConnection: MutationFunction) => (
   following: Acter,

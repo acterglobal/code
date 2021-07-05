@@ -13,7 +13,7 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles'
-import { ACTIVITY } from 'src/constants'
+import { ActerTypes } from 'src/constants'
 import { grey } from '@material-ui/core/colors'
 import { getImageUrl } from 'src/lib/images/get-image-url'
 
@@ -52,7 +52,7 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
 
           {subset.map((acter) => {
             const image =
-              acter.ActerType.name === ACTIVITY
+              acter.ActerType.name === ActerTypes.ACTIVITY
                 ? getImageUrl(acter.bannerUrl, 'banner')
                 : getImageUrl(acter.avatarUrl, 'avatar')
             return (

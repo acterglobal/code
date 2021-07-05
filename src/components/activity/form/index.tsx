@@ -29,7 +29,7 @@ import {
 } from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { Acter, User } from '@schema'
-import { ACTIVITY, ActivityTypes } from 'src/constants'
+import { ActerTypes, ActivityTypes } from 'src/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
@@ -150,7 +150,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
         id: '',
         createdByUserId: user.id,
         ActerType: {
-          name: ACTIVITY,
+          name: ActerTypes.ACTIVITY,
         },
         Activity: {
           organiserId: '',
