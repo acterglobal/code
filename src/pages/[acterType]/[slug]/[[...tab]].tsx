@@ -42,6 +42,7 @@ import { useUpdateActer } from 'src/lib/acter/use-update-acter'
 import { updateActerGroups } from 'src/lib/group/update-acter-groups'
 import { useDeletePost } from 'src/lib/post/use-delete-post'
 import { useCreatePost } from 'src/lib/post/use-create-post'
+import { useUpdatePost } from 'src/lib/post/use-update-post'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -202,6 +203,10 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: setDisplayPostList,
   })
 
+  const [updatePost] = useUpdatePost(displayPostList, {
+    onCompleted: setDisplayPostList,
+  })
+
   return (
     <Layout
       acter={
@@ -222,6 +227,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onJoin={_handleJoin(createConnection)}
         onLeave={_handleLeave(deleteConnection)}
         onPostSubmit={createPost}
+        onPostUpdate={updatePost}
         onGroupSubmit={updateGroup}
         onPostDelete={deletePost}
         onConnectionStateChange={_handleConnectionUpdate(updateConnection)}

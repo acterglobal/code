@@ -5,10 +5,11 @@ import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 
 export interface PostOptionsProps {
+  onEdit: () => void
   onDelete: () => void
 }
 
-export const PostOptions: FC<PostOptionsProps> = ({ onDelete }) => {
+export const PostOptions: FC<PostOptionsProps> = ({ onEdit, onDelete }) => {
   const classes = useStyles()
   return (
     <Box>
@@ -16,6 +17,9 @@ export const PostOptions: FC<PostOptionsProps> = ({ onDelete }) => {
         anchorNode={<ThreeDotsIcon className={classes.threeDotsIcon} />}
         closeOnClick
       >
+        <MenuItem className={classes.menuItem} onClick={onEdit}>
+          Edit
+        </MenuItem>
         <MenuItem className={classes.menuItem} onClick={onDelete}>
           Delete
         </MenuItem>

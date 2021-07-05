@@ -14,7 +14,6 @@ import {
   MembersSection,
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
-import { PostsProps } from 'src/components/posts/post'
 import { PostList, PostListProps } from 'src/components/posts'
 import { ActerMenu } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'
@@ -24,8 +23,7 @@ const { ACTIVITIES, MEMBERS, FORUM } = ActerMenu
 export type ActerLandingProps = HeaderSectionProps &
   InfoSectionProps &
   MembersSectionProps &
-  PostListProps &
-  PostsProps
+  PostListProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
@@ -38,6 +36,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   loading,
   onPostSubmit,
   onPostDelete,
+  onPostUpdate,
 }) => {
   const classes = useStyles({})
   const router = useRouter()
@@ -75,6 +74,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
               posts={posts}
               onPostSubmit={onPostSubmit}
               onPostDelete={onPostDelete}
+              onPostUpdate={onPostUpdate}
             />
           </Box>
         </Grid>

@@ -1,0 +1,10 @@
+#import "../fragments/post-display.fragment.graphql"
+
+mutation UpdatePost($postId: String!, $content: String) {
+  updatePost(where: { id: $postId }, data: { content: { set: $content } }) {
+    ...PostDisplay
+    Comments {
+      ...PostDisplay
+    }
+  }
+}

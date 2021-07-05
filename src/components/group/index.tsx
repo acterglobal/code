@@ -38,6 +38,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
   posts,
   onPostSubmit,
   onPostDelete,
+  onPostUpdate,
 }) => {
   const classes = useStyles()
   return (
@@ -60,6 +61,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
               posts={posts}
               onPostSubmit={onPostSubmit}
               onPostDelete={onPostDelete}
+              onPostUpdate={onPostUpdate}
             />
           </Box>
         </Grid>

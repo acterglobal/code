@@ -5,27 +5,39 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
-import { Post as PostType } from '@schema'
+import { Post as PostType, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
-export type PostFormValues = {
+export type PostFormValues = PostType & {
+  postId: string
   content: string
   parentId: string | null
 }
 
 export interface PostFormProps {
   comment?: boolean
+  parentPost?: PostType
   post?: PostType
-  onPostSubmit: (values: PostType) => void
+  user?: User
+  onPostSubmit?: (values: PostFormValues) => void
+  onPostUpdate?: (values: PostFormValues) => void
+  onCancel?: () => void
 }
 
-export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
+export const PostForm: FC<PostFormProps> = ({
+  parentPost,
+  post,
+  onPostSubmit,
+  onPostUpdate,
+  onCancel,
+}) => {
   const classes = useStyles()
 
-  const initialValues: PostFormValues = {
-    content: '',
+  const initialValues: PostType = {
+    content: post?.content || '',
     parentId: null,
+    ...post,
   }
   const [editor, setEditor] = useState(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -37,11 +49,17 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
   }, [inputRef])
 
   const handleSubmit = (
-    values,
+    values: PostFormValues,
     formikBag: FormikBag<PostFormProps, PostType>
   ) => {
-    const submitValues = post ? { ...values, parentId: post.id } : values
-    onPostSubmit(submitValues)
+    if (post) {
+      onPostUpdate(values)
+    } else {
+      const submitValues = parentPost
+        ? { ...values, parentId: parentPost.id }
+        : values
+      onPostSubmit(submitValues)
+    }
     formikBag.resetForm()
     setClearText(true)
   }
@@ -49,6 +67,10 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
   const handleEditorRef = (editorRef) => {
     setEditor(editorRef)
     setClearText(false)
+  }
+
+  const handleCancel = () => {
+    onCancel()
   }
 
   return (
@@ -59,7 +81,7 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
     >
       {({ setFieldValue, values }) => (
         <Form className={classes.form}>
-          {post ? (
+          {parentPost ? (
             <Field
               name="content"
               placeholder="Comment..."
@@ -86,14 +108,26 @@ export const PostForm: FC<PostFormProps> = ({ post, onPostSubmit }) => {
           >
             <Button
               size="small"
-              variant={post ? 'outlined' : 'contained'}
+              variant={parentPost ? 'outlined' : 'contained'}
               color="primary"
               type="submit"
-              style={{ color: post ? null : '#FFFFFF' }}
+              style={{ color: parentPost ? null : '#FFFFFF' }}
             >
-              {post ? 'Comment' : 'Post'}
+              {parentPost ? 'Comment' : 'Post'}
             </Button>
           </Box>
+          {post && (
+            <Box className={classes.buttonContainer}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </Box>
+          )}
         </Form>
       )}
     </Formik>
