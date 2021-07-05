@@ -1,11 +1,9 @@
 import React, { FC, useState } from 'react'
 import { Moment } from 'moment'
 import { Box } from '@material-ui/core'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import MomentUtils from '@date-io/moment'
 import moment from 'moment'
 import { SelectActivityType } from 'src/components/activity/form/fields/select-activity-type'
 import {
@@ -50,38 +48,36 @@ export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
   }
 
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Box className={classes.container}>
+    <Box className={classes.container}>
+      <FormSection>
+        <Field
+          className={classes.textinput}
+          fullWidth
+          component={TextField}
+          variant="outlined"
+          label="Name of the Activity"
+          name="name"
+          required={true}
+        />
+      </FormSection>
+
+      {values.id && (
         <FormSection>
-          <Field
-            className={classes.textinput}
-            fullWidth
-            component={TextField}
-            variant="outlined"
-            label="Name of the Activity"
-            name="name"
-            required={true}
+          <SelectActivityType
+            activityTypes={activityTypes}
+            selectedTypeId={selectedTypeId}
+            onChange={handleSelectedType}
           />
         </FormSection>
+      )}
+      <FormSection>
+        <StartEndTimeDatePicker />
+      </FormSection>
 
-        {values.id && (
-          <FormSection>
-            <SelectActivityType
-              activityTypes={activityTypes}
-              selectedTypeId={selectedTypeId}
-              onChange={handleSelectedType}
-            />
-          </FormSection>
-        )}
-        <FormSection>
-          <StartEndTimeDatePicker />
-        </FormSection>
-
-        <FormSection>
-          <LocationVenuePicker />
-        </FormSection>
-      </Box>
-    </MuiPickersUtilsProvider>
+      <FormSection>
+        <LocationVenuePicker />
+      </FormSection>
+    </Box>
   )
 }
 
