@@ -2,7 +2,12 @@ import { Meta, Story } from '@storybook/react'
 import moment from 'moment'
 import { withFormik } from 'storybook-formik'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
+import { BasicsStepValues } from '@acter/components/activity/form/steps/basics'
 import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
+
+type MeetingStepValues = BasicsStepValues & {
+  description: string
+}
 
 export default {
   title: 'Activity/Form/Steps/Meeting',
@@ -25,7 +30,7 @@ export default {
         startTime: moment(),
         endDate: moment(),
         endTime: moment(),
-      },
+      } as MeetingStepValues,
     },
   },
 } as Meta

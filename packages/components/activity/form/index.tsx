@@ -83,24 +83,24 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [activityType, setActivityType] = useState(null)
   const [heading, setHeading] = useState('')
   const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
 
   const steps = getSteps(acter)
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
-  const isLastStep = () => activeStep + 1 === totalSteps
+  const isLastStep = () =>
+    activeStep + 1 === totalSteps || activityType === ActivityTypes.MEETING
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
-
-  const [activityType, setActivityType] = useState(null)
 
   const onStepSubmit = (
     values: ActivityFormValues,
     formikBag: FormikBag<ActivityFormProps, ActivityFormValues>
   ) => {
     const { setSubmitting } = formikBag
-    if (!isLastStep() && activityType !== ActivityTypes.MEETING) {
+    if (!isLastStep()) {
       setSubmitting(false)
       handleNext()
       return
