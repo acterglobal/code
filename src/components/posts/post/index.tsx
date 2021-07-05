@@ -1,32 +1,67 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { ActerAvatar } from 'src/components/acter/avatar'
-import { Post as PostType } from '@schema'
+import { Post as PostType, User } from '@schema'
 import clsx from 'clsx'
+import { PostForm, PostFormValues } from 'src/components/posts/form'
 import { PostContent } from 'src/components/posts/post/content'
 import { PostOptions } from './options'
 
 export interface PostsProps {
+  user: User
   post?: PostType
-  commenting?: boolean
+  parentPost?: PostType
   onPostDelete: (post: PostType) => Promise<void>
+  onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
-export const Post: FC<PostsProps> = ({ post, commenting, onPostDelete }) => {
+export const Post: FC<PostsProps> = ({
+  post,
+  parentPost,
+  onPostUpdate,
+  onPostDelete,
+}) => {
   const classes = useStyles()
+  const [toggleForm, setToggleForm] = useState(false)
+
+  const handleEdit = () => {
+    setToggleForm(!toggleForm)
+  }
+
+  const handleCancel = () => {
+    setToggleForm(!toggleForm)
+  }
+
+  const handleSubmit = (values: PostFormValues) => {
+    setToggleForm(!toggleForm)
+    onPostUpdate(values)
+  }
 
   const onDelete = () => {
     onPostDelete(post)
   }
 
-  return (
-    <Box className={clsx(classes.post, commenting && classes.comment)}>
-      <ActerAvatar acter={post.Author} size={commenting ? 4 : 6} />
+  if (toggleForm) {
+    return (
+      <Box className={clsx(classes.post, parentPost && classes.comment)}>
+        <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
+        <PostForm
+          post={post}
+          parentPost={parentPost}
+          onPostUpdate={handleSubmit}
+          onCancel={handleCancel}
+        />
+      </Box>
+    )
+  }
 
+  return (
+    <Box className={clsx(classes.post, parentPost && classes.comment)}>
+      <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
       <PostContent post={post} />
 
-      <PostOptions onDelete={onDelete} />
+      <PostOptions onEdit={handleEdit} onDelete={onDelete} />
     </Box>
   )
 }

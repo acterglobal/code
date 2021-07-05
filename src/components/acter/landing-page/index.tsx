@@ -14,7 +14,6 @@ import {
   MembersSection,
   MembersSectionProps,
 } from 'src/components/acter/landing-page/members-section'
-import { PostsProps } from 'src/components/posts/post'
 import { PostList, PostListProps } from 'src/components/posts'
 import { ActerMenu } from 'src/constants'
 import { getLandingPageTab } from 'src/lib/acter/get-landing-page-tab'

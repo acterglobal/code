@@ -5,7 +5,7 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 import { Button } from 'src/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from 'src/components/util/text-editor'
-import { Post as PostType } from '@schema'
+import { Post as PostType, User } from '@schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from 'src/constants'
 
@@ -19,14 +19,13 @@ export interface PostFormProps {
   comment?: boolean
   parentPost?: PostType
   post?: PostType
-  user: User
-  onPostSubmit?: (values: PostFormValues) => Promise<void>
+  user?: User
+  onPostSubmit?: (values: PostFormValues) => void
   onPostUpdate?: (values: PostFormValues) => void
   onCancel?: () => void
 }
 
 export const PostForm: FC<PostFormProps> = ({
-  user,
   parentPost,
   post,
   onPostSubmit,
@@ -35,7 +34,7 @@ export const PostForm: FC<PostFormProps> = ({
 }) => {
   const classes = useStyles()
 
-  const initialValues: Post = {
+  const initialValues: PostType = {
     content: post?.content || '',
     parentId: null,
     ...post,
@@ -48,8 +47,11 @@ export const PostForm: FC<PostFormProps> = ({
   useEffect(() => {
     inputRef.current?.focus()
   }, [inputRef])
-  
-  const handleSubmit = (values: PostFormValues, formikBag: FormikBag<PostFormProps, PostType>) => {
+
+  const handleSubmit = (
+    values: PostFormValues,
+    formikBag: FormikBag<PostFormProps, PostType>
+  ) => {
     if (post) {
       onPostUpdate(values)
     } else {
@@ -64,14 +66,11 @@ export const PostForm: FC<PostFormProps> = ({
 
   const handleEditorRef = (editorRef) => {
     setEditor(editorRef)
-  
-  const handleCancel = () => {
-    onCancel()
+    setClearText(false)
   }
 
-  const handleFocus = (editorRef) => {
-    setEditorFocus(editorRef)
-    setClearText(false)
+  const handleCancel = () => {
+    onCancel()
   }
 
   return (
@@ -117,6 +116,18 @@ export const PostForm: FC<PostFormProps> = ({
               {parentPost ? 'Comment' : 'Post'}
             </Button>
           </Box>
+          {post && (
+            <Box className={classes.buttonContainer}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </Box>
+          )}
         </Form>
       )}
     </Formik>

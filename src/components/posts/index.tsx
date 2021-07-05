@@ -3,19 +3,12 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Divider } from '@material-ui/core'
 import { Post, PostsProps } from 'src/components/posts/post/index'
-import {
-  PostForm,
-  PostFormSection,
-  PostFormSectionProps,
-  PostFormValues,
-} from 'src/components/posts/form/post-form-section'
+import { PostFormSection } from 'src/components/posts/form/post-form-section'
+import { PostFormProps, PostFormValues } from 'src/components/posts/form'
 import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
-export interface PostListProps
-  extends PostFormProps,
-    PostFormSectionProps,
-    PostsProps {
+export interface PostListProps extends PostFormProps, PostsProps {
   /**
    * Acter on which we are viewing posts
    */
@@ -72,7 +65,6 @@ export const PostList: FC<PostListProps> = ({
                 key={`post-${post.id}-comment-${comment.id}`}
                 post={comment}
                 parentPost={post}
-                commenting
                 user={user}
                 onPostUpdate={onPostUpdate}
                 onPostDelete={onPostDelete}
