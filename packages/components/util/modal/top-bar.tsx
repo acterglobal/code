@@ -9,7 +9,7 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, User } from '@acter/schema/types'
-import _ from 'lodash'
+import { capitalize } from 'lodash'
 
 export interface TopBarProps {
   heading?: string
@@ -32,7 +32,7 @@ export const TopBar: FC<Props> = ({
   return (
     <Box className={classes.root}>
       <Typography variant="body1" className={classes.heading}>
-        {_.capitalize(heading)}
+        {capitalize(heading)}
       </Typography>
 
       <Box className={classes.buttonsSection}>
