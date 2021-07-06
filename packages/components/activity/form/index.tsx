@@ -34,12 +34,14 @@ import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-n
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
 
-const getSteps = (acter?: Acter) => {
-  if (acter?.id) {
-    return [BasicsStep, SettingsStep, DetailsStep]
-  }
+const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
+  const firstStep = acter?.id ? [] : [ActivityTypeStep]
+  const activitySteps =
+    activityType === ActivityTypes.MEETING
+      ? [MeetingStep]
+      : [BasicsStep, SettingsStep, DetailsStep]
 
-  return [ActivityTypeStep, BasicsStep, SettingsStep, DetailsStep]
+  return [...firstStep, ...activitySteps]
 }
 
 export interface ActivityFormProps
@@ -87,7 +89,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const [heading, setHeading] = useState('')
   const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
 
-  const steps = getSteps(acter)
+  const steps = getSteps(activityType, acter)
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
   const isLastStep = () =>
@@ -208,22 +210,18 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                       onClick={handleOnClick}
                     />
                   )}
-                  {activityType === ActivityTypes.MEETING &&
-                  steps[activeStep] !== ActivityTypeStep ? (
-                    <MeetingStep />
-                  ) : (
-                    <>
-                      {steps[activeStep] === BasicsStep && (
-                        <BasicsStep activityTypes={activityTypes} />
-                      )}
-                      {steps[activeStep] == SettingsStep && (
-                        <SettingsStep acters={acters} />
-                      )}
-                      {steps[activeStep] === DetailsStep && (
-                        <DetailsStep interestTypes={interestTypes} />
-                      )}
-                    </>
-                  )}
+                  <>
+                    {steps[activeStep] === MeetingStep && <MeetingStep />}
+                    {steps[activeStep] === BasicsStep && (
+                      <BasicsStep activityTypes={activityTypes} />
+                    )}
+                    {steps[activeStep] == SettingsStep && (
+                      <SettingsStep acters={acters} />
+                    )}
+                    {steps[activeStep] === DetailsStep && (
+                      <DetailsStep interestTypes={interestTypes} />
+                    )}
+                  </>
                 </Box>
 
                 {steps[activeStep] !== ActivityTypeStep && (
@@ -297,9 +295,6 @@ const useStyles = makeStyles((theme: Theme) => {
     typeButtons: {
       display: 'flex',
       flexDirection: 'column',
-    },
-    controls: {
-      // flexShrink: 0,
     },
     btnsContainer: {
       display: 'flex',
