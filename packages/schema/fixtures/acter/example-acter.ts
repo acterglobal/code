@@ -33,7 +33,10 @@ export const ExampleActer: Acter = {
   Following: [],
   acterJoinSetting: ActerJoinSettings.EVERYONE,
   acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
+<<<<<<< HEAD
   acterNotifyEmailFrequency: ActerNotificationEmailFrequency.NEVER,
+=======
+>>>>>>> c279c136 (Update paths)
 }
 
 export const ExampleUserActer: Acter = {

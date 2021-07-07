@@ -1,12 +1,15 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useUpdateActer } from 'src/lib/acter/use-update-acter'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
-import { ProfileNotificationsForm } from 'src/components/user/form/notifications'
-import { User } from '@schema'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
-import { getUserProfile } from 'src/props'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
+import { ProfileNotificationsForm } from '@acter/components/user/form/notifications'
+import { User } from '@acter/schema/types'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
+import { getUserProfile } from 'props'
 
 interface UserProfileNotificationsPageProps {
   user: User
