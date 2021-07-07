@@ -3,7 +3,7 @@ import {
   InterestsSection,
   InterestsSectionProps,
 } from '@acter/components/interests/interests-section'
-import { Interests } from 'src/__fixtures__'
+import { Interests } from '@acter/schema/fixtures'
 
 export default {
   title: 'interests/Section',

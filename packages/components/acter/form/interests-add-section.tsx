@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useFormikContext } from 'formik'
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 export interface InterestsAddSectionProps {
   interestTypes: InterestType[]
 }

@@ -1,5 +1,5 @@
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
-import { Acter, ActerConnectionRole, User } from '@schema'
+import { Acter, ActerConnectionRole, User } from '@acter/schema/types'
 
 /**
  * Wrapper for followerHasRoleOnActer specific to users which handles the case when a user is not logged in

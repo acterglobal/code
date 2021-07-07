@@ -25,7 +25,7 @@ import {
   Post,
   User,
   Link,
-} from '@schema'
+} from '@acter/schema/types'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -36,12 +36,12 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
-import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
-import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
-import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
-import GET_ACTER from 'api/queries/acter-by-slug.graphql'
-import GET_USER from 'api/queries/user-by-id.graphql'
+import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
+import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
+import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
+import ACTER_CONNECTION_FRAGMENT from '@acter/schema/fragments/acter-connection-full.fragment.graphql'
+import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import GET_USER from '@acter/schema/queries/user-by-id.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'

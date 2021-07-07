@@ -1,5 +1,5 @@
 import { interestTypeMap } from '@acter/lib/interests/map-interest-type'
-import { Interests } from 'src/__fixtures__/interest/interests'
+import { Interests } from '@acter/schema/fixtures/interest/interests'
 
 const allInterests = Interests.data.interestTypes
 const AirInterestId = allInterests[1].Interests[0].id

@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 import { Interest, InterestProps } from '@acter/components/interests/interest'
-import { ExampleInterest } from 'src/__fixtures__'
+import { ExampleInterest } from '@acter/schema/fixtures'
 
 export default {
   title: 'interests/Interest',

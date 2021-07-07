@@ -4,7 +4,7 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

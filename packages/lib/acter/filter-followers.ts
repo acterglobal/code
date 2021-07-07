@@ -1,4 +1,4 @@
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import { ActerTypes } from '@acter/lib/constants'
 
 const { ACTIVITY, NETWORK, ORGANISATION, USER } = ActerTypes

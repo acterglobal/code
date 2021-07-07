@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 import { Avatar, ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 const useStyles = makeStyles(
   createStyles({

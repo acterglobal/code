@@ -5,7 +5,7 @@ import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 export interface ActerTileProps {
   acter: Acter

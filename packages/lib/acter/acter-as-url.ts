@@ -1,6 +1,6 @@
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 /**
  * Make ActerType name url-friendly (lowercase, plural, and slugged)

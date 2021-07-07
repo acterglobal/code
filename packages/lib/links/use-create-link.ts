@@ -3,9 +3,9 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import CREATE_LINK from 'api/mutations/link-create.graphql'
-import GET_LINKS from 'api/queries/links-by-acter.graphql'
-import { Acter, User, Link as LinkType } from '@schema'
+import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
+import GET_LINKS from '@acter/schema/queries/links-by-acter.graphql'
+import { Acter, User, Link as LinkType } from '@acter/schema/types'
 
 export type LinkVariables = LinkType & {
   acterId: string

@@ -1,4 +1,4 @@
-import { InterestType } from '@schema'
+import { InterestType } from '@acter/schema/types'
 
 /**
  *  To get list of all interest types with their ids

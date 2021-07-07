@@ -5,7 +5,7 @@ import { grey } from '@material-ui/core/colors'
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import { ActerTypes } from '@acter/lib/constants'
 
 const { ORGANISATION, NETWORK } = ActerTypes

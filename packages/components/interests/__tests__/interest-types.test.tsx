@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Interests } from 'src/__fixtures__/interest/interests'
+import { Interests } from '@acter/schema/fixtures/interest/interests'
 import { InterestTypes } from '@acter/components/interests/interest-types'
 
 describe('[Interest Types]', () => {

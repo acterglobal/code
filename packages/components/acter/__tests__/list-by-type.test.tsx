@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, within } from '@testing-library/react'
 
 import { ActerListByType } from '@acter/components/acter/list-by-type'
-import { ExampleActerList } from 'src/__fixtures__'
+import { ExampleActerList } from '@acter/schema/fixtures'
 import { ActerTypes } from '@acter/lib/constants'
 
 const { GROUP, NETWORK, ORGANISATION } = ActerTypes

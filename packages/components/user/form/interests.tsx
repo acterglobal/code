@@ -6,7 +6,7 @@ import {
 } from '@acter/components/acter/form/interests-add-section'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
-import { InterestType, User } from '@schema'
+import { InterestType, User } from '@acter/schema/types'
 
 export interface ProfileInterestsFormProps {
   user: User

@@ -7,7 +7,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Acter, ActerType } from '@schema'
+import { Acter, ActerType } from '@acter/schema/types'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon } from '@material-ui/icons'

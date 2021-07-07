@@ -6,7 +6,7 @@ import { ImageUpload } from '@acter/components/image-upload/index'
 import { grey } from '@material-ui/core/colors'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string

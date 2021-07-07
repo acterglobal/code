@@ -1,4 +1,5 @@
 node_modules
 coverage
 .next
-@schema
+@acter/schema/types
+packages/schema/types

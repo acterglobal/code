@@ -1,5 +1,5 @@
 import { getSelectedTopLevelTypes } from '@acter/lib/interests'
-import { Interests } from 'src/__fixtures__/interest/interests'
+import { Interests } from '@acter/schema/fixtures/interest/interests'
 
 const allInterestsTypes = Interests.data.interestTypes
 const selectedInterests = [

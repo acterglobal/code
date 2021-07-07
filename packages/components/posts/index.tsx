@@ -6,7 +6,12 @@ import { Post, PostsProps } from '@acter/components/posts/post/index'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
+import {
+  Acter,
+  ActerConnectionRole,
+  Post as PostType,
+  User,
+} from '@acter/schema/types'
 
 export interface PostListProps extends PostFormProps, PostsProps {
   /**

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Modal } from '@acter/components/util/modal'
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 import { MembersSection as Members } from '@acter/components/acter/landing-page/members-section'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 

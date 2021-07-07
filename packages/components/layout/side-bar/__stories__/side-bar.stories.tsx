@@ -7,7 +7,7 @@ import {
   ExampleActer,
   ExampleUser,
   ExampleOrganisationActer,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 export default {
   title: 'layout/Side Bar',

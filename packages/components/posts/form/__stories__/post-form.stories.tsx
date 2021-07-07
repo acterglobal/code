@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
-import { ExampleActer } from 'src/__fixtures__'
-import { ExampleUser } from 'src/__fixtures__'
+import { ExampleActer } from '@acter/schema/fixtures'
+import { ExampleUser } from '@acter/schema/fixtures'
 import { PostForm, PostFormProps } from '@acter/components/posts/form'
 
 export default {

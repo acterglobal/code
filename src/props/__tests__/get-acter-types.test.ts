@@ -8,7 +8,7 @@ import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 describe('getActerTypes', () => {
   const mockInitializeApollo = initializeApollo as jest.Mock

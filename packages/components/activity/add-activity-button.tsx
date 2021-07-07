@@ -5,7 +5,7 @@ import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole, User } from '@schema'
+import { Acter, ActerConnectionRole, User } from '@acter/schema/types'
 import { ActerMenu } from '@acter/lib/constants'
 
 export interface AddActivityButtonProps {

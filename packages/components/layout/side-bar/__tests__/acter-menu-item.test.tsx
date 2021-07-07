@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { render, screen } from '@testing-library/react'
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
-import { ExampleActer } from 'src/__fixtures__'
+import { ExampleActer } from '@acter/schema/fixtures'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 
 jest.mock('next/router')

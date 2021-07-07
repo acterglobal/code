@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { TopBar, TopBarProps } from '@acter/components/layout/top-bar'
 
-import { ExampleUser, ExampleActer } from 'src/__fixtures__'
+import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
 export default {
   title: 'layout/TopBar',
   component: TopBar,

@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 
-import QUERY_LINKS_BY_ACTER from 'api/queries/links-by-acter.graphql'
+import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
 /**
  *

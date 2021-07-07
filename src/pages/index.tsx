@@ -1,7 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { Head } from '@acter/components/layout/head'
 import { Layout } from '@acter/components/layout'
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 
 interface HomeProps {
   user?: User

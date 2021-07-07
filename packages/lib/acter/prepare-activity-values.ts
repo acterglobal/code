@@ -1,6 +1,6 @@
 import { pipe } from 'ramda'
 import { Moment } from 'moment'
-import { Activity } from '@schema'
+import { Activity } from '@acter/schema/types'
 
 export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
   startDate?: Moment

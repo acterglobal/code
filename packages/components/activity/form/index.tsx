@@ -28,7 +28,7 @@ import {
   SettingsStepValues,
 } from '@acter/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 const getSteps = (acter?: Acter) => {

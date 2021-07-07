@@ -5,7 +5,7 @@ import { ActerAvatar } from '@acter/components/acter/avatar'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
 import { ConnectProps } from '@acter/components/acter/connect'
-import { Acter, ActerConnectionRole } from '@schema'
+import { Acter, ActerConnectionRole } from '@acter/schema/types'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
   follower: Acter

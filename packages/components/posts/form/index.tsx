@@ -5,7 +5,7 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 import { Button } from '@acter/components/styled'
 import clsx from 'clsx'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Post as PostType, User } from '@schema'
+import { Post as PostType, User } from '@acter/schema/types'
 import { grey } from '@material-ui/core/colors'
 import { Size } from '@acter/lib/constants'
 

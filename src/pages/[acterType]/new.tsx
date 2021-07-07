@@ -22,11 +22,16 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 
-import { ActerType, ActivityType, InterestType, User } from '@schema'
+import {
+  ActerType,
+  ActivityType,
+  InterestType,
+  User,
+} from '@acter/schema/types'
 
-import ACTER_CREATE from 'api/mutations/acter-create.graphql'
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
-import CREATE_ACTIVITY from 'api/mutations/activity-create.graphql'
+import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
+import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
+import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 import { getCreateFunction } from '@acter/lib/acter/get-create-function'
 

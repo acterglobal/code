@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SessionIndicator } from '@acter/components/layout/session-indicator'
-import { ExampleUser, ExampleActer } from 'src/__fixtures__'
+import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
 
 const user = {
   ...ExampleUser,

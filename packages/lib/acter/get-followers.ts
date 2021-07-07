@@ -1,5 +1,5 @@
 import { filterFollowers } from '@acter/lib/acter/filter-followers'
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 
 /**
  * Get a list of Acters for the current User which can follow the given Acter

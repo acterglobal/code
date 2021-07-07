@@ -1,7 +1,7 @@
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { render, screen } from '@testing-library/react'
 
-import { Interests } from 'src/__fixtures__'
+import { Interests } from '@acter/schema/fixtures'
 
 describe('Interest Section', () => {
   it.skip('should render 3 top level interest types (Focus, Approach, Tag)', () => {

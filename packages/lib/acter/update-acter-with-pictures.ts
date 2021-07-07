@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
 import { uploadImage, FileDescription } from '@acter/lib/images/upload-image'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 export type ActerFormData = Partial<Acter> & {
   acterId: string

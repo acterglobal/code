@@ -5,7 +5,7 @@ import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 
-import { Acter, User } from '@schema'
+import { Acter, User } from '@acter/schema/types'
 
 export interface ConnectProps {
   /**

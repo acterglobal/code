@@ -1,4 +1,4 @@
-import { Post as PostType } from '@schema'
+import { Post as PostType } from '@acter/schema/types'
 
 export const createNewPostList = (
   newPost: PostType,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { User } from '@schema'
+import { User } from '@acter/schema/types'
 
 import {
   composeProps,

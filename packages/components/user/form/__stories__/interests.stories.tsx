@@ -4,7 +4,11 @@ import {
   ProfileInterestsForm,
   ProfileInterestsFormProps,
 } from '@acter/components/user/form/interests'
-import { ExampleUser, ExampleUserActer, Interests } from 'src/__fixtures__'
+import {
+  ExampleUser,
+  ExampleUserActer,
+  Interests,
+} from '@acter/schema/fixtures'
 
 export default {
   title: 'UserProfile/Form/Interests',

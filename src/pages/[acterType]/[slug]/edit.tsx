@@ -24,10 +24,16 @@ import {
   getActivityTypes,
 } from 'src/props'
 
-import { Acter, ActerType, ActivityType, InterestType, User } from '@schema'
+import {
+  Acter,
+  ActerType,
+  ActivityType,
+  InterestType,
+  User,
+} from '@acter/schema/types'
 
-import UPDATE_ACTER from 'api/mutations/acter-update.graphql'
-import UPDATE_ACTIVITY from 'api/mutations/activity-update.graphql'
+import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
+import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 
 interface NewActerPageProps {

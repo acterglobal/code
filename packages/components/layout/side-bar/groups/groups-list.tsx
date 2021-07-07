@@ -7,7 +7,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 

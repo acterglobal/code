@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Box, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
-import { Link as LinkType } from '@schema'
+import { Link as LinkType } from '@acter/schema/types'
 
 export interface LinkListProps {
   links: LinkType[]

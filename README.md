@@ -66,7 +66,7 @@ Contains [Prisma](https://www.prisma.io/) migrations and schema.
 
 Main application code folder
 
-### `src/__fixtures__`
+### `@acter/schema/fixtures`
 
 Used for shared test fixtures
 

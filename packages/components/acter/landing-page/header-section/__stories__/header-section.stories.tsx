@@ -4,7 +4,7 @@ import {
   HeaderSection,
   HeaderSectionProps,
 } from '@acter/components/acter/landing-page/header-section'
-import { ExampleActer, ExampleUser } from 'src/__fixtures__'
+import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
   title: 'landingpage/Header',

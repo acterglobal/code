@@ -4,11 +4,11 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import CREATE_POST from 'api/mutations/post-create.graphql'
-import CREATE_COMMENT from 'api/mutations/comment-create.graphql'
-import GET_POSTS from 'api/queries/posts-by-acter.graphql'
+import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
+import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
+import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 import { createNewPostList } from '@acter/lib/post/create-post-new-postlist'
-import { Post as PostType, Acter, User } from '@schema'
+import { Post as PostType, Acter, User } from '@acter/schema/types'
 
 export type PostVariables = PostType & {
   acterId: string

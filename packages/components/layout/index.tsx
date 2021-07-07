@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from '@acter/components/layout/top-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
-import { Acter, ActerType, User, Link as LinkType } from '@schema'
+import { Acter, ActerType, User, Link as LinkType } from '@acter/schema/types'
 import { SearchType } from '@acter/lib/constants'
 
 export interface LayoutProps {

@@ -4,7 +4,7 @@ import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 import { setActerType } from 'src/props/set-acter-type'
 import { ActerTypes } from '@acter/lib/constants'

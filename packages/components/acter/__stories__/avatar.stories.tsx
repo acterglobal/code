@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { ActerAvatar, ActerAvatarProps } from '@acter/components/acter/avatar'
 
-import { Acter } from '@schema'
+import { Acter } from '@acter/schema/types'
 
 import {
   ExampleActer,
@@ -10,7 +10,7 @@ import {
   GroupActerType,
   OrganisationActerType,
   NetworkActerType,
-} from 'src/__fixtures__'
+} from '@acter/schema/fixtures'
 
 export default {
   title: 'acter/Avatar',

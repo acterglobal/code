@@ -17,7 +17,7 @@ import {
   MembersSectionProps,
 } from '@acter/components/group/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
-import { ActerType, Acter } from '@schema'
+import { ActerType, Acter } from '@acter/schema/types'
 
 export type GroupLandingProps = HeaderSectionProps &
   MembersSectionProps &
