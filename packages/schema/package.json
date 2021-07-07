@@ -4,6 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "db:migrate": "yarn db:migrate:run --create-only",
+    "db:migrate:run": "yarn env-cmd prisma migrate dev --preview-feature",
+    "db:reset": "prisma migrate reset --preview-feature",
+    "db:seed": "yarn env-cmd prisma db seed --preview-feature",
+    "env-cmd": "env-cmd --file ../../.env",
+    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
+  },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.4.2",
     "@prisma/client": "^2.26.0",
@@ -13,5 +21,9 @@
     "typegraphql-prisma": "^0.14.5",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prisma": "^2.26.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  }
 }
