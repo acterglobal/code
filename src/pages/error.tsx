@@ -5,8 +5,8 @@ import {
 } from '@acter/lib/compose-props'
 import { getUserProfile } from 'src/props'
 import { Typography } from '@material-ui/core'
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 
 import { User } from '@schema'
 

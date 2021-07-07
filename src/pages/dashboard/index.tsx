@@ -8,10 +8,10 @@ import {
 } from '@acter/lib/compose-props'
 import { getUserProfile } from 'src/props'
 
-import { Layout } from 'src/components/layout'
-import { Head } from 'src/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 
-import { Dashboard } from 'src/components/dashboard'
+import { Dashboard } from '@acter/components/dashboard'
 
 interface DashboardPageProps {
   user: User

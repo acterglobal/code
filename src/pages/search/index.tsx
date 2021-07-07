@@ -1,8 +1,8 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { Head } from 'src/components/layout/head'
-import { Layout } from 'src/components/layout'
-import { Search } from 'src/components/search'
+import { Head } from '@acter/components/layout/head'
+import { Layout } from '@acter/components/layout'
+import { Search } from '@acter/components/search'
 import {
   composeProps,
   ComposedGetServerSideProps,

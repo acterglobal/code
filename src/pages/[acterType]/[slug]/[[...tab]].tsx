@@ -15,7 +15,7 @@ import {
   getPosts,
   getLinks,
 } from 'src/props'
-import { Head } from 'src/components/layout/head'
+import { Head } from '@acter/components/layout/head'
 import {
   Acter,
   ActerConnection,
@@ -26,13 +26,16 @@ import {
   User,
   Link,
 } from '@schema'
-import { Layout } from 'src/components/layout'
+import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
   ActerLandingProps,
-} from 'src/components/acter/landing-page'
-import { ActivityDetails, ActivityDetailsProps } from 'src/components/activity'
-import { GroupLanding, GroupLandingProps } from 'src/components/group'
+} from '@acter/components/acter/landing-page'
+import {
+  ActivityDetails,
+  ActivityDetailsProps,
+} from '@acter/components/activity'
+import { GroupLanding, GroupLandingProps } from '@acter/components/group'
 import CREATE_ACTER_CONNECTION from 'api/mutations/acter-connection-create.graphql'
 import DELETE_ACTER_CONNECTION from 'api/mutations/acter-connection-delete.graphql'
 import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graphql'
