@@ -1,36 +1,45 @@
 import React from 'react'
 import { NextPage } from 'next'
+
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
-import { ProfileInfoForm } from '@acter/components/user/form/info'
+import { ProfileInterestsForm } from '@acter/components/user/form/interests'
+
 import { InterestType, User } from '@acter/schema/types'
+
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { getUserProfile } from 'src/props'
+import { getUserProfile, getInterests } from 'props'
 
 interface UserProfilePageProps {
   interestTypes: InterestType[]
   user?: User
 }
 
-export const UserProfileInfoPage: NextPage<UserProfilePageProps> = ({
+export const UserProfileInterestsPage: NextPage<UserProfilePageProps> = ({
   user,
+  interestTypes,
 }) => {
   const [updateActer] = useUpdateActer(user.Acter)
   return (
     <Layout user={user}>
       <Head title="Profile - Acter" />
       <main>
-        <ProfileInfoForm user={user} onSubmit={updateActer} />
+        <ProfileInterestsForm
+          user={user}
+          interestTypes={interestTypes}
+          onSubmit={updateActer}
+        />
       </main>
     </Layout>
   )
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(true))
+  composeProps(ctx, getUserProfile(true), getInterests)
 
-export default UserProfileInfoPage
+export default UserProfileInterestsPage

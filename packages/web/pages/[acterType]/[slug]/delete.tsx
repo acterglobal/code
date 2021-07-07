@@ -5,12 +5,7 @@ import { useMutation } from '@apollo/client'
 import { useSnackbar } from 'notistack'
 import { capitalize } from 'lodash'
 
-import {
-  getUserProfile,
-  getActerTypes,
-  setActerType,
-  getActer,
-} from 'src/props'
+import { getUserProfile, getActerTypes, setActerType, getActer } from 'props'
 import {
   composeProps,
   ComposedGetServerSideProps,

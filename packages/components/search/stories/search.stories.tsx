@@ -24,9 +24,9 @@ export default {
 
 const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
 
-const activities = [...Array(8).keys()].map(() => acter)
+const activities = [...Array(8)].map(() => acter)
 
-const acters = [...Array(4).keys()].map(() => ExampleActer)
+const acters = [...Array(4)].map(() => ExampleActer)
 
 const Template: Story<SearchProps> = (args) => <SearchComponent {...args} />
 

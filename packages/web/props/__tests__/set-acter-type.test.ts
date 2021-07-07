@@ -6,7 +6,7 @@ import {
   OrganisationActerType,
 } from '@acter/schema/fixtures'
 
-import { setActerType } from 'src/props/set-acter-type'
+import { setActerType } from '@acter/web/props/set-acter-type'
 import { ActerTypes } from '@acter/lib/constants'
 
 describe('setActerType', () => {

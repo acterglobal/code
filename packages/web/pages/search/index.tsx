@@ -12,7 +12,7 @@ import {
   searchActers,
   getInterests,
   getActerTypes,
-} from 'src/props'
+} from 'props'
 import { Acter, ActerType, InterestType, User } from '@acter/schema/types'
 import { SearchType } from '@acter/lib/constants'
 

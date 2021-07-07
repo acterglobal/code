@@ -13,7 +13,7 @@ import {
   getActer,
   setActerType,
   getLinks,
-} from 'src/props'
+} from 'props'
 import { ActerSettings } from '@acter/components/acter/settings'
 import {
   Acter,
