@@ -14,8 +14,20 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis-data:/var/lib/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
   fake-smtp:
     image: reachfive/fake-smtp-server
+    restart: always
     hostname: mail
     ports:
       - 1080:1080
