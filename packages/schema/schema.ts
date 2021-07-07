@@ -1,11 +1,25 @@
-import { buildSchemaSync } from 'type-graphql'
-import { resolvers } from '@acter/schema/types'
+import { buildSchemaSync, UseMiddleware } from 'type-graphql'
+import {
+  ResolversEnhanceMap,
+  applyResolversEnhanceMap,
+  resolvers,
+} from '@acter/schema/types'
 
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { SearchResolver } from '@acter/schema/resolvers/search'
 import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
 
+import { queueNotificationsMiddleware } from './middlewares/queue-notifications'
+
 import { authChecker } from '@acter/schema/auth-checker'
+
+const resolversEnhanceMap: ResolversEnhanceMap = {
+  Post: {
+    createPost: [UseMiddleware(queueNotificationsMiddleware('post'))],
+  },
+}
+
+applyResolversEnhanceMap(resolversEnhanceMap)
 
 export const schema = buildSchemaSync({
   authChecker,
