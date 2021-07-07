@@ -1,4 +1,8 @@
-import { Acter, ActerJoinSettings } from '@acter/schema/types'
+import {
+  Acter,
+  ActerJoinSettings,
+  ActerNotificationSettings,
+} from '@acter/schema/types'
 import {
   ExampleUser,
   OrganisationActerType,
@@ -27,6 +31,7 @@ export const ExampleActer: Acter = {
   createdByUserId: ExampleUser.id,
   Following: [],
   acterJoinSetting: ActerJoinSettings.EVERYONE,
+  acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
 }
 
 export const ExampleUserActer: Acter = {
