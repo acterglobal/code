@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import { Field, Form, Formik } from 'formik'
 import { FormControl, FormLabel } from '@material-ui/core'
 import { RadioGroup } from 'formik-material-ui'
-import { ProfileFormLayout } from 'src/components/user/form/layout'
-import { FormButtons, SettingsRadio } from 'src/components/util/forms'
-import { ActerNotificationSettings, User } from '@schema'
+import { ProfileFormLayout } from '@acter/components/user/form/layout'
+import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
+import { ActerNotificationSettings, User } from '@acter/schema/types'
 
 export interface ProfileNotificationsFormValues {
   acterNotifySetting: ActerNotificationSettings
