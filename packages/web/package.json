@@ -5,9 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "env-cmd --silent next dev",
-    "build": " env-cmd --silent next build",
-    "start": "next start -p $PORT"
+    "dev": "yarn env-cmd next dev",
+    "build": "yarn env-cmd next build",
+    "start": "yarn env-cmd next start -p $PORT",
+    "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
