@@ -1,5 +1,5 @@
 import colorString from 'color-string'
-import { ActivityTypes } from 'src/constants'
+import { ActivityTypes } from '@acter/lib/constants'
 
 type rgbColor = [number, number, number, number]
 type rgbColorMap = Record<string, rgbColor>

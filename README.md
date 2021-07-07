@@ -78,7 +78,7 @@ Module mocks. Currently only used for Storybook.
 
 All components, tests, and stories. The components folder will be organized by major functional area, with common elements in a `shared` folder and organized by functionality.
 
-### `src/lib`
+### `@acter/lib`
 
 When additional business logic or extensions to external libraries are needed, they should be placed in the `lib` folder.
 

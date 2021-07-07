@@ -21,8 +21,8 @@ import { Button, ButtonsContainer } from 'src/components/styled'
 import { Acter, ActerType, InterestType } from '@schema'
 import { useRouter } from 'next/router'
 import { grey } from '@material-ui/core/colors'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
-import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 
 const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]

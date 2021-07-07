@@ -4,7 +4,7 @@ import { InterestTypes } from 'src/components/interests/interest-types'
 import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
-} from 'src/lib/interests'
+} from '@acter/lib/interests'
 import { InterestType, Interest } from '@schema'
 
 export interface InterestsSectionProps {

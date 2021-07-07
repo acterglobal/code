@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { getInitials } from 'src/lib/get-initials'
+import { getInitials } from '@acter/lib/get-initials'
 import { Acter } from '@schema'
 
 const useStyles = makeStyles((theme: Theme) => {

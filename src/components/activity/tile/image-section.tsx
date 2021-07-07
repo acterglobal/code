@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { ActivityTileProps } from 'src/components/activity/tile'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 import Image from 'next/image'
-import { getImageUrl } from 'src/lib/images/get-image-url'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 type ImageSectionProps = ActivityTileProps
 

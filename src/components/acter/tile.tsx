@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
-import { getImageUrl } from 'src/lib/images/get-image-url'
-import { getActerTypeIcon } from 'src/lib/images/get-icons'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { getActerTypeIcon } from '@acter/lib/images/get-icons'
 import { Acter } from '@schema'
 
 export interface ActerTileProps {

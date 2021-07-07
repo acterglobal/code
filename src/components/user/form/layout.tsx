@@ -6,7 +6,7 @@ import {
   SettingsMenu,
   SettingsLinkMenuItem,
 } from 'src/components/util/settings-layout'
-import { ProfileSettingsPages } from 'src/constants'
+import { ProfileSettingsPages } from '@acter/lib/constants'
 
 export const ProfileFormLayout: FC = ({ children }) => {
   const router = useRouter()

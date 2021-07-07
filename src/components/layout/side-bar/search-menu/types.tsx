@@ -5,7 +5,7 @@ import {
   Type,
   SearchTypeProps,
 } from 'src/components/layout/side-bar/search-menu/type'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 export interface SearchTypesProps extends SearchTypeProps {
   subTypes: (ActerType | ActivityType)[]

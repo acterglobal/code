@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons'
 import { DropdownMenu } from 'src/components/util/dropdown-menu'
 import { Link } from 'src/components/util/anchor-link'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, User } from '@schema'
 
 export interface TopBarProps {

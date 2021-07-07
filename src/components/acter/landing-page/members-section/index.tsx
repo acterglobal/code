@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { mapFollowersByType } from 'src/lib/acter/map-followers-by-type'
+import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Selectors } from 'src/components/acter/landing-page/members-section/selectors'
@@ -7,7 +7,7 @@ import {
   DisplayMembers,
   DisplayMembersProps,
 } from 'src/components/acter/landing-page/members-section/display-members'
-import { MemberType } from 'src/constants'
+import { MemberType } from '@acter/lib/constants'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 

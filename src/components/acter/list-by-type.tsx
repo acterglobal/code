@@ -4,7 +4,7 @@ import Image from 'next/image'
 import pluralize from 'pluralize'
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
 
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 import { Acter } from '@schema'
 import {
@@ -13,9 +13,9 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles'
-import { ActerTypes } from 'src/constants'
+import { ActerTypes } from '@acter/lib/constants'
 import { grey } from '@material-ui/core/colors'
-import { getImageUrl } from 'src/lib/images/get-image-url'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 export interface ActerListByTypeProps {
   acters: Acter[]

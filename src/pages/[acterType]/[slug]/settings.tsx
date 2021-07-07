@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { NextPage } from 'next'
 import { Layout } from 'src/components/layout'
 import { Head } from 'src/components/layout/head'
-import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 import {
   checkRole,
   getUserProfile,
@@ -19,12 +22,12 @@ import {
   User,
   Link as LinkType,
 } from '@schema'
-import { useUpdateActer } from 'src/lib/acter/use-update-acter'
-import { useCreateActer } from 'src/lib/acter/use-create-acter'
-import { useCreateLink } from 'src/lib/links/use-create-link'
-import { updateActerGroups } from 'src/lib/group/update-acter-groups'
-import { useUpdateLink } from 'src/lib/links/use-update-link'
-import { useDeleteLink } from 'src/lib/links/use-delete-link'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useCreateActer } from '@acter/lib/acter/use-create-acter'
+import { useCreateLink } from '@acter/lib/links/use-create-link'
+import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
+import { useUpdateLink } from '@acter/lib/links/use-update-link'
+import { useDeleteLink } from '@acter/lib/links/use-delete-link'
 
 interface ActerSettingsPageProps {
   acter: Acter

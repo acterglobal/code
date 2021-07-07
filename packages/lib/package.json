@@ -1,0 +1,15 @@
+{
+  "name": "@acter/lib",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "md5": "^2.3.0",
+    "mime": "^2.5.2",
+    "ramda": "^0.27.1",
+    "slugify": "^1.4.6"
+  },
+  "devDependencies": {}
+}

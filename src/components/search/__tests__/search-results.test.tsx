@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Search } from 'src/components/search'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 import { ExampleActer } from 'src/__fixtures__'
 import { useRouter } from 'next/router'
 jest.mock('next/router')

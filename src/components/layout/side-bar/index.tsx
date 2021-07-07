@@ -22,7 +22,7 @@ import {
 } from 'src/components/layout/side-bar/following-list'
 import { commonStyles } from 'src/components/layout/side-bar/common'
 import { SearchMenu } from 'src/components/layout/side-bar/search-menu'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 export type SidebarProps = ActerMenuProps &
   FollowingListProps & {

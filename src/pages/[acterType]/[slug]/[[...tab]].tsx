@@ -1,8 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { MutationFunction } from '@apollo/client'
-import { composeProps, ComposedGetServerSideProps } from 'src/lib/compose-props'
-import { useNotificationMutation } from 'src/lib/apollo/use-notification-mutation'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import {
   getUserProfile,
   getActer,
@@ -36,13 +39,13 @@ import UPDATE_ACTER_CONNECTION from 'api/mutations/acter-connection-update.graph
 import ACTER_CONNECTION_FRAGMENT from 'api/fragments/acter-connection-full.fragment.graphql'
 import GET_ACTER from 'api/queries/acter-by-slug.graphql'
 import GET_USER from 'api/queries/user-by-id.graphql'
-import { ActerTypes } from 'src/constants'
-import { useCreateActer } from 'src/lib/acter/use-create-acter'
-import { useUpdateActer } from 'src/lib/acter/use-update-acter'
-import { updateActerGroups } from 'src/lib/group/update-acter-groups'
-import { useDeletePost } from 'src/lib/post/use-delete-post'
-import { useCreatePost } from 'src/lib/post/use-create-post'
-import { useUpdatePost } from 'src/lib/post/use-update-post'
+import { ActerTypes } from '@acter/lib/constants'
+import { useCreateActer } from '@acter/lib/acter/use-create-acter'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
+import { useDeletePost } from '@acter/lib/post/use-delete-post'
+import { useCreatePost } from '@acter/lib/post/use-create-post'
+import { useUpdatePost } from '@acter/lib/post/use-update-post'
 
 const { ACTIVITY, GROUP } = ActerTypes
 

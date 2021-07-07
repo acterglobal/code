@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from 'src/components/acter/avatar'
 import {
   ConnectionState,
@@ -20,7 +20,7 @@ import {
 } from 'src/components/acter/landing-page/members-section/connection-state'
 import { Acter, ActerConnection, ActerConnectionRole, User } from '@schema'
 
-import { MemberType } from 'src/constants'
+import { MemberType } from '@acter/lib/constants'
 export interface DisplayMembersProps {
   /**
    * The acter on which we are viewing members

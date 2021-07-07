@@ -5,7 +5,7 @@ import { Box, Divider } from '@material-ui/core'
 import { Post, PostsProps } from 'src/components/posts/post/index'
 import { PostFormSection } from 'src/components/posts/form/post-form-section'
 import { PostFormProps, PostFormValues } from 'src/components/posts/form'
-import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType, User } from '@schema'
 
 export interface PostListProps extends PostFormProps, PostsProps {

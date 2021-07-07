@@ -1,6 +1,6 @@
 // TODO: figure out how to test this. For some reason when Jest tries to include Auth0 it throws "Maximum call stack size exceeded"
-import { initializeApollo, addApolloState } from 'src/lib/apollo'
-import { ComposedGetServerSideProps } from 'lib/compose-props'
+import { initializeApollo, addApolloState } from '@acter/lib/apollo'
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { getSession } from '@auth0/nextjs-auth0'
 
 import { Acter } from '@schema'

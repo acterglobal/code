@@ -5,8 +5,8 @@ import { AppProps } from 'next/app'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { ApolloProvider } from '@apollo/client'
 
-import { useApollo } from 'lib/apollo'
-import { initSentry } from 'lib/sentry'
+import { useApollo } from '@acter/lib/apollo'
+import { initSentry } from '@acter/lib/sentry'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from 'src/themes/acter-theme'

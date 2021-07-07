@@ -3,7 +3,7 @@ import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { DoneRounded as SelectedIcon } from '@material-ui/icons'
 import { grey } from '@material-ui/core/colors'
-import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
+import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { Popover } from 'src/components/util/popover'
 
 export type SortByProps = {

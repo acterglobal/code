@@ -7,9 +7,9 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Switch } from 'src/components/styled/switch'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 import { activityTypeColors } from 'src/themes/colors'
-import { Size } from 'src/constants'
+import { Size } from '@acter/lib/constants'
 import { remove } from 'lodash'
 
 export interface SearchTypeProps {

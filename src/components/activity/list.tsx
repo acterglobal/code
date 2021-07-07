@@ -9,7 +9,7 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core'
-import { userHasRoleOnActer } from 'src/lib/user/user-has-role-on-acter'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActivityTile } from 'src/components/activity/tile'
 import { DefaultMessage } from 'src/components/dashboard/default-message'
 import { Acter, ActerConnectionRole, Activity, User } from '@schema'

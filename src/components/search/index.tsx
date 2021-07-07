@@ -9,9 +9,9 @@ import {
   DisplayResults,
   DisplayResultsProps,
 } from 'src/components/search/display-results'
-import { SearchActivitiesSortBy } from 'src/lib/api/resolvers/get-order-by'
+import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { Acter, InterestType } from '@schema'
-import { SearchType } from 'src/constants'
+import { SearchType } from '@acter/lib/constants'
 
 export interface SearchProps extends DisplayResultsProps {
   searchType: SearchType

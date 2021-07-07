@@ -5,7 +5,7 @@ import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import dynamic from 'next/dynamic'
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
-import { Size } from 'src/constants'
+import { Size } from '@acter/lib/constants'
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((reactDraft) => reactDraft.Editor),

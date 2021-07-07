@@ -5,8 +5,8 @@ import { Form, Formik } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { green, grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
-import { getFollowers } from 'src/lib/acter/get-followers'
-import { getInterestIdsFromActer } from 'src/lib/interests/get-interest-ids-from-acter'
+import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import {
   ActivityTypeStep,
   ActivityTypeStepProps,
@@ -29,7 +29,7 @@ import {
 } from 'src/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from 'src/components/util/modal/statefull-modal'
 import { Acter, User } from '@schema'
-import { ActerTypes, ActivityTypes } from 'src/constants'
+import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {

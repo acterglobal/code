@@ -1,6 +1,6 @@
 import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
-import { getOrCreateUserByEmailFromDB } from 'src/lib/user/get-or-create-user-by-email-from-db'
-import { getOrCreateActerFromDB } from 'src/lib/acter/get-or-create-acter-from-db'
+import { getOrCreateUserByEmailFromDB } from '@acter/lib/user/get-or-create-user-by-email-from-db'
+import { getOrCreateActerFromDB } from '@acter/lib/acter/get-or-create-acter-from-db'
 
 const afterCallback = async (_req, res, session, _state) => {
   try {

@@ -10,9 +10,9 @@ import { Participates } from 'src/components/activity/participates'
 import { Organiser } from 'src/components/activity/organiser'
 import { PostList, PostListProps } from 'src/components/posts'
 import { InterestType } from '@schema'
-import { getImageUrl } from 'src/lib/images/get-image-url'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useRouter } from 'next/router'
-import { acterAsUrl } from 'src/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]

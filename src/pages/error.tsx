@@ -1,5 +1,8 @@
 import { NextPage } from 'next'
-import { composeProps, ComposedGetServerSideProps } from 'lib/compose-props'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
 import { getUserProfile } from 'src/props'
 import { Typography } from '@material-ui/core'
 import { Layout } from 'src/components/layout'
