@@ -18,6 +18,7 @@
     "@sentry/nextjs": "^6.8.0",
     "apollo-server-micro": "^2.25.2",
     "aws-sdk": "^2.940.0",
+    "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
     "next": "^v10.2.2",
     "next-compose-plugins": "^2.2.1",
