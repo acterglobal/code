@@ -1,0 +1,19 @@
+{
+  "name": "@acter/jobs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "bull": "^3.22.10",
+    "bullmq": "^1.37.1",
+    "throng": "^5.0.0",
+    "ts-node": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
