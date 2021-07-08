@@ -15,8 +15,6 @@ import { SnackbarProvider } from 'notistack'
 
 import { IntercomProvider } from 'react-use-intercom'
 
-const INTERCOM_APP_ID = 'qe5gduvb'
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ActerAppProps = AppProps & { err: any }
 
@@ -27,7 +25,7 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
     graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     pageProps,
   })
-  console.log('intercome :', process.env.INTERCOM_APP_ID)
+  const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
 
   return (
     <IntercomProvider appId={INTERCOM_APP_ID}>
