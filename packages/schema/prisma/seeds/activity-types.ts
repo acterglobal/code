@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { ActivityTypes } from 'src/constants'
+import { ActivityTypes } from '@acter/lib/constants'
 
 export const seedActivityTypes = async (
   prisma: PrismaClient
