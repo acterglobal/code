@@ -5,12 +5,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "nodemon"
+    "dev": "ts-node ./src/index.ts"
   },
   "dependencies": {
-    "bull": "^3.22.10",
+    "@swc/core": "^1.2.63",
     "bullmq": "^1.37.1",
-    "throng": "^5.0.0",
+    "reflect-metadata": "^0.1.13",
     "ts-node": "^10.0.0"
   },
   "devDependencies": {

@@ -97,6 +97,9 @@ model Acter {
 
   AttachedLinks Link[] @relation("links")
 
+  NotificationsTo Notification[] @relation("notificationToActer")
+  NotificationsOn Notification[] @relation("notificationOnActer")
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -264,6 +267,34 @@ model InterestType {
   @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
   @@index([sortOrder])
   @@map("interest_types")
+}
+
+enum NotificationType {
+  NEW_POST
+  NEW_ACTIVITY
+  NEW_MEMBER
+}
+
+model Notification {
+  id   String           @id @default(uuid())
+  type NotificationType
+  url  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  sentAt DateTime? @map("sent_at")
+  sentTo String?   @map("sent_to")
+
+  viewedAt DateTime? @map("viewed_at")
+
+  ToActer   Acter  @relation("notificationOnActer", fields: [toActerId], references: [id])
+  toActerId String @map("to_acter_id")
+
+  OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id])
+  onActerId String @map("on_acter_id")
+
+  @@map("notifications")
 }
 
 model User {
