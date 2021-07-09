@@ -4,8 +4,8 @@ import { getFollowers } from '@acter/lib/acter/get-followers'
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
-
 import { Acter, User } from '@acter/schema/types'
+import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 
 export interface ConnectProps {
   /**
@@ -57,9 +57,17 @@ export const Connect: FC<ConnectProps> = ({
     return null
   }
 
+  const joinedFollowers = followers.filter((follower) =>
+    getActerConnection(acter, follower)
+  )
+
   return (
     <DropdownMenu
-      anchorNode={<ConnectButton>Join</ConnectButton>}
+      anchorNode={
+        <ConnectButton>
+          {joinedFollowers.length > 0 ? 'Joined' : 'Join'}
+        </ConnectButton>
+      }
       closeOnClick={false}
     >
       {followers.map((follower) => (
