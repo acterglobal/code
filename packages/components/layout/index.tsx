@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from '@acter/components/layout/top-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
 import { Acter, ActerType, User, Link as LinkType } from '@acter/schema/types'
 import { SearchType } from '@acter/lib/constants'
+import { useIntercom } from 'react-use-intercom'
 
 export interface LayoutProps {
   acter?: Acter
@@ -25,6 +26,11 @@ export const Layout: FC<LayoutProps> = ({
   onGroupSubmit,
 }) => {
   const classes = useStyles()
+  const { boot } = useIntercom()
+
+  useEffect(() => {
+    boot()
+  }, [])
 
   return (
     <div className={classes.root}>

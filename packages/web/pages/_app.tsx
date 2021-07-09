@@ -13,6 +13,8 @@ import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 
 import { SnackbarProvider } from 'notistack'
 
+import { IntercomProvider } from 'react-use-intercom'
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ActerAppProps = AppProps & { err: any }
 
@@ -23,20 +25,23 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
     graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     pageProps,
   })
+  const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <UserProvider>
-        <ActerThemeProvider>
-          <SnackbarProvider
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          >
-            <CssBaseline />
-            <Component {...pageProps} err={err} />
-          </SnackbarProvider>
-        </ActerThemeProvider>
-      </UserProvider>
-    </ApolloProvider>
+    <IntercomProvider appId={INTERCOM_APP_ID}>
+      <ApolloProvider client={apolloClient}>
+        <UserProvider>
+          <ActerThemeProvider>
+            <SnackbarProvider
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              <CssBaseline />
+              <Component {...pageProps} err={err} />
+            </SnackbarProvider>
+          </ActerThemeProvider>
+        </UserProvider>
+      </ApolloProvider>
+    </IntercomProvider>
   )
 }
 

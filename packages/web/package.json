@@ -27,6 +27,7 @@
     "notistack": "^1.0.9",
     "react": "^17.0.2",
     "react-dom": "^16.14",
+    "react-use-intercom": "^1.3.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1"
   },
