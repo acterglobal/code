@@ -34,14 +34,16 @@ export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
       <>
         <Button
           color="inherit"
-          onClick={() => router.push('/api/auth/signup')}
+          onClick={() => router.push('/api/auth/signup?redirectTo=/profile')}
           aria-label="signin-button"
         >
           Sign up
         </Button>
         <Button
           color="inherit"
-          onClick={() => router.push('/api/auth/login')}
+          onClick={() =>
+            router.push(`/api/auth/login?redirectTo=${router.asPath}`)
+          }
           aria-label="signin-button"
         >
           Log in

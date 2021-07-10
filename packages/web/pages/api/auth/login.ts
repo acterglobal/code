@@ -9,9 +9,6 @@ export default async (
     const redirectUrl = process.env.AUTH0_BASE_URL + req.query.redirectTo
 
     handleLogin(req, res, {
-      authorizationParams: {
-        screen_hint: 'signup',
-      },
       returnTo: redirectUrl,
     })
   } catch (err) {

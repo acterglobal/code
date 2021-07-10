@@ -44,7 +44,11 @@ export const Connect: FC<ConnectProps> = ({
   const router = useRouter()
   if (!user) {
     return (
-      <ConnectButton onClick={() => router.push('/api/auth/login')}>
+      <ConnectButton
+        onClick={() =>
+          router.push(`/api/auth/login/redirectTo=${router.asPath}`)
+        }
+      >
         Join
       </ConnectButton>
     )
