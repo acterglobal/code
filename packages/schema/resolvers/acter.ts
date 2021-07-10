@@ -356,7 +356,7 @@ export class ActerResolver {
     return await ctx.prisma.acter.update({
       data: {
         deletedAt: new Date(),
-        deltedByUserId: currentUser.id,
+        deltedByUserId: currentUser.id, // TODO: fix typo
       },
       where: {
         id: acterId,
