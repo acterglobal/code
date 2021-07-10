@@ -11,7 +11,7 @@ import { connectionHasAtLeastRole } from '@acter/lib/acter/connection-has-at-lea
 export const followerHasRoleOnActer = (
   follower: Acter,
   role: ActerConnectionRole,
-  acter: Acter
+  acter: Partial<Acter>
 ): boolean => {
   const connection = acter.Followers?.find(
     ({ Follower }) => follower.id === Follower.id

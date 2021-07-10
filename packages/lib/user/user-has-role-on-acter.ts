@@ -9,9 +9,9 @@ import { Acter, ActerConnectionRole, User } from '@acter/schema/types'
  * @returns true if follower has roles, false if not
  */
 export const userHasRoleOnActer = (
-  user: User | undefined,
+  user: Partial<User> | undefined,
   role: ActerConnectionRole,
-  acter: Acter
+  acter: Partial<Acter>
 ): boolean => {
   if (!user?.Acter) {
     return false
