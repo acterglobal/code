@@ -9,20 +9,7 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
-import { interestColors } from '@acter/components/themes/colors'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    interests: {},
-    divider: {
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(0.8),
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-      backgroundColor: theme.colors.grey.main,
-    },
-  })
-)
 export interface InterestTypesProps {
   type: InterestType
   allTypes: InterestType[]
@@ -48,7 +35,8 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   columns = false,
   divider: divider = false,
 }) => {
-  const classes = useStyles()
+  const typeName: string = type.name
+  const classes = useStyles({ typeName })
 
   const subTypes = allTypes.filter(
     (subtype) => type.id === subtype.parentInterestTypeId
@@ -109,9 +97,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     return (
       <Box style={{ marginLeft: 25 }} role="list">
         {showTitle && (
-          <Typography style={{ color: interestColors[type.name] }}>
-            {type.name}
-          </Typography>
+          <Typography className={classes.title}>{type.name}</Typography>
         )}
         <Box style={{ display: 'flex', flexWrap: 'wrap' }}>
           {type.Interests.map((interest) => {
@@ -146,3 +132,19 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     )
   }
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    divider: {
+      marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(0.8),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      backgroundColor: theme.colors.grey.main,
+    },
+    title: {
+      color: ({ typeName }: { typeName: string }) =>
+        theme.colors.interestTypes[typeName],
+    },
+  })
+)

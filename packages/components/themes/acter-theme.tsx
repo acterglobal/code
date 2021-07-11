@@ -19,11 +19,21 @@ type ActivityTypes = {
   meeting: Color
 }
 
+type InterestTypes = {
+  Economy: Color
+  Environment: Color
+  Social: Color
+  Approach: Color
+  Focus: Color
+  Tags: Color
+}
+
 type Colors = {
   black: Color
   grey: Grey
   white: Color
   activityTypes: ActivityTypes
+  interestTypes: InterestTypes
 }
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -63,6 +73,14 @@ export const theme = createMuiTheme({
       project: '#8ED77F',
       idea: '#FED990',
       meeting: '#D5D5D5',
+    },
+    interestTypes: {
+      Economy: '#F8BA00',
+      Environment: '#1DB100',
+      Social: '#FF644E',
+      Approach: '#545559',
+      Focus: '#000',
+      Tags: '#000',
     },
   },
 
