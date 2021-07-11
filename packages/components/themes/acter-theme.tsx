@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import '@acter/components/themes/fonts'
 
@@ -13,10 +12,18 @@ type Grey = {
   dark: Color
 }
 
+type ActivityTypes = {
+  event: Color
+  project: Color
+  idea: Color
+  meeting: Color
+}
+
 type Colors = {
   black: Color
   grey: Grey
   white: Color
+  activityTypes: ActivityTypes
 }
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -29,7 +36,9 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 
 export const theme = createMuiTheme({
   palette: {
-    primary: green,
+    primary: {
+      main: '#1EB001',
+    },
     secondary: {
       main: '#545559',
       dark: '#2A2A2A',
@@ -42,13 +51,19 @@ export const theme = createMuiTheme({
   },
   colors: {
     black: '#000',
+    white: '#fff',
     grey: {
       extraLight: '#F2F2F2',
       light: '#D9D9D9',
       main: '#929292',
       dark: '#5E5E5E',
     },
-    white: '#fff',
+    activityTypes: {
+      event: '#A3DAFF',
+      project: '#8ED77F',
+      idea: '#FED990',
+      meeting: '#D5D5D5',
+    },
   },
 
   typography: {
