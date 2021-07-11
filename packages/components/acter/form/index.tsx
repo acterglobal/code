@@ -2,8 +2,7 @@
 
 import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
-import { Box, Step, StepLabel, Stepper } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import {
   BasicInformation,
@@ -23,8 +22,8 @@ import { useRouter } from 'next/router'
 import { grey } from '@material-ui/core/colors'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
+import { Stepper } from '@acter/components/util/stepper'
 
-const stepLabels = ['Basic Information', 'Upload Images', 'Add Interests']
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 
 export type FormValues = any
@@ -102,22 +101,10 @@ export const ActerForm: FC<ActerFormProps> = ({
 
   return (
     <Modal handleModalClose={handleModalClose}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onStepSubmit}
-        // validationSchema={validationSchema}
-      >
+      <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
         {({ isSubmitting }) => (
           <Box className={classes.container}>
             <Form>
-              <Stepper alternativeLabel activeStep={activeStep}>
-                {stepLabels.map((label, index) => (
-                  <Step key={index}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-
               <Box className={classes.fields}>
                 {steps[activeStep] === BasicInformation && <BasicInformation />}
                 {steps[activeStep] === ImageUploadSection && (
@@ -128,11 +115,15 @@ export const ActerForm: FC<ActerFormProps> = ({
                 )}
               </Box>
 
+              <Box className={classes.stepBars}>
+                <Stepper activeStep={activeStep} steps={steps} />
+              </Box>
+
               <ButtonsContainer>
                 <Button
                   variant="outlined"
                   color="primary"
-                  disabled={activeStep === 1 || isSubmitting}
+                  disabled={activeStep === 0 || isSubmitting}
                   onClick={handlePrev}
                 >
                   Back
@@ -171,11 +162,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     fields: {
       width: '100%',
+      marginTop: theme.spacing(10),
       height: 470,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       overflowY: 'scroll',
+    },
+    stepBars: {
+      width: '90%',
+      margin: 'auto',
     },
   })
 )
