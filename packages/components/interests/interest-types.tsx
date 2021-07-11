@@ -10,7 +10,6 @@ import {
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
 import { interestColors } from '@acter/components/themes/colors'
-import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(0.8),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      backgroundColor: grey[500],
+      backgroundColor: theme.colors.grey.main,
     },
   })
 )

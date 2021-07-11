@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import { Post } from '@acter/schema/types'
 import moment from 'moment'
@@ -38,12 +37,12 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     acterTypeName: {
-      color: grey[600],
+      color: theme.palette.secondary.main,
       fontSize: 11,
       textTransform: 'capitalize',
     },
     title: {
-      color: grey[700],
+      color: theme.palette.secondary.main,
       fontWeight: theme.typography.fontWeightBold,
       fontSize: 11,
       marginBottom: 0,
@@ -57,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 9,
       marginLeft: theme.spacing(1),
       fontWeight: theme.typography.fontWeightLight,
-      color: grey[600],
+      color: theme.palette.secondary.main,
     },
   })
 )

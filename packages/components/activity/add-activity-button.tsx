@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { Link } from '@acter/components/util/anchor-link'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@acter/schema/types'
@@ -57,11 +56,11 @@ const StyledButton = withStyles((theme: Theme) =>
       marginRight: theme.spacing(3),
       minWidth: '100px',
       height: theme.spacing(3.5),
-      backgroundColor: grey[800],
-      color: theme.palette.secondary.contrastText,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.colors.white,
       textTransform: 'capitalize',
       '&:hover': {
-        backgroundColor: grey[700],
+        backgroundColor: theme.colors.grey.dark,
       },
     },
   })

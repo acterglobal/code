@@ -3,7 +3,6 @@ import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { ImageUpload } from '@acter/components/image-upload/index'
-import { grey } from '@material-ui/core/colors'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { User } from '@acter/schema/types'
@@ -18,7 +17,7 @@ export interface ProfileInfoFormValues {
 
 export interface ProfileInfoFormProps {
   user: User
-  onSubmit: (any) => any
+  onSubmit: (any) => void
 }
 
 export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({
@@ -120,13 +119,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       marginBottom: theme.spacing(2),
     },
-    fieldLabel: {
-      color: theme.palette.grey[600],
-    },
-    radioLabel: {
-      justifyContent: 'space-between',
-      color: theme.palette.grey[600],
-    },
     interests: {
       width: '100%',
     },
@@ -137,11 +129,6 @@ const useStyles = makeStyles((theme: Theme) =>
     submitButtonContainer: {
       marginRight: theme.spacing(1),
       width: '100%',
-    },
-    secondButton: {
-      width: '100%',
-      color: grey[700],
-      borderRadius: theme.spacing(3),
     },
   })
 )

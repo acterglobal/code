@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(4),
     },
     menu: {
-      borderRight: `1px solid ${theme.palette.grey[500]}`,
+      borderRight: `1px solid ${theme.colors.grey.main}`,
     },
     item: {},
     activeItem: {
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.2rem',
       paddingBottom: theme.spacing(1),
       marginBottom: theme.spacing(2),
-      borderBottom: `1px solid ${theme.palette.grey[500]}`,
+      borderBottom: `1px solid ${theme.colors.grey.main}`,
     },
   })
 )

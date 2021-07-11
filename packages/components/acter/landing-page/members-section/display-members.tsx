@@ -10,7 +10,6 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
@@ -127,7 +126,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   heading: {
     fontSize: '0.9rem',
     fontWeight: theme.typography.fontWeightBold,
-    color: grey[600],
+    color: theme.colors.grey.dark,
     marginBottom: 20,
   },
   members: {
@@ -142,10 +141,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   name: {
     fontWeight: theme.typography.fontWeightBold,
-    color: grey[800],
+    color: theme.colors.grey.dark,
   },
   acterType: {
-    color: grey[700],
+    color: theme.colors.grey.dark,
   },
   divider: {
     marginLeft: 100,

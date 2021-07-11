@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { grey } from '@material-ui/core/colors'
 import { ActivityType } from '@acter/schema/types'
 import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
 import { ActivityTypes } from '@acter/lib/constants'
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(0.5),
       border: '1px solid',
-      borderColor: grey[400],
+      borderColor: theme.palette.secondary.light,
       borderRadius: 4,
       textTransform: 'capitalize',
       textAlign: 'center',

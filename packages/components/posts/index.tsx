@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
 import { Box, Divider } from '@material-ui/core'
 import { Post, PostsProps } from '@acter/components/posts/post/index'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
@@ -118,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1),
     },
     divider: {
-      backgroundColor: grey[500],
+      backgroundColor: theme.colors.grey.main,
       marginTop: 8,
       marginBottom: 16,
     },

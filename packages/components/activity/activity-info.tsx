@@ -154,7 +154,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   locationContainer: {
     display: 'flex',
     alignItems: 'center',
-    color: grey[800],
   },
   location: {
     fontSize: '0.9rem',

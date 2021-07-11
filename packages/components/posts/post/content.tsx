@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Markdown from 'markdown-to-jsx'
-import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     description: {
-      color: grey[700],
+      color: theme.palette.secondary.dark,
       fontSize: 12,
       hyphens: 'auto',
       overflow: 'hidden',

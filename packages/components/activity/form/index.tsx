@@ -3,7 +3,6 @@ import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
@@ -274,8 +273,6 @@ const useStyles = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       width: 690,
       height: containerHeight,
-      borderTop: '1px solid',
-      borderTopColor: grey[300],
       paddingTop: theme.spacing(containerPadding),
       paddingLeft: theme.spacing(containerPadding),
       paddingRight: theme.spacing(containerPadding),

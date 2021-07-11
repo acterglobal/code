@@ -12,7 +12,7 @@ import Cropper from 'react-cropper'
 import clsx from 'clsx'
 
 import 'cropperjs/dist/cropper.css'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 
 type cropDataType = {
   center: {
@@ -176,11 +176,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer',
     width: theme.spacing(4),
     height: theme.spacing(4),
-    backgroundColor: grey[800],
+    backgroundColor: theme.palette.secondary.main,
     color: 'white',
     marginLeft: theme.spacing(2),
     '&:hover': {
-      backgroundColor: grey[700],
+      backgroundColor: theme.colors.grey.main,
     },
   },
 }))

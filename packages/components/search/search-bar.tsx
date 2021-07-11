@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { Search as SearchIcon } from '@material-ui/icons'
 import { Box } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export interface SearchBarProps {
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
     searchIcon: {
       fontSize: 19,
       fontWeight: 'bold',
-      color: grey[600],
+      color: theme.palette.secondary.main,
     },
 
     input: {

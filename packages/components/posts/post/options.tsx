@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Box, MenuItem, makeStyles, createStyles } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+import { theme } from '@acter/components/themes/acter-theme'
 
 export interface PostOptionsProps {
   onEdit: () => void
@@ -31,7 +31,7 @@ export const PostOptions: FC<PostOptionsProps> = ({ onEdit, onDelete }) => {
 const useStyles = makeStyles(
   createStyles({
     threeDotsIcon: {
-      color: grey[600],
+      color: theme.colors.grey.main,
       cursor: 'pointer',
     },
     menuItem: {

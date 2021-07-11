@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import CancelIcon from '@material-ui/icons/Cancel'
@@ -98,10 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: 3,
       marginLeft: 'auto',
       marginRight: 'auto',
-    },
-    divider: {
-      backgroundColor: grey[900],
-      marginTop: 8,
     },
     toggleContainer: {
       marginTop: 8,

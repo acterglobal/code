@@ -14,7 +14,6 @@ import {
   Theme,
 } from '@material-ui/core/styles'
 import { ActerTypes } from '@acter/lib/constants'
-import { grey } from '@material-ui/core/colors'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 export interface ActerListByTypeProps {
@@ -127,8 +126,8 @@ const StyledBox = withStyles((theme: Theme) =>
       margin: 5,
       borderRadius: 5,
       border: '1px solid',
-      borderColor: grey[400],
-      backgroundColor: grey[200],
+      borderColor: theme.colors.grey.main,
+      backgroundColor: theme.colors.grey.extraLight,
       display: 'flex',
       marginBottom: theme.spacing(1.2),
       cursor: 'pointer',
@@ -140,7 +139,7 @@ const StyledDevider = withStyles((theme: Theme) =>
   createStyles({
     root: {
       height: 1,
-      backgroundColor: grey[800],
+      backgroundColor: theme.colors.grey.dark,
       marginBottom: theme.spacing(2.5),
     },
   })
