@@ -4,6 +4,29 @@ import { green } from '@material-ui/core/colors'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import '@acter/components/themes/fonts'
 
+type Color = React.CSSProperties['color']
+
+type Grey = {
+  extraLight: Color
+  light: Color
+  main: Color
+  dark: Color
+}
+
+type Colors = {
+  black: Color
+  grey: Grey
+  white: Color
+}
+declare module '@material-ui/core/styles/createMuiTheme' {
+  interface Theme {
+    colors: Colors
+  }
+  interface ThemeOptions {
+    colors: Colors
+  }
+}
+
 export const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -16,6 +39,16 @@ export const theme = createMuiTheme({
     background: {
       default: '#EEEDF0',
     },
+  },
+  colors: {
+    black: '#000',
+    grey: {
+      extraLight: '#F2F2F2',
+      light: '#D9D9D9',
+      main: '#929292',
+      dark: '#5E5E5E',
+    },
+    white: '#fff',
   },
 
   typography: {
