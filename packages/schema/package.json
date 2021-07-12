@@ -10,6 +10,7 @@
     "db:reset": "prisma migrate reset --preview-feature",
     "db:seed": "yarn env-cmd prisma db seed --preview-feature",
     "env-cmd": "env-cmd --file ../../.env",
+    "generate": "yarn prisma generate",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "dependencies": {
