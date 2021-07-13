@@ -30,6 +30,7 @@ import {
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Acter, User } from '@acter/schema/types'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { Stepper } from '@acter/components/util/stepper'
 
 const getSteps = (acter?: Acter) => {
   if (acter?.id) {
@@ -102,7 +103,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   useEffect(() => {
     if (acter?.id) {
-      setHeading('Edit Acitvity')
+      setHeading('Edit Activity')
     }
   }, [])
 
@@ -195,17 +196,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
                 {steps[activeStep] !== ActivityTypeStep && (
                   <Box className={classes.footer}>
-                    <Box className={classes.statusBars}>
-                      {steps.map((step, index) => (
-                        <Box
-                          key={index}
-                          className={clsx(
-                            classes.bar,
-                            activeStep >= index && classes.active
-                          )}
-                        ></Box>
-                      ))}
-                    </Box>
+                    <Stepper activeStep={activeStep} steps={steps} />
+
                     <Box className={classes.btnsContainer}>
                       <Button
                         variant="text"
