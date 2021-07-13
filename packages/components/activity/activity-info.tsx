@@ -12,6 +12,7 @@ import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
+import { capitalize } from 'lodash'
 
 export type ActivityInfoProps = ConnectProps
 
@@ -47,7 +48,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
       <Box className={classes.titleAndJoinContainer}>
         <Box className={classes.titleContainer}>
           <Typography className={classes.title} variant="h3">
-            {acter.name}
+            {capitalize(acter.name)}
           </Typography>
           <Box
             className={classes.activityType}
@@ -98,7 +99,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: '15px 5px 5px 10px',
     },
-    // height: 120,
     backgroundColor: 'white',
   },
   dateContainer: {
@@ -126,7 +126,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: '1.4rem',
-    textTransform: 'capitalize',
     margin: '3px 3px 3px 0px',
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.2rem',

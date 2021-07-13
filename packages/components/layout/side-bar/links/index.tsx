@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Box, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Link as LinkType } from '@acter/schema/types'
+import { capitalize } from 'lodash'
 
 export interface LinkListProps {
   links: LinkType[]
@@ -27,7 +28,7 @@ export const LinksList: FC<LinkListProps> = ({ links }) => {
       {links.map((link) => (
         <ListItem className={classes.item} key={link.id}>
           <a href={getUrl(link.url)} className={classes.links} target="_blank">
-            {link.name}
+            {capitalize(link.name)}
           </a>
         </ListItem>
       ))}
@@ -52,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '& a': {
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
-        textTransform: 'capitalize',
         fontWeight: theme.typography.fontWeightLight,
         fontSize: '0.8rem',
       },

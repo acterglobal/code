@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontWeight: 600,
       marginBottom: theme.spacing(2),
-      textTransform: 'capitalize',
     },
     description: {
       fontSize: 12,

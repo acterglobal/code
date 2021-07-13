@@ -10,6 +10,7 @@ import {
 import { Acter } from '@acter/schema/types'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { capitalize } from 'lodash'
 
 export interface GroupsList {
   acters: Acter[]
@@ -24,7 +25,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
         <ListItem className={classes.item} key={acter.id}>
           <Link href={acterAsUrl(acter)}>
             <Typography className={classes.name} variant="body2">
-              # {acter.name}
+              # {capitalize(acter.name)}
             </Typography>
           </Link>
         </ListItem>
@@ -43,7 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '& a': {
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
-        textTransform: 'capitalize',
         '&:hover': {
           color: '#fff',
         },

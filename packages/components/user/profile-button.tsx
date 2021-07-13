@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.grey[700],
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      textTransform: 'capitalize',
     },
     downIcon: {
       color: theme.palette.grey[500],
