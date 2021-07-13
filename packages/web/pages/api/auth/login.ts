@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { handleLogin } from '@auth0/nextjs-auth0'
+import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   try {
-    const redirectUrl = process.env.AUTH0_BASE_URL + req.query.redirectTo
+    const redirectUrl = getAuthRedirectUrl(req)
 
     handleLogin(req, res, {
       returnTo: redirectUrl,
