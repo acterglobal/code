@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
 import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { green, grey } from '@material-ui/core/colors'
+import { grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
@@ -226,7 +226,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
                 {steps[activeStep] !== ActivityTypeStep && (
                   <Box className={classes.footer}>
-                    <Stepper activeStep={activeStep} steps={steps} />
+                    {steps[activeStep] !== MeetingStep && (
+                      <Stepper activeStep={activeStep} steps={steps} />
+                    )}
 
                     <Box className={classes.btnsContainer}>
                       <Button
@@ -304,22 +306,6 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: theme.spacing(1),
       textTransform: 'none',
       width: '100%',
-    },
-    statusBars: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      marginBottom: 40,
-    },
-    bar: {
-      height: 8,
-      backgroundColor: grey[200],
-      borderRadius: 10,
-      margin: 5,
-      minWidth: 130,
-    },
-    active: {
-      backgroundColor: green[500],
     },
   })
 })
