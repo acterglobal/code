@@ -9,7 +9,7 @@ export const useAuthRedirect = (): Redirect[] => {
   const router = useRouter()
 
   const loginRedirect = () =>
-    router.push(`/api/auth/login/redirectTo=${router.asPath}`)
+    router.push(`/api/auth/login?redirectTo=${router.asPath}`)
 
   const signupRedirect = () =>
     router.push(`/api/auth/signup?redirectTo=/profile`)
