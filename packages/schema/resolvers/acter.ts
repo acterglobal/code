@@ -9,9 +9,10 @@ import {
 } from '@acter/schema/types'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 
 const { ACTIVITY, USER, GROUP } = ActerTypes
-
+const { ADMIN } = ActerConnectionRole
 @Resolver(Acter)
 export class ActerResolver {
   @Authorized()
@@ -88,7 +89,7 @@ export class ActerResolver {
       })),
       {
         followerActerId: currentUser.Acter.id,
-        role: ActerConnectionRole.ADMIN,
+        role: ADMIN,
         createdByUserId,
       },
     ]
@@ -138,20 +139,22 @@ export class ActerResolver {
     followerIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
+
     const acter = await ctx.prisma.acter.findUnique({
       select: {
         id: true,
         createdByUserId: true,
         ActerInterests: true,
-        Followers: true,
+        Followers: {
+          include: { Follower: true },
+        },
       },
       where: { id: acterId },
     })
 
-    if (
-      currentUser.Acter.id !== acter.id &&
-      acter.createdByUserId !== currentUser.id
-    ) {
+    const isAdmin = userHasRoleOnActer(currentUser, ADMIN, acter)
+
+    if (!isAdmin) {
       console.error(`User ${currentUser.id} cannot modify acter ${acter.id}`)
       throw 'Not authorized'
     }
@@ -337,17 +340,23 @@ export class ActerResolver {
       select: {
         id: true,
         createdByUserId: true,
+        Followers: {
+          include: { Follower: true },
+        },
       },
       where: { id: acterId },
     })
-    if (acter.createdByUserId !== currentUser.id) {
+
+    const isAdmin = userHasRoleOnActer(currentUser, ADMIN, acter)
+
+    if (!isAdmin) {
       throw 'Not authorized'
     }
 
     return await ctx.prisma.acter.update({
       data: {
         deletedAt: new Date(),
-        deltedByUserId: currentUser.id,
+        deltedByUserId: currentUser.id, // TODO: fix typo
       },
       where: {
         id: acterId,
