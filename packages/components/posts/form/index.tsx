@@ -20,7 +20,7 @@ export interface PostFormProps {
   parentPost?: PostType
   post?: PostType
   user?: User
-  editing?: boolean
+  isEditing?: boolean
   onPostSubmit?: (values: PostFormValues) => void
   onPostUpdate?: (values: PostFormValues) => void
   onCancel?: () => void
@@ -29,7 +29,7 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({
   parentPost,
   post,
-  editing,
+  isEditing,
   onPostSubmit,
   onPostUpdate,
   onCancel,
@@ -54,8 +54,7 @@ export const PostForm: FC<PostFormProps> = ({
     values: PostFormValues,
     formikBag: FormikBag<PostFormProps, PostType>
   ) => {
-    console.log('This is editing ', editing)
-    if (editing) {
+    if (isEditing) {
       onPostUpdate(values)
     } else {
       const submitValues = parentPost
@@ -119,7 +118,7 @@ export const PostForm: FC<PostFormProps> = ({
               {parentPost ? 'Comment' : 'Post'}
             </Button>
           </Box>
-          {editing && (
+          {isEditing && (
             <Box className={classes.buttonContainer}>
               <Button
                 size="small"
