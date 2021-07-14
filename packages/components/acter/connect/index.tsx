@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { useRouter } from 'next/router'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Acter, User } from '@acter/schema/types'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
+import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 
 export interface ConnectProps {
   /**
@@ -41,13 +41,10 @@ export const Connect: FC<ConnectProps> = ({
   onLeave,
   loading,
 }) => {
-  const router = useRouter()
+  const [loginRedirect] = useAuthRedirect()
+
   if (!user) {
-    return (
-      <ConnectButton onClick={() => router.push('/api/auth/login')}>
-        Join
-      </ConnectButton>
-    )
+    return <ConnectButton onClick={loginRedirect}>Join</ConnectButton>
   }
 
   const followers = getFollowers(user, acter).filter(

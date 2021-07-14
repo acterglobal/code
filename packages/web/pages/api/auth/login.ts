@@ -10,9 +10,6 @@ export default async (
     const redirectUrl = getAuthRedirectUrl(req)
 
     handleLogin(req, res, {
-      authorizationParams: {
-        screen_hint: 'signup',
-      },
       returnTo: redirectUrl,
     })
   } catch (err) {
