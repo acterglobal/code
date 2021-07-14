@@ -1,0 +1,31 @@
+import { ActerAvgAggregate } from "../outputs/ActerAvgAggregate";
+import { ActerCountAggregate } from "../outputs/ActerCountAggregate";
+import { ActerMaxAggregate } from "../outputs/ActerMaxAggregate";
+import { ActerMinAggregate } from "../outputs/ActerMinAggregate";
+import { ActerSumAggregate } from "../outputs/ActerSumAggregate";
+export declare class ActerGroupBy {
+    id: string;
+    acterTypeId: string;
+    name: string | null;
+    slug: string | null;
+    description: string | null;
+    location: string | null;
+    locationLat: number | null;
+    locationLng: number | null;
+    url: string | null;
+    avatarUrl: string | null;
+    bannerUrl: string | null;
+    useAdmins: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    acterJoinSetting: "EVERYONE" | "RESTRICTED" | "INVITE_ONLY";
+    createdByUserId: string;
+    deletedAt: Date | null;
+    deltedByUserId: string | null;
+    parentActerId: string | null;
+    count: ActerCountAggregate | null;
+    avg: ActerAvgAggregate | null;
+    sum: ActerSumAggregate | null;
+    min: ActerMinAggregate | null;
+    max: ActerMaxAggregate | null;
+}

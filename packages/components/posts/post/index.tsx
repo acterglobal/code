@@ -47,6 +47,7 @@ export const Post: FC<PostsProps> = ({
       <Box className={clsx(classes.post, parentPost && classes.comment)}>
         <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
         <PostForm
+          editing
           post={post}
           parentPost={parentPost}
           onPostUpdate={handleSubmit}
@@ -54,16 +55,16 @@ export const Post: FC<PostsProps> = ({
         />
       </Box>
     )
+  } else {
+    return (
+      <Box className={clsx(classes.post, parentPost && classes.comment)}>
+        <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
+        <PostContent post={post} />
+
+        <PostOptions onEdit={handleEdit} onDelete={onDelete} />
+      </Box>
+    )
   }
-
-  return (
-    <Box className={clsx(classes.post, parentPost && classes.comment)}>
-      <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
-      <PostContent post={post} />
-
-      <PostOptions onEdit={handleEdit} onDelete={onDelete} />
-    </Box>
-  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>

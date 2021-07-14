@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateActerInterestArgs } from "./args/AggregateActerInterestArgs";
+import { CreateActerInterestArgs } from "./args/CreateActerInterestArgs";
+import { CreateManyActerInterestArgs } from "./args/CreateManyActerInterestArgs";
+import { DeleteActerInterestArgs } from "./args/DeleteActerInterestArgs";
+import { DeleteManyActerInterestArgs } from "./args/DeleteManyActerInterestArgs";
+import { FindFirstActerInterestArgs } from "./args/FindFirstActerInterestArgs";
+import { FindManyActerInterestArgs } from "./args/FindManyActerInterestArgs";
+import { FindUniqueActerInterestArgs } from "./args/FindUniqueActerInterestArgs";
+import { GroupByActerInterestArgs } from "./args/GroupByActerInterestArgs";
+import { UpdateActerInterestArgs } from "./args/UpdateActerInterestArgs";
+import { UpdateManyActerInterestArgs } from "./args/UpdateManyActerInterestArgs";
+import { UpsertActerInterestArgs } from "./args/UpsertActerInterestArgs";
+import { ActerInterest } from "../../../models/ActerInterest";
+import { ActerInterestGroupBy } from "../../outputs/ActerInterestGroupBy";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateActerInterest } from "../../outputs/AggregateActerInterest";
+export declare class ActerInterestCrudResolver {
+    acterInterest(ctx: any, info: GraphQLResolveInfo, args: FindUniqueActerInterestArgs): Promise<ActerInterest | null>;
+    findFirstActerInterest(ctx: any, info: GraphQLResolveInfo, args: FindFirstActerInterestArgs): Promise<ActerInterest | null>;
+    acterInterests(ctx: any, info: GraphQLResolveInfo, args: FindManyActerInterestArgs): Promise<ActerInterest[]>;
+    createActerInterest(ctx: any, info: GraphQLResolveInfo, args: CreateActerInterestArgs): Promise<ActerInterest>;
+    createManyActerInterest(ctx: any, info: GraphQLResolveInfo, args: CreateManyActerInterestArgs): Promise<AffectedRowsOutput>;
+    deleteActerInterest(ctx: any, info: GraphQLResolveInfo, args: DeleteActerInterestArgs): Promise<ActerInterest | null>;
+    updateActerInterest(ctx: any, info: GraphQLResolveInfo, args: UpdateActerInterestArgs): Promise<ActerInterest | null>;
+    deleteManyActerInterest(ctx: any, info: GraphQLResolveInfo, args: DeleteManyActerInterestArgs): Promise<AffectedRowsOutput>;
+    updateManyActerInterest(ctx: any, info: GraphQLResolveInfo, args: UpdateManyActerInterestArgs): Promise<AffectedRowsOutput>;
+    upsertActerInterest(ctx: any, info: GraphQLResolveInfo, args: UpsertActerInterestArgs): Promise<ActerInterest>;
+    aggregateActerInterest(ctx: any, info: GraphQLResolveInfo, args: AggregateActerInterestArgs): Promise<AggregateActerInterest>;
+    groupByActerInterest(ctx: any, info: GraphQLResolveInfo, args: GroupByActerInterestArgs): Promise<ActerInterestGroupBy[]>;
+}

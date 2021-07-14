@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateActivityTypeArgs } from "./args/AggregateActivityTypeArgs";
+import { CreateActivityTypeArgs } from "./args/CreateActivityTypeArgs";
+import { CreateManyActivityTypeArgs } from "./args/CreateManyActivityTypeArgs";
+import { DeleteActivityTypeArgs } from "./args/DeleteActivityTypeArgs";
+import { DeleteManyActivityTypeArgs } from "./args/DeleteManyActivityTypeArgs";
+import { FindFirstActivityTypeArgs } from "./args/FindFirstActivityTypeArgs";
+import { FindManyActivityTypeArgs } from "./args/FindManyActivityTypeArgs";
+import { FindUniqueActivityTypeArgs } from "./args/FindUniqueActivityTypeArgs";
+import { GroupByActivityTypeArgs } from "./args/GroupByActivityTypeArgs";
+import { UpdateActivityTypeArgs } from "./args/UpdateActivityTypeArgs";
+import { UpdateManyActivityTypeArgs } from "./args/UpdateManyActivityTypeArgs";
+import { UpsertActivityTypeArgs } from "./args/UpsertActivityTypeArgs";
+import { ActivityType } from "../../../models/ActivityType";
+import { ActivityTypeGroupBy } from "../../outputs/ActivityTypeGroupBy";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateActivityType } from "../../outputs/AggregateActivityType";
+export declare class ActivityTypeCrudResolver {
+    activityType(ctx: any, info: GraphQLResolveInfo, args: FindUniqueActivityTypeArgs): Promise<ActivityType | null>;
+    findFirstActivityType(ctx: any, info: GraphQLResolveInfo, args: FindFirstActivityTypeArgs): Promise<ActivityType | null>;
+    activityTypes(ctx: any, info: GraphQLResolveInfo, args: FindManyActivityTypeArgs): Promise<ActivityType[]>;
+    createActivityType(ctx: any, info: GraphQLResolveInfo, args: CreateActivityTypeArgs): Promise<ActivityType>;
+    createManyActivityType(ctx: any, info: GraphQLResolveInfo, args: CreateManyActivityTypeArgs): Promise<AffectedRowsOutput>;
+    deleteActivityType(ctx: any, info: GraphQLResolveInfo, args: DeleteActivityTypeArgs): Promise<ActivityType | null>;
+    updateActivityType(ctx: any, info: GraphQLResolveInfo, args: UpdateActivityTypeArgs): Promise<ActivityType | null>;
+    deleteManyActivityType(ctx: any, info: GraphQLResolveInfo, args: DeleteManyActivityTypeArgs): Promise<AffectedRowsOutput>;
+    updateManyActivityType(ctx: any, info: GraphQLResolveInfo, args: UpdateManyActivityTypeArgs): Promise<AffectedRowsOutput>;
+    upsertActivityType(ctx: any, info: GraphQLResolveInfo, args: UpsertActivityTypeArgs): Promise<ActivityType>;
+    aggregateActivityType(ctx: any, info: GraphQLResolveInfo, args: AggregateActivityTypeArgs): Promise<AggregateActivityType>;
+    groupByActivityType(ctx: any, info: GraphQLResolveInfo, args: GroupByActivityTypeArgs): Promise<ActivityTypeGroupBy[]>;
+}

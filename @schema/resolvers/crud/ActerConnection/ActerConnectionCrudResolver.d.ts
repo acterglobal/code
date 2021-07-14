@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateActerConnectionArgs } from "./args/AggregateActerConnectionArgs";
+import { CreateActerConnectionArgs } from "./args/CreateActerConnectionArgs";
+import { CreateManyActerConnectionArgs } from "./args/CreateManyActerConnectionArgs";
+import { DeleteActerConnectionArgs } from "./args/DeleteActerConnectionArgs";
+import { DeleteManyActerConnectionArgs } from "./args/DeleteManyActerConnectionArgs";
+import { FindFirstActerConnectionArgs } from "./args/FindFirstActerConnectionArgs";
+import { FindManyActerConnectionArgs } from "./args/FindManyActerConnectionArgs";
+import { FindUniqueActerConnectionArgs } from "./args/FindUniqueActerConnectionArgs";
+import { GroupByActerConnectionArgs } from "./args/GroupByActerConnectionArgs";
+import { UpdateActerConnectionArgs } from "./args/UpdateActerConnectionArgs";
+import { UpdateManyActerConnectionArgs } from "./args/UpdateManyActerConnectionArgs";
+import { UpsertActerConnectionArgs } from "./args/UpsertActerConnectionArgs";
+import { ActerConnection } from "../../../models/ActerConnection";
+import { ActerConnectionGroupBy } from "../../outputs/ActerConnectionGroupBy";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateActerConnection } from "../../outputs/AggregateActerConnection";
+export declare class ActerConnectionCrudResolver {
+    acterConnection(ctx: any, info: GraphQLResolveInfo, args: FindUniqueActerConnectionArgs): Promise<ActerConnection | null>;
+    findFirstActerConnection(ctx: any, info: GraphQLResolveInfo, args: FindFirstActerConnectionArgs): Promise<ActerConnection | null>;
+    acterConnections(ctx: any, info: GraphQLResolveInfo, args: FindManyActerConnectionArgs): Promise<ActerConnection[]>;
+    createActerConnection(ctx: any, info: GraphQLResolveInfo, args: CreateActerConnectionArgs): Promise<ActerConnection>;
+    createManyActerConnection(ctx: any, info: GraphQLResolveInfo, args: CreateManyActerConnectionArgs): Promise<AffectedRowsOutput>;
+    deleteActerConnection(ctx: any, info: GraphQLResolveInfo, args: DeleteActerConnectionArgs): Promise<ActerConnection | null>;
+    updateActerConnection(ctx: any, info: GraphQLResolveInfo, args: UpdateActerConnectionArgs): Promise<ActerConnection | null>;
+    deleteManyActerConnection(ctx: any, info: GraphQLResolveInfo, args: DeleteManyActerConnectionArgs): Promise<AffectedRowsOutput>;
+    updateManyActerConnection(ctx: any, info: GraphQLResolveInfo, args: UpdateManyActerConnectionArgs): Promise<AffectedRowsOutput>;
+    upsertActerConnection(ctx: any, info: GraphQLResolveInfo, args: UpsertActerConnectionArgs): Promise<ActerConnection>;
+    aggregateActerConnection(ctx: any, info: GraphQLResolveInfo, args: AggregateActerConnectionArgs): Promise<AggregateActerConnection>;
+    groupByActerConnection(ctx: any, info: GraphQLResolveInfo, args: GroupByActerConnectionArgs): Promise<ActerConnectionGroupBy[]>;
+}

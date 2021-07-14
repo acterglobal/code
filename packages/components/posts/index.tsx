@@ -77,7 +77,7 @@ export const PostList: FC<PostListProps> = ({
             ))}
             <Box>
               <PostFormSection
-                post={post}
+                parentPost={post}
                 user={user}
                 onPostSubmit={onPostSubmit}
               />
