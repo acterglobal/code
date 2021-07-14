@@ -1,1 +1,0 @@
-export { ActivityTypeActivityArgs } from "./ActivityTypeActivityArgs";
