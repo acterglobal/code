@@ -8,6 +8,7 @@ const _activityTypeColors: rgbColorMap = {
   event: [0, 171, 142, 1],
   project: [30, 176, 1, 1],
   idea: [249, 186, 57, 1],
+  meeting: [213, 213, 213, 1],
 }
 
 type ActivityTypeColorMap = Record<ActivityTypes, string>

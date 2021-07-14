@@ -39,7 +39,6 @@ export const DetailsStep: FC<DetailsStepProps> = ({ interestTypes }) => {
         <FormLabel>Description</FormLabel>
 
         <TextEditor
-          width={450}
           height={150}
           initialValue={values.description}
           // @ts-ignore

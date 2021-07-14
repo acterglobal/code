@@ -14,10 +14,11 @@ import { activityTypeColors } from '@acter/components/themes/colors'
 import { NavigateNextOutlined } from '@material-ui/icons'
 
 import { ActivityType } from '@acter/schema/types'
+import { grey } from '@material-ui/core/colors'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]
-  onClick: () => void
+  onClick: (activityTypeId: string) => void
 }
 
 export interface ActivityTypeStepValues {
@@ -30,9 +31,9 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
 }) => {
   const classes = useStyles()
   const { setFieldValue } = useFormikContext()
-  const handleClick = (value) => {
-    setFieldValue('activityTypeId', value)
-    onClick()
+  const handleClick = (activityTypeId: string) => {
+    setFieldValue('activityTypeId', activityTypeId)
+    onClick(activityTypeId)
   }
   return (
     <List>
@@ -59,11 +60,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.divider,
       borderWidth: 1,
       borderStyle: 'solid',
-      borderRadius: theme.spacing(1),
+      borderRadius: theme.spacing(0.8),
       padding: theme.spacing(2),
       marginBottom: theme.spacing(2),
-      fontWeight: theme.typography.fontWeightBold,
       textTransform: 'capitalize',
+      '& 	.MuiListItemText-primary': {
+        fontWeight: theme.typography.fontWeightBold,
+        fontSize: 14,
+      },
     },
     // TODO: move these to the theme
     event: {
@@ -74,6 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     idea: {
       color: activityTypeColors.idea,
+    },
+    meeting: {
+      color: grey[700],
     },
   })
 )

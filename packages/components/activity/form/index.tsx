@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect } from 'react'
 import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { green, grey } from '@material-ui/core/colors'
+import { grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
@@ -30,14 +30,18 @@ import {
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Acter, User } from '@acter/schema/types'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
+import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
 
-const getSteps = (acter?: Acter) => {
-  if (acter?.id) {
-    return [BasicsStep, SettingsStep, DetailsStep]
-  }
+const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
+  const firstStep = acter?.id ? [] : [ActivityTypeStep]
+  const activitySteps =
+    activityType === ActivityTypes.MEETING
+      ? [MeetingStep]
+      : [BasicsStep, SettingsStep, DetailsStep]
 
-  return [ActivityTypeStep, BasicsStep, SettingsStep, DetailsStep]
+  return [...firstStep, ...activitySteps]
 }
 
 export interface ActivityFormProps
@@ -81,16 +85,22 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
-  const [heading, setHeading] = useState('Add Activity')
-  const steps = getSteps(acter)
-  const [activeStep, setActiveStep] = useState(0)
+  const [activityType, setActivityType] = useState(null)
+  const [heading, setHeading] = useState('')
+  const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
 
+  const steps = getSteps(activityType, acter)
+  const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
-  const isLastStep = () => activeStep + 1 === totalSteps
+  const isLastStep = () =>
+    activeStep + 1 === totalSteps || activityType === ActivityTypes.MEETING
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
 
-  const onStepSubmit = (values, formikBag) => {
+  const onStepSubmit = (
+    values: ActivityFormValues,
+    formikBag: FormikBag<ActivityFormProps, ActivityFormValues>
+  ) => {
     const { setSubmitting } = formikBag
     if (!isLastStep()) {
       setSubmitting(false)
@@ -103,9 +113,28 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   useEffect(() => {
     if (acter?.id) {
-      setHeading('Edit Activity')
+      setActivityType(acter.Activity.ActivityType.name)
+      setHeading(`Edit ${acter.Activity.ActivityType.name}`)
+      setSubmitButtonLabel('Save')
     }
   }, [])
+
+  useEffect(() => {
+    if (activityType && !acter?.id) {
+      setHeading(`Add ${activityType}`)
+    }
+  }, [activityType])
+
+  useEffect(() => {
+    if (steps[activeStep] === ActivityTypeStep) {
+      setHeading(`Add Activity`)
+    }
+  }, [activeStep])
+
+  const handleOnClick = (activityTypeId: string) => {
+    setActivityType(getActivityTypeNameById(activityTypeId, activityTypes))
+    handleNext()
+  }
 
   let startAt = null
   let endAt = null
@@ -113,13 +142,11 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startAt = moment(acter.Activity.startAt)
     endAt = moment(acter.Activity.endAt)
   }
-
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
   )
   const interestIds = getInterestIdsFromActer(acter)
 
-  //TODO: create a type for htis
   const initialValues: ActivityFormValues = {
     organiserActerId:
       router?.query?.organiserActerId?.toString() ||
@@ -180,23 +207,28 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   {steps[activeStep] === ActivityTypeStep && (
                     <ActivityTypeStep
                       activityTypes={activityTypes}
-                      onClick={handleNext}
+                      onClick={handleOnClick}
                     />
                   )}
-                  {steps[activeStep] === BasicsStep && (
-                    <BasicsStep activityTypes={activityTypes} />
-                  )}
-                  {steps[activeStep] == SettingsStep && (
-                    <SettingsStep acters={acters} />
-                  )}
-                  {steps[activeStep] === DetailsStep && (
-                    <DetailsStep interestTypes={interestTypes} />
-                  )}
+                  <>
+                    {steps[activeStep] === MeetingStep && <MeetingStep />}
+                    {steps[activeStep] === BasicsStep && (
+                      <BasicsStep activityTypes={activityTypes} />
+                    )}
+                    {steps[activeStep] == SettingsStep && (
+                      <SettingsStep acters={acters} />
+                    )}
+                    {steps[activeStep] === DetailsStep && (
+                      <DetailsStep interestTypes={interestTypes} />
+                    )}
+                  </>
                 </Box>
 
                 {steps[activeStep] !== ActivityTypeStep && (
                   <Box className={classes.footer}>
-                    <Stepper activeStep={activeStep} steps={steps} />
+                    {steps[activeStep] !== MeetingStep && (
+                      <Stepper activeStep={activeStep} steps={steps} />
+                    )}
 
                     <Box className={classes.btnsContainer}>
                       <Button
@@ -216,7 +248,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                         disabled={isSubmitting}
                         type="submit"
                       >
-                        {isLastStep() ? 'Submit' : 'Next'}
+                        {isLastStep() || activityType === ActivityTypes.MEETING
+                          ? submitButtonLabel
+                          : 'Next'}
                       </Button>
                     </Box>
                   </Box>
@@ -264,9 +298,6 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       flexDirection: 'column',
     },
-    controls: {
-      // flexShrink: 0,
-    },
     btnsContainer: {
       display: 'flex',
       justifyContent: 'space-evenly',
@@ -275,22 +306,6 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: theme.spacing(1),
       textTransform: 'none',
       width: '100%',
-    },
-    statusBars: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      marginBottom: 40,
-    },
-    bar: {
-      height: 8,
-      backgroundColor: grey[200],
-      borderRadius: 10,
-      margin: 5,
-      minWidth: 130,
-    },
-    active: {
-      backgroundColor: green[500],
     },
   })
 })

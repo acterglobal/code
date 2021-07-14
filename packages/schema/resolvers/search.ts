@@ -6,7 +6,7 @@ import {
   getOrderBy,
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
@@ -56,12 +56,34 @@ type ActivityTypeNameFilterClause = {
   ActivityType: ActivityTypeNameInClause
 }
 
+type MeetingTypeNameClause = {
+  name: ActivityTypes.MEETING
+}
+
+type ExcludeMeetingTypeClause = {
+  isNot: MeetingTypeNameClause
+}
+
+type ActivityTypeClause = {
+  Activity: { ActivityType: ExcludeMeetingTypeClause }
+}
+
+type ActerTypeNameClause = {
+  name: ActerTypes.ACTIVITY
+}
+
+type ActerTypeClause = {
+  ActerType: ActerTypeNameClause
+}
+
+type ANDClause = [ActerTypeClause, ActivityTypeClause]
+
 type ActivitySearchWhereClause = {
   name?: ActivityNameWhereClause
   deletedAt?: EqualsClause
   Activity?: ActivityEndsBeforeClause | ActivityTypeNameFilterClause
   ActerInterests?: EveryActerInterestClause
-  ActerType?: Record<'name', 'activity'>
+  AND?: ANDClause
 }
 
 const withNameSearch = (name: string) => (
@@ -147,9 +169,22 @@ export class SearchResolver {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
       deletedAt: { equals: null },
-      ActerType: {
-        name: ActerTypes.ACTIVITY,
-      },
+      AND: [
+        {
+          ActerType: {
+            name: ActerTypes.ACTIVITY,
+          },
+        },
+        {
+          Activity: {
+            ActivityType: {
+              isNot: {
+                name: ActivityTypes.MEETING,
+              },
+            },
+          },
+        },
+      ],
     }
 
     const where = pipe(

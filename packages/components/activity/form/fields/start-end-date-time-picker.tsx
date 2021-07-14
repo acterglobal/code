@@ -17,7 +17,13 @@ export interface StartEndTimeDatePickerValues {
   endTime: Moment
 }
 
-export const StartEndTimeDatePicker: FC = () => {
+export interface StartEndTimeDatePickerProps {
+  hideIsAllDayCheckBox?: boolean
+}
+
+export const StartEndTimeDatePicker: FC<StartEndTimeDatePickerProps> = ({
+  hideIsAllDayCheckBox = false,
+}) => {
   const { values } = useFormikContext<StartEndTimeDatePickerValues>()
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -55,15 +61,17 @@ export const StartEndTimeDatePicker: FC = () => {
             />
           </Grid>
         )}
-        <Grid item xs={12}>
-          <Field
-            component={CheckboxWithLabel}
-            type="checkbox"
-            name="isAllDay"
-            Label={{ label: 'All day activity', style: { color: grey[700] } }}
-            inputProps={{ 'aria-label': 'all day activity' }}
-          />
-        </Grid>
+        {!hideIsAllDayCheckBox && (
+          <Grid item xs={12}>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="isAllDay"
+              Label={{ label: 'All day activity', style: { color: grey[700] } }}
+              inputProps={{ 'aria-label': 'all day activity' }}
+            />
+          </Grid>
+        )}
       </Grid>
     </MuiPickersUtilsProvider>
   )

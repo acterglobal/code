@@ -11,7 +11,7 @@ import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
 import { useRouter } from 'next/router'
 import { SearchTypes } from '@acter/components/layout/side-bar/search-menu/types'
 import { ActerType, ActivityType } from '@acter/schema/types'
-import { SearchType, ActerTypes } from '@acter/lib/constants'
+import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
 
 export interface SearchMenuProps {
   acterTypes: (ActerType | ActivityType)[]
@@ -23,9 +23,11 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const router = useRouter()
 
   const { USER, ACTIVITY, GROUP } = ActerTypes
+  const { MEETING } = ActivityTypes
 
   const subTypes = acterTypes.filter(
-    (type) => ![ACTIVITY, GROUP, USER].includes(type.name as ActerTypes)
+    (type) =>
+      ![ACTIVITY, MEETING, GROUP, USER].includes(type.name as ActerTypes)
   )
   const [filterSubTypes, setFilterSubTypes] = useState(
     subTypes.map((type) => type.name)
@@ -57,7 +59,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   )
 }
 
-const HeaderSection = () => {
+const HeaderSection: FC = () => {
   const classes = useStyles()
   return (
     <Box className={classes.heading}>

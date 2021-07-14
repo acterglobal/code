@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client'
+import { ActivityTypes } from '@acter/lib/constants'
 
 export const seedActivityTypes = async (
   prisma: PrismaClient
 ): Promise<void> => {
-  const types = ['event', 'idea', 'project']
+  const { EVENT, IDEA, MEETING, PROJECT } = ActivityTypes
+  const types = [EVENT, IDEA, MEETING, PROJECT]
   await Promise.all(
     types.map(async (name) => {
       const res = prisma.activityType.upsert({

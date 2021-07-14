@@ -87,10 +87,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  section: {
-    marginBottom: theme.spacing(2),
-    width: '100%',
-  },
   textinput: {
     fontSize: '0.5rem',
     marginBottom: 15,
