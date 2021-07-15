@@ -11,14 +11,14 @@ import { PostOptions } from './options'
 export interface PostsProps {
   user: User
   post?: PostType
-  parentPost?: PostType
+  parentId?: string
   onPostDelete: (post: PostType) => Promise<void>
   onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
 export const Post: FC<PostsProps> = ({
   post,
-  parentPost,
+  parentId,
   onPostUpdate,
   onPostDelete,
 }) => {
@@ -44,11 +44,11 @@ export const Post: FC<PostsProps> = ({
 
   if (toggleForm) {
     return (
-      <Box className={clsx(classes.post, parentPost && classes.comment)}>
-        <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
+      <Box className={clsx(classes.post, parentId && classes.comment)}>
+        <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostForm
           post={post}
-          parentPost={parentPost}
+          parentId={parentId}
           onPostUpdate={handleSubmit}
           onCancel={handleCancel}
         />
@@ -56,8 +56,8 @@ export const Post: FC<PostsProps> = ({
     )
   } else {
     return (
-      <Box className={clsx(classes.post, parentPost && classes.comment)}>
-        <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
+      <Box className={clsx(classes.post, parentId && classes.comment)}>
+        <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostContent post={post} />
 
         <PostOptions onEdit={handleEdit} onDelete={onDelete} />

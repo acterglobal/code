@@ -10,13 +10,12 @@ import { grey } from '@material-ui/core/colors'
 import { Size } from '@acter/lib/constants'
 
 export type PostFormValues = PostType & {
-  postId: string
   content: string
   parentId: string | null
 }
 
 export interface PostFormProps {
-  parentPost?: PostType
+  parentId?: string
   post?: PostType
   user?: User
   onPostSubmit?: (values: PostFormValues) => void
@@ -25,7 +24,7 @@ export interface PostFormProps {
 }
 
 export const PostForm: FC<PostFormProps> = ({
-  parentPost,
+  parentId,
   post,
   onPostSubmit,
   onPostUpdate,
@@ -54,9 +53,7 @@ export const PostForm: FC<PostFormProps> = ({
     if (post) {
       onPostUpdate(values)
     } else {
-      const submitValues = parentPost
-        ? { ...values, parentId: parentPost.id }
-        : values
+      const submitValues = parentId ? { ...values, parentId: parentId } : values
       onPostSubmit(submitValues)
     }
     formikBag.resetForm()
@@ -80,7 +77,7 @@ export const PostForm: FC<PostFormProps> = ({
     >
       {({ setFieldValue, values }) => (
         <Form className={classes.form}>
-          {parentPost ? (
+          {parentId ? (
             <Field
               name="content"
               placeholder="Comment..."
@@ -107,12 +104,12 @@ export const PostForm: FC<PostFormProps> = ({
           >
             <Button
               size="small"
-              variant={parentPost ? 'outlined' : 'contained'}
+              variant={parentId ? 'outlined' : 'contained'}
               color="primary"
               type="submit"
-              style={{ color: parentPost ? null : '#FFFFFF' }}
+              style={{ color: parentId ? null : '#FFFFFF' }}
             >
-              {parentPost ? 'Comment' : 'Post'}
+              {parentId ? 'Comment' : 'Post'}
             </Button>
           </Box>
           {post && (

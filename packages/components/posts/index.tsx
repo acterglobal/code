@@ -69,7 +69,7 @@ export const PostList: FC<PostListProps> = ({
               <Post
                 key={`post-${post.id}-comment-${comment.id}`}
                 post={comment}
-                parentPost={post}
+                parentId={post.id}
                 user={user}
                 onPostUpdate={onPostUpdate}
                 onPostDelete={onPostDelete}
@@ -77,7 +77,7 @@ export const PostList: FC<PostListProps> = ({
             ))}
             <Box>
               <PostFormSection
-                parentPost={post}
+                parentId={post.id}
                 user={user}
                 onPostSubmit={onPostSubmit}
               />
