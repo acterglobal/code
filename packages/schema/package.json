@@ -7,7 +7,7 @@
   "scripts": {
     "db:migrate": "yarn db:migrate:run --create-only",
     "db:migrate:run": "yarn env-cmd prisma migrate dev --preview-feature",
-    "db:reset": "prisma migrate reset --preview-feature",
+    "db:reset": "yarn env-cmd prisma migrate reset --preview-feature",
     "db:seed": "yarn env-cmd prisma db seed --preview-feature",
     "env-cmd": "env-cmd --file ../../.env",
     "generate": "yarn prisma generate",
