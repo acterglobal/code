@@ -1,4 +1,7 @@
-import { render, screen } from '@testing-library/react'
+// import { screen } from '@testing-library/react'
+import React from 'react'
+
+import { render, screen } from '@acter/lib/test-utils'
 import { Interests } from '@acter/schema/fixtures/interest/interests'
 import { InterestTypes } from '@acter/components/interests/interest-types'
 
