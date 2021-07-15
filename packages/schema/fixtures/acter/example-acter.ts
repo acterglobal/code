@@ -30,8 +30,8 @@ export const ExampleActer: Acter = {
 }
 
 export const ExampleUserActer: Acter = {
-  id: '3bc33730-82f4-443b-aa03-e0be78ac75a4',
   ...ExampleActer,
+  id: '3bc33730-82f4-443b-aa03-e0be78ac75a4',
   acterTypeId: UserActerType.id,
   ActerType: UserActerType,
   name: 'Malik Shaik',

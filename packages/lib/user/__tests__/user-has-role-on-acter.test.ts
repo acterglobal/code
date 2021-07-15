@@ -27,6 +27,16 @@ describe('userHasRoleOnActer', () => {
     ).toBe(false)
   })
 
+  it('should return true if the User IS the Acter', () => {
+    expect(
+      userHasRoleOnActer(
+        { ...ExampleUser, Acter: ExampleUserActer },
+        ActerConnectionRole.MEMBER,
+        ExampleUserActer
+      )
+    ).toBe(true)
+  })
+
   it('should use followerHasRoleOnActer to determine access', () => {
     const mockedFollowerHasRoleOnActer = followerHasRoleOnActer as jest.Mock
     const user = { ...ExampleUser, Acter: ExampleUserActer }
