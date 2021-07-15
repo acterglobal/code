@@ -47,7 +47,6 @@ export const Post: FC<PostsProps> = ({
       <Box className={clsx(classes.post, parentPost && classes.comment)}>
         <ActerAvatar acter={post.Author} size={parentPost ? 4 : 6} />
         <PostForm
-          isEditing
           post={post}
           parentPost={parentPost}
           onPostUpdate={handleSubmit}
