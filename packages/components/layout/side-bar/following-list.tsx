@@ -16,17 +16,13 @@ import { User } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
+import { useUser } from '@acter/lib/user/use-user'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
-export interface FollowingListProps {
-  /**
-   * Logged in User
-   */
-  user?: User
-}
 
-export const FollowingList: FC<FollowingListProps> = ({ user }) => {
-  if (!user) return null
+export const FollowingList: FC = () => {
+  const [user, loading] = useUser()
+
   const classes = useStyles()
   const router = useRouter()
 
