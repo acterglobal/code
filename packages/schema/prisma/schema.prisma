@@ -28,6 +28,12 @@ enum ActerNotificationSettings {
   NONE
 }
 
+enum ActerNotificationEmailFrequency {
+  NEVER
+  DAILY
+  INSTANT
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -44,9 +50,14 @@ model Acter {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
+  // TODO: this is becoming an antipattern and should probably be moved to a key:value store table
   // Settings
-  acterJoinSetting   ActerJoinSettings         @default(EVERYONE) @map("acter_join_setting")
-  acterNotifySetting ActerNotificationSettings @default(NONE) @map("acter_notify_setting")
+  //   Who can join this Acter
+  acterJoinSetting          ActerJoinSettings               @default(EVERYONE) @map("acter_join_setting")
+  //   What triggers a Notification
+  acterNotifySetting        ActerNotificationSettings       @default(NONE) @map("acter_notify_setting")
+  //   How often to send an email for Notifications
+  acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(NEVER) @map("acter_notify_email_frequency")
 
   // Associations
   // List of Interests for this Acter

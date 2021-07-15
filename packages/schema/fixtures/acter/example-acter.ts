@@ -1,6 +1,7 @@
 import {
   Acter,
   ActerJoinSettings,
+  ActerNotificationEmailFrequency,
   ActerNotificationSettings,
 } from '@acter/schema/types'
 import {
@@ -32,6 +33,7 @@ export const ExampleActer: Acter = {
   Following: [],
   acterJoinSetting: ActerJoinSettings.EVERYONE,
   acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
+  acterNotifyEmailFrequency: ActerNotificationEmailFrequency.NEVER,
 }
 
 export const ExampleUserActer: Acter = {

@@ -1,13 +1,20 @@
 import React, { FC } from 'react'
-import { Field, Form, Formik } from 'formik'
-import { FormControl, FormLabel } from '@material-ui/core'
-import { RadioGroup } from 'formik-material-ui'
+import { Form, Formik } from 'formik'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
-import { ActerNotificationSettings, User } from '@acter/schema/types'
+import {
+  FormButtons,
+  RadioGroup,
+  SettingsRadio,
+} from '@acter/components/util/forms'
+import {
+  ActerNotificationEmailFrequency,
+  ActerNotificationSettings,
+  User,
+} from '@acter/schema/types'
 
 export interface ProfileNotificationsFormValues {
   acterNotifySetting: ActerNotificationSettings
+  acterNotifyEmailFrequency: ActerNotificationEmailFrequency
 }
 
 export interface ProfileNotificationsFormProps {
@@ -23,24 +30,37 @@ export const ProfileNotificationsForm: FC<ProfileNotificationsFormProps> = ({
   const initialValues: ProfileNotificationsFormValues = {
     acterNotifySetting:
       ActerNotificationSettings[user.Acter.acterNotifySetting],
+    acterNotifyEmailFrequency:
+      ActerNotificationEmailFrequency[user.Acter.acterNotifyEmailFrequency],
   }
   return (
     <ProfileFormLayout>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <Form>
-          <FormControl component="fieldset" fullWidth>
-            <FormLabel component="legend">Notify me about</FormLabel>
-            <Field component={RadioGroup} name="acterNotifySetting">
-              <SettingsRadio
-                label="All Activity"
-                value={ActerNotificationSettings.ALL_ACTIVITY}
-              />
-              <SettingsRadio
-                label="None"
-                value={ActerNotificationSettings.NONE}
-              />
-            </Field>
-          </FormControl>
+          <RadioGroup label="Notify me about" name="acterNotifySetting">
+            <SettingsRadio
+              label="All Activity"
+              value={ActerNotificationSettings.ALL_ACTIVITY}
+            />
+            <SettingsRadio
+              label="None"
+              value={ActerNotificationSettings.NONE}
+            />
+          </RadioGroup>
+          <RadioGroup label="Email me" name="acterNotifyEmailFrequency">
+            <SettingsRadio
+              label="Never"
+              value={ActerNotificationEmailFrequency.NEVER}
+            />
+            <SettingsRadio
+              label="Daily digest"
+              value={ActerNotificationEmailFrequency.DAILY}
+            />
+            <SettingsRadio
+              label="Immediately"
+              value={ActerNotificationEmailFrequency.INSTANT}
+            />
+          </RadioGroup>
           <FormButtons align="right" hideUnlessDirty={true} />
         </Form>
       </Formik>

@@ -5,6 +5,7 @@ import {
   Acter,
   ActerConnectionRole,
   ActerJoinSettings,
+  ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   Activity,
 } from '@acter/schema/types'
@@ -27,6 +28,10 @@ export class ActerResolver {
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
+    @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
+      nullable: true,
+    })
+    acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -104,6 +109,7 @@ export class ActerResolver {
         url,
         useAdmins,
         acterJoinSetting,
+        acterNotifyEmailFrequency,
         acterTypeId,
         parentActerId,
         updatedAt: new Date(),
@@ -137,6 +143,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifySetting: ActerNotificationSettings,
+    @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
+      nullable: true,
+    })
+    acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -215,6 +225,7 @@ export class ActerResolver {
         useAdmins,
         acterJoinSetting,
         acterNotifySetting,
+        acterNotifyEmailFrequency,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -242,6 +253,10 @@ export class ActerResolver {
     @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
+    @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
+      nullable: true,
+    })
+    acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -262,6 +277,7 @@ export class ActerResolver {
       url,
       useAdmins,
       acterJoinSetting,
+      acterNotifyEmailFrequency,
       acterTypeId,
       parentActerId,
       interestIds,
@@ -298,6 +314,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifySetting: ActerNotificationSettings,
+    @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
+      nullable: true,
+    })
+    acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('bannerUrl', { nullable: true })
     bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -320,6 +340,7 @@ export class ActerResolver {
       useAdmins,
       acterJoinSetting,
       acterNotifySetting,
+      acterNotifyEmailFrequency,
       null,
       bannerUrl,
       interestIds,
