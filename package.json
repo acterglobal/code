@@ -22,7 +22,7 @@
     "cover": "rm -rf .next && env-cmd --silent jest --coverage",
     "postinstall": "yarn generate",
     "husky-install": "husky install",
-    "generate": "prisma generate",
+    "generate": "yarn workspace @acter/schema generate",
     "db:migrate": "yarn workspace @acter/schema db:migrate",
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:reset": "yarn workspace @acter/schema db:reset",
@@ -70,7 +70,7 @@
   },
   "browser": {
     "fs": false,
-    "path": false,
-    "os": false
+    "os": false,
+    "path": false
   }
 }

@@ -20,6 +20,5 @@
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "slugify": "^1.4.6"
-  },
-  "devDependencies": {}
+  }
 }
