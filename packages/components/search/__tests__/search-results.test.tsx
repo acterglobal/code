@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@acter/lib/test-utils'
 import { Search } from '@acter/components/search'
 import { SearchType } from '@acter/lib/constants'
 import { ExampleActer } from '@acter/schema/fixtures'

@@ -1,5 +1,5 @@
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@acter/lib/test-utils'
 
 import { Interests } from '@acter/schema/fixtures'
 

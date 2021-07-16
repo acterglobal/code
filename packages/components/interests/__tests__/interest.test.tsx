@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render } from '@acter/lib/test-utils'
 import { Interest } from '@acter/components/interests/interest'
 import { ExampleInterest } from '@acter/schema/fixtures/interest/example-interests'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'

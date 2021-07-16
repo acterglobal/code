@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, within } from '@acter/lib/test-utils'
 import {
   ExampleActerList,
   ExampleActivity,

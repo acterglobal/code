@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@acter/lib/test-utils'
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
 import { ExampleActer } from '@acter/schema/fixtures'

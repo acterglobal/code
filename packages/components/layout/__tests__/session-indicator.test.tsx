@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@acter/lib/test-utils'
 import userEvent from '@testing-library/user-event'
 import { SessionIndicator } from '@acter/components/layout/session-indicator'
 import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
