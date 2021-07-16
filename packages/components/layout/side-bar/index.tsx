@@ -23,18 +23,14 @@ import {
   ActerMenu,
   ActerMenuProps,
 } from '@acter/components/layout/side-bar/acter-menu'
-import {
-  FollowingList,
-  FollowingListProps,
-} from '@acter/components/layout/side-bar/following-list'
+import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
 import { SearchType } from '@acter/lib/constants'
 
-export type SidebarProps = ActerMenuProps &
-  FollowingListProps & {
-    searchType?: SearchType
-  }
+export type SidebarProps = ActerMenuProps & {
+  searchType?: SearchType
+}
 
 export const Sidebar: FC<SidebarProps> = ({
   acter,
@@ -78,7 +74,7 @@ export const Sidebar: FC<SidebarProps> = ({
             active={router.route === '/search'}
           />
           <Divider />
-          <FollowingList user={user} />
+          <FollowingList />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </List>
       </Box>

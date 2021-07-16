@@ -37,7 +37,7 @@ export const Layout: FC<LayoutProps> = ({
         links={links}
       />
       <Container maxWidth="xl" className={classes.container}>
-        <TopBar user={user} />
+        <TopBar />
         {children}
       </Container>
     </div>
