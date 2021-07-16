@@ -12,7 +12,6 @@ import {
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { User } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
@@ -21,10 +20,9 @@ import { useUser } from '@acter/lib/user/use-user'
 const { ACTIVITY, GROUP, USER } = ActerTypes
 
 export const FollowingList: FC = () => {
-  const [user, loading] = useUser()
-
   const classes = useStyles()
   const router = useRouter()
+  const [user, { loading }] = useUser()
 
   const followingActers = excludeActerTypes(
     user.Acter.Following.map(({ Following }) => Following),
@@ -34,6 +32,8 @@ export const FollowingList: FC = () => {
   const { notifications } = useFetchNotifications(user)
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
+
+  if (loading) return <>Loading...</>
 
   return (
     <>

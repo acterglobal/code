@@ -4,16 +4,17 @@ import { Button, Link as MuiLink, MenuItem } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { ProfileButton } from '@acter/components/user/profile-button'
-import { User } from '@acter/schema'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
+import { useUser } from '@acter/lib/user/use-user'
 
-export interface SessionIndicatorProps {
-  user?: User
-}
-
-export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
+export const SessionIndicator: FC = () => {
   const classes = useStyles()
   const { loginUrl, signupUrl } = useAuthRedirect()
+  const [user, { loading }] = useUser()
+
+  if (loading) {
+    return <>Loading...</>
+  }
 
   if (!user) {
     return (
