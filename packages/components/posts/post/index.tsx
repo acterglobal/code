@@ -61,11 +61,12 @@ export const Post: FC<PostsProps> = ({
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostContent post={post} />
 
-      {user.Acter.id === post.Author.id && (
-        <PostOptions onEdit={handleEdit} onDelete={onDelete} />
-      )}
-    </Box>
-  )
+        {user.Acter.id === post.Author.id && (
+          <PostOptions onEdit={handleEdit} onDelete={onDelete} />
+        )}
+      </Box>
+    )
+  }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
