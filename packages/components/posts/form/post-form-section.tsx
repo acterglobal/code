@@ -15,11 +15,13 @@ import clsx from 'clsx'
 export interface PostFormSectionProps extends PostFormProps {
   user: User
   post?: PostType
+  parentId?: string
 }
 
 export const PostFormSection: FC<PostFormSectionProps> = ({
   user,
   post,
+  parentId,
   onPostSubmit,
 }) => {
   const classes = useStyles()
@@ -33,19 +35,23 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   }
 
   return (
-    <Box className={clsx(classes.container, post && classes.comment)}>
-      <ActerAvatar acter={user.Acter} size={post ? 4 : 6} />
+    <Box className={clsx(classes.container, parentId && classes.comment)}>
+      <ActerAvatar acter={user.Acter} size={parentId ? 4 : 6} />
 
-      <Box className={clsx(classes.form, post && classes.commentForm)}>
+      <Box className={clsx(classes.form, parentId && classes.commentForm)}>
         {!showForm ? (
           <Box
             onClick={handleClick}
-            className={clsx(classes.field, post && classes.commentField)}
+            className={clsx(classes.field, parentId && classes.commentField)}
           >
-            {post ? 'Comment...' : 'Write post...'}
+            {parentId ? 'Comment...' : 'Write post...'}
           </Box>
         ) : (
-          <PostForm post={post} onPostSubmit={handlePostSubmit} />
+          <PostForm
+            parentId={parentId}
+            post={post}
+            onPostSubmit={handlePostSubmit}
+          />
         )}
       </Box>
     </Box>
