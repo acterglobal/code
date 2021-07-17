@@ -15,7 +15,7 @@ type UseUserVariables = {
 type UserQueryResult = Omit<QueryResult<UseUserData, UseUserVariables>, 'error'>
 
 type UseUserError = Error | ApolloError
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 interface UseUserQueryResult extends UserQueryResult {
   error?: UseUserError[]
 }
