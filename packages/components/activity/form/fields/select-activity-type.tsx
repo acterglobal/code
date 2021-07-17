@@ -3,7 +3,6 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { ActivityType } from '@acter/schema/types'
-import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
 import { ActivityTypes } from '@acter/lib/constants'
 
 export interface SelectActivityTypeProps {
@@ -25,13 +24,11 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
           return (
             <Box
               key={`activity-type-${type.id}`}
-              className={clsx(classes.button, classes[`button${i}`])}
-              style={{
-                border: selectedTypeId === type.id && 0,
-                backgroundColor:
-                  selectedTypeId === type.id &&
-                  activityTypeBackgroundColors[type.name],
-              }}
+              className={clsx(
+                classes.button,
+                classes[`button${i}`],
+                selectedTypeId === type.id && classes[type.name]
+              )}
               onClick={() => onChange(type.id)}
             >
               {type.name}
@@ -74,6 +71,18 @@ const useStyles = makeStyles((theme: Theme) =>
     button2: {
       borderTopLeftRadius: 0,
       borderBottomLeftRadius: 0,
+    },
+    event: {
+      border: 0,
+      backgroundColor: theme.colors.activityTypes.event,
+    },
+    project: {
+      border: 0,
+      backgroundColor: theme.colors.activityTypes.project,
+    },
+    idea: {
+      border: 0,
+      backgroundColor: theme.colors.activityTypes.idea,
     },
   })
 )
