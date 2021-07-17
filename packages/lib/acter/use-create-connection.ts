@@ -5,7 +5,7 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter } from '@acter/schema/types'
+import { Acter, ActerConnection } from '@acter/schema/types'
 
 export type ConnectionVariables = {
   followerActerId: string
@@ -13,7 +13,7 @@ export type ConnectionVariables = {
 }
 
 type CreateConnectionData = {
-  createActerConnection: any
+  createActerConnection: ActerConnection
 }
 
 type CreateConnectionOptions = UseMutationOptions<
@@ -21,15 +21,12 @@ type CreateConnectionOptions = UseMutationOptions<
   ConnectionVariables
 >
 
-type HandleMethod<TData> = (
-  acter: Acter,
-  follower: Acter
-) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
+type HandleMethod = (acter: Acter, follower: Acter) => Promise<FetchResult>
 
 export const useCreateActerConnection = (
   acter: Acter,
   options?: CreateConnectionOptions
-): [HandleMethod<CreateConnectionData>, MutationResult] => {
+): [HandleMethod, MutationResult] => {
   const [createConnection, mutationResult] = useNotificationMutation(
     CREATE_ACTER_CONNECTION,
     {

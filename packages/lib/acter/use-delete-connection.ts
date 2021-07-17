@@ -5,11 +5,11 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter } from '@acter/schema/types'
+import { Acter, ActerConnection } from '@acter/schema/types'
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
 
 type DeleteConnectionData = {
-  deleteActerConnection: any
+  deleteActerConnection: ActerConnection
 }
 
 type DeleteConnectionOptions = UseMutationOptions<
@@ -17,15 +17,12 @@ type DeleteConnectionOptions = UseMutationOptions<
   ConnectionVariables
 >
 
-type HandleMethod<TData> = (
-  acter: Acter,
-  follower: Acter
-) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
+type HandleMethod = (acter: Acter, follower: Acter) => Promise<FetchResult>
 
 export const useDeleteActerConnection = (
   acter: Acter,
   options?: DeleteConnectionOptions
-): [HandleMethod<DeleteConnectionData>, MutationResult] => {
+): [HandleMethod, MutationResult] => {
   const [deleteConnection, mutationResult] = useNotificationMutation(
     DELETE_ACTER_CONNECTION,
     {

@@ -14,7 +14,7 @@ type ConnectionVariables = {
 }
 
 type UpdateConnectionData = {
-  updateActerConnection: any
+  updateActerConnection: ActerConnection
 }
 
 type CreateConnectionOptions = UseMutationOptions<
@@ -22,15 +22,15 @@ type CreateConnectionOptions = UseMutationOptions<
   ConnectionVariables
 >
 
-type HandleMethod<TData> = (
+type HandleMethod = (
   connection: ActerConnection,
   role: ActerConnectionRole
-) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
+) => Promise<FetchResult>
 
 export const useUpdateActerConnection = (
   acter: Acter,
   options?: CreateConnectionOptions
-): [HandleMethod<UpdateConnectionData>, MutationResult] => {
+): [HandleMethod, MutationResult] => {
   const [updateConnection, mutationResult] = useNotificationMutation(
     UPDATE_ACTER_CONNECTION,
     {
