@@ -33,6 +33,7 @@ export const FollowingList: FC = () => {
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 
+  if (!user) return null
   if (loading) return <>Loading...</>
 
   return (
