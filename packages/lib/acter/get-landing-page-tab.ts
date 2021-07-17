@@ -10,6 +10,9 @@ export const getLandingPageTab = (
   if (router.route?.includes(SETTINGS)) {
     return SETTINGS
   }
+  if (router.route?.includes(ACTIVITIES)) {
+    return ACTIVITIES
+  }
 
   if (!router.query.tab) {
     return defaultTab

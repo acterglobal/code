@@ -14,6 +14,7 @@ export interface ConnectionStateProps
 }
 
 export const ConnectionState: FC<ConnectionStateProps> = ({
+  acter,
   connection,
   canEdit,
   onSubmit,
@@ -27,6 +28,7 @@ export const ConnectionState: FC<ConnectionStateProps> = ({
   if (canEdit && isEditing) {
     return (
       <ConnectionStateEditor
+        acter={acter}
         connection={connection}
         onCancel={() => setIsEditing(false)}
         onSubmit={onSubmit}
