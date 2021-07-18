@@ -1,6 +1,5 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { withNextRouter } from 'storybook-addon-next-router'
 import { Sidebar, SidebarProps } from '@acter/components/layout/side-bar'
 import { ActerMenu } from '@acter/lib/constants'
 import {
@@ -12,14 +11,15 @@ import {
 export default {
   title: 'layout/Side Bar',
   component: Sidebar,
-  decorators: [withNextRouter],
   args: {
     size: 50,
   },
   parameters: {
-    query: {
-      slug: ExampleActer.slug,
-      tab: [ActerMenu.FORUM],
+    nextRouter: {
+      query: {
+        slug: ExampleActer.slug,
+        tab: [ActerMenu.FORUM],
+      },
     },
   },
 } as Meta

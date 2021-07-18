@@ -26,7 +26,8 @@
     "db:migrate": "yarn workspace @acter/schema db:migrate",
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:reset": "yarn workspace @acter/schema db:reset",
-    "db:seed": "yarn workspace @acter/schema db:seed"
+    "db:seed": "yarn workspace @acter/schema db:seed",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/core": "^7.12.16",
@@ -35,9 +36,19 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
     "env-cmd": "^10.1.0",
     "graphql": "^15.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.3.4",
+    "@storybook/addon-docs": "^6.3.4",
+    "@storybook/addon-essentials": "^6.3.4",
+    "@storybook/addon-links": "^6.3.4",
+    "@storybook/builder-webpack5": "^6.3.4",
+    "@storybook/manager-webpack5": "^6.3.4",
+    "@storybook/react": "^6.3.4",
     "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
@@ -66,7 +77,9 @@
     "ts-jest": "^26.4.4",
     "ts-node": "^10.0.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
-    "typescript": "^4.3.5"
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5",
+    "webpack": "^5.45.1"
   },
   "browser": {
     "fs": false,

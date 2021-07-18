@@ -1,10 +1,14 @@
 import React from 'react'
 import * as nextImage from 'next/image'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
+import { RouterContext } from 'next/dist/next-server/lib/router-context'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   layout: 'fullscreen',
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
 }
 
 export const decorators = [
