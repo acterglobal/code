@@ -76,13 +76,17 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.21
     "@prisma/client": ^2.26.0
+    "@sendgrid/mail": ^7.4.5
     "@sentry/integrations": ^6.8.0
     "@sentry/nextjs": ^6.8.0
+    "@types/intercom-client": ^2.11.11
     axios: ^0.21.1
     deepmerge: ^4.2.2
+    intercom-client: ^2.11.2
     lodash: ^4.17.21
     md5: ^2.3.0
     mime: ^2.5.2
+    nodemailer: ^6.6.2
     notistack: ^1.0.9
     pluralize: ^8.0.0
     ramda: ^0.27.1
@@ -4602,6 +4606,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sendgrid/client@npm:^7.4.3":
+  version: 7.4.3
+  resolution: "@sendgrid/client@npm:7.4.3"
+  dependencies:
+    "@sendgrid/helpers": ^7.4.3
+    axios: ^0.21.1
+  checksum: 657418b9d34f5dfe9e60c2972a9354d73b0457578961e115e1138bcaff5491bc357242e794be4cc55b7f76d3d779449f02e10d76ef957b4995fd4540054232e2
+  languageName: node
+  linkType: hard
+
+"@sendgrid/helpers@npm:^7.4.3":
+  version: 7.4.3
+  resolution: "@sendgrid/helpers@npm:7.4.3"
+  dependencies:
+    deepmerge: ^4.2.2
+  checksum: 1528ff0a19c60e3a0219c28c693a8746b9090387a2971dd9c0a6f78b451b563ea4de6f5d3a53978278146f02db9d4064bb1ccb944a48ec811f280d445f8ca70e
+  languageName: node
+  linkType: hard
+
+"@sendgrid/mail@npm:^7.4.5":
+  version: 7.4.5
+  resolution: "@sendgrid/mail@npm:7.4.5"
+  dependencies:
+    "@sendgrid/client": ^7.4.3
+    "@sendgrid/helpers": ^7.4.3
+  checksum: 8536db1c1d5b450091dfb3593177b99580d4d8db973121088fbdb833c72274295ff12570a6ffcf6d28df736bb20df3973bd8d26dda8b51009eef7117eda452ea
+  languageName: node
+  linkType: hard
+
 "@sentry/browser@npm:6.8.0":
   version: 6.8.0
   resolution: "@sentry/browser@npm:6.8.0"
@@ -6604,6 +6637,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/caseless@npm:*":
+  version: 0.12.2
+  resolution: "@types/caseless@npm:0.12.2"
+  checksum: 492343e49987f92550c10efe9052f7307ced5d9c3acf7796cda206909b369746e4fcf3bdb061eed6b27dd03482bb6e3b6ec856aa30c4f565893dc18cc8341027
+  languageName: node
+  linkType: hard
+
 "@types/color-convert@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/color-convert@npm:2.0.0"
@@ -6795,6 +6835,16 @@ __metadata:
   version: 1.8.0
   resolution: "@types/http-errors@npm:1.8.0"
   checksum: f6a0cf40d026b339f3358771d1a98bce7e637429882255246ccf4056cf0f2df7aaf2997ba3072e13df8688f0cd2f9f99ac4d84bed4665710793de35642b4cdad
+  languageName: node
+  linkType: hard
+
+"@types/intercom-client@npm:^2.11.11":
+  version: 2.11.11
+  resolution: "@types/intercom-client@npm:2.11.11"
+  dependencies:
+    "@types/node": "*"
+    "@types/request": "*"
+  checksum: 6714f702813795ada8fa927ac41a79e4e1668a5409f691c1b5f9c0f057f85154189ccddc6ed7767720ed005dcefb7f98dfab11f0bd75544d5bffd73c224d2bc2
   languageName: node
   linkType: hard
 
@@ -7164,6 +7214,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/request@npm:*":
+  version: 2.48.6
+  resolution: "@types/request@npm:2.48.6"
+  dependencies:
+    "@types/caseless": "*"
+    "@types/node": "*"
+    "@types/tough-cookie": "*"
+    form-data: ^2.5.0
+  checksum: f59a03414d9310fc3e455999aef5cd52cc1275933efb265acfd84cd9947c618d26e758c42404bacd62627f01cfc9372d82a0968cf84e088a71a34c5a5f139e54
+  languageName: node
+  linkType: hard
+
 "@types/responselike@npm:*, @types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -7240,6 +7302,13 @@ __metadata:
   dependencies:
     "@types/jest": "*"
   checksum: 32aa324a83e67fd81eb7f0ba3e4c86406db86c1e5361b6e8091d224a1fefbfcb4e493039db3ce3faf8afa133a4f68cc7c42bcdbcae1dd91b13d741a040791038
+  languageName: node
+  linkType: hard
+
+"@types/tough-cookie@npm:*":
+  version: 4.0.1
+  resolution: "@types/tough-cookie@npm:4.0.1"
+  checksum: 6029227c6871936c357a0d1e7e91b163b24bbfd5647465c9c4961a9db2d1dccbfb0d05c14b2583853a7432638d8a8ccd68df071a7e926400e0573c20d6ad936e
   languageName: node
   linkType: hard
 
@@ -9371,7 +9440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^3.3.5, bluebird@npm:^3.5.5":
+"bluebird@npm:^3.3.5, bluebird@npm:^3.5.5, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
   checksum: 4f2288662f3d4eadbb82d4daa4a7d7976a28fa3c7eb4102c9b4033b03e5be4574ba123ac52a7c103cde4cb7b2d2afc1dbe41817ca15a29ff21ecd258d0286047
@@ -13316,6 +13385,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"form-data@npm:^2.5.0":
+  version: 2.5.1
+  resolution: "form-data@npm:2.5.1"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.6
+    mime-types: ^2.1.12
+  checksum: c46ee9a14a8678b6e0dfafabc96e25237d9f11ced9c51cd371a2b3448f6a3f2fa684b3bbbb35911bae8f5448b3f3c48c73f7f2be791a4ae5aee0eb0ab3cdfec2
+  languageName: node
+  linkType: hard
+
 "form-data@npm:^3.0.0":
   version: 3.0.0
   resolution: "form-data@npm:3.0.0"
@@ -14578,6 +14658,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"htmlencode@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "htmlencode@npm:0.0.4"
+  checksum: 034910d62d7579244c620ee569d974c662c48d54c6fd61ae9661b9e3cd4734f41adc641c0e37226e67c72f2dd4f31e0f8f49fe78d76e7fc0e2c54d2d1c4351ee
+  languageName: node
+  linkType: hard
+
 "htmlparser2@npm:^3.10.1":
   version: 3.10.1
   resolution: "htmlparser2@npm:3.10.1"
@@ -14995,6 +15082,18 @@ fsevents@~2.3.2:
   version: 0.1.1
   resolution: "inline-style-parser@npm:0.1.1"
   checksum: 02f3b430cd6b9d13a255dafc54f45855cbb3db3c314228c6e58e19ce8dd2bb8e89f3a311bedcc5ded185ba2cc64195d1dddf54076b2160beee379fd7cdf6fb08
+  languageName: node
+  linkType: hard
+
+"intercom-client@npm:^2.11.2":
+  version: 2.11.2
+  resolution: "intercom-client@npm:2.11.2"
+  dependencies:
+    bluebird: ^3.7.2
+    htmlencode: ^0.0.4
+    lodash: ^4.17.19
+    request: ^2.88.0
+  checksum: 7642a7f06367cc3e2a196446f126d0ace97438253acdd12b5ce2dcdb9385f6556196fe826a4a6a2c61f3e2afffa6d5c98ccc2ed973ac0ffdc09494f485191b71
   languageName: node
   linkType: hard
 
@@ -18253,6 +18352,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^6.6.2":
+  version: 6.6.3
+  resolution: "nodemailer@npm:6.6.3"
+  checksum: abcdcbc80279d6200ded778765046ce64210d901953d3ec7caaaa45ae44401d8c41cf3651b6d6cfaadf945a492e815f4c8a062bdf31214bd98417a090f530830
+  languageName: node
+  linkType: hard
+
 "nodemon@npm:^2.0.9":
   version: 2.0.12
   resolution: "nodemon@npm:2.0.12"
@@ -20938,7 +21044,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.88.2":
+"request@npm:^2.88.0, request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:

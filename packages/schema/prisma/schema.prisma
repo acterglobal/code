@@ -283,8 +283,8 @@ model Notification {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  sendTo String?   @map("send_to")
   sentAt DateTime? @map("sent_at")
-  sentTo String?   @map("sent_to")
 
   viewedAt DateTime? @map("viewed_at")
 
