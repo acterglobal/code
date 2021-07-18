@@ -12,12 +12,14 @@ import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connectio
 import { queueNotificationsMiddleware } from './middlewares/queue-notifications'
 
 import { authChecker } from '@acter/schema/auth-checker'
-import { NotificationType } from '@acter/lib/constants'
+import { NotificationQueueType } from '@acter/lib/constants'
 
 const resolversEnhanceMap: ResolversEnhanceMap = {
   Post: {
     createPost: [
-      UseMiddleware(queueNotificationsMiddleware(NotificationType.NEW_POST)),
+      UseMiddleware(
+        queueNotificationsMiddleware(NotificationQueueType.NEW_POST)
+      ),
     ],
   },
 }

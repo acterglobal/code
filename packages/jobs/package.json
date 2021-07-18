@@ -5,7 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "email-worker": "ts-node ./src/workers/email-send-worker.ts",
+    "notification-worker": "ts-node ./src/workers/notification-create-worker.ts"
   },
   "dependencies": {
     "@swc/core": "^1.2.63",
