@@ -65,6 +65,7 @@ __metadata:
     bullmq: ^1.37.1
     nodemon: ^2.0.9
     reflect-metadata: ^0.1.13
+    throng: ^5.0.0
     ts-node: ^10.0.0
   languageName: unknown
   linkType: soft
@@ -20855,6 +20856,15 @@ resolve@^2.0.0-next.3:
   version: 6.0.1
   resolution: "throat@npm:6.0.1"
   checksum: 782d4171ee4e3cf947483ed2ff1af3e17cc4354c693b9d339284f61f99fbc401d171e0b0d2db3295bb7d447630333e9319c174ebd7ef315c6fb791db9675369c
+  languageName: node
+  linkType: hard
+
+"throng@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "throng@npm:5.0.0"
+  dependencies:
+    lodash: ^4.17.20
+  checksum: 1d114cdb6fb2b5e1c44a528befb119f058966c7203540c0a16cd55e1b861c242dcf08db3aafefd136e5664b3cbc11ced6a580e432676aaed84b303894f0d4965
   languageName: node
   linkType: hard
 

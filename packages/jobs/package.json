@@ -13,6 +13,7 @@
     "@swc/core": "^1.2.63",
     "bullmq": "^1.37.1",
     "reflect-metadata": "^0.1.13",
+    "throng": "^5.0.0",
     "ts-node": "^10.0.0"
   },
   "devDependencies": {

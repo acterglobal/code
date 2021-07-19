@@ -2,9 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@acter/*": ["../*"],
+      "@acter/*": ["../../*"],
     }
   },
   "ts-node": {
