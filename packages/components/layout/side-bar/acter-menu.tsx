@@ -67,16 +67,18 @@ export const ActerMenu: FC<ActerMenuProps> = ({
             <LinkSection links={links} />
           </>
         )}
-      {/* <LinkSection links={links} /> */}
 
       <Divider />
 
-      <GroupsSection
-        acter={acter}
-        user={user}
-        acterTypes={acterTypes}
-        onGroupSubmit={onGroupSubmit}
-      />
+      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) &&
+        links.length !== 0 && (
+          <GroupsSection
+            acter={acter}
+            user={user}
+            acterTypes={acterTypes}
+            onGroupSubmit={onGroupSubmit}
+          />
+        )}
     </>
   )
 }
