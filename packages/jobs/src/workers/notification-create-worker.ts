@@ -16,7 +16,7 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
-import { NotificationEmail } from 'workers/email-send-worker'
+import { NotificationEmail } from './email-send-worker'
 
 const emailOutboxQueue = new Queue(EMAIL_OUTBOX_QUEUE)
 
