@@ -37,6 +37,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
   const groups = acter.Children.filter(
     (child) => child.ActerType.name === ActerTypes.GROUP
   )
+  console.log(groups)
 
   const handleAddGroup = () => {
     setOpenModal(true)
