@@ -42,31 +42,8 @@ export const emailSendWorker = new Worker(
       return res
     } catch (err) {
       console.error('Error sending message', job.data, err)
+      throw err
     }
   },
   { concurrency: 50 }
 )
-
-emailSendWorker.on('drained', () =>
-  console.log('No (more) jobs for email worker to complete. Ready...')
-)
-
-emailSendWorker.on('active', (job) => {
-  console.log(`Working on ${job.name}`)
-})
-
-emailSendWorker.on('progress', (job, progress) => {
-  console.log(`Job ${job.name} progress: `, progress)
-})
-
-emailSendWorker.on('completed', (job) => {
-  console.log(`Completed work on job ${job.name}`)
-})
-
-emailSendWorker.on('failed', (job) => {
-  console.error(`Processing job failed ${job.name}: `, job)
-})
-
-emailSendWorker.on('error', (err) => {
-  console.error('Something went wrong: ', err.message)
-})

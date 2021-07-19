@@ -124,27 +124,3 @@ export const notificationCreateWorker = new Worker(
   },
   { concurrency: 50 }
 )
-
-notificationCreateWorker.on('drained', () =>
-  console.log('No (more) jobs for notification worker to complete. Ready...')
-)
-
-notificationCreateWorker.on('active', (job) => {
-  console.log(`Working on ${job.name}`)
-})
-
-notificationCreateWorker.on('progress', (job, progress) => {
-  console.log(`Job ${job.name} progress: `, progress)
-})
-
-notificationCreateWorker.on('completed', (job) => {
-  console.log(`Completed work on job ${job.name}`)
-})
-
-notificationCreateWorker.on('failed', (job) => {
-  console.error(`Processing job failed ${job.name}: `, job)
-})
-
-notificationCreateWorker.on('error', (err) => {
-  console.error('Something went wrong: ', err.message)
-})
