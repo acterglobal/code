@@ -71,6 +71,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         user={user}
         acterTypes={acterTypes}
         onGroupSubmit={onGroupSubmit}
+        // TODO Group delete
       />
     </>
   )
