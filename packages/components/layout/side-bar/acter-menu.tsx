@@ -60,9 +60,14 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
 
-      {links.length !== 0 && <Divider className={classes.divider} />}
-
-      <LinkSection links={links} />
+      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) &&
+        links.length !== 0 && (
+          <>
+            <Divider className={classes.divider} />
+            <LinkSection links={links} />
+          </>
+        )}
+      {/* <LinkSection links={links} /> */}
 
       <Divider />
 
