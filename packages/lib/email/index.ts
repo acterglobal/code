@@ -1,4 +1,3 @@
-import util from 'util'
 import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import { Environments } from '../constants'

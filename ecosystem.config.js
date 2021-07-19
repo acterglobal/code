@@ -5,14 +5,19 @@ module.exports = {
       script: 'yarn dev-web',
     },
     {
-      name: 'email-worker',
-      script: 'yarn workspace @acter/jobs email-worker',
-      watch: ['./packages/jobs/src/workers'],
+      name: 'jobs',
+      script: 'yarn workspace @acter/jobs dev',
+      watch: ['./packages/jobs/src'],
     },
-    {
-      name: 'notification-worker',
-      script: 'yarn workspace @acter/jobs notification-worker',
-      watch: ['./packages/jobs/src/workers'],
-    },
+    // {
+    //   name: 'email-worker',
+    //   script: 'yarn workspace @acter/jobs email-worker',
+    //   watch: ['./packages/jobs/src/workers'],
+    // },
+    // {
+    //   name: 'notification-worker',
+    //   script: 'yarn workspace @acter/jobs notification-worker',
+    //   watch: ['./packages/jobs/src/workers'],
+    // },
   ],
 }

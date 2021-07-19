@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { Job, Queue, Worker } from 'bullmq'
 import prisma from '@acter/lib/prisma'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import {
   ActerTypes,
   EMAIL_OUTBOX_QUEUE,
@@ -8,12 +9,14 @@ import {
   NotificationJobState,
   NotificationQueueType,
 } from '@acter/lib/constants'
+import { Email } from '@acter/lib/email'
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   NotificationType,
   Post,
 } from '@acter/schema/types'
+import { NotificationEmail } from 'workers/email-send-worker'
 
 const emailOutboxQueue = new Queue(EMAIL_OUTBOX_QUEUE)
 
@@ -88,9 +91,29 @@ export const notificationCreateWorker = new Worker(
             ActerNotificationSettings.ALL_ACTIVITY &&
           notification.ToActer.acterNotifyEmailFrequency ===
             ActerNotificationEmailFrequency.INSTANT
-        )
+        ) {
+          // Create the email
+          // TODO: make it look ok
+          const { OnActer } = notification
+          const email: Email = {
+            to: notification.sendTo,
+            subject: `New post on ${OnActer.name} via Acter`,
+            content: `A new post was created on an ${
+              OnActer.ActerType.name
+            } you follow on Acter, ${
+              OnActer.name
+            }. To see it, visit: http://localhost:3000${acterAsUrl(
+              OnActer,
+              'forum'
+            )}`,
+          }
+          const data: NotificationEmail = {
+            ...email,
+            notification,
+          }
           // Add it to the email outbox queue
-          emailOutboxQueue.add(NotificationQueueType.SEND_EMAIL, notification)
+          emailOutboxQueue.add(NotificationQueueType.SEND_EMAIL, data)
+        }
         return notification
       })
     )
@@ -103,7 +126,7 @@ export const notificationCreateWorker = new Worker(
 )
 
 notificationCreateWorker.on('drained', () =>
-  console.log('No (more) jobs for email worker to complete. Ready...')
+  console.log('No (more) jobs for notification worker to complete. Ready...')
 )
 
 notificationCreateWorker.on('active', (job) => {
