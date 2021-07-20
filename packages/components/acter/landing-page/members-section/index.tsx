@@ -50,7 +50,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
         type={activeSelector}
         user={user}
         onConnectionStateChange={onConnectionStateChange}
-        isOrganisation={activeSelector === ORGANISATIONS ? true : false}
       />
     </Box>
   )
