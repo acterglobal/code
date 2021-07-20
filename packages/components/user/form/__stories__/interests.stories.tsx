@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react'
-import { withNextRouter } from 'storybook-addon-next-router'
 import {
   ProfileInterestsForm,
   ProfileInterestsFormProps,
@@ -20,7 +19,6 @@ export default {
     },
     interestTypes: Interests.data.interestTypes,
   },
-  decorators: [withNextRouter],
   parameters: {
     nextRouter: {
       pathname: 'profile/interests',

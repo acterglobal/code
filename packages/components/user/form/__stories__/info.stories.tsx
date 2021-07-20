@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react'
-import { withNextRouter } from 'storybook-addon-next-router'
 import {
   ProfileInfoForm,
   ProfileInfoFormProps,
@@ -15,7 +14,6 @@ export default {
       Acter: ExampleUserActer,
     },
   },
-  decorators: [withNextRouter],
   parameters: {
     nextRouter: {
       pathname: 'profile/info',

@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
-import { withNextRouter } from 'storybook-addon-next-router'
 import { Layout, LayoutProps } from '@acter/components/layout'
 import { ActerMenu } from '@acter/lib/constants'
 import {
@@ -13,14 +12,15 @@ const Content: FC = () => <main>Main content</main>
 export default {
   title: 'layout/Overall',
   component: Layout,
-  decorators: [withNextRouter],
   args: {
     children: <Content />,
   },
   parameters: {
-    query: {
-      slug: ExampleActer.slug,
-      tab: [ActerMenu.FORUM],
+    nextRouter: {
+      query: {
+        slug: ExampleActer.slug,
+        tab: [ActerMenu.FORUM],
+      },
     },
   },
 } as Meta
