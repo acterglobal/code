@@ -72,7 +72,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
 
       <Divider />
 
-      {isMember && links.length > 0 && (
+      {isMember && (
         <GroupsSection
           acter={acter}
           user={user}
