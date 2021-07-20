@@ -46,6 +46,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   if (!acter) return null
   const classes = useStyles()
 
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+
   return (
     <>
       <ListItem divider className={classes.acterHeaderItem}>
@@ -56,29 +59,27 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       <ActerMenuItem acter={acter} Icon={ForumIcon} path={FORUM} />
       <ActerMenuItem acter={acter} Icon={ActivitiesIcon} path={ACTIVITIES} />
       <ActerMenuItem acter={acter} Icon={MembersIcon} path={MEMBERS} />
-      {userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter) && (
+      {isAdmin && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
 
-      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) &&
-        links.length !== 0 && (
-          <>
-            <Divider className={classes.divider} />
-            <LinkSection links={links} />
-          </>
-        )}
+      {isMember && links.length > 0 && (
+        <>
+          <Divider className={classes.divider} />
+          <LinkSection links={links} />
+        </>
+      )}
 
       <Divider />
 
-      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) &&
-        links.length !== 0 && (
-          <GroupsSection
-            acter={acter}
-            user={user}
-            acterTypes={acterTypes}
-            onGroupSubmit={onGroupSubmit}
-          />
-        )}
+      {isMember && links.length > 0 && (
+        <GroupsSection
+          acter={acter}
+          user={user}
+          acterTypes={acterTypes}
+          onGroupSubmit={onGroupSubmit}
+        />
+      )}
     </>
   )
 }
