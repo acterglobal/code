@@ -10,6 +10,9 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from '@material-ui/core'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
@@ -46,6 +49,10 @@ export interface DisplayMembersProps {
    * Action when Member state changes
    */
   onConnectionStateChange: ConnectionStateProps['onSubmit']
+  /**
+   * Boolean to indicate organisation member/follower type
+   */
+  isOrganisation?: boolean
 }
 
 export const DisplayMembers: FC<DisplayMembersProps> = ({
@@ -54,6 +61,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
   followers = [],
   type,
   onConnectionStateChange,
+  isOrganisation,
 }) => {
   const classes = useStyles()
 
@@ -74,6 +82,42 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
       <List className={classes.members}>
         {followers.map((connection) => {
           const { Follower } = connection
+
+          if (isOrganisation) {
+            return (
+              <Link href={`${acterAsUrl(Follower)}`}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <ActerAvatar acter={Follower} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    classes={{
+                      primary: classes.name,
+                      secondary: classes.acterType,
+                    }}
+                    className={classes.memberInfo}
+                    primary={Follower.name}
+                    secondary={Follower.ActerType.name}
+                  />
+                  {showJoinState && (
+                    <ListItemSecondaryAction>
+                      <ConnectionState
+                        connection={connection}
+                        canEdit={canEdit && Follower.id !== user.Acter.id}
+                        onSubmit={onConnectionStateChange}
+                      />
+                    </ListItemSecondaryAction>
+                  )}
+                </ListItem>
+                <Divider
+                  classes={{ root: classes.divider }}
+                  variant="inset"
+                  component="li"
+                />
+              </Link>
+            )
+          }
+
           return (
             <>
               <ListItem>
