@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { Job, Queue, Worker } from 'bullmq'
 import prisma from '@acter/lib/prisma'
-import { NotificationJobState, EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
+import { EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
 import { sendEmail, Email } from '@acter/lib/email'
 import { Notification } from '@acter/schema/types'
 
@@ -14,12 +14,8 @@ export const emailSendQueue = new Queue<NotificationEmail>(EMAIL_OUTBOX_QUEUE)
 export const emailSendWorker = new Worker(
   EMAIL_OUTBOX_QUEUE,
   async (job: Job<NotificationEmail>) => {
-    console.log('Processing job: ', job.data)
-    job.updateProgress({ state: NotificationJobState.STARTED })
-
     try {
       const res = await sendEmail(job.data)
-      console.log(`Email sent to ${job.data.to}`)
       if (job.data.notification) {
         const notification = await prisma.notification.update({
           data: {
@@ -33,9 +29,6 @@ export const emailSendWorker = new Worker(
             sentAt: true,
           },
         })
-        console.log(
-          `Notification ${notification.id} sentAt date updated to ${notification.sentAt}`
-        )
         return {
           ...res,
           notification,

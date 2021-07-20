@@ -10,6 +10,7 @@
     "notification-worker": "ts-node ./src/workers/notification-create-worker.ts"
   },
   "dependencies": {
+    "@acter/schema": "workspace:packages/schema",
     "@swc/core": "^1.2.63",
     "bullmq": "^1.37.1",
     "reflect-metadata": "^0.1.13",

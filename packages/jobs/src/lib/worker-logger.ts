@@ -1,9 +1,11 @@
 import { Worker } from 'bullmq'
 
 export const workerLogger = (worker: Worker, name?: string): void => {
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const log = (message: any, ...optionalParams: any[]) =>
     console.log(`[${name}-worker] ${message}`, ...optionalParams)
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const error = (message: any, ...optionalParams: any[]) =>
     console.error(`[${name}-worker] ${message}`, ...optionalParams)
 

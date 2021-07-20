@@ -60,7 +60,8 @@ export const digestCreateWorker = new Worker(
               (post) =>
                 `At ${format(post.createdAt, TIME_FORMAT_SHORT)} ${
                   post.Author.name
-                } said: ${post.content}`
+                } said:
+                ${post.content}`
             ),
           ],
           []
@@ -75,7 +76,8 @@ export const digestCreateWorker = new Worker(
         new Date(),
         DATE_FORMAT_NO_TIME
       )}`,
-      content: posts.join('\n'),
+      // prettier-ignore
+      content: posts.join("\n"),
     })
   },
   { concurrency: 50 }
