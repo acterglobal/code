@@ -27,7 +27,7 @@ describe('Display search results', () => {
 
   it('should display search results with a list of Activities', async () => {
     const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
-    const activities = [...Array(8).keys()].map(() => acter)
+    const activities = [...Array(8)].map(() => acter)
 
     render(<DisplayResults searchType={ACTIVITIES} acters={activities} />)
     const items = screen.queryAllByRole('listitem')

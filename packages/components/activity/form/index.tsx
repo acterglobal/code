@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
-import moment, { Moment } from 'moment'
 import { useRouter } from 'next/router'
+import { parseISO } from 'date-fns'
 import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
@@ -72,8 +72,8 @@ export interface ActivityFormValues
     BasicsStepValues,
     DetailsStepValues,
     SettingsStepValues {
-  startAt: Moment
-  endAt: Moment
+  startAt: Date
+  endAt: Date
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({
@@ -139,8 +139,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   let startAt = null
   let endAt = null
   if (acter?.id) {
-    startAt = moment(acter.Activity.startAt)
-    endAt = moment(acter.Activity.endAt)
+    //@ts-ignore
+    startAt = parseISO(acter.Activity.startAt)
+    //@ts-ignore
+    endAt = parseISO(acter.Activity.endAt)
   }
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT

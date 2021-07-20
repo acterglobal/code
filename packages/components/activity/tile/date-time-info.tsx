@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import moment from 'moment'
 import { DAY_MONTH_FORMAT_SHORT, TIME_FORMAT_SHORT } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 
 import {
   Box,
@@ -17,11 +17,11 @@ type DateTimeInfoProps = ActivityTileProps
 export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
   const classes = useStyles()
 
-  const startDay = moment(activity.startAt).format(DAY_MONTH_FORMAT_SHORT)
-  const endDay = moment(activity.endAt).format(DAY_MONTH_FORMAT_SHORT)
+  const startDay = parseAndFormat(activity.startAt, DAY_MONTH_FORMAT_SHORT)
+  const endDay = parseAndFormat(activity.endAt, DAY_MONTH_FORMAT_SHORT)
 
-  const startTime = moment(activity.startAt).format(TIME_FORMAT_SHORT)
-  const endTime = moment(activity.endAt).format(TIME_FORMAT_SHORT)
+  const startTime = parseAndFormat(activity.startAt, TIME_FORMAT_SHORT)
+  const endTime = parseAndFormat(activity.endAt, TIME_FORMAT_SHORT)
 
   return (
     <Box className={classes.root}>

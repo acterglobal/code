@@ -1,6 +1,7 @@
 import React, { FC, useState, useMemo } from 'react'
 import Link from 'next/link'
-import moment from 'moment'
+import { differenceInMilliseconds, parseISO } from 'date-fns/fp'
+import { pipe } from 'fp-ts/function'
 import {
   Box,
   Checkbox,
@@ -36,10 +37,14 @@ export const ActivitiesList: FC<ActivityListProps> = ({ acter, user }) => {
   const allActivities = [
     ...allActivitiesOrganised,
     ...allActivitiesFollowed,
-  ].sort((a, b) => moment(a.startAt).valueOf() - moment(b.startAt).valueOf())
-  const now = moment()
+  ].sort((a, b) => differenceInMilliseconds(b.startAt, a.startAt))
+  const now = new Date()
   const futureActivities = useMemo(
-    () => allActivities.filter((a) => now.isSameOrBefore(a.startAt)),
+    () =>
+      allActivities.filter(
+        //@ts-ignore
+        (a) => pipe(a.startAt, parseISO, differenceInMilliseconds(now)) >= 0
+      ),
     [allActivities, now]
   )
   const [showPastActivities, setShowPastActivities] = useState(true)

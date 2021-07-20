@@ -30,7 +30,7 @@ export const DatePickerField: FC<DatePickerProps> = (props) => {
       name={name}
       placeholder={placeholder}
       inputVariant="outlined"
-      format="DD/MM/yyyy"
+      format="dd/MM/yyyy"
       InputProps={{ className: classes.datepicker }}
       InputAdornmentProps={{ position: 'start' }}
       required={required}

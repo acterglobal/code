@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import moment from 'moment'
 import {
   Computer,
   LocationOnOutlined,
@@ -9,6 +8,7 @@ import { Box, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green, grey } from '@material-ui/core/colors'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
@@ -20,10 +20,14 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   const { acter } = props
   const classes = useStyles()
 
-  const format = acter.Activity.isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT
+  const displayFormat = acter.Activity.isAllDay
+    ? DATE_FORMAT_NO_TIME
+    : DATE_FORMAT
 
-  const startAt = moment(acter.Activity.startAt).format(format)
-  const endAt = moment(acter.Activity.endAt).format(format)
+  //@ts-ignore
+  const startAt = parseAndFormat(acter.Activity.startAt, displayFormat)
+  //@ts-ignore
+  const endAt = parseAndFormat(acter.Activity.endAt, displayFormat)
 
   const getUrl = (url) => {
     if (!url) {

@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react'
-import moment from 'moment'
 import { withFormik } from 'storybook-formik'
 import {
   ActivityForm,
@@ -51,10 +50,10 @@ export default {
         organiserActerId: '',
         isOnline: false,
         isAllDay: false,
-        startDate: moment(),
-        startTime: moment(),
-        endDate: moment(),
-        endTime: moment(),
+        startDate: new Date(),
+        startTime: new Date(),
+        endDate: new Date(),
+        endTime: new Date(),
       } as ActivityFormValues,
     },
   },
