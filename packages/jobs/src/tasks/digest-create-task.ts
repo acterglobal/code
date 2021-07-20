@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 import prisma from '@acter/lib/prisma'
+import slugify from 'slugify'
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
 } from '@acter/schema/types'
 import { digestCreateQueue } from '../workers/digest-create-worker'
 
-export const digestCreateWorker = async () => {
-  console.log('Started looking for users:')
+export const digestCreateWorker = async (): Promise<void> => {
   const digestUsers = await prisma.user.findMany({
     include: {
       Acter: true,
@@ -20,12 +20,18 @@ export const digestCreateWorker = async () => {
     },
   })
 
-  console.log('Found the following users:')
-  console.log(digestUsers)
+  console.log(
+    `[digestCreateWorker] found ${digestUsers.length} users for whom we will create digest emails`
+  )
 
-  digestUsers.forEach((user) => {
-    digestCreateQueue.add(`create_digest_${user.id}`, { user })
-  })
+  await Promise.all(
+    digestUsers.map(async (user) => {
+      const slug = slugify(
+        ['create_digest', user.id, new Date().toISOString()].join('_')
+      )
+      return await digestCreateQueue.add(slug, { user })
+    })
+  )
 
   process.exit(0)
 }

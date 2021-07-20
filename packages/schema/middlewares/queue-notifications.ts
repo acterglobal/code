@@ -1,11 +1,6 @@
 import { MiddlewareFn } from 'type-graphql'
-import { Queue } from 'bullmq'
-import {
-  NOTIFICATIONS_QUEUE,
-  NotificationQueueType,
-} from '@acter/lib/constants'
-
-const notificationQueue = new Queue(NOTIFICATIONS_QUEUE)
+import { NotificationQueueType } from '@acter/lib/constants'
+import { notificationQueue } from '@acter/jobs/src/workers/notification-create-worker'
 
 export const queueNotificationsMiddleware =
   (type: NotificationQueueType): MiddlewareFn =>
@@ -19,5 +14,8 @@ export const queueNotificationsMiddleware =
 
     console.log('Adding to notification queue', type, result)
 
-    notificationQueue.add(type, result)
+    notificationQueue.add(
+      `create_notifications_for_${NotificationQueueType.NEW_POST}_${result.id}`,
+      result
+    )
   }

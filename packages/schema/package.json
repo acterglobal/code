@@ -14,9 +14,9 @@
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "dependencies": {
+    "@acter/jobs": "workspace:packages/jobs",
     "@auth0/nextjs-auth0": "^1.4.2",
     "@prisma/client": "^2.26.0",
-    "bull": "^3.22.10",
     "env-cmd": "^10.1.0",
     "fp-ts": "^2.10.5",
     "graphql-fields": "^2.0.3",

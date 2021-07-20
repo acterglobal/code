@@ -1,9 +1,14 @@
 import 'reflect-metadata'
 import { Job, Queue, Worker } from 'bullmq'
-import { sub } from 'date-fns'
+import { format, sub } from 'date-fns'
 import prisma from '@acter/lib/prisma'
-import { DIGEST_CREATE_QUEUE } from '@acter/lib/constants'
+import {
+  DATE_FORMAT_NO_TIME,
+  DIGEST_CREATE_QUEUE,
+  TIME_FORMAT_SHORT,
+} from '@acter/lib/constants'
 import { User } from '@acter/schema/types'
+import { emailSendQueue } from './email-send-worker'
 
 export interface DigestCreateJob {
   user: User
@@ -15,7 +20,7 @@ export const digestCreateWorker = new Worker(
   DIGEST_CREATE_QUEUE,
   async (job: Job<DigestCreateJob>) => {
     const now = new Date()
-    const posts = await prisma.user.findMany({
+    const userPosts = await prisma.user.findMany({
       where: {
         id: job.data.user.id,
       },
@@ -27,6 +32,9 @@ export const digestCreateWorker = new Worker(
                 Following: {
                   include: {
                     AttachedPosts: {
+                      include: {
+                        Author: true,
+                      },
                       where: {
                         createdAt: {
                           gt: sub(now, { days: 1 }),
@@ -42,13 +50,32 @@ export const digestCreateWorker = new Worker(
       },
     })
 
-    console.log('Posts from which we create a digest')
-    posts.forEach((user) => {
-      user.Acter.Following.forEach((Following) => {
-        Following.Following.AttachedPosts.forEach((post) => {
-          console.log(post)
-        })
-      })
+    const posts = userPosts.reduce(
+      (memo, user) => [
+        ...memo,
+        ...user.Acter.Following.reduce(
+          (memo2, { Following: { AttachedPosts } }) => [
+            ...memo2,
+            ...AttachedPosts.map(
+              (post) =>
+                `At ${format(post.createdAt, TIME_FORMAT_SHORT)} ${
+                  post.Author.name
+                } said: ${post.content}`
+            ),
+          ],
+          []
+        ),
+      ],
+      []
+    )
+
+    await emailSendQueue.add(`send_digest_${job.data.user.id}`, {
+      to: job.data.user.email,
+      subject: `Daily notification digest from Acter for ${format(
+        new Date(),
+        DATE_FORMAT_NO_TIME
+      )}`,
+      content: posts.join('\n'),
     })
   },
   { concurrency: 50 }

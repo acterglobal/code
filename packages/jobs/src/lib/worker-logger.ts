@@ -2,10 +2,10 @@ import { Worker } from 'bullmq'
 
 export const workerLogger = (worker: Worker, name?: string): void => {
   const log = (message: any, ...optionalParams: any[]) =>
-    console.log(`[${name}] ${message}`, ...optionalParams)
+    console.log(`[${name}-worker] ${message}`, ...optionalParams)
 
   const error = (message: any, ...optionalParams: any[]) =>
-    console.error(`[${name}] ${message}`, ...optionalParams)
+    console.error(`[${name}-worker] ${message}`, ...optionalParams)
 
   worker.on('drained', () =>
     log(`No (more) jobs for worker to complete. Ready...`)

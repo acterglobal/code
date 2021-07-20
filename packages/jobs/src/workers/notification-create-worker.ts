@@ -4,7 +4,6 @@ import prisma from '@acter/lib/prisma'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import {
   ActerTypes,
-  EMAIL_OUTBOX_QUEUE,
   NOTIFICATIONS_QUEUE,
   NotificationJobState,
   NotificationQueueType,
@@ -16,9 +15,9 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
-import { NotificationEmail } from './email-send-worker'
+import { emailSendQueue } from './email-send-worker'
 
-const emailOutboxQueue = new Queue(EMAIL_OUTBOX_QUEUE)
+export const notificationQueue = new Queue<Post>(NOTIFICATIONS_QUEUE)
 
 export const notificationCreateWorker = new Worker(
   NOTIFICATIONS_QUEUE,
@@ -107,12 +106,11 @@ export const notificationCreateWorker = new Worker(
               'forum'
             )}`,
           }
-          const data: NotificationEmail = {
+          // Add it to the email outbox queue
+          emailSendQueue.add(NotificationQueueType.SEND_EMAIL, {
             ...email,
             notification,
-          }
-          // Add it to the email outbox queue
-          emailOutboxQueue.add(NotificationQueueType.SEND_EMAIL, data)
+          })
         }
         return notification
       })

@@ -100,10 +100,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@acter/schema@workspace:packages/schema"
   dependencies:
+    "@acter/jobs": "workspace:packages/jobs"
     "@auth0/nextjs-auth0": ^1.4.2
     "@prisma/client": ^2.26.0
     "@types/bull": ^3.15.2
-    bull: ^3.22.10
     env-cmd: ^10.1.0
     fp-ts: ^2.10.5
     graphql-fields: ^2.0.3
@@ -9797,24 +9797,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:^3.22.10":
-  version: 3.26.0
-  resolution: "bull@npm:3.26.0"
-  dependencies:
-    cron-parser: ^2.13.0
-    debuglog: ^1.0.0
-    get-port: ^5.1.1
-    ioredis: ^4.27.0
-    lodash: ^4.17.21
-    p-timeout: ^3.2.0
-    promise.prototype.finally: ^3.1.2
-    semver: ^7.3.2
-    util.promisify: ^1.0.1
-    uuid: ^8.3.0
-  checksum: d8c0ec592fd8ac24a76aa70d0a9b92eee1b7327ab2730ad0a856c51b71fe333d0203efe11ada28f5bb175b7956f3dd39769bf89debb27f38a41059b0934f6e87
-  languageName: node
-  linkType: hard
-
 "bullmq@npm:^1.37.1":
   version: 1.39.3
   resolution: "bullmq@npm:1.39.3"
@@ -10987,7 +10969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cron-parser@npm:^2.13.0, cron-parser@npm:^2.7.3":
+"cron-parser@npm:^2.7.3":
   version: 2.18.0
   resolution: "cron-parser@npm:2.18.0"
   dependencies:
@@ -11367,13 +11349,6 @@ __metadata:
   dependencies:
     ms: ^2.1.1
   checksum: 9fc1277e666db3af31df89e9e41f5c83da6e9de56d4a95b37e095d47ba1958238b8c7b49d4327b516465d46b6340bee723a97a7b2f28c5c7563f8b0a8fc9458a
-  languageName: node
-  linkType: hard
-
-"debuglog@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "debuglog@npm:1.0.1"
-  checksum: 570fab098ed51463ff103d5dc988dfc92520ac5137c7d9d0d334a2a91aee61d3923e2c5b0dff61e2478024d2892b0ef67ef7a54789e535bc162e0b54aa8f1939
   languageName: node
   linkType: hard
 
@@ -15132,7 +15107,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.27.0, ioredis@npm:^4.27.5":
+"ioredis@npm:^4.27.5":
   version: 4.27.6
   resolution: "ioredis@npm:4.27.6"
   dependencies:
@@ -18944,7 +18919,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"p-timeout@npm:^3.1.0, p-timeout@npm:^3.2.0":
+"p-timeout@npm:^3.1.0":
   version: 3.2.0
   resolution: "p-timeout@npm:3.2.0"
   dependencies:
@@ -19802,7 +19777,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"promise.prototype.finally@npm:^3.1.0, promise.prototype.finally@npm:^3.1.2":
+"promise.prototype.finally@npm:^3.1.0":
   version: 3.1.2
   resolution: "promise.prototype.finally@npm:3.1.2"
   dependencies:
@@ -24042,7 +24017,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"util.promisify@npm:^1.0.0, util.promisify@npm:^1.0.1":
+"util.promisify@npm:^1.0.0":
   version: 1.1.1
   resolution: "util.promisify@npm:1.1.1"
   dependencies:
