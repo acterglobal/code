@@ -45,7 +45,7 @@ export const useUser = (): [User, UseUserQueryResult] => {
   })
 
   useEffect(() => {
-    setLoading(userLoading && dataLoading)
+    setLoading(userLoading || dataLoading)
   }, [userLoading, dataLoading])
 
   useEffect(() => {
