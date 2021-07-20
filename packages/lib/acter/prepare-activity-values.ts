@@ -1,12 +1,21 @@
-import { pipe } from 'ramda'
-import { Moment } from 'moment'
+import {
+  getYear,
+  getMonth,
+  getDate,
+  getHours,
+  getMinutes,
+  getSeconds,
+  minutesToHours,
+  isValid,
+} from 'date-fns'
+import { pipe } from 'fp-ts/function'
 import { Activity } from '@acter/schema/types'
 
 export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
-  startDate?: Moment
-  startTime?: Moment
-  endDate?: Moment
-  endTime?: Moment
+  startDate?: Date
+  startTime?: Date
+  endDate?: Date
+  endTime?: Date
   isOnline?: string | boolean
 }
 
@@ -22,10 +31,11 @@ export const prepareActivityValues = (
   formData: ActivityFormData
 ): ActivityFormData => {
   return pipe(
+    formData,
     _setStartAndEndTime,
     _removeSeparateDateAndTime,
     _setIsOnline
-  )(formData)
+  )
 }
 
 export const _setStartAndEndTime = (
@@ -38,17 +48,25 @@ export const _setTimeOnDate = (
   formData: ActivityFormData,
   dateTimeType: DateTimeType
 ): ActivityFormData => {
-  const date = formData[`${dateTimeType}Date`] as Moment
-  const time = formData[`${dateTimeType}Time`] as Moment
+  const date = formData[`${dateTimeType}Date`] as Date
+  const time = formData[`${dateTimeType}Time`] as Date
 
-  if (date && time && date.isValid() && time.isValid()) {
+  if (date && time && isValid(date) && isValid(time)) {
+    const year = getYear(date)
+    const month = getMonth(date)
+    const day = getDate(date)
+    // Make sure we're not doing a funny offset with summer/standard time differences
+    const hours =
+      getHours(time) +
+      minutesToHours(date.getTimezoneOffset() - time.getTimezoneOffset())
+    const minutes = getMinutes(time)
+    const seconds = getSeconds(time)
+    const datetime = new Date(
+      Date.UTC(year, month, day, hours, minutes, seconds)
+    )
     return {
       ...formData,
-      [`${dateTimeType}At`]: date
-        .hour(time.hour())
-        .minute(time.minute())
-        .second(time.second())
-        .toDate(),
+      [`${dateTimeType}At`]: datetime,
     }
   }
 
