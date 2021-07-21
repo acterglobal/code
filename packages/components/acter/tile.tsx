@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
 import { Box, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -106,13 +105,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1),
     },
     typeAndLocation: {
-      color: grey[700],
+      color: theme.colors.grey.dark,
       fontWeight: theme.typography.fontWeightLight,
       fontSize: 13,
       textTransform: 'capitalize',
     },
     title: {
-      color: grey[700],
+      color: theme.colors.grey.dark,
       fontWeight: theme.typography.fontWeightMedium,
       marginBottom: 0,
       lineHeight: 1,
@@ -124,7 +123,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'flex-end',
     },
     description: {
-      color: grey[800],
+      color: theme.colors.black,
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 2,
@@ -133,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '80%',
     },
     viewMore: {
-      color: 'black',
+      color: theme.colors.black,
       '&:hover': {
         textDecoration: 'underline',
       },

@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core'
 import { Switch } from '@acter/components/styled/switch'
 import { SearchType } from '@acter/lib/constants'
-import { activityTypeColors } from '@acter/components/themes/colors'
 import { Size } from '@acter/lib/constants'
 import { remove } from 'lodash'
 
@@ -27,7 +26,8 @@ export const Type: FC<TypeProps> = ({
   filterSubTypes,
   onChange,
 }) => {
-  const classes = useStyles()
+  const type: string = subTypeName
+  const classes = useStyles({ type })
 
   const handleChange = () => {
     const newFilterSubTypes = [...filterSubTypes]
@@ -44,7 +44,7 @@ export const Type: FC<TypeProps> = ({
     <Box className={classes.root}>
       <Box className={classes.type}>
         {activeTab === SearchType.ACTIVITIES && (
-          <ActivityTypeIcon activityType={subTypeName} />
+          <Box className={classes.icon}></Box>
         )}
         <Typography className={classes.typeName} variant="body2">
           {subTypeName}s
@@ -57,16 +57,6 @@ export const Type: FC<TypeProps> = ({
         onChange={handleChange}
       />
     </Box>
-  )
-}
-
-const ActivityTypeIcon = ({ activityType }) => {
-  const classes = useStyles()
-  return (
-    <Box
-      className={classes.icon}
-      style={{ backgroundColor: activityTypeColors[activityType] }}
-    ></Box>
   )
 }
 
@@ -92,7 +82,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 12,
       width: 12,
       borderRadius: '50%',
-      backgroundColor: 'white',
+      backgroundColor: ({ type }: { type: string }) =>
+        type && theme.colors.activityTypes[type],
     },
   })
 )

@@ -1,49 +1,94 @@
-import colorString from 'color-string'
-import { ActivityTypes } from '@acter/lib/constants'
+import { CSSProperties } from 'react'
 
-type rgbColor = [number, number, number, number]
-type rgbColorMap = Record<string, rgbColor>
+type Color = CSSProperties['color']
 
-const _activityTypeColors: rgbColorMap = {
-  event: [0, 171, 142, 1],
-  project: [30, 176, 1, 1],
-  idea: [249, 186, 57, 1],
-  meeting: [213, 213, 213, 1],
+type Grey = {
+  extraLight: Color
+  light: Color
+  main: Color
+  dark: Color
 }
 
-type ActivityTypeColorMap = Record<ActivityTypes, string>
-export const activityTypeColors: ActivityTypeColorMap = Object.keys(
-  _activityTypeColors
-).reduce(
-  (prev, type) => ({
-    ...prev,
-    [type]: colorString.to.rgb(_activityTypeColors[type]),
-  }),
-  ({} as unknown) as ActivityTypeColorMap
-)
-
-const backgroundOpacity = 0.2
-export const activityTypeBackgroundColors: ActivityTypeColorMap = Object.keys(
-  _activityTypeColors
-).reduce(
-  (prev, type) => ({
-    ...prev,
-    [type]: colorString.to.rgb([
-      ..._activityTypeColors[type].slice(0, -1),
-      backgroundOpacity,
-    ]),
-  }),
-  ({} as unknown) as ActivityTypeColorMap
-)
-
-export const interestColors = {
-  Economy: 'rgb(248, 186, 0)',
-  Environment: 'rgb(29, 177, 0)',
-  Social: 'rgb(255, 100, 78)',
-  Approach: 'rgb(84, 85, 89)',
-  Focus: 'black',
-  Tags: 'black',
+type ActivityTypes = {
+  event: Color
+  project: Color
+  idea: Color
+  meeting: Color
+  dark: {
+    event: Color
+    project: Color
+    idea: Color
+    meeting: Color
+  }
 }
 
-export const disabledColor = '#b5b5b5'
-export const menuActiveTabColor = 'rgba(196, 196, 196, 0.18)'
+type InterestTypes = {
+  Economy: Color
+  Environment: Color
+  Social: Color
+  Approach: Color
+  Focus: Color
+  Tags: Color
+}
+
+type Others = {
+  searchTab: Color
+}
+
+export type Colors = {
+  black: Color
+  grey: Grey
+  white: Color
+  activityTypes: ActivityTypes
+  interestTypes: InterestTypes
+  others: Others
+}
+
+export const paletteColors = {
+  primary: {
+    main: '#1EB001',
+  },
+  secondary: {
+    main: '#545559',
+    dark: '#2A2A2A',
+    light: '#D5D5D5',
+    contrastText: '#D5D5D5',
+  },
+  background: {
+    default: '#EEEDF0',
+  },
+}
+
+export const colors: Colors = {
+  black: '#000',
+  white: '#fff',
+  grey: {
+    extraLight: '#F2F2F2',
+    light: '#D9D9D9',
+    main: '#929292',
+    dark: '#5E5E5E',
+  },
+  activityTypes: {
+    event: '#A3DAFF',
+    project: '#8ED77F',
+    idea: '#FED990',
+    meeting: '#D5D5D5',
+    dark: {
+      event: '#4287f5',
+      project: '#25cc04',
+      idea: '#ffab03',
+      meeting: '#D5D5D5',
+    },
+  },
+  interestTypes: {
+    Economy: '#F8BA00',
+    Environment: '#1DB100',
+    Social: '#FF644E',
+    Approach: '#545559',
+    Focus: '#000',
+    Tags: '#000',
+  },
+  others: {
+    searchTab: 'rgba(196, 196, 196, 0.18)',
+  },
+}

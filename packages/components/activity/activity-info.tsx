@@ -3,22 +3,22 @@ import moment from 'moment'
 import {
   Computer,
   LocationOnOutlined,
-  Event as CalanderIcon,
+  Event as CalenderIcon,
 } from '@material-ui/icons'
 import { Box, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
 import { capitalize } from 'lodash'
 
 export type ActivityInfoProps = ConnectProps
 
 export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   const { acter } = props
-  const classes = useStyles()
+  const activityTypeName = acter.Activity.ActivityType.name
+  const classes = useStyles({ activityTypeName })
 
   const format = acter.Activity.isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT
 
@@ -40,7 +40,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   return (
     <Box className={classes.activityInfo}>
       <Box className={classes.dateContainer}>
-        <CalanderIcon className={classes.calanderIcon} />
+        <CalenderIcon className={classes.calenderIcon} />
         <Typography className={classes.date} variant="subtitle1">
           {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
         </Typography>
@@ -50,13 +50,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           <Typography className={classes.title} variant="h3">
             {capitalize(acter.name)}
           </Typography>
-          <Box
-            className={classes.activityType}
-            style={{
-              backgroundColor:
-                activityTypeBackgroundColors[acter.Activity.ActivityType.name],
-            }}
-          >
+          <Box className={classes.activityType}>
             {acter.Activity.ActivityType.name}
           </Box>
         </Box>
@@ -104,9 +98,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   dateContainer: {
     display: 'flex',
     alignItems: 'center',
-    color: green[500],
+    color: theme.palette.primary.main,
   },
-  calanderIcon: {
+  calenderIcon: {
     fontSize: '1.3rem',
     marginRight: 5,
     [theme.breakpoints.down('xs')]: {
@@ -141,6 +135,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: theme.typography.fontWeightLight,
     textTransform: 'capitalize',
     borderRadius: 5,
+    backgroundColor: ({ activityTypeName }: { activityTypeName: string }) =>
+      theme.colors.activityTypes[activityTypeName],
   },
   computerIcon: {
     fontSize: '1.3rem',
@@ -154,7 +150,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   locationContainer: {
     display: 'flex',
     alignItems: 'center',
-    color: grey[800],
   },
   location: {
     fontSize: '0.9rem',

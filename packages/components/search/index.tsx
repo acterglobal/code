@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 import { SearchBar } from '@acter/components/search/search-bar'
 import { FilterTabs } from '@acter/components/search/filter-tabs'
 import {
@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     results: {
-      color: grey[800],
+      color: theme.palette.secondary.main,
       flexGrow: 1,
     },
     searchInput: {

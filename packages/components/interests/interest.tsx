@@ -4,12 +4,10 @@ import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
-import { disabledColor, interestColors } from '@acter/components/themes/colors'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     chip: {
-      //   margin: 3,
       margin: theme.spacing(0.2),
       width: theme.spacing(23),
       height: theme.spacing(3),
@@ -23,25 +21,26 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     // TODO: refactor to use InterestType-specific classes
     outline: {
-      borderColor: ({ type }: { type: string }) => interestColors[type],
-      color: ({ type }: { type: string }) => interestColors[type],
+      borderColor: ({ type }: { type: string }) =>
+        theme.colors.interestTypes[type],
+      color: ({ type }: { type: string }) => theme.colors.interestTypes[type],
     },
     selected: {
       border: ({ type }: { type: string }) =>
         type === 'Tags' ? '1px solid' : 'none',
 
       borderColor: ({ type }: { type: string }) =>
-        type === 'Tags' && interestColors[type],
+        type === 'Tags' && theme.colors.interestTypes[type],
 
       backgroundColor: ({ type }: { type: string }) =>
-        type !== 'Tags' ? interestColors[type] : '',
+        type !== 'Tags' ? theme.colors.interestTypes[type] : '',
 
       color: ({ type }: { type: string }) =>
-        type === 'Tags' ? interestColors[type] : 'white',
+        type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
     },
     disable: {
-      color: disabledColor,
-      borderColor: disabledColor,
+      color: theme.colors.grey.main,
+      borderColor: theme.colors.grey.main,
       cursor: 'default',
     },
     name: {

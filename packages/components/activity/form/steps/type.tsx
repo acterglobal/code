@@ -10,11 +10,9 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { activityTypeColors } from '@acter/components/themes/colors'
 import { NavigateNextOutlined } from '@material-ui/icons'
 
 import { ActivityType } from '@acter/schema/types'
-import { grey } from '@material-ui/core/colors'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]
@@ -69,18 +67,17 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 14,
       },
     },
-    // TODO: move these to the theme
     event: {
-      color: activityTypeColors.event,
+      color: theme.colors.activityTypes.dark.event,
     },
     project: {
-      color: activityTypeColors.project,
+      color: theme.colors.activityTypes.dark.project,
     },
     idea: {
-      color: activityTypeColors.idea,
+      color: theme.colors.activityTypes.dark.idea,
     },
     meeting: {
-      color: grey[700],
+      color: theme.colors.grey.dark,
     },
   })
 )

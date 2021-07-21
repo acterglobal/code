@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Button } from '@material-ui/core'
-import { green, grey } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     minWidth: 120,
     borderRadius: theme.spacing(3),
     marginRight: theme.spacing(1),
-    color: grey[600],
+    color: theme.palette.secondary.main,
     backgroundColor: 'white',
     textTransform: 'capitalize',
     fontSize: '0.7rem',

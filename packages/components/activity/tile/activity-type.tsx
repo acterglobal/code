@@ -7,21 +7,15 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { activityTypeBackgroundColors } from '@acter/components/themes/colors'
 
 type ActivityTypeProps = ActivityTileProps
 
 export const ActivityType: FC<ActivityTypeProps> = ({ activity }) => {
-  const classes = useStyles()
+  const type: string = activity.ActivityType.name
+  const classes = useStyles({ type })
 
   return (
-    <Box
-      className={classes.activityType}
-      style={{
-        backgroundColor:
-          activityTypeBackgroundColors[activity.ActivityType.name],
-      }}
-    >
+    <Box className={classes.activityType}>
       <Typography
         aria-label="activity-type"
         variant="caption"
@@ -43,6 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       textTransform: 'capitalize',
       paddingTop: theme.spacing(0.5),
+      backgroundColor: ({ type }: { type: string }) =>
+        theme.colors.activityTypes[type],
     },
     typeName: {
       fontSize: '0.7rem',

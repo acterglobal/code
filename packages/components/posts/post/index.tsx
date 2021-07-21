@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Post as PostType, User } from '@acter/schema/types'
 import clsx from 'clsx'
@@ -78,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1.2),
     },
     comment: {
-      backgroundColor: grey[200],
+      backgroundColor: theme.colors.grey.extraLight,
       borderRadius: theme.spacing(1),
       marginBottom: theme.spacing(1.3),
       padding: theme.spacing(1),

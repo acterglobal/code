@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { DoneRounded as SelectedIcon } from '@material-ui/icons'
-import { grey } from '@material-ui/core/colors'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { Popover } from '@acter/components/util/popover'
 
@@ -63,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       fontSize: 20,
-      color: grey[800],
+      color: theme.colors.grey.dark,
     },
   })
 )

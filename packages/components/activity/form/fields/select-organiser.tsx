@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { Box, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 import { ActerAvatar } from '@acter/components/acter/avatar'
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: theme.spacing(4),
   },
   name: {
-    color: grey[800],
+    color: theme.palette.secondary.main,
     fontSize: '0.9rem',
     fontWeight: theme.typography.fontWeightBold,
     marginLeft: 10,

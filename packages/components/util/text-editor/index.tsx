@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import dynamic from 'next/dynamic'
@@ -107,12 +106,12 @@ export const TextEditor: FC<TextEditorProps> = ({
   )
 }
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
       border: '1px solid',
       borderColor: ({ borderStyles }: stylesProp) =>
-        borderStyles?.color || grey[400],
+        borderStyles?.color || theme.colors.grey.main,
       borderRadius: ({ borderStyles }: stylesProp) => borderStyles?.radius || 4,
       width: ({ size }: stylesProp) => size.width || '100%',
       minHeight: ({ size }: stylesProp) => size.height,
@@ -121,7 +120,7 @@ const useStyles = makeStyles(
       },
     },
     toolBar: {
-      backgroundColor: grey[200],
+      backgroundColor: theme.colors.grey.extraLight,
       marginBottom: 0,
       borderTopLeftRadius: ({ borderStyles }: stylesProp) =>
         borderStyles?.radius || 4,

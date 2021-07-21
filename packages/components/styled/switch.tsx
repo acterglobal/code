@@ -48,7 +48,7 @@ const MediumSwitch = withStyles((theme: Theme) =>
     },
     switchBase: {
       padding: 2.5,
-      color: theme.palette.grey[500],
+      color: theme.colors.grey.main,
       '&$checked': {
         transform: 'translateX(24px)',
         color: theme.palette.common.white,
@@ -65,7 +65,7 @@ const MediumSwitch = withStyles((theme: Theme) =>
       boxShadow: 'none',
     },
     track: {
-      border: `1px solid ${theme.palette.grey[500]}`,
+      border: `1px solid ${theme.colors.grey.main}`,
       borderRadius: 26 / 2,
       opacity: 1,
       backgroundColor: theme.palette.common.white,
@@ -84,7 +84,7 @@ const SmallSwitch = withStyles((theme: Theme) =>
     },
     switchBase: {
       padding: 2,
-      color: theme.palette.grey[500],
+      color: theme.colors.grey.dark,
       '&$checked': {
         transform: 'translateX(12px)',
         color: theme.palette.common.white,
@@ -101,7 +101,7 @@ const SmallSwitch = withStyles((theme: Theme) =>
       boxShadow: 'none',
     },
     track: {
-      border: `1px solid ${theme.palette.grey[500]}`,
+      border: `1px solid ${theme.colors.grey.dark}`,
       borderRadius: 16 / 2,
       opacity: 1,
       backgroundColor: theme.palette.common.white,

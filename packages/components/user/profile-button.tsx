@@ -16,19 +16,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       borderRadius: theme.spacing(10),
-      borderColor: theme.palette.grey[600],
+      borderColor: theme.palette.secondary.main,
       borderSize: 1,
       borderStyle: 'solid',
       height: 40,
     },
     text: {
       fontSize: theme.typography.fontSize * 1.1,
-      color: theme.palette.grey[700],
+      color: theme.colors.grey.dark,
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
     downIcon: {
-      color: theme.palette.grey[500],
+      color: theme.colors.grey.main,
     },
   })
 )

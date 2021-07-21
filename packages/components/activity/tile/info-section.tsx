@@ -9,7 +9,6 @@ import {
   Typography,
 } from '@material-ui/core'
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
-import { grey } from '@material-ui/core/colors'
 
 type InfoSectionProps = ActivityTileProps
 
@@ -72,13 +71,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     location: {
       fontSize: theme.spacing(1.3),
-      color: grey[500],
+      color: theme.colors.grey.main,
       fontWeight: theme.typography.fontWeightBold,
       overflow: 'scroll',
     },
     organiser: {
       fontSize: theme.spacing(1.1),
-      color: grey[500],
+      color: theme.colors.grey.main,
       fontWeight: theme.typography.fontWeightBold,
     },
   })

@@ -1,30 +1,23 @@
 import React, { FC } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
-import '@acter/components/themes/fonts'
+import { typography } from '@acter/components/themes/fonts'
+import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
+declare module '@material-ui/core/styles/createMuiTheme' {
+  interface Theme {
+    colors: Colors
+  }
+  interface ThemeOptions {
+    colors: Colors
+  }
+}
 
 export const theme = createMuiTheme({
-  palette: {
-    primary: green,
-    secondary: {
-      main: '#545559',
-      dark: '#2A2A2A',
-      light: '#D5D5D5',
-      contrastText: '#D5D5D5',
-    },
-    background: {
-      default: '#EEEDF0',
-    },
-  },
+  palette: paletteColors,
 
-  typography: {
-    fontFamily: 'Montserrat',
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
-    fontWeightBold: 700,
-  },
+  colors: colors,
+
+  typography: typography,
 
   props: {
     /* disable elevation for buttons  */

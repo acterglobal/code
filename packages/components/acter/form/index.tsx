@@ -19,7 +19,6 @@ import {
 import { Button, ButtonsContainer } from '@acter/components/styled'
 import { Acter, ActerType, InterestType } from '@acter/schema/types'
 import { useRouter } from 'next/router'
-import { grey } from '@material-ui/core/colors'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { Stepper } from '@acter/components/util/stepper'
@@ -151,8 +150,6 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       width: 650,
       minHeight: 600,
-      borderTop: '1px solid',
-      borderTopColor: grey[300],
       padding: 20,
       paddingBottom: 0,
       [theme.breakpoints.down('xs')]: {

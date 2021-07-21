@@ -4,7 +4,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Form, Formik } from 'formik'
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
 import { InterestType } from '@acter/schema/types'
-import { grey } from '@material-ui/core/colors'
 import { Popover } from '@acter/components/util/popover'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 
@@ -99,14 +98,14 @@ const useStyles = makeStyles((theme: Theme) =>
     btnsContainer: {
       marginTop: theme.spacing(1),
       borderTop: '1px solid',
-      borderTopColor: grey[500],
+      borderTopColor: theme.colors.grey.main,
       padding: theme.spacing(1),
       display: 'flex',
       justifyContent: 'space-between',
     },
     clear: {
       textTransform: 'capitalize',
-      color: grey[800],
+      color: theme.colors.grey.dark,
       fontWeight: theme.typography.fontWeightBold,
     },
     save: {

@@ -3,7 +3,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { User } from '@acter/schema/types'
-import { grey } from '@material-ui/core/colors'
 import {
   PostForm,
   PostFormProps,
@@ -92,22 +91,22 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1.5),
       width: '100%',
       height: 40,
-      borderColor: grey[500],
+      borderColor: theme.colors.grey.main,
       borderRadius: theme.spacing(1),
       border: '1px solid',
       outline: 'none',
       fontFamily: theme.typography.fontFamily,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: 11,
-      color: grey[500],
+      color: theme.colors.grey.main,
     },
     commentField: {
       border: 'none',
       height: theme.spacing(4.5),
       padding: theme.spacing(1.3),
       paddingLeft: theme.spacing(1.5),
-      backgroundColor: grey[200],
-      color: grey[600],
+      backgroundColor: theme.colors.grey.extraLight,
+      color: theme.palette.secondary.main,
     },
   })
 )
