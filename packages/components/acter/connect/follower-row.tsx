@@ -6,8 +6,6 @@ import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
 import { ConnectProps } from '@acter/components/acter/connect'
 import { Acter, ActerConnectionRole } from '@acter/schema/types'
-import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
-import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
   follower: Acter
@@ -24,13 +22,6 @@ export const FollowerRow: FC<FollowerRowProps> = ({
   const [onClick, setOnClick] = useState(noop)
 
   const connection = getActerConnection(acter, follower)
-
-  // const [onJoin, { loading: creatingConnection }] = useCreateActerConnection(
-  //   acter
-  // )
-  // const [onLeave, { loading: deletingConnection }] = useDeleteActerConnection(
-  //   acter
-  // )
 
   useEffect(() => {
     if (loading) {
