@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { grey } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
