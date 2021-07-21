@@ -46,7 +46,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   if (!acter) return null
   const classes = useStyles()
 
-  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   return (
