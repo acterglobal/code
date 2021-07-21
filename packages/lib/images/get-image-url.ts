@@ -7,4 +7,4 @@
  */
 
 export const getImageUrl = (imageName: string, imageType: string): string =>
-  imageName || `assets/default-${imageType}.png`
+  imageName || `assets/default-${imageType}-2.png`
