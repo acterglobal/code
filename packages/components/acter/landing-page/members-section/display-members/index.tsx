@@ -1,24 +1,12 @@
 import React, { FC } from 'react'
 import pluralize from 'pluralize'
-import {
-  Box,
-  Divider,
-  Typography,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemSecondaryAction,
-} from '@material-ui/core'
+import { Box, Divider, Typography, List } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerAvatar } from '@acter/components/acter/avatar'
-import {
-  ConnectionState,
-  ConnectionStateProps,
-} from '@acter/components/acter/landing-page/members-section/connection-state'
+import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
+import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/DisplayMemberItem'
 import {
   Acter,
   ActerConnection,
@@ -85,69 +73,27 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
           if (isOrganisation) {
             return (
               <Link href={`${acterAsUrl(Follower)}`}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <ActerAvatar acter={Follower} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    classes={{
-                      primary: classes.name,
-                      secondary: classes.acterType,
-                    }}
-                    className={classes.memberInfo}
-                    primary={Follower.name}
-                    secondary={Follower.ActerType.name}
-                  />
-                  {showJoinState && (
-                    <ListItemSecondaryAction>
-                      <ConnectionState
-                        connection={connection}
-                        canEdit={canEdit && Follower.id !== user.Acter.id}
-                        onSubmit={onConnectionStateChange}
-                      />
-                    </ListItemSecondaryAction>
-                  )}
-                </ListItem>
-                <Divider
-                  classes={{ root: classes.divider }}
-                  variant="inset"
-                  component="li"
+                <DisplayMemberItem
+                  user={user}
+                  Follower={Follower}
+                  connection={connection}
+                  showJoinState={showJoinState}
+                  canEdit={canEdit}
+                  onConnectionStateChange={onConnectionStateChange}
                 />
               </Link>
             )
           }
 
           return (
-            <>
-              <ListItem>
-                <ListItemAvatar>
-                  <ActerAvatar acter={Follower} />
-                </ListItemAvatar>
-                <ListItemText
-                  classes={{
-                    primary: classes.name,
-                    secondary: classes.acterType,
-                  }}
-                  className={classes.memberInfo}
-                  primary={Follower.name}
-                  secondary={Follower.ActerType.name}
-                />
-                {showJoinState && (
-                  <ListItemSecondaryAction>
-                    <ConnectionState
-                      connection={connection}
-                      canEdit={canEdit && Follower.id !== user.Acter.id}
-                      onSubmit={onConnectionStateChange}
-                    />
-                  </ListItemSecondaryAction>
-                )}
-              </ListItem>
-              <Divider
-                classes={{ root: classes.divider }}
-                variant="inset"
-                component="li"
-              />
-            </>
+            <DisplayMemberItem
+              user={user}
+              Follower={Follower}
+              connection={connection}
+              showJoinState={showJoinState}
+              canEdit={canEdit}
+              onConnectionStateChange={onConnectionStateChange}
+            />
           )
         })}
       </List>
