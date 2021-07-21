@@ -12,7 +12,10 @@ import {
 import { PostList, PostListProps } from '@acter/components/posts'
 import { ActerMenu } from '@acter/lib/constants'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
-import { LandingPageLayout, LandingPageLayoutProps } from './layout'
+import {
+  LandingPageLayout,
+  LandingPageLayoutProps,
+} from '@acter/components/acter/landing-page/layout'
 
 const { MEMBERS, FORUM } = ActerMenu
 

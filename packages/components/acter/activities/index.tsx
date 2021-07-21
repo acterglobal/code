@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
       marginLeft: theme.spacing(2),
+      width: '100%',
     },
   })
 )
