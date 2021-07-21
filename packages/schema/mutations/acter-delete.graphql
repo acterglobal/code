@@ -1,10 +1,11 @@
-mutation ActerDelete(
-  $acterId: String!
-) {
-  deleteActer(
-    acterId: $acterId
-  ) {
+#import "../fragments/acter-display.fragment.graphql"
+
+mutation ActerDelete($acterId: String!) {
+  deleteActer(acterId: $acterId) {
     id
     deletedAt
+    Parent {
+      ...ActerDisplay
+    }
   }
 }

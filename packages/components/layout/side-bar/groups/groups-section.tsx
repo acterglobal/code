@@ -38,6 +38,8 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
     (child) => child.ActerType.name === ActerTypes.GROUP
   )
 
+  const activeGroups = groups.filter((group) => group.deletedAt === null)
+
   const handleAddGroup = () => {
     setOpenModal(true)
   }
@@ -57,7 +59,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({
         )}
       </Box>
 
-      <GroupsList acters={groups} />
+      <GroupsList acters={activeGroups} />
 
       {openModal && (
         <AddGroup
