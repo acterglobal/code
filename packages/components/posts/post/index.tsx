@@ -29,7 +29,7 @@ export const Post: FC<PostsProps> = ({
     setToggleForm(!toggleForm)
   }
 
-  const handleCancel = () => {
+  const handleCancelEdit = () => {
     setToggleForm(!toggleForm)
   }
 
@@ -50,7 +50,7 @@ export const Post: FC<PostsProps> = ({
           post={post}
           parentId={parentId}
           onPostUpdate={handleSubmit}
-          onCancel={handleCancel}
+          cancelEdit={handleCancelEdit}
         />
       </Box>
     )

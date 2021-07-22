@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import { Field, Form, Formik, FormikBag } from 'formik'
-import { Button } from '@acter/components/styled'
-import clsx from 'clsx'
+import { PostButtonGroup } from '@acter/components/posts/form/post-button-group'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { Post as PostType, User } from '@acter/schema/types'
 import { grey } from '@material-ui/core/colors'
@@ -20,6 +18,7 @@ export interface PostFormProps {
   user?: User
   onPostSubmit?: (values: PostFormValues) => void
   onPostUpdate?: (values: PostFormValues) => void
+  cancelEdit?: () => void
   onCancel?: () => void
 }
 
@@ -28,6 +27,7 @@ export const PostForm: FC<PostFormProps> = ({
   post,
   onPostSubmit,
   onPostUpdate,
+  cancelEdit,
   onCancel,
 }) => {
   const classes = useStyles()
@@ -65,17 +65,13 @@ export const PostForm: FC<PostFormProps> = ({
     setClearText(false)
   }
 
-  const handleCancel = () => {
-    onCancel()
-  }
-
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
       enableReinitialize
     >
-      {({ setFieldValue, values }) => (
+      {({ setFieldValue }) => (
         <Form className={classes.form}>
           {parentId ? (
             <Field
@@ -96,34 +92,13 @@ export const PostForm: FC<PostFormProps> = ({
               editorRef={handleEditorRef}
             />
           )}
-          <Box
-            className={clsx(
-              classes.buttonContainer,
-              values.content === '' && classes.hideButton
-            )}
-          >
-            <Button
-              size="small"
-              variant={parentId ? 'outlined' : 'contained'}
-              color="primary"
-              type="submit"
-              style={{ color: parentId ? null : '#FFFFFF' }}
-            >
-              {parentId ? 'Comment' : 'Post'}
-            </Button>
-          </Box>
-          {post && (
-            <Box className={classes.buttonContainer}>
-              <Button
-                size="small"
-                variant="outlined"
-                color="primary"
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-            </Box>
-          )}
+
+          <PostButtonGroup
+            parentId={parentId}
+            post={post}
+            cancelEdit={cancelEdit}
+            onCancel={onCancel}
+          />
         </Form>
       )}
     </Formik>
@@ -152,15 +127,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: theme.typography.fontFamily,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: 11,
-    },
-    buttonContainer: {
-      marginTop: theme.spacing(1),
-      display: 'flex',
-      justifyContent: 'flex-end',
-      color: 'white',
-    },
-    hideButton: {
-      display: 'none',
     },
   })
 )

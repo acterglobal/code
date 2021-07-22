@@ -26,7 +26,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
 
-  const handleClick = () => setShowForm(true)
+  const handleClick = () => setShowForm(!showForm)
 
   const handlePostSubmit = (data: PostFormValues) => {
     setShowForm(false)
@@ -50,6 +50,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
             parentId={parentId}
             post={post}
             onPostSubmit={handlePostSubmit}
+            onCancel={handleClick}
           />
         )}
       </Box>
