@@ -44,7 +44,7 @@ export const Post: FC<PostsProps> = ({
 
   if (toggleForm) {
     return (
-      <Box className={clsx(classes.post, parentId && classes.comment)}>
+      <Box className={classes.post}>
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostForm
           post={post}
