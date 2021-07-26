@@ -6,6 +6,7 @@ import {
   getSelectedInterests,
 } from '@acter/lib/interests'
 import { InterestType, Interest } from '@acter/schema/types'
+import { Size } from '@acter/lib/constants'
 
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
@@ -37,6 +38,7 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
           </Typography>
           <InterestTypes
             type={type}
+            chipSize={Size.SMALL}
             allTypes={typesWithSelectedInterests}
             onSelectedInterestsChange={() => null}
             columns={columns}

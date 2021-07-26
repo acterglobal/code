@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
+import { Size } from '@acter/lib/constants'
 
 export interface InterestTypesProps {
   type: InterestType
@@ -20,6 +21,7 @@ export interface InterestTypesProps {
   showSubTypeTitles?: boolean
   columns?: boolean
   divider?: boolean
+  chipSize?: Size
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -34,6 +36,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   showSubTypeTitles = true,
   columns = false,
   divider: divider = false,
+  chipSize,
 }) => {
   const typeName: string = type.name
   const classes = useStyles({ typeName })
@@ -62,6 +65,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                 )
               ).length >= 5
             }
+            chipSize={chipSize}
           />
         ))}
         {type.name === 'Focus' && (
@@ -73,6 +77,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               <Interest
                 interest={type.Interests[0]}
                 type={type.name}
+                chipSize={chipSize}
                 onSelectedInterestsChange={onSelectedInterestsChange}
                 selected={
                   selectedInterests &&

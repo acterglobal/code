@@ -4,65 +4,19 @@ import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
+import { Size } from '@acter/lib/constants'
 
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    chip: {
-      margin: theme.spacing(0.2),
-      width: theme.spacing(23),
-      height: theme.spacing(3),
-      border: ({ type }: { type: string }) =>
-        type === 'Tags' ? 'none' : '1px solid',
-      borderRadius: theme.spacing(3),
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      cursor: 'pointer',
-    },
-    // TODO: refactor to use InterestType-specific classes
-    outline: {
-      borderColor: ({ type }: { type: string }) =>
-        theme.colors.interestTypes[type],
-      color: ({ type }: { type: string }) => theme.colors.interestTypes[type],
-    },
-    selected: {
-      border: ({ type }: { type: string }) =>
-        type === 'Tags' ? '1px solid' : 'none',
-
-      borderColor: ({ type }: { type: string }) =>
-        type === 'Tags' && theme.colors.interestTypes[type],
-
-      backgroundColor: ({ type }: { type: string }) =>
-        type !== 'Tags' ? theme.colors.interestTypes[type] : '',
-
-      color: ({ type }: { type: string }) =>
-        type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
-    },
-    disable: {
-      color: theme.colors.grey.main,
-      borderColor: theme.colors.grey.main,
-      cursor: 'default',
-    },
-    name: {
-      marginLeft: theme.spacing(1),
-      fontSize: '0.7rem',
-    },
-    rightSideBox: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    number: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-  })
-})
+type CustomStyles = {
+  type: string
+  size: Size
+}
 
 export interface InterestProps {
   interest: InterestType
   type: string
   selected?: boolean
   disabled?: boolean
+  chipSize?: Size
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -71,9 +25,11 @@ export const Interest: FC<InterestProps> = ({
   type,
   selected = true,
   disabled = false,
+  chipSize,
   onSelectedInterestsChange,
 }) => {
-  const classes = useStyles({ type })
+  console.log('SIZE ', chipSize)
+  const classes = useStyles({ type, size: chipSize })
 
   if (!interest) {
     return null
@@ -112,3 +68,60 @@ export const Interest: FC<InterestProps> = ({
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => {
+  return createStyles({
+    chip: {
+      margin: theme.spacing(0.2),
+      width: ({ size }: CustomStyles) =>
+        theme.spacing(size === Size.SMALL ? 18 : 23),
+      height: ({ size }: CustomStyles) =>
+        theme.spacing(size === Size.SMALL ? 2.6 : 3),
+      border: ({ type }: CustomStyles) =>
+        type === 'Tags' ? 'none' : '1px solid',
+      borderRadius: theme.spacing(3),
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      cursor: 'pointer',
+    },
+    // TODO: refactor to use InterestType-specific classes
+    outline: {
+      borderColor: ({ type }: CustomStyles) => theme.colors.interestTypes[type],
+      color: ({ type }: CustomStyles) => theme.colors.interestTypes[type],
+    },
+    selected: {
+      border: ({ type }: CustomStyles) =>
+        type === 'Tags' ? '1px solid' : 'none',
+
+      borderColor: ({ type }: CustomStyles) =>
+        type === 'Tags' && theme.colors.interestTypes[type],
+
+      backgroundColor: ({ type }: CustomStyles) =>
+        type !== 'Tags' ? theme.colors.interestTypes[type] : '',
+
+      color: ({ type }: CustomStyles) =>
+        type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
+    },
+    disable: {
+      color: theme.colors.grey.main,
+      borderColor: theme.colors.grey.main,
+      cursor: 'default',
+    },
+    name: {
+      marginLeft: theme.spacing(1),
+      fontSize: ({ size }: CustomStyles) =>
+        size === Size.SMALL ? '0.6rem' : '0.7',
+    },
+    rightSideBox: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    number: {
+      marginLeft: ({ size }: CustomStyles) =>
+        theme.spacing(size === Size.SMALL ? 0.5 : 1),
+      marginRight: ({ size }: CustomStyles) =>
+        theme.spacing(size === Size.SMALL ? 0.5 : 1),
+    },
+  })
+})
