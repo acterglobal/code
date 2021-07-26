@@ -6,7 +6,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
-import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/DisplayMemberItem'
+import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
 import {
   Acter,
   ActerConnection,

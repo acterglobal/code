@@ -15,11 +15,29 @@ import {
 import { Acter, ActerConnection, User } from '@acter/schema/types'
 
 export interface DisplayMemberItemProps {
+  /**
+   *The active/logged-in user
+   */
   user: User
+  /**
+   * The acter member we are displaying
+   */
   Follower: Acter
+  /**
+   * The connection type of the member to the acter
+   */
   connection: ActerConnection
+  /**
+   * Boolean indicating whether the member is connected to the acter
+   */
   showJoinState?: boolean
+  /**
+   * Boolean indicating whether the user can edit member details
+   */
   canEdit?: boolean
+  /**
+   * Action when Member state changes
+   */
   onConnectionStateChange: ConnectionStateProps['onSubmit']
 }
 
