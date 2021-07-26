@@ -7,11 +7,10 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { DefaultMessage } from '@acter/components/dashboard/default-message'
-import { Acter, ActerConnectionRole, Activity, User } from '@acter/schema/types'
+import { Acter, Activity, User } from '@acter/schema/types'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { AddActivityButton } from '@acter/components/activity/add-activity-button'
+import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
 
 export interface ActivitySectionProps {
   /**
@@ -76,29 +75,6 @@ export const ActivitiesSection: FC<ActivitySectionProps> = ({
       </Box>
     </>
   )
-}
-
-interface ZeroMessageProps {
-  acter: Acter
-  activities: Activity[]
-  user: User
-}
-
-const ZeroMessage: FC<ZeroMessageProps> = ({ acter, activities, user }) => {
-  if (activities.length <= 0) {
-    if (userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)) {
-      return (
-        <DefaultMessage
-          message="You have no activies."
-          redirectTo={`/activities/new?organiserActerId=${acter.id}`}
-        />
-      )
-    }
-    return (
-      <DefaultMessage message="There are no activities to show at this time" />
-    )
-  }
-  return null
 }
 
 const FormControlsContainer = withStyles(() =>

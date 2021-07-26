@@ -92,7 +92,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
                 {showJoinState && (
                   <ListItemSecondaryAction>
                     <ConnectionState
-                      acter={acter}
                       connection={connection}
                       canEdit={canEdit && Follower.id !== user.Acter.id}
                       onSubmit={onConnectionStateChange}

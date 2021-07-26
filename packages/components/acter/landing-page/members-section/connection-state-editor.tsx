@@ -10,15 +10,9 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Save, Cancel } from '@material-ui/icons'
-import {
-  Acter,
-  ActerConnection,
-  ActerConnectionRole,
-} from '@acter/schema/types'
-import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
 
 export interface ConnectionStateEditorProps {
-  acter: Acter
   connection: ActerConnection
   onSubmit: (
     connection: ActerConnection,
@@ -29,17 +23,16 @@ export interface ConnectionStateEditorProps {
 }
 
 export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
-  acter,
   connection,
   onCancel,
   onSubmit,
 }) => {
   const { Follower, role } = connection
-  const [updateActerConnection] = useUpdateActerConnection(acter)
   const initialValues = {
     role,
   }
   const handleSubmit = ({ role }) => onSubmit(connection, role)
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ dirty, values, handleChange, handleReset, submitForm }) => {
