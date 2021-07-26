@@ -40,9 +40,9 @@ export const DeleteActerPage: NextPage<DeleteActerPageProps> = ({ acter }) => {
     },
     onCompleted: (data) => {
       router.push(
-        `${acterAsUrl(
-          data.deleteActer.Parent ? data.deleteActer.Parent : '/dashboard'
-        )}/`
+        data.deleteActer.Parent
+          ? `${acterAsUrl(data.deleteActer.Parent)}`
+          : '/dashboard'
       )
       enqueueSnackbar(
         `${capitalize(acter.ActerType.name)} ${acter.name} deleted`,
