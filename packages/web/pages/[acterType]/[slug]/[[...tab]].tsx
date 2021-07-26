@@ -1,11 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { MutationFunction } from '@apollo/client'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import {
   getUserProfile,
   getActer,
@@ -18,8 +16,6 @@ import {
 import { Head } from '@acter/components/layout/head'
 import {
   Acter,
-  ActerConnection,
-  ActerConnectionRole,
   ActerType,
   InterestType,
   Post,
@@ -36,12 +32,6 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
-import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
-import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
-import ACTER_CONNECTION_FRAGMENT from '@acter/schema/fragments/acter-connection-full.fragment.graphql'
-import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import GET_USER from '@acter/schema/queries/user-by-id.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
@@ -49,41 +39,11 @@ import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
+import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
+import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
+import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 
 const { ACTIVITY, GROUP } = ActerTypes
-
-const _handleJoin = (createConnection: MutationFunction) => (
-  following: Acter,
-  follower: Acter
-) =>
-  createConnection({
-    variables: {
-      followerActerId: follower.id,
-      followingActerId: following.id,
-    },
-  })
-
-const _handleLeave = (deleteConnection: MutationFunction) => (
-  following: Acter,
-  follower: Acter
-) =>
-  deleteConnection({
-    variables: {
-      followerActerId: follower.id,
-      followingActerId: following.id,
-    },
-  })
-
-const _handleConnectionUpdate = (updateConnection: MutationFunction) => (
-  connection: ActerConnection,
-  role: ActerConnectionRole
-) =>
-  updateConnection({
-    variables: {
-      connectionId: connection.id,
-      role: role,
-    },
-  })
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 // TODO: make below to its own component
@@ -126,69 +86,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     setDisplayPostList(posts)
   }, [posts])
 
-  const writeCache = (cache) => {
-    cache.writeQuery({
-      query: GET_ACTER,
-      data: {
-        getActer: displayActer,
-      },
-    })
-    cache.writeQuery({
-      query: GET_USER,
-      data: {
-        getUser: user,
-      },
-    })
-  }
-
-  const [
-    createConnection,
-    { loading: creatingConnection },
-  ] = useNotificationMutation(CREATE_ACTER_CONNECTION, {
-    update: (cache, { data }) => {
-      acter.Followers.push(data.createActerConnection)
-      writeCache(cache)
-    },
-    getSuccessMessage: ({
-      createActerConnection: {
-        Follower: { name },
-      },
-    }) => `Connected to ${acter.name} as ${name}`,
-  })
-  const [
-    deleteConnection,
-    { loading: deletingConnection },
-  ] = useNotificationMutation(DELETE_ACTER_CONNECTION, {
-    update: (cache, { data }) => {
-      const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
-      acter.Followers = acter.Followers.filter(withoutConnection)
-      writeCache(cache)
-    },
-    getSuccessMessage: () => `Disconnected from ${acter.name}`,
-  })
-  const [
-    updateConnection,
-    { loading: updatingConnection },
-  ] = useNotificationMutation(UPDATE_ACTER_CONNECTION, {
-    update: (cache, { data }) => {
-      const { updateActerConnection: connection } = data
-      const connectionIndex = acter.Followers.findIndex(
-        ({ Follower }) => Follower.id === connection.followerActerId
-      )
-      acter.Followers = [
-        ...acter.Followers.slice(0, connectionIndex),
-        connection,
-        ...acter.Followers.slice(connectionIndex + 1, acter.Followers.length),
-      ]
-      cache.writeFragment({
-        id: cache.identify(connection),
-        fragment: ACTER_CONNECTION_FRAGMENT,
-        fragmentName: 'ActerConnectionFull',
-        data: connection,
-      })
-    },
-  })
-
   const View = getActerView(displayActer)
 
   const [createGroup] = useCreateActer({
@@ -213,6 +110,21 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: setDisplayPostList,
   })
 
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(displayActer)
+
+  const [
+    updateActerConnection,
+    { loading: updatingConnection },
+  ] = useUpdateActerConnection(displayActer)
+
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(displayActer)
+
   return (
     <Layout
       acter={
@@ -230,13 +142,13 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
-        onJoin={_handleJoin(createConnection)}
-        onLeave={_handleLeave(deleteConnection)}
+        onJoin={createActerConnection}
+        onLeave={deleteActerConnection}
         onPostSubmit={createPost}
         onPostUpdate={updatePost}
         onGroupSubmit={updateGroup}
         onPostDelete={deletePost}
-        onConnectionStateChange={_handleConnectionUpdate(updateConnection)}
+        onConnectionStateChange={updateActerConnection}
         loading={creatingConnection || deletingConnection || updatingConnection}
       />
     </Layout>
