@@ -63,7 +63,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
 
-      {isMember && links.length > 0 && (
+      {(isAdmin || isMember) && links.length > 0 && (
         <>
           <Divider className={classes.divider} />
           <LinkSection links={links} />
@@ -72,7 +72,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
 
       <Divider />
 
-      {isMember && (
+      {(isAdmin || isMember) && (
         <GroupsSection
           acter={acter}
           user={user}
