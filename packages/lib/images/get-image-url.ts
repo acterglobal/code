@@ -6,5 +6,7 @@
  * @returns image url
  */
 
-export const getImageUrl = (imageName: string, imageType: string): string =>
-  imageName || `assets/default-${imageType}-2.png`
+export const getImageUrl = (imageName: string, imageType: string): string => {
+  const imageSuffix = process.env.NEXT_PUBLIC_DEFAULT_IMAGE_SUFFIX || ''
+  return imageName || `assets/default-${imageType}${imageSuffix}.png`
+}
