@@ -7,10 +7,14 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+import { Link } from '@acter/components/util/anchor-link'
 import { Acter, ActerType } from '@acter/schema/types'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema/types'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
-import { Edit as EditIcon } from '@material-ui/icons'
+import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 import { capitalize } from 'lodash'
 
 export interface HeaderSectionProps extends ConnectProps {
@@ -35,6 +39,8 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     setOpenModal(true)
   }
 
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+
   return (
     <>
       <Box className={classes.heading}>
@@ -42,9 +48,19 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           <Typography className={classes.name} variant="subtitle1">
             # {capitalize(acter.name)}
           </Typography>
-          <IconButton onClick={handleClick}>
-            <EditIcon fontSize="small" />
-          </IconButton>
+
+          {isAdmin && (
+            <>
+              <IconButton onClick={handleClick}>
+                <EditIcon fontSize="small" />
+              </IconButton>
+              <Link href={`${acterAsUrl(acter)}/delete`}>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Link>
+            </>
+          )}
         </Box>
 
         <Box>

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useSnackbar } from 'notistack'
 import { capitalize } from 'lodash'
-
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getUserProfile, getActerTypes, setActerType, getActer } from 'props'
 import {
   composeProps,
@@ -38,8 +38,11 @@ export const DeleteActerPage: NextPage<DeleteActerPageProps> = ({ acter }) => {
     onError: (err) => {
       enqueueSnackbar(err.message, { variant: 'error' })
     },
-    onCompleted: () => {
-      router.push('/dashboard')
+    onCompleted: (data) => {
+      const redirectUrl = data.deleteActer.Parent
+        ? acterAsUrl(data.deleteActer.Parent)
+        : '/dashboard'
+      router.push(redirectUrl)
       enqueueSnackbar(
         `${capitalize(acter.ActerType.name)} ${acter.name} deleted`,
         { variant: 'success' }
