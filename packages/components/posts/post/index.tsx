@@ -50,7 +50,7 @@ export const Post: FC<PostsProps> = ({
           post={post}
           parentId={parentId}
           onPostUpdate={handleSubmit}
-          cancelEdit={handleCancelEdit}
+          onCancel={handleCancelEdit}
         />
       </Box>
     )

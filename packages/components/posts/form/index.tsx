@@ -27,7 +27,6 @@ export const PostForm: FC<PostFormProps> = ({
   post,
   onPostSubmit,
   onPostUpdate,
-  cancelEdit,
   onCancel,
 }) => {
   const classes = useStyles()
@@ -94,7 +93,7 @@ export const PostForm: FC<PostFormProps> = ({
           )}
 
           {post ? (
-            <FormButtons align="right" onCancel={cancelEdit} />
+            <FormButtons align="right" onCancel={onCancel} />
           ) : (
             <FormButtons
               align="right"
