@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react'
-import { Moment } from 'moment'
+import { parse } from 'date-fns'
 import { Box } from '@material-ui/core'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import moment from 'moment'
 import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
 import {
   LocationVenuePicker,
@@ -28,8 +27,8 @@ export interface BasicsStepValues
   organiserActerId: string
   activityTypeId: string
   isAllDay: boolean
-  startTime: Moment
-  endTime: Moment
+  startTime: Date
+  endTime: Date
 }
 
 export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
@@ -43,8 +42,8 @@ export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
   }
 
   if (values.isAllDay === true) {
-    values.endTime = moment('23.59', 'hh:mm')
-    values.startTime = moment('00.00', 'hh:mm')
+    values.endTime = parse('23.59', 'hh:mm', new Date())
+    values.startTime = parse('00.00', 'hh:mm', new Date())
   }
 
   return (

@@ -1,9 +1,12 @@
-export const DATE_FORMAT = 'ddd, D MMM YYYY HH:mm'
-export const DATE_FORMAT_NO_TIME = 'ddd, D MMM YYYY'
-export const DATE_FORMAT_SHORT = 'D MMM. HH:mm'
-export const DATE_FORMAT_LONG = 'DD.MM.YYYY HH:mm'
-export const DATE_FORMAT_SHORT_NO_TIME = 'D MMM.'
-
-export const DAY_MONTH_FORMAT_SHORT = 'D MMM.'
-
+// Mon, 19 Jul 2021
+export const DATE_FORMAT_NO_TIME = 'EEE, d MMM yyyy'
+// Mon, 19 Jul 2021 21:45
+export const DATE_FORMAT = `${DATE_FORMAT_NO_TIME} HH:mm`
+// 19 Jul. 21:45
+export const DATE_FORMAT_SHORT = 'd MMM. HH:mm'
+// 19.07.2021 21:45
+export const DATE_FORMAT_LONG = 'dd.MM.yyyy HH:mm'
+// 19 Jan.
+export const DAY_MONTH_FORMAT_SHORT = 'd MMM.'
+// 21:45
 export const TIME_FORMAT_SHORT = 'HH:mm'

@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Moment } from 'moment'
 import { Grid } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 import { Field, useFormikContext } from 'formik'
@@ -7,14 +6,14 @@ import { CheckboxWithLabel } from 'formik-material-ui'
 import { DatePickerField } from '@acter/components/util/pickers/date-picker-field'
 import { TimePickerField } from '@acter/components/util/pickers/time-picker-field'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
+import DateUtils from '@date-io/date-fns'
 
 export interface StartEndTimeDatePickerValues {
   isAllDay: boolean
-  startDate: Moment
-  startTime: Moment
-  endDate: Moment
-  endTime: Moment
+  startDate: Date
+  startTime: Date
+  endDate: Date
+  endTime: Date
 }
 
 export interface StartEndTimeDatePickerProps {
@@ -26,7 +25,7 @@ export const StartEndTimeDatePicker: FC<StartEndTimeDatePickerProps> = ({
 }) => {
   const { values } = useFormikContext<StartEndTimeDatePickerValues>()
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+    <MuiPickersUtilsProvider utils={DateUtils}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <DatePickerField

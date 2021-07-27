@@ -12,11 +12,12 @@ __metadata:
     "@babel/plugin-proposal-private-methods": ^7.14.5
     "@babel/plugin-proposal-private-property-in-object": ^7.14.5
     "@babel/preset-react": ^7.14.5
+    "@date-io/date-fns": ^1.0.0
     "@fontsource/montserrat": ^4.2.2
     "@material-ui/core": ^4.11.4
     "@material-ui/icons": ^4.11.2
     "@material-ui/lab": ^4.0.0-alpha.57
-    "@material-ui/pickers": ^3.2.10
+    "@material-ui/pickers": ^3.3.10
     "@storybook/addon-actions": ^6.3.4
     "@storybook/addon-essentials": ^6.3.4
     "@storybook/addon-links": ^6.3.4
@@ -26,6 +27,8 @@ __metadata:
     babel-plugin-polyfill-regenerator: ^0.2.2
     clsx: ^1.1.1
     color-string: ^1.5.5
+    date-fns: "*"
+    date-fns-tz: "*"
     draft-js: ^0.11.7
     filepond: ^4.25.1
     filepond-plugin-file-validate-type: ^1.2.5
@@ -34,10 +37,10 @@ __metadata:
     formik: ^2.2.6
     formik-material-ui: ^3.0.1
     formik-material-ui-pickers: ^0.0.12
+    fp-ts: "*"
     lodash: ^4.17.21
     markdown-draft-js: ^2.2.1
     markdown-to-jsx: ^7.1.3
-    moment: ^2.29.1
     node-polyfill-webpack-plugin: ^1.1.4
     pluralize: ^8.0.0
     react: "*"
@@ -68,7 +71,6 @@ __metadata:
     lodash: ^4.17.21
     md5: ^2.3.0
     mime: ^2.5.2
-    moment: ^2.29.1
     notistack: ^1.0.9
     pluralize: ^8.0.0
     ramda: ^0.27.1
@@ -101,7 +103,6 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.21
     "@auth0/nextjs-auth0": ^1.4.2
-    "@date-io/moment": ^1.3.13
     "@material-ui/core": ^4.11.4
     "@sentry/nextjs": ^6.8.0
     apollo-server-micro: ^2.25.2
@@ -3401,14 +3402,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@date-io/moment@npm:^1.3.13":
+"@date-io/date-fns@npm:^1.0.0":
   version: 1.3.13
-  resolution: "@date-io/moment@npm:1.3.13"
+  resolution: "@date-io/date-fns@npm:1.3.13"
   dependencies:
     "@date-io/core": ^1.3.13
   peerDependencies:
-    moment: ^2.24.0
-  checksum: c00af95b391ea34d635abf17aeaf3170ac4ac6019412737973153bddf7e9eae58425fdc53422e74ff9127308f3197265b0abee8d7d270e7810af83b165db8ee4
+    date-fns: ^2.0.0
+  checksum: 0c61c3dea9a4659b48a6cf5f4de3e49cafdccdd0382ff4bf89fbe2191ea7fe066726aeca0eebf166185e0e34f4f290429836f29a8c98e8219e3823b84d74f66a
   languageName: node
   linkType: hard
 
@@ -3913,9 +3914,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/pickers@npm:^3.2.10":
-  version: 3.2.10
-  resolution: "@material-ui/pickers@npm:3.2.10"
+"@material-ui/pickers@npm:^3.3.10":
+  version: 3.3.10
+  resolution: "@material-ui/pickers@npm:3.3.10"
   dependencies:
     "@babel/runtime": ^7.6.0
     "@date-io/core": 1.x
@@ -3927,9 +3928,9 @@ __metadata:
     "@date-io/core": ^1.3.6
     "@material-ui/core": ^4.0.0
     prop-types: ^15.6.0
-    react: ^16.8.4
-    react-dom: ^16.8.4
-  checksum: d3486559670a9cd740d8985557c166825a7692a173dc8810c06f3fb225ecad2cf7bd7bcffe3a0ac7c894f89e163abf38f9c4de82d56244419a9d24342f598afa
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: 295219264b5254f53ad9d635add9145d5de9739e7cba42b28195542c7e52e1b29cf1b460d860a8466f518b33db4fc40349c89f44356388d014095238eb47b518
   languageName: node
   linkType: hard
 
@@ -6715,15 +6716,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/moment@npm:^2.13.0":
-  version: 2.13.0
-  resolution: "@types/moment@npm:2.13.0"
-  dependencies:
-    moment: "*"
-  checksum: ecee6ec942d33e6cee4f12738593896894ec03f543c3bb0287f405b6e466fcdd543c9278e6588db02bab0ee67a65d58d812a7b7127486d96db33596a7f5491c8
-  languageName: node
-  linkType: hard
-
 "@types/node-fetch@npm:^2.5.7":
   version: 2.5.10
   resolution: "@types/node-fetch@npm:2.5.10"
@@ -7722,7 +7714,6 @@ __metadata:
     "@types/graphql-fields": ^1.3.3
     "@types/jest": ^26.0.20
     "@types/markdown-draft-js": ^2.2.2
-    "@types/moment": ^2.13.0
     "@types/node": ^14.14.20
     "@types/react": ^17.0.0
     "@types/react-draft-wysiwyg": ^1.13.2
@@ -7731,6 +7722,8 @@ __metadata:
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
     babel-plugin-transform-typescript-metadata: ^0.3.1
+    date-fns: ^2.22.1
+    date-fns-tz: ^1.1.4
     env-cmd: ^10.1.0
     eslint: ^7.20.0
     eslint-plugin-jest: ^24.1.5
@@ -10770,6 +10763,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns-tz@npm:*, date-fns-tz@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "date-fns-tz@npm:1.1.4"
+  peerDependencies:
+    date-fns: ">=2.0.0-alpha.13"
+  checksum: 2c835e068de275bf71920483681fb27f7bc5a72b8f1689ffe1a68cc30515259b93ac809b1b15f8909013400d36b9c8e29dc83a0bd9677aed6ffef7a2fabce2fe
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:*, date-fns@npm:^2.22.1":
+  version: 2.22.1
+  resolution: "date-fns@npm:2.22.1"
+  checksum: a89dc6cdf3929b3f0d54d129a3c288df995fc3e6c8099dacc215e5404b4950fc8551d11a58968dfd3b8d576d0c5e637072f615e8f9c3e47d82c81e3952007d5b
+  languageName: node
+  linkType: hard
+
 "debug@npm:2, debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -12813,7 +12822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fp-ts@npm:^2.10.5":
+"fp-ts@npm:*, fp-ts@npm:^2.10.5":
   version: 2.10.5
   resolution: "fp-ts@npm:2.10.5"
   checksum: 7a5fd244e8a0c6fd221a417ba3f3c5508b4c1fcaaf17e8a2d3cffe3766c31c2073065c5158266e848d8cb9e89ec2f62857da514c8cf4d8da75c17182dc00a28f
@@ -17018,13 +17027,6 @@ fsevents@^1.2.7:
   bin:
     mkdirp: bin/cmd.js
   checksum: 9dd9792e891927b14ca02226dbe1daeb717b9517a001620d5e2658bbc72c5e4f06887b6cbcbb60595fa5a56e701073cf250f1ed69c1988a6b89faf9fd6a4d049
-  languageName: node
-  linkType: hard
-
-"moment@npm:*, moment@npm:^2.29.1":
-  version: 2.29.1
-  resolution: "moment@npm:2.29.1"
-  checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
   languageName: node
   linkType: hard
 

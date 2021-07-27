@@ -17,10 +17,8 @@ export interface LocationVenuePickerValues {
 
 export const LocationVenuePicker: FC = () => {
   const classes = useStyles()
-  const {
-    values,
-    setFieldValue,
-  } = useFormikContext<LocationVenuePickerValues>()
+  const { values, setFieldValue } =
+    useFormikContext<LocationVenuePickerValues>()
 
   return (
     <Box className={classes.container}>

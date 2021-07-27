@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { parseISO } from 'date-fns'
 import {
   _setTimeOnDate,
   _setStartAndEndTime,
@@ -19,11 +19,11 @@ describe('prepareActivityValues', () => {
     formData = {
       ...ExampleActivity,
       startAt: undefined,
-      startDate: moment.utc('2021-03-31'),
-      startTime: moment.utc('1970-01-01T21:30:00'),
+      startDate: parseISO('2021-03-31T00:00:00.000Z'),
+      startTime: parseISO('1970-01-01T21:30:00Z'),
       endAt: undefined,
-      endDate: moment.utc('2021-04-01'),
-      endTime: moment.utc('1970-01-01T10:30:00'),
+      endDate: parseISO('2021-03-31T00:00:00.000Z'),
+      endTime: parseISO('1970-01-01T10:30:00Z'),
       isOnline: 'true',
     }
   })
@@ -37,7 +37,7 @@ describe('prepareActivityValues', () => {
     it('should set both start and end datetime', () => {
       const data = _setStartAndEndTime(formData)
       expect(data.startAt.toISOString()).toBe('2021-03-31T21:30:00.000Z')
-      expect(data.endAt.toISOString()).toBe('2021-04-01T10:30:00.000Z')
+      expect(data.endAt.toISOString()).toBe('2021-03-31T10:30:00.000Z')
     })
   })
 
@@ -54,7 +54,7 @@ describe('prepareActivityValues', () => {
 
     it('should handle an invalid date by returning null', () => {
       const data = _setTimeOnDate(
-        { ...formData, startDate: moment('foo') },
+        { ...formData, startDate: new Date('foo') },
         'start'
       )
       expect(data.startAt).toBeUndefined()
@@ -62,7 +62,7 @@ describe('prepareActivityValues', () => {
 
     it('should handle an invalid time by returning null', () => {
       const data = _setTimeOnDate(
-        { ...formData, startTime: moment('foo') },
+        { ...formData, startTime: new Date('foo') },
         'start'
       )
       expect(data.startAt).toBeUndefined()
