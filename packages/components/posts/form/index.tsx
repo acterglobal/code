@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Field, Form, Formik, FormikBag } from 'formik'
-import { PostButtonGroup } from '@acter/components/posts/form/post-button-group'
+import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { Post as PostType, User } from '@acter/schema/types'
 import { grey } from '@material-ui/core/colors'
@@ -93,12 +93,15 @@ export const PostForm: FC<PostFormProps> = ({
             />
           )}
 
-          <PostButtonGroup
-            parentId={parentId}
-            post={post}
-            cancelEdit={cancelEdit}
-            onCancel={onCancel}
-          />
+          {post ? (
+            <FormButtons align="right" onCancel={cancelEdit} />
+          ) : (
+            <FormButtons
+              align="right"
+              onCancel={onCancel}
+              saveText={parentId ? 'Comment' : 'Post'}
+            />
+          )}
         </Form>
       )}
     </Formik>
