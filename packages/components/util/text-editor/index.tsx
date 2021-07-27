@@ -115,9 +115,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: ({ borderStyles }: stylesProp) => borderStyles?.radius || 4,
       width: ({ size }: stylesProp) => size.width || '100%',
       minHeight: ({ size }: stylesProp) => size.height,
-      '& .public-DraftEditor-content': {
-        border: '1px solid white',
-      },
     },
     toolBar: {
       backgroundColor: theme.colors.grey.extraLight,

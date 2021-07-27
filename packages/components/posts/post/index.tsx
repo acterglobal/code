@@ -29,7 +29,7 @@ export const Post: FC<PostsProps> = ({
     setToggleForm(!toggleForm)
   }
 
-  const handleCancel = () => {
+  const handleCancelEdit = () => {
     setToggleForm(!toggleForm)
   }
 
@@ -44,13 +44,13 @@ export const Post: FC<PostsProps> = ({
 
   if (toggleForm) {
     return (
-      <Box className={clsx(classes.post, parentId && classes.comment)}>
+      <Box className={classes.post}>
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostForm
           post={post}
           parentId={parentId}
           onPostUpdate={handleSubmit}
-          onCancel={handleCancel}
+          onCancel={handleCancelEdit}
         />
       </Box>
     )

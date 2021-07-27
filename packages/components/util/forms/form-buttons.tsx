@@ -13,6 +13,7 @@ export interface FormButtonsProps {
   cancelText?: string
   align: SubmitButtonAlignment
   hideUnlessDirty?: boolean
+  onCancel?: () => void
 }
 
 export const FormButtons: FC<FormButtonsProps> = ({
@@ -20,11 +21,17 @@ export const FormButtons: FC<FormButtonsProps> = ({
   cancelText = 'Cancel',
   align = 'left',
   hideUnlessDirty = false,
+  onCancel,
 }) => {
   const Container = align === 'left' ? ButtonsContainer : ButtonsContainerRight
   const { dirty, isSubmitting, resetForm } = useFormikContext()
 
   if (hideUnlessDirty && !dirty) return null
+
+  const handleClick = () => {
+    resetForm()
+    onCancel()
+  }
 
   return (
     <Container>
@@ -32,7 +39,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
         variant="outlined"
         color="primary"
         disabled={isSubmitting}
-        onClick={() => resetForm()}
+        onClick={handleClick}
       >
         {cancelText}
       </Button>
