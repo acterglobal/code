@@ -20,6 +20,7 @@ export const ProfileFormLayout: FC = ({ children }) => {
           const page = ProfileSettingsPages[key]
           return (
             <SettingsLinkMenuItem
+              key={`profile-settings-${page}`}
               href={`/profile/${page}`}
               isActive={selectedPage === page}
             >

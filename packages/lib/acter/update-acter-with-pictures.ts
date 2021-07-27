@@ -20,6 +20,7 @@ export const initialValues = {
   url: '',
   avatarUrl: '',
   bannerUrl: '',
+  acterNotifySetting: '',
   interestIds: [],
   followerIds: [],
 }
