@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { Link } from '@acter/components/util/anchor-link'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
+import { AddSharp as AddIcon } from '@material-ui/icons'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@acter/schema/types'
@@ -32,7 +33,9 @@ export const AddActivityButton: FC<AddActivityButtonProps> = ({
   return (
     <StyledContainer>
       <Link href={`/activities/new?organiserActerId=${acter.id}`}>
-        <StyledButton>+ Add Activity</StyledButton>
+        <StyledButton>
+          <AddIcon fontSize="inherit" style={{ fontSize: 17 }} /> New Activity
+        </StyledButton>
       </Link>
     </StyledContainer>
   )
@@ -58,6 +61,7 @@ const StyledButton = withStyles((theme: Theme) =>
       height: theme.spacing(3.5),
       backgroundColor: theme.palette.secondary.main,
       color: theme.colors.white,
+      fontWeight: theme.typography.fontWeightRegular,
       textTransform: 'capitalize',
       '&:hover': {
         backgroundColor: theme.colors.grey.dark,

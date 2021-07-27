@@ -32,6 +32,7 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
     role,
   }
   const handleSubmit = ({ role }) => onSubmit(connection, role)
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ dirty, values, handleChange, handleReset, submitForm }) => {

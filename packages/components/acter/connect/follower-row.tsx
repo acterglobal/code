@@ -31,6 +31,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({
 
     setOnClick(() => (connection ? onLeave : onJoin))
   }, [loading, connection])
+
   const verb = connection ? 'Leave' : 'Join'
 
   return (

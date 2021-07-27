@@ -75,6 +75,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   posts,
   links,
 }) => {
+  //TODO: use apollo client reactive variables instead of state
   const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
 
@@ -88,6 +89,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 
   const View = getActerView(displayActer)
 
+  //TODO: use all these hooks in child components to avoid the prop drilling.
   const [createGroup] = useCreateActer({
     onCompleted: ({ createActer }) => {
       setDisplayActer(updateActerGroups(displayActer, createActer))

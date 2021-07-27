@@ -13,7 +13,6 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import { AddActivityButton } from '@acter/components/activity/add-activity-button'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -95,9 +94,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           </Hidden>
         </Box>
         <Box className={classes.buttonContainer}>
-          <Hidden xsDown>
-            <AddActivityButton acter={acter} user={user} />
-          </Hidden>
           <Connect
             acter={acter}
             user={user}
