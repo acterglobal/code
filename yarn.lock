@@ -81,8 +81,10 @@ __metadata:
     "@sentry/nextjs": ^6.8.0
     "@types/intercom-client": ^2.11.11
     axios: ^0.21.1
+    bullmq: ^1.40.1
     deepmerge: ^4.2.2
     intercom-client: ^2.11.2
+    ioredis: ^4.27.6
     lodash: ^4.17.21
     md5: ^2.3.0
     mime: ^2.5.2
@@ -7829,7 +7831,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.37.1":
+"bullmq@npm:^1.37.1, bullmq@npm:^1.40.1":
   version: 1.40.1
   resolution: "bullmq@npm:1.40.1"
   dependencies:
@@ -12959,7 +12961,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.27.0, ioredis@npm:^4.27.5":
+"ioredis@npm:^4.27.0, ioredis@npm:^4.27.5, ioredis@npm:^4.27.6":
   version: 4.27.7
   resolution: "ioredis@npm:4.27.7"
   dependencies:
@@ -20864,7 +20866,7 @@ resolve@^2.0.0-next.3:
   resolution: "throng@npm:5.0.0"
   dependencies:
     lodash: ^4.17.20
-  checksum: 1d114cdb6fb2b5e1c44a528befb119f058966c7203540c0a16cd55e1b861c242dcf08db3aafefd136e5664b3cbc11ced6a580e432676aaed84b303894f0d4965
+  checksum: 1c50b15c7d3224d5de30d1aad2f520a0e7901f640e6680f4fcc5a69b7c16d55b34a79e8aa1955ee0c10b99fc45b03ebb52ff529cf9cbfce5f48ad66dd035aeef
   languageName: node
   linkType: hard
 

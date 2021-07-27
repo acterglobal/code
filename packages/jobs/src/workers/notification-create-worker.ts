@@ -1,10 +1,10 @@
 import 'reflect-metadata'
-import { Job, Queue, Worker } from 'bullmq'
+import { Job } from 'bullmq'
 import prisma from '@acter/lib/prisma'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { createQueue, createWorker } from '@acter/lib/bullmq'
 import {
   ActerTypes,
-  EMAIL_OUTBOX_QUEUE,
   NOTIFICATIONS_QUEUE,
   NotificationJobState,
   NotificationQueueType,
@@ -16,11 +16,11 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
-import { NotificationEmail } from './email-send-worker'
+import { NotificationEmail, emailOutboxQueue } from './email-send-worker'
 
-const emailOutboxQueue = new Queue(EMAIL_OUTBOX_QUEUE)
+export const notificationQueue = createQueue(NOTIFICATIONS_QUEUE)
 
-export const notificationCreateWorker = new Worker(
+export const notificationCreateWorker = createWorker(
   NOTIFICATIONS_QUEUE,
   async (job: Job<Post>) => {
     console.log('Processing job: ', job.data)
@@ -121,8 +121,7 @@ export const notificationCreateWorker = new Worker(
 
     job.updateProgress({ state: NotificationJobState.FINISHED })
     return 'Notification job complete'
-  },
-  { concurrency: 50 }
+  }
 )
 
 notificationCreateWorker.on('drained', () =>
