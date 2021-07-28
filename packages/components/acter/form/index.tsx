@@ -79,7 +79,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   }
 
   const handleModalClose = () =>
-    router.push(acter ? acterAsUrl(acter) : '/dashboard')
+    router.push(acter ? acterAsUrl({ acter }) : '/dashboard')
 
   const interestIds = getInterestIdsFromActer(acter)
 

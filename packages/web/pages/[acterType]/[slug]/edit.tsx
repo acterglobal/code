@@ -66,20 +66,16 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [
-    updateActer,
-    { loading: updateActerLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-    onCompleted: () => router.push(acterAsUrl(acter)),
-  })
-  const [
-    updateActivity,
-    { loading: updateActivityLoading },
-  ] = useNotificationMutation(UPDATE_ACTIVITY, {
-    getSuccessMessage: () => 'Activity updated',
-    onCompleted: () => router.push(acterAsUrl(acter)),
-  })
+  const [updateActer, { loading: updateActerLoading }] =
+    useNotificationMutation(UPDATE_ACTER, {
+      getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+      onCompleted: () => router.push(acterAsUrl({ acter })),
+    })
+  const [updateActivity, { loading: updateActivityLoading }] =
+    useNotificationMutation(UPDATE_ACTIVITY, {
+      getSuccessMessage: () => 'Activity updated',
+      onCompleted: () => router.push(acterAsUrl({ acter })),
+    })
 
   const Form =
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm

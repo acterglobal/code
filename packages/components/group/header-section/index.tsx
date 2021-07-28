@@ -54,7 +54,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
               <IconButton onClick={handleClick}>
                 <EditIcon fontSize="small" />
               </IconButton>
-              <Link href={`${acterAsUrl(acter)}/delete`}>
+              <Link href={acterAsUrl({ acter, extraPath: ['delete'] })}>
                 <IconButton>
                   <DeleteIcon />
                 </IconButton>

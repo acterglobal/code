@@ -13,7 +13,8 @@ export interface InfoSectionProps {
 
 export const InfoSection: FC<InfoSectionProps> = ({ acter, interestTypes }) => {
   const router = useRouter()
-  const handleOnAvatarClick = () => router.push(`${acterAsUrl(acter)}/members`)
+  const handleOnAvatarClick = () =>
+    router.push(`${acterAsUrl({ acter, extraPath: ['members'] })}`)
 
   return (
     <InfoSectionContainer>

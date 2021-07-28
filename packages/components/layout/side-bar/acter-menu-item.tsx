@@ -45,7 +45,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
       })}
       aria-current={isActive}
     >
-      <Link href={acterAsUrl(acter, path)}>
+      <Link href={acterAsUrl({ acter, extraPath: [path] })}>
         <ListItemIcon>
           <Icon color="inherit" className={classes.icon} />
         </ListItemIcon>

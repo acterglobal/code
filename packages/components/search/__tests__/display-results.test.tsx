@@ -21,7 +21,9 @@ describe('Display search results', () => {
     items.map((item, i) => {
       const links = within(item).queryAllByRole('link')
       const exampleActer = ExampleActerList[i]
-      expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
+      expect(links[0].getAttribute('href')).toMatch(
+        acterAsUrl({ acter: exampleActer })
+      )
     })
   })
 
@@ -37,7 +39,9 @@ describe('Display search results', () => {
     items.map((item, i) => {
       const links = within(item).queryAllByRole('link')
       const exampleActer = activities[i]
-      expect(links[0].getAttribute('href')).toMatch(acterAsUrl(exampleActer))
+      expect(links[0].getAttribute('href')).toMatch(
+        acterAsUrl({ acter: exampleActer })
+      )
 
       const type = within(item).queryByLabelText('activity-type')
       expect(type.textContent).toContain('event')

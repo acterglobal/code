@@ -56,7 +56,7 @@ export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {
                 : getImageUrl(acter.avatarUrl, 'avatar')
             return (
               <Link
-                href={acterAsUrl(acter)}
+                href={acterAsUrl({ acter })}
                 key={`acter-${type}-link-${acter.id}`}
               >
                 <a className={classes.link}>

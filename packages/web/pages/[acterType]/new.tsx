@@ -66,7 +66,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 
   const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
     getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,
-    onCompleted: ({ updateActer }) => router.push(acterAsUrl(updateActer)),
+    onCompleted: ({ updateActer }) =>
+      router.push(acterAsUrl({ acter: updateActer })),
   })
 
   const Form = acterType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm

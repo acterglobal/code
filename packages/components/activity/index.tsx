@@ -35,7 +35,12 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   const router = useRouter()
 
   const handleModalClose = () => {
-    router.push(`${acterAsUrl(acter.Activity.Organiser)}/activities`)
+    router.push(
+      `${acterAsUrl({
+        acter: acter.Activity.Organiser,
+        extraPath: ['activities'],
+      })}`
+    )
   }
 
   return (
