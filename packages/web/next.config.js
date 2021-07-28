@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 const withPlugins = require('next-compose-plugins')
 const withGraphql = require('next-graphql-loader')
 const transpileModules = require('next-transpile-modules')
@@ -9,7 +12,7 @@ const withTM = transpileModules([
   '@acter/schema',
 ])
 
-module.exports = withPlugins([withGraphql, withTM], {
+module.exports = withPlugins([[withBundleAnalyzer], withGraphql, withTM], {
   future: {
     webpack5: true,
   },
