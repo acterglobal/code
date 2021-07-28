@@ -62,7 +62,7 @@ __metadata:
   resolution: "@acter/jobs@workspace:packages/jobs"
   dependencies:
     "@swc/core": ^1.2.63
-    bullmq: ^1.37.1
+    bullmq: "*"
     nodemon: ^2.0.9
     reflect-metadata: ^0.1.13
     throng: ^5.0.0
@@ -81,7 +81,7 @@ __metadata:
     "@sentry/nextjs": ^6.8.0
     "@types/intercom-client": ^2.11.11
     axios: ^0.21.1
-    bullmq: ^1.40.1
+    bullmq: "*"
     deepmerge: ^4.2.2
     intercom-client: ^2.11.2
     ioredis: ^4.27.6
@@ -6167,6 +6167,7 @@ __metadata:
     babel-jest: ^27.0.6
     babel-loader: ^8.2.2
     babel-plugin-transform-typescript-metadata: ^0.3.1
+    bullmq: ^1.40.1
     cli-confirm: ^1.0.1
     date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
@@ -7831,7 +7832,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.37.1, bullmq@npm:^1.40.1":
+"bullmq@npm:*, bullmq@npm:^1.40.1":
   version: 1.40.1
   resolution: "bullmq@npm:1.40.1"
   dependencies:

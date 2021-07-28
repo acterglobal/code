@@ -11,7 +11,7 @@
     "@sentry/integrations": "^6.8.0",
     "@sentry/nextjs": "^6.8.0",
     "axios": "^0.21.1",
-    "bullmq": "^1.40.1",
+    "bullmq": "*",
     "deepmerge": "^4.2.2",
     "intercom-client": "^2.11.2",
     "ioredis": "^4.27.6",
