@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { ActerSettings } from '@acter/components/acter/settings'
-import { Acter, ActerConnectionRole, User } from '@acter/schema'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
@@ -26,12 +26,10 @@ import { ActerTypes } from '@acter/lib/constants'
 
 interface ActerSettingsPageProps {
   acter: Acter
-  user: User
 }
 
 export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   acter,
-  user,
 }) => {
   /* This query call fetches the cache data whenever cache updates */
   const { data: acterData } = useQuery(QUERY_ACTER, {
@@ -54,12 +52,12 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   const { findFirstActer: displayActer } = acterData
   const { links: displayLinks } = linksData
 
-  const [createLink] = useCreateLink(acter, user)
-  const [updateLink] = useUpdateLink(acter, user)
+  const [createLink] = useCreateLink(acter)
+  const [updateLink] = useUpdateLink(acter)
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout acter={displayActer} user={user} links={displayLinks}>
+    <Layout acter={displayActer} links={displayLinks}>
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings

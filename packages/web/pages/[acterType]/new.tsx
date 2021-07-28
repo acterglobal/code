@@ -21,7 +21,7 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 
-import { ActerType, InterestType, User } from '@acter/schema'
+import { ActerType, InterestType } from '@acter/schema'
 
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
@@ -38,16 +38,11 @@ interface NewActerPageProps {
    * List of interests grouped by Interest Type
    */
   interestTypes: InterestType[]
-  /**
-   * The logged in user
-   */
-  user?: User
 }
 
 export const NewActerPage: NextPage<NewActerPageProps> = ({
   acterType,
   interestTypes,
-  user,
 }) => {
   const router: NextRouter = useRouter()
   const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
@@ -62,12 +57,11 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const Form = acterType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title={acterType.name} />
       <main>
         <Form
           acterType={acterType}
-          user={user}
           interestTypes={interestTypes}
           onSubmit={getCreateFunction({
             acterType,

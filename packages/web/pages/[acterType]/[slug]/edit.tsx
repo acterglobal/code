@@ -15,15 +15,9 @@ import {
 } from '@acter/lib/compose-props'
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 
-import {
-  getUserProfile,
-  getActerTypes,
-  setActerType,
-  getInterests,
-  getActer,
-} from 'props'
+import { getActerTypes, setActerType, getInterests, getActer } from 'props'
 
-import { Acter, ActerType, InterestType, User } from '@acter/schema'
+import { Acter, ActerType, InterestType } from '@acter/schema'
 
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
@@ -42,16 +36,11 @@ interface NewActerPageProps {
    * List of interests grouped by Interest Type
    */
   interestTypes: InterestType[]
-  /**
-   * The logged in user
-   */
-  user?: User
 }
 export const NewActerPage: NextPage<NewActerPageProps> = ({
   acter,
   acterType,
   interestTypes,
-  user,
 }) => {
   const router: NextRouter = useRouter()
   const [
@@ -73,13 +62,12 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title={`${acter.name} - Acter`} />
       <main>
         <Form
           acter={acter}
           acterType={acterType}
-          user={user}
           interestTypes={interestTypes}
           onSubmit={getUpdateFunction({ acter, updateActivity, updateActer })}
           loading={updateActerLoading || updateActivityLoading}
@@ -90,13 +78,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getUserProfile(true),
-    getActerTypes,
-    setActerType,
-    getInterests,
-    getActer
-  )
+  composeProps(ctx, getActerTypes, setActerType, getInterests, getActer)
 
 export default NewActerPage

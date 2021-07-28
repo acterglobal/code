@@ -24,7 +24,6 @@ export type GroupLandingProps = HeaderSectionProps &
 
 export const GroupLanding: FC<GroupLandingProps> = ({
   acter,
-  user,
   onJoin,
   onLeave,
   onConnectionStateChange,
@@ -39,7 +38,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
     <Box className={classes.root}>
       <HeaderSection
         acter={acter}
-        user={user}
         onJoin={onJoin}
         onLeave={onLeave}
         loading={loading}
@@ -48,7 +46,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
         <Grid item xs={12} md={8}>
           <Box className={classes.posts}>
             <PostList
-              user={user}
               acter={acter}
               posts={posts}
               onPostSubmit={onPostSubmit}
@@ -69,7 +66,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
             <Box className={classes.container}>
               <MembersSection
                 acter={acter}
-                user={user}
                 onConnectionStateChange={onConnectionStateChange}
               />
             </Box>

@@ -13,6 +13,7 @@ import { InterestType } from '@acter/schema'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useUser } from '@acter/lib/user/use-user'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]
@@ -21,7 +22,6 @@ export interface ActivityDetailsProps extends ConnectProps, PostListProps {
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
   acter,
   interestTypes,
-  user,
   posts,
   onJoin,
   onLeave,
@@ -42,6 +42,8 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
       })}`
     )
   }
+
+  const [user] = useUser()
 
   return (
     <Modal
@@ -92,7 +94,6 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         </Hidden>
 
         <PostList
-          user={user}
           acter={acter}
           posts={posts}
           onPostSubmit={onPostSubmit}

@@ -10,19 +10,21 @@ import {
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
-import { User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 import { HomeIcon } from '@acter/components/icons/home-icon'
 import { DashboardContent } from '@acter/components/dashboard/content'
 
-export interface DashboardProps {
-  user: User
-}
-
-export const Dashboard: FC<DashboardProps> = ({ user }) => {
+export const Dashboard: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
 
-  const acters = flattenFollowing(user.Acter)
+  const [user, { loading }] = useUser()
+
+  if (loading) {
+    return <>Loading...</>
+  }
+
+  const acters = flattenFollowing(user?.Acter)
   if (acters.length === 0) {
     return <DefaultMessage />
   }

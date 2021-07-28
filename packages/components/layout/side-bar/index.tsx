@@ -32,12 +32,7 @@ export type SidebarProps = ActerMenuProps & {
   searchType?: SearchType
 }
 
-export const Sidebar: FC<SidebarProps> = ({
-  acter,
-  searchType,
-  user,
-  links,
-}) => {
+export const Sidebar: FC<SidebarProps> = ({ acter, searchType, links }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
   const router = useRouter()
@@ -80,7 +75,7 @@ export const Sidebar: FC<SidebarProps> = ({
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} user={user} links={links} />
+          <ActerMenu acter={acter} links={links} />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}

@@ -16,7 +16,7 @@ interface ErrorProps {
 
 const ErrorPage: NextPage<ErrorProps> = ({ user }) => {
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title="Acter" />
 
       <main>

@@ -17,18 +17,18 @@ import {
 
 const args: ActivityFormProps = {
   interestTypes: Interests.data.interestTypes,
-  user: {
-    ...ExampleUser,
-    Acter: {
-      ...ExampleUserActer,
-      Following: [
-        {
-          ...ExampleActerConnection,
-          Following: ExampleActer,
-        },
-      ],
-    },
-  },
+  // user: {
+  //   ...ExampleUser,
+  //   Acter: {
+  //     ...ExampleUserActer,
+  //     Following: [
+  //       {
+  //         ...ExampleActerConnection,
+  //         Following: ExampleActer,
+  //       },
+  //     ],
+  //   },
+  // },
   onSubmit: () => null,
 }
 

@@ -26,7 +26,7 @@ export const UserProfileInterestsPage: NextPage<UserProfilePageProps> = ({
 }) => {
   const [updateActer] = useUpdateActer(user.Acter)
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title="Profile - Acter" />
       <main>
         <ProfileInterestsForm

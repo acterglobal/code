@@ -17,7 +17,7 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { ActerConnectionRole, User, Link as LinkType } from '@acter/schema'
+import { ActerConnectionRole, Link as LinkType } from '@acter/schema'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import {
   GroupsSection,
@@ -26,19 +26,20 @@ import {
 import { LinksList } from '@acter/components/layout/side-bar/links'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 import { NotificationType } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
 export type ActerMenuProps = GroupsSectionProps & {
-  user: User
   links: LinkType[]
 }
 
-export const ActerMenu: FC<ActerMenuProps> = ({ acter, user, links }) => {
+export const ActerMenu: FC<ActerMenuProps> = ({ acter, links }) => {
   if (!acter) return null
   const classes = useStyles()
 
+  const [user] = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
@@ -87,7 +88,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, user, links }) => {
       {(isAdmin || isMember) && (
         <>
           <Divider className={classes.divider} />
-          <GroupsSection acter={acter} user={user} />
+          <GroupsSection acter={acter} />
         </>
       )}
     </>

@@ -8,6 +8,7 @@ import {
   DisplayMembersProps,
 } from '@acter/components/acter/landing-page/members-section/display-members'
 import { MemberType } from '@acter/lib/constants'
+import { useUser } from '@acter/lib/user/use-user'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 
@@ -19,12 +20,11 @@ const useStyles = makeStyles({
 
 export type MembersSectionProps = Omit<
   DisplayMembersProps,
-  'followers' | 'type'
+  'followers' | 'type' | 'user'
 >
 
 export const MembersSection: FC<MembersSectionProps> = ({
   acter,
-  user,
   onConnectionStateChange,
 }) => {
   const followers = mapFollowersByType(acter)
@@ -34,6 +34,8 @@ export const MembersSection: FC<MembersSectionProps> = ({
   const handleSelectorChange = (selector) => {
     setActiveSelector(selector)
   }
+
+  const [user] = useUser()
 
   return (
     <Box className={classes.container}>

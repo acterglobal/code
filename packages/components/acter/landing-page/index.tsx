@@ -28,7 +28,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   acter,
   interestTypes,
   posts,
-  user,
   onJoin,
   onLeave,
   onConnectionStateChange,
@@ -44,7 +43,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   return (
     <LandingPageLayout
       acter={acter}
-      user={user}
       onJoin={onJoin}
       onLeave={onLeave}
       loading={loading}
@@ -53,7 +51,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
         <Box role="tabpanel" hidden={tab !== MEMBERS}>
           <MembersSection
             acter={acter}
-            user={user}
             onConnectionStateChange={onConnectionStateChange}
           />
         </Box>
@@ -63,7 +60,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           className={classes.postList}
         >
           <PostList
-            user={user}
             acter={acter}
             posts={posts}
             onPostSubmit={onPostSubmit}

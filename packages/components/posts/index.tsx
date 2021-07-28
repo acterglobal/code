@@ -5,22 +5,16 @@ import { Post, PostsProps } from '@acter/components/posts/post/index'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import {
-  Acter,
-  ActerConnectionRole,
-  Post as PostType,
-  User,
-} from '@acter/schema'
+import { Acter, ActerConnectionRole, Post as PostType } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
-export interface PostListProps extends PostFormProps, PostsProps {
+export interface PostListProps
+  extends Omit<PostFormProps, 'user'>,
+    Omit<PostsProps, 'user'> {
   /**
    * Acter on which we are viewing posts
    */
   acter: Acter
-  /**
-   * User viewing posts
-   */
-  user: User
   /**
    * Posts to display
    */
@@ -33,13 +27,14 @@ export interface PostListProps extends PostFormProps, PostsProps {
 
 export const PostList: FC<PostListProps> = ({
   acter,
-  user,
   posts,
   onPostSubmit,
   onPostDelete,
   onPostUpdate,
 }) => {
   const classes = useStyles()
+
+  const [user] = useUser()
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

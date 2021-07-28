@@ -16,14 +16,14 @@ import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { useUser } from '@acter/lib/user/use-user'
 
-export interface HeaderSectionProps extends ConnectProps {
+export interface HeaderSectionProps extends Omit<ConnectProps, 'user'> {
   acter: Acter
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
-  user,
   onJoin,
   onLeave,
   loading,
@@ -35,6 +35,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     setOpenModal(true)
   }
 
+  const [user] = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (

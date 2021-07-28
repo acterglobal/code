@@ -8,7 +8,8 @@ import {
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
 import POST_FRAGMENT from '@acter/schema/fragments/post-display.fragment.graphql'
-import { Post as PostType, Acter, User } from '@acter/schema'
+import { Post as PostType, Acter } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 export type PostVariables = PostType & {
   acterId: string
@@ -35,10 +36,10 @@ interface CacheModifyOptions extends Cache.ModifyOptions {
  */
 export const useCreatePost = (
   acter: Acter,
-  user: User,
   options?: CreatePostOptions
 ): [HandleMethod<CreatePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
+  const { user } = useUser()
 
   const [createPost, mutationResult] = useNotificationMutation<
     CreatePostData,
