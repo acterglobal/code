@@ -1,15 +1,10 @@
 import React, { FC } from 'react'
 import { Interest as InterestType } from '@acter/schema/types'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Tooltip, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
 import { Size } from '@acter/lib/constants'
-
-type CustomStyles = {
-  type: string
-  size: Size
-}
 
 export interface InterestProps {
   interest: InterestType
@@ -28,7 +23,6 @@ export const Interest: FC<InterestProps> = ({
   chipSize,
   onSelectedInterestsChange,
 }) => {
-  console.log('SIZE ', chipSize)
   const classes = useStyles({ type, size: chipSize })
 
   if (!interest) {
@@ -53,9 +47,7 @@ export const Interest: FC<InterestProps> = ({
       onClick={handleClick}
       role="listitem"
     >
-      <Typography className={classes.name} variant="caption">
-        {type === 'Tags' ? `# ${interest.name}` : interest.name}
-      </Typography>
+      <InterestName interest={interest} type={type} chipSize={chipSize} />
 
       {interest.sdgNumber && (
         <Box className={clsx(classes.rightSideBox)}>
@@ -69,59 +61,71 @@ export const Interest: FC<InterestProps> = ({
   )
 }
 
+const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
+  const classes = useStyles({ type, size: chipSize })
+
+  return (
+    <>
+      {chipSize === Size.SMALL && interest.name.length > 12 ? (
+        <Tooltip title={interest.name}>
+          <Typography className={classes.name} variant="caption" noWrap>
+            {type === 'Tags' ? `# ${interest.name}` : interest.name}
+          </Typography>
+        </Tooltip>
+      ) : (
+        <Typography className={classes.name} variant="caption">
+          {type === 'Tags' ? `# ${interest.name}` : interest.name}
+        </Typography>
+      )}
+    </>
+  )
+}
+
+type StyleProps = {
+  type: string
+  size: Size
+}
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    chip: {
+    chip: ({ size, type }: StyleProps) => ({
       margin: theme.spacing(0.2),
-      width: ({ size }: CustomStyles) =>
-        theme.spacing(size === Size.SMALL ? 18 : 23),
-      height: ({ size }: CustomStyles) =>
-        theme.spacing(size === Size.SMALL ? 2.6 : 3),
-      border: ({ type }: CustomStyles) =>
-        type === 'Tags' ? 'none' : '1px solid',
+      width: theme.spacing(size === Size.SMALL ? 12.5 : 23),
+      height: theme.spacing(size === Size.SMALL ? 2.3 : 3),
+      border: type === 'Tags' ? 'none' : '1px solid',
       borderRadius: theme.spacing(3),
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       cursor: 'pointer',
-    },
+    }),
     // TODO: refactor to use InterestType-specific classes
-    outline: {
-      borderColor: ({ type }: CustomStyles) => theme.colors.interestTypes[type],
-      color: ({ type }: CustomStyles) => theme.colors.interestTypes[type],
-    },
-    selected: {
-      border: ({ type }: CustomStyles) =>
-        type === 'Tags' ? '1px solid' : 'none',
-
-      borderColor: ({ type }: CustomStyles) =>
-        type === 'Tags' && theme.colors.interestTypes[type],
-
-      backgroundColor: ({ type }: CustomStyles) =>
-        type !== 'Tags' ? theme.colors.interestTypes[type] : '',
-
-      color: ({ type }: CustomStyles) =>
-        type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
-    },
+    outline: ({ type }: StyleProps) => ({
+      borderColor: theme.colors.interestTypes[type],
+      color: theme.colors.interestTypes[type],
+    }),
+    selected: ({ type }: StyleProps) => ({
+      border: type === 'Tags' ? '1px solid' : 'none',
+      borderColor: type === 'Tags' && theme.colors.interestTypes[type],
+      backgroundColor: type !== 'Tags' ? theme.colors.interestTypes[type] : '',
+      color: type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
+    }),
     disable: {
       color: theme.colors.grey.main,
       borderColor: theme.colors.grey.main,
       cursor: 'default',
     },
-    name: {
+    name: ({ size }: StyleProps) => ({
       marginLeft: theme.spacing(1),
-      fontSize: ({ size }: CustomStyles) =>
-        size === Size.SMALL ? '0.6rem' : '0.7',
-    },
+      fontSize: size === Size.SMALL ? '0.55rem' : '0.7',
+    }),
     rightSideBox: {
       display: 'flex',
       alignItems: 'center',
     },
-    number: {
-      marginLeft: ({ size }: CustomStyles) =>
-        theme.spacing(size === Size.SMALL ? 0.5 : 1),
-      marginRight: ({ size }: CustomStyles) =>
-        theme.spacing(size === Size.SMALL ? 0.5 : 1),
-    },
+    number: ({ size }: StyleProps) => ({
+      marginLeft: theme.spacing(size === Size.SMALL ? 0.5 : 1),
+      marginRight: theme.spacing(size === Size.SMALL ? 0.7 : 1),
+      fontSize: size === Size.SMALL ? '0.55rem' : '0.7rem',
+    }),
   })
 })

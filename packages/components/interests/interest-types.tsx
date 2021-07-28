@@ -66,6 +66,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               ).length >= 5
             }
             chipSize={chipSize}
+            columns={columns}
           />
         ))}
         {type.name === 'Focus' && (
@@ -100,11 +101,17 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     )
   } else {
     return (
-      <Box style={{ marginLeft: 25 }} role="list">
+      <Box ml={columns ? 0 : 3} role="list">
         {showTitle && (
           <Typography className={classes.title}>{type.name}</Typography>
         )}
-        <Box style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box
+          style={
+            columns
+              ? { display: 'flex', flexDirection: 'column' }
+              : { display: 'flex', flexWrap: 'wrap' }
+          }
+        >
           {type.Interests.map((interest) => {
             return (
               <Box
@@ -117,6 +124,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                 <Interest
                   interest={interest}
                   type={type.name}
+                  chipSize={chipSize}
                   onSelectedInterestsChange={onSelectedInterestsChange}
                   selected={
                     selectedInterests && selectedInterests.includes(interest.id)

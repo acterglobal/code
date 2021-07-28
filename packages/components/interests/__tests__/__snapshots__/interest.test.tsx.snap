@@ -7,7 +7,7 @@ exports[`[Interest] should render Tag interest with correct info and styles 1`] 
     role="listitem"
   >
     <span
-      class="MuiTypography-root makeStyles-name-5 makeStyles-name-11 MuiTypography-caption"
+      class="MuiTypography-root makeStyles-name-5 makeStyles-name-17 MuiTypography-caption"
     >
       Example Interest
     </span>

@@ -23,5 +23,16 @@ query ActersSearch(
     }
   ) {
     ...ActerDisplay
+    ActerInterests {
+      Interest {
+        id
+        name
+        InterestType {
+          id
+          name
+          parentInterestTypeId
+        }
+      }
+    }
   }
 }
