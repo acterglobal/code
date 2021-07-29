@@ -35,7 +35,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
             [classes.currentActer]: router.query.slug === acter.slug,
           })}
         >
-          <Link href={acterAsUrl(acter)}>
+          <Link href={acterAsUrl({ acter })}>
             <ActerAvatar acter={acter} size={4} />
           </Link>
         </ListItem>

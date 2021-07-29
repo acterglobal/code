@@ -51,7 +51,7 @@ export const Organiser: FC<OrganiserProps> = ({ acter }) => {
       </Typography>
       <Box
         className={classes.organiserContainer}
-        onClick={() => router.push(acterAsUrl(acter))}
+        onClick={() => router.push(acterAsUrl({ acter }))}
       >
         <ActerAvatar acter={acter} size={4} />
         <Typography className={classes.name} variant="body1">

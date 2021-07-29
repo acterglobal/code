@@ -23,7 +23,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
     <Box className={classes.container}>
       {acters.map((acter) => (
         <ListItem className={classes.item} key={acter.id}>
-          <Link href={acterAsUrl(acter)}>
+          <Link href={acterAsUrl({ acter })}>
             <Typography className={classes.name} variant="body2">
               # {capitalize(acter.name)}
             </Typography>

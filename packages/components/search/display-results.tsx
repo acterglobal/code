@@ -24,7 +24,7 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
       {acters.length !== 0 ? (
         acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
-            <Link href={acterAsUrl(acter)} passHref>
+            <Link href={acterAsUrl({ acter })} passHref>
               {searchType === ACTERS && <ActerTile acter={acter} />}
               {searchType === ACTIVITIES && (
                 <ActivityTile activity={acter.Activity} />

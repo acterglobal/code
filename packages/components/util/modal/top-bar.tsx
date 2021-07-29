@@ -39,7 +39,7 @@ export const TopBar: FC<Props> = ({
         {actionButtons && acter.createdByUserId === user?.id ? (
           <DropdownMenu anchorNode={<ThreeDots />}>
             {actionButtons.map((action) => (
-              <Link href={`${acterAsUrl(acter)}/${action}`}>
+              <Link href={acterAsUrl({ acter, extraPath: [action] })}>
                 <MenuItem className={classes.menuItem}>{action}</MenuItem>
               </Link>
             ))}

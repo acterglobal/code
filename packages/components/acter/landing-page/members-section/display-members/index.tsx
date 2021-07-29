@@ -72,7 +72,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
 
           if (isOrganisation) {
             return (
-              <Link href={`${acterAsUrl(Follower)}`}>
+              <Link href={`${acterAsUrl({ acter: Follower })}`}>
                 <DisplayMemberItem
                   user={user}
                   Follower={Follower}

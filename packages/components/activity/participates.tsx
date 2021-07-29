@@ -25,7 +25,8 @@ export type ParticipatesProps = {
 export const Participates: FC<ParticipatesProps> = ({ acter }) => {
   const classes = useStyles()
   const router = useRouter()
-  const handleOnAvatarClick = () => router.push(`${acterAsUrl(acter)}/members`)
+  const handleOnAvatarClick = () =>
+    router.push(`${acterAsUrl({ acter, extraPath: ['members'] })}`)
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">

@@ -78,12 +78,12 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
             <Box>
               {isAdmin && (
                 <>
-                  <Link href={`${acterAsUrl(acter)}/edit`}>
+                  <Link href={acterAsUrl({ acter, extraPath: ['edit'] })}>
                     <IconButton>
                       <EditIcon />
                     </IconButton>
                   </Link>
-                  <Link href={`${acterAsUrl(acter)}/delete`}>
+                  <Link href={acterAsUrl({ acter, extraPath: ['delete'] })}>
                     <IconButton>
                       <DeleteIcon />
                     </IconButton>
