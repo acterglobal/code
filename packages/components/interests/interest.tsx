@@ -4,11 +4,12 @@ import { Box, Tooltip, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
-import { Size } from '@acter/lib/constants'
+import { Size, InterestType as InterestTypeName } from '@acter/lib/constants'
 
+const { TAGS } = InterestTypeName
 export interface InterestProps {
   interest: InterestType
-  type: string
+  type: InterestTypeName
   selected?: boolean
   disabled?: boolean
   chipSize?: Size
@@ -69,12 +70,12 @@ const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
       {chipSize === Size.SMALL && interest.name.length > 12 ? (
         <Tooltip title={interest.name}>
           <Typography className={classes.name} variant="caption" noWrap>
-            {type === 'Tags' ? `# ${interest.name}` : interest.name}
+            {type === TAGS ? `# ${interest.name}` : interest.name}
           </Typography>
         </Tooltip>
       ) : (
         <Typography className={classes.name} variant="caption">
-          {type === 'Tags' ? `# ${interest.name}` : interest.name}
+          {type === TAGS ? `# ${interest.name}` : interest.name}
         </Typography>
       )}
     </>
@@ -82,7 +83,7 @@ const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
 }
 
 type StyleProps = {
-  type: string
+  type: InterestTypeName
   size: Size
 }
 const useStyles = makeStyles((theme: Theme) => {
@@ -91,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: theme.spacing(0.2),
       width: theme.spacing(size === Size.SMALL ? 12.5 : 23),
       height: theme.spacing(size === Size.SMALL ? 2.3 : 3),
-      border: type === 'Tags' ? 'none' : '1px solid',
+      border: type === TAGS ? 'none' : '1px solid',
       borderRadius: theme.spacing(3),
       display: 'flex',
       justifyContent: 'space-between',
@@ -104,10 +105,10 @@ const useStyles = makeStyles((theme: Theme) => {
       color: theme.colors.interestTypes[type],
     }),
     selected: ({ type }: StyleProps) => ({
-      border: type === 'Tags' ? '1px solid' : 'none',
-      borderColor: type === 'Tags' && theme.colors.interestTypes[type],
-      backgroundColor: type !== 'Tags' ? theme.colors.interestTypes[type] : '',
-      color: type === 'Tags' ? theme.colors.interestTypes[type] : 'white',
+      border: type === TAGS ? '1px solid' : 'none',
+      borderColor: type === TAGS && theme.colors.interestTypes[type],
+      backgroundColor: type !== TAGS ? theme.colors.interestTypes[type] : '',
+      color: type === TAGS ? theme.colors.interestTypes[type] : 'white',
     }),
     disable: {
       color: theme.colors.grey.main,

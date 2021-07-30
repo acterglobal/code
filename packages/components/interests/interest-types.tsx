@@ -9,13 +9,14 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
-import { Size } from '@acter/lib/constants'
+import { Size, InterestType as InterestTypeName } from '@acter/lib/constants'
 
+const { FOCUS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypeName
 export interface InterestTypesProps {
   type: InterestType
   allTypes: InterestType[]
   selectedInterests?: string[]
-  selectedTypes?: string[]
+  selectedTypes?: InterestTypeName[]
   disabled?: boolean
   showTitle?: boolean
   showSubTypeTitles?: boolean
@@ -60,16 +61,14 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             disabled={
               selectedTypes &&
               selectedTypes.filter((selectedType) =>
-                ['Focus', 'Environment', 'Social', 'Economy'].includes(
-                  selectedType
-                )
+                [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(selectedType)
               ).length >= 5
             }
             chipSize={chipSize}
             columns={columns}
           />
         ))}
-        {type.name === 'Focus' && (
+        {type.name === FOCUS && (
           <>
             {divider && (
               <Divider variant="middle" className={classes.divider} />
@@ -88,7 +87,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                   disabled ||
                   (selectedTypes &&
                     selectedTypes.filter((selectedType) =>
-                      ['Focus', 'Environment', 'Social', 'Economy'].includes(
+                      [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(
                         selectedType
                       )
                     ).length >= 5)
@@ -123,7 +122,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               >
                 <Interest
                   interest={interest}
-                  type={type.name}
+                  type={type.name as InterestTypeName}
                   chipSize={chipSize}
                   onSelectedInterestsChange={onSelectedInterestsChange}
                   selected={
