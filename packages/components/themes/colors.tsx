@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import { ActivityTypes, InterestType } from '@acter/lib/constants'
 
 type Color = CSSProperties['color']
 
@@ -9,29 +10,21 @@ type Grey = {
   dark: Color
 }
 
-type ActivityTypes = {
-  event: Color
-  project: Color
-  idea: Color
-  meeting: Color
-  dark: {
-    event: Color
-    project: Color
-    idea: Color
-    meeting: Color
-  }
+type ActivityTypeColor = {
+  [key in ActivityTypes]: Color
 }
 
-type InterestTypes = {
-  Economy: Color
-  Environment: Color
-  Social: Color
-  Approach: Color
-  Focus: Color
-  Tags: Color
+type ActivityTypeDarkColor = {
+  dark: ActivityTypeColor
 }
 
-type Others = {
+type ActivityTypeColors = ActivityTypeColor & ActivityTypeDarkColor
+
+type InterestTypeColors = {
+  [key in InterestType]: Color
+}
+
+type OtherColors = {
   searchTab: Color
 }
 
@@ -39,9 +32,9 @@ export type Colors = {
   black: Color
   grey: Grey
   white: Color
-  activityTypes: ActivityTypes
-  interestTypes: InterestTypes
-  others: Others
+  activityTypes: ActivityTypeColors
+  interestTypes: InterestTypeColors
+  others: OtherColors
 }
 
 export const paletteColors = {
