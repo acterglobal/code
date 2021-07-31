@@ -11,46 +11,45 @@ import { ActerListByType } from '@acter/components/acter/list-by-type'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
 import { User } from '@acter/schema/types'
+import { makeStyles } from '@material-ui/core'
+import { HomeIcon } from '@acter/components/icons/home-icon'
 export interface DashboardProps {
   user: User
 }
 
 export const Dashboard: FC<DashboardProps> = ({ user }) => {
+  const classes = useStyles()
   const acters = flattenFollowing(user.Acter)
   if (acters.length === 0) {
     return <DefaultMessage />
   }
   return (
-    <StyledContainer>
-      <StyledContentContainer>
-        <Typography variant="h4">Dashboard</Typography>
-        <Typography variant="subtitle1">
-          Here are the Organisations, Networks and Activities to which you are
-          connected.
+    <Box className={classes.container}>
+      <Box className={classes.topSection}>
+        <HomeIcon color="inherit" style={{ color: 'red' }} />
+        <Typography variant="h6" className={classes.heading}>
+          Your dashboard
         </Typography>
-      </StyledContentContainer>
+      </Box>
       <ActerListByType acters={flattenFollowing(user.Acter)} />
-    </StyledContainer>
+    </Box>
   )
 }
 
-const StyledContainer = withStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      marginTop: theme.spacing(2),
+    container: {
+      backgroundColor: theme.colors.white,
+    },
+    topSection: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'yellow',
+    },
+    heading: {
+      fontSize: theme.spacing(2),
+      fontWeight: theme.typography.fontWeightBold,
     },
   })
-)(Box)
-
-const StyledContentContainer = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: theme.palette.background.paper,
-      borderColor: theme.palette.divider,
-      borderWidth: 'thin',
-      borderStyle: 'solid',
-      borderRadius: theme.spacing(1),
-      padding: theme.spacing(2),
-    },
-  })
-)(Box)
+)

@@ -6,7 +6,7 @@ export const HomeIcon: FC<SvgIconProps> = (props) => (
     <svg
       width="19"
       height="19"
-      viewBox="-3 0 20 20"
+      viewBox="-3 -2 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
