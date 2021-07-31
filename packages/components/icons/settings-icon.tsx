@@ -8,7 +8,7 @@ export const SettingsIcon: FC<SvgIconProps> = (props) => (
       width="20"
       height="22"
       viewBox="1 0 12 16"
-      fill="none"
+      fill="#fff"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
