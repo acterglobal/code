@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Job } from 'bullmq'
-import { createQueue, createWorker } from '@acter/lib/bullmq'
+import { createWorker } from '@acter/lib/bullmq'
 import prisma from '@acter/lib/prisma'
 import { NotificationJobState, EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
 import { sendEmail, Email } from '@acter/lib/email'
@@ -12,8 +12,6 @@ export interface NotificationEmail extends Email {
    */
   notification?: Notification
 }
-
-export const emailOutboxQueue = createQueue(EMAIL_OUTBOX_QUEUE)
 
 export const emailSendWorker = createWorker(
   EMAIL_OUTBOX_QUEUE,

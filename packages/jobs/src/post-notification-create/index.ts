@@ -3,11 +3,14 @@ import fs from 'fs'
 import path from 'path'
 import { Job } from 'bullmq'
 import Handlebars from 'handlebars'
+import { format } from 'date-fns'
 import prisma from '@acter/lib/prisma'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createQueue, createWorker } from '@acter/lib/bullmq'
 import {
   ActerTypes,
+  DATE_FORMAT_LONG,
+  EMAIL_OUTBOX_QUEUE,
   POST_NOTIFICATIONS_QUEUE,
   NotificationJobState,
   NotificationQueueType,
@@ -19,12 +22,20 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
-import { NotificationEmail, emailOutboxQueue } from '../email-send'
+import { NotificationEmail } from '../email-send'
 
+type PostEmail = {
+  acterName: string
+  sentAt: string
+  sentBy: string
+  notificationUrl: string
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: any
+}
 const source = fs.readFileSync(path.join(__dirname, 'template.hbs'), 'utf8')
-const template = Handlebars.compile(source, {})
+const template = Handlebars.compile<PostEmail>(source)
 
-export const postNotificationsQueue = createQueue(POST_NOTIFICATIONS_QUEUE)
+const emailOutboxQueue = createQueue(EMAIL_OUTBOX_QUEUE)
 
 export const postNotificationsCreateWorker = createWorker(
   POST_NOTIFICATIONS_QUEUE,
@@ -37,6 +48,7 @@ export const postNotificationsCreateWorker = createWorker(
       include: {
         Acter: {
           include: {
+            ActerType: true,
             Followers: {
               include: {
                 Follower: {
@@ -49,6 +61,7 @@ export const postNotificationsCreateWorker = createWorker(
             },
           },
         },
+        Author: true,
       },
       where: {
         id: job.data.id,
@@ -65,6 +78,12 @@ export const postNotificationsCreateWorker = createWorker(
       return true
     })
 
+    const url = acterAsUrl({
+      acter: post.Acter,
+      extraPath: ['forum'],
+      includeBaseUrl: true,
+    })
+
     // Create the notification rows
     const notifications = await Promise.all(
       notify.map(async ({ Follower }) => {
@@ -76,7 +95,7 @@ export const postNotificationsCreateWorker = createWorker(
         const notification = await prisma.notification.create({
           data: {
             type: NotificationType.NEW_POST,
-            url: '',
+            url,
             ToActer: { connect: { id: Follower.id } },
             OnActer: { connect: { id: post.Acter.id } },
             // // Only set the sendTo for acters who want it
@@ -101,18 +120,22 @@ export const postNotificationsCreateWorker = createWorker(
           // Create the email
           // TODO: make it look ok
           const { OnActer } = notification
+          const notificationUrl = [
+            process.env.BASE_URL,
+            'notifications',
+            notification.id,
+          ].join('/')
           const email: Email = {
             to: notification.sendTo,
             subject: `New post on ${OnActer.name} via Acter`,
-            text: `A new post was created on an ${
-              OnActer.ActerType.name
-            } you follow on Acter, ${
-              OnActer.name
-            }. To see it, visit: ${acterAsUrl({
-              acter: OnActer,
-              extraPath: ['forum'],
-              includeBaseUrl: true,
-            })}`,
+            text: `A new post was created on an ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${url}`,
+            html: template({
+              acterName: post.Acter.name,
+              content: post.content,
+              notificationUrl,
+              sentAt: format(post.createdAt, DATE_FORMAT_LONG),
+              sentBy: post.Author.name,
+            }),
           }
           const data: NotificationEmail = {
             ...email,
@@ -147,8 +170,9 @@ postNotificationsCreateWorker.on('completed', (job) => {
   console.log(`Completed work on job ${job.name}`)
 })
 
-postNotificationsCreateWorker.on('failed', (job) => {
-  console.error(`Processing job failed ${job.name}: `, job)
+postNotificationsCreateWorker.on('failed', (job, err) => {
+  console.error(`Processing job failed ${job.name}: `)
+  console.trace(err)
 })
 
 postNotificationsCreateWorker.on('error', (err) => {

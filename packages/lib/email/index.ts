@@ -2,8 +2,6 @@ import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import { Environments } from '../constants'
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-
 export interface Email {
   to: string
   subject: string
@@ -22,6 +20,7 @@ export const sendEmail = async (email: Email): Promise<any> => {
     from: process.env.EMAIL_FROM,
   }
   if (process.env.NODE_ENV === Environments.PRODUCTION) {
+    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
     return await sendgrid.send(mail)
   }
 

@@ -1,2 +1,2 @@
 export * from './src/email-send'
-export * from './src/post-notification-createe'
+export * from './src/post-notification-create'

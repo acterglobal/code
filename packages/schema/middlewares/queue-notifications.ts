@@ -1,6 +1,9 @@
 import { MiddlewareFn } from 'type-graphql'
-import { postNotificationsQueue } from '@acter/jobs'
 import { NotificationQueueType } from '@acter/lib/constants'
+import { createQueue } from '@acter/lib/bullmq'
+import { POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
+
+export const postNotificationsQueue = createQueue(POST_NOTIFICATIONS_QUEUE)
 
 export const queueNotificationsMiddleware =
   (type: NotificationQueueType): MiddlewareFn =>
