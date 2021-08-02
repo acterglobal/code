@@ -5,19 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
-    "start": "ts-node --transpile-only ./src/index.ts",
-    "email-worker": "ts-node ./src/workers/email-send-worker.ts",
-    "notification-worker": "ts-node ./src/workers/notification-create-worker.ts"
+    "dev": "ts-node ./src/start-workers.ts",
+    "start": "ts-node --transpile-only ./src/start-workers.ts"
   },
   "dependencies": {
     "@swc/core": "^1.2.63",
     "bullmq": "*",
+    "handlebars": "^4.7.7",
     "reflect-metadata": "^0.1.13",
     "throng": "^5.0.0",
     "ts-node": "^10.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.9"
   }
 }

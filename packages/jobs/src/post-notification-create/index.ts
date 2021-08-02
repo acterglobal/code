@@ -1,11 +1,14 @@
 import 'reflect-metadata'
+import fs from 'fs'
+import path from 'path'
 import { Job } from 'bullmq'
+import Handlebars from 'handlebars'
 import prisma from '@acter/lib/prisma'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createQueue, createWorker } from '@acter/lib/bullmq'
 import {
   ActerTypes,
-  NOTIFICATIONS_QUEUE,
+  POST_NOTIFICATIONS_QUEUE,
   NotificationJobState,
   NotificationQueueType,
 } from '@acter/lib/constants'
@@ -16,12 +19,15 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
-import { NotificationEmail, emailOutboxQueue } from './email-send-worker'
+import { NotificationEmail, emailOutboxQueue } from '../email-send'
 
-export const notificationQueue = createQueue(NOTIFICATIONS_QUEUE)
+const source = fs.readFileSync(path.join(__dirname, 'template.hbs'), 'utf8')
+const template = Handlebars.compile(source, {})
 
-export const notificationCreateWorker = createWorker(
-  NOTIFICATIONS_QUEUE,
+export const postNotificationsQueue = createQueue(POST_NOTIFICATIONS_QUEUE)
+
+export const postNotificationsCreateWorker = createWorker(
+  POST_NOTIFICATIONS_QUEUE,
   async (job: Job<Post>) => {
     console.log('Processing job: ', job.data)
     job.updateProgress({ state: NotificationJobState.STARTED })
@@ -98,14 +104,15 @@ export const notificationCreateWorker = createWorker(
           const email: Email = {
             to: notification.sendTo,
             subject: `New post on ${OnActer.name} via Acter`,
-            content: `A new post was created on an ${
+            text: `A new post was created on an ${
               OnActer.ActerType.name
             } you follow on Acter, ${
               OnActer.name
-            }. To see it, visit: http://localhost:3000${acterAsUrl(
-              OnActer,
-              'forum'
-            )}`,
+            }. To see it, visit: ${acterAsUrl({
+              acter: OnActer,
+              extraPath: ['forum'],
+              includeBaseUrl: true,
+            })}`,
           }
           const data: NotificationEmail = {
             ...email,
@@ -124,26 +131,26 @@ export const notificationCreateWorker = createWorker(
   }
 )
 
-notificationCreateWorker.on('drained', () =>
+postNotificationsCreateWorker.on('drained', () =>
   console.log('No (more) jobs for notification worker to complete. Ready...')
 )
 
-notificationCreateWorker.on('active', (job) => {
+postNotificationsCreateWorker.on('active', (job) => {
   console.log(`Working on ${job.name}`)
 })
 
-notificationCreateWorker.on('progress', (job, progress) => {
+postNotificationsCreateWorker.on('progress', (job, progress) => {
   console.log(`Job ${job.name} progress: `, progress)
 })
 
-notificationCreateWorker.on('completed', (job) => {
+postNotificationsCreateWorker.on('completed', (job) => {
   console.log(`Completed work on job ${job.name}`)
 })
 
-notificationCreateWorker.on('failed', (job) => {
+postNotificationsCreateWorker.on('failed', (job) => {
   console.error(`Processing job failed ${job.name}: `, job)
 })
 
-notificationCreateWorker.on('error', (err) => {
+postNotificationsCreateWorker.on('error', (err) => {
   console.error('Something went wrong: ', err.message)
 })

@@ -2,29 +2,27 @@ import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
 import { Environments } from '../constants'
 
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
+
 export interface Email {
   to: string
   subject: string
-  content: string
-}
-
-interface EmailInternal extends Email {
-  from: string
   text: string
   html: string
 }
 
-export const sendEmail = async (email: Email) => {
+interface EmailInternal extends Email {
+  from: string
+}
+
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sendEmail = async (email: Email): Promise<any> => {
   const mail: EmailInternal = {
     ...email,
     from: process.env.EMAIL_FROM,
-    text: email.content,
-    html: email.content,
   }
   if (process.env.NODE_ENV === Environments.PRODUCTION) {
-    const { content: _content, ...sendmailMsg } = mail
-    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-    return await sendgrid.send(sendmailMsg)
+    return await sendgrid.send(mail)
   }
 
   const transport = nodemailer.createTransport({

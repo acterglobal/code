@@ -7,6 +7,10 @@
       "@acter/*": ["../../*"],
     }
   },
+  "include": [
+    "**/*.ts",
+    "**/*.hbs",
+  ],
   "ts-node": {
     "transpileOnly": true,
     "transpiler": "ts-node/transpilers/swc-experimental"

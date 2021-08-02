@@ -1,5 +1,5 @@
 import { MiddlewareFn } from 'type-graphql'
-import { notificationQueue } from '@acter/jobs/src/workers/notification-create-worker'
+import { postNotificationsQueue } from '@acter/jobs'
 import { NotificationQueueType } from '@acter/lib/constants'
 
 export const queueNotificationsMiddleware =
@@ -14,5 +14,5 @@ export const queueNotificationsMiddleware =
 
     console.log('Adding to notification queue', type, result)
 
-    notificationQueue.add(type, result)
+    postNotificationsQueue.add(type, result)
   }

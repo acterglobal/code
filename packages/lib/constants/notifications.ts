@@ -1,5 +1,5 @@
-export const NOTIFICATIONS_QUEUE = 'notifications'
-export const EMAIL_OUTBOX_QUEUE = 'email_outbox'
+export const POST_NOTIFICATIONS_QUEUE = 'post-notifications'
+export const EMAIL_OUTBOX_QUEUE = 'email-outbox'
 
 export enum NotificationQueueType {
   NEW_POST = 'newPost',
