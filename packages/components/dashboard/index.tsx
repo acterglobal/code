@@ -1,37 +1,48 @@
 import React, { FC } from 'react'
 import {
   Box,
-  Typography,
   createStyles,
-  withStyles,
+  makeStyles,
+  Typography,
   Theme,
+  useTheme,
 } from '@material-ui/core'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
-import { ActerListByType } from '@acter/components/acter/list-by-type'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
 import { User } from '@acter/schema/types'
-import { makeStyles } from '@material-ui/core'
 import { HomeIcon } from '@acter/components/icons/home-icon'
+import { DashboardContent } from '@acter/components/dashboard/content'
+
 export interface DashboardProps {
   user: User
 }
 
 export const Dashboard: FC<DashboardProps> = ({ user }) => {
   const classes = useStyles()
+  const theme = useTheme()
+
   const acters = flattenFollowing(user.Acter)
   if (acters.length === 0) {
     return <DefaultMessage />
   }
+
   return (
     <Box className={classes.container}>
       <Box className={classes.topSection}>
-        <HomeIcon color="inherit" style={{ color: 'red' }} />
+        <HomeIcon
+          color="inherit"
+          style={{
+            color: theme.palette.secondary.main,
+            fontWeight: 'bold',
+            fontSize: 30,
+          }}
+        />
         <Typography variant="h6" className={classes.heading}>
-          Your dashboard
+          Dashboard
         </Typography>
       </Box>
-      <ActerListByType acters={flattenFollowing(user.Acter)} />
+      <DashboardContent acters={acters} />
     </Box>
   )
 }
@@ -45,11 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'yellow',
     },
     heading: {
       fontSize: theme.spacing(2),
       fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.secondary.main,
+      marginLeft: theme.spacing(1),
     },
   })
 )
