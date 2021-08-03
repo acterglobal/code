@@ -4,7 +4,9 @@ import {
   ExampleActerList,
   ExampleActivity,
   ExampleActivityActer,
+  Interests,
 } from '@acter/schema/fixtures'
+
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -13,7 +15,13 @@ const { ACTIVITIES, ACTERS } = SearchType
 
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
-    render(<DisplayResults searchType={ACTERS} acters={ExampleActerList} />)
+    render(
+      <DisplayResults
+        searchType={ACTERS}
+        acters={ExampleActerList}
+        interestTypes={Interests.data.interestTypes}
+      />
+    )
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -31,7 +39,13 @@ describe('Display search results', () => {
     const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
     const activities = [...Array(8)].map(() => acter)
 
-    render(<DisplayResults searchType={ACTIVITIES} acters={activities} />)
+    render(
+      <DisplayResults
+        searchType={ACTIVITIES}
+        acters={activities}
+        interestTypes={Interests.data.interestTypes}
+      />
+    )
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(8)
@@ -51,7 +65,13 @@ describe('Display search results', () => {
   it('should display a message with no search results', async () => {
     const acters = []
 
-    render(<DisplayResults searchType={ACTERS} acters={acters} />)
+    render(
+      <DisplayResults
+        searchType={ACTERS}
+        acters={acters}
+        interestTypes={Interests.data.interestTypes}
+      />
+    )
     const items = screen.queryAllByRole('listitem')
     const message = screen.queryByLabelText('zero-acters').textContent
 

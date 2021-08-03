@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Acter } from '@acter/schema/types'
+import { Acter, InterestType } from '@acter/schema/types'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { ActerTile } from '@acter/components/acter/tile'
 import { SearchType } from '@acter/lib/constants'
@@ -13,10 +13,11 @@ const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
   searchType: string
   acters: Acter[]
+  interestTypes: InterestType[]
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = (props) => {
-  const { searchType, acters } = props
+  const { searchType, acters, interestTypes } = props
   const classes = useStyles()
 
   return (
@@ -25,7 +26,9 @@ export const DisplayResults: FC<DisplayResultsProps> = (props) => {
         acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
             <Link href={acterAsUrl({ acter })} passHref>
-              {searchType === ACTERS && <ActerTile acter={acter} />}
+              {searchType === ACTERS && (
+                <ActerTile acter={acter} interestTypes={interestTypes} />
+              )}
               {searchType === ACTIVITIES && (
                 <ActivityTile activity={acter.Activity} />
               )}

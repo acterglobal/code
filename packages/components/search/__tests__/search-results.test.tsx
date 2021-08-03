@@ -15,7 +15,7 @@ describe('Display search results', () => {
   })
 
   it('should display number of results', async () => {
-    const acters = [...Array(4).keys()].map(() => ExampleActer)
+    const acters = [...Array(4)].map(() => ExampleActer)
 
     render(
       <Search

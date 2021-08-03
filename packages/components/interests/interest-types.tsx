@@ -9,17 +9,20 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
+import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 
+const { FOCUS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypeName
 export interface InterestTypesProps {
   type: InterestType
   allTypes: InterestType[]
   selectedInterests?: string[]
-  selectedTypes?: string[]
+  selectedTypes?: InterestTypeName[]
   disabled?: boolean
   showTitle?: boolean
   showSubTypeTitles?: boolean
   columns?: boolean
   divider?: boolean
+  chipSize?: Size
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
 
@@ -34,6 +37,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   showSubTypeTitles = true,
   columns = false,
   divider: divider = false,
+  chipSize,
 }) => {
   const typeName: string = type.name
   const classes = useStyles({ typeName })
@@ -57,14 +61,14 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             disabled={
               selectedTypes &&
               selectedTypes.filter((selectedType) =>
-                ['Focus', 'Environment', 'Social', 'Economy'].includes(
-                  selectedType
-                )
+                [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(selectedType)
               ).length >= 5
             }
+            chipSize={chipSize}
+            columns={columns}
           />
         ))}
-        {type.name === 'Focus' && (
+        {type.name === FOCUS && (
           <>
             {divider && (
               <Divider variant="middle" className={classes.divider} />
@@ -73,6 +77,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               <Interest
                 interest={type.Interests[0]}
                 type={type.name}
+                chipSize={chipSize}
                 onSelectedInterestsChange={onSelectedInterestsChange}
                 selected={
                   selectedInterests &&
@@ -82,7 +87,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
                   disabled ||
                   (selectedTypes &&
                     selectedTypes.filter((selectedType) =>
-                      ['Focus', 'Environment', 'Social', 'Economy'].includes(
+                      [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(
                         selectedType
                       )
                     ).length >= 5)
@@ -95,11 +100,17 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     )
   } else {
     return (
-      <Box style={{ marginLeft: 25 }} role="list">
+      <Box ml={columns ? 0 : 3} role="list">
         {showTitle && (
           <Typography className={classes.title}>{type.name}</Typography>
         )}
-        <Box style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box
+          style={
+            columns
+              ? { display: 'flex', flexDirection: 'column' }
+              : { display: 'flex', flexWrap: 'wrap' }
+          }
+        >
           {type.Interests.map((interest) => {
             return (
               <Box
@@ -111,7 +122,8 @@ export const InterestTypes: FC<InterestTypesProps> = ({
               >
                 <Interest
                   interest={interest}
-                  type={type.name}
+                  type={type.name as InterestTypeName}
+                  chipSize={chipSize}
                   onSelectedInterestsChange={onSelectedInterestsChange}
                   selected={
                     selectedInterests && selectedInterests.includes(interest.id)

@@ -1,6 +1,8 @@
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
 import { Interests } from '@acter/schema/fixtures/interest/interests'
+import { InterestTypes } from '@acter/lib/constants'
 
+const { ENVIRONMENT, FOCUS, SOCIAL, TAGS } = InterestTypes
 const allInterests = Interests.data.interestTypes
 const selectedInterestIds = [
   allInterests[1].Interests[0].id,
@@ -14,10 +16,10 @@ describe('getSelectedTypes', () => {
     expect(getSelectedTypes([], Interests.data.interestTypes)).toStrictEqual([])
   })
 
-  it('should reutrn the types of selected interests', () => {
+  it('should return the types of selected interests', () => {
     const types = getSelectedTypes(selectedInterestIds, allInterests)
 
     expect(types).toHaveLength(4)
-    expect(types).toStrictEqual(['Environment', 'Focus', 'Social', 'Tags'])
+    expect(types).toStrictEqual([ENVIRONMENT, FOCUS, SOCIAL, TAGS])
   })
 })

@@ -1,29 +1,34 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Hidden, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
-import { Acter } from '@acter/schema/types'
+import { Acter, InterestType } from '@acter/schema/types'
+import { InterestsSection } from '@acter/components/interests/interests-section'
+import { capitalize } from 'lodash'
 
 export interface ActerTileProps {
   acter: Acter
+  interestTypes: InterestType[]
 }
 
-export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
+export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
   const classes = useStyles()
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(acter.avatarUrl, 'avatar')}
-          alt={acter.name}
-          layout="intrinsic"
-          width="100"
-          height="100"
-        />
-      </Box>
+      <Hidden smDown>
+        <Box className={classes.image}>
+          <Image
+            src={getImageUrl(acter.avatarUrl, 'avatar')}
+            alt={acter.name}
+            layout="intrinsic"
+            width="100"
+            height="100"
+          />
+        </Box>
+      </Hidden>
 
       <Box className={classes.infoSection}>
         <Box className={classes.acterType}>
@@ -53,13 +58,19 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
         </Typography>
         <Box className={classes.descriptionSection}>
           <Typography variant="caption" className={classes.description}>
-            {acter.description}
-          </Typography>
-          <Typography variant="caption" className={classes.viewMore}>
-            View more
+            {capitalize(acter.description)}
           </Typography>
         </Box>
       </Box>
+
+      <Hidden smDown>
+        <Box className={classes.interests}>
+          <InterestsSection
+            interestTypes={interestTypes}
+            selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
+          />
+        </Box>
+      </Hidden>
     </Box>
   )
 }
@@ -70,7 +81,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       borderRadius: 7,
       height: 150,
-      width: 700,
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -87,9 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 100,
       borderRadius: '50%',
       overflow: 'hidden',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
     infoSection: {
       display: 'flex',
@@ -120,7 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 400,
       height: 40,
       display: 'flex',
-      alignItems: 'flex-end',
+      alignItems: 'flex-start',
     },
     description: {
       color: theme.colors.black,
@@ -129,13 +136,13 @@ const useStyles = makeStyles((theme: Theme) =>
       lineClamp: 2,
       wordBreak: 'break-all',
       overflow: 'hidden',
-      width: '80%',
+      marginRight: theme.spacing(0.5),
     },
-    viewMore: {
-      color: theme.colors.black,
-      '&:hover': {
-        textDecoration: 'underline',
-      },
+    interests: {
+      height: '100%',
+      width: 310,
+      marginTop: theme.spacing(1),
+      marginRight: theme.spacing(1),
     },
   })
 )

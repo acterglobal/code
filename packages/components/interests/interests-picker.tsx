@@ -88,7 +88,6 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
                   onSelectedInterestsChange={handleSelectedInterest}
                   selectedInterests={selectedInterests}
                   selectedTypes={selectedTypes}
-                  columns={true}
                   divider={showDivider}
                 />
               </Box>
