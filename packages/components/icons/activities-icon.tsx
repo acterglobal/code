@@ -15,28 +15,28 @@ export const ActivitiesIcon: FC<SvgIconProps> = (props) => {
           height="15"
           rx="2.5"
           stroke={iconColor}
-          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 0.75}
+          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 1}
         />
         <line
           x1="5.5"
           y1="5"
           x2="5.5"
           stroke={iconColor}
-          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 0.75}
+          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 1}
         />
         <line
           x1="19"
           y1="7.5"
           y2="7.5"
           stroke={iconColor}
-          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 0.75}
+          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 1}
         />
         <line
           x1="13.5"
           y1="5"
           x2="13.5"
           stroke={iconColor}
-          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 0.75}
+          strokeWidth={props.style?.fontWeight === 'bold' ? 2 : 1}
         />
         <rect
           x="4"
