@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Hidden, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
@@ -18,15 +18,17 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(acter.avatarUrl, 'avatar')}
-          alt={acter.name}
-          layout="intrinsic"
-          width="100"
-          height="100"
-        />
-      </Box>
+      <Hidden smDown>
+        <Box className={classes.image}>
+          <Image
+            src={getImageUrl(acter.avatarUrl, 'avatar')}
+            alt={acter.name}
+            layout="intrinsic"
+            width="100"
+            height="100"
+          />
+        </Box>
+      </Hidden>
 
       <Box className={classes.infoSection}>
         <Box className={classes.acterType}>
@@ -60,12 +62,15 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
           </Typography>
         </Box>
       </Box>
-      <Box className={classes.interests}>
-        <InterestsSection
-          interestTypes={interestTypes}
-          selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
-        />
-      </Box>
+
+      <Hidden smDown>
+        <Box className={classes.interests}>
+          <InterestsSection
+            interestTypes={interestTypes}
+            selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
+          />
+        </Box>
+      </Hidden>
     </Box>
   )
 }
@@ -92,9 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 100,
       borderRadius: '50%',
       overflow: 'hidden',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
     infoSection: {
       display: 'flex',
@@ -141,9 +143,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 310,
       marginTop: theme.spacing(1),
       marginRight: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
   })
 )

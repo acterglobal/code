@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import { InterestType } from '@acter/schema/types'
 import { Interest } from '@acter/components/interests/interest'
-import { Size, InterestType as InterestTypeName } from '@acter/lib/constants'
+import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 
 const { FOCUS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypeName
 export interface InterestTypesProps {

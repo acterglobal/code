@@ -4,7 +4,7 @@ import { Box, Tooltip, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import clsx from 'clsx'
-import { Size, InterestType as InterestTypeName } from '@acter/lib/constants'
+import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 
 const { TAGS } = InterestTypeName
 export interface InterestProps {
