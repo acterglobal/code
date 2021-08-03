@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { ActivityTypes, InterestType } from '@acter/lib/constants'
+import { ActivityTypes, InterestTypes } from '@acter/lib/constants'
 
 type Color = CSSProperties['color']
 
@@ -21,7 +21,7 @@ type ActivityTypeDarkColor = {
 type ActivityTypeColors = ActivityTypeColor & ActivityTypeDarkColor
 
 type InterestTypeColors = {
-  [key in InterestType]: Color
+  [key in InterestTypes]: Color
 }
 
 type OtherColors = {

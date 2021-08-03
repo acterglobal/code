@@ -1,4 +1,4 @@
-export enum InterestType {
+export enum InterestTypes {
   FOCUS = 'Focus',
   APPROACH = 'Approach',
   TAGS = 'Tags',
