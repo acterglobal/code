@@ -31,4 +31,10 @@ describe('acterTypeAsUrl', () => {
       'http://example.com/organisations/my-organisation'
     )
   })
+
+  it('should include a query string if requested', () => {
+    expect(
+      acterAsUrl({ acter: ExampleActer, query: { foo: 'bar', blah: 'baz' } })
+    ).toBe('/organisations/my-organisation?foo=bar&blah=baz')
+  })
 })
