@@ -7,7 +7,6 @@ import {
   ActerTypes,
   EMAIL_OUTBOX_QUEUE,
   POST_NOTIFICATIONS_QUEUE,
-  NotificationJobState,
   NotificationQueueType,
 } from '@acter/lib/constants'
 import { Email } from '@acter/lib/email'
@@ -26,7 +25,6 @@ export const postNotificationsCreateWorker = createWorker(
   POST_NOTIFICATIONS_QUEUE,
   async (job: Job<Post>) => {
     console.log('Processing job: ', job.data)
-    job.updateProgress({ state: NotificationJobState.STARTED })
 
     // First we want to find all the followers for the parent Acter
     const post = await prisma.post.findFirst({
@@ -126,7 +124,6 @@ export const postNotificationsCreateWorker = createWorker(
     )
     console.log('Notifications create complete', notifications)
 
-    job.updateProgress({ state: NotificationJobState.FINISHED })
     return 'Notification job complete'
   }
 )
@@ -136,20 +133,19 @@ postNotificationsCreateWorker.on('drained', () =>
 )
 
 postNotificationsCreateWorker.on('active', (job) => {
-  console.log(`Working on ${job.name}`)
+  console.log(`Working on ${job.id}:${job.name}`)
 })
 
 postNotificationsCreateWorker.on('progress', (job, progress) => {
-  console.log(`Job ${job.name} progress: `, progress)
+  console.log(`Job ${job.id}:${job.name} progress: `, progress)
 })
 
 postNotificationsCreateWorker.on('completed', (job) => {
-  console.log(`Completed work on job ${job.name}`)
+  console.log(`Completed work on job ${job.id}:${job.name}`)
 })
 
 postNotificationsCreateWorker.on('failed', (job, err) => {
-  console.error(`Processing job failed ${job.name}: `)
-  console.trace(err)
+  console.error(`Processing job failed ${job.id}:${job.name}: `, err.message)
 })
 
 postNotificationsCreateWorker.on('error', (err) => {

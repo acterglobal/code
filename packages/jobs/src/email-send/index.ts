@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { Job } from 'bullmq'
 import { createWorker } from '@acter/lib/bullmq'
 import prisma from '@acter/lib/prisma'
-import { NotificationJobState, EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
+import { EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
 import { sendEmail, Email } from '@acter/lib/email'
 import { Notification } from '@acter/schema/types'
 
@@ -16,9 +16,6 @@ export interface NotificationEmail extends Email {
 export const emailSendWorker = createWorker(
   EMAIL_OUTBOX_QUEUE,
   async (job: Job<NotificationEmail>) => {
-    console.log('Processing job: ', job.data)
-    job.updateProgress({ state: NotificationJobState.STARTED })
-
     try {
       const res = await sendEmail(job.data)
       console.log(`Email sent to ${job.data.to}`)
@@ -56,19 +53,19 @@ emailSendWorker.on('drained', () =>
 )
 
 emailSendWorker.on('active', (job) => {
-  console.log(`Working on ${job.name}`)
+  console.log(`Working on ${job.id}:${job.name}`)
 })
 
 emailSendWorker.on('progress', (job, progress) => {
-  console.log(`Job ${job.name} progress: `, progress)
+  console.log(`Job ${job.id}:${job.name} progress: `, progress)
 })
 
 emailSendWorker.on('completed', (job) => {
-  console.log(`Completed work on job ${job.name}`)
+  console.log(`Completed work on job ${job.id}:${job.name}`)
 })
 
-emailSendWorker.on('failed', (job) => {
-  console.error(`Processing job failed ${job.name}: `, job)
+emailSendWorker.on('failed', (job, err) => {
+  console.error(`Processing job failed ${job.id}:${job.name}: `, err.message)
 })
 
 emailSendWorker.on('error', (err) => {
