@@ -7,7 +7,9 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+import { Link } from '@acter/components/util/anchor-link'
 import { capitalize } from 'lodash'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 type GroupListProps = {
   groups: Acter[]
@@ -20,19 +22,21 @@ export const GroupsList: FC<GroupListProps> = ({ groups }) => {
   return (
     <>
       {groups.map((group) => (
-        <Box className={classes.group}>
-          <Box className={classes.icon}>
-            <Typography className={classes.symbol}>#</Typography>
+        <Link href={acterAsUrl({ acter: group })} key={group.id}>
+          <Box className={classes.group}>
+            <Box className={classes.icon}>
+              <Typography className={classes.symbol}>#</Typography>
+            </Box>
+            <Box className={classes.info}>
+              <Typography variant="body1" className={classes.title}>
+                {capitalize(group.name)}
+              </Typography>
+              <Typography variant="caption" className={classes.acter}>
+                {capitalize(group.Parent.name)}
+              </Typography>
+            </Box>
           </Box>
-          <Box className={classes.info}>
-            <Typography variant="body1" className={classes.title}>
-              {capitalize(group.name)}
-            </Typography>
-            <Typography variant="caption" className={classes.acter}>
-              {capitalize(group.Parent.name)}
-            </Typography>
-          </Box>
-        </Box>
+        </Link>
       ))}
     </>
   )
