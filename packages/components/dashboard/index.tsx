@@ -42,7 +42,7 @@ export const Dashboard: FC<DashboardProps> = ({ user }) => {
           Dashboard
         </Typography>
       </Box>
-      <DashboardContent acters={acters} />
+      <DashboardContent acters={acters} user={user} />
     </Box>
   )
 }

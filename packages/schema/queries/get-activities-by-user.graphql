@@ -1,0 +1,18 @@
+#import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
+
+query getActivitiesByUser($userId: String) {
+  activities(
+    where: {
+      Acter: { is: { createdByUser: { is: { id: { equals: $userId } } } } }
+    }
+  ) {
+    ...ActivityDisplay
+    Organiser {
+      ...ActerDisplay
+    }
+    Acter {
+      ...ActerDisplay
+    }
+  }
+}

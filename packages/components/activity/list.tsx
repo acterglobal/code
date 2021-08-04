@@ -8,6 +8,7 @@ export interface ActivityListProps {
 }
 
 export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
+  console.log(activities.length)
   return (
     <>
       {activities?.map((activity) => (
