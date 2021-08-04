@@ -1,56 +1,67 @@
 import React, { FC } from 'react'
 import {
   Box,
-  Typography,
   createStyles,
-  withStyles,
+  makeStyles,
+  Typography,
   Theme,
+  useTheme,
 } from '@material-ui/core'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
-import { ActerListByType } from '@acter/components/acter/list-by-type'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
 import { User } from '@acter/schema/types'
+import { HomeIcon } from '@acter/components/icons/home-icon'
+import { DashboardContent } from '@acter/components/dashboard/content'
+
 export interface DashboardProps {
   user: User
 }
 
 export const Dashboard: FC<DashboardProps> = ({ user }) => {
+  const classes = useStyles()
+  const theme = useTheme()
+
   const acters = flattenFollowing(user.Acter)
   if (acters.length === 0) {
     return <DefaultMessage />
   }
+
   return (
-    <StyledContainer>
-      <StyledContentContainer>
-        <Typography variant="h4">Dashboard</Typography>
-        <Typography variant="subtitle1">
-          Here are the Organisations, Networks and Activities to which you are
-          connected.
+    <Box className={classes.container}>
+      <Box className={classes.topSection}>
+        <HomeIcon
+          color="inherit"
+          style={{
+            color: theme.palette.secondary.main,
+            fontWeight: 'bold',
+            fontSize: 30,
+          }}
+        />
+        <Typography variant="h6" className={classes.heading}>
+          Dashboard
         </Typography>
-      </StyledContentContainer>
-      <ActerListByType acters={flattenFollowing(user.Acter)} />
-    </StyledContainer>
+      </Box>
+      <DashboardContent acters={acters} />
+    </Box>
   )
 }
 
-const StyledContainer = withStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      marginTop: theme.spacing(2),
+    container: {
+      backgroundColor: theme.colors.white,
+    },
+    topSection: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    heading: {
+      fontSize: theme.spacing(2),
+      fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.secondary.main,
+      marginLeft: theme.spacing(1),
     },
   })
-)(Box)
-
-const StyledContentContainer = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: theme.palette.background.paper,
-      borderColor: theme.palette.divider,
-      borderWidth: 'thin',
-      borderStyle: 'solid',
-      borderRadius: theme.spacing(1),
-      padding: theme.spacing(2),
-    },
-  })
-)(Box)
+)

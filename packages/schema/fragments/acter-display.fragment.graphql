@@ -15,4 +15,7 @@ fragment ActerDisplay on Acter {
     name
   }
   deletedAt
+  Parent {
+    name
+  }
 }
