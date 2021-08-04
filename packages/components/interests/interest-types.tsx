@@ -73,7 +73,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
             {divider && (
               <Divider variant="middle" className={classes.divider} />
             )}
-            <Box ml={3}>
+            <Box ml={chipSize ? 0 : 3}>
               <Interest
                 interest={type.Interests[0]}
                 type={type.name}
