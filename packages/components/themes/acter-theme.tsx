@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { typography } from '@acter/components/themes/fonts'
 import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
-declare module '@material-ui/core/styles/createMuiTheme' {
+declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     colors: Colors
   }
@@ -12,7 +12,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 }
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   palette: paletteColors,
 
   colors: colors,

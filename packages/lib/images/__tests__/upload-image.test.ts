@@ -6,8 +6,9 @@ jest.mock('axios')
 describe('uploadImage', () => {
   it('should use the fetched signed URL to send the file', async () => {
     const data = 'http://example.com'
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data }))
-    axios.put.mockImplementationOnce((url, file, options) => {
+    const axiosGetMock = axios.get as jest.Mock
+    axiosGetMock.mockImplementationOnce(() => Promise.resolve({ data }))
+    axiosGetMock.mockImplementationOnce((url, file, options) => {
       expect(url).toBe(data)
       expect(options.headers['Content-type']).toBe('image/jpeg')
       expect(options.headers['x-amz-acl']).toBe('public-read')
