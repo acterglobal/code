@@ -8,11 +8,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "packages/schema",
     "packages/*"
   ],
   "scripts": {
     "dev": "yarn workspace @acter/web dev",
-    "build": "yarn workspace @acter/web build",
+    "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components storybook",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
