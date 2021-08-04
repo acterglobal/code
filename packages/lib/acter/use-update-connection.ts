@@ -4,9 +4,12 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
-import { Acter, ActerConnection } from '@acter/schema/types'
+import {
+  Acter,
+  ActerConnection,
+  ActerConnectionRole,
+} from '@acter/schema/types'
 import ACTER_CONNECTION_FRAGMENT from '@acter/schema/fragments/acter-connection-full.fragment.graphql'
-import { ActerConnectionRole } from '@prisma/client'
 
 type ConnectionVariables = {
   connection: ActerConnection
