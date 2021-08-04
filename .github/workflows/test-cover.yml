@@ -26,10 +26,14 @@ jobs:
         run: |
           yarn lint
 
+      - name: generate schema
+        run: |
+          yarn workspace @acter/schema build
+
       - name: coverage tests
         run: |
           yarn cover
 
-      - name: build
+      - name: build web
         run: |
-          yarn build
+          yarn workspace @acter/web build
