@@ -14,13 +14,13 @@
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@auth0/nextjs-auth0": "^1.4.2",
-    "@material-ui/core": "^4.11.4",
+    "@material-ui/core": "*",
     "@sentry/nextjs": "^6.8.0",
     "apollo-server-micro": "^2.25.2",
     "aws-sdk": "^2.940.0",
     "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
-    "next": "^v10.2.2",
+    "next": "*",
     "next-compose-plugins": "^2.2.1",
     "next-graphql-loader": "^1.0.1",
     "next-transpile-modules": "^8.0.0",
@@ -28,10 +28,11 @@
     "react": "*",
     "react-dom": "*",
     "react-use-intercom": "^1.3.0",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "*",
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^11.0.1"
+    "@next/bundle-analyzer": "^11.0.1",
+    "eslint-config-next": "^11.0.1"
   }
 }

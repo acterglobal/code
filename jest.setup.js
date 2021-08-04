@@ -1,5 +1,5 @@
-import 'reflect-metadata'
-import '@testing-library/jest-dom'
+require('reflect-metadata')
+require('@testing-library/jest-dom')
 
 process.env = {
   ...process.env,
