@@ -9,6 +9,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  useTheme,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -31,6 +32,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   text,
 }) => {
   const classes = useStyles()
+  const theme = useTheme()
   const router = useRouter()
 
   const tab = getLandingPageTab(router, ActerMenu.FORUM)
@@ -47,7 +49,14 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
     >
       <Link href={acterAsUrl({ acter, extraPath: [path] })}>
         <ListItemIcon>
-          <Icon color="inherit" className={classes.icon} />
+          <Icon
+            color="inherit"
+            className={classes.icon}
+            style={{
+              color: isActive ? theme.colors.white : null,
+              fontWeight: isActive ? 'bold' : null,
+            }}
+          />
         </ListItemIcon>
         <ListItemText
           className={classes.itemText}

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Link } from '@acter/components/util/anchor-link'
 import {
   Box,
@@ -9,6 +10,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  useTheme,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 import {
@@ -44,6 +46,7 @@ export const Sidebar: FC<SidebarProps> = ({
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
+  const router = useRouter()
 
   useEffect(() => {
     if (acter || searchType) {
@@ -64,8 +67,18 @@ export const Sidebar: FC<SidebarProps> = ({
       <Box className={classes.menu}>
         <List className={classes.list}>
           <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
-          <IconMenuItem Icon={HomeIcon} href="/dashboard" text="Home" />
-          <IconMenuItem Icon={SearchIcon} href="/search" text="Search" />
+          <IconMenuItem
+            Icon={HomeIcon}
+            href="/dashboard"
+            text="Home"
+            active={router.route === '/dashboard'}
+          />
+          <IconMenuItem
+            Icon={SearchIcon}
+            href="/search"
+            text="Search"
+            active={router.route === '/search'}
+          />
           <Divider />
           <FollowingList user={user} />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
@@ -93,14 +106,25 @@ interface IconMenuItemProps {
   href: string
   Icon: SvgIconComponent
   text: string
+  active?: boolean
 }
 
-const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text }) => {
+const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
   const classes = useStyles({})
+  const theme = useTheme()
+
   return (
     <ListItem className={classes.item}>
       <Link href={href}>
-        <Icon fontSize="large" aria-label={text} />
+        <Icon
+          fontSize="large"
+          aria-label={text}
+          color="inherit"
+          style={{
+            color: active ? theme.colors.white : null,
+            fontWeight: active ? 'bold' : null,
+          }}
+        />
       </Link>
     </ListItem>
   )

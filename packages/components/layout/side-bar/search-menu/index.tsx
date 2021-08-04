@@ -5,6 +5,7 @@ import {
   makeStyles,
   Theme,
   Typography,
+  useTheme,
 } from '@material-ui/core'
 import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
@@ -61,9 +62,14 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
 
 const HeaderSection: FC = () => {
   const classes = useStyles()
+  const theme = useTheme()
   return (
     <Box className={classes.heading}>
-      <SearchIcon fontSize="inherit" className={classes.searchIcon} />
+      <SearchIcon
+        fontSize="inherit"
+        className={classes.searchIcon}
+        style={{ color: theme.palette.secondary.light }}
+      />
       <Typography variant="caption">Public search</Typography>
     </Box>
   )
