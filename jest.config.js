@@ -1,7 +1,5 @@
-import type { InitialOptionsTsJest } from 'ts-jest/dist/types'
-
-const config: InitialOptionsTsJest = {
-  preset: 'ts-jest',
+module.exports = {
+  // preset: 'ts-jest',
   testEnvironment: 'jsdom',
 
   // A set of global variables that need to be available in all test environments
@@ -32,7 +30,6 @@ const config: InitialOptionsTsJest = {
   // A map from regular expressions to paths to transformers
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
+    '\\.[jt]sx?$': 'babel-jest',
   },
 }
-
-export default config
