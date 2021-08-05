@@ -5,12 +5,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "yarn prisma generate",
     "db:migrate": "yarn db:migrate:run --create-only",
     "db:migrate:run": "yarn env-cmd prisma migrate dev --preview-feature",
     "db:reset": "yarn env-cmd prisma migrate reset --preview-feature",
     "db:seed": "yarn env-cmd prisma db seed --preview-feature",
     "env-cmd": "env-cmd --silent --file ../../.env",
-    "generate": "yarn prisma generate",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "dependencies": {

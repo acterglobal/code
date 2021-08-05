@@ -8,11 +8,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "packages/schema",
     "packages/*"
   ],
   "scripts": {
     "dev": "yarn workspace @acter/web dev",
-    "build": "yarn workspace @acter/web build",
+    "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components storybook",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
@@ -20,7 +21,7 @@
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
     "test:ci": "rm -rf .next out && jest",
     "cover": "rm -rf .next && env-cmd --silent jest --coverage",
-    "postinstall": "yarn generate",
+    "prepare": "yarn generate",
     "husky-install": "husky install",
     "generate": "yarn workspace @acter/schema generate",
     "db:migrate": "yarn workspace @acter/schema db:migrate",
@@ -86,5 +87,16 @@
     "fs": false,
     "os": false,
     "path": false
-  }
+  },
+  "engines": {
+    "node": "16.x",
+    "yarn": "3.x"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "packages/components/node_modules",
+    "packages/lib/node_modules",
+    "packages/schema/node_modules",
+    "packages/web/node_modules"
+  ]
 }
