@@ -21,11 +21,14 @@ jobs:
       - name: generate schema
         run: |
           yarn workspace @acter/schema build
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r app.zip .
       - name: upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build-output
-          path: .
+          path: app.zip
 
   lint:
     runs-on: ubuntu-latest
@@ -35,6 +38,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-output
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq app.zip
       - name: lint
         run: |
           yarn lint
@@ -47,6 +53,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-output
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq app.zip
       - name: coverage tests
         run: |
           yarn cover
@@ -59,6 +68,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-output
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq app.zip
       - name: build web
         run: |
           yarn workspace @acter/web build
@@ -70,4 +82,4 @@ jobs:
       - name: clear artifacts
         uses: actions/delete-artifact@v1
         with:
-          name: build-output
+          name: app.zip
