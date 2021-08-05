@@ -7746,6 +7746,7 @@ __metadata:
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
     babel-plugin-transform-typescript-metadata: ^0.3.1
+    cli-confirm: ^1.0.1
     date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
     env-cmd: ^10.1.0
@@ -9884,6 +9885,15 @@ __metadata:
   version: 2.2.1
   resolution: "cli-boxes@npm:2.2.1"
   checksum: be79f8ec23a558b49e01311b39a1ea01243ecee30539c880cf14bf518a12e223ef40c57ead0cb44f509bffdffc5c129c746cd50d863ab879385370112af4f585
+  languageName: node
+  linkType: hard
+
+"cli-confirm@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "cli-confirm@npm:1.0.1"
+  bin:
+    cli-confirm: index.js
+  checksum: 99245abaf9fa263fd11006b6fd1337b797c907a90c5028dd83875651efa544a045626ad6de6c293d4c76f1475f886cc5b1a33f74a5e12206b9bc58e4bb2a3341
   languageName: node
   linkType: hard
 
