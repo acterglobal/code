@@ -65,12 +65,9 @@ jobs:
 
   clean:
     runs-on: ubuntu-latest
-    needs:
-      - lint
-      - cover
-      - run
+    needs: [lint, cover, build-web]
     steps:
       - name: clear artifacts
-        uses: actions/delete-artifact@v2
+        uses: actions/delete-artifact@v1
         with:
           name: build-output
