@@ -13,9 +13,6 @@ const withTM = transpileModules([
 ])
 
 module.exports = withPlugins([[withBundleAnalyzer], withGraphql, withTM], {
-  future: {
-    webpack5: true,
-  },
   images: {
     loader: 'imgix',
     path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,

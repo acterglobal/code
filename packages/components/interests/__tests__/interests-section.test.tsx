@@ -1,3 +1,4 @@
+import React from 'react'
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { render, screen } from '@acter/lib/test-utils'
 
