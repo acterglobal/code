@@ -21,10 +21,10 @@ export const UserProfileInfoPage: NextPage<UserProfilePageProps> = ({
 }) => {
   const [updateActer] = useUpdateActer(user.Acter)
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title="Profile - Acter" />
       <main>
-        <ProfileInfoForm user={user} onSubmit={updateActer} />
+        <ProfileInfoForm onSubmit={updateActer} />
       </main>
     </Layout>
   )

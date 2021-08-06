@@ -5,7 +5,7 @@ import { TextField } from 'formik-material-ui'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string
@@ -16,17 +16,20 @@ export interface ProfileInfoFormValues {
 }
 
 export interface ProfileInfoFormProps {
-  user: User
   onSubmit: (any) => void
 }
 
-export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({
-  user,
-  onSubmit,
-}) => {
+export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({ onSubmit }) => {
   const classes = useStyles()
-  const { avatarUrl, name, description, location } = user.Acter
+  const [user, { loading }] = useUser()
+
+  if (loading || !user) {
+    return <>Loading...</>
+  }
+
   const { email } = user
+  const { avatarUrl, name, description, location } = user.Acter
+
   const initialValues: ProfileInfoFormValues = {
     avatarUrl,
     description,
@@ -40,7 +43,7 @@ export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({
         <Form>
           <Grid container>
             <Grid item sm={12} md={4}>
-              <ImageUpload imageType="avatar" fileUrl={user.Acter.avatarUrl} />
+              <ImageUpload imageType="avatar" fileUrl={user?.Acter.avatarUrl} />
             </Grid>
             <Grid item sm={12} md={8}>
               <Field
