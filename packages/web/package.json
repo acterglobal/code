@@ -15,6 +15,7 @@
     "@apollo/client": "^3.3.21",
     "@auth0/nextjs-auth0": "^1.4.2",
     "@material-ui/core": "*",
+    "@next/bundle-analyzer": "^11.0.1",
     "@sentry/nextjs": "^6.8.0",
     "apollo-server-micro": "^2.25.2",
     "aws-sdk": "^2.940.0",
@@ -32,7 +33,6 @@
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^11.0.1",
     "eslint-config-next": "^11.0.1"
   }
 }
