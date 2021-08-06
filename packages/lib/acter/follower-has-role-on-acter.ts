@@ -1,4 +1,4 @@
-import { Acter, ActerConnectionRole } from '@acter/schema/types'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 import { connectionHasAtLeastRole } from '@acter/lib/acter/connection-has-at-least-role'
 
 /**

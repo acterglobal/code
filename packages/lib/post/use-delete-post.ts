@@ -7,7 +7,7 @@ import {
 import DELETE_POST from '@acter/schema/mutations/delete-post.graphql'
 import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 import { getNewPostList } from '@acter/lib/post/delete-update-postlist'
-import { Post as PostType } from '@acter/schema/types'
+import { Post as PostType } from '@acter/schema'
 
 export type PostVariables = {
   postId: string

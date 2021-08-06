@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import { Formik, Form } from 'formik'
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
-import { Acter, ActerJoinSettings } from '@acter/schema/types'
+import { Acter, ActerJoinSettings } from '@acter/schema'
 
 interface ActerUserSettingsInitialValues {
   acterJoinSetting: ActerJoinSettings

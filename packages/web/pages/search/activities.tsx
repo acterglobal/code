@@ -13,7 +13,7 @@ import {
   getInterests,
   getActivityTypes,
 } from 'props'
-import { Acter, ActivityType, InterestType, User } from '@acter/schema/types'
+import { Acter, ActivityType, InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {

@@ -1,4 +1,4 @@
-import { Acter, ActerConnection } from '@acter/schema/types'
+import { Acter, ActerConnection } from '@acter/schema'
 
 export const mapFollowersByType = (
   acter: Acter

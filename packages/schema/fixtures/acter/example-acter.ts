@@ -3,7 +3,7 @@ import {
   ActerJoinSettings,
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
-} from '@acter/schema/types'
+} from '@acter/schema'
 import {
   ExampleUser,
   OrganisationActerType,

@@ -1,4 +1,4 @@
-import { ActivityType } from '@acter/schema/types'
+import { ActivityType } from '@acter/schema'
 import { ActivityTypes } from '@acter/lib/constants'
 
 export const ProjectActivityType: ActivityType = {

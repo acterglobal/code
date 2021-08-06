@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import { Link } from '@acter/schema/types'
+import { Link } from '@acter/schema'
 
 export type LinkFormValues = Link & {
   id: string | null

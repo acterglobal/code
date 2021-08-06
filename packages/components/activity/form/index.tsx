@@ -27,7 +27,7 @@ import {
   SettingsStepValues,
 } from '@acter/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-import { Acter, User } from '@acter/schema/types'
+import { Acter, User } from '@acter/schema'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'

@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

@@ -10,7 +10,7 @@ import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 export interface ProfileNotificationsFormValues {
   acterNotifySetting: ActerNotificationSettings

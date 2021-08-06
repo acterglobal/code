@@ -5,7 +5,7 @@ import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
 } from '@acter/lib/interests'
-import { InterestType, Interest } from '@acter/schema/types'
+import { InterestType, Interest } from '@acter/schema'
 import { Size } from '@acter/lib/constants'
 
 export interface InterestsSectionProps {

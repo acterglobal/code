@@ -4,7 +4,7 @@ import { Tabs, Tab, Box } from '@material-ui/core'
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { getTopLevelTypes } from '@acter/lib/interests/get-toplevel-types'
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
-import { InterestType } from '@acter/schema/types'
+import { InterestType } from '@acter/schema'
 
 export interface InterestsPickerProps {
   interestTypes: InterestType[]

@@ -7,7 +7,7 @@ import {
   createStyles,
   Theme,
 } from '@material-ui/core'
-import { InterestType } from '@acter/schema/types'
+import { InterestType } from '@acter/schema'
 import { Interest } from '@acter/components/interests/interest'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 

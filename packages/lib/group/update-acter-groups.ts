@@ -1,4 +1,4 @@
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 
 export const updateActerGroups = (acter: Acter, group: Acter): Acter => {

@@ -16,7 +16,7 @@ import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnectionRole } from '@acter/schema'
 
 export type HeaderSectionProps = ConnectProps
 

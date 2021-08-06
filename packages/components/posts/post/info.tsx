@@ -3,7 +3,7 @@ import { formatRelative, parseISO } from 'date-fns/fp'
 import { pipe } from 'fp-ts/function'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
-import { Post } from '@acter/schema/types'
+import { Post } from '@acter/schema'
 
 export interface PostInfoProps {
   post: Post

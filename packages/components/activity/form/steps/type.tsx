@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { NavigateNextOutlined } from '@material-ui/icons'
 
-import { ActivityType } from '@acter/schema/types'
+import { ActivityType } from '@acter/schema'
 
 export interface ActivityTypeStepProps {
   activityTypes: ActivityType[]

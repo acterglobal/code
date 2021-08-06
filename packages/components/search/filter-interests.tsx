@@ -3,7 +3,7 @@ import { Box, Button } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Form, Formik } from 'formik'
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
-import { InterestType } from '@acter/schema/types'
+import { InterestType } from '@acter/schema'
 import { Popover } from '@acter/components/util/popover'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 

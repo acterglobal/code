@@ -11,7 +11,7 @@ import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
 import { useRouter } from 'next/router'
 import { SearchTypes } from '@acter/components/layout/side-bar/search-menu/types'
-import { ActerType, ActivityType } from '@acter/schema/types'
+import { ActerType, ActivityType } from '@acter/schema'
 import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
 
 export interface SearchMenuProps {

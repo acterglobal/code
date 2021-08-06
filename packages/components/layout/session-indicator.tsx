@@ -4,7 +4,7 @@ import { Button, Link as MuiLink, MenuItem } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { ProfileButton } from '@acter/components/user/profile-button'
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 
 export interface SessionIndicatorProps {

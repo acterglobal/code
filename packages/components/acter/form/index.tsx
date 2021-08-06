@@ -17,7 +17,7 @@ import {
   InterestAddSectionValues,
 } from '@acter/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from '@acter/components/styled'
-import { Acter, ActerType, InterestType } from '@acter/schema/types'
+import { Acter, ActerType, InterestType } from '@acter/schema'
 import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'

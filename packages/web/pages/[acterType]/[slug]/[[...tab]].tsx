@@ -14,14 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import {
-  Acter,
-  ActerType,
-  InterestType,
-  Post,
-  User,
-  Link,
-} from '@acter/schema/types'
+import { Acter, ActerType, InterestType, Post, User, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -112,20 +105,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: setDisplayPostList,
   })
 
-  const [
-    createActerConnection,
-    { loading: creatingConnection },
-  ] = useCreateActerConnection(displayActer)
+  const [createActerConnection, { loading: creatingConnection }] =
+    useCreateActerConnection(displayActer)
 
-  const [
-    updateActerConnection,
-    { loading: updatingConnection },
-  ] = useUpdateActerConnection(displayActer)
+  const [updateActerConnection, { loading: updatingConnection }] =
+    useUpdateActerConnection(displayActer)
 
-  const [
-    deleteActerConnection,
-    { loading: deletingConnection },
-  ] = useDeleteActerConnection(displayActer)
+  const [deleteActerConnection, { loading: deletingConnection }] =
+    useDeleteActerConnection(displayActer)
 
   return (
     <Layout

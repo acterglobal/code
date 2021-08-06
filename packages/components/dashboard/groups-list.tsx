@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import {
   Box,
   createStyles,

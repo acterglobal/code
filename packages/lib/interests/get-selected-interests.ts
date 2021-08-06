@@ -1,4 +1,4 @@
-import { Interest, InterestType } from '@acter/schema/types'
+import { Interest, InterestType } from '@acter/schema'
 
 /**
  * Used to group selected interests by InterestTypes

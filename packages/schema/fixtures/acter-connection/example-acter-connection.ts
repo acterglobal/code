@@ -1,6 +1,6 @@
 import { v4 } from 'uuid'
 
-import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 export const ExampleActerConnection: ActerConnection = {
   id: v4(),

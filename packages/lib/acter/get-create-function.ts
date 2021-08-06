@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
-import { Acter, ActerType, Activity } from '@acter/schema/types'
+import { Acter, ActerType, Activity } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 import { updateActerWithPictures } from '@acter/lib/acter/update-acter-with-pictures'
 
@@ -35,30 +35,30 @@ interface GetCreateFunctionProps {
  * @updateActer Function to update an Acter
  * @returns function which takes form data
  */
-export const getCreateFunction = ({
-  acterType,
-  createActivity,
-  createActer,
-  updateActer,
-}: GetCreateFunctionProps) => async (
-  data: Partial<Activity> | Partial<Acter>
-): Promise<Acter> => {
-  const acterCreate = await _acterCreate({
+export const getCreateFunction =
+  ({
     acterType,
     createActivity,
     createActer,
-    data,
-  })
+    updateActer,
+  }: GetCreateFunctionProps) =>
+  async (data: Partial<Activity> | Partial<Acter>): Promise<Acter> => {
+    const acterCreate = await _acterCreate({
+      acterType,
+      createActivity,
+      createActer,
+      data,
+    })
 
-  // Add form data so we can upload/save pictures
-  const acter = {
-    ...data,
-    ...acterCreate,
+    // Add form data so we can upload/save pictures
+    const acter = {
+      ...data,
+      ...acterCreate,
+    }
+
+    // Now update it so we get the avatar and banner URLs
+    return await updateActerWithPictures({ acter, updateActer })
   }
-
-  // Now update it so we get the avatar and banner URLs
-  return await updateActerWithPictures({ acter, updateActer })
-}
 
 type InternalCreateActerProps = Omit<GetCreateFunctionProps, 'updateActer'> & {
   data: Partial<Acter>

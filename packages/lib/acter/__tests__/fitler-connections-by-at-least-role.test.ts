@@ -1,6 +1,6 @@
 import { v4 } from 'uuid'
 import { ExampleActerConnection } from '@acter/schema/fixtures'
-import { ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnectionRole } from '@acter/schema'
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
 
 describe('filterConnectionsByRole', () => {

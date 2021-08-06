@@ -10,12 +10,12 @@ import {
   ExampleActivity,
   ExampleUser,
 } from '@acter/schema/fixtures'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 
-const acter = ({
+const acter = {
   ...ExampleActer,
   Followers: [{ id: v4(), Follower: ExampleActer }],
-} as unknown) as Acter
+} as unknown as Acter
 
 export default {
   title: 'Activity/ActivitiesList',

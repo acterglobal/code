@@ -5,7 +5,7 @@ import { titleCase } from 'title-case'
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { AvatarGroup } from '@acter/components/acter/avatar-group'
-import { Acter, ActerConnectionRole, ActerType } from '@acter/schema/types'
+import { Acter, ActerConnectionRole, ActerType } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

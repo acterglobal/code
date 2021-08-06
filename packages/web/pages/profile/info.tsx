@@ -4,7 +4,7 @@ import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { ProfileInfoForm } from '@acter/components/user/form/info'
-import { InterestType, User } from '@acter/schema/types'
+import { InterestType, User } from '@acter/schema'
 import {
   composeProps,
   ComposedGetServerSideProps,

@@ -6,7 +6,7 @@ import {
 import UPDATE_POST from '@acter/schema/mutations/post-update.graphql'
 import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 import { updateNewPostList } from '@acter/lib/post/update-post-new-postlist'
-import { Post as PostType } from '@acter/schema/types'
+import { Post as PostType } from '@acter/schema'
 
 export type PostVariables = PostType & {
   postId: string

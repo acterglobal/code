@@ -8,7 +8,7 @@ import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   Activity,
-} from '@acter/schema/types'
+} from '@acter/schema'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'

@@ -1,4 +1,4 @@
-import { Post } from '@acter/schema/types'
+import { Post } from '@acter/schema'
 
 import {
   ExampleUserActer,

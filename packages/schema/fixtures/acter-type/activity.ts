@@ -1,4 +1,4 @@
-import { ActerType } from '@acter/schema/types'
+import { ActerType } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 
 export const ActivityActerType: ActerType = {

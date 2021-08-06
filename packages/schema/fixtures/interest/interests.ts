@@ -1,4 +1,4 @@
-import { InterestType } from '@acter/schema/types'
+import { InterestType } from '@acter/schema'
 
 export const Interests = {
   data: {

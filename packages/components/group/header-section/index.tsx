@@ -8,10 +8,10 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import { Acter, ActerType } from '@acter/schema/types'
+import { Acter, ActerType } from '@acter/schema'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnectionRole } from '@acter/schema'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'

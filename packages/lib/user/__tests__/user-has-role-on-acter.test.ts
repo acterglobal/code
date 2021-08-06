@@ -6,7 +6,7 @@ import {
   ExampleUserActer,
   ExampleUser,
 } from '@acter/schema/fixtures'
-import { ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnectionRole } from '@acter/schema'
 
 jest.mock('@acter/lib/acter/follower-has-role-on-acter')
 

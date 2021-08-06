@@ -13,7 +13,7 @@ import {
 
 import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
 
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
 
 interface DeleteActerPageProps {

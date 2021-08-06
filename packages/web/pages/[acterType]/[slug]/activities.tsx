@@ -13,7 +13,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, ActerType, Link as LinkType, User } from '@acter/schema/types'
+import { Acter, ActerType, Link as LinkType, User } from '@acter/schema'
 import { ActerActivities } from '@acter/components/acter/activities'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
@@ -45,15 +45,11 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
     },
   })
 
-  const [
-    createActerConnection,
-    { loading: creatingConnection },
-  ] = useCreateActerConnection(displayActer)
+  const [createActerConnection, { loading: creatingConnection }] =
+    useCreateActerConnection(displayActer)
 
-  const [
-    deleteActerConnection,
-    { loading: deletingConnection },
-  ] = useDeleteActerConnection(displayActer)
+  const [deleteActerConnection, { loading: deletingConnection }] =
+    useDeleteActerConnection(displayActer)
 
   return (
     <Layout

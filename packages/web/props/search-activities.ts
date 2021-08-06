@@ -1,6 +1,6 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo, addApolloState } from '@acter/lib/apollo'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 

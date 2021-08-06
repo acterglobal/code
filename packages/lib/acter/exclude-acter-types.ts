@@ -1,4 +1,4 @@
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 
 export const excludeActerTypes = (
   acters: Acter[],

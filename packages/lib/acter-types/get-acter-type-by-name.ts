@@ -1,4 +1,4 @@
-import { ActerType } from '@acter/schema/types'
+import { ActerType } from '@acter/schema'
 
 /**
  * Gives the acter type by its name

@@ -5,7 +5,7 @@ import { TextField } from 'formik-material-ui'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string

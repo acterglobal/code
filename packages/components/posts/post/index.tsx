@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Post as PostType, User } from '@acter/schema/types'
+import { Post as PostType, User } from '@acter/schema'
 import clsx from 'clsx'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'

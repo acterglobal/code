@@ -8,7 +8,7 @@ import {
   isValid,
 } from 'date-fns'
 import { pipe } from 'fp-ts/function'
-import { Activity } from '@acter/schema/types'
+import { Activity } from '@acter/schema'
 
 export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
   startDate?: Date

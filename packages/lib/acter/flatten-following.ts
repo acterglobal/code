@@ -1,4 +1,4 @@
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 
 export const flattenFollowingMap = (acter: Acter): { [key: string]: Acter } => {
   if (!acter?.Following) {
