@@ -35,7 +35,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const tab = getLandingPageTab(router, ActerMenu.FORUM)
 
-  const isActive = path === tab
+  const isActive = router.query.acterType !== 'groups' && path === tab
 
   return (
     <ListItem
