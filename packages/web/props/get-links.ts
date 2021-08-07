@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo, addApolloState } from '@acter/lib/apollo'
-
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
+import { ActerTypes } from '@acter/lib/constants'
 
 /**
  *
@@ -9,11 +9,13 @@ import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
  * @returns list of Links
  */
 export const getLinks: ComposedGetServerSideProps = async ({ props }) => {
+  const { acter } = props
   const apollo = initializeApollo()
   const { data, error } = await apollo.query({
     query: QUERY_LINKS_BY_ACTER,
     variables: {
-      acterId: props.acter.id,
+      acterId:
+        acter.ActerType.name === ActerTypes.GROUP ? acter.Parent.id : acter.id,
     },
   })
   if (error) {
