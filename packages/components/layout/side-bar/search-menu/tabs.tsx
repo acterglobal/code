@@ -15,9 +15,10 @@ export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
 
   return (
     <Box className={classes.tabs}>
-      {searchTypes.map((searchType) => (
+      {searchTypes.map((searchType, i) => (
         <Link
           href={searchType === ACTIVITIES ? `/search/${searchType}` : '/search'}
+          key={i}
         >
           <Box
             className={clsx({
