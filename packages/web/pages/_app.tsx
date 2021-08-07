@@ -33,7 +33,7 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
         <UserProvider>
           <ActerThemeProvider>
             <SnackbarProvider
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             >
               <CssBaseline />
               <Component {...pageProps} err={err} />
