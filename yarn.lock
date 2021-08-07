@@ -37,7 +37,7 @@ __metadata:
     formik-material-ui: ^3.0.1
     formik-material-ui-pickers: ^0.0.12
     fp-ts: "*"
-    lodash: ^4.17.21
+    lodash: "*"
     markdown-draft-js: ^2.2.1
     markdown-to-jsx: ^7.1.3
     node-polyfill-webpack-plugin: ^1.1.4
@@ -86,7 +86,7 @@ __metadata:
     handlebars: ^4.7.7
     intercom-client: ^2.11.2
     ioredis: ^4.27.6
-    lodash: ^4.17.21
+    lodash: "*"
     marked: ^2.1.3
     md5: ^2.3.0
     mime: ^2.5.2
@@ -132,7 +132,7 @@ __metadata:
     aws-sdk: ^2.940.0
     env-cmd: ^10.1.0
     eslint-config-next: ^11.0.1
-    lodash: ^4.17.21
+    lodash: "*"
     micro: ^9.3.4
     next: "*"
     next-compose-plugins: ^2.2.1
@@ -6232,6 +6232,7 @@ __metadata:
     ignore-loader: ^0.1.2
     jest: ^27.0.6
     jest-transform-graphql: ^2.1.0
+    lodash: ^4.17.21
     next: ^11.1.0
     pm2: ^5.1.0
     react: ^17.0.2
@@ -15248,7 +15249,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.x, lodash@npm:^4.17.14, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
+"lodash@npm:*, lodash@npm:4.x, lodash@npm:^4.17.14, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7

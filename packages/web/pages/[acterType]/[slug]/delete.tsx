@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useSnackbar } from 'notistack'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getUserProfile, getActerTypes, setActerType, getActer } from 'props'
 import {

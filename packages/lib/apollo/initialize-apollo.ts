@@ -4,7 +4,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import merge from 'deepmerge'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash/isEqual'
 import { createApolloClient } from './create-apollo-client'
 import { ApolloClientType } from './types'
 

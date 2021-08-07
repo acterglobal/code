@@ -2,7 +2,7 @@ import { buildSchemaSync, UseMiddleware } from 'type-graphql'
 import {
   ResolversEnhanceMap,
   applyResolversEnhanceMap,
-  resolvers,
+  crudResolvers, relationResolvers,
 } from '@acter/schema/types'
 
 import { ActerResolver } from '@acter/schema/resolvers/acter'
@@ -29,7 +29,8 @@ applyResolversEnhanceMap(resolversEnhanceMap)
 export const schema = buildSchemaSync({
   authChecker,
   resolvers: [
-    ...resolvers,
+    ...crudResolvers,
+    ...relationResolvers,
     ActerResolver,
     ActerConnectionResolver,
     SearchResolver,

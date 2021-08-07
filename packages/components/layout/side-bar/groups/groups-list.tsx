@@ -10,7 +10,7 @@ import {
 import { Acter } from '@acter/schema'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 

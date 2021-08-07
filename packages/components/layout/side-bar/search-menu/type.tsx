@@ -9,7 +9,7 @@ import {
 import { Switch } from '@acter/components/styled/switch'
 import { SearchType } from '@acter/lib/constants'
 import { Size } from '@acter/lib/constants'
-import { remove } from 'lodash'
+import remove from 'lodash/remove'
 
 export interface SearchTypeProps {
   filterSubTypes: string[]

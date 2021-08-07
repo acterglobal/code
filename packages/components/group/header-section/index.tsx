@@ -15,7 +15,7 @@ import { ActerConnectionRole } from '@acter/schema'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 
 export interface HeaderSectionProps extends ConnectProps {
   acter: Acter

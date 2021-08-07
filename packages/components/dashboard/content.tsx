@@ -11,7 +11,7 @@ import {
 import { ActerTypes } from '@acter/lib/constants'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
-import { pick } from 'lodash'
+import pick from 'lodash/pick'
 
 const { ACTIVITY, GROUP } = ActerTypes
 

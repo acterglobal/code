@@ -20,7 +20,7 @@
     "apollo-server-micro": "^3.1.2",
     "aws-sdk": "^2.940.0",
     "env-cmd": "^10.1.0",
-    "lodash": "^4.17.21",
+    "lodash": "*",
     "micro": "^9.3.4",
     "next": "*",
     "next-compose-plugins": "^2.2.1",

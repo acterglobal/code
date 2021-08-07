@@ -11,7 +11,7 @@ import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 
 export type ActivityInfoProps = ConnectProps
 
