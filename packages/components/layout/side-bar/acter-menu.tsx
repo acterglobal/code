@@ -27,7 +27,7 @@ import {
   GroupsSection,
   GroupsSectionProps,
 } from '@acter/components/layout/side-bar/groups/groups-section'
-import { LinkSection } from '@acter/components/layout/side-bar/links/links-section'
+import { LinksList } from '@acter/components/layout/side-bar/links'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 
@@ -66,19 +66,20 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       {(isAdmin || isMember) && links.length > 0 && (
         <>
           <Divider className={classes.divider} />
-          <LinkSection links={links} />
+          <LinksList links={links} />
         </>
       )}
 
-      <Divider />
-
       {(isAdmin || isMember) && (
-        <GroupsSection
-          acter={acter}
-          user={user}
-          acterTypes={acterTypes}
-          onGroupSubmit={onGroupSubmit}
-        />
+        <>
+          <Divider className={classes.divider} />
+          <GroupsSection
+            acter={acter}
+            user={user}
+            acterTypes={acterTypes}
+            onGroupSubmit={onGroupSubmit}
+          />
+        </>
       )}
     </>
   )
@@ -95,7 +96,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 5,
     },
     divider: {
-      marginTop: 8,
+      marginTop: theme.spacing(1),
+      height: '0.01rem',
     },
   })
 )
