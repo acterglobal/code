@@ -1,4 +1,4 @@
-import prisma from '@acter/lib/prisma'
+import prisma from '@acter/schema/prisma'
 import { ActerType } from '@acter/schema/types'
 
 export const getActerTypeFromDB = async (name: string): Promise<ActerType> => {
