@@ -24,6 +24,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
     <Box className={classes.root}>
       {subTypes.map((type) => (
         <Type
+          key={`sub-type-${type.id}`}
           subTypeName={type.name}
           activeTab={searchType}
           filterSubTypes={filterSubTypes}

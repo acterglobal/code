@@ -15,7 +15,7 @@ export const SearchIcon: FC<SvgIconProps> = (props) => {
         <path
           d="M17.6062 9C17.6062 13.6917 13.7796 17.5 9.05311 17.5C4.32658 17.5 0.5 13.6917 0.5 9C0.5 4.30835 4.32658 0.5 9.05311 0.5C13.7796 0.5 17.6062 4.30835 17.6062 9Z"
           stroke={props.style?.color || theme.colors.grey.main}
-          strokeWidth={props.style?.fontWeight === 'bold' && 2.3}
+          strokeWidth={props.style?.fontWeight === 'bold' ? 2.3 : undefined}
         />
         <rect
           width={props.style?.fontWeight === 'bold' ? '3.00509' : '2.00509'}

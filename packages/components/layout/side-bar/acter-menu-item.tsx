@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
     ...commonStyles(theme),
     currentItem: {
       '& .MuiListItemText-primary': {
-        fontWeight: theme.typography.fontWeightBold,
+        fontWeight: theme.typography.fontWeightMedium,
         color: '#fff',
       },
     },
