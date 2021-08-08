@@ -67,12 +67,15 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
       <Divider />
 
       <List className={classes.members}>
-        {followers.map((connection, i) => {
+        {followers.map((connection) => {
           const { Follower } = connection
 
           if (isOrganisation) {
             return (
-              <Link href={`${acterAsUrl({ acter: Follower })}`} key={i}>
+              <Link
+                href={`${acterAsUrl({ acter: Follower })}`}
+                key={`follower-${Follower.id}`}
+              >
                 <DisplayMemberItem
                   user={user}
                   Follower={Follower}
@@ -87,7 +90,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
 
           return (
             <DisplayMemberItem
-              key={i}
+              key={`follower-${Follower.id}`}
               user={user}
               Follower={Follower}
               connection={connection}
