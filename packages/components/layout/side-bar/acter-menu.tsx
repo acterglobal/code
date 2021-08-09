@@ -97,7 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     divider: {
       marginTop: theme.spacing(1),
-      height: '0.01rem',
     },
   })
 )
