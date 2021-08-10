@@ -39,7 +39,10 @@ export const useDeleteLink = (
   >(DELETE_LINK, {
     ...options,
     update: (cache, result) => {
-      typeof options?.update === 'function' && options.update(cache, result)
+      if (typeof options?.update === 'function') {
+        const { update, ...restOptions } = options
+        update(cache, result, restOptions)
+      }
       const {
         data: { deleteLink: deletedLink },
       } = result
