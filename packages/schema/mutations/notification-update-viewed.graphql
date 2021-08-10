@@ -1,0 +1,13 @@
+#import "../fragments/notification-display.fragment.graphql"
+
+mutation UpdateNotificationViewed(
+  $notificationId: String!
+  $viewedAt: DateTime!
+) {
+  updateNotification(
+    where: { id: $notificationId }
+    data: { viewedAt: { set: $viewedAt } }
+  ) {
+    ...NotificationDisplay
+  }
+}

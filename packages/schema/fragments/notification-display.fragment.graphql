@@ -1,0 +1,5 @@
+fragment NotificationDisplay on Notification {
+  id
+  url
+  viewedAt
+}
