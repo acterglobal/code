@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { Job } from 'bullmq'
 import { createWorker } from '@acter/lib/bullmq'
-import prisma from '@acter/lib/prisma'
+import prisma from '@acter/schema/prisma'
 import { EMAIL_OUTBOX_QUEUE } from '@acter/lib/constants'
 import { sendEmail, Email } from '@acter/lib/email'
 import { Notification } from '@acter/schema/types'

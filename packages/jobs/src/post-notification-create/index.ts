@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Job } from 'bullmq'
-import prisma from '@acter/lib/prisma'
+import prisma from '@acter/schema/prisma'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createQueue, createWorker } from '@acter/lib/bullmq'
 import {
