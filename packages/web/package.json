@@ -12,7 +12,7 @@
     "analyze": "ANALYZE=true yarn env-cmd next build"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.21",
+    "@apollo/client": "*",
     "@auth0/nextjs-auth0": "^1.4.2",
     "@material-ui/core": "*",
     "@next/bundle-analyzer": "^11.0.1",

@@ -43,7 +43,10 @@ export const useDeletePost = (
   >(DELETE_POST, {
     ...options,
     update: (cache, result) => {
-      typeof options?.update === 'function' && options.update(cache, result)
+      if (typeof options?.update === 'function') {
+        const { update, ...restOptions } = options
+        update(cache, result, restOptions)
+      }
       const {
         data: { deletePost: deletedPost },
       } = result
