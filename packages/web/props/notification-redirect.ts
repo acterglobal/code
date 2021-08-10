@@ -26,7 +26,9 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   )
 
   const apollo = initializeApollo()
-  const { data, error } = await apollo.query({
+  const { data, error } = await apollo.query<{
+    findFirstNotification: Notification
+  }>({
     query: GET_NOTIFICATION,
     variables: {
       notificationId: params.id,
@@ -55,22 +57,30 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   }
 
   // TODO: this should be moved to a background job
-  const { data: updateData, error: updateError } = await apollo.mutate({
-    mutation: UPDATE_NOTIFICATION_VIEWED,
-    variables: {
-      notificationId: params.id,
-      viewedAt: new Date(),
-    },
-  })
-
-  if (updateError) console.error(updateError)
-
-  const { updateNotification: updateNotification } = updateData
-
-  return {
-    props: {},
-    redirect: {
-      destination: updateNotification.url,
-    },
+  try {
+    const {
+      data: { updateNotification },
+    } = await apollo.mutate<{ updateNotification: Notification }>({
+      mutation: UPDATE_NOTIFICATION_VIEWED,
+      variables: {
+        notificationId: params.id,
+        viewedAt: new Date(),
+      },
+    })
+    return {
+      props: {},
+      redirect: {
+        destination: updateNotification.url,
+      },
+    }
+  } catch (err) {
+    // Just log the update error and redirect anyways
+    console.error(err)
+    return {
+      props,
+      redirect: {
+        destination: notification.url,
+      },
+    }
   }
 }
