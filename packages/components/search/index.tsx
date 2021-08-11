@@ -12,23 +12,26 @@ import {
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { Acter, InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
-
-export interface SearchProps extends DisplayResultsProps {
+import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+export interface SearchProps extends Omit<DisplayResultsProps, 'acters'> {
   searchType: SearchType
-  acters: Acter[]
   interestTypes: InterestType[]
 }
 
-export const Search: FC<SearchProps> = ({
-  searchType,
-  acters,
-  interestTypes,
-}) => {
+export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const classes = useStyles()
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
+
+  const [loading, data, loadMore] = useFetchActers()
+
+  if (loading || !data) {
+    return <>Loading ...</>
+  }
+
+  const { acters } = data
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)
@@ -102,6 +105,9 @@ export const Search: FC<SearchProps> = ({
         acters={acters}
         interestTypes={interestTypes}
       />
+      <Box>
+        <Button onClick={loadMore}>Load more</Button>
+      </Box>
     </Box>
   )
 }

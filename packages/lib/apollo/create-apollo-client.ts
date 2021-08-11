@@ -6,6 +6,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
+import { typePolicies } from './type-policies'
 
 export const createApolloClient = (
   uri: string
@@ -25,7 +26,21 @@ export const createApolloClient = (
   })
 
   return new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            acters: {
+              keyArgs: false,
+              merge(existing = [], incoming) {
+                return [...existing, ...incoming]
+              },
+            },
+          },
+        },
+      },
+      // typePolicies: typePolicies,
+    }),
     ssrMode,
     link: from([errorLink, httpLink]),
   })

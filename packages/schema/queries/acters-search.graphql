@@ -4,8 +4,12 @@ query ActersSearch(
   $searchText: String
   $types: [String!]
   $interests: [String!]
+  $take: Int
+  $skip: Int
 ) {
   acters(
+    take: $take
+    skip: $skip
     where: {
       AND: [
         { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }

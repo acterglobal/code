@@ -24,7 +24,6 @@ interface SearchPageProps {
 }
 
 const SearchPage: NextPage<SearchPageProps> = ({
-  acters,
   acterTypes,
   interestTypes,
   user,
@@ -34,23 +33,13 @@ const SearchPage: NextPage<SearchPageProps> = ({
       <Head title="Acter" />
 
       <main>
-        <Search
-          acters={acters}
-          searchType={SearchType.ACTERS}
-          interestTypes={interestTypes}
-        />
+        <Search searchType={SearchType.ACTERS} interestTypes={interestTypes} />
       </main>
     </Layout>
   )
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getUserProfile(false),
-    getActerTypes,
-    searchActers,
-    getInterests
-  )
+  composeProps(ctx, getUserProfile(false), getActerTypes, getInterests)
 
 export default SearchPage
