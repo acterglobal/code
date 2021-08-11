@@ -6,7 +6,6 @@ import { UserProvider } from '@auth0/nextjs-auth0'
 import { ApolloProvider } from '@apollo/client'
 
 import { useApollo } from '@acter/lib/apollo'
-import { initSentry } from '@acter/lib/sentry'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
@@ -17,8 +16,6 @@ import { IntercomProvider } from 'react-use-intercom'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ActerAppProps = AppProps & { err: any }
-
-initSentry()
 
 const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const apolloClient = useApollo({
