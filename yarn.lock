@@ -65,8 +65,8 @@ __metadata:
     bullmq: "*"
     handlebars: ^4.7.7
     reflect-metadata: ^0.1.13
-    throng: ^5.0.0
     ts-node: ^10.0.0
+    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 
@@ -20810,15 +20810,6 @@ resolve@^2.0.0-next.3:
   version: 6.0.1
   resolution: "throat@npm:6.0.1"
   checksum: 782d4171ee4e3cf947483ed2ff1af3e17cc4354c693b9d339284f61f99fbc401d171e0b0d2db3295bb7d447630333e9319c174ebd7ef315c6fb791db9675369c
-  languageName: node
-  linkType: hard
-
-"throng@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "throng@npm:5.0.0"
-  dependencies:
-    lodash: ^4.17.20
-  checksum: 1c50b15c7d3224d5de30d1aad2f520a0e7901f640e6680f4fcc5a69b7c16d55b34a79e8aa1955ee0c10b99fc45b03ebb52ff529cf9cbfce5f48ad66dd035aeef
   languageName: node
   linkType: hard
 
