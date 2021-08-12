@@ -1,0 +1,9 @@
+#import "../fragments/notification-display.fragment.graphql"
+
+query Notification($notificationId: String!, $email: String!) {
+  findFirstNotification(
+    where: { id: { equals: $notificationId }, sendTo: { equals: $email } }
+  ) {
+    ...NotificationDisplay
+  }
+}
