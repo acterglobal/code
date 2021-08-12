@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'web',
-      script: 'yarn dev-web',
+      script: 'yarn workspace @acter/web dev',
     },
     {
       name: 'jobs',
