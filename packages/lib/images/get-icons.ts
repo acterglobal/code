@@ -4,4 +4,4 @@
  */
 
 export const getActerTypeIcon = (acterType: string): string =>
-  `assets/${acterType}-icon.png`
+  `/assets/${acterType}-icon.png`

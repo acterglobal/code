@@ -52,7 +52,7 @@ export const Interest: FC<InterestProps> = ({
 
       {interest.sdgNumber && (
         <Box className={clsx(classes.rightSideBox)}>
-          <Image src="assets/SDG-logo.png" alt="SDG" width={15} height={15} />
+          <Image src="/assets/SDG-logo.png" alt="SDG" width={15} height={15} />
           <Typography className={classes.number} variant="caption">
             {interest.sdgNumber}
           </Typography>
