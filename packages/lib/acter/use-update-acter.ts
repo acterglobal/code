@@ -9,7 +9,6 @@ import { Acter } from '@acter/schema/types'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 import { uploadImage, FileDescription } from '@acter/lib/images/upload-image'
 import md5 from 'md5'
-import { pipe, andThen } from 'ramda'
 
 export type UpdateActerData = {
   updateActer: Acter
@@ -63,23 +62,16 @@ export const useUpdateActer = (
   })
 
   const updateActerWithPictures = async (
-    { acter, formData = {}, updateActer } //eslint-disable-next-line @typescript-eslint/no-explicit-any
+    { acter, updatedActer = {}, updateActer } //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
     const variables = {
-      // Start with blanks fromt he update set
-      // ...initialValues,
       // Load existing Acter data
       ...acter,
       // Overwrite with form values
-      ...formData,
+      ...updatedActer,
       // Explicitly set acterId
       acterId: acter.id,
     }
-
-    // return await pipe(
-    //   _updatePictures,
-    //   andThen(_updateActer(variables))
-    // )(variables)
 
     const resPics = await _updatePictures(variables)
     console.log('This is acter', acter)
@@ -95,30 +87,14 @@ export const useUpdateActer = (
     })
   }
 
-  // const _updateActer = (
-  //   formData: ActerVariables
-  // ) => (): // variables: ActerFormData
-  // //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // Promise<any> => {
-  //   console.log('This is formdata ', formData)
-  //   return updateActer({
-  //     variables: {
-  //       // followerIds: [],
-  //       // ...acter,
-  //       ...formData,
-  //       // interestIds: formData.interestIds
-  //       //   ? formData.interestIds
-  //       //   : acter.ActerInterests.map(({ Interest: { id } }) => id),
-  //       // acterId: acter.id,
-  //     },
-  //   })
-  // }
-
-  const handleUpdateActer = async (formData: ActerVariables) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleUpdateActer = async (
+    updatedActer: ActerVariables
+  ): Promise<any> => {
     await updateActerWithPictures({
       acter,
-      formData,
-      updateActer, //  This needs to be a promise?
+      updatedActer,
+      updateActer,
     })
   }
 
@@ -140,7 +116,6 @@ export const _updatePictures = async (
   >(_updatePicture(folder), Promise.resolve(data))) as ActerVariables
   // console.log('This is data with pictures', dataWithPics)
   return await {
-    // ...data,
     ...dataWithPics,
   }
 }
