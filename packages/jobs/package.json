@@ -9,6 +9,7 @@
     "start": "ts-node --transpile-only ./src/start-workers.ts"
   },
   "dependencies": {
+    "@swc/core": "^1.2.76",
     "bullmq": "*",
     "handlebars": "^4.7.7",
     "reflect-metadata": "^0.1.13",
