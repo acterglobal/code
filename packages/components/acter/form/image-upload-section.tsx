@@ -3,8 +3,8 @@ import { useFormikContext } from 'formik'
 import { ImageUpload } from '@acter/components/image-upload'
 
 export interface ImageUploadValues {
-  avatarUrl: string
-  bannerUrl: string
+  avatarUrl?: string
+  bannerUrl?: string
 }
 
 export const ImageUploadSection: FC = () => {
