@@ -6190,6 +6190,7 @@ __metadata:
     react-dom: ^17.0.2
     reflect-metadata: ^0.1.13
     syncpack: ^5.7.11
+    tar: ^6.1.8
     ts-jest: ^27.0.4
     ts-node: ^10.0.0
     tsconfig-paths-webpack-plugin: ^3.3.0
@@ -20624,6 +20625,20 @@ resolve@^2.0.0-next.3:
     mkdirp: ^1.0.3
     yallist: ^4.0.0
   checksum: 583f1165281746b4c48adee4ff7bab4895e73999eeda3c8d59779e47c29dc1dc714d832608a491fead4fd794bf9e0bd51b3d4a4fbad87f487a8b360321d70e8c
+  languageName: node
+  linkType: hard
+
+"tar@npm:^6.1.8":
+  version: 6.1.8
+  resolution: "tar@npm:6.1.8"
+  dependencies:
+    chownr: ^2.0.0
+    fs-minipass: ^2.0.0
+    minipass: ^3.0.0
+    minizlib: ^2.1.1
+    mkdirp: ^1.0.3
+    yallist: ^4.0.0
+  checksum: f5aa41340d3415ef6f19ed0ee620db1f7cb9ea3f5ea7bfef5ea199bdb39e978d11f31d347231193e0d9262f81de3e358aa3dda6ed0c1909f22a8ce3e3a743dad
   languageName: node
   linkType: hard
 
