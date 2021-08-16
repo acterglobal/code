@@ -10,7 +10,7 @@ import { Acter } from '@acter/schema/types'
 export type ActerVariables = Acter & {
   acterId?: string
   interestIds: string[]
-  followerIds: string
+  followerIds: string[]
 }
 
 type CreateActerData = {

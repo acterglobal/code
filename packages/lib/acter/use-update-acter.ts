@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MutationResult } from '@apollo/client'
 import {
   useNotificationMutation,
@@ -14,6 +15,21 @@ import {
 
 export type UpdateActerData = {
   updateActer: Acter
+}
+
+type UpdateActerProfileWithPicturesProps = {
+  /**
+   * Acter to be updated
+   */
+  acter: Acter
+  /**
+   * Form data with which to update Acter
+   */
+  updatedActer: any
+  /**
+   * Function to save Acter info
+   */
+  updateActer: (data: { variables: ActerVariables }) => Promise<any>
 }
 
 type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
@@ -40,14 +56,10 @@ export const useUpdateActer = (
   })
 
   const updateActerProfileWithPictures = async ({
-    // Acter to be updated
     acter,
-    // Form data with which to update Acter
     updatedActer = {},
-    // Update function to save Acter info
     updateActer,
-  }): // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Promise<any> => {
+  }: UpdateActerProfileWithPicturesProps): Promise<any> => {
     const variables = {
       // Load existing Acter data
       ...acter,
@@ -70,10 +82,8 @@ export const useUpdateActer = (
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleUpdateActer = async (
     updatedActer: ActerVariables
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
     await updateActerProfileWithPictures({
       acter,
