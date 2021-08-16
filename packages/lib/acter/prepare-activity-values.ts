@@ -4,7 +4,6 @@ import {
   getDate,
   getHours,
   getMinutes,
-  getSeconds,
   minutesToHours,
   isValid,
 } from 'date-fns'
@@ -51,22 +50,31 @@ export const _setTimeOnDate = (
   const date = formData[`${dateTimeType}Date`] as Date
   const time = formData[`${dateTimeType}Time`] as Date
 
-  if (date && time && isValid(date) && isValid(time)) {
+  if (date && isValid(date)) {
     const year = getYear(date)
     const month = getMonth(date)
     const day = getDate(date)
-    // Make sure we're not doing a funny offset with summer/standard time differences
-    const hours =
-      getHours(time) +
-      minutesToHours(date.getTimezoneOffset() - time.getTimezoneOffset())
-    const minutes = getMinutes(time)
-    const seconds = getSeconds(time)
-    const datetime = new Date(
-      Date.UTC(year, month, day, hours, minutes, seconds)
-    )
+
+    if (time && isValid(time)) {
+      // Make sure we're not doing a funny offset with summer/standard time differences
+      const hours =
+        getHours(time) +
+        minutesToHours(date.getTimezoneOffset() - time.getTimezoneOffset())
+      const minutes = getMinutes(time)
+      const seconds = 0
+      const datetime = new Date(
+        Date.UTC(year, month, day, hours, minutes, seconds)
+      )
+      return {
+        ...formData,
+        [`${dateTimeType}At`]: datetime,
+      }
+    }
+
+    // We just return the date with the time set to 00:00
     return {
       ...formData,
-      [`${dateTimeType}At`]: datetime,
+      [`${dateTimeType}At`]: new Date(Date.UTC(year, month, day, 0, 0, 0)),
     }
   }
 
