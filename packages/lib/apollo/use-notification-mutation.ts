@@ -44,7 +44,6 @@ export const useNotificationMutation = <
       if (typeof restOptions.onError === 'function') restOptions.onError(err)
     },
     onCompleted: (data) => {
-      console.log('This is use notification mutation data ', data)
       const message =
         typeof getSuccessMessage === 'function'
           ? getSuccessMessage(data)

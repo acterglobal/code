@@ -1,14 +1,8 @@
 import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
-import { uploadImage, FileDescription } from '@acter/lib/images/upload-image'
+import { uploadImage } from '@acter/lib/images/upload-image'
 import { Acter } from '@acter/schema/types'
-
-export type ActerFormData = Partial<Acter> & {
-  acterId: string
-
-  avatar: FileDescription
-  banner: FileDescription
-}
+import { ActerVariables } from '@acter/lib/acter/use-create-acter'
 
 export type ActerPictureType = 'avatar' | 'banner'
 
@@ -27,9 +21,10 @@ export const initialValues = {
 
 interface UpdateActerWithPicturesProps {
   acter: Acter
-  formData?: Partial<Acter>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formData?: any
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateActer: (data: ActerFormData) => Promise<any>
+  updateActer: (data: ActerVariables) => Promise<any>
 }
 
 /**
@@ -64,7 +59,7 @@ UpdateActerWithPicturesProps): Promise<any> => {
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _updateActer = (updateActer: (any) => any) => (
-  variables: ActerFormData
+  variables: ActerVariables
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => updateActer({ variables })
 
@@ -74,12 +69,12 @@ const _updateActer = (updateActer: (any) => any) => (
  * @returns ActerData with avatar and banner images set, if available
  */
 export const _updatePictures = async (
-  data: ActerFormData
-): Promise<ActerFormData> => {
+  data: ActerVariables
+): Promise<ActerVariables> => {
   const folder = `acter/${md5(data.id)}`
   const dataWithPics = (await ['avatar', 'banner'].reduce<
-    Promise<ActerFormData>
-  >(_updatePicture(folder), Promise.resolve(data))) as ActerFormData
+    Promise<ActerVariables>
+  >(_updatePicture(folder), Promise.resolve(data))) as ActerVariables
   return await {
     ...data,
     ...dataWithPics,
@@ -92,9 +87,9 @@ export const _updatePictures = async (
  * @returns a reducer function that takes an ActerData Promise and the picture type
  */
 export const _updatePicture = (folder: string) => async (
-  dataPromise: Promise<ActerFormData>,
+  dataPromise: Promise<ActerVariables>,
   type: ActerPictureType
-): Promise<ActerFormData> => {
+): Promise<ActerVariables> => {
   //TODO: error handling for failed upload
   const variables = await dataPromise
   const file = variables[type]
