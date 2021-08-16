@@ -7,6 +7,7 @@ import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import { Acter } from '@acter/schema/types'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 import {
+  // TODO move these functions elsewhere
   _updatePicture,
   _updatePictures,
 } from '@acter/lib/acter/update-acter-with-pictures'
@@ -23,6 +24,8 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
  * @returns handle method to update acter
  * @returns mutation results from apollo
  */
+
+// TODO Move to use this hook everywhere
 export const useUpdateActer = (
   acter: Acter,
   options?: UpdateActerOptions
@@ -37,8 +40,11 @@ export const useUpdateActer = (
   })
 
   const updateActerProfileWithPictures = async ({
+    // Acter to be updated
     acter,
+    // Form data with which to update Acter
     updatedActer = {},
+    // Update function to save Acter info
     updateActer,
   }): // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Promise<any> => {
