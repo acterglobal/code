@@ -5,7 +5,10 @@ export const parseAndFormat = (
   dateString: Date | string,
   formatString: string
 ): string => {
-  if (typeof dateString === 'string')
-    return pipe(dateString, parseISO, format(formatString))
+  if (typeof dateString === 'string') {
+    const dateWithoutTimezone = dateString.slice(0, 19)
+    return pipe(dateWithoutTimezone, parseISO, format(formatString))
+  }
+
   return pipe(dateString, format(formatString))
 }

@@ -24,9 +24,8 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT
 
-  //@ts-ignore
   const startAt = parseAndFormat(acter.Activity.startAt, displayFormat)
-  //@ts-ignore
+
   const endAt = parseAndFormat(acter.Activity.endAt, displayFormat)
 
   const getUrl = (url) => {
