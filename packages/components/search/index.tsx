@@ -13,6 +13,7 @@ import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { Acter, InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 export interface SearchProps extends Omit<DisplayResultsProps, 'acters'> {
   searchType: SearchType
   interestTypes: InterestType[]
@@ -28,7 +29,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [data, { loading, loadMore }] = useFetchActers()
 
   if (loading || !data) {
-    return <>Loading ...</>
+    return <LoadingSpinner load={loading || !data} />
   }
 
   const { acters } = data
