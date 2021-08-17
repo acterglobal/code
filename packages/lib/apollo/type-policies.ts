@@ -1,9 +1,13 @@
+import { Acter } from '@acter/schema/types'
+
+type SearchResults = Acter[] | []
+
 export const typePolicies = {
   Query: {
     fields: {
       acters: {
-        keyArgs: false,
-        merge(existing = [], incoming) {
+        keyArgs: ['where'],
+        merge(existing = [], incoming: SearchResults): SearchResults {
           return [...existing, ...incoming]
         },
       },

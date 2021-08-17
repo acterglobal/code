@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useLazyQuery, ApolloError, QueryResult } from '@apollo/client'
+import { useLazyQuery, ApolloError } from '@apollo/client'
 import { Acter } from '@acter/schema/types'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
@@ -13,20 +13,33 @@ export type SearchVariablesType = {
 }
 
 type UseFetchActersData = {
-  data: { acters: Acter[] }
+  acters: Acter[]
+}
+interface UseFetchActersQueryResults {
+  loading: boolean
+  error: ApolloError
+  loadMore: () => void
 }
 
-export const useFetchActers = () => {
+export const useFetchActers = (): [
+  UseFetchActersData,
+  UseFetchActersQueryResults
+] => {
   const router = useRouter()
-  const { search, interests, types } = router.query
+  const { search: searchText, interests, types } = router.query
+  const [searchVariables, setSearchVariables] = useState<SearchVariablesType>({
+    searchText,
+  })
 
-  const searchVariables: SearchVariablesType = { searchText: search }
-  if (interests) {
-    searchVariables.interests = (interests as string).split(',')
-  }
-  searchVariables.types = types ? (types as string).split(',') : []
+  useEffect(() => {
+    setSearchVariables({
+      ...searchVariables,
+      searchText,
+      interests: interests ? (<string>interests).split(',') : undefined,
+      types: types ? (types as string).split(',') : [],
+    })
+  }, [searchText, interests, types])
 
-  console.log('types :', searchVariables.types)
   const [
     getActers,
     { loading, data, fetchMore, error, ...restQueryResult },
@@ -40,17 +53,7 @@ export const useFetchActers = () => {
         take: 4,
       },
     })
-  }, [])
-
-  //   useEffect(() => {
-  //     getActers({
-  //       variables: {
-  //         ...searchVariables,
-  //         skip: 0,
-  //         take: 4,
-  //       },
-  //     })
-  //   }, [searchVariables.types])
+  }, [searchVariables])
 
   const loadMore = () => {
     fetchMore({
@@ -61,5 +64,5 @@ export const useFetchActers = () => {
     })
   }
 
-  return [loading, data, loadMore]
+  return [data, { loading, error, loadMore, ...restQueryResult }]
 }

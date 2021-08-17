@@ -12,9 +12,7 @@ export const createApolloClient = (
   uri: string
 ): ApolloClient<InMemoryCache | NormalizedCacheObject> => {
   const ssrMode = typeof window === 'undefined'
-  const httpLink = new HttpLink({
-    uri,
-  })
+  const httpLink = new HttpLink({ uri })
 
   const errorLink = onError(({ networkError }) => {
     //@ts-ignore
@@ -26,21 +24,7 @@ export const createApolloClient = (
   })
 
   return new ApolloClient({
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            acters: {
-              keyArgs: false,
-              merge(existing = [], incoming) {
-                return [...existing, ...incoming]
-              },
-            },
-          },
-        },
-      },
-      // typePolicies: typePolicies,
-    }),
+    cache: new InMemoryCache({ typePolicies }),
     ssrMode,
     link: from([errorLink, httpLink]),
   })

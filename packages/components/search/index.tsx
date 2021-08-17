@@ -25,7 +25,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const [loading, data, loadMore] = useFetchActers()
+  const [data, { loading, loadMore }] = useFetchActers()
 
   if (loading || !data) {
     return <>Loading ...</>
