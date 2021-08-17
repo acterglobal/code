@@ -47,11 +47,6 @@ describe('prepareActivityValues', () => {
       expect(data.startAt).toBeUndefined()
     })
 
-    it('should handle a missing time by returning null', () => {
-      const data = _setTimeOnDate({ ...formData, startTime: null }, 'start')
-      expect(data.startAt).toBeUndefined()
-    })
-
     it('should handle an invalid date by returning null', () => {
       const data = _setTimeOnDate(
         { ...formData, startDate: new Date('foo') },
@@ -60,12 +55,17 @@ describe('prepareActivityValues', () => {
       expect(data.startAt).toBeUndefined()
     })
 
-    it('should handle an invalid time by returning null', () => {
+    it('should handle a missing time by returning just the date at 00:00:00', () => {
+      const data = _setTimeOnDate({ ...formData, startTime: null }, 'start')
+      expect(data.startAt.toISOString()).toBe('2021-03-31T00:00:00.000Z')
+    })
+
+    it('should handle an invalid time by returning just the date at 00:00:00', () => {
       const data = _setTimeOnDate(
         { ...formData, startTime: new Date('foo') },
         'start'
       )
-      expect(data.startAt).toBeUndefined()
+      expect(data.startAt.toISOString()).toBe('2021-03-31T00:00:00.000Z')
     })
 
     it('should create a datetime from separate date and time entries', () => {
