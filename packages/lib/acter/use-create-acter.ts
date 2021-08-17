@@ -5,12 +5,12 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter } from '@acter/schema/types'
+import { Acter, ActerInterest, ActerConnection } from '@acter/schema/types'
 
 export type ActerVariables = Acter & {
   acterId?: string
-  interestIds: string[]
-  followerIds: string
+  interestIds: ActerInterest[] | string[]
+  followerIds: ActerConnection[] | string[]
 }
 
 type CreateActerData = {
