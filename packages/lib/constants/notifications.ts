@@ -5,6 +5,7 @@ export const POST_NOTIFICATIONS_QUEUE = 'post-notifications'
 export const EMAIL_SEND_QUEUE = 'email-send'
 
 export enum NotificationQueueType {
+  NEW_ACTIVITY = 'new-activity',
   NEW_POST = 'newPost',
   SEND_EMAIL = 'sendEmail',
 }
