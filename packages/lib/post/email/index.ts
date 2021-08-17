@@ -9,7 +9,6 @@ type PostEmail = {
   acterName: string
   sentAt: string
   sentBy: string
-  baseUrl: string
   notificationUrl: string
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any
@@ -24,15 +23,17 @@ export const createPostEmailNotification = ({
   notification,
   post,
 }: CreatePostEmailNotificationParams): CreateEmailReturn => {
-  const baseUrl = process.env.BASE_URL
-  const notificationUrl = [baseUrl, 'notifications', notification.id].join('/')
+  const notificationUrl = [
+    process.env.BASE_URL,
+    'notifications',
+    notification.id,
+  ].join('/')
   const content = marked(post.content)
   const html = createEmailTemplate<PostEmail>(
     path.join(__dirname, 'template.hbs')
   )({
     acterName: post.Acter.name,
     content,
-    baseUrl,
     notificationUrl,
     sentAt: format(post.createdAt, DATE_FORMAT_LONG),
     sentBy: post.Author.name,

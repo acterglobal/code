@@ -16,11 +16,12 @@ import {
   NotificationType,
   Post,
 } from '@acter/schema/types'
+import { PostNotificationCreate } from './types'
 import { NotificationEmail, emailSendQueue } from '../email-send'
 
 export const postNotificationsCreateWorker = createWorker(
   POST_NOTIFICATIONS_QUEUE,
-  async (job: Job<Post>) => {
+  async (job: Job<PostNotificationCreate>) => {
     // First we want to find all the followers for the parent Acter
     const post = await prisma.post.findFirst({
       include: {
@@ -42,7 +43,7 @@ export const postNotificationsCreateWorker = createWorker(
         Author: true,
       },
       where: {
-        id: job.data.id,
+        id: job.data.post.id,
       },
     })
 

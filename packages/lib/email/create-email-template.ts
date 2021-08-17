@@ -7,15 +7,24 @@ export interface CreateEmailReturn {
   text: string
 }
 
-const layout = fs.readFileSync(
-  path.join(__dirname, 'layout', 'template.hbs'),
-  'utf8'
-)
+type LayoutVars = {
+  baseUrl: string
+}
 
 export const createEmailTemplate = <TData>(
   templatePath: string
 ): HandlebarsTemplateDelegate<TData> => {
+  const layout = fs.readFileSync(
+    path.join(__dirname, 'layout', 'template.hbs'),
+    'utf8'
+  )
+
   const content = fs.readFileSync(templatePath, 'utf8')
   Handlebars.registerPartial('content', content)
-  return Handlebars.compile<TData>(layout)
+
+  const baseUrl = process.env.BASE_URL
+
+  const template = Handlebars.compile<TData & LayoutVars>(layout)
+
+  return (args) => template({ baseUrl, ...args })
 }
