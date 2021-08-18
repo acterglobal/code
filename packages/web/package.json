@@ -16,7 +16,7 @@
     "@auth0/nextjs-auth0": "^1.5.0",
     "@material-ui/core": "*",
     "@next/bundle-analyzer": "^11.0.1",
-    "@sentry/nextjs": "^6.8.0",
+    "@sentry/nextjs": "^6.11.0",
     "apollo-server-micro": "^3.1.2",
     "aws-sdk": "^2.940.0",
     "env-cmd": "^10.1.0",
