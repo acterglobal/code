@@ -6,7 +6,7 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
 import { Acter, InterestType } from '@acter/schema'
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { capitalize } from 'lodash'
+import capitalize from 'just-capitalize'
 
 export interface ActerTileProps {
   acter: Acter

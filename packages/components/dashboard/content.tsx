@@ -11,7 +11,6 @@ import {
 import { ActerTypes } from '@acter/lib/constants'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
-import { pick } from 'lodash'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -22,7 +21,7 @@ export const DashboardContent: FC<DashboardContentProps> = ({ acters }) => {
   const groups = acters.filter((acter) => acter.ActerType.name === GROUP)
   const activities = acters
     .filter((acter) => acter.ActerType.name === ACTIVITY)
-    .map((activity) => pick(activity, ['Activity']).Activity)
+    .map((acter) => acter.Activity)
 
   return (
     <Box className={classes.container}>

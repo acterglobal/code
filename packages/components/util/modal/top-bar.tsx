@@ -9,7 +9,7 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, User } from '@acter/schema'
-import { capitalize } from 'lodash'
+import capitalize from 'just-capitalize'
 
 export interface TopBarProps {
   heading?: string
