@@ -6,4 +6,4 @@ import { NextApiRequest } from 'next'
  * @returns auth redirect url
  */
 export const getAuthRedirectUrl = (req: NextApiRequest): string =>
-  process.env.AUTH0_BASE_URL + req.query.redirectTo
+  `${process.env.AUTH0_BASE_URL}${req.query?.redirectTo}`

@@ -1,15 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiHandler } from 'next'
 import { handleLogin } from '@auth0/nextjs-auth0'
 import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
-export default async (
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> => {
+const loginHandler: NextApiHandler = async (req, res) => {
   try {
     const redirectUrl = getAuthRedirectUrl(req)
 
-    handleLogin(req, res, {
+    return handleLogin(req, res, {
       returnTo: redirectUrl,
     })
   } catch (err) {
@@ -17,3 +14,5 @@ export default async (
     res.status(err.status || 500).end(err.message)
   }
 }
+
+export default loginHandler
