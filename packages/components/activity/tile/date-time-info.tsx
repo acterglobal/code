@@ -1,5 +1,9 @@
 import React, { FC } from 'react'
-import { DAY_MONTH_FORMAT_SHORT, TIME_FORMAT_SHORT } from '@acter/lib/constants'
+import {
+  DAY_DATE_MONTH_FORMAT_SHORT,
+  DATE_MONTH_FORMAT_SHORT,
+  TIME_FORMAT_SHORT,
+} from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 
 import {
@@ -17,8 +21,12 @@ type DateTimeInfoProps = ActivityTileProps
 export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
   const classes = useStyles()
 
-  const startDay = parseAndFormat(activity.startAt, DAY_MONTH_FORMAT_SHORT)
-  const endDay = parseAndFormat(activity.endAt, DAY_MONTH_FORMAT_SHORT)
+  const displayDayFormat = activity.isAllDay
+    ? DAY_DATE_MONTH_FORMAT_SHORT
+    : DATE_MONTH_FORMAT_SHORT
+
+  const startDay = parseAndFormat(activity.startAt, displayDayFormat)
+  const endDay = parseAndFormat(activity.endAt, displayDayFormat)
 
   const startTime = parseAndFormat(activity.startAt, TIME_FORMAT_SHORT)
   const endTime = parseAndFormat(activity.endAt, TIME_FORMAT_SHORT)

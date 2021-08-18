@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { parseISO } from 'date-fns'
+import { parseISO, addMinutes } from 'date-fns'
 import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
@@ -142,6 +142,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     startAt = parseISO(acter.Activity.startAt)
     //@ts-ignore
     endAt = parseISO(acter.Activity.endAt)
+
+    const timeZoneOffSetMinutes = startAt.getTimezoneOffset()
+    startAt = addMinutes(startAt, timeZoneOffSetMinutes)
+    endAt = addMinutes(endAt, timeZoneOffSetMinutes)
   }
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
