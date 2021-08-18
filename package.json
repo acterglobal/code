@@ -108,6 +108,7 @@
     "packages/components/node_modules",
     "packages/lib/node_modules",
     "packages/schema/node_modules",
-    "packages/web/node_modules"
+    "packages/web/node_modules",
+    "packages/web/.next/cache"
   ]
 }
