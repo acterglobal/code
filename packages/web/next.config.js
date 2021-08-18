@@ -21,6 +21,10 @@ module.exports = withPlugins(
       loader: 'imgix',
       path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
     },
+    sentry: {
+      disableServerWebpackPlugin: true,
+      disableClientWebpackPlugin: true,
+    },
     webpack: (config, options) => {
       config.plugins.push(
         new options.webpack.NormalModuleReplacementPlugin(
