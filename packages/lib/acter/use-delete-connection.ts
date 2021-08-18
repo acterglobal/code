@@ -5,7 +5,7 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter, ActerConnection } from '@acter/schema/types'
+import { Acter, ActerConnection } from '@acter/schema'
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
 
 type DeleteConnectionData = {

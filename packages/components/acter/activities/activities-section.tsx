@@ -8,7 +8,7 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core'
-import { Acter, Activity, User } from '@acter/schema/types'
+import { Acter, Activity, User } from '@acter/schema'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { AddActivityButton } from '@acter/components/activity/add-activity-button'
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'

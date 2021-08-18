@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/function'
 import { Resolver, Query, Arg, Ctx, registerEnumType } from 'type-graphql'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import {
   getOrderBy,
   SearchActivitiesSortBy,
@@ -86,74 +86,74 @@ type ActivitySearchWhereClause = {
   AND?: ANDClause
 }
 
-const withNameSearch = (name: string) => (
-  whereClause: ActivitySearchWhereClause
-): ActivitySearchWhereClause => {
-  if (name) {
-    return {
-      ...whereClause,
-      name: {
-        startsWith: name,
-        mode: 'insensitive',
-      },
+const withNameSearch =
+  (name: string) =>
+  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
+    if (name) {
+      return {
+        ...whereClause,
+        name: {
+          startsWith: name,
+          mode: 'insensitive',
+        },
+      }
     }
+    return whereClause
   }
-  return whereClause
-}
 
-const withEndsBeforeSearch = (beforeDateTime: Date) => (
-  whereClause: ActivitySearchWhereClause
-): ActivitySearchWhereClause => {
-  if (beforeDateTime) {
+const withEndsBeforeSearch =
+  (beforeDateTime: Date) =>
+  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
+    if (beforeDateTime) {
+      return {
+        ...whereClause,
+        Activity: {
+          endAt: {
+            lte: beforeDateTime,
+          },
+        },
+      }
+    }
+
+    return whereClause
+  }
+
+const withInterestsFilter =
+  (interestNames: [string]) =>
+  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
+    if (interestNames && interestNames.length > 0) {
+      return {
+        ...whereClause,
+        ActerInterests: {
+          some: {
+            Interest: {
+              name: {
+                in: interestNames,
+                mode: 'insensitive',
+              },
+            },
+          },
+        },
+      }
+    }
+    return whereClause
+  }
+
+const withActivityTypesFilter =
+  (activityTypes: [string]) =>
+  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
     return {
       ...whereClause,
       Activity: {
-        endAt: {
-          lte: beforeDateTime,
-        },
-      },
-    }
-  }
-
-  return whereClause
-}
-
-const withInterestsFilter = (interestNames: [string]) => (
-  whereClause: ActivitySearchWhereClause
-): ActivitySearchWhereClause => {
-  if (interestNames && interestNames.length > 0) {
-    return {
-      ...whereClause,
-      ActerInterests: {
-        some: {
-          Interest: {
-            name: {
-              in: interestNames,
-              mode: 'insensitive',
-            },
+        ActivityType: {
+          name: {
+            in: activityTypes,
+            mode: 'insensitive',
           },
         },
       },
     }
   }
-  return whereClause
-}
-
-const withActivityTypesFilter = (activityTypes: [string]) => (
-  whereClause: ActivitySearchWhereClause
-): ActivitySearchWhereClause => {
-  return {
-    ...whereClause,
-    Activity: {
-      ActivityType: {
-        name: {
-          in: activityTypes,
-          mode: 'insensitive',
-        },
-      },
-    },
-  }
-}
 
 @Resolver(Acter)
 export class SearchResolver {

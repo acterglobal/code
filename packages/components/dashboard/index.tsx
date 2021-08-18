@@ -10,7 +10,7 @@ import {
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 import { HomeIcon } from '@acter/components/icons/home-icon'
 import { DashboardContent } from '@acter/components/dashboard/content'
 

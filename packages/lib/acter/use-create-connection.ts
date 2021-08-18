@@ -5,7 +5,7 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
 import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import { Acter, ActerConnection } from '@acter/schema/types'
+import { Acter, ActerConnection } from '@acter/schema'
 
 export type ConnectionVariables = {
   followerActerId: string

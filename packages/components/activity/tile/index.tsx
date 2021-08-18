@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
-import { Activity } from '@acter/schema/types'
+import { Activity } from '@acter/schema'
 import { InfoSection } from '@acter/components/activity/tile/info-section'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
 import { ActivityType } from '@acter/components/activity/tile/activity-type'

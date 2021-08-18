@@ -5,7 +5,7 @@ import {
   ConnectionStateEditor,
   ConnectionStateEditorProps,
 } from '@acter/components/acter/landing-page/members-section/connection-state-editor'
-import { ActerConnection } from '@acter/schema/types'
+import { ActerConnection } from '@acter/schema'
 
 export interface ConnectionStateProps
   extends Omit<ConnectionStateEditorProps, 'onCancel'> {

@@ -4,7 +4,7 @@ import { Box, Hidden, Typography } from '@material-ui/core'
 import Image from 'next/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
-import { Acter, InterestType } from '@acter/schema/types'
+import { Acter, InterestType } from '@acter/schema'
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { capitalize } from 'lodash'
 

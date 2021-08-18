@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from '@acter/components/layout/session-indicator'
 
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

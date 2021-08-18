@@ -1,5 +1,5 @@
 import prisma from '@acter/schema/prisma'
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 
 export const getOrCreateUserByEmailFromDB = async (
   email: string

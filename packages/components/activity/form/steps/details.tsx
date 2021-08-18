@@ -7,7 +7,7 @@ import { TextEditor } from '@acter/components/util/text-editor'
 import { InterestsAddSection } from '@acter/components/acter/form/interests-add-section'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
-import { InterestType } from '@acter/schema/types'
+import { InterestType } from '@acter/schema'
 
 export interface DetailsStepProps {
   interestTypes: InterestType[]

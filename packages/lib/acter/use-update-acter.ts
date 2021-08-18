@@ -5,7 +5,7 @@ import {
   UseMutationOptions,
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 import {
   // TODO move these functions elsewhere

@@ -3,7 +3,7 @@ import { getFollowers } from '@acter/lib/acter/get-followers'
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
-import { Acter, User } from '@acter/schema/types'
+import { Acter, User } from '@acter/schema'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 

@@ -8,7 +8,7 @@ import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
 import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 import { createNewPostList } from '@acter/lib/post/create-post-new-postlist'
-import { Post as PostType, Acter, User } from '@acter/schema/types'
+import { Post as PostType, Acter, User } from '@acter/schema'
 
 export type PostVariables = PostType & {
   acterId: string

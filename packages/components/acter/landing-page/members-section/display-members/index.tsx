@@ -12,7 +12,7 @@ import {
   ActerConnection,
   ActerConnectionRole,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 import { MemberType } from '@acter/lib/constants'
 export interface DisplayMembersProps {

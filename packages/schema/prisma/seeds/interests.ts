@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { Interest, InterestType } from '@acter/schema/types'
+import { Interest, InterestType } from '@acter/schema'
 
 interface interestMap {
   name: string
@@ -161,33 +161,35 @@ export const seedInterests = async (prisma: PrismaClient): Promise<void[]> => {
     return type
   }
 
-  const upsertInterest = (type: InterestType) => async (
-    data: interestMap
-  ): Promise<Interest> => {
-    const interest = await prisma.interest.upsert({
-      create: { ...data, interestTypeId: type.id },
-      update: { ...data, interestTypeId: type.id },
-      where: {
-        nameUniqueForInterestType: { name: data.name, interestTypeId: type.id },
-      },
-    })
-    console.log('Created Interest: ', interest)
-    return interest
-  }
-
-  const seedInterestType = (parent?: interestTypeMap) => async (
-    type: interestTypeMap
-  ) => {
-    const interestType = await upsertInterestType(type, parent)
-
-    if (type.interests?.length) {
-      await Promise.all(type.interests.map(upsertInterest(interestType)))
+  const upsertInterest =
+    (type: InterestType) =>
+    async (data: interestMap): Promise<Interest> => {
+      const interest = await prisma.interest.upsert({
+        create: { ...data, interestTypeId: type.id },
+        update: { ...data, interestTypeId: type.id },
+        where: {
+          nameUniqueForInterestType: {
+            name: data.name,
+            interestTypeId: type.id,
+          },
+        },
+      })
+      console.log('Created Interest: ', interest)
+      return interest
     }
 
-    if (type.types?.length) {
-      await Promise.all(type.types.map(seedInterestType(interestType)))
+  const seedInterestType =
+    (parent?: interestTypeMap) => async (type: interestTypeMap) => {
+      const interestType = await upsertInterestType(type, parent)
+
+      if (type.interests?.length) {
+        await Promise.all(type.interests.map(upsertInterest(interestType)))
+      }
+
+      if (type.types?.length) {
+        await Promise.all(type.types.map(seedInterestType(interestType)))
+      }
     }
-  }
 
   // We need to add the root InterestType manually because of how Prisma deals with null values in a unique
   let rootInterestType = await prisma.interestType.findFirst({

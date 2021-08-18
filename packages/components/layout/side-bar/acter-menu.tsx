@@ -17,11 +17,7 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import {
-  ActerConnectionRole,
-  User,
-  Link as LinkType,
-} from '@acter/schema/types'
+import { ActerConnectionRole, User, Link as LinkType } from '@acter/schema'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import {
   GroupsSection,

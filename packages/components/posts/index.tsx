@@ -10,7 +10,7 @@ import {
   ActerConnectionRole,
   Post as PostType,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 export interface PostListProps extends PostFormProps, PostsProps {
   /**

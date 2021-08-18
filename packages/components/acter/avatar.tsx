@@ -9,7 +9,7 @@ import {
 import { green } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import { getInitials } from '@acter/lib/get-initials'
-import { Acter } from '@acter/schema/types'
+import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

@@ -1,5 +1,5 @@
 import { ExampleInterestType } from './example-interest-type'
-import { Interest } from '@acter/schema/types'
+import { Interest } from '@acter/schema'
 
 export const ExampleInterest = {
   id: 'f3e100fc-4445-44db-a32a-430990dddbee',

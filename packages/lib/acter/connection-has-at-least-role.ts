@@ -1,4 +1,4 @@
-import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 export const connectionHasAtLeastRole = (
   connection: ActerConnection,

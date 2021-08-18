@@ -4,11 +4,7 @@ import {
   ExampleActerConnection,
   ExampleUserActer,
 } from '@acter/schema/fixtures'
-import {
-  Acter,
-  ActerConnectionRole,
-  ActerJoinSettings,
-} from '@acter/schema/types'
+import { Acter, ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 describe('followerHasRoleOnActer', () => {
   it('should return false when there is no connection between acter and follower', () => {

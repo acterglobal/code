@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 
-import { User } from '@acter/schema/types'
+import { User } from '@acter/schema'
 
 interface ErrorProps {
   user?: User

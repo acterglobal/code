@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { ActivityType } from '@acter/schema/types'
+import { ActivityType } from '@acter/schema'
 import { ActivityTypes } from '@acter/lib/constants'
 
 export interface SelectActivityTypeProps {

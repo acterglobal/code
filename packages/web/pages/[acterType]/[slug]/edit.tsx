@@ -30,7 +30,7 @@ import {
   ActivityType,
   InterestType,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'

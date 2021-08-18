@@ -1,4 +1,4 @@
-import { Post as PostType } from '@acter/schema/types'
+import { Post as PostType } from '@acter/schema'
 
 export const deleteCommentFromPostList = (
   deletedPost: PostType,

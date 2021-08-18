@@ -4,7 +4,7 @@ import { Header } from '@acter/components/acter/landing-page/info-section/header
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { useRouter } from 'next/router'
-import { Acter, InterestType } from '@acter/schema/types'
+import { Acter, InterestType } from '@acter/schema'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 export interface InfoSectionProps {
   acter: Acter

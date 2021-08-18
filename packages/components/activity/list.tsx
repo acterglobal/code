@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 import { ActivityTile } from '@acter/components/activity/tile'
-import { Activity } from '@acter/schema/types'
+import { Activity } from '@acter/schema'
 export interface ActivityListProps {
   activities: Activity[]
 }

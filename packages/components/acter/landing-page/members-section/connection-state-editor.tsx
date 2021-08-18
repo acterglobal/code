@@ -10,7 +10,7 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Save, Cancel } from '@material-ui/icons'
-import { ActerConnection, ActerConnectionRole } from '@acter/schema/types'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 export interface ConnectionStateEditorProps {
   connection: ActerConnection

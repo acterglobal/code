@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Field, Form, Formik, FormikBag } from 'formik'
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Post as PostType, User } from '@acter/schema/types'
+import { Post as PostType, User } from '@acter/schema'
 import { grey } from '@material-ui/core/colors'
 import { Size } from '@acter/lib/constants'
 
