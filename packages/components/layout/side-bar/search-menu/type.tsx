@@ -9,7 +9,6 @@ import {
 import { Switch } from '@acter/components/styled/switch'
 import { SearchType } from '@acter/lib/constants'
 import { Size } from '@acter/lib/constants'
-import remove from 'lodash/remove'
 
 export interface SearchTypeProps {
   filterSubTypes: string[]
@@ -33,8 +32,10 @@ export const Type: FC<TypeProps> = ({
     const newFilterSubTypes = [...filterSubTypes]
 
     if (newFilterSubTypes.includes(subTypeName)) {
-      remove(newFilterSubTypes, (item) => item === subTypeName)
-      onChange([...newFilterSubTypes])
+      const filteredSubtypeNames = newFilterSubTypes.filter(
+        (item) => item === subTypeName
+      )
+      onChange([...filteredSubtypeNames])
     } else {
       onChange([...newFilterSubTypes, subTypeName])
     }

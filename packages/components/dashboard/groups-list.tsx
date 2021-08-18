@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import capitalize from 'lodash/capitalize'
+import capitalize from 'just-capitalize'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 type GroupListProps = {

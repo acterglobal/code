@@ -4,7 +4,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import merge from 'deepmerge'
-import isEqual from 'lodash/isEqual'
+import deepEqual from 'deep-equal'
 import { createApolloClient } from './create-apollo-client'
 import { ApolloClientType } from './types'
 
@@ -37,7 +37,7 @@ export const initializeApollo = ({
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
         ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s))
+          sourceArray.every((s) => !deepEqual(d, s))
         ),
       ],
     })
