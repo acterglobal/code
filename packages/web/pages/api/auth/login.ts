@@ -4,10 +4,8 @@ import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
 const loginHandler: NextApiHandler = async (req, res) => {
   try {
-    const redirectUrl = getAuthRedirectUrl(req)
-
     return handleLogin(req, res, {
-      returnTo: redirectUrl,
+      returnTo: getAuthRedirectUrl(req),
     })
   } catch (err) {
     console.error(err)
