@@ -22,6 +22,10 @@ const afterCallback = async (_req, res, session, _state) => {
 
 export default handleAuth({
   async callback(req, res) {
-    await handleCallback(req, res, { afterCallback })
+    try {
+      await handleCallback(req, res, { afterCallback })
+    } catch (error) {
+      res.status(error.status || 500).end(error.message)
+    }
   },
 })

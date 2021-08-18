@@ -6,9 +6,14 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const redirectUrl = getAuthRedirectUrl(req)
+  try {
+    const redirectUrl = getAuthRedirectUrl(req)
 
-  return handleLogin(req, res, {
-    returnTo: redirectUrl,
-  })
+    handleLogin(req, res, {
+      returnTo: redirectUrl,
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(err.status || 500).end(err.message)
+  }
 }
