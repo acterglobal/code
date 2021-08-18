@@ -1,5 +1,5 @@
 import { Email } from '@acter/lib/email'
-import { Notification } from '@acter/schema/types'
+import { Notification } from '@acter/schema'
 
 export interface NotificationEmail extends Email {
   /**

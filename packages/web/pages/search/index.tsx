@@ -13,11 +13,12 @@ import {
   getInterests,
   getActerTypes,
 } from 'props'
-import { Acter, ActerType, InterestType, User } from '@acter/schema'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
+import { ActerType, InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {
-  acters: Acter[]
+  acters: ActerWithSlugAndType[]
   acterTypes: ActerType[]
   interestTypes: InterestType[]
   user?: User

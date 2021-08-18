@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Acter } from '@acter/schema'
 import {
   Box,
   createStyles,
@@ -8,17 +7,20 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { ActerTypes } from '@acter/lib/constants'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
-export type DashboardContentProps = { acters: Acter[] }
+export type DashboardContentProps = { acters: ActerWithSlugAndType[] }
 
 export const DashboardContent: FC<DashboardContentProps> = ({ acters }) => {
   const classes = useStyles()
-  const groups = acters.filter((acter) => acter.ActerType.name === GROUP)
+  const groups = acters.filter(
+    (acter: ActerWithSlugAndType) => acter.ActerType.name === GROUP
+  )
   const activities = acters
     .filter((acter) => acter.ActerType.name === ACTIVITY)
     .map((acter) => acter.Activity)

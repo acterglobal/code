@@ -15,7 +15,7 @@ import {
   ActerNotificationSettings,
   NotificationType,
   Post,
-} from '@acter/schema/types'
+} from '@acter/schema'
 import { PostNotificationCreate } from './types'
 import { NotificationEmail, emailSendQueue } from '../email-send'
 

@@ -7,14 +7,14 @@ import {
 } from '@material-ui/icons'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter, User } from '@acter/schema'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
+import { User } from '@acter/schema'
 import capitalize from 'just-capitalize'
 
 export interface TopBarProps {
   heading?: string
   actionButtons?: string[] | null
-  acter?: Acter
+  acter?: ActerWithSlugAndType
   user?: User
 }
 interface Props extends TopBarProps {

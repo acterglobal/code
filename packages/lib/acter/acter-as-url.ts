@@ -1,12 +1,18 @@
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 
-import { Acter } from '@acter/schema'
+import { Acter as ActerSchemaType, ActerType } from '@acter/schema'
+
+export type ActerWithSlugAndType = ActerSchemaType &
+  Required<{
+    slug: string
+    ActerType: ActerType
+  }>
 
 interface ActerAsUrlProps {
   /**
    * The Acter for which we are create a URL
    */
-  acter: Acter
+  acter: ActerWithSlugAndType
   /**
    * Extra path items for URL
    */

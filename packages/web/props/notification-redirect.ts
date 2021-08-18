@@ -3,7 +3,7 @@ import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo } from '@acter/lib/apollo'
 import GET_NOTIFICATION from '@acter/schema/queries/notification-get.graphql'
 import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
-import { Notification } from '@acter/schema/types'
+import { Notification } from '@acter/schema'
 
 const redirectOnMissingData: GetServerSidePropsResult<Record<string, never>> = {
   props: {},

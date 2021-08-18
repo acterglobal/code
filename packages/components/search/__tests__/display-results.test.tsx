@@ -9,16 +9,19 @@ import {
 
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 
 const { ACTIVITIES, ACTERS } = SearchType
 
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
+    const acterListWithSlug = ExampleActerList.map(
+      (acter: ActerWithSlugAndType) => acter
+    )
     render(
       <DisplayResults
         searchType={ACTERS}
-        acters={ExampleActerList}
+        acters={acterListWithSlug}
         interestTypes={Interests.data.interestTypes}
       />
     )
@@ -28,7 +31,7 @@ describe('Display search results', () => {
 
     items.map((item, i) => {
       const links = within(item).queryAllByRole('link')
-      const exampleActer = ExampleActerList[i]
+      const exampleActer = ExampleActerList[i] as ActerWithSlugAndType
       expect(links[0].getAttribute('href')).toMatch(
         acterAsUrl({ acter: exampleActer })
       )
@@ -36,7 +39,10 @@ describe('Display search results', () => {
   })
 
   it('should display search results with a list of Activities', async () => {
-    const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
+    const acter = {
+      ...ExampleActivityActer,
+      Activity: ExampleActivity,
+    } as ActerWithSlugAndType
     const activities = [...Array(8)].map(() => acter)
 
     render(

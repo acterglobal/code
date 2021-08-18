@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import pluralize from 'pluralize'
 import { Box, Divider, Typography, List } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
@@ -73,7 +73,9 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
           if (isOrganisation) {
             return (
               <Link
-                href={`${acterAsUrl({ acter: Follower })}`}
+                href={`${acterAsUrl({
+                  acter: Follower as ActerWithSlugAndType,
+                })}`}
                 key={`follower-${Follower.id}`}
               >
                 <DisplayMemberItem

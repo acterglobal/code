@@ -2,7 +2,7 @@ import marked from 'marked'
 import path from 'path'
 import { format } from 'date-fns'
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
-import { Notification, Post } from '@acter/schema/types'
+import { Notification, Post } from '@acter/schema'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 
 type PostEmail = {

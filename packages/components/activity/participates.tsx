@@ -3,8 +3,7 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { useRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter } from '@acter/schema'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export type ParticipatesProps = {
-  acter: Acter
+  acter: ActerWithSlugAndType
 }
 
 export const Participates: FC<ParticipatesProps> = ({ acter }) => {

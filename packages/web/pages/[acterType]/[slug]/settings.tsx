@@ -16,12 +16,12 @@ import {
 } from 'props'
 import { ActerSettings } from '@acter/components/acter/settings'
 import {
-  Acter,
   ActerConnectionRole,
   ActerType,
   User,
   Link as LinkType,
 } from '@acter/schema'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
@@ -30,7 +30,7 @@ import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
 
 interface ActerSettingsPageProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
   acterTypes: ActerType[]
   user: User
   links: LinkType[]
@@ -46,14 +46,18 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   const [displayLinks, setDisplayLinks] = useState(links)
   const [createGroup] = useCreateActer({
     onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
+      setDisplayActer(
+        updateActerGroups(displayActer, createActer) as ActerWithSlugAndType
+      )
     },
   })
   const [updateGroup, { loading: updateGroupLoading }] = useUpdateActer(
     displayActer,
     {
       onCompleted: ({ updateActer }) =>
-        setDisplayActer(updateActerGroups(displayActer, updateActer)),
+        setDisplayActer(
+          updateActerGroups(displayActer, updateActer) as ActerWithSlugAndType
+        ),
     }
   )
 

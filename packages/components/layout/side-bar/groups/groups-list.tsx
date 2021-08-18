@@ -7,15 +7,14 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Acter } from '@acter/schema'
 import { Link } from '@acter/components/util/anchor-link'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import capitalize from 'just-capitalize'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
 export interface GroupsList {
-  acters: Acter[]
+  acters: ActerWithSlugAndType[]
 }
 
 export const GroupsList: FC<GroupsList> = ({ acters }) => {

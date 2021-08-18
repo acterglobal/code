@@ -10,12 +10,13 @@ import {
   DisplayResultsProps,
 } from '@acter/components/search/display-results'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
-import { Acter, InterestType } from '@acter/schema'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
+import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 export interface SearchProps extends DisplayResultsProps {
   searchType: SearchType
-  acters: Acter[]
+  acters: ActerWithSlugAndType[]
   interestTypes: InterestType[]
 }
 

@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Acter, InterestType } from '@acter/schema'
+import { InterestType } from '@acter/schema'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { ActerTile } from '@acter/components/acter/tile'
 import { SearchType } from '@acter/lib/constants'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { Link } from '@acter/components/util/anchor-link'
 import clsx from 'clsx'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
   searchType: string
-  acters: Acter[]
+  acters: ActerWithSlugAndType[]
   interestTypes: InterestType[]
 }
 

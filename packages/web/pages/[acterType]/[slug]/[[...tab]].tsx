@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, ActerType, InterestType, Post, User, Link } from '@acter/schema'
+import { ActerType, InterestType, Post, User, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -25,9 +25,10 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { ActerTypes } from '@acter/lib/constants'
 import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
@@ -52,7 +53,7 @@ const getActerView = (acter): FC<ViewTypes> => {
 }
 
 interface ActerLandingPageProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
   acterTypes: ActerType[]
   interestTypes: InterestType[]
   user: User
@@ -85,12 +86,16 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   //TODO: use all these hooks in child components to avoid the prop drilling.
   const [createGroup] = useCreateActer({
     onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
+      setDisplayActer(
+        updateActerGroups(displayActer, createActer) as ActerWithSlugAndType
+      )
     },
   })
   const [updateGroup] = useUpdateActer(displayActer, {
     onCompleted: ({ updateActer }) =>
-      setDisplayActer(updateActerGroups(displayActer, updateActer)),
+      setDisplayActer(
+        updateActerGroups(displayActer, updateActer) as ActerWithSlugAndType
+      ),
   })
 
   const [createPost] = useCreatePost(acter, user, displayPostList, {
@@ -105,19 +110,27 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: setDisplayPostList,
   })
 
-  const [createActerConnection, { loading: creatingConnection }] =
-    useCreateActerConnection(displayActer)
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(displayActer)
 
-  const [updateActerConnection, { loading: updatingConnection }] =
-    useUpdateActerConnection(displayActer)
+  const [
+    updateActerConnection,
+    { loading: updatingConnection },
+  ] = useUpdateActerConnection(displayActer)
 
-  const [deleteActerConnection, { loading: deletingConnection }] =
-    useDeleteActerConnection(displayActer)
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(displayActer)
 
   return (
     <Layout
       acter={
-        acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
+        acter.ActerType.name === GROUP
+          ? (displayActer.Parent as ActerWithSlugAndType)
+          : displayActer
       }
       acterTypes={acterTypes}
       user={user}

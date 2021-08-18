@@ -2,9 +2,8 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 interface OrganiserProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
 }
 
 export const Organiser: FC<OrganiserProps> = ({ acter }) => {

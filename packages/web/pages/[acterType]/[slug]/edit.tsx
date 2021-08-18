@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
 import { Layout } from '@acter/components/layout'
@@ -25,7 +25,6 @@ import {
 } from 'props'
 
 import {
-  Acter,
   ActerType,
   ActivityType,
   InterestType,
@@ -40,7 +39,7 @@ interface NewActerPageProps {
   /**
    * This Acter
    */
-  acter: Acter
+  acter: ActerWithSlugAndType
   /**
    * The ActerType we are creating
    */

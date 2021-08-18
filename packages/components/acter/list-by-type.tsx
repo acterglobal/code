@@ -4,9 +4,8 @@ import Image from 'next/image'
 import pluralize from 'pluralize'
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
 
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 
-import { Acter } from '@acter/schema'
 import {
   createStyles,
   makeStyles,
@@ -17,11 +16,11 @@ import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 export interface ActerListByTypeProps {
-  acters: Acter[]
+  acters: ActerWithSlugAndType[]
 }
 
 type ActersByType = {
-  [key: string]: Acter[]
+  [key: string]: ActerWithSlugAndType[]
 }
 
 export const ActerListByType: FC<ActerListByTypeProps> = ({ acters }) => {

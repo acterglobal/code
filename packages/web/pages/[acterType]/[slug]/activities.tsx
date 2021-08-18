@@ -9,11 +9,12 @@ import {
   getActer,
   getLinks,
 } from 'props'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, ActerType, Link as LinkType, User } from '@acter/schema'
+import { ActerType, Link as LinkType, User } from '@acter/schema'
 import { ActerActivities } from '@acter/components/acter/activities'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
@@ -21,7 +22,7 @@ import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 
 interface ActivitiesPageProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
   acterTypes: ActerType[]
   user: User
   links: LinkType[]
@@ -41,15 +42,21 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
 
   const [createGroup] = useCreateActer({
     onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
+      setDisplayActer(
+        updateActerGroups(displayActer, createActer) as ActerWithSlugAndType
+      )
     },
   })
 
-  const [createActerConnection, { loading: creatingConnection }] =
-    useCreateActerConnection(displayActer)
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(displayActer)
 
-  const [deleteActerConnection, { loading: deletingConnection }] =
-    useDeleteActerConnection(displayActer)
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(displayActer)
 
   return (
     <Layout

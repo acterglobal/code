@@ -2,7 +2,8 @@ import { buildSchemaSync, UseMiddleware } from 'type-graphql'
 import {
   ResolversEnhanceMap,
   applyResolversEnhanceMap,
-  crudResolvers, relationResolvers,
+  crudResolvers,
+  relationResolvers,
 } from '@acter/schema/types'
 
 import { ActerResolver } from '@acter/schema/resolvers/acter'

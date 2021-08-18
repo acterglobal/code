@@ -12,9 +12,10 @@ import { PostList, PostListProps } from '@acter/components/posts'
 import { InterestType } from '@acter/schema'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
+  acter: ActerWithSlugAndType
   interestTypes: InterestType[]
 }
 
@@ -34,10 +35,12 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
   const router = useRouter()
 
+  const organiser = acter.Activity.Organiser as ActerWithSlugAndType
+
   const handleModalClose = () => {
     router.push(
       `${acterAsUrl({
-        acter: acter.Activity.Organiser,
+        acter: organiser,
         extraPath: ['activities'],
       })}`
     )
@@ -81,7 +84,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
           <Grid item xs={12} sm={4}>
             <Participates acter={acter} />
-            <Organiser acter={acter.Activity.Organiser} />
+            <Organiser acter={organiser} />
           </Grid>
         </Grid>
 

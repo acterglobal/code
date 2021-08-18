@@ -13,6 +13,7 @@ import {
   ActivitiesIcon,
   SettingsIcon,
 } from '@acter/components/icons'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
@@ -28,6 +29,7 @@ import { LinksList } from '@acter/components/layout/side-bar/links'
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 
 export type ActerMenuProps = GroupsSectionProps & {
+  acter: ActerWithSlugAndType
   user: User
   links: LinkType[]
 }

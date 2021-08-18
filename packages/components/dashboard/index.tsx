@@ -7,6 +7,7 @@ import {
   Theme,
   useTheme,
 } from '@material-ui/core'
+import { ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
@@ -42,7 +43,7 @@ export const Dashboard: FC<DashboardProps> = ({ user }) => {
           Dashboard
         </Typography>
       </Box>
-      <DashboardContent acters={acters} />
+      <DashboardContent acters={acters as ActerWithSlugAndType[]} />
     </Box>
   )
 }

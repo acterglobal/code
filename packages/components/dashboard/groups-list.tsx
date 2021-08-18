@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Acter } from '@acter/schema'
 import {
   Box,
   createStyles,
@@ -9,10 +8,10 @@ import {
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
 import capitalize from 'just-capitalize'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 
 type GroupListProps = {
-  groups: Acter[]
+  groups: ActerWithSlugAndType[]
 }
 export const GroupsList: FC<GroupListProps> = ({ groups }) => {
   const classes = useStyles()

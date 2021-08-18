@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import capitalize from 'just-capitalize'
 import {
   Box,
   createStyles,
@@ -7,20 +8,19 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 import { Link } from '@acter/components/util/anchor-link'
-import { Acter, ActerType } from '@acter/schema'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
-import capitalize from 'just-capitalize'
+import { ActerType } from '@acter/schema'
 
 export interface HeaderSectionProps extends ConnectProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
   acterTypes: ActerType[]
-  onGroupSubmit: (groupData: Acter) => void
+  onGroupSubmit: (groupData) => void
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({

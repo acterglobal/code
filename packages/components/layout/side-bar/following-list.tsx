@@ -3,7 +3,7 @@ import { Link } from '@acter/components/util/anchor-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { ListItem, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { User } from '@acter/schema'
@@ -27,7 +27,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
       {excludeActerTypes(
         user.Acter.Following.map(({ Following }) => Following),
         [ACTIVITY, USER, GROUP]
-      ).map((acter) => (
+      ).map((acter: ActerWithSlugAndType) => (
         <ListItem
           key={`following-${acter.id}`}
           className={clsx({

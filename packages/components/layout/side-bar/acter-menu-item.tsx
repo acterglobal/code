@@ -12,14 +12,13 @@ import {
   useTheme,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter } from '@acter/schema'
+import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { ActerMenu } from '@acter/lib/constants'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 
 interface ActerMenuItemProps {
-  acter: Acter
+  acter: ActerWithSlugAndType
   Icon: SvgIconComponent
   path: string
   text?: string

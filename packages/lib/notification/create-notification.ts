@@ -5,7 +5,7 @@ import {
   Notification,
   NotificationType,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 type ActerPick = Pick<Acter, 'id' | 'acterNotifyEmailFrequency'> & {
   User: UserPick
