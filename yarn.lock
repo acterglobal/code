@@ -124,7 +124,7 @@ __metadata:
   resolution: "@acter/web@workspace:packages/web"
   dependencies:
     "@apollo/client": "*"
-    "@auth0/nextjs-auth0": ^1.4.2
+    "@auth0/nextjs-auth0": ^1.5.0
     "@material-ui/core": "*"
     "@next/bundle-analyzer": ^11.0.1
     "@sentry/nextjs": ^6.8.0
@@ -216,7 +216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth0/nextjs-auth0@npm:^1.4.2":
+"@auth0/nextjs-auth0@npm:^1.4.2, @auth0/nextjs-auth0@npm:^1.5.0":
   version: 1.5.0
   resolution: "@auth0/nextjs-auth0@npm:1.5.0"
   dependencies:
