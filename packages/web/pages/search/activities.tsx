@@ -17,14 +17,12 @@ import { Acter, ActivityType, InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {
-  acters: Acter[]
   activityTypes: ActivityType[]
   interestTypes: InterestType[]
   user?: User
 }
 
 const SearchActivitiesPage: NextPage<SearchPageProps> = ({
-  acters,
   activityTypes,
   interestTypes,
   user,
@@ -39,7 +37,6 @@ const SearchActivitiesPage: NextPage<SearchPageProps> = ({
 
       <main>
         <Search
-          acters={acters}
           searchType={SearchType.ACTIVITIES}
           interestTypes={interestTypes}
         />
@@ -49,12 +46,6 @@ const SearchActivitiesPage: NextPage<SearchPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getUserProfile(false),
-    getActivityTypes,
-    searchActivities,
-    getInterests
-  )
+  composeProps(ctx, getUserProfile(false), getActivityTypes, getInterests)
 
 export default SearchActivitiesPage

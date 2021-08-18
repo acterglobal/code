@@ -26,7 +26,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const [data, { loading, loadMore }] = useFetchActers()
+  const [data, { loading, loadMore }] = useFetchActers(searchType)
 
   if (loading || !data) {
     return <LoadingSpinner load={loading || !data} />

@@ -8,6 +8,8 @@ query ActivitiesSearch(
   $types: [String!]
   $endsBefore: DateTime
   $sortBy: SearchActivitiesSortBy
+  $take: Int
+  $skip: Int
 ) {
   searchActivities(
     searchText: $searchText
@@ -15,6 +17,8 @@ query ActivitiesSearch(
     interests: $interests
     types: $types
     sortBy: $sortBy
+    take: $take
+    skip: $skip
   ) {
     ...ActerFull
     Activity {

@@ -11,6 +11,12 @@ export const typePolicies = {
           return [...existing, ...incoming]
         },
       },
+      searchActivities: {
+        keyArgs: ['searchText', 'interests', 'types', 'sortBy'],
+        merge(existing = [], incoming: SearchResults): SearchResults {
+          return [...existing, ...incoming]
+        },
+      },
     },
   },
 }

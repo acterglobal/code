@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function'
-import { Resolver, Query, Arg, Ctx, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { Acter } from '@acter/schema'
 import {
@@ -164,7 +164,9 @@ export class SearchResolver {
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
     @Arg('types', () => [String], { nullable: true }) types: [string],
-    @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy
+    @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy,
+    @Arg('take', () => Int, { nullable: true }) take: number,
+    @Arg('skip', () => Int, { nullable: true }) skip: number
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
@@ -198,6 +200,8 @@ export class SearchResolver {
     return ctx.prisma.acter.findMany({
       where,
       orderBy: getOrderBy(sortBy),
+      take,
+      skip,
     })
   }
 }
