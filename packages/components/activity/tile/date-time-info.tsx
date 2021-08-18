@@ -25,27 +25,11 @@ export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
     ? DAY_DATE_MONTH_FORMAT_SHORT
     : DATE_MONTH_FORMAT_SHORT
 
-  const startDay = parseAndFormat(
-    activity.startAt,
-    activity.isAllDay,
-    displayDayFormat
-  )
-  const endDay = parseAndFormat(
-    activity.endAt,
-    activity.isAllDay,
-    displayDayFormat
-  )
+  const startDay = parseAndFormat(activity.startAt, displayDayFormat)
+  const endDay = parseAndFormat(activity.endAt, displayDayFormat)
 
-  const startTime = parseAndFormat(
-    activity.startAt,
-    activity.isAllDay,
-    TIME_FORMAT_SHORT
-  )
-  const endTime = parseAndFormat(
-    activity.endAt,
-    activity.isAllDay,
-    TIME_FORMAT_SHORT
-  )
+  const startTime = parseAndFormat(activity.startAt, TIME_FORMAT_SHORT)
+  const endTime = parseAndFormat(activity.endAt, TIME_FORMAT_SHORT)
 
   return (
     <Box className={classes.root}>

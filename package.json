@@ -43,7 +43,7 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
     "bullmq": "^1.40.1",
     "date-fns": "^2.22.1",
-    "date-fns-tz": "^1.1.4",
+    "date-fns-tz": "^1.1.6",
     "env-cmd": "^10.1.0",
     "graphql": "^15.4.0",
     "next": "^v11.0.1",

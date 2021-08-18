@@ -24,17 +24,9 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT
 
-  const startAt = parseAndFormat(
-    acter.Activity.startAt,
-    acter.Activity.isAllDay,
-    displayFormat
-  )
+  const startAt = parseAndFormat(acter.Activity.startAt, displayFormat)
 
-  const endAt = parseAndFormat(
-    acter.Activity.endAt,
-    acter.Activity.isAllDay,
-    displayFormat
-  )
+  const endAt = parseAndFormat(acter.Activity.endAt, displayFormat)
 
   const getUrl = (url) => {
     if (!url) {

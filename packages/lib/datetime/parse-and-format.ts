@@ -1,31 +1,17 @@
-import { format } from 'date-fns'
+import { parseISO } from 'date-fns'
+import { getZonedDate } from '@acter/lib/datetime/getZonedDate'
 
 export const parseAndFormat = (
   dateString: Date | string,
-  allDay?: boolean,
-  timeFormat?: string
+  formatString: string
 ): string => {
   if (typeof dateString === 'string') {
-    if (allDay == true) {
-      const parsedDate = new Date(Date.parse(dateString))
-      const dateNoTime = format(parsedDate, timeFormat)
-      return dateNoTime
-    } else if (!allDay && timeFormat) {
-      const parsedDateTime = new Date(Date.parse(dateString))
-      const dateTime = format(parsedDateTime, timeFormat)
-      return dateTime
-    }
-    // Convert dateString to typeof Date
-    const parsedDate = new Date(Date.parse(dateString))
-    // Convert date into UTC string
-    const dateUTC = parsedDate.toUTCString()
+    const date = parseISO(dateString)
+    const parsedDate = getZonedDate(date, formatString)
 
-    // Remove GMT from date display
-    const dateUTCWithoutGMT = dateUTC.slice(0, 22)
-
-    return dateUTCWithoutGMT
+    return parsedDate
   }
-  const dateUTC = dateString.toUTCString()
-  const dateUTCWithoutGMT = dateUTC.slice(0, 22)
-  return dateUTCWithoutGMT
+  const parsedDate = getZonedDate(dateString, formatString)
+
+  return parsedDate
 }
