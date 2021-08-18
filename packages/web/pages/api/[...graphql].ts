@@ -1,14 +1,12 @@
 import 'reflect-metadata'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { withSentry } from '@sentry/nextjs'
 import { ApolloServer } from 'apollo-server-micro'
 import prisma from '@acter/schema/prisma'
-import { initSentry } from '@acter/lib/sentry'
 import { getSession } from '@auth0/nextjs-auth0'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 
 import { schema } from '@acter/schema/schema'
-
-initSentry()
 
 export const config = {
   api: {
@@ -28,7 +26,7 @@ const server = new ApolloServer({
   },
 })
 
-export default async (
+const graphqlHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
@@ -40,3 +38,5 @@ export default async (
   const handler = apolloServer.createHandler({ path: '/api/graphql' })
   return handler(req, res)
 }
+
+export default withSentry(graphqlHandler)

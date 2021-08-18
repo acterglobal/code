@@ -1,14 +1,9 @@
 import aws from 'aws-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { withSentry } from '@sentry/nextjs'
 import { getSession } from '@auth0/nextjs-auth0'
-import { initSentry } from '@acter/lib/sentry'
 
-initSentry()
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
+const handler = (req: NextApiRequest, res: NextApiResponse): void => {
   const tokenUser = getSession(req, res)?.user?.email
   if (!tokenUser) {
     return res.status(401).send(null)
@@ -38,3 +33,5 @@ export default async function handler(
 
   res.send(url)
 }
+
+export default withSentry(handler)
