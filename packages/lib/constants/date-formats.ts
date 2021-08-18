@@ -7,6 +7,8 @@ export const DATE_FORMAT_LONG = "eeee, d MMMM yyyy 'at' HH:mm"
 // 19 Jul. 21:45
 export const DATE_FORMAT_SHORT = 'd MMM. HH:mm'
 // 19 Jan.
-export const DAY_MONTH_FORMAT_SHORT = 'd MMM.'
+export const DATE_MONTH_FORMAT_SHORT = 'd MMM.'
+// Mon, 19 July
+export const DAY_DATE_MONTH_FORMAT_SHORT = 'EEE, d MMM'
 // 21:45
 export const TIME_FORMAT_SHORT = 'HH:mm'
