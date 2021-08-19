@@ -52,6 +52,7 @@ __metadata:
     storybook-formik: ^2.1.6
     title-case: ^3.0.3
     typescript: "*"
+    url: ^0.11.0
     uuid: ^8.3.2
     webpack: "*"
   languageName: unknown

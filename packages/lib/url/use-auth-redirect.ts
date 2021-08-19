@@ -1,18 +1,29 @@
 import { useRouter } from 'next/router'
 
-type Redirect = () => Promise<boolean>
+type Redirect = () => void
+type UseAuthRedirectResponse = {
+  loginUrl: string
+  loginRedirect: Redirect
+  signupUrl: string
+  signupRedirect: Redirect
+}
 
 /**
  * Can be used to redirect to login/signup
  */
-export const useAuthRedirect = (): Redirect[] => {
+export const useAuthRedirect = (): UseAuthRedirectResponse => {
   const router = useRouter()
 
-  const loginRedirect = () =>
-    router.push(`/api/auth/login?returnTo=${router.asPath}`)
+  const loginUrl = `/api/auth/login?returnTo=${router.asPath}`
+  const loginRedirect = () => window.location.assign(loginUrl)
 
-  const signupRedirect = () =>
-    router.push(`/api/auth/signup?returnTo=${router.asPath}`)
+  const signupUrl = `/api/auth/signup?returnTo=${router.asPath}`
+  const signupRedirect = () => window.location.assign(signupUrl)
 
-  return [loginRedirect, signupRedirect]
+  return {
+    loginUrl,
+    loginRedirect,
+    signupUrl,
+    signupRedirect,
+  }
 }

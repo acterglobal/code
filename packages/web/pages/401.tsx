@@ -7,7 +7,7 @@ import { Box, Link } from '@acter/components/styled'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 
 const Custom401: NextPage = () => {
-  const [redirectToLogin] = useAuthRedirect()
+  const { loginUrl } = useAuthRedirect()
 
   return (
     <Layout>
@@ -15,7 +15,7 @@ const Custom401: NextPage = () => {
       <Box mt={20}>
         <Typography variant="body1">
           You are not authorized to view this page. Please{' '}
-          <Link onClick={redirectToLogin}>login</Link> and try again.
+          <Link href={loginUrl}>login</Link> and try again.
         </Typography>
       </Box>
     </Layout>
