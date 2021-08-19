@@ -32,7 +32,7 @@ export const TopBar: FC<Props> = ({
   return (
     <Box className={classes.root}>
       <Typography variant="body1" className={classes.heading}>
-        {capitalize(heading)}
+        {heading && capitalize(heading)}
       </Typography>
 
       <Box className={classes.buttonsSection}>
