@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '@acter/schema/prisma'
 import { Session } from '@auth0/nextjs-auth0'
 
 export interface ActerGraphQLContext {
-  prisma: PrismaClient
+  prisma: typeof prisma
   session: Session
 }
