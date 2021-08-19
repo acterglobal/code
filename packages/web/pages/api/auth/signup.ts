@@ -4,10 +4,12 @@ import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
 const signupHandler: NextApiHandler = async (req, res) => {
   try {
+    if (!req.query) {
+      console.error('Skipping signupHandler because res.query is missing')
+      return
+    }
     const redirectUrl = getAuthRedirectUrl(req)
-    console.log('In loginHandler. Redirect URL is ', redirectUrl)
-    console.log('req.query is', req.query)
-    return handleLogin(req, res, {
+    await handleLogin(req, res, {
       authorizationParams: {
         screen_hint: 'signup',
       },
@@ -15,7 +17,7 @@ const signupHandler: NextApiHandler = async (req, res) => {
     })
   } catch (err) {
     console.error(err)
-    res.status(err.status || 500).end(err.message)
+    res.status?.(err.status || 500).end(err.message)
   }
 }
 

@@ -13,23 +13,15 @@ export interface SessionIndicatorProps {
 
 export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
   const classes = useStyles()
-  const [redirectToLogin, redirectToSignup] = useAuthRedirect()
+  const { loginUrl, signupUrl } = useAuthRedirect()
 
   if (!user) {
     return (
       <>
-        <Button
-          color="inherit"
-          onClick={redirectToSignup}
-          aria-label="signin-button"
-        >
+        <Button color="inherit" href={signupUrl} aria-label="signin-button">
           Sign up
         </Button>
-        <Button
-          color="inherit"
-          onClick={redirectToLogin}
-          aria-label="signin-button"
-        >
+        <Button color="inherit" href={loginUrl} aria-label="signin-button">
           Log in
         </Button>
       </>

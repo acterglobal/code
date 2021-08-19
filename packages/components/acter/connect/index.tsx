@@ -41,10 +41,10 @@ export const Connect: FC<ConnectProps> = ({
   onLeave,
   loading,
 }) => {
-  const [loginRedirect] = useAuthRedirect()
+  const { loginUrl } = useAuthRedirect()
 
   if (!user) {
-    return <ConnectButton onClick={loginRedirect}>Join</ConnectButton>
+    return <ConnectButton href={loginUrl}>Join</ConnectButton>
   }
 
   const followers = getFollowers(user, acter).filter(
