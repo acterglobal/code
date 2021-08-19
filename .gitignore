@@ -47,3 +47,6 @@ yarn-error.log*
 
 # Postgres
 postgres-data
+
+# Typescript incremental build files
+.tsbuildinfo
