@@ -104,7 +104,6 @@
     "yarn": "3.x"
   },
   "cacheDirectories": [
-    ".yarn/cache",
     "node_modules",
     "packages/components/node_modules",
     "packages/lib/node_modules",
