@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.spacing(1.3),
       color: theme.colors.grey.main,
       fontWeight: theme.typography.fontWeightBold,
-      overflow: 'scroll',
     },
     organiser: {
       fontSize: theme.spacing(1.1),
