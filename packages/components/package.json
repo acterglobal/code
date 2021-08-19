@@ -40,7 +40,6 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-filepond": "^7.1.1",
     "title-case": "^3.0.3",
-    "url": "^0.11.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
