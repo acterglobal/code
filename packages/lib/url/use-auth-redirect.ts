@@ -13,11 +13,13 @@ type UseAuthRedirectResponse = {
  */
 export const useAuthRedirect = (): UseAuthRedirectResponse => {
   const router = useRouter()
+  const authPath = '/api/auth'
+  const query = router?.asPath ? `?returnTo=${router.asPath}` : null
 
-  const loginUrl = `/api/auth/login?returnTo=${router.asPath}`
+  const loginUrl = `${authPath}/login${query}`
   const loginRedirect = () => window.location.assign(loginUrl)
 
-  const signupUrl = `/api/auth/signup?returnTo=${router.asPath}`
+  const signupUrl = `${authPath}/signup${query}`
   const signupRedirect = () => window.location.assign(signupUrl)
 
   return {
