@@ -4,11 +4,14 @@ import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
 const signupHandler: NextApiHandler = async (req, res) => {
   try {
+    const redirectUrl = getAuthRedirectUrl(req)
+    console.log('In loginHandler. Redirect URL is ', redirectUrl)
+    console.log('req.query is', req.query)
     return handleLogin(req, res, {
       authorizationParams: {
         screen_hint: 'signup',
       },
-      returnTo: getAuthRedirectUrl(req),
+      returnTo: redirectUrl,
     })
   } catch (err) {
     console.error(err)
