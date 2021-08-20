@@ -40,7 +40,9 @@ export const TopBar: FC<Props> = ({
           <DropdownMenu anchorNode={<ThreeDots />}>
             {actionButtons.map((action) => (
               <Link href={acterAsUrl({ acter, extraPath: [action] })}>
-                <MenuItem className={classes.menuItem}>{action}</MenuItem>
+                <MenuItem className={classes.menuItem}>
+                  {action && capitalize(action)}
+                </MenuItem>
               </Link>
             ))}
           </DropdownMenu>
@@ -92,7 +94,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuItem: {
       fontSize: '0.8rem',
-      textTransform: 'capitalize',
       display: 'flex',
       justifyContent: 'center',
     },

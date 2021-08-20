@@ -6,6 +6,7 @@ import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connecti
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { AvatarGroup } from '@acter/components/acter/avatar-group'
 import { Acter, ActerConnectionRole, ActerType } from '@acter/schema'
+import capitalize from 'just-capitalize'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.7rem',
       fontWeight: theme.typography.fontWeightBold,
       color: theme.palette.secondary.main,
-      capitalize: 'title',
     },
     container: {
       display: 'flex',
@@ -67,7 +67,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
             onClick={onAvatarClick}
           >
             <Typography variant="h6" className={classes.section}>
-              {title} ({acters.length})
+              {title && capitalize(title)} ({acters.length})
             </Typography>
             <AvatarGroup
               acters={acters.slice(0, 7)}

@@ -29,10 +29,10 @@ export const GroupsList: FC<GroupListProps> = ({ groups }) => {
             </Box>
             <Box className={classes.info}>
               <Typography variant="body1" className={classes.title}>
-                {capitalize(group.name)}
+                {group.name && capitalize(group.name)}
               </Typography>
               <Typography variant="caption" className={classes.acter}>
-                {capitalize(group.Parent.name)}
+                {group.Parent.name && capitalize(group.Parent.name)}
               </Typography>
             </Box>
           </Box>

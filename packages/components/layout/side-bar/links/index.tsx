@@ -28,7 +28,7 @@ export const LinksList: FC<LinkListProps> = ({ links }) => {
       {links.map((link) => (
         <ListItem className={classes.item} key={link.id}>
           <a href={getUrl(link.url)} className={classes.links} target="_blank">
-            {capitalize(link.name)}
+            {link.name && capitalize(link.name)}
           </a>
         </ListItem>
       ))}

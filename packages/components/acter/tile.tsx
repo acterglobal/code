@@ -43,7 +43,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
             className={classes.typeAndLocation}
             style={{ marginLeft: 10 }}
           >
-            {acter.ActerType.name}
+            {acter.ActerType.name && capitalize(acter.ActerType.name)}
           </Typography>
         </Box>
         <Typography variant="subtitle1" className={classes.title}>
@@ -54,11 +54,11 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
           variant="body2"
           gutterBottom
         >
-          {acter.location}
+          {acter.location && capitalize(acter.location)}
         </Typography>
         <Box className={classes.descriptionSection}>
           <Typography variant="caption" className={classes.description}>
-            {capitalize(acter.description)}
+            {acter.description && capitalize(acter.description)}
           </Typography>
         </Box>
       </Box>
@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.colors.grey.dark,
       fontWeight: theme.typography.fontWeightLight,
       fontSize: 13,
-      textTransform: 'capitalize',
     },
     title: {
       color: theme.colors.grey.dark,

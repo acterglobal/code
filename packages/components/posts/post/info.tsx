@@ -4,7 +4,7 @@ import { pipe } from 'fp-ts/function'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import { Post } from '@acter/schema'
-
+import capitalize from 'just-capitalize'
 export interface PostInfoProps {
   post: Post
 }
@@ -30,7 +30,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
         variant="body2"
         gutterBottom
       >
-        {post.Acter.name}
+        {post.Acter.name && capitalize(post.Acter.name)}
       </Typography>
     </Box>
   )
@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
     acterTypeName: {
       color: theme.palette.secondary.main,
       fontSize: 11,
-      textTransform: 'capitalize',
     },
     title: {
       color: theme.palette.secondary.main,

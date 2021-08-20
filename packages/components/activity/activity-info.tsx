@@ -51,10 +51,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
       <Box className={classes.titleAndJoinContainer}>
         <Box className={classes.titleContainer}>
           <Typography className={classes.title} variant="h3">
-            {capitalize(acter.name)}
+            {acter.name && capitalize(acter.name)}
           </Typography>
           <Box className={classes.activityType}>
-            {acter.Activity.ActivityType.name}
+            {acter.Activity.ActivityType.name &&
+              capitalize(acter.Activity.ActivityType.name)}
           </Box>
         </Box>
         <Connect {...props} />
@@ -136,7 +137,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: theme.typography.fontWeightLight,
-    textTransform: 'capitalize',
     borderRadius: 5,
     backgroundColor: ({ activityTypeName }: { activityTypeName: string }) =>
       theme.colors.activityTypes[activityTypeName],

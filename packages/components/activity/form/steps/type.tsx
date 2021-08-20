@@ -11,7 +11,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import { NavigateNextOutlined } from '@material-ui/icons'
-
+import capitalize from 'just-capitalize'
 import { ActivityType } from '@acter/schema'
 
 export interface ActivityTypeStepProps {
@@ -42,7 +42,7 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
           button={true}
           onClick={() => handleClick(type.id)}
         >
-          <ListItemText>{type.name}</ListItemText>
+          <ListItemText>{type.name && capitalize(type.name)}</ListItemText>
           <ListItemSecondaryAction>
             <NavigateNextOutlined />
           </ListItemSecondaryAction>
@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(0.8),
       padding: theme.spacing(2),
       marginBottom: theme.spacing(2),
-      textTransform: 'capitalize',
       '& 	.MuiListItemText-primary': {
         fontWeight: theme.typography.fontWeightBold,
         fontSize: 14,

@@ -17,7 +17,6 @@ import { Switch } from '@acter/components/styled/switch'
 import { Acter, ActerType, ActerJoinSettings } from '@acter/schema'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
-
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
