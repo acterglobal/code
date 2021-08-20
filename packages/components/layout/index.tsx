@@ -11,15 +11,17 @@ export interface LayoutProps {
   children: React.ReactNode
   searchType?: SearchType
   links?: LinkType[]
+  dashboard?: boolean
 }
 
 export const Layout: FC<LayoutProps> = ({
-  acter,
+  dashboard,
   links,
   children,
   searchType,
 }) => {
   const classes = useStyles()
+
   const { boot } = useIntercom()
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export const Layout: FC<LayoutProps> = ({
 
   return (
     <div className={classes.root}>
-      <Sidebar acter={acter} searchType={searchType} links={links} />
+      <Sidebar dashboard={dashboard} searchType={searchType} links={links} />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}

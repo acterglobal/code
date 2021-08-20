@@ -9,6 +9,7 @@ import {
 } from '@acter/components/acter/landing-page/members-section/display-members'
 import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 
@@ -24,12 +25,16 @@ export type MembersSectionProps = Omit<
 >
 
 export const MembersSection: FC<MembersSectionProps> = ({
-  acter,
   onConnectionStateChange,
 }) => {
-  const followers = mapFollowersByType(acter)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
+
+  const [acter, { loading: acterLoading }] = useActer()
+
+  if (acterLoading || !acter) return null
+
+  const followers = mapFollowersByType(acter)
 
   const handleSelectorChange = (selector) => {
     setActiveSelector(selector)

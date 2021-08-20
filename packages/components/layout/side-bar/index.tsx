@@ -27,24 +27,32 @@ import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
 import { SearchType } from '@acter/lib/constants'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
-export type SidebarProps = ActerMenuProps & {
+export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   searchType?: SearchType
+  dashboard: boolean
 }
 
-export const Sidebar: FC<SidebarProps> = ({ acter, searchType, links }) => {
+export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType, links }) => {
+  const [acter, { loading: acterLoading }] = useActer()
+  const [loading, setLoading] = useState(acterLoading)
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
   const router = useRouter()
 
   useEffect(() => {
-    if (acter || searchType) {
-      setDrawerWidth(15)
-      return
-    }
+    setLoading(loading)
+  }, [loading])
 
-    setDrawerWidth(4)
-  }, [acter, searchType])
+  useEffect(() => {
+    if (!loading || acter || searchType) {
+      setDrawerWidth(dashboard ? 4 : 15)
+    }
+  }, [loading, acter, searchType])
+
+  if (loading) return <LoadingSpinner />
 
   return (
     <Drawer

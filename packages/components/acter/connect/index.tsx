@@ -8,10 +8,6 @@ import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 export interface ConnectProps {
   /**
-   * The Acter on which we are setting membership
-   */
-  acter: Acter
-  /**
    * The currently logged in user
    */
   user: User
@@ -31,6 +27,10 @@ export interface ConnectProps {
    * Whether an operation is in progress
    */
   loading: boolean
+  /**
+   * The Acter on which we are setting membership
+   */
+  acter?: Acter
 }
 
 export const Connect: FC<ConnectProps> = ({

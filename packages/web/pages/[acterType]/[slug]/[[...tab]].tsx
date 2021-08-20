@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import {
   composeProps,
@@ -6,6 +6,7 @@ import {
 } from '@acter/lib/compose-props'
 import {
   getActer,
+  getUserProfile,
   getActerTypes,
   setActerType,
   getInterests,
@@ -13,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType, Link } from '@acter/schema'
+import { Acter, InterestType, Link, Post } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -31,16 +32,14 @@ import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
-import { useQuery } from '@apollo/client'
-import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 // TODO: make below to its own component
-const getActerView = (acter): FC<ViewTypes> => {
-  switch (acter.ActerType.name) {
+const getActerView = (acterType): FC<ViewTypes> => {
+  switch (acterType.name) {
     case ACTIVITY:
       return ActivityDetails
     case GROUP:
@@ -54,64 +53,54 @@ interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
   links: Link[]
+  posts: Post[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
-  acter,
   interestTypes,
   links,
+  posts,
 }) => {
-  /* This query call fetches the data from cache whenever cache updates */
-  const { data: acterData } = useQuery(QUERY_ACTER, {
-    variables: {
-      acterTypeId: acter.ActerType.id,
-      slug: acter.slug,
-    },
-  })
+  //if (!acterType) return null
 
-  const { findFirstActer: displayActer } = acterData
+  const [acter] = useActer()
 
-  /* This query call fetches the data from cache whenever cache updates */
-  const { data: postsData, loading: postsLoading } = useQuery(GET_POSTS, {
-    variables: {
-      acterId: acter.id,
-    },
-  })
-  if (postsLoading || !postsData) return null
-  const { posts: displayPostList } = postsData
+  const [displayPostList, setDisplayPostList] = useState(posts)
 
-  const View = getActerView(displayActer)
+  useEffect(() => {
+    setDisplayPostList(posts)
+  }, [posts])
+
+  const View = getActerView(acter?.ActerType)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createPost] = useCreatePost(displayActer)
-  const [deletePost] = useDeletePost(displayPostList)
-  const [updatePost] = useUpdatePost(displayPostList)
+  const [createPost] = useCreatePost(acter)
+  const [deletePost] = useDeletePost()
+  const [updatePost] = useUpdatePost()
 
   const [
     createActerConnection,
     { loading: creatingConnection },
-  ] = useCreateActerConnection(displayActer)
+  ] = useCreateActerConnection(acter)
 
   const [
     updateActerConnection,
     { loading: updatingConnection },
-  ] = useUpdateActerConnection(displayActer)
+  ] = useUpdateActerConnection(acter)
 
   const [
     deleteActerConnection,
     { loading: deletingConnection },
-  ] = useDeleteActerConnection(displayActer)
+  ] = useDeleteActerConnection(acter)
 
   return (
     <Layout
-      acter={
-        acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
-      }
+      acter={acter?.ActerType.name === GROUP ? acter?.Parent : acter}
       links={links}
     >
-      <Head title={`${acter.name} - Acter`} />
+      <Head title={`${acter?.name} - Acter`} />
       <View
-        acter={displayActer}
+        acter={acter}
         interestTypes={interestTypes}
         posts={displayPostList}
         onJoin={createActerConnection}
@@ -131,7 +120,6 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     ctx,
     getActerTypes,
     setActerType,
-    getActer,
     getInterests,
     getPosts,
     getLinks

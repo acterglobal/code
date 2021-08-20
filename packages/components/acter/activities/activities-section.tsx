@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo } from 'react'
+import React, { FC, useState } from 'react'
 import {
   Box,
   Checkbox,

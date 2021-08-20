@@ -17,7 +17,6 @@ import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
 export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
 
 export const ActerSettings: FC<ActerSettingsProps> = ({
-  acter,
   links,
   onSettingsChange,
   loading,
@@ -46,7 +45,6 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
           <>
             <SettingsSectionHeading>Join</SettingsSectionHeading>
             <ActerUsersSettings
-              acter={acter}
               onSettingsChange={onSettingsChange}
               loading={loading}
             />

@@ -13,6 +13,7 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -22,7 +23,6 @@ import { useUser } from '@acter/lib/user/use-user'
 export type HeaderSectionProps = Omit<ConnectProps, 'user'>
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
@@ -31,6 +31,10 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
   )
+
+  const [acter, { loading: acterLoading }] = useActer()
+
+  if (acterLoading || !acter) return null
 
   const avatarDims = smallScreen ? 65 : 140
 

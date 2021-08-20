@@ -7,6 +7,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+import { useActer } from '@acter/lib/acter/use-acter'
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -23,7 +24,6 @@ export type GroupLandingProps = HeaderSectionProps &
   PostListProps
 
 export const GroupLanding: FC<GroupLandingProps> = ({
-  acter,
   onJoin,
   onLeave,
   onConnectionStateChange,
@@ -34,6 +34,11 @@ export const GroupLanding: FC<GroupLandingProps> = ({
   onPostUpdate,
 }) => {
   const classes = useStyles()
+
+  const [acter, { loading: acterLoading }] = useActer()
+
+  if (acterLoading || !acter) return null
+
   return (
     <Box className={classes.root}>
       <HeaderSection

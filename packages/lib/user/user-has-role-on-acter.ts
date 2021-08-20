@@ -14,7 +14,7 @@ export const userHasRoleOnActer = (
   acter: Partial<Acter>
 ): boolean => {
   if (!user?.Acter) return false
-  if (user.Acter.id === acter.id) return true
+  if (user.Acter.id === acter?.id) return true
 
   return followerHasRoleOnActer(user.Acter, role, acter)
 }

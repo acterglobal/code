@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Divider } from '@material-ui/core'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { Post, PostsProps } from '@acter/components/posts/post/index'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
@@ -12,10 +13,6 @@ export interface PostListProps
   extends Omit<PostFormProps, 'user'>,
     Omit<PostsProps, 'user'> {
   /**
-   * Acter on which we are viewing posts
-   */
-  acter: Acter
-  /**
    * Posts to display
    */
   posts: PostType[]
@@ -26,7 +23,6 @@ export interface PostListProps
 }
 
 export const PostList: FC<PostListProps> = ({
-  acter,
   posts,
   onPostSubmit,
   onPostDelete,
@@ -35,6 +31,9 @@ export const PostList: FC<PostListProps> = ({
   const classes = useStyles()
 
   const { user } = useUser()
+  const [acter, { loading: acterLoading }] = useActer()
+
+  if (acterLoading || !acter) return null
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

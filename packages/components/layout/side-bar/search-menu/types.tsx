@@ -22,7 +22,7 @@ export const SearchTypes: FC<SearchTypesProps> = ({
 
   return (
     <Box className={classes.root}>
-      {subTypes.map((type) => (
+      {subTypes?.map((type) => (
         <Type
           key={`sub-type-${type.id}`}
           subTypeName={type.name}

@@ -19,7 +19,7 @@ export interface DisplayMembersProps {
   /**
    * The acter on which we are viewing members
    */
-  acter: Acter
+  acter?: Acter
   /**
    * The list of acters we are displaying
    */

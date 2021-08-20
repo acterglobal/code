@@ -50,7 +50,7 @@ export const Type: FC<TypeProps> = ({
       <Switch
         name={subTypeName}
         size={Size.SMALL}
-        checked={filterSubTypes.includes(subTypeName)}
+        checked={filterSubTypes?.includes(subTypeName)}
         onChange={handleChange}
       />
     </Box>

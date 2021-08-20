@@ -6,17 +6,18 @@ import {
 } from '@acter/components/acter/landing-page/layout'
 import { ActivitiesSection } from './activities-section'
 import { useUser } from '@acter/lib/user/use-user'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 export type ActerActivitiesProps = LandingPageLayoutProps
 
 export const ActerActivities: FC<ActerActivitiesProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
 }) => {
   const classes = useStyles()
   const { user } = useUser()
+  const [acter] = useActer()
 
   return (
     <LandingPageLayout

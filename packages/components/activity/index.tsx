@@ -14,13 +14,13 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useUser } from '@acter/lib/user/use-user'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]
 }
 
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
-  acter,
   interestTypes,
   posts,
   onJoin,
@@ -34,6 +34,9 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
   const router = useRouter()
 
+  const { user } = useUser()
+  const [acter, { loading: acterLoading }] = useActer()
+
   const handleModalClose = () => {
     router.push(
       `${acterAsUrl({
@@ -42,8 +45,6 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
       })}`
     )
   }
-
-  const { user } = useUser()
 
   return (
     <Modal
@@ -94,7 +95,6 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         </Hidden>
 
         <PostList
-          acter={acter}
           posts={posts}
           onPostSubmit={onPostSubmit}
           onPostDelete={onPostDelete}

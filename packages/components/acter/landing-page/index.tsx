@@ -16,6 +16,7 @@ import {
   LandingPageLayout,
   LandingPageLayoutProps,
 } from '@acter/components/acter/landing-page/layout'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 const { MEMBERS, FORUM } = ActerMenu
 
@@ -25,7 +26,6 @@ export type ActerLandingProps = LandingPageLayoutProps &
   PostListProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
-  acter,
   interestTypes,
   posts,
   onJoin,
@@ -39,6 +39,10 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   const classes = useStyles({})
   const router = useRouter()
   const tab = getLandingPageTab(router, FORUM)
+
+  const [acter, { loading: acterLoading }] = useActer()
+
+  if (acterLoading || !acter) return null
 
   return (
     <LandingPageLayout
@@ -60,7 +64,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           className={classes.postList}
         >
           <PostList
-            acter={acter}
             posts={posts}
             onPostSubmit={onPostSubmit}
             onPostDelete={onPostDelete}

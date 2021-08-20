@@ -15,7 +15,9 @@ export const getLinks: ComposedGetServerSideProps = async ({ props }) => {
     query: QUERY_LINKS_BY_ACTER,
     variables: {
       acterId:
-        acter.ActerType.name === ActerTypes.GROUP ? acter.Parent.id : acter.id,
+        acter?.ActerType.name === ActerTypes.GROUP
+          ? acter?.Parent.id
+          : acter?.id,
     },
   })
   if (error) {

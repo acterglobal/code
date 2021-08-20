@@ -10,16 +10,13 @@ import {
 import { Formik, Form } from 'formik'
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
 import { Acter, ActerJoinSettings } from '@acter/schema'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 interface ActerUserSettingsInitialValues {
   acterJoinSetting: ActerJoinSettings
 }
 
 export interface ActerUsersSettingsProps {
-  /**
-   * The Acter on which we are adjusting users settings
-   */
-  acter: Acter
   /**
    * Callback for updating Acter users settings
    */
@@ -31,12 +28,12 @@ export interface ActerUsersSettingsProps {
 }
 
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
-  acter,
   onSettingsChange,
 }) => {
+  const [acter] = useActer()
   const classes = useStyles()
   const initialValues: ActerUserSettingsInitialValues = {
-    acterJoinSetting: ActerJoinSettings[acter.acterJoinSetting],
+    acterJoinSetting: ActerJoinSettings[acter?.acterJoinSetting],
   }
   return (
     <Formik
