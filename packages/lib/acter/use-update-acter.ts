@@ -69,14 +69,22 @@ export const useUpdateActer = (
       acterId: acter.id,
     }
 
+    const setInterestIds = (
+      updatedActer: { interestIds: any },
+      acter: Acter
+    ) => {
+      const interestIds = updatedActer.interestIds
+        ? updatedActer.interestIds
+        : acter.ActerInterests.map(({ Interest: { id } }) => id)
+      return interestIds
+    }
+
     const dataWithPics = await _updatePictures(variables)
     return updateActer({
       variables: {
         ...dataWithPics,
         followerIds: acter.Followers.map((id) => id),
-        interestIds: acter.ActerInterests
-          ? acter.ActerInterests
-          : acter.ActerInterests.map(({ Interest: { id } }) => id),
+        interestIds: setInterestIds(updatedActer, acter),
         acterId: acter.id,
       },
     })
