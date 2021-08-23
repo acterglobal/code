@@ -166,8 +166,12 @@ export class SearchResolver {
     @Arg('types', () => [String], { nullable: true }) types: [string],
     @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy,
     @Arg('take', () => Int, { nullable: true }) take: number,
-    @Arg('skip', () => Int, { nullable: true }) skip: number
-  ): Promise<Acter[]> {
+    @Arg('skip', () => Int, { nullable: true }) skip: number,
+    @Arg('cursor', { nullable: true }) cursor: string
+  ): Promise<{
+    acters: Acter[]
+    nextCursor: string | null
+  }> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
       deletedAt: { equals: null },
@@ -197,11 +201,28 @@ export class SearchResolver {
       withActivityTypesFilter(types)
     )
 
-    return ctx.prisma.acter.findMany({
+    const options = {
       where,
       orderBy: getOrderBy(sortBy),
       take,
       skip,
-    })
+    }
+
+    if (cursor) {
+      options.cursor = {
+        id: cursor,
+      }
+    }
+
+    const result = await ctx.prisma.acter.findMany(options)
+    //
+    const nextCursor =
+      result.length === 0 || take > result.length
+        ? null
+        : result[result.length - 1].id
+
+    const data = { acters: [...result], nextCursor }
+
+    return data
   }
 }

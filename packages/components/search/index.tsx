@@ -101,14 +101,10 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
         </Grid>
       </Box>
 
-      <DisplayResults
-        searchType={searchType}
-        acters={acters}
-        interestTypes={interestTypes}
-      />
-      <Box>
+      <DisplayResults searchType={searchType} interestTypes={interestTypes} />
+      {/* <Box>
         <Button onClick={loadMore}>Load more</Button>
-      </Box>
+      </Box> */}
     </Box>
   )
 }

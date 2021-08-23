@@ -10,6 +10,7 @@ query ActivitiesSearch(
   $sortBy: SearchActivitiesSortBy
   $take: Int
   $skip: Int
+  $cursor: String
 ) {
   searchActivities(
     searchText: $searchText
@@ -19,6 +20,7 @@ query ActivitiesSearch(
     sortBy: $sortBy
     take: $take
     skip: $skip
+    cursor: $cursor
   ) {
     ...ActerFull
     Activity {

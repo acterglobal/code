@@ -33,6 +33,8 @@ export const useFetchActers = (
   searchType: SearchType
 ): [UseFetchActersData, UseFetchActersQueryResults] => {
   const router = useRouter()
+  const [cursor, setCursor] = useState()
+
   const { search: searchText, interests, sortBy: sort, types } = router.query
   const [searchVariables, setSearchVariables] = useState<SearchVariablesType>({
     searchText,
@@ -59,7 +61,15 @@ export const useFetchActers = (
   ] = useLazyQuery(query)
 
   useEffect(() => {
+    console.log('data :', data)
     if (data) {
+      const cursorIndex = data.searchActivities.length - 1
+
+      setCursor(
+        searchType === SearchType.ACTIVITIES
+          ? data.searchActivities[cursorIndex].id
+          : data.acters[cursorIndex].id
+      )
       setActers(
         searchType === SearchType.ACTIVITIES
           ? data.searchActivities
@@ -73,7 +83,7 @@ export const useFetchActers = (
       variables: {
         ...searchVariables,
         skip: 0,
-        take: 4,
+        take: 3,
       },
     })
   }, [searchVariables])
@@ -81,8 +91,9 @@ export const useFetchActers = (
   const loadMore = () => {
     fetchMore({
       variables: {
-        skip: acters.length,
-        take: 4,
+        skip: 1,
+        take: 3,
+        cursor: cursor,
       },
     })
   }
