@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs'
 import { ApolloServer } from 'apollo-server-micro'
-import prisma from '@acter/schema/prisma'
+import { prisma } from '@acter/schema/prisma'
 import { getSession } from '@auth0/nextjs-auth0'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 

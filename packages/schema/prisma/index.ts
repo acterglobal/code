@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 
 /* eslint-disable */
 declare global {
@@ -22,4 +22,4 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma
 }
 
-export default prisma
+export { prisma, Prisma }
