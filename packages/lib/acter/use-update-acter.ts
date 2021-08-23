@@ -75,7 +75,7 @@ export const useUpdateActer = (
     ) => {
       const interestIds = updatedActer.interestIds
         ? updatedActer.interestIds
-        : acter.ActerInterests.map(({ Interest: { id } }) => id)
+        : acter.ActerInterests.map(({ Interest: { id } }) => id) || []
       return interestIds
     }
 
