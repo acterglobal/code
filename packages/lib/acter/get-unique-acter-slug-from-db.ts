@@ -1,4 +1,4 @@
-import prisma from '@acter/schema/prisma'
+import { prisma } from '@acter/schema/prisma'
 
 export const getUniqueActerSlugFromDB = async (
   name: string

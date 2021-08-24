@@ -1,4 +1,4 @@
-import prisma from '@acter/schema/prisma'
+import { prisma } from '@acter/schema/prisma'
 import {
   Acter,
   ActerNotificationEmailFrequency,
@@ -12,11 +12,17 @@ type ActerPick = Pick<Acter, 'id' | 'acterNotifyEmailFrequency'> & {
 }
 type UserPick = Pick<User, 'email'>
 
-export const createNotification = async (
-  toActer: ActerPick,
-  onActer: ActerPick,
+interface CreateNotificationParams {
+  toActer: ActerPick
+  onActer: Pick<Acter, 'id'>
   url: string
-): Promise<Notification> => {
+}
+
+export const createNotification = async ({
+  toActer,
+  onActer,
+  url,
+}: CreateNotificationParams): Promise<Notification> => {
   // Only send to those that we want to email
   const sendTo =
     toActer.acterNotifyEmailFrequency ===

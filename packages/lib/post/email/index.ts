@@ -2,8 +2,9 @@ import marked from 'marked'
 import path from 'path'
 import { format } from 'date-fns'
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
-import { Notification, Post } from '@acter/schema/types'
+import { Acter, Notification, Post } from '@acter/schema'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { assert } from 'console'
 
 type PostEmail = {
   acterName: string
@@ -14,15 +15,26 @@ type PostEmail = {
   content: any
 }
 
+export type PostWithActerAndAuthor = Omit<Post, 'Acter' | 'Author'> & {
+  Acter: ActerName
+  Author: ActerName
+}
+
+type ActerName = Pick<Acter, 'name'>
+
 type CreatePostEmailNotificationParams = {
   notification: Notification
-  post: Post
+  post: PostWithActerAndAuthor
 }
 
 export const createPostEmailNotification = ({
   notification,
   post,
 }: CreatePostEmailNotificationParams): CreateEmailReturn => {
+  assert(!!post.Acter?.name, 'Post Acter name required')
+  assert(!!post.Author?.name, 'Post Author name required')
+  assert(!!post.createdAt, 'Post created at required')
+
   const notificationUrl = [
     process.env.BASE_URL,
     'notifications',

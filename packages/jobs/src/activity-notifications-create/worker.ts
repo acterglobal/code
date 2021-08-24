@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Job } from 'bullmq'
-import prisma from '@acter/schema/prisma'
+import { prisma } from '@acter/schema/prisma'
 import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes, ACTIVITY_NOTIFICATIONS_CREATE } from '@acter/lib/constants'
 import { activityNotificationsOnActerQueue } from '@acter/jobs/src/activity-notifications-on-acter-create'
@@ -70,27 +70,3 @@ export const activityNotificationsCreateWorker = createWorker(
     })
   }
 )
-
-activityNotificationsCreateWorker.on('drained', () =>
-  console.log('No (more) jobs for notification worker to complete. Ready...')
-)
-
-activityNotificationsCreateWorker.on('active', (job) => {
-  console.log(`Working on ${job.id}:${job.name}`)
-})
-
-activityNotificationsCreateWorker.on('progress', (job, progress) => {
-  console.log(`Job ${job.id}:${job.name} progress: `, progress)
-})
-
-activityNotificationsCreateWorker.on('completed', (job) => {
-  console.log(`Completed work on job ${job.id}:${job.name}`)
-})
-
-activityNotificationsCreateWorker.on('failed', (job, err) => {
-  console.error(`Processing job failed ${job.id}:${job.name}: `, err.message)
-})
-
-activityNotificationsCreateWorker.on('error', (err) => {
-  console.error('Something went wrong: ', err.message)
-})

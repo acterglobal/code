@@ -7,17 +7,8 @@ module.exports = {
     {
       name: 'jobs',
       script: 'yarn workspace @acter/jobs dev',
-      watch: ['./packages/jobs/src'],
+      watch: ['./packages/jobs/src/**/*.*'],
+      ingnore: ['node_modules'],
     },
-    // {
-    //   name: 'email-worker',
-    //   script: 'yarn workspace @acter/jobs email-worker',
-    //   watch: ['./packages/jobs/src/workers'],
-    // },
-    // {
-    //   name: 'notification-worker',
-    //   script: 'yarn workspace @acter/jobs notification-worker',
-    //   watch: ['./packages/jobs/src/workers'],
-    // },
   ],
 }

@@ -1,5 +1,5 @@
-import { Post } from '@acter/schema/types'
+import { PostWithActerAndAuthor } from '@acter/lib/post/email'
 
 export interface PostNotificationCreate {
-  post: Post
+  post: PostWithActerAndAuthor
 }
