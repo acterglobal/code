@@ -17,8 +17,14 @@ export interface SelectFollowersValues {
 export const SelectFollowers: FC<SelectFollowersProps> = ({ acters }) => {
   const classes = useStyles()
   const {
+    setFieldValue,
     values: { followerIds = [], organiserActerId = '' },
   } = useFormikContext<SelectFollowersValues>()
+
+  // Ensure that the organiser is also a follower
+  if (!followerIds.includes(organiserActerId)) {
+    setFieldValue('followerIds', [organiserActerId])
+  }
 
   return (
     <>
