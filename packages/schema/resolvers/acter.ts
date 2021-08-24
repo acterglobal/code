@@ -12,6 +12,7 @@ import {
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
 
 const { ACTIVITY, USER, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -268,7 +269,7 @@ export class ActerResolver {
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
-  ): Promise<Activity> {
+  ): Promise<Partial<Activity>> {
     const acter = await this.createActer(
       ctx,
       name,
@@ -284,7 +285,7 @@ export class ActerResolver {
       followerIds
     )
 
-    return ctx.prisma.activity.create({
+    const activity = (await ctx.prisma.activity.create({
       data: {
         startAt,
         endAt,
@@ -295,7 +296,45 @@ export class ActerResolver {
         acterId: acter.id,
         createdByUserId: acter.createdByUserId,
       },
-    })
+      select: {
+        acterId: true,
+        createdByUserId: true,
+        endAt: true,
+        id: true,
+        isAllDay: true,
+        startAt: true,
+        Acter: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            acterNotifyEmailFrequency: true,
+            ActerType: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        ActivityType: true,
+      },
+    })) as ActivityPick
+    console.debug(
+      'Setting Activity notification from custom resolver',
+      activity
+    )
+    activityNotificationsQueue.add(
+      `new-activity-${activity.id}`,
+      {
+        activity,
+      },
+      {
+        removeOnComplete: true,
+      }
+    )
+
+    return activity as Partial<Activity>
   }
 
   @Authorized()
