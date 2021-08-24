@@ -23,10 +23,7 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
     },
     getFollowing: async ({ post }) => {
       return await prisma.acter.findFirst({
-        select: {
-          id: true,
-          name: true,
-          slug: true,
+        include: {
           ActerType: true,
         },
         where: {

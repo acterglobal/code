@@ -1,6 +1,6 @@
 import { Job, Worker } from 'bullmq'
 import { createWorker } from '@acter/lib/bullmq'
-import { acterAsUrl, ActerWithSlugAndType } from '@acter/lib/acter/acter-as-url'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ActerTypes } from '@acter/lib/constants'
 import {
   Acter,
@@ -40,7 +40,7 @@ interface CreateNotificationWorker<T> {
   /**
    * Get the the Acter we are following
    */
-  getFollowing: (data: T) => Promise<ActerWithSlugAndType>
+  getFollowing: (data: T) => Promise<Acter>
   /**
    * Get the followers we will notify
    */
