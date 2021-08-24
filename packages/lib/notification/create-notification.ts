@@ -16,12 +16,14 @@ interface CreateNotificationParams {
   toActer: ActerPick
   onActer: Pick<Acter, 'id'>
   url: string
+  notificationType: NotificationType
 }
 
 export const createNotification = async ({
   toActer,
   onActer,
   url,
+  notificationType,
 }: CreateNotificationParams): Promise<Notification> => {
   // Only send to those that we want to email
   const sendTo =
@@ -31,7 +33,7 @@ export const createNotification = async ({
       : ''
   return await prisma.notification.create({
     data: {
-      type: NotificationType.NEW_ACTIVITY,
+      type: notificationType,
       url,
       ToActer: { connect: { id: toActer.id } },
       OnActer: { connect: { id: onActer.id } },

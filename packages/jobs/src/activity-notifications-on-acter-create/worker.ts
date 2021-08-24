@@ -3,6 +3,7 @@ import { ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER } from '@acter/lib/constants'
 import { createActivityNotificationEmail } from '@acter/lib/activity/email'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { ActivityNotificationForActer } from './types'
+import { NotificationType } from '@acter/schema'
 
 export const activityNotificationsOnActerCreate = createNotificationWorker<ActivityNotificationForActer>(
   {
@@ -23,5 +24,6 @@ export const activityNotificationsOnActerCreate = createNotificationWorker<Activ
       }),
     getNotificationEmailSubject: ({ data: { activity }, notification }) =>
       `New ${activity.ActivityType.name} on ${notification.OnActer.name} via Acter`,
+    notificationType: NotificationType.NEW_ACTIVITY,
   }
 )

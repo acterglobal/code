@@ -8,6 +8,7 @@ import {
   ActerNotificationSettings,
   ActerType,
   Notification,
+  NotificationType,
 } from '@acter/schema'
 import { prisma, Prisma } from '@acter/schema/prisma'
 import { createNotification } from './create-notification'
@@ -53,6 +54,10 @@ interface CreateNotificationWorker<T> {
    * Get the subject for this email
    */
   getNotificationEmailSubject: (props: NotificationEmailProps<T>) => string
+  /**
+   * The type of the notification
+   */
+  notificationType: NotificationType
 }
 
 export const createNotificationWorker = <T>({
@@ -62,6 +67,7 @@ export const createNotificationWorker = <T>({
   getFollowersWhere = () => ({}),
   getNotificationEmail,
   getNotificationEmailSubject,
+  notificationType,
 }: CreateNotificationWorker<T>): Worker => {
   return createWorker(queue, async (job: Job<T>) => {
     const data = await getJobData(job)
@@ -102,6 +108,7 @@ export const createNotificationWorker = <T>({
           toActer: Follower,
           onActer: following,
           url,
+          notificationType,
         })
 
         if (notification.sendTo) {
