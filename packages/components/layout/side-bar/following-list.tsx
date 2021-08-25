@@ -2,13 +2,20 @@ import React, { FC } from 'react'
 import { Link } from '@acter/components/util/anchor-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { ListItem, createStyles, makeStyles, Theme } from '@material-ui/core'
+import {
+  Badge,
+  ListItem,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { User } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
 export interface FollowingListProps {
@@ -22,12 +29,19 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
   if (!user) return null
   const classes = useStyles()
   const router = useRouter()
+
+  const followingActers = excludeActerTypes(
+    user.Acter.Following.map(({ Following }) => Following),
+    [ACTIVITY, USER, GROUP]
+  )
+
+  const [notifications] = useFetchNotifications(user)
+
+  const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
+
   return (
     <>
-      {excludeActerTypes(
-        user.Acter.Following.map(({ Following }) => Following),
-        [ACTIVITY, USER, GROUP]
-      ).map((acter) => (
+      {followingActers.map((acter) => (
         <ListItem
           key={`following-${acter.id}`}
           className={clsx({
@@ -36,7 +50,14 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
           })}
         >
           <Link href={acterAsUrl({ acter })}>
-            <ActerAvatar acter={acter} size={4} />
+            <Badge
+              color="error"
+              invisible={getBadgeNumber(acter) <= 0}
+              badgeContent={getBadgeNumber(acter)}
+              overlap="circular"
+            >
+              <ActerAvatar acter={acter} size={4} />
+            </Badge>
           </Link>
         </ListItem>
       ))}

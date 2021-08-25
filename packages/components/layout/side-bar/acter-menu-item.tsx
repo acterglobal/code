@@ -10,6 +10,7 @@ import {
   makeStyles,
   Theme,
   useTheme,
+  Box,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -39,6 +40,8 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const isActive = router.query.acterType !== 'groups' && path === tab
 
+  const notifyBadge = true
+
   return (
     <ListItem
       className={clsx({
@@ -62,6 +65,9 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
           className={classes.itemText}
           primary={text ? text : path}
         />
+        <ListItemIcon>
+          {notifyBadge && <Box className={classes.notifyBadge}></Box>}
+        </ListItemIcon>
       </Link>
     </ListItem>
   )
@@ -82,11 +88,18 @@ const useStyles = makeStyles((theme: Theme) =>
     itemText: {
       '& .MuiListItemText-primary': {
         '&:hover': {
-          color: '#fff',
+          color: theme.colors.white,
         },
       },
 
       textTransform: 'capitalize',
+    },
+    notifyBadge: {
+      height: 10,
+      width: 10,
+      borderRadius: '50%',
+      backgroundColor: theme.colors.others.notificationBadge,
+      alignSelf: 'flex-end',
     },
   })
 )

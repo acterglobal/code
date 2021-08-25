@@ -10,6 +10,7 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
         alignItems: 'center',
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
+        width: '100%',
       },
       '& .MuiListItemAvatar-root': {
         minWidth: 'auto',
@@ -33,6 +34,15 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
         fontWeight: theme.typography.fontWeightLight,
         fontSize: theme.spacing(1.8),
         color: theme.palette.secondary.contrastText,
+      },
+      '& .MuiBadge-colorError': {
+        color: theme.colors.white,
+        backgroundColor: theme.colors.others.notificationBadge,
+      },
+      '& .MuiBadge-badge': {
+        height: theme.spacing(2),
+        minWidth: theme.spacing(2),
+        fontSize: '0.6rem',
       },
     },
   })
