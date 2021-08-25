@@ -1,8 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
@@ -32,8 +30,6 @@ import {
   User,
 } from '@acter/schema'
 
-import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
-import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 
 interface NewActerPageProps {
@@ -65,18 +61,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   activityTypes,
   user,
 }) => {
-  const router: NextRouter = useRouter()
-  const [updateActer, { loading: updateActerLoading }] =
-    useNotificationMutation(UPDATE_ACTER, {
-      getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-      onCompleted: () => router.push(acterAsUrl({ acter })),
-    })
-  const [updateActivity, { loading: updateActivityLoading }] =
-    useNotificationMutation(UPDATE_ACTIVITY, {
-      getSuccessMessage: () => 'Activity updated',
-      onCompleted: () => router.push(acterAsUrl({ acter })),
-    })
-
   const Form =
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
@@ -90,8 +74,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           user={user}
           interestTypes={interestTypes}
           activityTypes={activityTypes}
-          onSubmit={getUpdateFunction({ acter, updateActivity, updateActer })}
-          loading={updateActerLoading || updateActivityLoading}
         />
       </main>
     </Layout>

@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import {
   BasicInformation,
   BasicInformationValues,
@@ -22,6 +23,7 @@ import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { Stepper } from '@acter/components/util/stepper'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 
@@ -37,7 +39,6 @@ export interface ActerFormProps {
   acter?: Acter
   acterType: ActerType
   interestTypes: InterestType[]
-  onSubmit: (any) => any
 }
 
 export interface ActerFormValues
@@ -53,10 +54,16 @@ export const ActerForm: FC<ActerFormProps> = ({
   acter,
   acterType,
   interestTypes,
-  onSubmit,
 }) => {
   const classes = useStyles()
   const router = useRouter()
+  const [updateActer, { loading: updateActivityLoading }] = useUpdateActer(
+    acter
+  )
+  if (updateActivityLoading) {
+    return <LoadingSpinner load={updateActivityLoading} />
+  }
+
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
 
@@ -70,9 +77,10 @@ export const ActerForm: FC<ActerFormProps> = ({
       handleNext()
       return
     }
+
     // TODO: Final validation
     try {
-      return onSubmit(values)
+      return updateActer(values)
     } catch (err) {
       setSubmitting(false)
     }

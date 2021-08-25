@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MutationResult } from '@apollo/client'
+import { useRouter, NextRouter } from 'next/router'
 import {
   useNotificationMutation,
   UseMutationOptions,
@@ -7,14 +8,20 @@ import {
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import { Acter } from '@acter/schema'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
+
 import {
   // TODO move these functions elsewhere
   _updatePicture,
   _updatePictures,
 } from '@acter/lib/acter/update-acter-with-pictures'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
+
+const { USER } = ActerTypes
 
 export type UpdateActerData = {
   updateActer: Acter
+  updateDateActivity: Acter
 }
 
 type UpdateActerProfileWithPicturesProps = {
@@ -46,13 +53,20 @@ export const useUpdateActer = (
   acter: Acter,
   options?: UpdateActerOptions
 ): [HandleMethod<UpdateActerData>, MutationResult] => {
-  const [updateActer, mutationResult] = useNotificationMutation<
+  const router: NextRouter = useRouter()
+
+  const [updateActer, mutationResult, loading] = useNotificationMutation<
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {
     ...options,
     getSuccessMessage: (data: UpdateActerData) =>
       `${data.updateActer.name} updated`,
+    onCompleted: (data: UpdateActerData) => {
+      console.log('Updated acter ', data.updateActer),
+        data.updateActer.ActerType.name !== USER &&
+          router.push(acterAsUrl({ acter }))
+    },
   })
 
   const updateActerProfileWithPictures = async ({
@@ -90,6 +104,7 @@ export const useUpdateActer = (
     }
 
     const dataWithPics = await _updatePictures(variables)
+
     return updateActer({
       variables: {
         ...dataWithPics,

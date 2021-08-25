@@ -4,6 +4,7 @@ import { parseISO, addMinutes } from 'date-fns'
 import { Form, Formik, FormikBag } from 'formik'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
+import { useUpdateActivity } from '@acter/lib/acter/use-update-activity'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import {
@@ -32,6 +33,7 @@ import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]
@@ -58,8 +60,6 @@ export interface ActivityFormProps
   user: User
   /** Action to perform on submit
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (values: any) => any
   /**
    * Whether the form is loading/saving
    */
@@ -80,10 +80,17 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   user,
   interestTypes,
   activityTypes,
-  onSubmit,
 }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [
+    updateActivity,
+    { loading: updateActivityLoading },
+  ] = useUpdateActivity(acter)
+  if (updateActivityLoading) {
+    return <LoadingSpinner load={updateActivityLoading} />
+  }
+
   const [activityType, setActivityType] = useState(null)
   const [heading, setHeading] = useState('')
   const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
@@ -107,7 +114,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
       return
     }
     // TODO: Final validation
-    onSubmit(values)
+    // onSubmit(values)
+    updateActivity(values)
   }
 
   useEffect(() => {
