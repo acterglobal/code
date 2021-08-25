@@ -31,7 +31,6 @@ const args: ActivityFormProps = {
       ],
     },
   },
-  onSubmit: () => null,
 }
 
 export default {
