@@ -134,6 +134,7 @@ __metadata:
     env-cmd: ^10.1.0
     eslint-config-next: ^11.0.1
     micro: ^9.3.4
+    next: ^11.1.0
     next-compose-plugins: ^2.2.1
     next-graphql-loader: ^1.0.1
     next-transpile-modules: ^8.0.0
@@ -145,7 +146,6 @@ __metadata:
     "@auth0/nextjs-auth0": "*"
     "@material-ui/core": "*"
     just-capitalize: "*"
-    next: "*"
     react: "*"
     react-dom: "*"
     reflect-metadata: "*"
@@ -6175,7 +6175,6 @@ __metadata:
     jest: ^27.0.6
     jest-transform-graphql: ^2.1.0
     just-capitalize: ^1.0.1
-    next: ^11.1.0
     pm2: ^5.1.0
     react: ^17.0.2
     react-dom: ^17.0.2
