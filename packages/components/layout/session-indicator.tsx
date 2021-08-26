@@ -36,7 +36,7 @@ export const SessionIndicator: FC<SessionIndicatorProps> = ({ user }) => {
         </Link>
       </MenuItem>
       <MenuItem className={classes.menuItem}>
-        <Link href="/api/auth/logout">
+        <Link href="/api/auth/logout" isExternal={true}>
           <MuiLink className={classes.text}>Sign Out</MuiLink>
         </Link>
       </MenuItem>

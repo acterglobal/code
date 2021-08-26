@@ -6,6 +6,7 @@ interface AnchorLinkProps {
   href: string
   as?: string
   passHref?: boolean
+  isExternal?: boolean
   children: ReactNode
 }
 
@@ -13,9 +14,18 @@ export const Link: FC<AnchorLinkProps> = ({
   href,
   as,
   passHref = false,
+  isExternal = false,
   children,
 }) => {
   const classes = useStyles()
+
+  if (isExternal)
+    return (
+      <a href={href} className={classes.link}>
+        {children}
+      </a>
+    )
+
   return (
     <NextLink href={href} as={as} passHref={passHref}>
       <a className={classes.link}>{children}</a>
