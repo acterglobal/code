@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { getUserProfile, getActerTypes, setActerType, getActer } from 'props'
+import { getActerTypes, setActerType, getActer } from 'props'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -33,6 +33,6 @@ export const DeleteActerPage: NextPage<DeleteActerPageProps> = ({ acter }) => {
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(true), getActerTypes, setActerType, getActer)
+  composeProps(ctx, getActerTypes, setActerType, getActer)
 
 export default DeleteActerPage
