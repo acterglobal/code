@@ -10,12 +10,7 @@ import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
 import { Head } from '@acter/components/layout/head'
 
-import {
-  getUserProfile,
-  getActerTypes,
-  setActerType,
-  getInterests,
-} from 'props'
+import { getActerTypes, setActerType, getInterests } from 'props'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -76,12 +71,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getUserProfile(true),
-    getActerTypes,
-    setActerType,
-    getInterests
-  )
+  composeProps(ctx, getActerTypes, setActerType, getInterests)
 
 export default NewActerPage
