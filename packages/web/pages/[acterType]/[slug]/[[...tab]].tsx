@@ -28,13 +28,14 @@ import { GroupLanding, GroupLandingProps } from '@acter/components/group'
 import { ActerTypes } from '@acter/lib/constants'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
+import { useQuery } from '@apollo/client'
+import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -68,13 +69,19 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   posts,
   links,
 }) => {
-  //TODO: use apollo client reactive variables instead of state
-  const [displayActer, setDisplayActer] = useState(acter)
   const [displayPostList, setDisplayPostList] = useState(posts)
 
-  useEffect(() => {
-    setDisplayActer(acter)
-  }, [acter])
+  /* This query call fetches the data from cache whenever cache updates */
+  const { data } = useQuery(QUERY_ACTER, {
+    variables: {
+      acterTypeId: acter.ActerType.id,
+      slug: acter.slug,
+    },
+  })
+
+  const { findFirstActer: displayActer } = data
+
+  console.log('DISPLAY ACTER', displayActer)
 
   useEffect(() => {
     setDisplayPostList(posts)
@@ -83,15 +90,8 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(displayActer)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createGroup] = useCreateActer({
-    onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
-    },
-  })
-  const [updateGroup] = useUpdateActer(displayActer, {
-    onCompleted: ({ updateActer }) =>
-      setDisplayActer(updateActerGroups(displayActer, updateActer)),
-  })
+  const [createGroup] = useCreateActer(displayActer)
+  const [updateGroup] = useUpdateActer(displayActer)
 
   const [createPost] = useCreatePost(acter, user, displayPostList, {
     onCompleted: setDisplayPostList,
@@ -105,14 +105,20 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     onCompleted: setDisplayPostList,
   })
 
-  const [createActerConnection, { loading: creatingConnection }] =
-    useCreateActerConnection(displayActer)
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(displayActer)
 
-  const [updateActerConnection, { loading: updatingConnection }] =
-    useUpdateActerConnection(displayActer)
+  const [
+    updateActerConnection,
+    { loading: updatingConnection },
+  ] = useUpdateActerConnection(displayActer)
 
-  const [deleteActerConnection, { loading: deletingConnection }] =
-    useDeleteActerConnection(displayActer)
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(displayActer)
 
   return (
     <Layout

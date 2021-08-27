@@ -25,9 +25,10 @@ import {
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
-import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
+import { useQuery } from '@apollo/client'
+import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
 interface ActerSettingsPageProps {
   acter: Acter
@@ -42,19 +43,20 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   user,
   links,
 }) => {
-  const [displayActer, setDisplayActer] = useState(acter)
-  const [displayLinks, setDisplayLinks] = useState(links)
-  const [createGroup] = useCreateActer({
-    onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
+  /* This query call fetches the cache data whenever cache updates */
+  const { data } = useQuery(QUERY_ACTER, {
+    variables: {
+      acterTypeId: acter.ActerType.id,
+      slug: acter.slug,
     },
   })
+
+  const { findFirstActer: displayActer } = data
+
+  const [displayLinks, setDisplayLinks] = useState(links)
+  const [createGroup] = useCreateActer(displayActer)
   const [updateGroup, { loading: updateGroupLoading }] = useUpdateActer(
-    displayActer,
-    {
-      onCompleted: ({ updateActer }) =>
-        setDisplayActer(updateActerGroups(displayActer, updateActer)),
-    }
+    displayActer
   )
 
   const [createLink] = useCreateLink(acter, user, displayLinks, {

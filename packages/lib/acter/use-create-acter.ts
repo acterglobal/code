@@ -4,8 +4,9 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
-import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import ACTER_FRAGMENT from '@acter/schema/fragments/group-acter.fragment.graphql'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
+import { ActerTypes } from '@acter/lib/constants'
 
 export type ActerVariables = Acter & {
   acterId?: string
@@ -31,6 +32,7 @@ export type HandleMethod<TData> = (
  * @returns mutation results from apollo
  */
 export const useCreateActer = (
+  acter: Acter,
   options?: CreateActerOptions
 ): [HandleMethod<CreateActerData>, MutationResult] => {
   const [createActer, mutationResult] = useNotificationMutation<
@@ -43,14 +45,22 @@ export const useCreateActer = (
         const { update, ...restOptions } = options
         update(cache, result, restOptions)
       }
-      const {
-        data: { createActer },
-      } = result
+      const { createActer: newActer } = result.data
 
-      cache.writeQuery({
-        query: GET_ACTER,
-        data: {
-          getActer: createActer,
+      console.log('NEW GROUP ', newActer)
+
+      cache.modify({
+        id: cache.identify(
+          acter.ActerType.name === ActerTypes.GROUP ? acter.Parent : acter
+        ),
+        fields: {
+          Children(existingActerRefs = []) {
+            const newActerRef = cache.writeFragment({
+              data: newActer,
+              fragment: ACTER_FRAGMENT,
+            })
+            return [...existingActerRefs, newActerRef]
+          },
         },
       })
     },
