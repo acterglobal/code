@@ -22,8 +22,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
   interestTypes,
 }) => {
   const classes = useStyles()
-  const [data, { loading, loadMore }] = useFetchActers(searchType)
-  const { acters } = data
+  const { acters, loadMore, hasMore } = useFetchActers(searchType)
 
   return (
     <Box className={clsx(classes.root, classes[searchType])}>
@@ -31,7 +30,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
         <InfiniteScroll
           dataLength={acters.length}
           next={loadMore}
-          hasMore={true}
+          hasMore={hasMore}
           loader={<span>Loading...</span>}
           endMessage={
             <p style={{ textAlign: 'center' }}>

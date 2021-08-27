@@ -170,7 +170,6 @@ export class SearchResolver {
     @Arg('cursor', { nullable: true }) cursor: string
   ): Promise<{
     acters: Acter[]
-    nextCursor: string | null
   }> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
@@ -206,23 +205,9 @@ export class SearchResolver {
       orderBy: getOrderBy(sortBy),
       take,
       skip,
+      ...(cursor ? { cursor: { id: cursor } } : {}),
     }
 
-    if (cursor) {
-      options.cursor = {
-        id: cursor,
-      }
-    }
-
-    const result = await ctx.prisma.acter.findMany(options)
-    //
-    const nextCursor =
-      result.length === 0 || take > result.length
-        ? null
-        : result[result.length - 1].id
-
-    const data = { acters: [...result], nextCursor }
-
-    return data
+    return await ctx.prisma.acter.findMany(options)
   }
 }

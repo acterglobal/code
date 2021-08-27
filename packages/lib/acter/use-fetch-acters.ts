@@ -1,27 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useLazyQuery, ApolloError } from '@apollo/client'
+import { useQuery, ApolloError } from '@apollo/client'
 import { Acter } from '@acter/schema/types'
 import { SearchType } from '@acter/lib/constants'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 
-type SearchVariablesType = {
-  searchText: string | string[]
+type QueryString = string | string[]
+
+interface QueryVariables {
+  search?: QueryString
+  interests?: QueryString
+  sort?: QueryString
+  types?: QueryString
+}
+
+interface SearchVariables {
+  searchText?: string
   interests?: string[]
   sortBy?: SearchActivitiesSortBy
   types?: string[]
 }
 
-type UseFetchActersData = {
-  acters: Acter[]
+interface PaginationVariables {
+  cursor?: string
+  skip: number
+  take: number
 }
 
-type UseFetchActersQueryResults = {
+interface UseFetchActersQueryResults {
+  acters: Acter[]
   loading: boolean
   error: ApolloError
   loadMore: () => void
+  hasMore: boolean
 }
 
 /**
@@ -31,72 +44,90 @@ type UseFetchActersQueryResults = {
  */
 export const useFetchActers = (
   searchType: SearchType
-): [UseFetchActersData, UseFetchActersQueryResults] => {
+): UseFetchActersQueryResults => {
   const router = useRouter()
-  const [cursor, setCursor] = useState()
 
-  const { search: searchText, interests, sortBy: sort, types } = router.query
-  const [searchVariables, setSearchVariables] = useState<SearchVariablesType>({
-    searchText,
-  })
-  const sortBy = Array.isArray(sort) ? sort.pop() : sort
+  const { search, interests, sort, types } = router.query
 
-  const [acters, setActers] = useState([])
+  const searchVariables = useMemo<SearchVariables>(
+    () => getSearchVariablesFromQuery({ search, interests, sort, types }),
+    [search, interests, sort, types]
+  )
 
-  useEffect(() => {
-    setSearchVariables({
-      ...searchVariables,
-      searchText,
-      interests: interests ? (<string>interests).split(',') : undefined,
-      sortBy: SearchActivitiesSortBy[sortBy] || SearchActivitiesSortBy.DATE,
-      types: types ? (types as string).split(',') : [],
-    })
-  }, [searchText, interests, types, sortBy])
+  const paginationDefaults: PaginationVariables = {
+    skip: 0,
+    take: 3,
+    cursor: null,
+  }
+  const [
+    paginationVariables,
+    setPaginationVariables,
+  ] = useState<PaginationVariables>(paginationDefaults)
+
+  const [acters, setActers] = useState<Acter[]>([])
+  const [hasMore, setHasMore] = useState(true)
 
   const query =
     searchType === SearchType.ACTIVITIES ? SEARCH_ACTIVITIES : SEARCH_ACTERS
-  const [
-    getActers,
-    { loading, data, fetchMore, error, ...restQueryResult },
-  ] = useLazyQuery(query)
-
-  useEffect(() => {
-    console.log('data :', data)
-    if (data) {
-      const cursorIndex = data.searchActivities.length - 1
-
-      setCursor(
-        searchType === SearchType.ACTIVITIES
-          ? data.searchActivities[cursorIndex].id
-          : data.acters[cursorIndex].id
-      )
-      setActers(
-        searchType === SearchType.ACTIVITIES
-          ? data.searchActivities
-          : data.acters
-      )
-    }
-  }, [data])
-
-  useEffect(() => {
-    getActers({
+  const { loading, error, fetchMore, refetch, ...restQueryResult } = useQuery(
+    query,
+    {
       variables: {
         ...searchVariables,
-        skip: 0,
-        take: 3,
+        ...paginationVariables,
       },
+      onCompleted: (data) => {
+        const resultKey = SearchType.ACTIVITIES ? 'searchActivities' : 'acters'
+        if (!data || !data[resultKey]) return
+        const results = data[resultKey]
+        const cursorIndex = results.length - 1
+        setPaginationVariables({
+          ...paginationDefaults,
+          cursor: results[cursorIndex]?.id || paginationVariables.cursor,
+          skip: 1,
+        })
+        setHasMore(results.length >= acters.length + paginationVariables.take)
+
+        setActers(results)
+      },
+    }
+  )
+
+  // Reset the search if one of our search facets have changed
+  useEffect(() => {
+    setPaginationVariables(paginationDefaults)
+    setActers([])
+    setHasMore(true)
+    refetch({
+      ...searchVariables,
+      ...paginationDefaults,
     })
   }, [searchVariables])
 
   const loadMore = () => {
     fetchMore({
-      variables: {
-        skip: 1,
-        take: 3,
-        cursor: cursor,
-      },
+      variables: searchVariables,
     })
   }
 
-  return [{ acters }, { loading, error, loadMore, ...restQueryResult }]
+  return { acters, loading, error, loadMore, hasMore, ...restQueryResult }
+}
+
+const getSearchVariablesFromQuery = ({
+  search,
+  interests,
+  sort,
+  types,
+}: QueryVariables): SearchVariables => {
+  const sortBy = Array.isArray(sort) ? sort.pop() : sort
+  return {
+    searchText: search
+      ? Array.isArray(search)
+        ? search.join('+')
+        : search
+      : undefined,
+    interests: interests ? (<string>interests).split(',') : undefined,
+    sortBy: SearchActivitiesSortBy[sortBy] || SearchActivitiesSortBy.DATE,
+    types: types ? (types as string).split(',') : [],
+  }
 }

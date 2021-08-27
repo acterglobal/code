@@ -26,13 +26,11 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const [data, { loading, loadMore }] = useFetchActers(searchType)
+  const { acters, loading } = useFetchActers(searchType)
 
-  if (loading || !data) {
-    return <LoadingSpinner load={loading || !data} />
+  if (loading || !acters) {
+    return <LoadingSpinner load={loading || !acters} />
   }
-
-  const { acters } = data
 
   const handleInputChange = (inputText: string) => {
     setSearchText(inputText)

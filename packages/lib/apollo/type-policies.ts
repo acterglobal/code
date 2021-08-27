@@ -1,18 +1,19 @@
+import { TypePolicies } from '@apollo/client'
 import { Acter } from '@acter/schema/types'
 
 type SearchResults = Acter[] | []
 
-export const typePolicies = {
+export const typePolicies: TypePolicies = {
   Query: {
     fields: {
       acters: {
-        keyArgs: ['where'],
+        keyArgs: false,
         merge(existing = [], incoming: SearchResults): SearchResults {
           return [...existing, ...incoming]
         },
       },
       searchActivities: {
-        keyArgs: ['searchText', 'interests', 'types', 'sortBy'],
+        keyArgs: false,
         merge(existing = [], incoming: SearchResults): SearchResults {
           return [...existing, ...incoming]
         },
