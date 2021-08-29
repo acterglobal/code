@@ -3,22 +3,26 @@ import { render, screen, within } from '@acter/lib/test-utils'
 import {
   ExampleActerList,
   ExampleActivity,
-  ExampleActivityActer,
   Interests,
 } from '@acter/schema/fixtures'
-
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 const { ACTIVITIES, ACTERS } = SearchType
 
+const displayResultsDefaults = {
+  loadMore: () => null,
+  hasMore: true,
+}
+
 describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
     render(
       <DisplayResults
-        searchType={ACTERS}
+        {...displayResultsDefaults}
         acters={ExampleActerList}
+        searchType={ACTERS}
         interestTypes={Interests.data.interestTypes}
       />
     )
@@ -36,19 +40,21 @@ describe('Display search results', () => {
   })
 
   it('should display search results with a list of Activities', async () => {
-    const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
-    const activities = [...Array(8)].map(() => acter)
-
+    const activities = ExampleActerList.map((acter) => ({
+      ...acter,
+      Activity: ExampleActivity,
+    }))
     render(
       <DisplayResults
-        searchType={ACTIVITIES}
+        {...displayResultsDefaults}
         acters={activities}
+        searchType={ACTIVITIES}
         interestTypes={Interests.data.interestTypes}
       />
     )
     const items = screen.queryAllByRole('listitem')
 
-    expect(items.length).toBe(8)
+    expect(items.length).toBe(9)
 
     items.map((item, i) => {
       const links = within(item).queryAllByRole('link')
@@ -63,12 +69,11 @@ describe('Display search results', () => {
   })
 
   it('should display a message with no search results', async () => {
-    const acters = []
-
     render(
       <DisplayResults
+        {...displayResultsDefaults}
+        acters={[]}
         searchType={ACTERS}
-        acters={acters}
         interestTypes={Interests.data.interestTypes}
       />
     )

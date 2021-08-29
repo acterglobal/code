@@ -7,7 +7,7 @@ query ActivitiesSearch(
   $interests: [String!]
   $types: [String!]
   $endsBefore: DateTime
-  $sortBy: SearchActivitiesSortBy
+  $orderBy: SearchActivitiesSortBy
   $take: Int
   $skip: Int
   $cursor: String
@@ -17,7 +17,7 @@ query ActivitiesSearch(
     endsBefore: $endsBefore
     interests: $interests
     types: $types
-    sortBy: $sortBy
+    orderBy: $orderBy
     take: $take
     skip: $skip
     cursor: $cursor

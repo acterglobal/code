@@ -6,23 +6,27 @@ import { ActivityTile } from '@acter/components/activity/tile'
 import { ActerTile } from '@acter/components/acter/tile'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
 import { Link } from '@acter/components/util/anchor-link'
 import clsx from 'clsx'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
+  acters: Acter[]
+  loadMore: () => void
+  hasMore: boolean
   searchType: SearchType
   interestTypes: InterestType[]
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = ({
+  acters,
+  loadMore,
+  hasMore,
   searchType,
   interestTypes,
 }) => {
   const classes = useStyles()
-  const { acters, loadMore, hasMore } = useFetchActers(searchType)
 
   return (
     <Box className={clsx(classes.root, classes[searchType])}>

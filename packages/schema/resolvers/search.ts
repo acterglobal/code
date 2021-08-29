@@ -164,7 +164,7 @@ export class SearchResolver {
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
     @Arg('types', () => [String], { nullable: true }) types: [string],
-    @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy,
+    @Arg('orderBy', { nullable: true }) orderBy: SearchActivitiesSortBy,
     @Arg('take', () => Int, { nullable: true }) take: number,
     @Arg('skip', () => Int, { nullable: true }) skip: number,
     @Arg('cursor', { nullable: true }) cursor: string
@@ -202,7 +202,7 @@ export class SearchResolver {
 
     const options = {
       where,
-      orderBy: getOrderBy(sortBy),
+      orderBy: getOrderBy(orderBy),
       take,
       skip,
       ...(cursor ? { cursor: { id: cursor } } : {}),
