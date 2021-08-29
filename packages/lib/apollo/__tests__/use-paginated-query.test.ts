@@ -101,7 +101,6 @@ describe('usePaginatedQuery', () => {
     it('should refetch wtih the same pagination & variables by default', () => {
       const pagination = { cursor: 'foo', skip: 1, take: 10 }
       const variables = { foo: 'bar' }
-      // const refetch = jest.fn()
 
       useQueryMock.mockReturnValue({
         refetch: (refetchOptions) => {
@@ -122,7 +121,6 @@ describe('usePaginatedQuery', () => {
     it('should refetch with fresh pagination when requested', () => {
       const pagination = { cursor: 'foo', skip: 1, take: 10 }
       const variables = { foo: 'bar' }
-      // const refetch = jest.fn()
 
       useQueryMock.mockReturnValue({
         refetch: (refetchOptions) => {
