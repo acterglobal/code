@@ -112,6 +112,7 @@ describe('usePaginatedQuery', () => {
 
       const {
         result: { current },
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
       } = renderHook<any, UsePaginatedResults>(() =>
         usePaginatedQuery('', '', { pagination, variables })
       )
@@ -132,6 +133,7 @@ describe('usePaginatedQuery', () => {
 
       const {
         result: { current },
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
       } = renderHook<any, UsePaginatedResults>(() =>
         usePaginatedQuery('', '', { pagination, variables })
       )
