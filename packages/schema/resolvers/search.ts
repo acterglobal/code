@@ -86,74 +86,74 @@ type ActivitySearchWhereClause = {
   AND?: ANDClause
 }
 
-const withNameSearch =
-  (name: string) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (name) {
-      return {
-        ...whereClause,
-        name: {
-          startsWith: name,
-          mode: 'insensitive',
-        },
-      }
+const withNameSearch = (name: string) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (name) {
+    return {
+      ...whereClause,
+      name: {
+        startsWith: name,
+        mode: 'insensitive',
+      },
     }
-    return whereClause
   }
+  return whereClause
+}
 
-const withEndsBeforeSearch =
-  (beforeDateTime: Date) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (beforeDateTime) {
-      return {
-        ...whereClause,
-        Activity: {
-          endAt: {
-            lte: beforeDateTime,
-          },
-        },
-      }
-    }
-
-    return whereClause
-  }
-
-const withInterestsFilter =
-  (interestNames: [string]) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (interestNames && interestNames.length > 0) {
-      return {
-        ...whereClause,
-        ActerInterests: {
-          some: {
-            Interest: {
-              name: {
-                in: interestNames,
-                mode: 'insensitive',
-              },
-            },
-          },
-        },
-      }
-    }
-    return whereClause
-  }
-
-const withActivityTypesFilter =
-  (activityTypes: [string]) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
+const withEndsBeforeSearch = (beforeDateTime: Date) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (beforeDateTime) {
     return {
       ...whereClause,
       Activity: {
-        ActivityType: {
-          name: {
-            in: activityTypes,
-            mode: 'insensitive',
+        endAt: {
+          lte: beforeDateTime,
+        },
+      },
+    }
+  }
+
+  return whereClause
+}
+
+const withInterestsFilter = (interestNames: [string]) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (interestNames && interestNames.length > 0) {
+    return {
+      ...whereClause,
+      ActerInterests: {
+        some: {
+          Interest: {
+            name: {
+              in: interestNames,
+              mode: 'insensitive',
+            },
           },
         },
       },
     }
   }
+  return whereClause
+}
+
+const withActivityTypesFilter = (activityTypes: [string]) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  return {
+    ...whereClause,
+    Activity: {
+      ActivityType: {
+        name: {
+          in: activityTypes,
+          mode: 'insensitive',
+        },
+      },
+    },
+  }
+}
 
 @Resolver(Acter)
 export class SearchResolver {
@@ -168,9 +168,7 @@ export class SearchResolver {
     @Arg('take', () => Int, { nullable: true }) take: number,
     @Arg('skip', () => Int, { nullable: true }) skip: number,
     @Arg('cursor', { nullable: true }) cursor: string
-  ): Promise<{
-    acters: Acter[]
-  }> {
+  ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
       deletedAt: { equals: null },

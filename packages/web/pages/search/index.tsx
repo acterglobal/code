@@ -7,12 +7,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import {
-  getUserProfile,
-  searchActers,
-  getInterests,
-  getActerTypes,
-} from 'props'
+import { getUserProfile, getInterests, getActerTypes } from 'props'
 import { Acter, ActerType, InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 

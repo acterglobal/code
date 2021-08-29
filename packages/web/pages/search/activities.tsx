@@ -7,13 +7,8 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import {
-  getUserProfile,
-  searchActivities,
-  getInterests,
-  getActivityTypes,
-} from 'props'
-import { Acter, ActivityType, InterestType, User } from '@acter/schema'
+import { getUserProfile, getInterests, getActivityTypes } from 'props'
+import { ActivityType, InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {
