@@ -36,6 +36,7 @@ import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useQuery } from '@apollo/client'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -69,23 +70,24 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   posts,
   links,
 }) => {
-  const [displayPostList, setDisplayPostList] = useState(posts)
-
   /* This query call fetches the data from cache whenever cache updates */
-  const { data } = useQuery(QUERY_ACTER, {
+  const { data: acterData } = useQuery(QUERY_ACTER, {
     variables: {
       acterTypeId: acter.ActerType.id,
       slug: acter.slug,
     },
   })
 
-  const { findFirstActer: displayActer } = data
+  const { findFirstActer: displayActer } = acterData
 
-  console.log('DISPLAY ACTER', displayActer)
-
-  useEffect(() => {
-    setDisplayPostList(posts)
-  }, [posts])
+  /* This query call fetches the data from cache whenever cache updates */
+  const { data: postsData, loading: postsLoading } = useQuery(GET_POSTS, {
+    variables: {
+      acterId: acter.id,
+    },
+  })
+  if (postsLoading || !postsData) return null
+  const { posts: displayPostList } = postsData
 
   const View = getActerView(displayActer)
 
@@ -93,17 +95,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [createGroup] = useCreateActer(displayActer)
   const [updateGroup] = useUpdateActer(displayActer)
 
-  const [createPost] = useCreatePost(acter, user, displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
-
-  const [deletePost] = useDeletePost(displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
-
-  const [updatePost] = useUpdatePost(displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
+  const [createPost] = useCreatePost(displayActer, user)
+  const [deletePost] = useDeletePost(displayPostList)
+  const [updatePost] = useUpdatePost(displayPostList)
 
   const [
     createActerConnection,

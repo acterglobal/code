@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -47,11 +47,11 @@ export const useCreateActer = (
       }
       const { createActer: newActer } = result.data
 
-      console.log('NEW GROUP ', newActer)
-
       cache.modify({
         id: cache.identify(
-          acter.ActerType.name === ActerTypes.GROUP ? acter.Parent : acter
+          ((acter.ActerType.name === ActerTypes.GROUP
+            ? acter.Parent
+            : acter) as unknown) as StoreObject
         ),
         fields: {
           Children(existingActerRefs = []) {

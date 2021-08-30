@@ -13,5 +13,8 @@ mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
     Comments {
       ...PostDisplay
     }
+    Parent {
+      id
+    }
   }
 }

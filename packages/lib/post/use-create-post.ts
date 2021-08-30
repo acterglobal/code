@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { MutationResult } from '@apollo/client'
+import { MutationResult, StoreObject, Cache } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
-import { createNewPostList } from '@acter/lib/post/create-post-new-postlist'
+import POST_FRAGMENT from '@acter/schema/fragments/post-display.fragment.graphql'
 import { Post as PostType, Acter, User } from '@acter/schema'
 
 export type PostVariables = PostType & {
@@ -18,10 +17,7 @@ export type PostVariables = PostType & {
 type CreatePostData = {
   createPost: PostType
 }
-interface CreatePostOptions
-  extends UseMutationOptions<CreatePostData, PostVariables> {
-  onCompleted: (DeletePostData) => PostType[] | void
-}
+type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
 export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 
@@ -34,7 +30,6 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 export const useCreatePost = (
   acter: Acter,
   user: User,
-  displayPostList: PostType[],
   options?: CreatePostOptions
 ): [HandleMethod<CreatePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
@@ -53,24 +48,27 @@ export const useCreatePost = (
         data: { createPost: newPost },
       } = result
 
-      const newPostList = createNewPostList(newPost, displayPostList)
+      const updatePostList = (existingPostRefs = []) => {
+        const newPostRef = cache.writeFragment({
+          data: newPost,
+          fragment: POST_FRAGMENT,
+          fragmentName: 'PostDisplay',
+        })
+        return [...existingPostRefs, newPostRef]
+      }
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
+      const parentPost = (newPost.Parent as unknown) as StoreObject
+      const cacheOptions: Cache.ModifyOptions = { fields: {} }
+
+      if (newPost.parentId) {
+        cacheOptions.id = cache.identify(parentPost)
+        cacheOptions.fields.Comments = updatePostList
+      } else cacheOptions.fields.posts = updatePostList
+
+      cache.modify(cacheOptions)
     },
     onCompleted: (result) => {
-      const { createPost: newPost } = result
-
-      const newPostList = createNewPostList(newPost, displayPostList)
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newPostList)
-
-      return newPostList
+      typeof options?.onCompleted === 'function' && options.onCompleted(result)
     },
     getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
   })

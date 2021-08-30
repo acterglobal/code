@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { MutationResult } from '@apollo/client'
+import { MutationResult, Cache, StoreObject } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import DELETE_POST from '@acter/schema/mutations/delete-post.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
-import { getNewPostList } from '@acter/lib/post/delete-update-postlist'
 import { Post as PostType } from '@acter/schema'
 
 export type PostVariables = {
@@ -32,7 +30,6 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
  */
 
 export const useDeletePost = (
-  displayPostList: PostType[],
   options?: DeletePostOptions
 ): [HandleMethod<DeletePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
@@ -51,32 +48,23 @@ export const useDeletePost = (
         data: { deletePost: deletedPost },
       } = result
 
-      const newPostList = getNewPostList(
-        deletedPost,
-        displayPostList,
-        isComment
-      )
+      const updatePostList = (existingPostsRefs, { readField }) =>
+        existingPostsRefs.filter(
+          (postRef) => deletedPost.id !== readField('id', postRef)
+        )
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
+      const parentPost = (deletedPost.Parent as unknown) as StoreObject
+      const cacheOptions: Cache.ModifyOptions = { fields: {} }
+
+      if (deletedPost.parentId) {
+        cacheOptions.id = cache.identify(parentPost)
+        cacheOptions.fields.Comments = updatePostList
+      } else cacheOptions.fields.posts = updatePostList
+
+      cache.modify(cacheOptions)
     },
     onCompleted: (result) => {
-      const { deletePost: deletedPost } = result
-
-      const newPostList = getNewPostList(
-        deletedPost,
-        displayPostList,
-        isComment
-      )
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newPostList)
-
-      return newPostList
+      typeof options?.onCompleted === 'function' && options.onCompleted(result)
     },
     getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })

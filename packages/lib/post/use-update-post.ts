@@ -4,8 +4,6 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_POST from '@acter/schema/mutations/post-update.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
-import { updateNewPostList } from '@acter/lib/post/update-post-new-postlist'
 import { Post as PostType } from '@acter/schema'
 
 export type PostVariables = PostType & {
@@ -29,7 +27,6 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
  * @returns mutation results from apollo
  */
 export const useUpdatePost = (
-  displayPostList: PostType[],
   options?: UpdatePostOptions
 ): [HandleMethod<UpdatePostData>, MutationResult] => {
   const [updatePost, mutationResult] = useNotificationMutation<
@@ -41,28 +38,9 @@ export const useUpdatePost = (
         const { update, ...restOptions } = options
         update(cache, result, restOptions)
       }
-      const {
-        data: { updatePost: newPost },
-      } = result
-
-      const newPostList = updateNewPostList(newPost, displayPostList)
-
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
-        },
-      })
     },
     onCompleted: (result) => {
-      const { updatePost: newPost } = result
-
-      const newPostList = updateNewPostList(newPost, displayPostList)
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newPostList)
-
-      return newPostList
+      typeof options?.onCompleted === 'function' && options.onCompleted(result)
     },
     getSuccessMessage: () => 'Post updated',
   })
