@@ -28,17 +28,13 @@ export const Type: FC<TypeProps> = ({
   const type: string = subTypeName
   const classes = useStyles({ type })
 
-  const handleChange = () => {
-    const newFilterSubTypes = [...filterSubTypes]
-
-    if (newFilterSubTypes.includes(subTypeName)) {
-      const filteredSubtypeNames = newFilterSubTypes.filter(
-        (item) => item === subTypeName
-      )
-      onChange([...filteredSubtypeNames])
-    } else {
-      onChange([...newFilterSubTypes, subTypeName])
+  const handleChange = (addToList: boolean) => {
+    if (addToList) {
+      if (filterSubTypes.includes(subTypeName)) return
+      return onChange([...filterSubTypes, subTypeName])
     }
+
+    onChange(filterSubTypes.filter((name) => name !== subTypeName))
   }
 
   return (
