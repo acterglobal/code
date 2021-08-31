@@ -22,6 +22,7 @@ export interface SearchMenuProps {
 export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
   const classes = useStyles()
   const router = useRouter()
+  const { types } = router.query
 
   const { USER, ACTIVITY, GROUP } = ActerTypes
   const { MEETING } = ActivityTypes
@@ -31,7 +32,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
       ![ACTIVITY, MEETING, GROUP, USER].includes(type.name as ActerTypes)
   )
   const [filterSubTypes, setFilterSubTypes] = useState(
-    subTypes.map((type) => type.name)
+    types ? (types as string).split(',') : subTypes.map((type) => type.name)
   )
 
   useEffect(() => {
