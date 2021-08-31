@@ -6,6 +6,7 @@ import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { useUser } from '@acter/lib/user/use-user'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string
@@ -15,13 +16,10 @@ export interface ProfileInfoFormValues {
   location: string
 }
 
-export interface ProfileInfoFormProps {
-  onSubmit: (any) => void
-}
-
-export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({ onSubmit }) => {
+export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
   const [user, { loading }] = useUser()
+  const [updateActer] = useUpdateActer(user?.Acter)
 
   if (loading || !user) {
     return <>Loading...</>
@@ -37,9 +35,12 @@ export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({ onSubmit }) => {
     name,
     location,
   }
+
+  const handleSubmit = (values) => updateActer(values)
+
   return (
     <ProfileFormLayout>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
           <Grid container>
             <Grid item sm={12} md={4}>
