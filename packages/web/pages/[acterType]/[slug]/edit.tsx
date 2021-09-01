@@ -1,6 +1,5 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useRouter, NextRouter } from 'next/router'
 
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
@@ -11,7 +10,6 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 
 import {
   getUserProfile,

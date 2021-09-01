@@ -55,7 +55,7 @@ export const useUpdateActer = (
 ): [HandleMethod<UpdateActerData>, MutationResult] => {
   const router: NextRouter = useRouter()
 
-  const [updateActer, mutationResult, loading] = useNotificationMutation<
+  const [updateActer, mutationResult] = useNotificationMutation<
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {

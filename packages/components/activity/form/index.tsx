@@ -33,7 +33,6 @@ import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]
@@ -83,13 +82,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
-  const [
-    updateActivity,
-    { loading: updateActivityLoading },
-  ] = useUpdateActivity(acter)
-  if (updateActivityLoading) {
-    return <LoadingSpinner load={updateActivityLoading} />
-  }
+  const [updateActivity] = useUpdateActivity(acter)
 
   const [activityType, setActivityType] = useState(null)
   const [heading, setHeading] = useState('')

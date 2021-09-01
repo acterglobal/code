@@ -23,7 +23,6 @@ import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { Stepper } from '@acter/components/util/stepper'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 
@@ -57,12 +56,7 @@ export const ActerForm: FC<ActerFormProps> = ({
 }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [updateActer, { loading: updateActivityLoading }] = useUpdateActer(
-    acter
-  )
-  if (updateActivityLoading) {
-    return <LoadingSpinner load={updateActivityLoading} />
-  }
+  const [updateActer] = useUpdateActer(acter)
 
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length

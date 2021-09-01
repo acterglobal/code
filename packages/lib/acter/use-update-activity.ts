@@ -15,9 +15,7 @@ import {
   _updatePictures,
 } from '@acter/lib/acter/update-acter-with-pictures'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { ActerTypes } from '@acter/lib/constants/acter-types'
-
-const { USER } = ActerTypes
+import { ActivityFormValues } from '@acter/components/activity/form/index'
 
 export type UpdateActivityData = {
   updateActivity: Activity
@@ -38,7 +36,10 @@ type UpdateActerProfileWithPicturesProps = {
   updateActivity: (data: { variables: any }) => Promise<any>
 }
 
-type UpdateActerOptions = UseMutationOptions<UpdateActivityData, ActerVariables>
+type UpdateActivityOptions = UseMutationOptions<
+  UpdateActivityData,
+  ActivityFormValues
+>
 
 /**
  * Custom hook that updates activity
@@ -50,13 +51,13 @@ type UpdateActerOptions = UseMutationOptions<UpdateActivityData, ActerVariables>
 // TODO Move to use this hook everywhere
 export const useUpdateActivity = (
   acter: Acter,
-  options?: UpdateActerOptions
+  options?: UpdateActivityOptions
 ): [HandleMethod<UpdateActivityData>, MutationResult] => {
   const router: NextRouter = useRouter()
 
   const [updateActivity, mutationResult] = useNotificationMutation<
     UpdateActivityData,
-    ActerVariables
+    ActivityFormValues
   >(UPDATE_ACTIVITY, {
     ...options,
     getSuccessMessage: (data: UpdateActivityData) =>
