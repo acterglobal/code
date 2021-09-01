@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { NextPage } from 'next'
 import {
   composeProps,
@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, ActerType, InterestType, Post, User, Link } from '@acter/schema'
+import { Acter, ActerType, InterestType, User, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -58,7 +58,6 @@ interface ActerLandingPageProps {
   acterTypes: ActerType[]
   interestTypes: InterestType[]
   user: User
-  posts: Post[]
   links: Link[]
 }
 
@@ -67,7 +66,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acterTypes,
   interestTypes,
   user,
-  posts,
   links,
 }) => {
   /* This query call fetches the data from cache whenever cache updates */

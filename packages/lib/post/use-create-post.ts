@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { MutationResult, StoreObject, Cache } from '@apollo/client'
+import { MutationResult, StoreObject, Cache, Reference } from '@apollo/client'
+import { Modifier } from '@apollo/client/cache/core/types/common'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -14,12 +15,17 @@ export type PostVariables = PostType & {
   authorId: string
 }
 
-type CreatePostData = {
-  createPost: PostType
-}
+type CreatePostData = { createPost: PostType }
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
 export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+
+interface CacheModifyOptions extends Cache.ModifyOptions {
+  fields: {
+    posts?: Modifier<Reference[]>
+    Comments?: Modifier<Reference[]>
+  }
+}
 
 /**
  * Custom hook that creates new post
@@ -49,21 +55,27 @@ export const useCreatePost = (
       } = result
 
       const updatePostList = (existingPostRefs = []) => {
-        const newPostRef = cache.writeFragment({
+        const newPostRef: Reference = cache.writeFragment({
           data: newPost,
           fragment: POST_FRAGMENT,
           fragmentName: 'PostDisplay',
         })
-        return [...existingPostRefs, newPostRef]
+        return isComment
+          ? [...existingPostRefs, newPostRef] // new comment appends end of list
+          : [newPostRef, ...existingPostRefs] // new post appends beginning of list
       }
 
-      const parentPost = (newPost.Parent as unknown) as StoreObject
-      const cacheOptions: Cache.ModifyOptions = { fields: {} }
+      const cacheOptions: CacheModifyOptions = {
+        fields: {
+          posts: !newPost.parentId ? updatePostList : undefined,
+          Comments: newPost.parentId ? updatePostList : undefined,
+        },
+      }
 
       if (newPost.parentId) {
+        const parentPost = (newPost.Parent as unknown) as StoreObject
         cacheOptions.id = cache.identify(parentPost)
-        cacheOptions.fields.Comments = updatePostList
-      } else cacheOptions.fields.posts = updatePostList
+      }
 
       cache.modify(cacheOptions)
     },

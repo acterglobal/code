@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { MutationResult, Cache, StoreObject } from '@apollo/client'
+import { MutationResult, StoreObject } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -32,8 +31,6 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 export const useDeletePost = (
   options?: DeletePostOptions
 ): [HandleMethod<DeletePostData>, MutationResult] => {
-  const [isComment, setIsComment] = useState(false)
-
   const [deletePost, mutationResult] = useNotificationMutation<
     DeletePostData,
     PostVariables
@@ -48,26 +45,16 @@ export const useDeletePost = (
         data: { deletePost: deletedPost },
       } = result
 
-      const updatePostList = (existingPostsRefs, { readField }) =>
-        existingPostsRefs.filter(
-          (postRef) => deletedPost.id !== readField('id', postRef)
-        )
-
-      const parentPost = (deletedPost.Parent as unknown) as StoreObject
-      const cacheOptions: Cache.ModifyOptions = { fields: {} }
-
-      if (deletedPost.parentId) {
-        cacheOptions.id = cache.identify(parentPost)
-        cacheOptions.fields.Comments = updatePostList
-      } else cacheOptions.fields.posts = updatePostList
-
-      cache.modify(cacheOptions)
+      cache.modify({
+        id: cache.identify((deletedPost as unknown) as StoreObject),
+        fields: (_, { DELETE }) => DELETE,
+      })
     },
-    getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
+    getSuccessMessage: (data) =>
+      data.deletePost.parentId ? 'Comment deleted' : 'Post deleted',
   })
 
   const handleDeletePost = async (values: PostType) => {
-    setIsComment(values.parentId ? true : false)
     deletePost({
       variables: {
         postId: values.id,
