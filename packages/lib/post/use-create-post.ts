@@ -67,9 +67,6 @@ export const useCreatePost = (
 
       cache.modify(cacheOptions)
     },
-    onCompleted: (result) => {
-      typeof options?.onCompleted === 'function' && options.onCompleted(result)
-    },
     getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
   })
 

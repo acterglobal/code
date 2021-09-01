@@ -63,9 +63,6 @@ export const useDeletePost = (
 
       cache.modify(cacheOptions)
     },
-    onCompleted: (result) => {
-      typeof options?.onCompleted === 'function' && options.onCompleted(result)
-    },
     getSuccessMessage: () => (isComment ? 'Comment deleted' : 'Post deleted'),
   })
 
