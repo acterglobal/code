@@ -7,7 +7,7 @@ import {
 } from '@acter/lib/interests'
 import { InterestType, Interest } from '@acter/schema'
 import { Size } from '@acter/lib/constants'
-
+import { justCapitalize } from '@acter/components/util/just-capitalize'
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
   selected?: Interest[]
@@ -33,7 +33,7 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
             variant="body2"
             style={{ marginLeft: 4, fontWeight: 600 }}
           >
-            {type.name}
+            {type.name && justCapitalize(type.name)}
           </Typography>
           <InterestTypes
             type={type}

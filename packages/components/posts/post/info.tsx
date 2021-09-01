@@ -4,7 +4,7 @@ import { pipe } from 'fp-ts/function'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Box, Typography } from '@material-ui/core'
 import { Post } from '@acter/schema'
-import capitalize from 'just-capitalize'
+import { justCapitalize } from '@acter/components/util/just-capitalize'
 export interface PostInfoProps {
   post: Post
 }
@@ -19,7 +19,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
     <Box>
       <Box className={classes.topSection}>
         <Typography variant="h6" className={classes.title}>
-          {post.Author.name}
+          {post.Author.name && justCapitalize(post.Author.name)}
         </Typography>
         <Typography variant="body2" className={classes.timeStamp}>
           {timeStamp}
@@ -30,7 +30,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
         variant="body2"
         gutterBottom
       >
-        {post.Acter.name && capitalize(post.Acter.name)}
+        {post.Acter.name && justCapitalize(post.Acter.name)}
       </Typography>
     </Box>
   )

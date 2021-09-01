@@ -3,7 +3,7 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
 import { SearchType } from '@acter/lib/constants'
 import Link from 'next/link'
-import capitalize from 'just-capitalize'
+import { justCapitalize } from '@acter/components/util/just-capitalize'
 
 export interface SearchTabsProps {
   activeTab: SearchType
@@ -27,7 +27,7 @@ export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
               [classes.activeTab]: activeTab === searchType,
             })}
           >
-            {searchType && capitalize(searchType)}
+            {searchType && justCapitalize(searchType)}
           </Box>
         </Link>
       ))}

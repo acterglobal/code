@@ -7,7 +7,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import capitalize from 'just-capitalize'
+import { justCapitalize } from '@acter/components/util/just-capitalize'
 
 type ActivityTypeProps = ActivityTileProps
 
@@ -22,7 +22,8 @@ export const ActivityType: FC<ActivityTypeProps> = ({ activity }) => {
         variant="caption"
         className={classes.typeName}
       >
-        {activity.ActivityType.name && capitalize(activity.ActivityType.name)}
+        {activity.ActivityType.name &&
+          justCapitalize(activity.ActivityType.name)}
       </Typography>
     </Box>
   )

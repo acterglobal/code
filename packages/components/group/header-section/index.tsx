@@ -15,7 +15,7 @@ import { ActerConnectionRole } from '@acter/schema'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
-import capitalize from 'just-capitalize'
+import { justCapitalize } from '@acter/components/util/just-capitalize'
 
 export interface HeaderSectionProps extends ConnectProps {
   acter: Acter
@@ -46,7 +46,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
       <Box className={classes.heading}>
         <Box className={classes.titleSection}>
           <Typography className={classes.name} variant="subtitle1">
-            # {acter.name && capitalize(acter.name)}
+            # {acter.name && justCapitalize(acter.name)}
           </Typography>
 
           {isAdmin && (

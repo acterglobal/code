@@ -18,7 +18,7 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         <span
           class="MuiButton-label"
         >
-          foo
+          Foo
         </span>
         <span
           class="MuiTouchRipple-root"
@@ -33,7 +33,7 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         <span
           class="MuiButton-label"
         >
-          bar
+          Bar
         </span>
         <span
           class="MuiTouchRipple-root"
