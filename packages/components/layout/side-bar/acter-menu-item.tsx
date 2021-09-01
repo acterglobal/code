@@ -24,6 +24,7 @@ interface ActerMenuItemProps {
   Icon: SvgIconComponent
   path: string
   text?: string
+  notificationBadge?: boolean
 }
 
 export const ActerMenuItem: FC<ActerMenuItemProps> = ({
@@ -31,6 +32,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   Icon,
   path,
   text,
+  notificationBadge,
 }) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -39,8 +41,6 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   const tab = getLandingPageTab(router, ActerMenu.FORUM)
 
   const isActive = router.query.acterType !== 'groups' && path === tab
-
-  const notifyBadge = true
 
   return (
     <ListItem
@@ -66,7 +66,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
           primary={text ? text : path}
         />
         <ListItemIcon>
-          {notifyBadge && <Box className={classes.notifyBadge}></Box>}
+          {notificationBadge && <Box className={classes.notifyBadge}></Box>}
         </ListItemIcon>
       </Link>
     </ListItem>
