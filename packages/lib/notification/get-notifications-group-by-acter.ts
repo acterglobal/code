@@ -8,7 +8,7 @@ export type NotificationsData = Record<string, Array<Notification>>
  * @returns notifications list after group by acter
  */
 export const getNotificationsGroupByActer = (
-  notifications: Notification[]
+  notifications: Notification[] = []
 ): NotificationsData =>
   notifications.reduce((result, notification) => {
     result[notification.onActerId] = [

@@ -14,17 +14,18 @@ import {
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter } from '@acter/schema'
+import { Acter, Notification } from '@acter/schema'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { ActerMenu } from '@acter/lib/constants'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
+import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 
 interface ActerMenuItemProps {
   acter: Acter
   Icon: SvgIconComponent
   path: string
   text?: string
-  notificationBadge?: boolean
+  notifications?: Notification[]
 }
 
 export const ActerMenuItem: FC<ActerMenuItemProps> = ({
@@ -32,7 +33,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   Icon,
   path,
   text,
-  notificationBadge,
+  notifications,
 }) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -42,6 +43,11 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const isActive = router.query.acterType !== 'groups' && path === tab
 
+  const [updateNotifications] = useUpdateNotifications()
+
+  const handleClick = () =>
+    notifications?.map((notification) => updateNotifications(notification.id))
+
   return (
     <ListItem
       className={clsx({
@@ -49,6 +55,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
         [classes.currentItem]: isActive,
       })}
       aria-current={isActive}
+      onClick={handleClick}
     >
       <Link href={acterAsUrl({ acter, extraPath: [path] })}>
         <ListItemIcon>
@@ -66,7 +73,9 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
           primary={text ? text : path}
         />
         <ListItemIcon>
-          {notificationBadge && <Box className={classes.notifyBadge}></Box>}
+          {notifications?.length > 0 && (
+            <Box className={classes.notifyBadge}></Box>
+          )}
         </ListItemIcon>
       </Link>
     </ListItem>

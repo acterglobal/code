@@ -49,8 +49,10 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   const [notifications] = useFetchNotifications(user)
-  const hasNotifications = (type: NotificationType) =>
-    notifications[acter.id]?.some((notification) => notification.type === type)
+  const getNotifications = (type: NotificationType) =>
+    notifications[acter.id]?.filter(
+      (notification) => notification.type === type
+    )
 
   return (
     <>
@@ -63,19 +65,19 @@ export const ActerMenu: FC<ActerMenuProps> = ({
         acter={acter}
         Icon={ForumIcon}
         path={FORUM}
-        notificationBadge={hasNotifications(NEW_POST)}
+        notifications={getNotifications(NEW_POST)}
       />
       <ActerMenuItem
         acter={acter}
         Icon={ActivitiesIcon}
         path={ACTIVITIES}
-        notificationBadge={hasNotifications(NEW_ACTIVITY)}
+        notifications={getNotifications(NEW_ACTIVITY)}
       />
       <ActerMenuItem
         acter={acter}
         Icon={MembersIcon}
         path={MEMBERS}
-        notificationBadge={hasNotifications(NEW_MEMBER)}
+        notifications={getNotifications(NEW_MEMBER)}
       />
       {isAdmin && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />

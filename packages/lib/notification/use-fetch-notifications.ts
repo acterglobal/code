@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { User } from '@acter/schema'
 import { ApolloError, useQuery } from '@apollo/client'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
@@ -20,13 +20,20 @@ type UseFetchNotificationsQueryResults = {
 export const useFetchNotifications = (
   user: User
 ): [NotificationsData, UseFetchNotificationsQueryResults] => {
-  const [data, setData] = useState<NotificationsData>()
+  const [data, setData] = useState({})
 
-  const { loading, error, ...restQueryResult } = useQuery(GET_NOTIFICATIONS, {
+  const {
+    data: notificationsData,
+    loading,
+    error,
+    ...restQueryResult
+  } = useQuery(GET_NOTIFICATIONS, {
     variables: { toActer: user.Acter.id },
-    onCompleted: (data) =>
-      setData(getNotificationsGroupByActer(data.notifications)),
   })
+
+  useEffect(() => {
+    setData(getNotificationsGroupByActer(notificationsData?.notifications))
+  }, [notificationsData])
 
   return [data, { loading, error, ...restQueryResult }]
 }
