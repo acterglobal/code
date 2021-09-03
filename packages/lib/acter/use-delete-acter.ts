@@ -24,13 +24,12 @@ export const useDeleteActer = (): [HandleMethod, MutationResult] => {
 
       onCompleted: (data) => {
         const redirectUrl = data.deleteActer.Parent
-          ? acterAsUrl(data.deleteActer.Parent)
+          ? acterAsUrl({ acter: data.deleteActer.Parent })
           : '/dashboard'
         router.push(redirectUrl)
       },
 
-      onError: (err) => console.log('ERROR : ', err),
-      getSuccessMessage: () => 'Acter deleted',
+      getSuccessMessage: (data) => `${data.deleteActer.name} is deleted`,
     }
   )
   const handleDeleteActer = (acterId) => deleteActer({ variables: { acterId } })
