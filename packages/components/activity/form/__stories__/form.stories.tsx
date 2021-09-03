@@ -6,10 +6,6 @@ import {
   ActivityFormValues,
 } from '@acter/components/activity/form'
 import {
-  ExampleActer,
-  ExampleUser,
-  ExampleUserActer,
-  ExampleActerConnection,
   Interests,
   ExampleActivityActer,
   ExampleActivity,
@@ -17,18 +13,6 @@ import {
 
 const args: ActivityFormProps = {
   interestTypes: Interests.data.interestTypes,
-  // user: {
-  //   ...ExampleUser,
-  //   Acter: {
-  //     ...ExampleUserActer,
-  //     Following: [
-  //       {
-  //         ...ExampleActerConnection,
-  //         Following: ExampleActer,
-  //       },
-  //     ],
-  //   },
-  // },
   onSubmit: () => null,
 }
 
