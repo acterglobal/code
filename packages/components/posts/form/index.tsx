@@ -1,10 +1,15 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  TextareaAutosize,
+  useTheme,
+} from '@material-ui/core'
 import { Field, Form, Formik, FormikBag } from 'formik'
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { Post as PostType, User } from '@acter/schema'
-import { grey } from '@material-ui/core/colors'
 import { Size } from '@acter/lib/constants'
 
 export type PostFormValues = PostType & {
@@ -39,6 +44,7 @@ export const PostForm: FC<PostFormProps> = ({
   const [editor, setEditor] = useState(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [clearText, setClearText] = useState(false)
+  const theme = useTheme()
 
   editor?.focus()
   useEffect(() => {
@@ -78,11 +84,16 @@ export const PostForm: FC<PostFormProps> = ({
               placeholder="Comment..."
               className={classes.field}
               innerRef={inputRef}
+              autoFocus={true}
+              as={TextareaAutosize}
             />
           ) : (
             <TextEditor
-              height={25}
-              borderStyles={{ radius: 8, color: grey[500] }}
+              height={theme.spacing(1)}
+              borderStyles={{
+                radius: theme.spacing(1),
+                color: theme.colors.grey.main,
+              }}
               toolbarSize={Size.SMALL}
               initialValue={initialValues.content}
               handleInputChange={(value) => setFieldValue('content', value)}
@@ -118,7 +129,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 11,
     },
     field: {
-      padding: theme.spacing(1.5),
+      padding: theme.spacing(1),
       width: '100%',
       height: theme.spacing(4.5),
       backgroundColor: theme.colors.grey.extraLight,
@@ -129,6 +140,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: theme.typography.fontFamily,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: 11,
+      lineHeight: '1.2rem',
+      resize: 'none',
     },
   })
 )

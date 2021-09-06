@@ -104,8 +104,8 @@ const useStyles = makeStyles((theme: Theme) =>
     commentField: {
       border: 'none',
       height: theme.spacing(4.5),
-      padding: theme.spacing(1.3),
-      paddingLeft: theme.spacing(1.5),
+      padding: theme.spacing(1),
+      paddingTop: theme.spacing(1.3),
       backgroundColor: theme.colors.grey.extraLight,
       color: theme.palette.secondary.main,
     },
