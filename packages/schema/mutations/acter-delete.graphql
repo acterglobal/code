@@ -3,6 +3,7 @@
 mutation ActerDelete($acterId: String!) {
   deleteActer(acterId: $acterId) {
     id
+    name
     deletedAt
     Parent {
       ...ActerDisplay
