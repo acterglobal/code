@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { ActivityType } from '@acter/schema'
 import { ActivityTypes } from '@acter/lib/constants'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 export interface SelectActivityTypeProps {
   activityTypes: ActivityType[]
   selectedTypeId: string
@@ -31,7 +31,7 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
               )}
               onClick={() => onChange(type.id)}
             >
-              {type.name && justCapitalize(type.name)}
+              {type.name && capitalize(type.name)}
             </Box>
           )
         }

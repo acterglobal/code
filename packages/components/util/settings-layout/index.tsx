@@ -12,7 +12,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export const SettingsContainer: FC = ({ children }) => {
   const classes = useStyles()
@@ -56,7 +56,7 @@ export const SettingsLinkMenuItem: FC<SettingsLinkMenuItemProps> = (props) => {
     <SettingsMenuItem {...props}>
       <Link {...props}>
         <a className={classes.link}>
-          {props.children && justCapitalize(props.children)}
+          {props.children && capitalize(props.children)}
         </a>
       </Link>
     </SettingsMenuItem>

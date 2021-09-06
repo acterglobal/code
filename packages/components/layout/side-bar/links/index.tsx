@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Box, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Link as LinkType } from '@acter/schema'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface LinkListProps {
   links: LinkType[]
@@ -28,7 +28,7 @@ export const LinksList: FC<LinkListProps> = ({ links }) => {
       {links.map((link) => (
         <ListItem className={classes.item} key={link.id}>
           <a href={getUrl(link.url)} className={classes.links} target="_blank">
-            {link.name && justCapitalize(link.name)}
+            {link.name && capitalize(link.name)}
           </a>
         </ListItem>
       ))}

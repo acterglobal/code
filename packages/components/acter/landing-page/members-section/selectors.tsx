@@ -3,7 +3,7 @@ import { Box, Button } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -60,7 +60,7 @@ export const Selectors: FC<SelectorProps> = ({
             variant="contained"
             onClick={() => onChange(selector)}
           >
-            {selector && justCapitalize(selector)}
+            {selector && capitalize(selector)}
           </Button>
         ))}
       </Box>

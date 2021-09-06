@@ -3,7 +3,7 @@ import { Box, MenuItem, makeStyles, createStyles } from '@material-ui/core'
 import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { theme } from '@acter/components/themes/acter-theme'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 export interface PostOptionsProps {
   onEdit: () => void
   onDelete: () => void
@@ -18,10 +18,10 @@ export const PostOptions: FC<PostOptionsProps> = ({ onEdit, onDelete }) => {
         closeOnClick
       >
         <MenuItem className={classes.menuItem} onClick={onEdit}>
-          {justCapitalize('Edit')}
+          {capitalize('Edit')}
         </MenuItem>
         <MenuItem className={classes.menuItem} onClick={onDelete}>
-          {justCapitalize('Delete')}
+          {capitalize('Delete')}
         </MenuItem>
       </DropdownMenu>
     </Box>

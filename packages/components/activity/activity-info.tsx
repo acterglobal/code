@@ -11,7 +11,7 @@ import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export type ActivityInfoProps = ConnectProps
 
@@ -51,11 +51,11 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
       <Box className={classes.titleAndJoinContainer}>
         <Box className={classes.titleContainer}>
           <Typography className={classes.title} variant="h3">
-            {acter.name && justCapitalize(acter.name)}
+            {acter.name && capitalize(acter.name)}
           </Typography>
           <Box className={classes.activityType}>
             {acter.Activity.ActivityType.name &&
-              justCapitalize(acter.Activity.ActivityType.name)}
+              capitalize(acter.Activity.ActivityType.name)}
           </Box>
         </Box>
         <Connect {...props} />
@@ -79,7 +79,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           <>
             <LocationOnOutlined className={classes.locationIcon} />
             <Typography className={classes.location} variant="body2">
-              {acter.location && justCapitalize(acter.location)}
+              {acter.location && capitalize(acter.location)}
             </Typography>
           </>
         )}

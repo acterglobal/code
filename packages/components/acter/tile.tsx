@@ -6,7 +6,7 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
 import { Acter, InterestType } from '@acter/schema'
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface ActerTileProps {
   acter: Acter
@@ -43,22 +43,22 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
             className={classes.typeAndLocation}
             style={{ marginLeft: 10 }}
           >
-            {acter.ActerType.name && justCapitalize(acter.ActerType.name)}
+            {acter.ActerType.name && capitalize(acter.ActerType.name)}
           </Typography>
         </Box>
         <Typography variant="subtitle1" className={classes.title}>
-          {acter.name && justCapitalize(acter.name)}
+          {acter.name && capitalize(acter.name)}
         </Typography>
         <Typography
           className={classes.typeAndLocation}
           variant="body2"
           gutterBottom
         >
-          {acter.location && justCapitalize(acter.location)}
+          {acter.location && capitalize(acter.location)}
         </Typography>
         <Box className={classes.descriptionSection}>
           <Typography variant="caption" className={classes.description}>
-            {acter.description && justCapitalize(acter.description)}
+            {acter.description && capitalize(acter.description)}
           </Typography>
         </Box>
       </Box>

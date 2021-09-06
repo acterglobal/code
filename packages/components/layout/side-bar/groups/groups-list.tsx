@@ -11,7 +11,7 @@ import { Acter } from '@acter/schema'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useRouter } from 'next/router'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 import clsx from 'clsx'
 
 export interface GroupsList {
@@ -34,7 +34,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
               })}
               variant="body2"
             >
-              # {acter.name && justCapitalize(acter.name)}
+              # {acter.name && capitalize(acter.name)}
             </Typography>
           </Link>
         </ListItem>

@@ -9,7 +9,7 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, User } from '@acter/schema'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 export interface TopBarProps {
   heading?: string
   actionButtons?: string[] | null
@@ -31,7 +31,7 @@ export const TopBar: FC<Props> = ({
   return (
     <Box className={classes.root}>
       <Typography variant="body1" className={classes.heading}>
-        {heading && justCapitalize(heading)}
+        {heading && capitalize(heading)}
       </Typography>
 
       <Box className={classes.buttonsSection}>
@@ -40,7 +40,7 @@ export const TopBar: FC<Props> = ({
             {actionButtons.map((action) => (
               <Link href={acterAsUrl({ acter, extraPath: [action] })}>
                 <MenuItem className={classes.menuItem}>
-                  {action && justCapitalize(action)}
+                  {action && capitalize(action)}
                 </MenuItem>
               </Link>
             ))}

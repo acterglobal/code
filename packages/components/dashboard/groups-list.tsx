@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import { justCapitalize } from '@acter/components/util/just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 
 type GroupListProps = {
@@ -29,10 +29,10 @@ export const GroupsList: FC<GroupListProps> = ({ groups }) => {
             </Box>
             <Box className={classes.info}>
               <Typography variant="body1" className={classes.title}>
-                {group.name && justCapitalize(group.name)}
+                {group.name && capitalize(group.name)}
               </Typography>
               <Typography variant="caption" className={classes.acter}>
-                {group.Parent.name && justCapitalize(group.Parent.name)}
+                {group.Parent.name && capitalize(group.Parent.name)}
               </Typography>
             </Box>
           </Box>
