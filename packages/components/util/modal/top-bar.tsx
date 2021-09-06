@@ -9,8 +9,7 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, User } from '@acter/schema'
-import capitalize from 'just-capitalize'
-
+import { capitalize } from '@acter/lib/string/capitalize'
 export interface TopBarProps {
   heading?: string
   actionButtons?: string[] | null
@@ -32,7 +31,7 @@ export const TopBar: FC<Props> = ({
   return (
     <Box className={classes.root}>
       <Typography variant="body1" className={classes.heading}>
-        {heading && capitalize(heading)}
+        {capitalize(heading)}
       </Typography>
 
       <Box className={classes.buttonsSection}>
@@ -40,7 +39,9 @@ export const TopBar: FC<Props> = ({
           <DropdownMenu anchorNode={<ThreeDots />}>
             {actionButtons.map((action) => (
               <Link href={acterAsUrl({ acter, extraPath: [action] })}>
-                <MenuItem className={classes.menuItem}>{action}</MenuItem>
+                <MenuItem className={classes.menuItem}>
+                  {capitalize(action)}
+                </MenuItem>
               </Link>
             ))}
           </DropdownMenu>
@@ -92,7 +93,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuItem: {
       fontSize: '0.8rem',
-      textTransform: 'capitalize',
       display: 'flex',
       justifyContent: 'center',
     },

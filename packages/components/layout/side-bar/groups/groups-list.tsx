@@ -10,8 +10,8 @@ import {
 import { Acter } from '@acter/schema'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import capitalize from 'just-capitalize'
 import { useRouter } from 'next/router'
+import { capitalize } from '@acter/lib/string/capitalize'
 import clsx from 'clsx'
 
 export interface GroupsList {

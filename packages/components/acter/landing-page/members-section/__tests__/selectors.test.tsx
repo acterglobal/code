@@ -3,8 +3,8 @@ import { render, screen } from '@acter/lib/test-utils'
 
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 
-const FOO = 'foo'
-const BAR = 'bar'
+const FOO = 'Foo'
+const BAR = 'Bar'
 const selectors = [FOO, BAR]
 const onChange = () => null
 

@@ -127,19 +127,4 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflowY: 'scroll',
     width: '100%',
   },
-  memberInfo: {
-    marginLeft: 30,
-    fontWeight: theme.typography.fontWeightBold,
-    textTransform: 'capitalize',
-  },
-  name: {
-    fontWeight: theme.typography.fontWeightBold,
-    color: theme.colors.grey.dark,
-  },
-  acterType: {
-    color: theme.colors.grey.dark,
-  },
-  divider: {
-    marginLeft: 100,
-  },
 }))

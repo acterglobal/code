@@ -11,7 +11,7 @@ import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import capitalize from 'just-capitalize'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export type ActivityInfoProps = ConnectProps
 
@@ -54,7 +54,8 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
             {capitalize(acter.name)}
           </Typography>
           <Box className={classes.activityType}>
-            {acter.Activity.ActivityType.name}
+            {acter.Activity.ActivityType.name &&
+              capitalize(acter.Activity.ActivityType.name)}
           </Box>
         </Box>
         <Connect {...props} />
@@ -78,7 +79,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           <>
             <LocationOnOutlined className={classes.locationIcon} />
             <Typography className={classes.location} variant="body2">
-              {acter.location}
+              {capitalize(acter.location)}
             </Typography>
           </>
         )}
@@ -136,7 +137,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: theme.typography.fontWeightLight,
-    textTransform: 'capitalize',
     borderRadius: 5,
     backgroundColor: ({ activityTypeName }: { activityTypeName: string }) =>
       theme.colors.activityTypes[activityTypeName],

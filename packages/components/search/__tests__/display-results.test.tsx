@@ -58,7 +58,7 @@ describe('Display search results', () => {
       )
 
       const type = within(item).queryByLabelText('activity-type')
-      expect(type.textContent).toContain('event')
+      expect(type.textContent).toContain('Event')
     })
   })
 

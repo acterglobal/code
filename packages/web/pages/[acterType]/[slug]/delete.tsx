@@ -8,7 +8,6 @@ import {
 } from '@acter/lib/compose-props'
 
 import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
-
 import { Acter } from '@acter/schema'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 

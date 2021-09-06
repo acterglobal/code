@@ -9,7 +9,7 @@ import {
 import { Switch } from '@acter/components/styled/switch'
 import { SearchType } from '@acter/lib/constants'
 import { Size } from '@acter/lib/constants'
-
+import { capitalize } from '@acter/lib/string/capitalize'
 export interface SearchTypeProps {
   filterSubTypes: string[]
   onChange: (acterTypeNames: string[]) => void
@@ -44,7 +44,7 @@ export const Type: FC<TypeProps> = ({
           <Box className={classes.icon}></Box>
         )}
         <Typography className={classes.typeName} variant="body2">
-          {subTypeName}s
+          {capitalize(subTypeName)}s
         </Typography>
       </Box>
       <Switch
@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2),
       fontWeight: theme.typography.fontWeightLight,
       fontSize: theme.spacing(1.5),
-      textTransform: 'capitalize',
     },
     icon: {
       height: 12,
