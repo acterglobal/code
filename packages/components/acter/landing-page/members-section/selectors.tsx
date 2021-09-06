@@ -60,7 +60,7 @@ export const Selectors: FC<SelectorProps> = ({
             variant="contained"
             onClick={() => onChange(selector)}
           >
-            {selector && capitalize(selector)}
+            {capitalize(selector)}
           </Button>
         ))}
       </Box>

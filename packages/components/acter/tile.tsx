@@ -43,22 +43,22 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
             className={classes.typeAndLocation}
             style={{ marginLeft: 10 }}
           >
-            {acter.ActerType.name && capitalize(acter.ActerType.name)}
+            {capitalize(acter.ActerType.name)}
           </Typography>
         </Box>
         <Typography variant="subtitle1" className={classes.title}>
-          {acter.name && capitalize(acter.name)}
+          {capitalize(acter.name)}
         </Typography>
         <Typography
           className={classes.typeAndLocation}
           variant="body2"
           gutterBottom
         >
-          {acter.location && capitalize(acter.location)}
+          {capitalize(acter.location)}
         </Typography>
         <Box className={classes.descriptionSection}>
           <Typography variant="caption" className={classes.description}>
-            {acter.description && capitalize(acter.description)}
+            {capitalize(acter.description)}
           </Typography>
         </Box>
       </Box>

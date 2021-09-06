@@ -42,7 +42,7 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
           button={true}
           onClick={() => handleClick(type.id)}
         >
-          <ListItemText>{type.name && capitalize(type.name)}</ListItemText>
+          <ListItemText>{capitalize(type.name)}</ListItemText>
           <ListItemSecondaryAction>
             <NavigateNextOutlined />
           </ListItemSecondaryAction>

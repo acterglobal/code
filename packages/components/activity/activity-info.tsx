@@ -51,7 +51,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
       <Box className={classes.titleAndJoinContainer}>
         <Box className={classes.titleContainer}>
           <Typography className={classes.title} variant="h3">
-            {acter.name && capitalize(acter.name)}
+            {capitalize(acter.name)}
           </Typography>
           <Box className={classes.activityType}>
             {acter.Activity.ActivityType.name &&
@@ -79,7 +79,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
           <>
             <LocationOnOutlined className={classes.locationIcon} />
             <Typography className={classes.location} variant="body2">
-              {acter.location && capitalize(acter.location)}
+              {capitalize(acter.location)}
             </Typography>
           </>
         )}

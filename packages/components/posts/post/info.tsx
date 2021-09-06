@@ -19,7 +19,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
     <Box>
       <Box className={classes.topSection}>
         <Typography variant="h6" className={classes.title}>
-          {post.Author.name && capitalize(post.Author.name)}
+          {capitalize(post.Author.name)}
         </Typography>
         <Typography variant="body2" className={classes.timeStamp}>
           {timeStamp}
@@ -30,7 +30,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
         variant="body2"
         gutterBottom
       >
-        {post.Acter.name && capitalize(post.Acter.name)}
+        {capitalize(post.Acter.name)}
       </Typography>
     </Box>
   )

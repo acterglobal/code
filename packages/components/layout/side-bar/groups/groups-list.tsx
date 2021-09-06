@@ -34,7 +34,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
               })}
               variant="body2"
             >
-              # {acter.name && capitalize(acter.name)}
+              # {capitalize(acter.name)}
             </Typography>
           </Link>
         </ListItem>

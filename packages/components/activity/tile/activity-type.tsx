@@ -22,7 +22,7 @@ export const ActivityType: FC<ActivityTypeProps> = ({ activity }) => {
         variant="caption"
         className={classes.typeName}
       >
-        {activity.ActivityType.name && capitalize(activity.ActivityType.name)}
+        {capitalize(activity.ActivityType.name)}
       </Typography>
     </Box>
   )

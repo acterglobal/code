@@ -33,7 +33,7 @@ export const InterestsSection: FC<InterestsSectionProps> = (props) => {
             variant="body2"
             style={{ marginLeft: 4, fontWeight: 600 }}
           >
-            {type.name && capitalize(type.name)}
+            {capitalize(type.name)}
           </Typography>
           <InterestTypes
             type={type}

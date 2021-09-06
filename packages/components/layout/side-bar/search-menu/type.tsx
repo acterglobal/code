@@ -44,7 +44,7 @@ export const Type: FC<TypeProps> = ({
           <Box className={classes.icon}></Box>
         )}
         <Typography className={classes.typeName} variant="body2">
-          {subTypeName && capitalize(subTypeName)}s
+          {capitalize(subTypeName)}s
         </Typography>
       </Box>
       <Switch

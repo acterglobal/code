@@ -67,7 +67,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
             onClick={onAvatarClick}
           >
             <Typography variant="h6" className={classes.section}>
-              {title && capitalize(title)} ({acters.length})
+              {capitalize(title)} ({acters.length})
             </Typography>
             <AvatarGroup
               acters={acters.slice(0, 7)}

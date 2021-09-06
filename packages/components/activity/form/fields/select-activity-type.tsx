@@ -31,7 +31,7 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
               )}
               onClick={() => onChange(type.id)}
             >
-              {type.name && capitalize(type.name)}
+              {capitalize(type.name)}
             </Box>
           )
         }

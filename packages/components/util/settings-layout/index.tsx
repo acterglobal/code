@@ -55,9 +55,7 @@ export const SettingsLinkMenuItem: FC<SettingsLinkMenuItemProps> = (props) => {
   return (
     <SettingsMenuItem {...props}>
       <Link {...props}>
-        <a className={classes.link}>
-          {props.children && capitalize(props.children)}
-        </a>
+        <a className={classes.link}>{capitalize(props.children)}</a>
       </Link>
     </SettingsMenuItem>
   )

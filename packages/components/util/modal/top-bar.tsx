@@ -31,7 +31,7 @@ export const TopBar: FC<Props> = ({
   return (
     <Box className={classes.root}>
       <Typography variant="body1" className={classes.heading}>
-        {heading && capitalize(heading)}
+        {capitalize(heading)}
       </Typography>
 
       <Box className={classes.buttonsSection}>
@@ -40,7 +40,7 @@ export const TopBar: FC<Props> = ({
             {actionButtons.map((action) => (
               <Link href={acterAsUrl({ acter, extraPath: [action] })}>
                 <MenuItem className={classes.menuItem}>
-                  {action && capitalize(action)}
+                  {capitalize(action)}
                 </MenuItem>
               </Link>
             ))}
