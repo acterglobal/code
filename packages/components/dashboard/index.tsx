@@ -18,7 +18,7 @@ export const Dashboard: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
 
-  const [user, { loading }] = useUser()
+  const { user, loading } = useUser()
 
   if (loading) {
     return <>Loading...</>

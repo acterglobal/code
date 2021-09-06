@@ -19,12 +19,9 @@ describe('SessionIndicator', () => {
   })
 
   it('when the user is not logged in should show a sign in button', () => {
-    mockUseUser.mockReturnValue([
-      null,
-      {
-        loading: false,
-      },
-    ])
+    mockUseUser.mockReturnValue({
+      loading: false,
+    })
     render(<SessionIndicator />)
     expect(screen.findByRole('button', { name: 'signin-button' })).toBeTruthy()
 
@@ -37,12 +34,10 @@ describe('SessionIndicator', () => {
 
   describe('when user logged in', () => {
     beforeEach(() => {
-      mockUseUser.mockReturnValue([
+      mockUseUser.mockReturnValue({
         user,
-        {
-          loading: false,
-        },
-      ])
+        loading: false,
+      })
     })
     it('should show the profile button and menu', () => {
       render(<SessionIndicator />)

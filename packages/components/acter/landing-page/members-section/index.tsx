@@ -35,7 +35,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
     setActiveSelector(selector)
   }
 
-  const [user] = useUser()
+  const { user } = useUser()
 
   return (
     <Box className={classes.container}>

@@ -43,7 +43,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
     )
   }
 
-  const [user] = useUser()
+  const { user } = useUser()
 
   return (
     <Modal

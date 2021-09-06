@@ -22,7 +22,7 @@ const { ACTIVITY, GROUP, USER } = ActerTypes
 export const FollowingList: FC = () => {
   const classes = useStyles()
   const router = useRouter()
-  const [user, { loading }] = useUser()
+  const { user, loading } = useUser()
 
   const followingActers = excludeActerTypes(
     user.Acter.Following.map(({ Following }) => Following),

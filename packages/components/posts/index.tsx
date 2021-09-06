@@ -34,7 +34,7 @@ export const PostList: FC<PostListProps> = ({
 }) => {
   const classes = useStyles()
 
-  const [user] = useUser()
+  const { user } = useUser()
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

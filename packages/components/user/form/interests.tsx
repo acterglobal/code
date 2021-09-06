@@ -17,7 +17,7 @@ export interface ProfileInterestsFormProps {
 export const ProfileInterestsForm: FC<ProfileInterestsFormProps> = ({
   interestTypes,
 }) => {
-  const [user, { loading }] = useUser()
+  const { user, loading } = useUser()
   const [updateActer] = useUpdateActer(user?.Acter)
   if (loading || !user) {
     return <>Loading...</>

@@ -18,7 +18,7 @@ export interface ProfileInfoFormValues {
 
 export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
-  const [user, { loading }] = useUser()
+  const { user, loading } = useUser()
   const [updateActer] = useUpdateActer(user?.Acter)
 
   if (loading || !user) {

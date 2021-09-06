@@ -34,7 +34,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 
   const avatarDims = smallScreen ? 65 : 140
 
-  const [user] = useUser()
+  const { user } = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (

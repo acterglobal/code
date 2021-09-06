@@ -38,7 +38,7 @@ export const useUpdateLink = (
     ...options,
     getSuccessMessage: () => 'Link updated',
   })
-  const [user] = useUser()
+  const { user } = useUser()
 
   const handleLink = async (values: LinkVariables) => {
     updateLink({

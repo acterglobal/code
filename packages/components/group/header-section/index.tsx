@@ -35,7 +35,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     setOpenModal(true)
   }
 
-  const [user] = useUser()
+  const { user } = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (

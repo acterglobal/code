@@ -39,7 +39,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, links }) => {
   if (!acter) return null
   const classes = useStyles()
 
-  const [user] = useUser()
+  const { user } = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 

@@ -10,7 +10,7 @@ import { useUser } from '@acter/lib/user/use-user'
 export const SessionIndicator: FC = () => {
   const classes = useStyles()
   const { loginUrl, signupUrl } = useAuthRedirect()
-  const [user, { loading }] = useUser()
+  const { user, loading } = useUser()
 
   if (loading) {
     return <>Loading...</>

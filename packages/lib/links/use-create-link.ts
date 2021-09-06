@@ -63,7 +63,7 @@ export const useCreateLink = (
     getSuccessMessage: () => 'Link created',
   })
 
-  const [user] = useUser()
+  const { user } = useUser()
 
   const handleLink = async (values: LinkVariables) => {
     createLink({
