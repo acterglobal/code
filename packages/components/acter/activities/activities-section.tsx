@@ -1,6 +1,4 @@
 import React, { FC, useState, useMemo } from 'react'
-import { differenceInMilliseconds, parseISO } from 'date-fns/fp'
-import { pipe } from 'fp-ts/function'
 import {
   Box,
   Checkbox,
@@ -8,10 +6,11 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core'
-import { Acter, Activity, User } from '@acter/schema'
+import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { AddActivityButton } from '@acter/components/activity/add-activity-button'
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
+import { Acter, User } from '@acter/schema'
 
 export interface ActivitySectionProps {
   /**
@@ -28,28 +27,11 @@ export const ActivitiesSection: FC<ActivitySectionProps> = ({
   acter,
   user,
 }) => {
-  const allActivitiesOrganised =
-    acter.ActivitiesOrganized?.filter((a) => a.Acter) || []
-  const allActivitiesFollowed = acter.Following?.reduce(
-    (memo, { Following }) =>
-      Following.Activity ? [...memo, Following.Activity] : memo,
-    [] as Activity[]
+  const [showPastActivities, setShowPastActivities] = useState(true)
+  const { allActivities, futureActivities } = getActivitiesForActerByStartAt(
+    acter
   )
 
-  const allActivities = [
-    ...allActivitiesOrganised,
-    ...allActivitiesFollowed,
-  ].sort((a, b) => differenceInMilliseconds(b.startAt, a.startAt))
-  const now = new Date()
-  const futureActivities = useMemo(
-    () =>
-      allActivities.filter(
-        //@ts-ignore
-        (a) => pipe(a.startAt, parseISO, differenceInMilliseconds(now)) >= 0
-      ),
-    [allActivities, now]
-  )
-  const [showPastActivities, setShowPastActivities] = useState(true)
   const displayActivities = showPastActivities
     ? allActivities
     : futureActivities

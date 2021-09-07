@@ -1,15 +1,14 @@
-import { parseISO } from 'date-fns'
-import { getZonedDate } from '@acter/lib/datetime/getZonedDate'
+import { pipe } from 'fp-ts/function'
+import { getZonedFormattedDate } from '@acter/lib/datetime/get-zoned-formatted-date'
+import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 
 export const parseAndFormat = (
   dateString: Date | string,
   formatString: string
 ): string => {
-  if (typeof dateString === 'string') {
-    const date = parseISO(dateString)
-    const parsedDate = getZonedDate(date, formatString)
-    return parsedDate
-  }
-  const parsedDate = getZonedDate(dateString, formatString)
-  return parsedDate
+  return pipe(
+    dateString,
+    parseDateOrString,
+    getZonedFormattedDate(formatString)
+  )
 }
