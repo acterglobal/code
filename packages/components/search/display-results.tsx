@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, CircularProgress, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Acter, InterestType } from '@acter/schema'
+import { InterestType } from '@acter/schema'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { ActerTile } from '@acter/components/acter/tile'
 import { SearchType } from '@acter/lib/constants'
@@ -9,28 +9,28 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Link } from '@acter/components/util/anchor-link'
 import clsx from 'clsx'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
-  acters: Acter[]
-  loadMore: () => void
-  hasMore: boolean
   searchType: SearchType
   interestTypes: InterestType[]
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = ({
-  acters,
-  loadMore,
-  hasMore,
   searchType,
   interestTypes,
 }) => {
   const classes = useStyles()
+  const { acters, loading, loadMore, hasMore } = useFetchActers(searchType)
 
   return (
     <Box className={clsx(classes.root, classes[searchType])}>
-      {acters.length !== 0 ? (
+      {loading ? (
+        <Box className={classes.loading}>
+          <CircularProgress color="inherit" size={60} thickness={2} />
+        </Box>
+      ) : acters.length !== 0 ? (
         <InfiniteScroll
           dataLength={acters.length}
           next={loadMore}
@@ -81,6 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecoration: 'none',
         color: theme.palette.text.primary,
       },
+    },
+    loading: {
+      display: 'flex',
+      justifyContent: 'center',
+      color: theme.palette.primary.main,
     },
   })
 )

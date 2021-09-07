@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useQuery, ApolloError } from '@apollo/client'
+import { ApolloError } from '@apollo/client'
 import { Acter } from '@acter/schema/types'
 import { SearchType, ResultKey } from '@acter/lib/constants'
 import { usePaginatedQuery } from '@acter/lib/apollo'
@@ -24,12 +24,6 @@ interface SearchVariables {
   types?: string[]
 }
 
-interface PaginationVariables {
-  cursor?: string
-  skip: number
-  take: number
-}
-
 interface UseFetchActersQueryResults {
   acters: Acter[]
   loading: boolean
@@ -48,7 +42,7 @@ export const useFetchActers = (
 ): UseFetchActersQueryResults => {
   const router = useRouter()
 
-  const { search, interests, sort, types } = router.query
+  const { search, interests, sortBy: sort, types } = router.query
 
   const searchVariables = useMemo<SearchVariables>(
     () => getSearchVariablesFromQuery({ search, interests, sort, types }),
@@ -73,10 +67,8 @@ export const useFetchActers = (
     ...restQueryResult
   } = usePaginatedQuery(queries[searchType], resultKey, {
     variables: searchVariables,
-    pageSize: 3,
-    onCompleted: (data) => {
-      setActers(data[resultKey])
-    },
+    pageSize: 5,
+    onCompleted: (data) => setActers(data[resultKey]),
   })
 
   // Reset the search if one of our search facets have changed
@@ -87,11 +79,7 @@ export const useFetchActers = (
     })
   }, [searchVariables])
 
-  const loadMore = () => {
-    fetchMore({
-      variables: searchVariables,
-    })
-  }
+  const loadMore = () => fetchMore({ variables: searchVariables })
 
   return { acters, loading, error, loadMore, hasMore, ...restQueryResult }
 }

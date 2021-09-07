@@ -10,7 +10,7 @@ query ActivitiesSearch(
   $orderBy: SearchActivitiesSortBy
   $take: Int
   $skip: Int
-  $cursor: String
+  $cursor: ActerWhereUniqueInput
 ) {
   searchActivities(
     searchText: $searchText

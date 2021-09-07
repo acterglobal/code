@@ -10,7 +10,6 @@ import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export interface SearchProps {
   searchType: SearchType
@@ -24,15 +23,9 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const { acters, loading, loadMore, hasMore } = useFetchActers(searchType)
+  const { acters } = useFetchActers(searchType)
 
-  if (loading || !acters) {
-    return <LoadingSpinner load={loading || !acters} />
-  }
-
-  const handleInputChange = (inputText: string) => {
-    setSearchText(inputText)
-  }
+  const handleInputChange = (inputText: string) => setSearchText(inputText)
 
   const handleFilterInterests = (filterInterests: string[]) => {
     setFilterInterests(filterInterests)
@@ -97,16 +90,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
         </Grid>
       </Box>
 
-      <DisplayResults
-        acters={acters}
-        loadMore={loadMore}
-        hasMore={hasMore}
-        searchType={searchType}
-        interestTypes={interestTypes}
-      />
-      {/* <Box>
-        <Button onClick={loadMore}>Load more</Button>
-      </Box> */}
+      <DisplayResults searchType={searchType} interestTypes={interestTypes} />
     </Box>
   )
 }
