@@ -40,7 +40,7 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   const router = useRouter()
   const tab = getLandingPageTab(router, FORUM)
 
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || !acter) return null
 

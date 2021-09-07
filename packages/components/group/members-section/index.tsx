@@ -28,7 +28,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
     setOpenModal(false)
   }
 
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || !acter) return null
 

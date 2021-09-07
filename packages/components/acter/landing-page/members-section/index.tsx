@@ -30,7 +30,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || !acter) return null
 

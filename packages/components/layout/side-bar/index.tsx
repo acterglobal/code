@@ -26,9 +26,9 @@ import {
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { SearchType } from '@acter/lib/constants'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   searchType?: SearchType
@@ -36,7 +36,7 @@ export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType, links }) => {
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
   const [loading, setLoading] = useState(acterLoading)
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
@@ -53,6 +53,7 @@ export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType, links }) => {
   }, [loading, acter, searchType])
 
   if (loading) return <LoadingSpinner />
+  if (!acter) return null
 
   return (
     <Drawer

@@ -8,6 +8,7 @@ import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { LoadingSpinner } from '../util/loading-spinner'
 
 export interface PostListProps
   extends Omit<PostFormProps, 'user'>,
@@ -30,10 +31,11 @@ export const PostList: FC<PostListProps> = ({
 }) => {
   const classes = useStyles()
 
-  const { user } = useUser()
-  const [acter, { loading: acterLoading }] = useActer()
+  const { user, loading: userLoading } = useUser()
+  const { acter, loading: acterLoading } = useActer()
 
-  if (acterLoading || !acter) return null
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

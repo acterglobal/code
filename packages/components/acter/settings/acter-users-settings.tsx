@@ -30,7 +30,7 @@ export interface ActerUsersSettingsProps {
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
   onSettingsChange,
 }) => {
-  const [acter] = useActer()
+  const { acter } = useActer()
   const classes = useStyles()
   const initialValues: ActerUserSettingsInitialValues = {
     acterJoinSetting: ActerJoinSettings[acter?.acterJoinSetting],

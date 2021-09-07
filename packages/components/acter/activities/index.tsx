@@ -17,7 +17,7 @@ export const ActerActivities: FC<ActerActivitiesProps> = ({
 }) => {
   const classes = useStyles()
   const { user } = useUser()
-  const [acter] = useActer()
+  const { acter } = useActer()
 
   return (
     <LandingPageLayout

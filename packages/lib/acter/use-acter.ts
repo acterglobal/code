@@ -25,7 +25,10 @@ type useActerError = Error | ApolloError
 type ActerQueryResult = Omit<
   QueryResult<useActerData, useActerVariables>,
   'error'
-> & { error: useActerError }
+> & {
+  acter: Acter
+  error: useActerError
+}
 
 /**
  * Get the acter
@@ -33,14 +36,14 @@ type ActerQueryResult = Omit<
  * @param slug this is the parsed URL slug of the acter
  * @returns an acter that was queried based on the slug & url slug
  */
-export const useActer = (): [Acter, ActerQueryResult] => {
+export const useActer = (): ActerQueryResult => {
   const [acter, setActer] = useState<Acter>()
   const [acterType, setActerType] = useState<ActerType>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<useActerError>()
   const { query }: { query: ParsedUrlQuery } = useRouter()
 
-  const [acterTypes, { loading: acterTypesLoading }] = useActerTypes()
+  const { acterTypes, loading: acterTypesLoading } = useActerTypes()
 
   useEffect(() => {
     if (acterTypes) {
@@ -73,12 +76,10 @@ export const useActer = (): [Acter, ActerQueryResult] => {
     setErrors(dataError)
   }, [dataError])
 
-  return [
+  return {
+    ...(restQueryResult as ActerQueryResult),
     acter,
-    {
-      loading,
-      error: errors,
-      ...(restQueryResult as ActerQueryResult),
-    },
-  ]
+    loading,
+    error: errors,
+  }
 }

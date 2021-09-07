@@ -5,8 +5,6 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 import {
-  getActer,
-  getUserProfile,
   getActerTypes,
   setActerType,
   getInterests,
@@ -61,9 +59,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   links,
   posts,
 }) => {
-  //if (!acterType) return null
-
-  const [acter] = useActer()
+  const { acter } = useActer()
 
   const [displayPostList, setDisplayPostList] = useState(posts)
 

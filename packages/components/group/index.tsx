@@ -35,7 +35,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
 }) => {
   const classes = useStyles()
 
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || !acter) return null
 

@@ -32,7 +32,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     theme.breakpoints.down('xs')
   )
 
-  const [acter, { loading: acterLoading }] = useActer()
+  const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || !acter) return null
 

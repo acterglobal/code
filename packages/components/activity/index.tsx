@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useUser } from '@acter/lib/user/use-user'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '../util/loading-spinner'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]
@@ -34,8 +35,11 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
   const router = useRouter()
 
-  const { user } = useUser()
-  const [acter, { loading: acterLoading }] = useActer()
+  const { user, loading: userLoading } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
 
   const handleModalClose = () => {
     router.push(
