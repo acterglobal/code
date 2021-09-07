@@ -12,11 +12,17 @@ import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '../util/loading-spinner'
 
 export type ActivityInfoProps = ConnectProps
 
 export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
-  const { acter } = props
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
+
   const activityTypeName = acter.Activity.ActivityType.name
   const classes = useStyles({ activityTypeName })
 

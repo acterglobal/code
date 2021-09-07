@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, screen } from '@acter/lib/test-utils'
-// import TestRenderer from 'react-test-renderer'
 import { MuiThemeProvider } from '@material-ui/core'
 import { ExampleUser } from '@acter/schema/fixtures'
 import { HeaderSection } from '@acter/components/acter/landing-page/header-section'

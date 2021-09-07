@@ -45,18 +45,10 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   if (acterLoading || !acter) return null
 
   return (
-    <LandingPageLayout
-      acter={acter}
-      onJoin={onJoin}
-      onLeave={onLeave}
-      loading={loading}
-    >
+    <LandingPageLayout onJoin={onJoin} onLeave={onLeave} loading={loading}>
       <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
         <Box role="tabpanel" hidden={tab !== MEMBERS}>
-          <MembersSection
-            acter={acter}
-            onConnectionStateChange={onConnectionStateChange}
-          />
+          <MembersSection onConnectionStateChange={onConnectionStateChange} />
         </Box>
         <Box
           role="tabpanel"

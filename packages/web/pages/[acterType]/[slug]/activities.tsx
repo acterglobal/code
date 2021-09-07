@@ -48,7 +48,6 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
       <Head title={`${acter.name} Settings - Acter`} />
 
       <ActerActivities
-        acter={acter}
         onJoin={createActerConnection}
         onLeave={deleteActerConnection}
         loading={creatingConnection || deletingConnection}

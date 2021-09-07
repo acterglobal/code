@@ -6,17 +6,24 @@ import {
   ExampleActerConnection,
   ExampleUser,
 } from '@acter/schema/fixtures'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
+
+jest.mock('@acter/lib/acter/use-acter')
 
 const { ORGANISATIONS } = MemberType
 
 const mockFunction = jest.fn()
 
 describe('<DisplayMembers>', () => {
+  const mockUseActer = useActer as jest.Mock
+  beforeEach(() => {
+    mockUseActer.mockReturnValue({ acter: ExampleActer })
+  })
+
   it('should display when there are no acters', () => {
     render(
       <DisplayMembers
-        acter={ExampleActer}
         user={ExampleUser}
         followers={[]}
         type={ORGANISATIONS}
@@ -55,7 +62,6 @@ describe('<DisplayMembers>', () => {
 
     render(
       <DisplayMembers
-        acter={ExampleActer}
         user={ExampleUser}
         followers={connections}
         type={ORGANISATIONS}

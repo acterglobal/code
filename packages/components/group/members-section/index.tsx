@@ -48,10 +48,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
           handleModalClose={handleModalClose}
         >
           <Box className={classes.members}>
-            <Members
-              acter={acter}
-              onConnectionStateChange={onConnectionStateChange}
-            />
+            <Members onConnectionStateChange={onConnectionStateChange} />
           </Box>
         </Modal>
       )}

@@ -50,7 +50,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
         onChange={handleSelectorChange}
       />
       <DisplayMembers
-        acter={acter}
         followers={
           activeSelector === PEOPLE ? followers.user : followers.organisation
         }

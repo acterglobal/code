@@ -49,7 +49,6 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     },
   })
 
-  const { findFirstActer: displayActer } = acterData
   const { links: displayLinks } = linksData
 
   const [createLink] = useCreateLink(acter)

@@ -7,27 +7,30 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { AddActivityButton } from '@acter/components/activity/add-activity-button'
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
-import { Acter, User } from '@acter/schema'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 export interface ActivitySectionProps {
-  /**
-   * Organizing Acter for Activities
-   */
-  acter: Acter
   /**
    * Currently logged in user
    */
   user: User
 }
 
-export const ActivitiesSection: FC<ActivitySectionProps> = ({
-  acter,
-  user,
-}) => {
+export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)
+  const { user, loading: userLoading } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
+
+  if (!acter) return <LoadingSpinner />
   const { allActivities, futureActivities } = getActivitiesForActerByStartAt(
     acter
   )

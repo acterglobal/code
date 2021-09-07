@@ -99,13 +99,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           </Hidden>
         </Box>
         <Box className={classes.buttonContainer}>
-          <Connect
-            acter={acter}
-            user={user}
-            onJoin={onJoin}
-            onLeave={onLeave}
-            loading={loading}
-          />
+          <Connect onJoin={onJoin} onLeave={onLeave} loading={loading} />
         </Box>
       </Box>
     </Box>

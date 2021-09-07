@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useQuery, ApolloError, QueryResult } from '@apollo/client'
+import { useState, useEffect, useMemo } from 'react'
+import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 import { Acter, ActerType } from '@acter/schema/types'
 import { useRouter } from 'next/router'
@@ -7,27 +7,27 @@ import { useActerTypes } from '../acter-types/use-acter-types'
 import { acterTypeAsUrl } from '../acter-types/acter-type-as-url'
 import { ParsedUrlQuery } from 'querystring'
 
-type findFirstActerData = {
+type FindFirstActerData = {
   findFirstActer: Acter
 }
 
-type useActerData = {
+type UseActerData = {
   acter: Acter
-} & findFirstActerData
+} & FindFirstActerData
 
-type useActerVariables = {
+type UseActerVariables = {
   acterTypeId: string
   slug: string
 }
 
-type useActerError = Error | ApolloError
+type UseActerError = Error | ApolloError
 
 type ActerQueryResult = Omit<
-  QueryResult<useActerData, useActerVariables>,
+  QueryResult<UseActerData, UseActerVariables>,
   'error'
 > & {
   acter: Acter
-  error: useActerError
+  error: UseActerError
 }
 
 /**
@@ -38,43 +38,63 @@ type ActerQueryResult = Omit<
  */
 export const useActer = (): ActerQueryResult => {
   const [acter, setActer] = useState<Acter>()
-  const [acterType, setActerType] = useState<ActerType>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [errors, setErrors] = useState<useActerError>()
-  const { query }: { query: ParsedUrlQuery } = useRouter()
+  const [errors, setErrors] = useState<UseActerError>()
+  const {
+    query: { acterType: acterTypeName, slug },
+  }: { query: ParsedUrlQuery } = useRouter()
 
-  const { acterTypes, loading: acterTypesLoading } = useActerTypes()
+  const {
+    acterTypes,
+    loading: acterTypesLoading,
+    error: acterTypesError,
+  } = useActerTypes()
 
-  useEffect(() => {
+  const acterType = useMemo<ActerType>(() => {
     if (acterTypes) {
-      setActerType(
-        acterTypes.find((type) => acterTypeAsUrl(type) === query.acterType)
-      )
+      return acterTypes.find((type) => acterTypeAsUrl(type) === acterTypeName)
     }
   }, [acterTypes])
 
-  const {
-    loading: dataLoading,
-    error: dataError,
-    ...restQueryResult
-  } = useQuery<findFirstActerData>(QUERY_ACTER, {
-    variables: {
-      acterTypeId: acterType?.id,
-      slug: query.slug,
+  const [
+    fetchActers,
+    {
+      data,
+      loading: dataLoading,
+      error: dataError,
+      // called,
+      // refetch,
+      ...restQueryResult
     },
-    onCompleted: (data) => {
+  ] = useLazyQuery<FindFirstActerData>(QUERY_ACTER)
+
+  useEffect(() => {
+    if (acterType) {
+      // const fetch = called ? refetch : fetchActers
+      fetchActers({
+        variables: {
+          acterTypeId: acterType.id,
+          slug,
+        },
+      })
+    }
+  }, [acterType, slug])
+
+  useEffect(() => {
+    if (data) {
       const { findFirstActer: acter } = data
       setActer(acter)
-    },
-  })
+    }
+  }, [data])
 
   useEffect(() => {
-    setLoading(dataLoading)
-  }, [dataLoading, acterTypesLoading])
+    setLoading(acterTypesLoading || dataLoading)
+  }, [acterTypesLoading, dataLoading])
 
   useEffect(() => {
-    setErrors(dataError)
-  }, [dataError])
+    if (acterTypesError) return setErrors(acterTypesError)
+    if (dataError) return setErrors(dataError)
+  }, [acterTypesError, dataError])
 
   return {
     ...(restQueryResult as ActerQueryResult),

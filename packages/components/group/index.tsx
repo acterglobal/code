@@ -41,12 +41,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
 
   return (
     <Box className={classes.root}>
-      <HeaderSection
-        acter={acter}
-        onJoin={onJoin}
-        onLeave={onLeave}
-        loading={loading}
-      />
+      <HeaderSection onJoin={onJoin} onLeave={onLeave} loading={loading} />
       <Grid container spacing={2} className={classes.content}>
         <Grid item xs={12} md={8}>
           <Box className={classes.posts}>

@@ -68,13 +68,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
           />
         </Box>
 
-        <ActivityInfo
-          acter={acter}
-          user={user}
-          onJoin={onJoin}
-          onLeave={onLeave}
-          loading={loading}
-        />
+        <ActivityInfo onJoin={onJoin} onLeave={onLeave} loading={loading} />
 
         <Grid container spacing={2} className={classes.content}>
           <Hidden smDown>

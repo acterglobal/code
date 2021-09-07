@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Box, Grid } from '@material-ui/core'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
@@ -8,16 +9,19 @@ import { ConnectProps } from '@acter/components/acter/connect'
 import { Acter, ActerConnectionRole } from '@acter/schema'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
+  /**
+   * The follower Acter
+   */
   follower: Acter
 }
 
 export const FollowerRow: FC<FollowerRowProps> = ({
-  acter,
   follower,
   onJoin,
   onLeave,
   loading,
 }) => {
+  const { acter } = useActer()
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
 

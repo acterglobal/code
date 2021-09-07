@@ -7,19 +7,11 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
-import {
-  Acter,
-  ActerConnection,
-  ActerConnectionRole,
-  User,
-} from '@acter/schema'
+import { ActerConnection, ActerConnectionRole, User } from '@acter/schema'
 
 import { MemberType } from '@acter/lib/constants'
+import { useActer } from '@acter/lib/acter/use-acter'
 export interface DisplayMembersProps {
-  /**
-   * The acter on which we are viewing members
-   */
-  acter?: Acter
   /**
    * The list of acters we are displaying
    */
@@ -43,7 +35,6 @@ export interface DisplayMembersProps {
 }
 
 export const DisplayMembers: FC<DisplayMembersProps> = ({
-  acter,
   user,
   followers = [],
   type,
@@ -51,6 +42,8 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
   isOrganisation,
 }) => {
   const classes = useStyles()
+  const { acter } = useActer()
+  if (!acter) return null
 
   const showJoinState = userHasRoleOnActer(
     user,

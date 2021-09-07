@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import { Acter } from '@acter/schema'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -17,13 +16,12 @@ import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
-export interface HeaderSectionProps extends Omit<ConnectProps, 'user'> {
-  acter: Acter
-}
+export type HeaderSectionProps = ConnectProps
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
@@ -35,7 +33,12 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     setOpenModal(true)
   }
 
-  const { user } = useUser()
+  const { user, loading: userLoading } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (
@@ -61,12 +64,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
         </Box>
 
         <Box>
-          <Connect
-            user={user}
-            onJoin={onJoin}
-            onLeave={onLeave}
-            loading={loading}
-          />
+          <Connect onJoin={onJoin} onLeave={onLeave} loading={loading} />
         </Box>
       </Box>
 
