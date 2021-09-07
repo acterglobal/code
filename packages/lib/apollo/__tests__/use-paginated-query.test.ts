@@ -98,7 +98,7 @@ describe('usePaginatedQuery', () => {
   })
 
   describe('refetch', () => {
-    it('should refetch wtih the same pagination & variables by default', () => {
+    it('should refetch with the same pagination & variables by default', () => {
       const pagination = { cursor: { id: 'foo' }, skip: 1, take: 10 }
       const variables = { foo: 'bar' }
 
