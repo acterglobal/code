@@ -21,7 +21,8 @@ interface RefetchQuery<TVariables> {
 }
 
 export interface Pagination {
-  cursor?: string
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cursor?: Record<'id', any>
   skip: number
   take: number
 }
@@ -65,7 +66,7 @@ export const usePaginatedQuery = <
   const paginationDefaults: Pagination = {
     skip: 0,
     take: pageSize,
-    cursor: null,
+    cursor: undefined,
     ...(options.pagination || {}),
   }
   const [pagination, setPagination] = useState<Pagination>(paginationDefaults)
@@ -138,7 +139,7 @@ export const _getOnCompleted = <TType, TData>({
 }: GetOnCompleted<TType, TData>) => (data: TData): void => {
   const resultSet = data[resultKey]
   if (!resultSet || !resultSet[resultSet.length - 1]?.id) return
-  const cursor = resultSet[resultSet.length - 1].id
+  const cursor = { id: resultSet[resultSet.length - 1].id }
   setPagination({
     ...paginationDefaults,
     cursor,

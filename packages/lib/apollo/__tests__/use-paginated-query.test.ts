@@ -26,7 +26,7 @@ describe('usePaginatedQuery', () => {
 
   describe('onComplete', () => {
     const paginationDefaults: Pagination = {
-      cursor: null,
+      cursor: undefined,
       skip: 0,
       take: 10,
     }
@@ -72,7 +72,7 @@ describe('usePaginatedQuery', () => {
       _getOnCompleted(getOnCompletedParams)(data)
       expect(setPagination).toHaveBeenCalledTimes(1)
       expect(setPagination).toHaveBeenCalledWith({
-        cursor: 9,
+        cursor: { id: 9 },
         skip: 1,
         take: 10,
       })

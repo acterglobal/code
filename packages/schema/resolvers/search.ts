@@ -7,6 +7,7 @@ import {
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { ActerWhereUniqueInput } from '../types'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
@@ -167,7 +168,7 @@ export class SearchResolver {
     @Arg('orderBy', { nullable: true }) orderBy: SearchActivitiesSortBy,
     @Arg('take', () => Int, { nullable: true }) take: number,
     @Arg('skip', () => Int, { nullable: true }) skip: number,
-    @Arg('cursor', { nullable: true }) cursor: string
+    @Arg('cursor', { nullable: true }) cursor: ActerWhereUniqueInput
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
@@ -203,7 +204,7 @@ export class SearchResolver {
       orderBy: getOrderBy(orderBy),
       take,
       skip,
-      ...(cursor ? { cursor: { id: cursor } } : {}),
+      ...(cursor ? { cursor } : {}),
     }
 
     return await ctx.prisma.acter.findMany(options)
