@@ -11,6 +11,7 @@ import { Formik, Form } from 'formik'
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
 import { Acter, ActerJoinSettings } from '@acter/schema'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 interface ActerUserSettingsInitialValues {
   acterJoinSetting: ActerJoinSettings
@@ -30,8 +31,11 @@ export interface ActerUsersSettingsProps {
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
   onSettingsChange,
 }) => {
-  const { acter } = useActer()
+  const { acter, loading } = useActer()
   const classes = useStyles()
+  if (loading) return <LoadingSpinner />
+  if (!acter) return null
+
   const initialValues: ActerUserSettingsInitialValues = {
     acterJoinSetting: ActerJoinSettings[acter?.acterJoinSetting],
   }

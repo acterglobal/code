@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -12,7 +13,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType, Link, Post } from '@acter/schema'
+import { Acter, InterestType, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -23,7 +24,7 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerMenu, ActerTypes } from '@acter/lib/constants'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
@@ -31,6 +32,8 @@ import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { usePosts } from '@acter/lib/post/use-posts'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -51,21 +54,15 @@ interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
   links: Link[]
-  posts: Post[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   interestTypes,
   links,
-  posts,
 }) => {
-  const { acter } = useActer()
-
-  const [displayPostList, setDisplayPostList] = useState(posts)
-
-  useEffect(() => {
-    setDisplayPostList(posts)
-  }, [posts])
+  const router = useRouter()
+  const { acter, loading: acterLoading } = useActer()
+  const { posts, loading: postsLoading } = usePosts()
 
   const View = getActerView(acter?.ActerType)
 
@@ -82,12 +79,20 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [
     updateActerConnection,
     { loading: updatingConnection },
-  ] = useUpdateActerConnection(acter)
+  ] = useUpdateActerConnection()
 
   const [
     deleteActerConnection,
     { loading: deletingConnection },
   ] = useDeleteActerConnection(acter)
+
+  const tab = Array.isArray(router.query.tab)
+    ? router.query.tab.join()
+    : router.query.tab
+  const isPostsTab = tab === ActerMenu.FORUM
+
+  if (acterLoading || (isPostsTab && postsLoading)) return <LoadingSpinner />
+  if (!acter) return null
 
   return (
     <Layout
@@ -98,7 +103,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       <View
         acter={acter}
         interestTypes={interestTypes}
-        posts={displayPostList}
+        posts={posts}
         onJoin={createActerConnection}
         onLeave={deleteActerConnection}
         onPostSubmit={createPost}

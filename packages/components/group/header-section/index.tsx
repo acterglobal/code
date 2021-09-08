@@ -28,16 +28,15 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 }) => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
-
-  const handleClick = () => {
-    setOpenModal(true)
-  }
-
   const { user, loading: userLoading } = useUser()
   const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter || !user) return null
+
+  const handleClick = () => {
+    setOpenModal(true)
+  }
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 

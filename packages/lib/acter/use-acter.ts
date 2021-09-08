@@ -20,14 +20,8 @@ type UseActerVariables = {
   slug: string
 }
 
-type UseActerError = Error | ApolloError
-
-type ActerQueryResult = Omit<
-  QueryResult<UseActerData, UseActerVariables>,
-  'error'
-> & {
+type ActerQueryResult = QueryResult<UseActerData, UseActerVariables> & {
   acter: Acter
-  error: UseActerError
 }
 
 /**
@@ -39,7 +33,7 @@ type ActerQueryResult = Omit<
 export const useActer = (): ActerQueryResult => {
   const [acter, setActer] = useState<Acter>()
   const [loading, setLoading] = useState<boolean>(false)
-  const [errors, setErrors] = useState<UseActerError>()
+  const [errors, setErrors] = useState<ApolloError>()
   const {
     query: { acterType: acterTypeName, slug },
   }: { query: ParsedUrlQuery } = useRouter()
@@ -54,23 +48,15 @@ export const useActer = (): ActerQueryResult => {
     if (acterTypes) {
       return acterTypes.find((type) => acterTypeAsUrl(type) === acterTypeName)
     }
-  }, [acterTypes])
+  }, [acterTypes, acterTypeName])
 
   const [
     fetchActers,
-    {
-      data,
-      loading: dataLoading,
-      error: dataError,
-      // called,
-      // refetch,
-      ...restQueryResult
-    },
+    { data, loading: dataLoading, error: dataError, ...restQueryResult },
   ] = useLazyQuery<FindFirstActerData>(QUERY_ACTER)
 
   useEffect(() => {
     if (acterType) {
-      // const fetch = called ? refetch : fetchActers
       fetchActers({
         variables: {
           acterTypeId: acterType.id,

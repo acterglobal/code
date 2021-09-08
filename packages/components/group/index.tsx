@@ -18,6 +18,7 @@ import {
   MembersSectionProps,
 } from '@acter/components/group/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type GroupLandingProps = HeaderSectionProps &
   MembersSectionProps &
@@ -37,7 +38,8 @@ export const GroupLanding: FC<GroupLandingProps> = ({
 
   const { acter, loading: acterLoading } = useActer()
 
-  if (acterLoading || !acter) return null
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
 
   return (
     <Box className={classes.root}>

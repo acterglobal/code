@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import {
   Computer,
   LocationOnOutlined,
@@ -8,12 +8,12 @@ import { Box, Hidden, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { green } from '@material-ui/core/colors'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { About } from '@acter/components/activity/about'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { LoadingSpinner } from '../util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type ActivityInfoProps = ConnectProps
 
@@ -23,7 +23,9 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const activityTypeName = acter.Activity.ActivityType.name
+  const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
+    acter,
+  ])
   const classes = useStyles({ activityTypeName })
 
   const displayFormat = acter.Activity.isAllDay

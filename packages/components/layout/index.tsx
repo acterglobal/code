@@ -15,10 +15,10 @@ export interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({
-  dashboard,
   links,
   children,
   searchType,
+  dashboard,
 }) => {
   const classes = useStyles()
 
