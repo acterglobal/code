@@ -1,12 +1,10 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
+import { MutationResult, FetchResult } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
-import ACTER_FRAGMENT from '@acter/schema/fragments/group-acter.fragment.graphql'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
-import { ActerTypes } from '@acter/lib/constants'
 
 export type ActerVariables = Acter & {
   acterId?: string
@@ -32,7 +30,6 @@ export type HandleMethod<TData> = (
  * @returns mutation results from apollo
  */
 export const useCreateActer = (
-  acter: Acter,
   options?: CreateActerOptions
 ): [HandleMethod<CreateActerData>, MutationResult] => {
   const [createActer, mutationResult] = useNotificationMutation<
@@ -40,30 +37,6 @@ export const useCreateActer = (
     ActerVariables
   >(ACTER_CREATE, {
     ...options,
-    update: (cache, result) => {
-      if (typeof options?.update === 'function') {
-        const { update, ...restOptions } = options
-        update(cache, result, restOptions)
-      }
-      const { createActer: newActer } = result.data
-
-      cache.modify({
-        id: cache.identify(
-          ((acter.ActerType.name === ActerTypes.GROUP
-            ? acter.Parent
-            : acter) as unknown) as StoreObject
-        ),
-        fields: {
-          Children(existingActerRefs = []) {
-            const newActerRef = cache.writeFragment({
-              data: newActer,
-              fragment: ACTER_FRAGMENT,
-            })
-            return [...existingActerRefs, newActerRef]
-          },
-        },
-      })
-    },
     getSuccessMessage: (data: CreateActerData) =>
       `${data.createActer.name} group created`,
   })
