@@ -35,7 +35,7 @@ export const FollowingList: FC<FollowingListProps> = ({ user }) => {
     [ACTIVITY, USER, GROUP]
   )
 
-  const [notifications] = useFetchNotifications(user)
+  const { notifications } = useFetchNotifications(user)
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 

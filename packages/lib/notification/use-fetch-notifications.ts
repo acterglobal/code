@@ -4,10 +4,11 @@ import { ApolloError, useQuery } from '@apollo/client'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 import {
   getNotificationsGroupByActer,
-  NotificationsData,
+  NotificationsData as Notifications,
 } from '@acter/lib/notification/get-notifications-group-by-acter'
 
 type UseFetchNotificationsQueryResults = {
+  notifications: Notifications
   loading: boolean
   error: ApolloError
 }
@@ -19,8 +20,8 @@ type UseFetchNotificationsQueryResults = {
  */
 export const useFetchNotifications = (
   user: User
-): [NotificationsData, UseFetchNotificationsQueryResults] => {
-  const [data, setData] = useState({})
+): UseFetchNotificationsQueryResults => {
+  const [notifications, setNotifications] = useState({})
 
   const {
     data: notificationsData,
@@ -32,8 +33,10 @@ export const useFetchNotifications = (
   })
 
   useEffect(() => {
-    setData(getNotificationsGroupByActer(notificationsData?.notifications))
+    setNotifications(
+      getNotificationsGroupByActer(notificationsData?.notifications)
+    )
   }, [notificationsData])
 
-  return [data, { loading, error, ...restQueryResult }]
+  return { notifications, loading, error, ...restQueryResult }
 }

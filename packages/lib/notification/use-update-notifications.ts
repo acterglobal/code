@@ -1,5 +1,10 @@
 import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
-import { FetchResult, MutationResult, useMutation } from '@apollo/client'
+import {
+  FetchResult,
+  MutationHookOptions,
+  MutationResult,
+  useMutation,
+} from '@apollo/client'
 
 type HandleMethod = (notificationId: string) => Promise<FetchResult>
 
@@ -8,12 +13,19 @@ type HandleMethod = (notificationId: string) => Promise<FetchResult>
  * @param notificationId on which notification should update
  * @returns updateNotification mutation and its results
  */
-export const useUpdateNotifications = (): [HandleMethod, MutationResult] => {
+export const useUpdateNotifications = (
+  options?: MutationHookOptions
+): [HandleMethod, MutationResult] => {
   const [updateNotification, { ...restQueryResult }] = useMutation(
     UPDATE_NOTIFICATION_VIEWED,
     {
-      update: (cache, { data }) => {
-        const { updateNotification: updatedNotification } = data
+      ...options,
+      update: (cache, result) => {
+        if (typeof options?.update === 'function') {
+          const { update, ...restOptions } = options
+          update(cache, result, restOptions)
+        }
+        const { updateNotification: updatedNotification } = result.data
         cache.modify({
           fields: {
             notifications: (existingNotificationRefs, { readField }) => {
