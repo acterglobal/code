@@ -46,7 +46,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
         <Grid item xs={12} md={8}>
           <Box className={classes.posts}>
             <PostList
-              acter={acter}
               posts={posts}
               onPostSubmit={onPostSubmit}
               onPostDelete={onPostDelete}
@@ -65,7 +64,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
             </Box>
             <Box className={classes.container}>
               <MembersSection
-                acter={acter}
                 onConnectionStateChange={onConnectionStateChange}
               />
             </Box>

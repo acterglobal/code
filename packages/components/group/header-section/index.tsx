@@ -62,7 +62,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 
         <Box>
           <Connect
-            acter={acter}
             user={user}
             onJoin={onJoin}
             onLeave={onLeave}

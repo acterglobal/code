@@ -57,11 +57,10 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout acter={displayActer} links={displayLinks}>
+    <Layout links={displayLinks}>
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
-          acter={displayActer}
           onSettingsChange={updateActer}
           loading={loading}
           links={displayLinks}
