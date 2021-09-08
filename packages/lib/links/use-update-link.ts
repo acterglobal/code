@@ -4,7 +4,6 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_LINK from '@acter/schema/mutations/link-update.graphql'
-import GET_LINKS from '@acter/schema/queries/links-by-acter.graphql'
 import { Acter, User, Link as LinkType } from '@acter/schema'
 
 export type LinkVariables = LinkType & {
@@ -13,14 +12,9 @@ export type LinkVariables = LinkType & {
   userId: string
 }
 
-type UpdateLinkData = {
-  updateLink: LinkType
-}
+type UpdateLinkData = { updateLink: LinkType }
 
-interface UpdateLinkOptions
-  extends UseMutationOptions<UpdateLinkData, LinkVariables> {
-  onCompleted: (UpdateLinkData) => LinkType[] | void
-}
+type UpdateLinkOptions = UseMutationOptions<UpdateLinkData, LinkVariables>
 
 export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
@@ -35,53 +29,13 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 export const useUpdateLink = (
   acter: Acter,
   user: User,
-  displayLinks: LinkType[],
   options?: UpdateLinkOptions
 ): [HandleMethod<UpdateLinkData>, MutationResult] => {
-  const getNewDisplayLinks = (displayLinks, updatedLink) => {
-    const newDisplayLinks = displayLinks.map((link) => {
-      if (link.id === updatedLink.id) {
-        return updatedLink
-      }
-      return link
-    })
-
-    return newDisplayLinks
-  }
-
   const [updateLink, mutationResult] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
   >(UPDATE_LINK, {
     ...options,
-    update: (cache, result) => {
-      if (typeof options?.update === 'function') {
-        const { update, ...restOptions } = options
-        update(cache, result, restOptions)
-      }
-      const {
-        data: { updateLink: updatedLink },
-      } = result
-
-      const newDisplayLinks = getNewDisplayLinks(displayLinks, updatedLink)
-
-      cache.writeQuery({
-        query: GET_LINKS,
-        data: {
-          links: newDisplayLinks,
-        },
-      })
-    },
-    onCompleted: (result) => {
-      const { updateLink: updatedLink } = result
-
-      const newDisplayLinks = getNewDisplayLinks(displayLinks, updatedLink)
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newDisplayLinks)
-
-      return newDisplayLinks
-    },
     getSuccessMessage: () => 'Link updated',
   })
 

@@ -33,15 +33,7 @@ export const useUpdatePost = (
     UpdatePostData,
     PostVariables
   >(UPDATE_POST, {
-    update: (cache, result) => {
-      if (typeof options?.update === 'function') {
-        const { update, ...restOptions } = options
-        update(cache, result, restOptions)
-      }
-    },
-    onCompleted: (result) => {
-      typeof options?.onCompleted === 'function' && options.onCompleted(result)
-    },
+    ...options,
     getSuccessMessage: () => 'Post updated',
   })
 

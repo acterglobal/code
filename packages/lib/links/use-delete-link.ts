@@ -1,24 +1,18 @@
-import { MutationResult } from '@apollo/client'
+import { MutationResult, StoreObject } from '@apollo/client'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import DELETE_LINK from '@acter/schema/mutations/delete-link.graphql'
-import GET_LINKS from '@acter/schema/queries/links-by-acter.graphql'
 import { Link as LinkType } from '@acter/schema'
 
 export type LinkVariables = LinkType & {
   linkId: string
 }
 
-type DeleteLinkData = {
-  deleteLink: LinkType
-}
+type DeleteLinkData = { deleteLink: LinkType }
 
-interface DeleteLinkOptions
-  extends UseMutationOptions<DeleteLinkData, LinkVariables> {
-  onCompleted: (DeleteLinkData) => LinkType[] | void
-}
+type DeleteLinkOptions = UseMutationOptions<DeleteLinkData, LinkVariables>
 
 export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
@@ -30,7 +24,6 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
  */
 
 export const useDeleteLink = (
-  displayLinks: LinkType[],
   options?: DeleteLinkOptions
 ): [HandleMethod<DeleteLinkData>, MutationResult] => {
   const [deleteLink, mutationResult] = useNotificationMutation<
@@ -47,29 +40,12 @@ export const useDeleteLink = (
         data: { deleteLink: deletedLink },
       } = result
 
-      const newDisplayLinks = displayLinks.filter(
-        (link) => link.id !== deletedLink.id
-      )
-
-      cache.writeQuery({
-        query: GET_LINKS,
-        data: {
-          links: newDisplayLinks,
-        },
+      cache.modify({
+        id: cache.identify((deletedLink as unknown) as StoreObject),
+        fields: (_, { DELETE }) => DELETE,
       })
     },
-    onCompleted: (result) => {
-      const { deleteLink: deletedLink } = result
 
-      const newDisplayLinks = displayLinks.filter(
-        (link) => link.id !== deletedLink.id
-      )
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newDisplayLinks)
-
-      return newDisplayLinks
-    },
     getSuccessMessage: () => 'Link deleted',
   })
 
