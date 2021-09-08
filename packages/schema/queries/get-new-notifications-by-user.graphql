@@ -1,0 +1,9 @@
+query getNewNotifications($toActer: String!) {
+  notifications(
+    where: { toActerId: { equals: $toActer }, viewedAt: { equals: null } }
+  ) {
+    id
+    type
+    onActerId
+  }
+}

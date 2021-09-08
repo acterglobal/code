@@ -88,6 +88,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 20,
       cursor: 'pointer',
       color: theme.palette.secondary.contrastText,
+      '&:hover': {
+        color: theme.colors.white,
+      },
     },
   })
 )

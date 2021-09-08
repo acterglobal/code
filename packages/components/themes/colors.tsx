@@ -26,6 +26,7 @@ type InterestTypeColors = {
 
 type OtherColors = {
   searchTab: Color
+  notificationBadge: Color
 }
 
 export type Colors = {
@@ -83,5 +84,6 @@ export const colors: Colors = {
   },
   others: {
     searchTab: 'rgba(196, 196, 196, 0.18)',
+    notificationBadge: '#E15877',
   },
 }

@@ -24,8 +24,11 @@ import {
   GroupsSectionProps,
 } from '@acter/components/layout/side-bar/groups/groups-section'
 import { LinksList } from '@acter/components/layout/side-bar/links'
+import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
+import { NotificationType } from '@acter/schema'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
+const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
 export type ActerMenuProps = GroupsSectionProps & {
   user: User
@@ -45,6 +48,12 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
+  const { notifications } = useFetchNotifications(user)
+  const getNotifications = (type: NotificationType) =>
+    notifications[acter.id]?.filter(
+      (notification) => notification.type === type
+    )
+
   return (
     <>
       <ListItem divider className={classes.acterHeaderItem}>
@@ -52,9 +61,24 @@ export const ActerMenu: FC<ActerMenuProps> = ({
           <ActerAvatar acter={acter} size={4} />
         </ListItemAvatar>
       </ListItem>
-      <ActerMenuItem acter={acter} Icon={ForumIcon} path={FORUM} />
-      <ActerMenuItem acter={acter} Icon={ActivitiesIcon} path={ACTIVITIES} />
-      <ActerMenuItem acter={acter} Icon={MembersIcon} path={MEMBERS} />
+      <ActerMenuItem
+        acter={acter}
+        Icon={ForumIcon}
+        path={FORUM}
+        notifications={getNotifications(NEW_POST)}
+      />
+      <ActerMenuItem
+        acter={acter}
+        Icon={ActivitiesIcon}
+        path={ACTIVITIES}
+        notifications={getNotifications(NEW_ACTIVITY)}
+      />
+      <ActerMenuItem
+        acter={acter}
+        Icon={MembersIcon}
+        path={MEMBERS}
+        notifications={getNotifications(NEW_MEMBER)}
+      />
       {isAdmin && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}

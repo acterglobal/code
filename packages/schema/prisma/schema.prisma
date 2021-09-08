@@ -294,6 +294,8 @@ model Notification {
   OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id])
   onActerId String @map("on_acter_id")
 
+  @@index([toActerId,viewedAt])
+  @@index([onActerId,toActerId,type])
   @@map("notifications")
 }
 
