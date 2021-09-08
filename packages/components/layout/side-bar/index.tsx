@@ -41,7 +41,6 @@ export const Sidebar: FC<SidebarProps> = ({
   searchType,
   user,
   links,
-  onGroupSubmit,
 }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
@@ -85,12 +84,7 @@ export const Sidebar: FC<SidebarProps> = ({
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu
-            acter={acter}
-            onGroupSubmit={onGroupSubmit}
-            user={user}
-            links={links}
-          />
+          <ActerMenu acter={acter} user={user} links={links} />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}

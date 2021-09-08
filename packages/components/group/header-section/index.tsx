@@ -19,13 +19,11 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface HeaderSectionProps extends ConnectProps {
   acter: Acter
-  onGroupSubmit: (groupData: Acter) => void
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
   user,
-  onGroupSubmit,
   onJoin,
   onLeave,
   loading,
@@ -80,7 +78,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           submitButtonLabel="Update"
           openModal={openModal}
           setModal={setOpenModal}
-          onGroupSubmit={onGroupSubmit}
         />
       )}
     </>

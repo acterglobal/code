@@ -15,7 +15,6 @@ import {
 } from '@acter/lib/compose-props'
 import { Acter, Link as LinkType, User } from '@acter/schema'
 import { ActerActivities } from '@acter/components/acter/activities'
-import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useQuery } from '@apollo/client'
@@ -42,8 +41,6 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
 
   const { findFirstActer: displayActer } = data
 
-  const [createGroup] = useCreateActer(displayActer)
-
   const [
     createActerConnection,
     { loading: creatingConnection },
@@ -58,7 +55,6 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
     <Layout
       acter={displayActer}
       user={user}
-      onGroupSubmit={createGroup}
       links={links}
     >
       <Head title={`${acter.name} Settings - Acter`} />

@@ -14,7 +14,7 @@ export type ActerVariables = Acter & {
   followerIds: ActerConnection[] | string[]
 }
 
-type CreateActerData = {
+export type CreateActerData = {
   createActer: Acter
 }
 

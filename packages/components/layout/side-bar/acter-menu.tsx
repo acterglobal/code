@@ -35,12 +35,7 @@ export type ActerMenuProps = GroupsSectionProps & {
   links: LinkType[]
 }
 
-export const ActerMenu: FC<ActerMenuProps> = ({
-  acter,
-  user,
-  links,
-  onGroupSubmit,
-}) => {
+export const ActerMenu: FC<ActerMenuProps> = ({ acter, user, links }) => {
   if (!acter) return null
   const classes = useStyles()
 
@@ -92,11 +87,7 @@ export const ActerMenu: FC<ActerMenuProps> = ({
       {(isAdmin || isMember) && (
         <>
           <Divider className={classes.divider} />
-          <GroupsSection
-            acter={acter}
-            user={user}
-            onGroupSubmit={onGroupSubmit}
-          />
+          <GroupsSection acter={acter} user={user} />
         </>
       )}
     </>

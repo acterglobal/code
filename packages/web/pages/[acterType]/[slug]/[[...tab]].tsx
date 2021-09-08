@@ -26,8 +26,6 @@ import {
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
 import { ActerTypes } from '@acter/lib/constants'
-import { useCreateActer } from '@acter/lib/acter/use-create-acter'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
@@ -88,9 +86,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(displayActer)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createGroup] = useCreateActer(displayActer)
-  const [updateGroup] = useUpdateActer(displayActer)
-
   const [createPost] = useCreatePost(displayActer, user)
   const [deletePost] = useDeletePost(displayPostList)
   const [updatePost] = useUpdatePost(displayPostList)
@@ -116,7 +111,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
       }
       user={user}
-      onGroupSubmit={createGroup}
       links={links}
     >
       <Head title={`${acter.name} - Acter`} />
@@ -129,7 +123,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onLeave={deleteActerConnection}
         onPostSubmit={createPost}
         onPostUpdate={updatePost}
-        onGroupSubmit={updateGroup}
         onPostDelete={deletePost}
         onConnectionStateChange={updateActerConnection}
         loading={creatingConnection || deletingConnection || updatingConnection}
