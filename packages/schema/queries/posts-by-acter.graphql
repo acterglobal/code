@@ -10,5 +10,8 @@ query GetPosts($acterId: String) {
     Comments {
       ...PostDisplay
     }
+    Parent {
+      id
+    }
   }
 }

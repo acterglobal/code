@@ -1,0 +1,11 @@
+fragment Group on Acter {
+  id
+  name
+  description
+  slug
+  url
+  location
+  ActerType {
+    name
+  }
+}

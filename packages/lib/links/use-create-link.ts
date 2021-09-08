@@ -4,7 +4,7 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
-import GET_LINKS from '@acter/schema/queries/links-by-acter.graphql'
+import LINK_FRAGMENT from '@acter/schema/fragments/link-display.fragment.graphql'
 import { Acter, User, Link as LinkType } from '@acter/schema'
 
 export type LinkVariables = LinkType & {
@@ -12,14 +12,9 @@ export type LinkVariables = LinkType & {
   userId: string
 }
 
-type CreateLinkData = {
-  createLink: LinkType
-}
+type CreateLinkData = { createLink: LinkType }
 
-interface CreateLinkOptions
-  extends UseMutationOptions<CreateLinkData, LinkVariables> {
-  onCompleted: (CreateLinkData) => LinkType[] | void
-}
+type CreateLinkOptions = UseMutationOptions<CreateLinkData, LinkVariables>
 
 export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
@@ -35,7 +30,6 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 export const useCreateLink = (
   acter: Acter,
   user: User,
-  displayLinks: LinkType[],
   options?: CreateLinkOptions
 ): [HandleMethod<CreateLinkData>, MutationResult] => {
   const [createLink, mutationResult] = useNotificationMutation<
@@ -52,25 +46,20 @@ export const useCreateLink = (
         data: { createLink: newLink },
       } = result
 
-      const newDisplayLinks = [...displayLinks, newLink]
-
-      cache.writeQuery({
-        query: GET_LINKS,
-        data: {
-          links: newDisplayLinks,
+      cache.modify({
+        fields: {
+          links: (existingLinksRefs) => {
+            const newLinkRef = cache.writeFragment({
+              data: newLink,
+              fragment: LINK_FRAGMENT,
+              fragmentName: 'LinkDisplay',
+            })
+            return [...existingLinksRefs, newLinkRef]
+          },
         },
       })
     },
-    onCompleted: (result) => {
-      const { createLink: newLink } = result
 
-      const newDisplayLinks = [...displayLinks, newLink]
-
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newDisplayLinks)
-
-      return newDisplayLinks
-    },
     getSuccessMessage: () => 'Link created',
   })
 

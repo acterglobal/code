@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { MutationResult } from '@apollo/client'
+import { MutationResult, StoreObject, Cache, Reference } from '@apollo/client'
+import { Modifier } from '@apollo/client/cache/core/types/common'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
-import { createNewPostList } from '@acter/lib/post/create-post-new-postlist'
+import POST_FRAGMENT from '@acter/schema/fragments/post-display.fragment.graphql'
 import { Post as PostType, Acter, User } from '@acter/schema'
 
 export type PostVariables = PostType & {
@@ -15,15 +15,17 @@ export type PostVariables = PostType & {
   authorId: string
 }
 
-type CreatePostData = {
-  createPost: PostType
-}
-interface CreatePostOptions
-  extends UseMutationOptions<CreatePostData, PostVariables> {
-  onCompleted: (DeletePostData) => PostType[] | void
-}
+type CreatePostData = { createPost: PostType }
+type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
 export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+
+interface CacheModifyOptions extends Cache.ModifyOptions {
+  fields: {
+    posts?: Modifier<Reference[]>
+    Comments?: Modifier<Reference[]>
+  }
+}
 
 /**
  * Custom hook that creates new post
@@ -34,7 +36,6 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 export const useCreatePost = (
   acter: Acter,
   user: User,
-  displayPostList: PostType[],
   options?: CreatePostOptions
 ): [HandleMethod<CreatePostData>, MutationResult] => {
   const [isComment, setIsComment] = useState(false)
@@ -53,24 +54,30 @@ export const useCreatePost = (
         data: { createPost: newPost },
       } = result
 
-      const newPostList = createNewPostList(newPost, displayPostList)
+      const updatePostList = (existingPostRefs = []) => {
+        const newPostRef: Reference = cache.writeFragment({
+          data: newPost,
+          fragment: POST_FRAGMENT,
+          fragmentName: 'PostDisplay',
+        })
+        return isComment
+          ? [...existingPostRefs, newPostRef] // new comment appends end of list
+          : [newPostRef, ...existingPostRefs] // new post appends beginning of list
+      }
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        data: {
-          posts: newPostList,
+      const cacheOptions: CacheModifyOptions = {
+        fields: {
+          posts: !newPost.parentId ? updatePostList : undefined,
+          Comments: newPost.parentId ? updatePostList : undefined,
         },
-      })
-    },
-    onCompleted: (result) => {
-      const { createPost: newPost } = result
+      }
 
-      const newPostList = createNewPostList(newPost, displayPostList)
+      if (newPost.parentId) {
+        const parentPost = (newPost.Parent as unknown) as StoreObject
+        cacheOptions.id = cache.identify(parentPost)
+      }
 
-      typeof options?.onCompleted === 'function' &&
-        options.onCompleted(newPostList)
-
-      return newPostList
+      cache.modify(cacheOptions)
     },
     getSuccessMessage: () => (isComment ? 'Comment created' : 'Post created'),
   })

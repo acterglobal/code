@@ -19,5 +19,8 @@ mutation CreatePost(
     Comments {
       ...PostDisplay
     }
+    Parent {
+      id
+    }
   }
 }

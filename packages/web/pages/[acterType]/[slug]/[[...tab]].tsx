@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { NextPage } from 'next'
 import {
   composeProps,
@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, ActerType, InterestType, Post, User, Link } from '@acter/schema'
+import { Acter, ActerType, InterestType, User, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -28,13 +28,15 @@ import { GroupLanding, GroupLandingProps } from '@acter/components/group'
 import { ActerTypes } from '@acter/lib/constants'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { updateActerGroups } from '@acter/lib/group/update-acter-groups'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
+import { useQuery } from '@apollo/client'
+import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -56,7 +58,6 @@ interface ActerLandingPageProps {
   acterTypes: ActerType[]
   interestTypes: InterestType[]
   user: User
-  posts: Post[]
   links: Link[]
 }
 
@@ -65,54 +66,51 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acterTypes,
   interestTypes,
   user,
-  posts,
   links,
 }) => {
-  //TODO: use apollo client reactive variables instead of state
-  const [displayActer, setDisplayActer] = useState(acter)
-  const [displayPostList, setDisplayPostList] = useState(posts)
+  /* This query call fetches the data from cache whenever cache updates */
+  const { data: acterData } = useQuery(QUERY_ACTER, {
+    variables: {
+      acterTypeId: acter.ActerType.id,
+      slug: acter.slug,
+    },
+  })
 
-  useEffect(() => {
-    setDisplayActer(acter)
-  }, [acter])
+  const { findFirstActer: displayActer } = acterData
 
-  useEffect(() => {
-    setDisplayPostList(posts)
-  }, [posts])
+  /* This query call fetches the data from cache whenever cache updates */
+  const { data: postsData, loading: postsLoading } = useQuery(GET_POSTS, {
+    variables: {
+      acterId: acter.id,
+    },
+  })
+  if (postsLoading || !postsData) return null
+  const { posts: displayPostList } = postsData
 
   const View = getActerView(displayActer)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createGroup] = useCreateActer({
-    onCompleted: ({ createActer }) => {
-      setDisplayActer(updateActerGroups(displayActer, createActer))
-    },
-  })
-  const [updateGroup] = useUpdateActer(displayActer, {
-    onCompleted: ({ updateActer }) =>
-      setDisplayActer(updateActerGroups(displayActer, updateActer)),
-  })
+  const [createGroup] = useCreateActer(displayActer)
+  const [updateGroup] = useUpdateActer(displayActer)
 
-  const [createPost] = useCreatePost(acter, user, displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
+  const [createPost] = useCreatePost(displayActer, user)
+  const [deletePost] = useDeletePost(displayPostList)
+  const [updatePost] = useUpdatePost(displayPostList)
 
-  const [deletePost] = useDeletePost(displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(displayActer)
 
-  const [updatePost] = useUpdatePost(displayPostList, {
-    onCompleted: setDisplayPostList,
-  })
+  const [
+    updateActerConnection,
+    { loading: updatingConnection },
+  ] = useUpdateActerConnection(displayActer)
 
-  const [createActerConnection, { loading: creatingConnection }] =
-    useCreateActerConnection(displayActer)
-
-  const [updateActerConnection, { loading: updatingConnection }] =
-    useUpdateActerConnection(displayActer)
-
-  const [deleteActerConnection, { loading: deletingConnection }] =
-    useDeleteActerConnection(displayActer)
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(displayActer)
 
   return (
     <Layout
