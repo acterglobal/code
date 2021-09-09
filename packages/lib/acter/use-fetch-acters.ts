@@ -67,7 +67,7 @@ export const useFetchActers = (
     ...restQueryResult
   } = usePaginatedQuery(queries[searchType], resultKey, {
     variables: searchVariables,
-    pageSize: 5,
+    pageSize: 20,
     onCompleted: (data) => setActers(data[resultKey]),
   })
 

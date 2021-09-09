@@ -25,22 +25,18 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
   const { acters, loading, loadMore, hasMore } = useFetchActers(searchType)
 
   return (
-    <Box className={clsx(classes.root, classes[searchType])}>
+    <Box className={classes.root}>
       {loading ? (
         <Box className={classes.loading}>
           <CircularProgress color="inherit" size={60} thickness={2} />
         </Box>
       ) : acters.length !== 0 ? (
         <InfiniteScroll
+          className={clsx(classes[searchType])}
           dataLength={acters.length}
           next={loadMore}
           hasMore={hasMore}
           loader={<span>Loading...</span>}
-          endMessage={
-            <p style={{ textAlign: 'center' }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
         >
           {acters.map((acter, index) => (
             <Box className={classes.singleItem} key={index} role="listitem">
