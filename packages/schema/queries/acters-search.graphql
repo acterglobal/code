@@ -12,6 +12,7 @@ query ActersSearch(
     take: $take
     skip: $skip
     cursor: $cursor
+    orderBy: { name: asc }
     where: {
       AND: [
         { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
