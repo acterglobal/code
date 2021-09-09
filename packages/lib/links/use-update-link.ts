@@ -31,6 +31,7 @@ export const useUpdateLink = (
   acter: Acter,
   options?: UpdateLinkOptions
 ): [HandleMethod<UpdateLinkData>, MutationResult] => {
+  const { user } = useUser()
   const [updateLink, mutationResult] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
@@ -38,9 +39,10 @@ export const useUpdateLink = (
     ...options,
     getSuccessMessage: () => 'Link updated',
   })
-  const { user } = useUser()
 
   const handleLink = async (values: LinkVariables) => {
+    if (!user) throw 'User is not set'
+
     updateLink({
       variables: {
         ...values,

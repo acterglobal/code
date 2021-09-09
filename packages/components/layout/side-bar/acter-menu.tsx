@@ -40,10 +40,12 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, links }) => {
   const classes = useStyles()
 
   const { user } = useUser()
+  if (!user) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
-  const { notifications } = useFetchNotifications(user)
+  const { notifications } = useFetchNotifications()
   const getNotifications = (type: NotificationType) =>
     notifications[acter.id]?.filter(
       (notification) => notification.type === type

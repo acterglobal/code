@@ -84,6 +84,7 @@ export const useCreatePost = (
   })
 
   const handlePost = async (values: PostVariables) => {
+    if (!user) throw 'User is not set.'
     setIsComment(values.parentId ? true : false)
     createPost({
       variables: {

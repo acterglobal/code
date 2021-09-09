@@ -20,9 +20,8 @@ export const Dashboard: FC = () => {
 
   const { user, loading } = useUser()
 
-  if (loading) {
-    return <>Loading...</>
-  }
+  if (loading) return <>Loading...</>
+  if (!user) return null
 
   const acters = flattenFollowing(user?.Acter)
   if (acters.length === 0) {

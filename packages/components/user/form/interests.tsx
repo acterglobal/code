@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Form as FormikForm, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import {
   InterestsAddSection,
   InterestAddSectionValues,
@@ -31,10 +31,10 @@ export const ProfileInterestsForm: FC<ProfileInterestsFormProps> = ({
   return (
     <ProfileFormLayout>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <FormikForm>
+        <Form>
           <InterestsAddSection interestTypes={interestTypes} />
           <FormButtons align="right" hideUnlessDirty={true} />
-        </FormikForm>
+        </Form>
       </Formik>
     </ProfileFormLayout>
   )

@@ -40,9 +40,7 @@ export const PostList: FC<PostListProps> = ({
     ({ Follower }) => Follower.id === user?.Acter.id
   )
 
-  if (!user || !isUserActerFollower) {
-    return null
-  }
+  if (!user || !isUserActerFollower) return null
 
   return (
     <Box className={classes.mainContainer}>

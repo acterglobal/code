@@ -178,6 +178,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   }
 
   const { user } = useUser()
+  if (!user) return null
 
   // Fake an acter to determine potential followers when this is a new Activity
   const checkActer = acter

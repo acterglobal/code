@@ -20,6 +20,7 @@ export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
   const [openModal, setOpenModal] = useState(false)
 
   const { user } = useUser()
+  if (!user) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
     user,

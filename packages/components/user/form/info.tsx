@@ -19,11 +19,11 @@ export interface ProfileInfoFormValues {
 export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
   const { user, loading } = useUser()
+
   const [updateActer] = useUpdateActer(user?.Acter)
 
-  if (loading || !user) {
-    return <>Loading...</>
-  }
+  if (loading) return <>Loading...</>
+  if (!user) return null
 
   const { email } = user
   const { avatarUrl, name, description, location } = user.Acter

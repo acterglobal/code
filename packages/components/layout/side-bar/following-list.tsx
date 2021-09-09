@@ -25,16 +25,16 @@ export const FollowingList: FC = () => {
   const { user, loading } = useUser()
 
   const followingActers = excludeActerTypes(
-    user.Acter.Following.map(({ Following }) => Following),
+    user?.Acter.Following.map(({ Following }) => Following),
     [ACTIVITY, USER, GROUP]
   )
 
-  const { notifications } = useFetchNotifications(user)
+  const { notifications } = useFetchNotifications()
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 
-  if (!user) return null
   if (loading) return <>Loading...</>
+  if (!user) return null
 
   return (
     <>

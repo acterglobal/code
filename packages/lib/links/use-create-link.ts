@@ -32,6 +32,8 @@ export const useCreateLink = (
   acter: Acter,
   options?: CreateLinkOptions
 ): [HandleMethod<CreateLinkData>, MutationResult] => {
+  const { user } = useUser()
+
   const [createLink, mutationResult] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
@@ -63,9 +65,9 @@ export const useCreateLink = (
     getSuccessMessage: () => 'Link created',
   })
 
-  const { user } = useUser()
-
   const handleLink = async (values: LinkVariables) => {
+    if (!user) throw 'User is not set'
+
     createLink({
       variables: {
         ...values,
