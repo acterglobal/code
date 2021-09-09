@@ -9,7 +9,7 @@ import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
-import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
 export interface SearchProps {
   searchType: SearchType
@@ -23,7 +23,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const { acters } = useFetchActers(searchType)
+  const { acters } = useActerSearch(searchType)
 
   const handleInputChange = (inputText: string) => setSearchText(inputText)
 

@@ -24,7 +24,7 @@ interface SearchVariables {
   types?: string[]
 }
 
-interface UseFetchActersQueryResults {
+interface useActerSearchQueryResults {
   acters: Acter[]
   loading: boolean
   error: ApolloError
@@ -37,9 +37,9 @@ interface UseFetchActersQueryResults {
  * @param searchType to use the search query for acter or activities
  * @returns acter/activities list, loading status, error, rest of the query results
  */
-export const useFetchActers = (
+export const useActerSearch = (
   searchType: SearchType
-): UseFetchActersQueryResults => {
+): useActerSearchQueryResults => {
   const router = useRouter()
 
   const { search, interests, sortBy: sort, types } = router.query

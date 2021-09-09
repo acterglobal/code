@@ -3,22 +3,22 @@ import { render, screen } from '@acter/lib/test-utils'
 import { Search } from '@acter/components/search'
 import { SearchType } from '@acter/lib/constants'
 import { ExampleActer } from '@acter/schema/fixtures'
-import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
 jest.mock('@acter/lib/acter/use-fetch-acters')
 
 describe('Display search results', () => {
-  const mockUseFetchActers = useFetchActers as jest.Mock
-  const defaultMockUseFetchActers = {
+  const mockuseActerSearch = useActerSearch as jest.Mock
+  const defaultMockuseActerSearch = {
     loadMore: () => null,
     hasMore: true,
   }
 
   it('should display number of results', async () => {
     const acters = [...Array(4)].map(() => ExampleActer)
-    const mockUseFetchActers = useFetchActers as jest.Mock
-    mockUseFetchActers.mockReturnValue({
-      ...defaultMockUseFetchActers,
+    const mockuseActerSearch = useActerSearch as jest.Mock
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
       acters,
     })
 
@@ -29,8 +29,8 @@ describe('Display search results', () => {
   })
 
   it('should display zero results', async () => {
-    mockUseFetchActers.mockReturnValue({
-      ...defaultMockUseFetchActers,
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
       acters: [],
     })
 
@@ -42,9 +42,9 @@ describe('Display search results', () => {
 
   it('should display one result', async () => {
     const acters = [ExampleActer]
-    const mockUseFetchActers = useFetchActers as jest.Mock
-    mockUseFetchActers.mockReturnValue({
-      ...defaultMockUseFetchActers,
+    const mockuseActerSearch = useActerSearch as jest.Mock
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
       acters,
     })
     render(<Search searchType={SearchType.ACTERS} interestTypes={[]} />)

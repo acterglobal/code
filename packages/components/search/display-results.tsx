@@ -9,7 +9,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Link } from '@acter/components/util/anchor-link'
 import clsx from 'clsx'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
@@ -22,7 +22,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
   interestTypes,
 }) => {
   const classes = useStyles()
-  const { acters, loading, loadMore, hasMore } = useFetchActers(searchType)
+  const { acters, loading, loadMore, hasMore } = useActerSearch(searchType)
 
   return (
     <Box className={classes.root}>

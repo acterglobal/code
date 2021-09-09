@@ -8,15 +8,15 @@ import {
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useFetchActers } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
 jest.mock('@acter/lib/acter/use-fetch-acters')
 
 describe('Display search results', () => {
-  const mockUseFetchActers = useFetchActers as jest.Mock
+  const mockuseActerSearch = useActerSearch as jest.Mock
 
   it('should display search results with a list of Acters', async () => {
-    mockUseFetchActers.mockReturnValue({ acters: ExampleActerList })
+    mockuseActerSearch.mockReturnValue({ acters: ExampleActerList })
 
     render(
       <DisplayResults
@@ -42,7 +42,7 @@ describe('Display search results', () => {
       ...acter,
       Activity: ExampleActivity,
     }))
-    mockUseFetchActers.mockReturnValue({ acters: activities })
+    mockuseActerSearch.mockReturnValue({ acters: activities })
 
     render(
       <DisplayResults
@@ -67,7 +67,7 @@ describe('Display search results', () => {
   })
 
   it('should display a message with no search results', async () => {
-    mockUseFetchActers.mockReturnValue({ acters: [] })
+    mockuseActerSearch.mockReturnValue({ acters: [] })
 
     render(
       <DisplayResults
