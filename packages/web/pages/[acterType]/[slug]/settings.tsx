@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { ActerSettings } from '@acter/components/acter/settings'
-import { Acter, ActerConnectionRole, ActerType, User } from '@acter/schema'
+import { Acter, ActerConnectionRole, User } from '@acter/schema'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
@@ -27,13 +27,11 @@ import { ActerTypes } from '@acter/lib/constants'
 
 interface ActerSettingsPageProps {
   acter: Acter
-  acterTypes: ActerType[]
   user: User
 }
 
 export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   acter,
-  acterTypes,
   user,
 }) => {
   /* This query call fetches the cache data whenever cache updates */
@@ -67,7 +65,6 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   return (
     <Layout
       acter={displayActer}
-      acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createGroup}
       links={displayLinks}

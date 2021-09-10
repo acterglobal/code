@@ -17,18 +17,16 @@ import {
   MembersSectionProps,
 } from '@acter/components/group/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
-import { ActerType, Acter } from '@acter/schema'
+import { Acter } from '@acter/schema'
 
 export type GroupLandingProps = HeaderSectionProps &
   MembersSectionProps &
   PostListProps & {
-    acterTypes: ActerType[]
     onGroupSubmit: (groupData: Acter) => void
   }
 
 export const GroupLanding: FC<GroupLandingProps> = ({
   acter,
-  acterTypes,
   user,
   onJoin,
   onLeave,
@@ -45,7 +43,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
     <Box className={classes.root}>
       <HeaderSection
         acter={acter}
-        acterTypes={acterTypes}
         user={user}
         onGroupSubmit={onGroupSubmit}
         onJoin={onJoin}

@@ -11,23 +11,24 @@ import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
 import { useRouter } from 'next/router'
 import { SearchTypes } from '@acter/components/layout/side-bar/search-menu/types'
-import { ActerType, ActivityType } from '@acter/schema'
 import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
+import { LoadingSpinner } from '@acter/components/util/load-spinner'
 
 export interface SearchMenuProps {
-  acterTypes: (ActerType | ActivityType)[]
   searchType: SearchType
 }
 
-export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
+export const SearchMenu: FC<SearchMenuProps> = ({ searchType }) => {
   const classes = useStyles()
   const router = useRouter()
   const { types } = router.query
+  const { acterTypes, loading } = useActerTypes()
 
   const { USER, ACTIVITY, GROUP } = ActerTypes
   const { MEETING } = ActivityTypes
 
-  const subTypes = acterTypes.filter(
+  const subTypes = (acterTypes || []).filter(
     (type) =>
       ![ACTIVITY, MEETING, GROUP, USER].includes(type.name as ActerTypes)
   )
@@ -44,6 +45,9 @@ export const SearchMenu: FC<SearchMenuProps> = ({ acterTypes, searchType }) => {
       },
     })
   }, [filterSubTypes])
+
+  if (loading) return <LoadingSpinner />
+  if (!acterTypes) return
 
   return (
     <Box className={classes.root}>
