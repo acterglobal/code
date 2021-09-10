@@ -7,27 +7,31 @@
   "scripts": {
     "build": "yarn prisma generate",
     "db:migrate": "yarn db:migrate:run --create-only",
-    "db:migrate:run": "yarn env-cmd prisma migrate dev --preview-feature",
-    "db:reset": "yarn env-cmd prisma migrate reset --preview-feature",
-    "db:seed": "yarn env-cmd prisma db seed --preview-feature",
-    "env-cmd": "env-cmd --silent --file ../../.env",
-    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
+    "db:migrate:run": "yarn env-cmd prisma migrate dev",
+    "db:migrate:prod": "yarn env-cmd migrate deploy",
+    "db:reset": "yarn env-cmd prisma migrate reset",
+    "db:seed": "yarn env-cmd prisma db seed",
+    "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.4.2",
-    "@prisma/client": "~2.29.1",
+    "@prisma/client": "3.0.1",
     "bull": "^3.22.10",
     "env-cmd": "^10.1.0",
     "fp-ts": "^2.10.5",
     "graphql-fields": "^2.0.3",
+    "prisma": "3.0.1",
     "type-graphql": "^1.1.1",
-    "typegraphql-prisma": "0.14.8",
+    "typegraphql-prisma": "0.16.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bull": "^3.15.2",
-    "prisma": "~2.29.1",
-    "ts-node": "^10.0.0",
+    "@types/node": "^16.9.1",
+    "ts-node": "^10.2.1",
     "typescript": "*"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

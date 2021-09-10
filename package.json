@@ -25,6 +25,7 @@
     "generate": "yarn workspace @acter/schema build",
     "db:migrate": "yarn workspace @acter/schema db:migrate",
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
+    "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
     "db:seed": "yarn workspace @acter/schema db:seed",
     "build-storybook": "build-storybook"
