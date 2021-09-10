@@ -16,7 +16,6 @@ import {
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Acter, ActerConnectionRole, User } from '@acter/schema'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
@@ -42,6 +41,8 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
     },
   })
 
+  const [updateActer, { loading }] = useUpdateActer(acterData)
+
   /* This query call fetches the cache data whenever cache updates */
   const { data: linksData } = useQuery(QUERY_LINKS_BY_ACTER, {
     variables: {
@@ -53,28 +54,18 @@ export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
   const { findFirstActer: displayActer } = acterData
   const { links: displayLinks } = linksData
 
-  const [createGroup] = useCreateActer(displayActer)
-  const [updateGroup, { loading: updateGroupLoading }] = useUpdateActer(
-    displayActer
-  )
-
   const [createLink] = useCreateLink(acter, user)
   const [updateLink] = useUpdateLink(acter, user)
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout
-      acter={displayActer}
-      user={user}
-      onGroupSubmit={createGroup}
-      links={displayLinks}
-    >
+    <Layout acter={displayActer} user={user} links={displayLinks}>
       <Head title={`${acter.name} Settings - Acter`} />
       <main>
         <ActerSettings
           acter={displayActer}
-          onSettingsChange={updateGroup}
-          loading={updateGroupLoading}
+          onSettingsChange={updateActer}
+          loading={loading}
           links={displayLinks}
           onLinkSubmit={createLink}
           onLinkUpdate={updateLink}

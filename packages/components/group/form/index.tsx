@@ -19,6 +19,8 @@ import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-nam
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
@@ -26,7 +28,6 @@ export interface GroupFormProps {
   submitButtonLabel: string
   openModal: boolean
   setModal: (open: boolean) => void
-  onGroupSubmit: (groupData: Acter) => void
 }
 
 export const GroupForm: FC<GroupFormProps> = ({
@@ -35,7 +36,6 @@ export const GroupForm: FC<GroupFormProps> = ({
   modalHeading,
   submitButtonLabel,
   openModal,
-  onGroupSubmit,
   setModal,
 }) => {
   const classes = useStyles()
@@ -49,11 +49,14 @@ export const GroupForm: FC<GroupFormProps> = ({
 
   const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
 
+  const [createGroup] = useCreateSubGroup(parentActer)
+  const [updateGroup] = useUpdateActer(acter)
+
   const initialValues = {
     name: '',
     description: '',
     parentActerId: parentActer.id,
-    acterTypeId: acterType.id,
+    acterTypeId: acterType?.id,
     ...acter,
   }
 
@@ -61,7 +64,8 @@ export const GroupForm: FC<GroupFormProps> = ({
     data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    onGroupSubmit({ ...data })
+    const save = acter?.id ? updateGroup : createGroup
+    save({ ...data })
     handleModalClose()
   }
   const handleModalClose = () => setModal(!openModal)

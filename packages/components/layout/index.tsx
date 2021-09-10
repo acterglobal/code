@@ -9,7 +9,6 @@ import { useIntercom } from 'react-use-intercom'
 export interface LayoutProps {
   acter?: Acter
   children: React.ReactNode
-  onGroupSubmit?: (groupData: Acter) => void
   searchType?: SearchType
   user?: User
   links?: LinkType[]
@@ -21,7 +20,6 @@ export const Layout: FC<LayoutProps> = ({
   links,
   children,
   searchType,
-  onGroupSubmit,
 }) => {
   const classes = useStyles()
   const { boot } = useIntercom()
@@ -36,7 +34,6 @@ export const Layout: FC<LayoutProps> = ({
         acter={acter}
         user={user}
         searchType={searchType}
-        onGroupSubmit={onGroupSubmit}
         links={links}
       />
       <Container maxWidth="xl" className={classes.container}>
