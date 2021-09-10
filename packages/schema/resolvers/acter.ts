@@ -56,7 +56,9 @@ export class ActerResolver {
     const slug = await createSlug(
       ctx,
       name,
-      [GROUP, ACTIVITY].includes(acterType.name) ? parentActerId : null
+      [GROUP, ACTIVITY].includes(acterType.name as ActerTypes)
+        ? parentActerId
+        : null
     )
 
     const existingActer = await ctx.prisma.acter.findFirst({

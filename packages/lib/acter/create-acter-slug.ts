@@ -13,17 +13,22 @@ export const createSlug = async (
   acterName: string,
   parentActerId: string | null = null
 ): Promise<string> => {
-  const { slug: parentSlug } = await ctx.prisma.acter.findFirst({
-    select: { slug: true },
-    where: {
-      id: parentActerId,
-      ActerType: { name: { notIn: [ActerTypes.USER] } },
-    },
-  })
+  const getParentSlug = async () => {
+    const { slug } = await ctx.prisma.acter.findFirst({
+      select: { slug: true },
+      where: {
+        id: parentActerId,
+        ActerType: { name: { notIn: [ActerTypes.USER] } },
+      },
+    })
+    return slug
+  }
+
+  const parentActerSlug = parentActerId ? await getParentSlug() : null
 
   const slugifyString =
     parentActerId !== null
-      ? `${parentSlug} ${acterName.toLocaleLowerCase()}`
+      ? `${parentActerSlug} ${acterName.toLocaleLowerCase()}`
       : acterName.toLocaleLowerCase()
 
   return slugify(slugifyString)
