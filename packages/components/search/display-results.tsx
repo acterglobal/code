@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Box, CircularProgress, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { InterestType } from '@acter/schema'
@@ -9,20 +9,26 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Link } from '@acter/components/util/anchor-link'
 import clsx from 'clsx'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-acter-search'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
   searchType: SearchType
   interestTypes: InterestType[]
+  setResultCount?: (number) => void
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = ({
   searchType,
   interestTypes,
+  setResultCount,
 }) => {
   const classes = useStyles()
   const { acters, loading, loadMore, hasMore } = useActerSearch(searchType)
+
+  useEffect(() => {
+    setResultCount?.(acters?.length || 0)
+  }, [acters?.length])
 
   return (
     <Box className={classes.root}>

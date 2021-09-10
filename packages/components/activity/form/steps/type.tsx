@@ -11,11 +11,11 @@ import {
   Theme,
 } from '@material-ui/core'
 import { NavigateNextOutlined } from '@material-ui/icons'
+import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { ActivityType } from '@acter/schema'
+import { LoadingSpinner } from '@acter/components/util/load-spinner'
 
 export interface ActivityTypeStepProps {
-  activityTypes: ActivityType[]
   onClick: (activityTypeId: string) => void
 }
 
@@ -23,11 +23,13 @@ export interface ActivityTypeStepValues {
   activityTypeId: string
 }
 
-export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({
-  activityTypes,
-  onClick,
-}) => {
+export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({ onClick }) => {
   const classes = useStyles()
+  const { activityTypes, loading } = useActivityTypes()
+
+  if (loading) return <LoadingSpinner />
+  if (!activityTypes) return null
+
   const { setFieldValue } = useFormikContext()
   const handleClick = (activityTypeId: string) => {
     setFieldValue('activityTypeId', activityTypeId)

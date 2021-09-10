@@ -13,7 +13,6 @@ import {
 } from '@acter/components/activity/form/steps/type'
 import {
   BasicsStep,
-  BasicsStepProps,
   BasicsStepValues,
 } from '@acter/components/activity/form/steps/basics'
 import {
@@ -32,6 +31,8 @@ import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
+import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
+import { LoadingSpinner } from '@acter/components/util/load-spinner'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]
@@ -45,7 +46,6 @@ const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
 
 export interface ActivityFormProps
   extends Omit<ActivityTypeStepProps, 'onClick'>,
-    BasicsStepProps,
     DetailsStepProps,
     Omit<SettingsStepProps, 'acters'> {
   /**
@@ -79,11 +79,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   acter,
   user,
   interestTypes,
-  activityTypes,
   onSubmit,
 }) => {
   const router = useRouter()
   const classes = useStyles()
+  const { activityTypes, loading } = useActivityTypes()
+
   const [activityType, setActivityType] = useState(null)
   const [heading, setHeading] = useState('')
   const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
@@ -129,6 +130,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
       setHeading(`Add Activity`)
     }
   }, [activeStep])
+
+  if (loading) return <LoadingSpinner />
+  if (!activityTypes) return null
 
   const handleOnClick = (activityTypeId: string) => {
     setActivityType(getActivityTypeNameById(activityTypeId, activityTypes))
@@ -210,16 +214,11 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                   )}
                 >
                   {steps[activeStep] === ActivityTypeStep && (
-                    <ActivityTypeStep
-                      activityTypes={activityTypes}
-                      onClick={handleOnClick}
-                    />
+                    <ActivityTypeStep onClick={handleOnClick} />
                   )}
                   <>
                     {steps[activeStep] === MeetingStep && <MeetingStep />}
-                    {steps[activeStep] === BasicsStep && (
-                      <BasicsStep activityTypes={activityTypes} />
-                    )}
+                    {steps[activeStep] === BasicsStep && <BasicsStep />}
                     {steps[activeStep] == SettingsStep && (
                       <SettingsStep acters={acters} />
                     )}

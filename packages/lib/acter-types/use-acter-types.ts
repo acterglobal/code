@@ -15,6 +15,6 @@ export const useActerTypes = (): ActerTypesQueryResult => {
 
   return {
     ...queryResult,
-    acterTypes: queryResult.data.acterTypes,
+    acterTypes: queryResult?.data?.acterTypes,
   }
 }

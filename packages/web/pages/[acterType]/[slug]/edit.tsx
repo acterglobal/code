@@ -21,16 +21,9 @@ import {
   setActerType,
   getInterests,
   getActer,
-  getActivityTypes,
 } from 'props'
 
-import {
-  Acter,
-  ActerType,
-  ActivityType,
-  InterestType,
-  User,
-} from '@acter/schema'
+import { Acter, ActerType, InterestType, User } from '@acter/schema'
 
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
@@ -50,10 +43,6 @@ interface NewActerPageProps {
    */
   interestTypes: InterestType[]
   /**
-   * All activity types
-   */
-  activityTypes: ActivityType[]
-  /**
    * The logged in user
    */
   user?: User
@@ -62,20 +51,23 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   acter,
   acterType,
   interestTypes,
-  activityTypes,
   user,
 }) => {
   const router: NextRouter = useRouter()
-  const [updateActer, { loading: updateActerLoading }] =
-    useNotificationMutation(UPDATE_ACTER, {
-      getSuccessMessage: (data) => `${data.updateActer.name} updated`,
-      onCompleted: () => router.push(acterAsUrl({ acter })),
-    })
-  const [updateActivity, { loading: updateActivityLoading }] =
-    useNotificationMutation(UPDATE_ACTIVITY, {
-      getSuccessMessage: () => 'Activity updated',
-      onCompleted: () => router.push(acterAsUrl({ acter })),
-    })
+  const [
+    updateActer,
+    { loading: updateActerLoading },
+  ] = useNotificationMutation(UPDATE_ACTER, {
+    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+    onCompleted: () => router.push(acterAsUrl({ acter })),
+  })
+  const [
+    updateActivity,
+    { loading: updateActivityLoading },
+  ] = useNotificationMutation(UPDATE_ACTIVITY, {
+    getSuccessMessage: () => 'Activity updated',
+    onCompleted: () => router.push(acterAsUrl({ acter })),
+  })
 
   const Form =
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
@@ -89,7 +81,6 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           acterType={acterType}
           user={user}
           interestTypes={interestTypes}
-          activityTypes={activityTypes}
           onSubmit={getUpdateFunction({ acter, updateActivity, updateActer })}
           loading={updateActerLoading || updateActivityLoading}
         />
@@ -105,8 +96,7 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getActerTypes,
     setActerType,
     getInterests,
-    getActer,
-    getActivityTypes
+    getActer
   )
 
 export default NewActerPage

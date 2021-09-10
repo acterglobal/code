@@ -6,7 +6,6 @@ import {
   ActivityFormValues,
 } from '@acter/components/activity/form'
 import {
-  ActivityTypes,
   ExampleActer,
   ExampleUser,
   ExampleUserActer,
@@ -17,7 +16,6 @@ import {
 } from '@acter/schema/fixtures'
 
 const args: ActivityFormProps = {
-  activityTypes: ActivityTypes,
   interestTypes: Interests.data.interestTypes,
   user: {
     ...ExampleUser,

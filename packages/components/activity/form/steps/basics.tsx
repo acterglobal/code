@@ -14,11 +14,6 @@ import {
   StartEndTimeDatePickerValues,
 } from '@acter/components/activity/form/fields/start-end-date-time-picker'
 import { FormSection } from '@acter/components/styled/form-section'
-import { ActivityType } from '@acter/schema'
-
-export interface BasicsStepProps {
-  activityTypes: ActivityType[]
-}
 
 export interface BasicsStepValues
   extends LocationVenuePickerValues,
@@ -31,7 +26,7 @@ export interface BasicsStepValues
   endTime: Date
 }
 
-export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
+export const BasicsStep: FC = () => {
   const classes = useStyles()
   const { values } = useFormikContext<BasicsStepValues>()
   const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
@@ -63,7 +58,6 @@ export const BasicsStep: FC<BasicsStepProps> = ({ activityTypes }) => {
       {values.id && (
         <FormSection>
           <SelectActivityType
-            activityTypes={activityTypes}
             selectedTypeId={selectedTypeId}
             onChange={handleSelectedType}
           />

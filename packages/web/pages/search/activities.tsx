@@ -8,11 +8,10 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 import { getUserProfile, getInterests } from 'props'
-import { ActivityType, InterestType, User } from '@acter/schema'
+import { InterestType, User } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 
 interface SearchPageProps {
-  activityTypes: ActivityType[]
   interestTypes: InterestType[]
   user?: User
 }
