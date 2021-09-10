@@ -6,21 +6,27 @@ import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item
 import { ExampleActer } from '@acter/schema/fixtures'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/get-landing-page-tab')
 jest.mock('@acter/lib/notification/use-update-notifications')
+jest.mock('@acter/lib/acter-types/use-acter-types')
 
 describe('ActerMenuItem', () => {
   const mockNextRouter = useRouter as jest.Mock
   const mockGetLandingPageTab = getLandingPageTab as jest.Mock
   const mockUseUpdateNotifications = useUpdateNotifications as jest.Mock
+  const mockUseActerTypes = useActerTypes as jest.Mock
 
   beforeEach(() => {
     mockNextRouter.mockClear()
     mockNextRouter.mockReturnValue({ query: {} })
     mockGetLandingPageTab.mockReturnValue('foo')
     mockUseUpdateNotifications.mockReturnValue([])
+    mockUseActerTypes.mockReturnValue({
+      acterTypes: [],
+    })
   })
 
   it('should render an item', () => {

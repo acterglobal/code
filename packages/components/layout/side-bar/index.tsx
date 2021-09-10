@@ -38,7 +38,6 @@ export type SidebarProps = ActerMenuProps &
 
 export const Sidebar: FC<SidebarProps> = ({
   acter,
-  acterTypes,
   searchType,
   user,
   links,
@@ -88,16 +87,13 @@ export const Sidebar: FC<SidebarProps> = ({
         <Box className={classes.subMenu}>
           <ActerMenu
             acter={acter}
-            acterTypes={acterTypes}
             onGroupSubmit={onGroupSubmit}
             user={user}
             links={links}
           />
         </Box>
       )}
-      {searchType && (
-        <SearchMenu acterTypes={acterTypes} searchType={searchType} />
-      )}
+      {searchType && <SearchMenu searchType={searchType} />}
     </Drawer>
   )
 }

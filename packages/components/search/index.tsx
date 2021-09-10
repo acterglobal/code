@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -9,7 +9,6 @@ import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
-import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
 export interface SearchProps {
   searchType: SearchType
@@ -22,8 +21,8 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
-
-  const { acters } = useActerSearch(searchType)
+  const [searchReady, setSearchReady] = useState(false)
+  const [resultCount, setResultCount] = useState(0)
 
   const handleInputChange = (inputText: string) => setSearchText(inputText)
 
@@ -49,6 +48,14 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
     })
   }
 
+  useEffect(() => {
+    if (!router.query?.types) return setSearchReady(false)
+    const types = Array.isArray(router.query.types)
+      ? router.query.types
+      : [router.query.types]
+    setSearchReady(types.length >= 0)
+  }, [router.query?.types])
+
   return (
     <Box className={classes.root}>
       <Box className={classes.searchSection}>
@@ -64,7 +71,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
               variant="body2"
               aria-label="search-results"
             >
-              {acters?.length} {acters?.length === 1 ? 'Result' : 'Results'}
+              {resultCount} {resultCount === 1 ? 'Result' : 'Results'}
             </Typography>
             <Box className={classes.searchInput}>
               <SearchBar handleInputChange={handleInputChange} />
@@ -90,7 +97,21 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
         </Grid>
       </Box>
 
-      <DisplayResults searchType={searchType} interestTypes={interestTypes} />
+      {!searchReady && (
+        <Box className={classes.emptySearchTypesMessage}>
+          <Typography variant="body2">
+            You must select at least one type on the left to search
+          </Typography>
+        </Box>
+      )}
+
+      {searchReady && (
+        <DisplayResults
+          searchType={searchType}
+          interestTypes={interestTypes}
+          setResultCount={setResultCount}
+        />
+      )}
     </Box>
   )
 }
@@ -113,6 +134,9 @@ const useStyles = makeStyles((theme: Theme) =>
     searchSectionItem: {
       display: 'flex',
       alignItems: 'center',
+    },
+    emptySearchTypesMessage: {
+      marginTop: theme.spacing(5),
     },
     results: {
       color: theme.palette.secondary.main,
