@@ -61,7 +61,7 @@ export const SearchMenu: FC<SearchMenuProps> = ({ searchType }) => {
   }, [filterSubTypes])
 
   if (acterTypesLoading || activityTypesLoading) return <LoadingSpinner />
-  if (!acterTypes || !activityTypes) return
+  if (!acterTypes || !activityTypes) return null
 
   return (
     <Box className={classes.root}>
