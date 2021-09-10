@@ -26,7 +26,7 @@ describe('usePaginatedQuery', () => {
 
   describe('onComplete', () => {
     const paginationDefaults: Pagination = {
-      cursor: null,
+      cursor: undefined,
       skip: 0,
       take: 10,
     }
@@ -72,7 +72,7 @@ describe('usePaginatedQuery', () => {
       _getOnCompleted(getOnCompletedParams)(data)
       expect(setPagination).toHaveBeenCalledTimes(1)
       expect(setPagination).toHaveBeenCalledWith({
-        cursor: 9,
+        cursor: { id: 9 },
         skip: 1,
         take: 10,
       })
@@ -98,8 +98,8 @@ describe('usePaginatedQuery', () => {
   })
 
   describe('refetch', () => {
-    it('should refetch wtih the same pagination & variables by default', () => {
-      const pagination = { cursor: 'foo', skip: 1, take: 10 }
+    it('should refetch with the same pagination & variables by default', () => {
+      const pagination = { cursor: { id: 'foo' }, skip: 1, take: 10 }
       const variables = { foo: 'bar' }
 
       useQueryMock.mockReturnValue({
@@ -119,7 +119,7 @@ describe('usePaginatedQuery', () => {
     })
 
     it('should refetch with fresh pagination when requested', () => {
-      const pagination = { cursor: 'foo', skip: 1, take: 10 }
+      const pagination = { cursor: { id: 'foo' }, skip: 1, take: 10 }
       const variables = { foo: 'bar' }
 
       useQueryMock.mockReturnValue({

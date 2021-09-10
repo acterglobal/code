@@ -6,14 +6,13 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
+import { typePolicies } from './type-policies'
 
 export const createApolloClient = (
   uri: string
 ): ApolloClient<InMemoryCache | NormalizedCacheObject> => {
   const ssrMode = typeof window === 'undefined'
-  const httpLink = new HttpLink({
-    uri,
-  })
+  const httpLink = new HttpLink({ uri })
 
   const errorLink = onError(({ networkError }) => {
     //@ts-ignore
@@ -25,7 +24,7 @@ export const createApolloClient = (
   })
 
   return new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({ typePolicies }),
     ssrMode,
     link: from([errorLink, httpLink]),
   })

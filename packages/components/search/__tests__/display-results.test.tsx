@@ -3,22 +3,24 @@ import { render, screen, within } from '@acter/lib/test-utils'
 import {
   ExampleActerList,
   ExampleActivity,
-  ExampleActivityActer,
   Interests,
 } from '@acter/schema/fixtures'
-
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
-const { ACTIVITIES, ACTERS } = SearchType
+jest.mock('@acter/lib/acter/use-fetch-acters')
 
 describe('Display search results', () => {
+  const mockuseActerSearch = useActerSearch as jest.Mock
+
   it('should display search results with a list of Acters', async () => {
+    mockuseActerSearch.mockReturnValue({ acters: ExampleActerList })
+
     render(
       <DisplayResults
-        searchType={ACTERS}
-        acters={ExampleActerList}
+        searchType={SearchType.ACTERS}
         interestTypes={Interests.data.interestTypes}
       />
     )
@@ -36,19 +38,21 @@ describe('Display search results', () => {
   })
 
   it('should display search results with a list of Activities', async () => {
-    const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
-    const activities = [...Array(8)].map(() => acter)
+    const activities = ExampleActerList.map((acter) => ({
+      ...acter,
+      Activity: ExampleActivity,
+    }))
+    mockuseActerSearch.mockReturnValue({ acters: activities })
 
     render(
       <DisplayResults
-        searchType={ACTIVITIES}
-        acters={activities}
+        searchType={SearchType.ACTIVITIES}
         interestTypes={Interests.data.interestTypes}
       />
     )
     const items = screen.queryAllByRole('listitem')
 
-    expect(items.length).toBe(8)
+    expect(items.length).toBe(9)
 
     items.map((item, i) => {
       const links = within(item).queryAllByRole('link')
@@ -63,12 +67,11 @@ describe('Display search results', () => {
   })
 
   it('should display a message with no search results', async () => {
-    const acters = []
+    mockuseActerSearch.mockReturnValue({ acters: [] })
 
     render(
       <DisplayResults
-        searchType={ACTERS}
-        acters={acters}
+        searchType={SearchType.ACTERS}
         interestTypes={Interests.data.interestTypes}
       />
     )

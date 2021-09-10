@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function'
-import { Resolver, Query, Arg, Ctx, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { Acter } from '@acter/schema'
 import {
@@ -7,6 +7,7 @@ import {
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { ActerWhereUniqueInput } from '../types'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
@@ -86,74 +87,74 @@ type ActivitySearchWhereClause = {
   AND?: ANDClause
 }
 
-const withNameSearch =
-  (name: string) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (name) {
-      return {
-        ...whereClause,
-        name: {
-          startsWith: name,
-          mode: 'insensitive',
-        },
-      }
+const withNameSearch = (name: string) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (name) {
+    return {
+      ...whereClause,
+      name: {
+        startsWith: name,
+        mode: 'insensitive',
+      },
     }
-    return whereClause
   }
+  return whereClause
+}
 
-const withEndsBeforeSearch =
-  (beforeDateTime: Date) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (beforeDateTime) {
-      return {
-        ...whereClause,
-        Activity: {
-          endAt: {
-            lte: beforeDateTime,
-          },
-        },
-      }
-    }
-
-    return whereClause
-  }
-
-const withInterestsFilter =
-  (interestNames: [string]) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
-    if (interestNames && interestNames.length > 0) {
-      return {
-        ...whereClause,
-        ActerInterests: {
-          some: {
-            Interest: {
-              name: {
-                in: interestNames,
-                mode: 'insensitive',
-              },
-            },
-          },
-        },
-      }
-    }
-    return whereClause
-  }
-
-const withActivityTypesFilter =
-  (activityTypes: [string]) =>
-  (whereClause: ActivitySearchWhereClause): ActivitySearchWhereClause => {
+const withEndsBeforeSearch = (beforeDateTime: Date) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (beforeDateTime) {
     return {
       ...whereClause,
       Activity: {
-        ActivityType: {
-          name: {
-            in: activityTypes,
-            mode: 'insensitive',
+        endAt: {
+          lte: beforeDateTime,
+        },
+      },
+    }
+  }
+
+  return whereClause
+}
+
+const withInterestsFilter = (interestNames: [string]) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  if (interestNames && interestNames.length > 0) {
+    return {
+      ...whereClause,
+      ActerInterests: {
+        some: {
+          Interest: {
+            name: {
+              in: interestNames,
+              mode: 'insensitive',
+            },
           },
         },
       },
     }
   }
+  return whereClause
+}
+
+const withActivityTypesFilter = (activityTypes: [string]) => (
+  whereClause: ActivitySearchWhereClause
+): ActivitySearchWhereClause => {
+  return {
+    ...whereClause,
+    Activity: {
+      ActivityType: {
+        name: {
+          in: activityTypes,
+          mode: 'insensitive',
+        },
+      },
+    },
+  }
+}
 
 @Resolver(Acter)
 export class SearchResolver {
@@ -164,7 +165,10 @@ export class SearchResolver {
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
     @Arg('types', () => [String], { nullable: true }) types: [string],
-    @Arg('sortBy', { nullable: true }) sortBy: SearchActivitiesSortBy
+    @Arg('orderBy', { nullable: true }) orderBy: SearchActivitiesSortBy,
+    @Arg('take', () => Int, { nullable: true }) take: number,
+    @Arg('skip', () => Int, { nullable: true }) skip: number,
+    @Arg('cursor', { nullable: true }) cursor: ActerWhereUniqueInput
   ): Promise<Acter[]> {
     // Build up the where clause with only values that are set
     const activitySearch: ActivitySearchWhereClause = {
@@ -195,9 +199,14 @@ export class SearchResolver {
       withActivityTypesFilter(types)
     )
 
-    return ctx.prisma.acter.findMany({
+    const options = {
       where,
-      orderBy: getOrderBy(sortBy),
-    })
+      orderBy: getOrderBy(orderBy),
+      take,
+      skip,
+      ...(cursor ? { cursor } : {}),
+    }
+
+    return await ctx.prisma.acter.findMany(options)
   }
 }

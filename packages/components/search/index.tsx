@@ -5,34 +5,27 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { green } from '@material-ui/core/colors'
 import { SearchBar } from '@acter/components/search/search-bar'
 import { FilterTabs } from '@acter/components/search/filter-tabs'
-import {
-  DisplayResults,
-  DisplayResultsProps,
-} from '@acter/components/search/display-results'
+import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
-import { Acter, InterestType } from '@acter/schema'
+import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
 
-export interface SearchProps extends DisplayResultsProps {
+export interface SearchProps {
   searchType: SearchType
-  acters: Acter[]
   interestTypes: InterestType[]
 }
 
-export const Search: FC<SearchProps> = ({
-  searchType,
-  acters,
-  interestTypes,
-}) => {
+export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
   const classes = useStyles()
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [filterInterests, setFilterInterests] = useState([])
   const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
 
-  const handleInputChange = (inputText: string) => {
-    setSearchText(inputText)
-  }
+  const { acters } = useActerSearch(searchType)
+
+  const handleInputChange = (inputText: string) => setSearchText(inputText)
 
   const handleFilterInterests = (filterInterests: string[]) => {
     setFilterInterests(filterInterests)
@@ -97,11 +90,7 @@ export const Search: FC<SearchProps> = ({
         </Grid>
       </Box>
 
-      <DisplayResults
-        searchType={searchType}
-        acters={acters}
-        interestTypes={interestTypes}
-      />
+      <DisplayResults searchType={searchType} interestTypes={interestTypes} />
     </Box>
   )
 }

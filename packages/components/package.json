@@ -32,6 +32,7 @@
     "react-cropper": "^2.1.8",
     "react-draft-wysiwyg": "^1.14.7",
     "react-filepond": "^7.1.1",
+    "react-infinite-scroll-component": "^6.1.0",
     "title-case": "^3.0.3",
     "uuid": "^8.3.2"
   },

@@ -23,7 +23,7 @@ export const getOrderBy = (
     case SearchActivitiesSortBy.DATE:
       return {
         Activity: {
-          endAt: 'asc',
+          startAt: 'asc',
         },
       }
     case SearchActivitiesSortBy.NAME:

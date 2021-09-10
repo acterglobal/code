@@ -3,56 +3,51 @@ import { render, screen } from '@acter/lib/test-utils'
 import { Search } from '@acter/components/search'
 import { SearchType } from '@acter/lib/constants'
 import { ExampleActer } from '@acter/schema/fixtures'
-import { useRouter } from 'next/router'
-jest.mock('next/router')
+import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
+
+jest.mock('@acter/lib/acter/use-fetch-acters')
 
 describe('Display search results', () => {
-  beforeAll(() => {
-    const mockUseRouter = useRouter as jest.Mock
-    mockUseRouter.mockReturnValue({
-      query: {},
-    })
-  })
+  const mockuseActerSearch = useActerSearch as jest.Mock
+  const defaultMockuseActerSearch = {
+    loadMore: () => null,
+    hasMore: true,
+  }
 
   it('should display number of results', async () => {
     const acters = [...Array(4)].map(() => ExampleActer)
+    const mockuseActerSearch = useActerSearch as jest.Mock
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
+      acters,
+    })
 
-    render(
-      <Search
-        searchType={SearchType.ACTERS}
-        acters={acters}
-        interestTypes={[]}
-      />
-    )
+    render(<Search searchType={SearchType.ACTERS} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
-    expect(results).toBe(`${acters.length} Results`)
+    expect(results).toBe('4 Results')
   })
 
   it('should display zero results', async () => {
-    const acters = []
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
+      acters: [],
+    })
 
-    render(
-      <Search
-        searchType={SearchType.ACTERS}
-        acters={acters}
-        interestTypes={[]}
-      />
-    )
+    render(<Search searchType={SearchType.ACTERS} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
-    expect(results).toBe(`${acters.length} Results`)
+    expect(results).toBe('0 Results')
   })
 
   it('should display one result', async () => {
     const acters = [ExampleActer]
-    render(
-      <Search
-        searchType={SearchType.ACTERS}
-        acters={acters}
-        interestTypes={[]}
-      />
-    )
+    const mockuseActerSearch = useActerSearch as jest.Mock
+    mockuseActerSearch.mockReturnValue({
+      ...defaultMockuseActerSearch,
+      acters,
+    })
+    render(<Search searchType={SearchType.ACTERS} interestTypes={[]} />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe(`${acters.length} Result`)
