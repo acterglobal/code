@@ -14,7 +14,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, ActerType, InterestType, User, Link } from '@acter/schema'
+import { Acter, InterestType, User, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -55,7 +55,6 @@ const getActerView = (acter): FC<ViewTypes> => {
 
 interface ActerLandingPageProps {
   acter: Acter
-  acterTypes: ActerType[]
   interestTypes: InterestType[]
   user: User
   links: Link[]
@@ -63,7 +62,6 @@ interface ActerLandingPageProps {
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
-  acterTypes,
   interestTypes,
   user,
   links,
@@ -117,7 +115,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       acter={
         acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
       }
-      acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createGroup}
       links={links}
@@ -125,7 +122,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       <Head title={`${acter.name} - Acter`} />
       <View
         acter={displayActer}
-        acterTypes={acterTypes}
         user={user}
         interestTypes={interestTypes}
         posts={displayPostList}

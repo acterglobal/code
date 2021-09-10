@@ -14,13 +14,14 @@ import {
   FormHelperText,
 } from '@material-ui/core'
 import { Switch } from '@acter/components/styled/switch'
-import { Acter, ActerType, ActerJoinSettings } from '@acter/schema'
+import { Acter, ActerJoinSettings } from '@acter/schema'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
-  acterTypes: ActerType[]
   modalHeading: string
   submitButtonLabel: string
   openModal: boolean
@@ -31,7 +32,6 @@ export interface GroupFormProps {
 export const GroupForm: FC<GroupFormProps> = ({
   acter,
   parentActer,
-  acterTypes,
   modalHeading,
   submitButtonLabel,
   openModal,
@@ -39,15 +39,15 @@ export const GroupForm: FC<GroupFormProps> = ({
   setModal,
 }) => {
   const classes = useStyles()
+  const { acterTypes, loading } = useActerTypes()
 
   const joinSetting = acter
     ? acter.acterJoinSetting
     : parentActer.acterJoinSetting
   const setting = joinSetting === ActerJoinSettings.RESTRICTED
-
   const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
 
-  const acterType = getActerTypeByName(acterTypes, ActerTypes.GROUP)
+  const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
 
   const initialValues = {
     name: '',
@@ -66,6 +66,9 @@ export const GroupForm: FC<GroupFormProps> = ({
   }
   const handleModalClose = () => setModal(!openModal)
   const handleSwitch = () => setIsActerJoinRestricted(!isActerJoinRestricted)
+
+  if (loading) return <LoadingSpinner />
+  if (!acterTypes) return
 
   return (
     <Modal

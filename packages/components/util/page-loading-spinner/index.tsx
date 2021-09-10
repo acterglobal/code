@@ -1,3 +1,4 @@
+import React, { FC } from 'react'
 import {
   Backdrop,
   CircularProgress,
@@ -5,13 +6,14 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { FC } from 'react'
 
-interface LoadingSpinnerProps {
-  load?: boolean
+interface PageLoadingSpinnerProps {
+  load: boolean
 }
 
-export const LoadingSpinner: FC<LoadingSpinnerProps> = ({ load = false }) => {
+export const PageLoadingSpinner: FC<PageLoadingSpinnerProps> = ({
+  load = true,
+}) => {
   const classes = useStyle()
 
   return (

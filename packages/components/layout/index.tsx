@@ -2,13 +2,12 @@ import React, { FC, useEffect } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from '@acter/components/layout/top-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
-import { Acter, ActerType, User, Link as LinkType } from '@acter/schema'
+import { Acter, User, Link as LinkType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 import { useIntercom } from 'react-use-intercom'
 
 export interface LayoutProps {
   acter?: Acter
-  acterTypes?: ActerType[]
   children: React.ReactNode
   onGroupSubmit?: (groupData: Acter) => void
   searchType?: SearchType
@@ -18,7 +17,6 @@ export interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({
   acter,
-  acterTypes,
   user,
   links,
   children,
@@ -36,7 +34,6 @@ export const Layout: FC<LayoutProps> = ({
     <div className={classes.root}>
       <Sidebar
         acter={acter}
-        acterTypes={acterTypes}
         user={user}
         searchType={searchType}
         onGroupSubmit={onGroupSubmit}

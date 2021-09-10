@@ -39,7 +39,6 @@ export const ActerMenu: FC<ActerMenuProps> = ({
   acter,
   user,
   links,
-  acterTypes,
   onGroupSubmit,
 }) => {
   if (!acter) return null
@@ -96,7 +95,6 @@ export const ActerMenu: FC<ActerMenuProps> = ({
           <GroupsSection
             acter={acter}
             user={user}
-            acterTypes={acterTypes}
             onGroupSubmit={onGroupSubmit}
           />
         </>

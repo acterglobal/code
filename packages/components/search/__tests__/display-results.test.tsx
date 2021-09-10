@@ -8,9 +8,9 @@ import {
 import { DisplayResults } from '@acter/components/search/display-results'
 import { SearchType } from '@acter/lib/constants'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActerSearch } from '@acter/lib/acter/use-fetch-acters'
+import { useActerSearch } from '@acter/lib/acter/use-acter-search'
 
-jest.mock('@acter/lib/acter/use-fetch-acters')
+jest.mock('@acter/lib/acter/use-acter-search')
 
 describe('Display search results', () => {
   const mockuseActerSearch = useActerSearch as jest.Mock

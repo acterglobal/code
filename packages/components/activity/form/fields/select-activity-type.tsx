@@ -2,21 +2,25 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { ActivityType } from '@acter/schema'
+import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { ActivityTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 export interface SelectActivityTypeProps {
-  activityTypes: ActivityType[]
   selectedTypeId: string
   onChange: (typeTd: string) => void
 }
 
 export const SelectActivityType: FC<SelectActivityTypeProps> = ({
-  activityTypes,
   selectedTypeId,
   onChange,
 }) => {
   const classes = useStyles()
+  const { activityTypes, loading } = useActivityTypes()
+
+  if (loading) return <LoadingSpinner />
+  if (!activityTypes) return null
+
   return (
     <Box className={classes.root}>
       {activityTypes.map((type, i) => {

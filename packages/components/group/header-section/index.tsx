@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Link } from '@acter/components/util/anchor-link'
-import { Acter, ActerType } from '@acter/schema'
+import { Acter } from '@acter/schema'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -19,13 +19,11 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface HeaderSectionProps extends ConnectProps {
   acter: Acter
-  acterTypes: ActerType[]
   onGroupSubmit: (groupData: Acter) => void
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
-  acterTypes,
   user,
   onGroupSubmit,
   onJoin,
@@ -78,7 +76,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
         <EditGroup
           acter={acter}
           parentActer={acter.Parent}
-          acterTypes={acterTypes}
           modalHeading="Update work group"
           submitButtonLabel="Update"
           openModal={openModal}

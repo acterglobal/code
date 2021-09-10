@@ -13,7 +13,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, ActerType, Link as LinkType, User } from '@acter/schema'
+import { Acter, Link as LinkType, User } from '@acter/schema'
 import { ActerActivities } from '@acter/components/acter/activities'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
@@ -23,14 +23,12 @@ import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
 interface ActivitiesPageProps {
   acter: Acter
-  acterTypes: ActerType[]
   user: User
   links: LinkType[]
 }
 
 export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   acter,
-  acterTypes,
   user,
   links,
 }) => {
@@ -59,7 +57,6 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   return (
     <Layout
       acter={displayActer}
-      acterTypes={acterTypes}
       user={user}
       onGroupSubmit={createGroup}
       links={links}
