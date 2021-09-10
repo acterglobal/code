@@ -1,31 +1,10 @@
-import React, { FC } from 'react'
-import {
-  Backdrop,
-  CircularProgress,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
+import { FC } from 'react'
 
 interface LoadingSpinnerProps {
-  load: boolean
+  size?: number
 }
 
-export const LoadingSpinner: FC<LoadingSpinnerProps> = ({ load = false }) => {
-  const classes = useStyle()
-
-  return (
-    <Backdrop className={classes.backdrop} open={load}>
-      <CircularProgress color="inherit" size={90} thickness={2} />
-    </Backdrop>
-  )
+export const LoadingSpinner: FC<LoadingSpinnerProps> = ({ size = 15 }) => {
+  return <CircularProgress color="inherit" size={size} thickness={2} />
 }
-
-const useStyle = makeStyles((theme: Theme) =>
-  createStyles({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: theme.colors.white,
-    },
-  })
-)
