@@ -13,7 +13,7 @@ import {
 import { NavigateNextOutlined } from '@material-ui/icons'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { LoadingSpinner } from '@acter/components/util/load-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export interface ActivityTypeStepProps {
   onClick: (activityTypeId: string) => void

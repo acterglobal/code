@@ -18,7 +18,7 @@ import { Acter, ActerJoinSettings } from '@acter/schema'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
-import { LoadingSpinner } from '@acter/components/util/load-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter

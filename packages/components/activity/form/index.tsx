@@ -32,7 +32,7 @@ import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-n
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
-import { LoadingSpinner } from '@acter/components/util/load-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]

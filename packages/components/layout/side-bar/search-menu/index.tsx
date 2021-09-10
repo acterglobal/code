@@ -13,7 +13,7 @@ import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
 import { SearchTypes } from '@acter/components/layout/side-bar/search-menu/types'
 import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { LoadingSpinner } from '@acter/components/util/load-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { ActerType, ActivityType } from '@acter/schema'
 
