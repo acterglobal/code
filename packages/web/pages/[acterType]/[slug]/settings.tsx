@@ -44,7 +44,7 @@ export const ActerSettingsPage: NextPage = () => {
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout links={links}>
+    <Layout>
       <Head title={title} />
       <main>
         <ActerSettings

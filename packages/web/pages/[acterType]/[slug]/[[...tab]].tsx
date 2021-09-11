@@ -5,15 +5,9 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import {
-  getActerTypes,
-  setActerType,
-  getInterests,
-  getPosts,
-  getLinks,
-} from 'props'
+import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType, Link } from '@acter/schema'
+import { Acter, InterestType } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -33,7 +27,7 @@ import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { usePosts } from '@acter/lib/post/use-posts'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
@@ -53,18 +47,14 @@ const getActerView = (acterType): FC<ViewTypes> => {
 interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
-  links: Link[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   interestTypes,
-  links,
 }) => {
   const router = useRouter()
   const { acter, loading: acterLoading } = useActer()
   const { posts, loading: postsLoading } = usePosts()
-
-  const View = getActerView(acter?.ActerType)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
   const [createPost] = useCreatePost(acter)
@@ -91,14 +81,14 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
     : router.query.tab
   const isPostsTab = tab === ActerMenu.FORUM
 
-  if (acterLoading || (isPostsTab && postsLoading)) return <LoadingSpinner />
+  if (acterLoading || (isPostsTab && postsLoading))
+    return <PageLoadingSpinner />
   if (!acter) return null
 
+  const View = getActerView(acter?.ActerType)
+
   return (
-    <Layout
-      acter={acter?.ActerType.name === GROUP ? acter?.Parent : acter}
-      links={links}
-    >
+    <Layout>
       <Head title={`${acter?.name} - Acter`} />
       <View
         acter={acter}
@@ -117,13 +107,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getActerTypes,
-    setActerType,
-    getInterests,
-    getPosts,
-    getLinks
-  )
+  composeProps(ctx, getActerTypes, setActerType, getInterests, getPosts)
 
 export default ActerLandingPage

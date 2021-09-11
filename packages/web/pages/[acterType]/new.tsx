@@ -16,13 +16,13 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 
-import { ActerType, InterestType } from '@acter/schema'
+import { Acter, ActerType, InterestType } from '@acter/schema'
 
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
-import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 import { ActerTypes } from '@acter/lib/constants'
 import { getCreateFunction } from '@acter/lib/acter/get-create-function'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 interface NewActerPageProps {
   /**
@@ -43,7 +43,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
   const [createActer] = useNotificationMutation(ACTER_CREATE)
 
-  const [updateActer] = useNotificationMutation(UPDATE_ACTER, {
+  const [updateActer] = useUpdateActer({} as Acter, {
     getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,
     onCompleted: ({ updateActer }) =>
       router.push(acterAsUrl({ acter: updateActer })),

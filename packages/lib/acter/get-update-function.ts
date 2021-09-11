@@ -14,28 +14,28 @@ interface GetUpdateFunctionProps {
   updateActer: MutationFunction
 }
 
-export const getUpdateFunction =
-  ({ acter, updateActivity, updateActer }: GetUpdateFunctionProps) =>
-  async (variables: Partial<Acter> | Partial<Activity>): Promise<Acter> => {
-    switch (acter.ActerType.name) {
-      case ACTIVITY: {
-        // Prepare the variables as an Activity
-        const formData = prepareActivityValues(variables)
-        // Update it as an Acter with Pictures
-        const res = await updateActerWithPictures({
-          acter,
-          formData,
-          updateActer: updateActivity,
-        })
-        return res.data.updateActivity.Acter
-      }
-      default: {
-        const res = await updateActerWithPictures({
-          acter,
-          formData: variables,
-          updateActer,
-        })
-        return res.data.updateActer
-      }
+export const getUpdateFunction = ({
+  acter,
+  updateActivity,
+  updateActer,
+}: GetUpdateFunctionProps) => async (
+  variables: Partial<Acter> | Partial<Activity>
+): Promise<Acter> => {
+  switch (acter.ActerType.name) {
+    case ACTIVITY: {
+      // Prepare the variables as an Activity
+      const formData = prepareActivityValues(variables)
+      // Update it as an Acter with Pictures
+      const res = await updateActerWithPictures({
+        acter,
+        formData,
+        updateActer: updateActivity,
+      })
+      return res.data.updateActivity.Acter
+    }
+    default: {
+      const res = await updateActer(variables)
+      return res.data.updateActer
     }
   }
+}

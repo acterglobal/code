@@ -35,7 +35,7 @@ export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   dashboard: boolean
 }
 
-export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType, links }) => {
+export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType }) => {
   const { acter, loading: acterLoading } = useActer()
   const [loading, setLoading] = useState(acterLoading)
   const [drawerWidth, setDrawerWidth] = useState(4)
@@ -84,7 +84,7 @@ export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType, links }) => {
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} links={links} />
+          <ActerMenu acter={acter} />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}
