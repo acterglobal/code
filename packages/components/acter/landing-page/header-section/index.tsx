@@ -39,7 +39,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   const { user, loading: userLoading } = useUser()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (!acter) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
