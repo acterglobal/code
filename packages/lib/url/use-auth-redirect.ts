@@ -16,7 +16,9 @@ export const useAuthRedirect = (): UseAuthRedirectResponse => {
   const authPath = '/api/auth'
   const query = router?.asPath ? `?returnTo=${router.asPath}` : null
 
-  const loginUrl = `${authPath}/login${query}`
+  const loginUrl = router?.route.includes('/search')
+    ? `${authPath}/login?returnTo=/dashboard`
+    : `${authPath}/login${query}`
   const loginRedirect = () => window.location.assign(loginUrl)
 
   const signupUrl = `${authPath}/signup${query}`
