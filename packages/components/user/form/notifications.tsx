@@ -9,33 +9,35 @@ import {
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
-  User,
 } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 export interface ProfileNotificationsFormValues {
   acterNotifySetting: ActerNotificationSettings
   acterNotifyEmailFrequency: ActerNotificationEmailFrequency
 }
 
-export interface ProfileNotificationsFormProps {
-  user: User
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  onSubmit: (data: any) => void
-}
+export const ProfileNotificationsForm: FC = () => {
+  const { user, loading } = useUser()
+  const [updateActer] = useUpdateActer(user?.Acter)
 
-export const ProfileNotificationsForm: FC<ProfileNotificationsFormProps> = ({
-  user,
-  onSubmit,
-}) => {
+  if (loading || !user) {
+    return <>Loading...</>
+  }
+
   const initialValues: ProfileNotificationsFormValues = {
     acterNotifySetting:
       ActerNotificationSettings[user.Acter.acterNotifySetting],
     acterNotifyEmailFrequency:
       ActerNotificationEmailFrequency[user.Acter.acterNotifyEmailFrequency],
   }
+
+  const handleSubmit = (values) => updateActer(values)
+
   return (
     <ProfileFormLayout>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
           <RadioGroup label="Notify me about" name="acterNotifySetting">
             <SettingsRadio

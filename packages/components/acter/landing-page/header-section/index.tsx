@@ -17,12 +17,12 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
-export type HeaderSectionProps = ConnectProps
+export type HeaderSectionProps = Omit<ConnectProps, 'user'>
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
   acter,
-  user,
   onJoin,
   onLeave,
   loading,
@@ -34,6 +34,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 
   const avatarDims = smallScreen ? 65 : 140
 
+  const { user } = useUser()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (

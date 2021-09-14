@@ -5,7 +5,6 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 import {
-  getUserProfile,
   getActer,
   getActerTypes,
   setActerType,
@@ -14,7 +13,7 @@ import {
   getLinks,
 } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType, User, Link } from '@acter/schema'
+import { Acter, InterestType, Link } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -54,14 +53,12 @@ const getActerView = (acter): FC<ViewTypes> => {
 interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
-  user: User
   links: Link[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   acter,
   interestTypes,
-  user,
   links,
 }) => {
   /* This query call fetches the data from cache whenever cache updates */
@@ -86,7 +83,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(displayActer)
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createPost] = useCreatePost(displayActer, user)
+  const [createPost] = useCreatePost(displayActer)
   const [deletePost] = useDeletePost(displayPostList)
   const [updatePost] = useUpdatePost(displayPostList)
 
@@ -110,13 +107,11 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
       acter={
         acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
       }
-      user={user}
       links={links}
     >
       <Head title={`${acter.name} - Acter`} />
       <View
         acter={displayActer}
-        user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
         onJoin={createActerConnection}
@@ -134,7 +129,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(
     ctx,
-    getUserProfile(false),
     getActerTypes,
     setActerType,
     getActer,

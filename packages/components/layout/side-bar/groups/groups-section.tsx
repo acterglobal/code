@@ -4,20 +4,23 @@ import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupsList } from '@acter/components/layout/side-bar/groups/groups-list'
-import { Acter, ActerConnectionRole, User } from '@acter/schema'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { useUser } from '@acter/lib/user/use-user'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)
 )
 export interface GroupsSectionProps {
   acter: Acter
-  user: User
 }
-export const GroupsSection: FC<GroupsSectionProps> = ({ acter, user }) => {
+export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
+
+  const { user } = useUser()
+  if (!user) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
     user,

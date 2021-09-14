@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { User } from '@acter/schema'
 import { ApolloError, useLazyQuery } from '@apollo/client'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 import {
   getNotificationsGroupByActer,
   NotificationsData as Notifications,
 } from '@acter/lib/notification/get-notifications-group-by-acter'
+import { useUser } from '@acter/lib/user/use-user'
 
 type UseFetchNotificationsQueryResults = {
   notifications: Notifications
@@ -14,13 +14,11 @@ type UseFetchNotificationsQueryResults = {
 }
 /**
  * Gives notification info for new posts/activities/members on a specific acter
- * @param acter
  * @returns object with count of new posts/activities/members
  */
-export const useFetchNotifications = (
-  user: User
-): UseFetchNotificationsQueryResults => {
+export const useFetchNotifications = (): UseFetchNotificationsQueryResults => {
   const [notifications, setNotifications] = useState<Notifications>({})
+  const { user } = useUser()
 
   const [
     fetchNotifications,

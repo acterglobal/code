@@ -1,14 +1,9 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { Head } from '@acter/components/layout/head'
 import { Layout } from '@acter/components/layout'
-import { User } from '@acter/schema'
 
-interface HomeProps {
-  user?: User
-}
-
-const Home: NextPage<HomeProps> = ({ user }) => (
-  <Layout user={user}>
+const Home: NextPage = () => (
+  <Layout>
     <Head title="Acter" />
 
     <main>

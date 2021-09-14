@@ -1,9 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 
-import {
-  SessionIndicator,
-  SessionIndicatorProps,
-} from '@acter/components/layout/session-indicator'
+import { SessionIndicator } from '@acter/components/layout/session-indicator'
 
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 export default {
@@ -16,12 +13,11 @@ export default {
   },
 } as Meta
 
-const Template: Story<SessionIndicatorProps> = (args) => (
-  <SessionIndicator {...args} />
-)
+const Template: Story = (args) => <SessionIndicator {...args} />
 
 export const LoggedOut = Template.bind({})
 
+//TODO: this won't work now that we've moved the data to a hook.
 export const LoggedIn = Template.bind({})
 LoggedIn.args = {
   user: {

@@ -1,8 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import {
-  ProfileInfoForm,
-  ProfileInfoFormProps,
-} from '@acter/components/user/form/info'
+import { ProfileInfoForm } from '@acter/components/user/form/info'
 import { ExampleUser, ExampleUserActer } from '@acter/schema/fixtures'
 
 export default {
@@ -21,8 +18,6 @@ export default {
   },
 } as Meta
 
-const Template: Story<ProfileInfoFormProps> = (args) => (
-  <ProfileInfoForm {...args} />
-)
+const Template: Story = () => <ProfileInfoForm />
 
 export const Main = Template.bind({})

@@ -26,13 +26,14 @@ import {
   SettingsStepValues,
 } from '@acter/components/activity/form/steps/settings'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-import { Acter, User } from '@acter/schema'
+import { Acter } from '@acter/schema'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { Stepper } from '@acter/components/util/stepper'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useUser } from '@acter/lib/user/use-user'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]
@@ -52,10 +53,7 @@ export interface ActivityFormProps
    * The ActivityType Acter for this
    */
   acter?: Acter
-  /**
-   * The currently logged in user
-   */
-  user: User
+
   /** Action to perform on submit
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,7 +75,6 @@ export interface ActivityFormValues
 
 export const ActivityForm: FC<ActivityFormProps> = ({
   acter,
-  user,
   interestTypes,
   onSubmit,
 }) => {
@@ -180,12 +177,15 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endAt,
   }
 
+  const { user } = useUser()
+  if (!user) return null
+
   // Fake an acter to determine potential followers when this is a new Activity
   const checkActer = acter
     ? acter
     : ({
         id: '',
-        createdByUserId: user.id,
+        createdByUserId: user?.id,
         ActerType: {
           name: ActerTypes.ACTIVITY,
         },

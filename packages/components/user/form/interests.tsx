@@ -6,21 +6,24 @@ import {
 } from '@acter/components/acter/form/interests-add-section'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
-import { InterestType, User } from '@acter/schema'
+import { InterestType } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 export interface ProfileInterestsFormProps {
-  user: User
   interestTypes: InterestType[]
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  onSubmit: (data: any) => any
 }
 
 export const ProfileInterestsForm: FC<ProfileInterestsFormProps> = ({
-  user,
   interestTypes,
-  onSubmit,
 }) => {
-  const handleSubmit = (values, _actions) => onSubmit(values)
+  const { user, loading } = useUser()
+  const [updateActer] = useUpdateActer(user?.Acter)
+  if (loading || !user) {
+    return <>Loading...</>
+  }
+
+  const handleSubmit = (values, _actions) => updateActer(values)
   const initialValues: InterestAddSectionValues = {
     interestIds:
       user.Acter?.ActerInterests?.map(({ Interest }) => Interest.id) || [],

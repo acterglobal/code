@@ -5,7 +5,8 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
 import LINK_FRAGMENT from '@acter/schema/fragments/link-display.fragment.graphql'
-import { Acter, User, Link as LinkType } from '@acter/schema'
+import { Acter, Link as LinkType } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 export type LinkVariables = LinkType & {
   acterId: string
@@ -29,9 +30,10 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 export const useCreateLink = (
   acter: Acter,
-  user: User,
   options?: CreateLinkOptions
 ): [HandleMethod<CreateLinkData>, MutationResult] => {
+  const { user } = useUser()
+
   const [createLink, mutationResult] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
@@ -64,11 +66,13 @@ export const useCreateLink = (
   })
 
   const handleLink = async (values: LinkVariables) => {
+    if (!user) throw 'User is not set'
+
     createLink({
       variables: {
         ...values,
         acterId: acter.id,
-        userId: user.id,
+        userId: user?.id,
       },
     })
   }

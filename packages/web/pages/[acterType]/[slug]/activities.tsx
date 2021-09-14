@@ -2,18 +2,12 @@ import React from 'react'
 import { NextPage } from 'next'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
-import {
-  getUserProfile,
-  getActerTypes,
-  setActerType,
-  getActer,
-  getLinks,
-} from 'props'
+import { getActerTypes, setActerType, getActer, getLinks } from 'props'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, Link as LinkType, User } from '@acter/schema'
+import { Acter, Link as LinkType } from '@acter/schema'
 import { ActerActivities } from '@acter/components/acter/activities'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
@@ -22,13 +16,11 @@ import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
 interface ActivitiesPageProps {
   acter: Acter
-  user: User
   links: LinkType[]
 }
 
 export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   acter,
-  user,
   links,
 }) => {
   /* This query call fetches the cache data whenever cache updates */
@@ -52,16 +44,11 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   ] = useDeleteActerConnection(displayActer)
 
   return (
-    <Layout
-      acter={displayActer}
-      user={user}
-      links={links}
-    >
+    <Layout acter={displayActer} links={links}>
       <Head title={`${acter.name} Settings - Acter`} />
 
       <ActerActivities
         acter={acter}
-        user={user}
         onJoin={createActerConnection}
         onLeave={deleteActerConnection}
         loading={creatingConnection || deletingConnection}
@@ -71,13 +58,6 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getUserProfile(true),
-    getActerTypes,
-    setActerType,
-    getActer,
-    getLinks
-  )
+  composeProps(ctx, getActerTypes, setActerType, getActer, getLinks)
 
 export default ActerActivitiesPage

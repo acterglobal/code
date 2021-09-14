@@ -23,25 +23,16 @@ import {
   ActerMenu,
   ActerMenuProps,
 } from '@acter/components/layout/side-bar/acter-menu'
-import {
-  FollowingList,
-  FollowingListProps,
-} from '@acter/components/layout/side-bar/following-list'
+import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
 import { SearchType } from '@acter/lib/constants'
 
-export type SidebarProps = ActerMenuProps &
-  FollowingListProps & {
-    searchType?: SearchType
-  }
+export type SidebarProps = ActerMenuProps & {
+  searchType?: SearchType
+}
 
-export const Sidebar: FC<SidebarProps> = ({
-  acter,
-  searchType,
-  user,
-  links,
-}) => {
+export const Sidebar: FC<SidebarProps> = ({ acter, searchType, links }) => {
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
   const router = useRouter()
@@ -78,13 +69,13 @@ export const Sidebar: FC<SidebarProps> = ({
             active={router.route === '/search'}
           />
           <Divider />
-          <FollowingList user={user} />
+          <FollowingList />
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </List>
       </Box>
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} user={user} links={links} />
+          <ActerMenu acter={acter} links={links} />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}

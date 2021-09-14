@@ -4,7 +4,8 @@ import {
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_LINK from '@acter/schema/mutations/link-update.graphql'
-import { Acter, User, Link as LinkType } from '@acter/schema'
+import { Acter, Link as LinkType } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
 export type LinkVariables = LinkType & {
   linkId: string
@@ -28,9 +29,9 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
  */
 export const useUpdateLink = (
   acter: Acter,
-  user: User,
   options?: UpdateLinkOptions
 ): [HandleMethod<UpdateLinkData>, MutationResult] => {
+  const { user } = useUser()
   const [updateLink, mutationResult] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
@@ -40,12 +41,14 @@ export const useUpdateLink = (
   })
 
   const handleLink = async (values: LinkVariables) => {
+    if (!user) throw 'User is not set'
+
     updateLink({
       variables: {
         ...values,
         linkId: values.id,
         acterId: acter.id,
-        userId: user.id,
+        userId: user?.id,
       },
     })
   }

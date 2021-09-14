@@ -1,34 +1,22 @@
 import { NextPage } from 'next'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
-import { getUserProfile } from 'props'
 import { Typography } from '@material-ui/core'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 
-import { User } from '@acter/schema'
-
-interface ErrorProps {
-  user?: User
-}
-
-const ErrorPage: NextPage<ErrorProps> = ({ user }) => {
+const ErrorPage: NextPage = () => {
   return (
-    <Layout user={user}>
+    <Layout>
       <Head title="Acter" />
-
       <main>
-        <Typography variant="h4">
+        <Typography
+          variant="body1"
+          style={{ textAlign: 'center', marginTop: 20 }}
+        >
           There was an error. Please try again.
         </Typography>
       </main>
     </Layout>
   )
 }
-
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getUserProfile(false))
 
 export default ErrorPage

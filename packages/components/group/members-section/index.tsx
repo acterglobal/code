@@ -8,19 +8,17 @@ import {
 } from '@material-ui/core'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Modal } from '@acter/components/util/modal'
-import { Acter, User } from '@acter/schema'
+import { Acter } from '@acter/schema'
 import { MembersSection as Members } from '@acter/components/acter/landing-page/members-section'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 
 export type MembersSectionProps = {
   acter: Acter
-  user: User
   onConnectionStateChange: ConnectionStateProps['onSubmit']
 }
 
 export const MembersSection: FC<MembersSectionProps> = ({
   acter,
-  user,
   onConnectionStateChange,
 }) => {
   const classes = useStyles()
@@ -50,7 +48,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
           <Box className={classes.members}>
             <Members
               acter={acter}
-              user={user}
               onConnectionStateChange={onConnectionStateChange}
             />
           </Box>

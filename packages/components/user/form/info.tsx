@@ -5,7 +5,8 @@ import { TextField } from 'formik-material-ui'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string
@@ -15,18 +16,18 @@ export interface ProfileInfoFormValues {
   location: string
 }
 
-export interface ProfileInfoFormProps {
-  user: User
-  onSubmit: (any) => void
-}
-
-export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({
-  user,
-  onSubmit,
-}) => {
+export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
-  const { avatarUrl, name, description, location } = user.Acter
+  const { user, loading } = useUser()
+
+  const [updateActer] = useUpdateActer(user?.Acter)
+
+  if (loading) return <>Loading...</>
+  if (!user) return null
+
   const { email } = user
+  const { avatarUrl, name, description, location } = user.Acter
+
   const initialValues: ProfileInfoFormValues = {
     avatarUrl,
     description,
@@ -34,13 +35,16 @@ export const ProfileInfoForm: FC<ProfileInfoFormProps> = ({
     name,
     location,
   }
+
+  const handleSubmit = (values) => updateActer(values)
+
   return (
     <ProfileFormLayout>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
           <Grid container>
             <Grid item sm={12} md={4}>
-              <ImageUpload imageType="avatar" fileUrl={user.Acter.avatarUrl} />
+              <ImageUpload imageType="avatar" fileUrl={user?.Acter.avatarUrl} />
             </Grid>
             <Grid item sm={12} md={8}>
               <Field

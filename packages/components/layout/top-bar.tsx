@@ -24,18 +24,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export interface TopBarProps {
-  user?: User
-}
-
-export const TopBar: FC<TopBarProps> = ({ user }) => {
+export const TopBar: FC = () => {
   const classes = useStyles()
   return (
     <>
       <AppBar position="fixed" color="inherit" className={classes.appBar}>
         <Toolbar>
           <div>
-            <SessionIndicator user={user} />
+            <SessionIndicator />
           </div>
         </Toolbar>
       </AppBar>
