@@ -10,6 +10,7 @@ import {
 import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 
@@ -31,16 +32,16 @@ export const MembersSection: FC<MembersSectionProps> = ({
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
   const { acter, loading: acterLoading } = useActer()
+  const { user, loading: userLoading } = useUser()
 
-  if (acterLoading || !acter) return null
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
 
   const followers = mapFollowersByType(acter)
 
   const handleSelectorChange = (selector) => {
     setActiveSelector(selector)
   }
-
-  const { user } = useUser()
 
   return (
     <Box className={classes.container}>

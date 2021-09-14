@@ -44,6 +44,8 @@ export const ActerLanding: FC<ActerLandingProps> = ({
 
   if (acterLoading || !acter) return null
 
+  debugger
+
   return (
     <LandingPageLayout onJoin={onJoin} onLeave={onLeave} loading={loading}>
       <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>

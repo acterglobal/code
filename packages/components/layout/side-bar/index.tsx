@@ -52,9 +52,6 @@ export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType }) => {
     }
   }, [loading, acter, searchType])
 
-  if (loading) return <LoadingSpinner />
-  if (!acter) return null
-
   return (
     <Drawer
       variant="permanent"
@@ -82,6 +79,7 @@ export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType }) => {
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </List>
       </Box>
+      {loading && <LoadingSpinner />}
       {acter && (
         <Box className={classes.subMenu}>
           <ActerMenu acter={acter} />

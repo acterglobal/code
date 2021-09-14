@@ -19,6 +19,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type HeaderSectionProps = Omit<ConnectProps, 'user'>
 
@@ -32,13 +33,14 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
     theme.breakpoints.down('xs')
   )
 
-  const { acter, loading: acterLoading } = useActer()
-
-  if (acterLoading || !acter) return null
-
   const avatarDims = smallScreen ? 65 : 140
 
-  const { user } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+  const { user, loading: userLoading } = useUser()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (
