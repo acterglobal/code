@@ -18,7 +18,6 @@ export const ActerPosts: FC<ActerPostsProps> = ({
   acter,
   interestTypes,
   posts,
-  user,
   onJoin,
   onLeave,
   loading,
@@ -31,14 +30,12 @@ export const ActerPosts: FC<ActerPostsProps> = ({
   return (
     <LandingPageLayout
       acter={acter}
-      user={user}
       onJoin={onJoin}
       onLeave={onLeave}
       loading={loading}
     >
       <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
         <PostList
-          user={user}
           acter={acter}
           posts={posts}
           onPostSubmit={onPostSubmit}
@@ -55,18 +52,12 @@ export const ActerPosts: FC<ActerPostsProps> = ({
 
 const useStyles = makeStyles(
   createStyles({
-    // TODO: refactor
-    menu: {
-      order: 1,
-    },
     main: {
-      order: 2,
+      order: 1,
+      marginLeft: 10,
     },
     info: {
-      order: 3,
-    },
-    postList: {
-      marginLeft: 10,
+      order: 2,
     },
   })
 )

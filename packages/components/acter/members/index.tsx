@@ -20,7 +20,6 @@ export type ActerMembersProps = LandingPageLayoutProps &
 export const ActerMembers: FC<ActerMembersProps> = ({
   acter,
   interestTypes,
-  user,
   onJoin,
   onLeave,
   loading,
@@ -31,7 +30,6 @@ export const ActerMembers: FC<ActerMembersProps> = ({
   return (
     <LandingPageLayout
       acter={acter}
-      user={user}
       onJoin={onJoin}
       onLeave={onLeave}
       loading={loading}
@@ -39,7 +37,6 @@ export const ActerMembers: FC<ActerMembersProps> = ({
       <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
         <MembersSection
           acter={acter}
-          user={user}
           onConnectionStateChange={onConnectionStateChange}
         />
       </Grid>
@@ -52,18 +49,12 @@ export const ActerMembers: FC<ActerMembersProps> = ({
 
 const useStyles = makeStyles(
   createStyles({
-    // TODO: refactor
-    menu: {
-      order: 1,
-    },
     main: {
-      order: 2,
+      order: 1,
+      marginLeft: 10,
     },
     info: {
-      order: 3,
-    },
-    postList: {
-      marginLeft: 10,
+      order: 2,
     },
   })
 )
