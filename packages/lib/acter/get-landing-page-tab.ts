@@ -1,32 +1,13 @@
-import { NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import { ActerMenu } from '@acter/lib/constants'
 
 const { ACTIVITIES, MEMBERS, FORUM, SETTINGS } = ActerMenu
 
-export const getLandingPageTab = (
-  router: NextRouter,
-  defaultTab = ''
-): string => {
-  if (router.route?.includes(SETTINGS)) {
-    return SETTINGS
-  }
-  if (router.route?.includes(ACTIVITIES)) {
-    return ACTIVITIES
-  }
-
-  if (!router.query.tab) {
-    return defaultTab
-  }
-
-  const tab = router.query.tab[0]
-
-  switch (tab) {
-    case ACTIVITIES:
-    case MEMBERS:
-    case FORUM:
-      return tab
-    default:
-      return defaultTab
-  }
+export const getLandingPageTab = (): ActerMenu => {
+  const router = useRouter()
+  const tab = [ACTIVITIES, MEMBERS, FORUM, SETTINGS].find((tab) =>
+    router.route?.includes(tab)
+  )
+  return tab || FORUM
 }

@@ -11,7 +11,7 @@ import {
 import {
   MembersSection,
   MembersSectionProps,
-} from '@acter/components/group/members-section'
+} from '@acter/components/acter/landing-page/members-section'
 
 export type ActerMembersProps = LandingPageLayoutProps &
   MembersSectionProps &
