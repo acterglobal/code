@@ -54,7 +54,6 @@ const useStyles = makeStyles(
   createStyles({
     main: {
       order: 1,
-      marginLeft: 10,
     },
     info: {
       order: 2,

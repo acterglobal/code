@@ -2,7 +2,6 @@ import { NextPage } from 'next'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import {
-  getUserProfile,
   getActerTypes,
   setActerType,
   getActer,
@@ -13,7 +12,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, InterestType, Link as LinkType, User } from '@acter/schema'
+import { Acter, InterestType, Link as LinkType } from '@acter/schema'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useQuery } from '@apollo/client'
@@ -26,14 +25,12 @@ import { useUpdatePost } from '@acter/lib/post/use-update-post'
 
 interface PostsPageProps {
   acter: Acter
-  user: User
   links: LinkType[]
   interestTypes: InterestType[]
 }
 
 export const ActerPostsPage: NextPage<PostsPageProps> = ({
   acter,
-  user,
   interestTypes,
   links,
 }) => {
@@ -56,7 +53,7 @@ export const ActerPostsPage: NextPage<PostsPageProps> = ({
   if (postsLoading || !postsData) return null
   const { posts: displayPostList } = postsData
 
-  const [createPost] = useCreatePost(displayActer, user)
+  const [createPost] = useCreatePost(displayActer)
   const [deletePost] = useDeletePost(displayPostList)
   const [updatePost] = useUpdatePost(displayPostList)
 
@@ -71,11 +68,10 @@ export const ActerPostsPage: NextPage<PostsPageProps> = ({
   ] = useDeleteActerConnection(displayActer)
 
   return (
-    <Layout acter={displayActer} user={user} links={links}>
+    <Layout acter={displayActer} links={links}>
       <Head title={`${acter.name}  - forum`} />
       <ActerPosts
         acter={displayActer}
-        user={user}
         interestTypes={interestTypes}
         posts={displayPostList}
         onJoin={createActerConnection}
@@ -92,7 +88,6 @@ export const ActerPostsPage: NextPage<PostsPageProps> = ({
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(
     ctx,
-    getUserProfile(true),
     getActerTypes,
     setActerType,
     getActer,
