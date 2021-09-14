@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 
 interface PageLoadingSpinnerProps {
-  load: boolean
+  load?: boolean
 }
 
 export const PageLoadingSpinner: FC<PageLoadingSpinnerProps> = ({

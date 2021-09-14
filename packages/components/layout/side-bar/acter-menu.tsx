@@ -17,27 +17,27 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { ActerConnectionRole, Link as LinkType } from '@acter/schema'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
-import {
-  GroupsSection,
-  GroupsSectionProps,
-} from '@acter/components/layout/side-bar/groups/groups-section'
+import { GroupsSection } from '@acter/components/layout/side-bar/groups/groups-section'
 import { LinksList } from '@acter/components/layout/side-bar/links'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 import { NotificationType } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { useLinks } from '@acter/lib/links/use-links'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
-export type ActerMenuProps = GroupsSectionProps & {
-  links: LinkType[]
+export type ActerMenuProps = {
+  acter: Acter
 }
 
-export const ActerMenu: FC<ActerMenuProps> = ({ acter, links }) => {
+export const ActerMenu: FC<ActerMenuProps> = ({ acter }) => {
   if (!acter) return null
   const classes = useStyles()
+  const { links, loading } = useLinks()
 
   const { user } = useUser()
   const { notifications } = useFetchNotifications()
@@ -49,6 +49,9 @@ export const ActerMenu: FC<ActerMenuProps> = ({ acter, links }) => {
     notifications[acter.id]?.filter(
       (notification) => notification.type === type
     )
+
+  if (loading) return <LoadingSpinner />
+  if (!links) return null
 
   return (
     <>

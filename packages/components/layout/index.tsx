@@ -2,24 +2,18 @@ import React, { FC, useEffect } from 'react'
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 import { TopBar } from '@acter/components/layout/top-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
-import { Acter, Link as LinkType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
 import { useIntercom } from 'react-use-intercom'
 
 export interface LayoutProps {
-  acter?: Acter
   children: React.ReactNode
   searchType?: SearchType
-  links?: LinkType[]
+  dashboard?: boolean
 }
 
-export const Layout: FC<LayoutProps> = ({
-  acter,
-  links,
-  children,
-  searchType,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, searchType }) => {
   const classes = useStyles()
+
   const { boot } = useIntercom()
 
   useEffect(() => {
@@ -28,7 +22,7 @@ export const Layout: FC<LayoutProps> = ({
 
   return (
     <div className={classes.root}>
-      <Sidebar acter={acter} searchType={searchType} links={links} />
+      <Sidebar searchType={searchType} />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}

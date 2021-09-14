@@ -1,62 +1,27 @@
 import { MutationResult, FetchResult } from '@apollo/client'
-import {
-  UseMutationOptions,
-  useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
-import { Acter, ActerConnection, ActerConnectionRole } from '@acter/schema'
-import ACTER_CONNECTION_FRAGMENT from '@acter/schema/fragments/acter-connection-full.fragment.graphql'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
-type ConnectionVariables = {
-  connection: ActerConnection
-  role: ActerConnectionRole
-}
-
-type UpdateConnectionData = {
+type UpdateActerConnectionData = {
   updateActerConnection: ActerConnection
 }
 
-type CreateConnectionOptions = UseMutationOptions<
-  UpdateConnectionData,
-  ConnectionVariables
->
+type UpdateActerConnectionVariables = {
+  connectionId: string
+  role: ActerConnectionRole
+}
 
 type HandleMethod = (
   connection: ActerConnection,
   role: ActerConnectionRole
-) => Promise<FetchResult>
+) => Promise<FetchResult<UpdateActerConnectionData>>
 
-export const useUpdateActerConnection = (
-  acter: Acter,
-  options?: CreateConnectionOptions
-): [HandleMethod, MutationResult] => {
-  const [updateConnection, mutationResult] = useNotificationMutation(
-    UPDATE_ACTER_CONNECTION,
-    {
-      update: (cache, result) => {
-        if (typeof options?.update === 'function') {
-          const { update, ...restOptions } = options
-          update(cache, result, restOptions)
-        }
-
-        const { updateActerConnection: connection } = result.data
-        const connectionIndex = acter.Followers.findIndex(
-          ({ Follower }) => Follower.id === connection.followerActerId
-        )
-        acter.Followers = [
-          ...acter.Followers.slice(0, connectionIndex),
-          connection,
-          ...acter.Followers.slice(connectionIndex + 1, acter.Followers.length),
-        ]
-        cache.writeFragment({
-          id: cache.identify(connection),
-          fragment: ACTER_CONNECTION_FRAGMENT,
-          fragmentName: 'ActerConnectionFull',
-          data: connection,
-        })
-      },
-    }
-  )
+export const useUpdateActerConnection = (): [HandleMethod, MutationResult] => {
+  const [updateConnection, mutationResult] = useNotificationMutation<
+    UpdateActerConnectionData,
+    UpdateActerConnectionVariables
+  >(UPDATE_ACTER_CONNECTION)
 
   const handleUpdateConnection = (
     connection: ActerConnection,

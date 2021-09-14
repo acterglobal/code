@@ -16,6 +16,7 @@ import { ActerTypes } from '@acter/lib/constants'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 import { useUser } from '@acter/lib/user/use-user'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
 
@@ -33,7 +34,7 @@ export const FollowingList: FC = () => {
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 
-  if (loading) return <>Loading...</>
+  if (loading) return <LoadingSpinner />
   if (!user) return null
 
   return (

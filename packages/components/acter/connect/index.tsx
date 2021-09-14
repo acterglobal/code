@@ -3,18 +3,14 @@ import { getFollowers } from '@acter/lib/acter/get-followers'
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
-import { Acter, User } from '@acter/schema'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
+import { Acter, User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+
 export interface ConnectProps {
-  /**
-   * The Acter on which we are setting membership
-   */
-  acter: Acter
-  /**
-   * The currently logged in user
-   */
-  user: User
   /**
    * Callback for when "Join" is pressed
    */
@@ -33,14 +29,13 @@ export interface ConnectProps {
   loading: boolean
 }
 
-export const Connect: FC<ConnectProps> = ({
-  acter,
-  user,
-  onJoin,
-  onLeave,
-  loading,
-}) => {
+export const Connect: FC<ConnectProps> = ({ onJoin, onLeave, loading }) => {
   const { loginUrl } = useAuthRedirect()
+  const { user, loading: userLoading } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter) return null
 
   if (!user) {
     return <ConnectButton href={loginUrl}>Join</ConnectButton>
@@ -68,7 +63,6 @@ export const Connect: FC<ConnectProps> = ({
     >
       {followers.map((follower) => (
         <FollowerRow
-          acter={acter}
           follower={follower}
           onJoin={onJoin}
           onLeave={onLeave}

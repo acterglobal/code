@@ -10,7 +10,7 @@ export const getActerConnection = (
   acter: Acter,
   potentialFollower: Acter
 ): ActerConnection | undefined => {
-  if (!acter.Followers?.length) {
+  if (!acter?.Followers?.length) {
     return
   }
 

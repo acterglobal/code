@@ -7,6 +7,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+import { useActer } from '@acter/lib/acter/use-acter'
 import {
   HeaderSection,
   HeaderSectionProps,
@@ -17,13 +18,13 @@ import {
   MembersSectionProps,
 } from '@acter/components/group/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type GroupLandingProps = HeaderSectionProps &
   MembersSectionProps &
   PostListProps
 
 export const GroupLanding: FC<GroupLandingProps> = ({
-  acter,
   onJoin,
   onLeave,
   onConnectionStateChange,
@@ -34,19 +35,19 @@ export const GroupLanding: FC<GroupLandingProps> = ({
   onPostUpdate,
 }) => {
   const classes = useStyles()
+
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
+
   return (
     <Box className={classes.root}>
-      <HeaderSection
-        acter={acter}
-        onJoin={onJoin}
-        onLeave={onLeave}
-        loading={loading}
-      />
+      <HeaderSection onJoin={onJoin} onLeave={onLeave} loading={loading} />
       <Grid container spacing={2} className={classes.content}>
         <Grid item xs={12} md={8}>
           <Box className={classes.posts}>
             <PostList
-              acter={acter}
               posts={posts}
               onPostSubmit={onPostSubmit}
               onPostDelete={onPostDelete}
@@ -65,7 +66,6 @@ export const GroupLanding: FC<GroupLandingProps> = ({
             </Box>
             <Box className={classes.container}>
               <MembersSection
-                acter={acter}
                 onConnectionStateChange={onConnectionStateChange}
               />
             </Box>

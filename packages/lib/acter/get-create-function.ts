@@ -2,7 +2,6 @@
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
 import { Acter, ActerType, Activity } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
-import { updateActerWithPictures } from '@acter/lib/acter/update-acter-with-pictures'
 
 const { ACTIVITY } = ActerTypes
 
@@ -35,30 +34,30 @@ interface GetCreateFunctionProps {
  * @updateActer Function to update an Acter
  * @returns function which takes form data
  */
-export const getCreateFunction =
-  ({
+export const getCreateFunction = ({
+  acterType,
+  createActivity,
+  createActer,
+  updateActer,
+}: GetCreateFunctionProps) => async (
+  data: Partial<Activity> | Partial<Acter>
+): Promise<Acter> => {
+  const acterCreate = await _acterCreate({
     acterType,
     createActivity,
     createActer,
-    updateActer,
-  }: GetCreateFunctionProps) =>
-  async (data: Partial<Activity> | Partial<Acter>): Promise<Acter> => {
-    const acterCreate = await _acterCreate({
-      acterType,
-      createActivity,
-      createActer,
-      data,
-    })
+    data,
+  })
 
-    // Add form data so we can upload/save pictures
-    const acter = {
-      ...data,
-      ...acterCreate,
-    }
-
-    // Now update it so we get the avatar and banner URLs
-    return await updateActerWithPictures({ acter, updateActer })
+  // Add form data so we can upload/save pictures
+  const acter = {
+    ...data,
+    ...acterCreate,
   }
+
+  // Now update it so we get the avatar and banner URLs
+  return await updateActer(acter)
+}
 
 type InternalCreateActerProps = Omit<GetCreateFunctionProps, 'updateActer'> & {
   data: Partial<Acter>

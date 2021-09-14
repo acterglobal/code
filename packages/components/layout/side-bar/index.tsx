@@ -26,25 +26,29 @@ import {
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { SearchType } from '@acter/lib/constants'
+import { useActer } from '@acter/lib/acter/use-acter'
 
-export type SidebarProps = ActerMenuProps & {
+export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   searchType?: SearchType
 }
 
-export const Sidebar: FC<SidebarProps> = ({ acter, searchType, links }) => {
+const PRIMARY_WIDTH = 4
+const SECONDARY_WIDTH = 15
+
+export const Sidebar: FC<SidebarProps> = ({ searchType }) => {
+  const { acter, loading } = useActer()
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
   const router = useRouter()
 
   useEffect(() => {
     if (acter || searchType) {
-      setDrawerWidth(15)
-      return
+      return setDrawerWidth(SECONDARY_WIDTH)
     }
-
-    setDrawerWidth(4)
-  }, [acter, searchType])
+    setDrawerWidth(PRIMARY_WIDTH)
+  }, [loading, acter, searchType])
 
   return (
     <Drawer
@@ -73,9 +77,10 @@ export const Sidebar: FC<SidebarProps> = ({ acter, searchType, links }) => {
           <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
         </List>
       </Box>
+      {loading && <LoadingSpinner />}
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} links={links} />
+          <ActerMenu acter={acter} />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}

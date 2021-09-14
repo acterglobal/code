@@ -1,5 +1,4 @@
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
-
 import { Acter } from '@acter/schema'
 
 interface ActerAsUrlProps {
@@ -34,6 +33,7 @@ export const acterAsUrl = ({
   if (!acter.ActerType?.name) {
     throw 'ActerType must be provided'
   }
+
   const baseURL = includeBaseUrl ? process.env.BASE_URL : ''
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const acterSlugLower = acter.slug.toLowerCase()

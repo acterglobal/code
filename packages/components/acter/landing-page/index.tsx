@@ -16,6 +16,7 @@ import {
   LandingPageLayout,
   LandingPageLayoutProps,
 } from '@acter/components/acter/landing-page/layout'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 const { MEMBERS, FORUM } = ActerMenu
 
@@ -25,7 +26,6 @@ export type ActerLandingProps = LandingPageLayoutProps &
   PostListProps
 
 export const ActerLanding: FC<ActerLandingProps> = ({
-  acter,
   interestTypes,
   posts,
   onJoin,
@@ -40,19 +40,15 @@ export const ActerLanding: FC<ActerLandingProps> = ({
   const router = useRouter()
   const tab = getLandingPageTab(router, FORUM)
 
+  const { acter, loading: acterLoading } = useActer()
+
+  if (acterLoading || !acter) return null
+
   return (
-    <LandingPageLayout
-      acter={acter}
-      onJoin={onJoin}
-      onLeave={onLeave}
-      loading={loading}
-    >
+    <LandingPageLayout onJoin={onJoin} onLeave={onLeave} loading={loading}>
       <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
         <Box role="tabpanel" hidden={tab !== MEMBERS}>
-          <MembersSection
-            acter={acter}
-            onConnectionStateChange={onConnectionStateChange}
-          />
+          <MembersSection onConnectionStateChange={onConnectionStateChange} />
         </Box>
         <Box
           role="tabpanel"
@@ -60,7 +56,6 @@ export const ActerLanding: FC<ActerLandingProps> = ({
           className={classes.postList}
         >
           <PostList
-            acter={acter}
             posts={posts}
             onPostSubmit={onPostSubmit}
             onPostDelete={onPostDelete}

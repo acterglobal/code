@@ -8,7 +8,6 @@ import {
 export type LandingPageLayoutProps = HeaderSectionProps
 
 export const LandingPageLayout: FC<LandingPageLayoutProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
@@ -18,12 +17,7 @@ export const LandingPageLayout: FC<LandingPageLayoutProps> = ({
 
   return (
     <Grid className={classes.header} container>
-      <HeaderSection
-        acter={acter}
-        onJoin={onJoin}
-        onLeave={onLeave}
-        loading={loading}
-      />
+      <HeaderSection onJoin={onJoin} onLeave={onLeave} loading={loading} />
       <Grid container spacing={2} className={classes.content}>
         {children}
       </Grid>

@@ -13,7 +13,7 @@ export const getPosts: ComposedGetServerSideProps = async ({ props }) => {
   const { data, error } = await apollo.query({
     query: QUERY_POSTS_BY_ACTER,
     variables: {
-      acterId: props.acter.id,
+      acterId: props.acter?.id,
     },
   })
 

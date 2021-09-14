@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useRouter, NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
@@ -17,17 +17,15 @@ import { useNotificationMutation } from '@acter/lib/apollo/use-notification-muta
 
 import { getActerTypes, setActerType, getInterests, getActer } from 'props'
 
-import { Acter, ActerType, InterestType } from '@acter/schema'
+import { ActerType, InterestType } from '@acter/schema'
 
-import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 import { ActerTypes } from '@acter/lib/constants'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 interface NewActerPageProps {
-  /**
-   * This Acter
-   */
-  acter: Acter
   /**
    * The ActerType we are creating
    */
@@ -38,25 +36,27 @@ interface NewActerPageProps {
   interestTypes: InterestType[]
 }
 export const NewActerPage: NextPage<NewActerPageProps> = ({
-  acter,
   acterType,
   interestTypes,
 }) => {
-  const router: NextRouter = useRouter()
-  const [
-    updateActer,
-    { loading: updateActerLoading },
-  ] = useNotificationMutation(UPDATE_ACTER, {
-    getSuccessMessage: (data) => `${data.updateActer.name} updated`,
+  const router = useRouter()
+  const { acter, loading } = useActer()
+  const [updateActer, { loading: updateActerLoading }] = useUpdateActer(acter, {
+    getSuccessMessage: ({ updateActer }) => `${updateActer.name} updated`,
     onCompleted: () => router.push(acterAsUrl({ acter })),
   })
+
   const [
     updateActivity,
     { loading: updateActivityLoading },
   ] = useNotificationMutation(UPDATE_ACTIVITY, {
-    getSuccessMessage: () => 'Activity updated',
+    getSuccessMessage: ({ updateActivity }) =>
+      `${updateActivity.Acter.name} updated`,
     onCompleted: () => router.push(acterAsUrl({ acter })),
   })
+
+  if (loading) return <LoadingSpinner />
+  if (!acter) return null
 
   const Form =
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm

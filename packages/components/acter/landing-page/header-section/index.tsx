@@ -13,16 +13,17 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import Image from 'next/image'
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type HeaderSectionProps = Omit<ConnectProps, 'user'>
 
 export const HeaderSection: FC<HeaderSectionProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
@@ -34,7 +35,12 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
 
   const avatarDims = smallScreen ? 65 : 140
 
-  const { user } = useUser()
+  const { acter, loading: acterLoading } = useActer()
+  const { user, loading: userLoading } = useUser()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter || !user) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (
@@ -95,13 +101,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
           </Hidden>
         </Box>
         <Box className={classes.buttonContainer}>
-          <Connect
-            acter={acter}
-            user={user}
-            onJoin={onJoin}
-            onLeave={onLeave}
-            loading={loading}
-          />
+          <Connect onJoin={onJoin} onLeave={onLeave} loading={loading} />
         </Box>
       </Box>
     </Box>

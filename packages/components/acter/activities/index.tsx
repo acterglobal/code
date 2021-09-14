@@ -10,7 +10,6 @@ import { useUser } from '@acter/lib/user/use-user'
 export type ActerActivitiesProps = LandingPageLayoutProps
 
 export const ActerActivities: FC<ActerActivitiesProps> = ({
-  acter,
   onJoin,
   onLeave,
   loading,
@@ -19,14 +18,9 @@ export const ActerActivities: FC<ActerActivitiesProps> = ({
   const { user } = useUser()
 
   return (
-    <LandingPageLayout
-      acter={acter}
-      onJoin={onJoin}
-      onLeave={onLeave}
-      loading={loading}
-    >
+    <LandingPageLayout onJoin={onJoin} onLeave={onLeave} loading={loading}>
       <Grid className={classes.main} item>
-        <ActivitiesSection acter={acter} user={user} />
+        <ActivitiesSection user={user} />
       </Grid>
     </LandingPageLayout>
   )

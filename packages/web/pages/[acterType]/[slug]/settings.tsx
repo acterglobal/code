@@ -7,64 +7,50 @@ import {
 } from '@acter/lib/compose-props'
 import {
   checkRole,
-  getUserProfile,
-  getActerTypes,
   getActer,
+  getActerTypes,
   setActerType,
   getLinks,
+  getUserProfile,
 } from 'props'
 import { ActerSettings } from '@acter/components/acter/settings'
-import { Acter, ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
-import { useQuery } from '@apollo/client'
-import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
-import { ActerTypes } from '@acter/lib/constants'
+import { useEffect, useState } from 'react'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useLinks } from '@acter/lib/links/use-links'
 
-interface ActerSettingsPageProps {
-  acter: Acter
-}
+export const ActerSettingsPage: NextPage = () => {
+  const baseTitle = 'Settings - Acter'
+  const [title, setTitle] = useState(baseTitle)
+  const [loading, setLoading] = useState(false)
+  const { acter, loading: getActerLoading } = useActer()
+  const { links, loading: linksLoading } = useLinks()
+  const [updateActer, { loading: updateActerLoading }] = useUpdateActer(acter)
 
-export const ActerSettingsPage: NextPage<ActerSettingsPageProps> = ({
-  acter,
-}) => {
-  /* This query call fetches the cache data whenever cache updates */
-  const { data: acterData } = useQuery(QUERY_ACTER, {
-    variables: {
-      acterTypeId: acter.ActerType.id,
-      slug: acter.slug,
-    },
-  })
+  useEffect(() => {
+    setLoading(getActerLoading || linksLoading || updateActerLoading)
+  }, [getActerLoading, linksLoading || updateActerLoading])
 
-  const [updateActer, { loading }] = useUpdateActer(acterData)
-
-  /* This query call fetches the cache data whenever cache updates */
-  const { data: linksData } = useQuery(QUERY_LINKS_BY_ACTER, {
-    variables: {
-      acterId:
-        acter.ActerType.name === ActerTypes.GROUP ? acter.Parent.id : acter.id,
-    },
-  })
-
-  const { findFirstActer: displayActer } = acterData
-  const { links: displayLinks } = linksData
+  useEffect(() => {
+    if (acter?.name) setTitle(`${acter.name} - ${baseTitle}`)
+  }, [acter])
 
   const [createLink] = useCreateLink(acter)
   const [updateLink] = useUpdateLink(acter)
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout acter={displayActer} links={displayLinks}>
-      <Head title={`${acter.name} Settings - Acter`} />
+    <Layout>
+      <Head title={title} />
       <main>
         <ActerSettings
-          acter={displayActer}
           onSettingsChange={updateActer}
           loading={loading}
-          links={displayLinks}
+          links={links}
           onLinkSubmit={createLink}
           onLinkUpdate={updateLink}
           onLinkDelete={deleteLink}

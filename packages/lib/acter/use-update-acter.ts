@@ -17,21 +17,6 @@ export type UpdateActerData = {
   updateActer: Acter
 }
 
-type UpdateActerProfileWithPicturesProps = {
-  /**
-   * Acter to be updated
-   */
-  acter: Acter
-  /**
-   * Form data with which to update Acter
-   */
-  updatedActer: any
-  /**
-   * Function to save Acter info
-   */
-  updateActer: (data: { variables: ActerVariables }) => Promise<any>
-}
-
 type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
 
 /**
@@ -50,23 +35,22 @@ export const useUpdateActer = (
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {
-    ...options,
     getSuccessMessage: (data: UpdateActerData) =>
       `${data.updateActer.name} updated`,
+    ...options,
   })
 
-  const updateActerProfileWithPictures = async ({
-    acter,
-    updatedActer = {},
-    updateActer,
-  }: UpdateActerProfileWithPicturesProps): Promise<any> => {
+  const handleUpdateActer = async (
+    updatedActer: ActerVariables
+  ): Promise<any> => {
+    console.log('Updating with useUpdateActer')
+    const acterId = acter?.id ? acter.id : updatedActer.id
     const variables = {
       // Load existing Acter data
       ...acter,
       // Overwrite with form values
       ...updatedActer,
-      // Explicitly set acterId
-      acterId: acter.id,
+      acterId,
     }
 
     const setInterestIds = (
@@ -75,7 +59,7 @@ export const useUpdateActer = (
     ) => {
       const interestIds = updatedActer.interestIds
         ? updatedActer.interestIds
-        : acter.ActerInterests.map(({ Interest: { id } }) => id) || []
+        : acter?.ActerInterests?.map(({ Interest: { id } }) => id) || []
       return interestIds
     }
 
@@ -85,7 +69,7 @@ export const useUpdateActer = (
     ) => {
       const followerIds = updatedActer.followerIds
         ? updatedActer.followerIds
-        : acter.Followers.map(({ Follower: { id } }) => id) || []
+        : acter?.Followers?.map(({ Follower: { id } }) => id) || []
       return followerIds
     }
 
@@ -95,18 +79,7 @@ export const useUpdateActer = (
         ...dataWithPics,
         followerIds: setFollowerIds(updatedActer, acter),
         interestIds: setInterestIds(updatedActer, acter),
-        acterId: acter.id,
       },
-    })
-  }
-
-  const handleUpdateActer = async (
-    updatedActer: ActerVariables
-  ): Promise<any> => {
-    await updateActerProfileWithPictures({
-      acter,
-      updatedActer,
-      updateActer,
     })
   }
 

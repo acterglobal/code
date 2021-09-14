@@ -1,19 +1,13 @@
 import React, { FC } from 'react'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import {
-  getActer,
-  getActerTypes,
-  setActerType,
-  getInterests,
-  getPosts,
-  getLinks,
-} from 'props'
+import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
 import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType, Link } from '@acter/schema'
+import { Acter, InterestType } from '@acter/schema'
 import { Layout } from '@acter/components/layout'
 import {
   ActerLanding,
@@ -24,23 +18,23 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerMenu, ActerTypes } from '@acter/lib/constants'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
-import { useQuery } from '@apollo/client'
-import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { usePosts } from '@acter/lib/post/use-posts'
+import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
 type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
 // TODO: make below to its own component
-const getActerView = (acter): FC<ViewTypes> => {
-  switch (acter.ActerType.name) {
+const getActerView = (acterType): FC<ViewTypes> => {
+  switch (acterType.name) {
     case ACTIVITY:
       return ActivityDetails
     case GROUP:
@@ -53,67 +47,53 @@ const getActerView = (acter): FC<ViewTypes> => {
 interface ActerLandingPageProps {
   acter: Acter
   interestTypes: InterestType[]
-  links: Link[]
 }
 
 export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
-  acter,
   interestTypes,
-  links,
 }) => {
-  /* This query call fetches the data from cache whenever cache updates */
-  const { data: acterData } = useQuery(QUERY_ACTER, {
-    variables: {
-      acterTypeId: acter.ActerType.id,
-      slug: acter.slug,
-    },
-  })
-
-  const { findFirstActer: displayActer } = acterData
-
-  /* This query call fetches the data from cache whenever cache updates */
-  const { data: postsData, loading: postsLoading } = useQuery(GET_POSTS, {
-    variables: {
-      acterId: acter.id,
-    },
-  })
-  if (postsLoading || !postsData) return null
-  const { posts: displayPostList } = postsData
-
-  const View = getActerView(displayActer)
+  const router = useRouter()
+  const { acter, loading: acterLoading } = useActer()
+  const { posts, loading: postsLoading } = usePosts()
 
   //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createPost] = useCreatePost(displayActer)
-  const [deletePost] = useDeletePost(displayPostList)
-  const [updatePost] = useUpdatePost(displayPostList)
+  const [createPost] = useCreatePost(acter)
+  const [deletePost] = useDeletePost()
+  const [updatePost] = useUpdatePost()
 
   const [
     createActerConnection,
     { loading: creatingConnection },
-  ] = useCreateActerConnection(displayActer)
+  ] = useCreateActerConnection(acter)
 
   const [
     updateActerConnection,
     { loading: updatingConnection },
-  ] = useUpdateActerConnection(displayActer)
+  ] = useUpdateActerConnection()
 
   const [
     deleteActerConnection,
     { loading: deletingConnection },
-  ] = useDeleteActerConnection(displayActer)
+  ] = useDeleteActerConnection(acter)
+
+  const tab = Array.isArray(router.query.tab)
+    ? router.query.tab.join()
+    : router.query.tab
+  const isPostsTab = tab === ActerMenu.FORUM
+
+  if (acterLoading || (isPostsTab && postsLoading))
+    return <PageLoadingSpinner />
+  if (!acter) return null
+
+  const View = getActerView(acter?.ActerType)
 
   return (
-    <Layout
-      acter={
-        acter.ActerType.name === GROUP ? displayActer.Parent : displayActer
-      }
-      links={links}
-    >
-      <Head title={`${acter.name} - Acter`} />
+    <Layout>
+      <Head title={`${acter?.name} - Acter`} />
       <View
-        acter={displayActer}
+        acter={acter}
         interestTypes={interestTypes}
-        posts={displayPostList}
+        posts={posts}
         onJoin={createActerConnection}
         onLeave={deleteActerConnection}
         onPostSubmit={createPost}
@@ -127,14 +107,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getActerTypes,
-    setActerType,
-    getActer,
-    getInterests,
-    getPosts,
-    getLinks
-  )
+  composeProps(ctx, getActerTypes, setActerType, getInterests, getPosts)
 
 export default ActerLandingPage

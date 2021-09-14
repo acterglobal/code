@@ -21,7 +21,6 @@ interface ActivitiesPageProps {
 
 export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   acter,
-  links,
 }) => {
   /* This query call fetches the cache data whenever cache updates */
   const { data } = useQuery(QUERY_ACTER, {
@@ -44,11 +43,10 @@ export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
   ] = useDeleteActerConnection(displayActer)
 
   return (
-    <Layout acter={displayActer} links={links}>
+    <Layout>
       <Head title={`${acter.name} Settings - Acter`} />
 
       <ActerActivities
-        acter={acter}
         onJoin={createActerConnection}
         onLeave={deleteActerConnection}
         loading={creatingConnection || deletingConnection}
