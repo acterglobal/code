@@ -7,8 +7,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["orderByRelation"]
+  provider = "prisma-client-js"
 }
 
 generator typegraphql {
@@ -294,8 +293,8 @@ model Notification {
   OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id])
   onActerId String @map("on_acter_id")
 
-  @@index([toActerId,viewedAt])
-  @@index([onActerId,toActerId,type])
+  @@index([toActerId, viewedAt])
+  @@index([onActerId, toActerId, type])
   @@map("notifications")
 }
 
