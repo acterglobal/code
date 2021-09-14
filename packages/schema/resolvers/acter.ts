@@ -14,7 +14,7 @@ import { ActerTypes } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
 
-const { ACTIVITY, USER, GROUP } = ActerTypes
+const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
 @Resolver(Acter)
 export class ActerResolver {
@@ -53,21 +53,13 @@ export class ActerResolver {
       where: { id: acterTypeId },
     })
 
-    // TODO: refactor to be functional
-    let slug
-    if (parentActerId) {
-      const { slug: parentActerSlug } = await ctx.prisma.acter.findFirst({
-        select: { slug: true },
-        where: {
-          id: parentActerId,
-          ActerType: { name: { notIn: [USER, ACTIVITY] } },
-        },
-      })
-      // TODO: add logic to createslug for activities
-      slug = createSlug(name, acterType.name === GROUP ? parentActerSlug : null)
-    } else {
-      slug = createSlug(name)
-    }
+    const slug = await createSlug(
+      ctx,
+      name,
+      [GROUP, ACTIVITY].includes(acterType.name as ActerTypes)
+        ? parentActerId
+        : null
+    )
 
     const existingActer = await ctx.prisma.acter.findFirst({
       where: {
@@ -280,7 +272,7 @@ export class ActerResolver {
       acterJoinSetting,
       acterNotifyEmailFrequency,
       acterTypeId,
-      parentActerId,
+      organiserActerId,
       interestIds,
       followerIds
     )
