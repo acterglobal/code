@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { AddSharp as AddIcon } from '@material-ui/icons'
 
@@ -16,14 +14,13 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const AddActivityButton: FC = () => {
-  const router = useRouter()
   const { acter, loading: acterLoading } = useActer()
   const { user, loading: userLoading } = useUser()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const tab = getLandingPageTab(router)
+  const tab = getLandingPageTab()
 
   if (tab !== ActerMenu.ACTIVITIES) return null
 
