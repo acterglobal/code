@@ -11,11 +11,7 @@ export interface LayoutProps {
   dashboard?: boolean
 }
 
-export const Layout: FC<LayoutProps> = ({
-  children,
-  searchType,
-  dashboard,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, searchType }) => {
   const classes = useStyles()
 
   const { boot } = useIntercom()
@@ -26,7 +22,7 @@ export const Layout: FC<LayoutProps> = ({
 
   return (
     <div className={classes.root}>
-      <Sidebar dashboard={dashboard} searchType={searchType} />
+      <Sidebar searchType={searchType} />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}

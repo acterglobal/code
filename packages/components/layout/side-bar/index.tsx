@@ -32,24 +32,22 @@ import { useActer } from '@acter/lib/acter/use-acter'
 
 export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   searchType?: SearchType
-  dashboard: boolean
 }
 
-export const Sidebar: FC<SidebarProps> = ({ dashboard, searchType }) => {
-  const { acter, loading: acterLoading } = useActer()
-  const [loading, setLoading] = useState(acterLoading)
+const PRIMARY_WIDTH = 4
+const SECONDARY_WIDTH = 15
+
+export const Sidebar: FC<SidebarProps> = ({ searchType }) => {
+  const { acter, loading } = useActer()
   const [drawerWidth, setDrawerWidth] = useState(4)
   const classes = useStyles({ drawerWidth })
   const router = useRouter()
 
   useEffect(() => {
-    setLoading(loading)
-  }, [loading])
-
-  useEffect(() => {
-    if (!loading || acter || searchType) {
-      setDrawerWidth(dashboard ? 4 : 15)
+    if (acter || searchType) {
+      return setDrawerWidth(SECONDARY_WIDTH)
     }
+    setDrawerWidth(PRIMARY_WIDTH)
   }, [loading, acter, searchType])
 
   return (

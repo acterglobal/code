@@ -7,6 +7,7 @@ import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
 import { ConnectProps } from '@acter/components/acter/connect'
 import { Acter, ActerConnectionRole } from '@acter/schema'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
   /**
@@ -21,12 +22,11 @@ export const FollowerRow: FC<FollowerRowProps> = ({
   onLeave,
   loading,
 }) => {
-  const { acter } = useActer()
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
+  const { acter, loading: acterLoading } = useActer()
 
   const connection = getActerConnection(acter, follower)
-
   useEffect(() => {
     if (loading) {
       setOnClick(() => noop)
@@ -36,6 +36,8 @@ export const FollowerRow: FC<FollowerRowProps> = ({
     setOnClick(() => (connection ? onLeave : onJoin))
   }, [loading, connection])
 
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
   const verb = connection ? 'Leave' : 'Join'
 
   return (
