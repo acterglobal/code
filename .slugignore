@@ -1,10 +1,18 @@
-__mocks__
-__stories__
-__tests__
+**/__mocks__/*
+**/__stories__/*
+**/__tests__/*
 
-*.d.ts
+**/*.d.ts
+**/*.md
 
-.github
-.husky
-.vscode
-docs
+.husky/*
+.vscode/*
+docs/*
+
+.dockerignore
+.env
+.eslint*
+.git*
+docker*
+jest*
+
