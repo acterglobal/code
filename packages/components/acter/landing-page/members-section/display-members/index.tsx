@@ -27,10 +27,6 @@ export interface DisplayMembersProps {
    */
   type: MemberType
   /**
-   * Action when Member state changes
-   */
-  onConnectionStateChange: ConnectionStateProps['onSubmit']
-  /**
    * Boolean to indicate organisation member/follower type
    */
   isOrganisation?: boolean
@@ -39,7 +35,6 @@ export interface DisplayMembersProps {
 export const DisplayMembers: FC<DisplayMembersProps> = ({
   followers = [],
   type,
-  onConnectionStateChange,
   isOrganisation,
 }) => {
   const classes = useStyles()
@@ -79,7 +74,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
                   connection={connection}
                   showJoinState={showJoinState}
                   canEdit={canEdit}
-                  onConnectionStateChange={onConnectionStateChange}
                 />
               </Link>
             )
@@ -93,7 +87,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
               connection={connection}
               showJoinState={showJoinState}
               canEdit={canEdit}
-              onConnectionStateChange={onConnectionStateChange}
             />
           )
         })}

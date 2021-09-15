@@ -3,30 +3,41 @@ import React, { FC, useState, useEffect } from 'react'
 import { Box, Grid } from '@material-ui/core'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { ConnectProps } from '@acter/components/acter/connect'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
+import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { Acter, ActerConnectionRole } from '@acter/schema'
 
-interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
+interface FollowerRowProps {
   /**
    * The follower Acter
    */
   follower: Acter
 }
 
-export const FollowerRow: FC<FollowerRowProps> = ({
-  follower,
-  onJoin,
-  onLeave,
-  loading,
-}) => {
+export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
+  const [loading, setLoading] = useState(false)
   const { acter, loading: acterLoading } = useActer()
+
+  const [
+    createActerConnection,
+    { loading: creatingConnection },
+  ] = useCreateActerConnection(acter)
+
+  const [
+    deleteActerConnection,
+    { loading: deletingConnection },
+  ] = useDeleteActerConnection(acter)
+
+  useEffect(() => {
+    setLoading(acterLoading || creatingConnection || deletingConnection)
+  }, [acterLoading, creatingConnection, deletingConnection])
 
   const connection = getActerConnection(acter, follower)
   useEffect(() => {
@@ -35,7 +46,9 @@ export const FollowerRow: FC<FollowerRowProps> = ({
       return
     }
 
-    setOnClick(() => (connection ? onLeave : onJoin))
+    setOnClick(() =>
+      connection ? deleteActerConnection : createActerConnection
+    )
   }, [loading, connection])
 
   if (acterLoading) return <LoadingSpinner />

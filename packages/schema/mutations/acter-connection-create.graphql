@@ -4,7 +4,7 @@ mutation ActerConnectionCreate(
   $followerActerId: String!
   $followingActerId: String!
 ) {
-  createActerConnection(
+  createActerConnectionCustom(
     followerActerId: $followerActerId
     followingActerId: $followingActerId
   ) {

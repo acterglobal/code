@@ -37,10 +37,6 @@ export interface DisplayMemberItemProps {
    * Boolean indicating whether the user can edit member details
    */
   canEdit?: boolean
-  /**
-   * Action when Member state changes
-   */
-  onConnectionStateChange: ConnectionStateProps['onSubmit']
 }
 
 export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
@@ -49,7 +45,6 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
   connection,
   showJoinState,
   canEdit,
-  onConnectionStateChange,
 }) => {
   const classes = useStyles()
   return (
@@ -72,7 +67,6 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
             <ConnectionState
               connection={connection}
               canEdit={canEdit && Follower.id !== user.Acter.id}
-              onSubmit={onConnectionStateChange}
             />
           </ListItemSecondaryAction>
         )}

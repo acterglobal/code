@@ -18,7 +18,6 @@ export interface ConnectionStateProps
 export const ConnectionState: FC<ConnectionStateProps> = ({
   connection,
   canEdit,
-  onSubmit,
 }) => {
   const [isEditing, setIsEditing] = useState(false)
 
@@ -31,7 +30,6 @@ export const ConnectionState: FC<ConnectionStateProps> = ({
       <ConnectionStateEditor
         connection={connection}
         onCancel={() => setIsEditing(false)}
-        onSubmit={onSubmit}
       />
     )
   }

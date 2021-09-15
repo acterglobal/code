@@ -13,28 +13,31 @@ import { Save, Cancel } from '@material-ui/icons'
 
 import { Formik, Form } from 'formik'
 
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 export interface ConnectionStateEditorProps {
   connection: ActerConnection
-  onSubmit: (
-    connection: ActerConnection,
-    role: ActerConnectionRole
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any> // ApolloGraphQL mutation function
   onCancel: () => void
 }
 
 export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
   connection,
   onCancel,
-  onSubmit,
 }) => {
+  const [
+    updateActerConnection,
+    { loading: updatingConnection },
+  ] = useUpdateActerConnection()
+
   const { Follower, role } = connection
   const initialValues = {
     role,
   }
-  const handleSubmit = ({ role }) => onSubmit(connection, role)
+  const handleSubmit = ({ role }) => updateActerConnection(connection, role)
+
+  if (updatingConnection) return <LoadingSpinner />
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>

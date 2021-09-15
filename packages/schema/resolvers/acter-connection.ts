@@ -12,7 +12,7 @@ import {
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
-  async createActerConnection(
+  async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
     @Arg('followingActerId') followingActerId: string
@@ -62,7 +62,7 @@ export class ActerConnectionResolver {
 
   @Authorized()
   @Mutation(() => ActerConnection)
-  async updateActerConnection(
+  async updateActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('connectionId') connectionId: string,
     @Arg('role') role: ActerConnectionRole

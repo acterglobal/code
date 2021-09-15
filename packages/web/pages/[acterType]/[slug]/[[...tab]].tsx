@@ -18,8 +18,6 @@ import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
-import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import {
   composeProps,
@@ -64,21 +62,6 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const [deletePost] = useDeletePost()
   const [updatePost] = useUpdatePost()
 
-  const [
-    createActerConnection,
-    { loading: creatingConnection },
-  ] = useCreateActerConnection(acter)
-
-  const [
-    updateActerConnection,
-    { loading: updatingConnection },
-  ] = useUpdateActerConnection()
-
-  const [
-    deleteActerConnection,
-    { loading: deletingConnection },
-  ] = useDeleteActerConnection(acter)
-
   const tab = Array.isArray(router.query.tab)
     ? router.query.tab.join()
     : router.query.tab
@@ -97,13 +80,9 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         acter={acter}
         interestTypes={interestTypes}
         posts={posts}
-        onJoin={createActerConnection}
-        onLeave={deleteActerConnection}
         onPostSubmit={createPost}
         onPostUpdate={updatePost}
         onPostDelete={deletePost}
-        onConnectionStateChange={updateActerConnection}
-        loading={creatingConnection || deletingConnection || updatingConnection}
       />
     </Layout>
   )

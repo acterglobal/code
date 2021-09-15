@@ -16,8 +16,6 @@ jest.mock('@acter/lib/user/use-user')
 
 const { ORGANISATIONS } = MemberType
 
-const mockFunction = jest.fn()
-
 describe('<DisplayMembers>', () => {
   const mockUseActer = useActer as jest.Mock
   const mockUseUser = useUser as jest.Mock
@@ -27,13 +25,7 @@ describe('<DisplayMembers>', () => {
   })
 
   it('should display when there are no acters', () => {
-    render(
-      <DisplayMembers
-        followers={[]}
-        type={ORGANISATIONS}
-        onConnectionStateChange={mockFunction}
-      />
-    )
+    render(<DisplayMembers followers={[]} type={ORGANISATIONS} />)
     expect(
       screen.getByRole('heading', { name: '0 organisations' })
     ).toBeTruthy()
@@ -64,13 +56,7 @@ describe('<DisplayMembers>', () => {
       },
     ]
 
-    render(
-      <DisplayMembers
-        followers={connections}
-        type={ORGANISATIONS}
-        onConnectionStateChange={mockFunction}
-      />
-    )
+    render(<DisplayMembers followers={connections} type={ORGANISATIONS} />)
     expect(
       screen.getByRole('heading', { name: '3 organisations' })
     ).toBeTruthy()

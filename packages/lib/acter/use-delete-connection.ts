@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
 
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
 import {
@@ -7,7 +7,6 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import { Acter, ActerConnection } from '@acter/schema'
 import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
-import GET_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
 type DeleteConnectionData = {
   deleteActerConnection: ActerConnection
@@ -29,14 +28,31 @@ export const useDeleteActerConnection = (
     {
       ...options,
 
-      update: (cache, { data }) => {
-        const withoutConnection = (a) => a.id !== data.deleteActerConnection.id
-        acter.Followers = acter.Followers.filter(withoutConnection)
+      update: (cache, result, updateOptions) => {
+        options?.update?.(cache, result, updateOptions)
+        const {
+          data: { deleteActerConnection },
+        } = result
 
-        cache.writeQuery({
-          query: GET_ACTER,
-          data: {
-            getActer: acter,
+        const {
+          variables: { followerActerId, followingActerId },
+        } = updateOptions
+        const ref = cache.identify(
+          (deleteActerConnection as unknown) as StoreObject
+        )
+
+        cache.modify({
+          id: `Acter:${followingActerId}`,
+          fields: {
+            Followers: (prevFollowers) =>
+              prevFollowers.filter((follower) => follower.__ref !== ref),
+          },
+        })
+        cache.modify({
+          id: `Acter:${followerActerId}`,
+          fields: {
+            Following: (prevFollowing) =>
+              prevFollowing.filter((following) => following.__ref !== ref),
           },
         })
       },
