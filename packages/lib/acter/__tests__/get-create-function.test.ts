@@ -20,12 +20,12 @@ describe('getCreateFunction', () => {
   it('should use the createActivity function when ActerType is "activity"', async () => {
     createActivity.mockReturnValue({
       data: {
-        createActivity: ExampleActivity,
+        createActivityCustom: ExampleActivity,
       },
     })
     updateActer.mockReturnValue({
       data: {
-        updateActer: ExampleActivity.Acter,
+        updateActerCustom: ExampleActivity.Acter,
       },
     })
 
