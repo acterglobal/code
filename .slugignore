@@ -2,7 +2,7 @@
 **/__stories__/*
 **/__tests__/*
 
-**/*.d.ts
+packages/schema/types/*.d.ts
 **/*.md
 
 .husky/*
