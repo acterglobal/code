@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getActer } from 'props'
 
 import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
@@ -20,7 +20,9 @@ interface DeleteActerPageProps {
   acter: Acter
 }
 
-export const DeleteActerPage: NextPage<DeleteActerPageProps> = ({ acter }) => {
+export const DeleteActerPage: NextPageWithLayout<DeleteActerPageProps> = ({
+  acter,
+}) => {
   const router = useRouter()
 
   const [deleteActer] = useDeleteActer()

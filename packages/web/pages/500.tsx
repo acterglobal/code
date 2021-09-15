@@ -1,16 +1,15 @@
 import React from 'react'
 
-import { NextPage } from 'next'
-
 import { Typography } from '@material-ui/core'
 
-import { Layout } from '@acter/components/layout'
+import { NextPageWithLayout } from 'pages/_app'
+
 import { Head } from '@acter/components/layout/head'
 import { Box } from '@acter/components/styled'
 
-const Custom500: NextPage = () => {
+const Custom500: NextPageWithLayout = () => {
   return (
-    <Layout>
+    <>
       <Head title="500 - Acter" />
 
       <Box mt={20}>
@@ -19,7 +18,7 @@ const Custom500: NextPage = () => {
           notified, and hope to get things fixed quickly.
         </Typography>
       </Box>
-    </Layout>
+    </>
   )
 }
 

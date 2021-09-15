@@ -3,14 +3,13 @@
 /* eslint no-irregular-whitespace: 0 */
 import React from 'react'
 
-import { NextPage } from 'next'
+import { NextPageWithLayout } from 'pages/_app'
 
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 
-const GDPR: NextPage = () => {
+const GDPR: NextPageWithLayout = () => {
   return (
-    <Layout>
+    <>
       <Head title="Privacy Policy - Acter" />
 
       <main>
@@ -424,7 +423,7 @@ const GDPR: NextPage = () => {
           </p>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

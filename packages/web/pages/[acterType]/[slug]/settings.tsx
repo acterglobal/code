@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { NextPage } from 'next'
-
+import { NextPageWithLayout } from 'pages/_app'
 import {
   checkRole,
   getActer,
@@ -12,7 +11,6 @@ import {
 } from 'props'
 
 import { ActerSettings } from '@acter/components/acter/settings'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
@@ -26,7 +24,7 @@ import { useLinks } from '@acter/lib/links/use-links'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { ActerConnectionRole } from '@acter/schema'
 
-export const ActerSettingsPage: NextPage = () => {
+export const ActerSettingsPage: NextPageWithLayout = () => {
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
   const [loading, setLoading] = useState(false)
@@ -47,7 +45,7 @@ export const ActerSettingsPage: NextPage = () => {
   const [deleteLink] = useDeleteLink()
 
   return (
-    <Layout>
+    <>
       <Head title={title} />
       <main>
         <ActerSettings
@@ -59,7 +57,7 @@ export const ActerSettingsPage: NextPage = () => {
           onLinkDelete={deleteLink}
         />
       </main>
-    </Layout>
+    </>
   )
 }
 

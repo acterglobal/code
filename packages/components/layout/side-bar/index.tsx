@@ -78,7 +78,7 @@ export const Sidebar: FC<SidebarProps> = ({ searchType }) => {
         </List>
       </Box>
       {loading && <LoadingSpinner />}
-      {acter && (
+      {acter && !searchType && (
         <Box className={classes.subMenu}>
           <ActerMenu />
         </Box>

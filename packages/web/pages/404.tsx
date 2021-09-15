@@ -1,20 +1,20 @@
 import React from 'react'
 
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import { Typography } from '@material-ui/core'
 
-import { Layout } from '@acter/components/layout'
+import { NextPageWithLayout } from 'pages/_app'
+
 import { Head } from '@acter/components/layout/head'
 import { Box, Link } from '@acter/components/styled'
 
-const Custom404: NextPage = () => {
+const Custom404: NextPageWithLayout = () => {
   const router = useRouter()
   const handleRedirectBack = () => router.back()
 
   return (
-    <Layout>
+    <>
       <Head title="404 - Acter" />
       <Box mt={20}>
         <Typography variant="body1">
@@ -22,7 +22,7 @@ const Custom404: NextPage = () => {
           <Link onClick={handleRedirectBack}>go back</Link> and try again.
         </Typography>
       </Box>
-    </Layout>
+    </>
   )
 }
 

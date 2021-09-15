@@ -1,13 +1,12 @@
-import { NextPage } from 'next'
-
 import { Typography } from '@material-ui/core'
 
-import { Layout } from '@acter/components/layout'
+import { NextPageWithLayout } from 'pages/_app'
+
 import { Head } from '@acter/components/layout/head'
 
-const ErrorPage: NextPage = () => {
+const ErrorPage: NextPageWithLayout = () => {
   return (
-    <Layout>
+    <>
       <Head title="Acter" />
       <main>
         <Typography
@@ -17,7 +16,7 @@ const ErrorPage: NextPage = () => {
           There was an error. Please try again.
         </Typography>
       </main>
-    </Layout>
+    </>
   )
 }
 

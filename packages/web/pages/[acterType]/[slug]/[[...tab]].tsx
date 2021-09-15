@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
 
 import {
@@ -14,7 +14,6 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -49,7 +48,7 @@ interface ActerLandingPageProps {
   interestTypes: InterestType[]
 }
 
-export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
+export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
   interestTypes,
 }) => {
   const router = useRouter()
@@ -73,7 +72,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(acter?.ActerType)
 
   return (
-    <Layout>
+    <>
       <Head title={`${acter?.name} - Acter`} />
       <View
         acter={acter}
@@ -83,7 +82,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onPostUpdate={updatePost}
         onPostDelete={deletePost}
       />
-    </Layout>
+    </>
   )
 }
 

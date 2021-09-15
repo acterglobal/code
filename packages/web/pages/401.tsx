@@ -1,19 +1,18 @@
 import React from 'react'
 
-import { NextPage } from 'next'
-
 import { Typography } from '@material-ui/core'
 
-import { Layout } from '@acter/components/layout'
+import { NextPageWithLayout } from 'pages/_app'
+
 import { Head } from '@acter/components/layout/head'
 import { Box, Link } from '@acter/components/styled'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 
-const Custom401: NextPage = () => {
+const Custom401: NextPageWithLayout = () => {
   const { loginUrl } = useAuthRedirect()
 
   return (
-    <Layout>
+    <>
       <Head title="404 - Acter" />
       <Box mt={20}>
         <Typography variant="body1">
@@ -21,7 +20,7 @@ const Custom401: NextPage = () => {
           <Link href={loginUrl}>login</Link> and try again.
         </Typography>
       </Box>
-    </Layout>
+    </>
   )
 }
 

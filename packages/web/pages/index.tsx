@@ -1,10 +1,11 @@
-import { NextPage, GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next'
 
-import { Layout } from '@acter/components/layout'
+import { NextPageWithLayout } from 'pages/_app'
+
 import { Head } from '@acter/components/layout/head'
 
-const Home: NextPage = () => (
-  <Layout>
+const Home: NextPageWithLayout = () => (
+  <>
     <Head title="Acter" />
 
     <main>
@@ -15,7 +16,7 @@ const Home: NextPage = () => (
         ecosystems, enabling them to accelerate their impact.
       </p>
     </main>
-  </Layout>
+  </>
 )
 
 export const getServerSideProps: GetServerSideProps = async () => {

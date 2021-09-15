@@ -1,15 +1,12 @@
 import React from 'react'
 
-import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 
-import { StoreObject } from '@apollo/client'
-
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getInterests } from 'props'
 
 import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getCreateFunction } from '@acter/lib/acter/get-create-function'
@@ -35,7 +32,7 @@ interface NewActerPageProps {
   interestTypes: InterestType[]
 }
 
-export const NewActerPage: NextPage<NewActerPageProps> = ({
+export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
   acterType,
   interestTypes,
 }) => {
@@ -69,7 +66,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const Form = acterType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
-    <Layout>
+    <>
       <Head title={acterType.name} />
       <main>
         <Form
@@ -83,7 +80,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           })}
         />
       </main>
-    </Layout>
+    </>
   )
 }
 
