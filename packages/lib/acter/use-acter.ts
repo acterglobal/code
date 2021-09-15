@@ -60,14 +60,15 @@ export const useActer = (): ActerQueryResult => {
   ] = useLazyQuery<FindFirstActerData>(QUERY_ACTER)
 
   useEffect(() => {
-    if (acterType) {
-      fetchActers({
+    if (acterType && slug) {
+      return fetchActers({
         variables: {
           acterTypeId: acterType.id,
           slug,
         },
       })
     }
+    setActer(null)
   }, [acterType, slug])
 
   useEffect(() => {
