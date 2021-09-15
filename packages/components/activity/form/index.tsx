@@ -85,6 +85,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const router = useRouter()
   const classes = useStyles()
   const { activityTypes, loading } = useActivityTypes()
+  const { user } = useUser()
 
   const [activityType, setActivityType] = useState(null)
   const [heading, setHeading] = useState('')
@@ -180,8 +181,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endTime: endAt,
     endAt,
   }
-
-  const { user } = useUser()
   if (!user) return null
 
   // Fake an acter to determine potential followers when this is a new Activity

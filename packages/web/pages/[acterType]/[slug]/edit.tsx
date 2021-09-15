@@ -49,8 +49,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     updateActivity,
     { loading: updateActivityLoading },
   ] = useNotificationMutation(UPDATE_ACTIVITY, {
-    getSuccessMessage: ({ updateActivity }) =>
-      `${updateActivity.Acter.name} updated`,
+    getSuccessMessage: ({ updateActivityCustom }) =>
+      `${updateActivityCustom.Acter.name} updated`,
     onCompleted: () => router.push(acterAsUrl({ acter })),
   })
 
