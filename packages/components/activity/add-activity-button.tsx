@@ -5,22 +5,24 @@ import { useRouter } from 'next/router'
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { AddSharp as AddIcon } from '@material-ui/icons'
 
+import { LoadingSpinner } from '../util/loading-spinner'
+
 import { Link } from '@acter/components/util/anchor-link'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerMenu } from '@acter/lib/constants'
+import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole, User } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 
-export interface AddActivityButtonProps {
-  acter: Acter
-  user: User
-}
-
-export const AddActivityButton: FC<AddActivityButtonProps> = ({
-  acter,
-  user,
-}) => {
+export const AddActivityButton: FC = () => {
   const router = useRouter()
+  const { acter, loading: acterLoading } = useActer()
+  const { user, loading: userLoading } = useUser()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter) return null
+
   const tab = getLandingPageTab(router)
 
   if (tab !== ActerMenu.ACTIVITIES) return null
