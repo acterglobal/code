@@ -1,11 +1,12 @@
 import 'reflect-metadata'
 
-import { POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
-import { createPostEmailNotification } from '@acter/lib/post/email'
 import { PostNotificationCreate } from './types'
+
+import { POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
-import { prisma } from '@acter/schema/prisma'
+import { createPostEmailNotification } from '@acter/lib/post/email'
 import { NotificationType } from '@acter/schema'
+import { prisma } from '@acter/schema/prisma'
 
 export const postNotificationsCreateWorker = createNotificationWorker<PostNotificationCreate>(
   {

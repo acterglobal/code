@@ -1,10 +1,11 @@
 import { MutationResult, FetchResult } from '@apollo/client'
+
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
+import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 
 export type ActerVariables = Acter & {
   acterId?: string

@@ -1,16 +1,13 @@
 import React, { FC, useState, useEffect } from 'react'
+
 import { useRouter } from 'next/router'
+
+import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+
+import clsx from 'clsx'
 import { parseISO, addMinutes } from 'date-fns'
 import { Form, Formik, FormikBag } from 'formik'
-import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import clsx from 'clsx'
-import { getFollowers } from '@acter/lib/acter/get-followers'
-import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
-import {
-  ActivityTypeStep,
-  ActivityTypeStepProps,
-  ActivityTypeStepValues,
-} from '@acter/components/activity/form/steps/type'
+
 import {
   BasicsStep,
   BasicsStepValues,
@@ -20,20 +17,27 @@ import {
   DetailsStepProps,
   DetailsStepValues,
 } from '@acter/components/activity/form/steps/details'
+import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import {
   SettingsStep,
   SettingsStepProps,
   SettingsStepValues,
 } from '@acter/components/activity/form/steps/settings'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-import { Acter } from '@acter/schema'
-import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
-import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
-import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
-import { Stepper } from '@acter/components/util/stepper'
-import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
+import {
+  ActivityTypeStep,
+  ActivityTypeStepProps,
+  ActivityTypeStepValues,
+} from '@acter/components/activity/form/steps/type'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+import { Stepper } from '@acter/components/util/stepper'
+import { getFollowers } from '@acter/lib/acter/get-followers'
+import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
+import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
+import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { useUser } from '@acter/lib/user/use-user'
+import { Acter } from '@acter/schema'
 
 const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
   const firstStep = acter?.id ? [] : [ActivityTypeStep]

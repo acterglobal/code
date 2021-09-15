@@ -1,4 +1,6 @@
 import { parseISO } from 'date-fns'
+import { prepareDataForValidation } from 'formik'
+
 import {
   _setTimeOnDate,
   _setStartAndEndTime,
@@ -6,11 +8,8 @@ import {
   _setIsOnline,
   ActivityFormData,
 } from '@acter/lib/acter/prepare-activity-values'
-
-import { ExampleActivity } from '@acter/schema/fixtures'
-
 import { ActerTypes } from '@acter/lib/constants'
-import { prepareDataForValidation } from 'formik'
+import { ExampleActivity } from '@acter/schema/fixtures'
 
 describe('prepareActivityValues', () => {
   let formData: ActivityFormData

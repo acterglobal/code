@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client'
+
 import { useSnackbar } from 'notistack'
 
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'

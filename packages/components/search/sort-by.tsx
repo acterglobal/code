@@ -1,9 +1,11 @@
 import React, { FC, useState } from 'react'
+
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { DoneRounded as SelectedIcon } from '@material-ui/icons'
-import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+
 import { Popover } from '@acter/components/util/popover'
+import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 
 export type SortByProps = {
   sortBy: SearchActivitiesSortBy

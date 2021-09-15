@@ -1,9 +1,12 @@
 import React, { FC } from 'react'
+
 import { Box, MenuItem, makeStyles, createStyles } from '@material-ui/core'
 import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
-import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+
 import { theme } from '@acter/components/themes/acter-theme'
+import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { capitalize } from '@acter/lib/string/capitalize'
+
 export interface PostOptionsProps {
   onEdit: () => void
   onDelete: () => void

@@ -1,16 +1,19 @@
 import React, { FC } from 'react'
-import pluralize from 'pluralize'
+
 import { Box, Divider, Typography, List } from '@material-ui/core'
-import { Link } from '@acter/components/util/anchor-link'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+
+import pluralize from 'pluralize'
+
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { MemberType } from '@acter/lib/constants'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnection, ActerConnectionRole, User } from '@acter/schema'
 
-import { MemberType } from '@acter/lib/constants'
-import { useActer } from '@acter/lib/acter/use-acter'
 export interface DisplayMembersProps {
   /**
    * The list of acters we are displaying

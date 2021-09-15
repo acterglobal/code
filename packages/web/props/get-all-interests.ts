@@ -1,8 +1,6 @@
-import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo } from '@acter/lib/apollo'
-
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { InterestType } from '@acter/schema'
-
 import QUERY_ALL_INTERESTS from '@acter/schema/queries/query-all-interests-by-type.graphql'
 
 export const getInterests: ComposedGetServerSideProps = async () => {

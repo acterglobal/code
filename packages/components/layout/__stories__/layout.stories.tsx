@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
+
 import { Story, Meta } from '@storybook/react'
+
 import { Layout, LayoutProps } from '@acter/components/layout'
 import { ActerMenu } from '@acter/lib/constants'
 import {
@@ -7,6 +9,7 @@ import {
   ExampleOrganisationActer,
   ExampleUser,
 } from '@acter/schema/fixtures'
+
 const Content: FC = () => <main>Main content</main>
 
 export default {

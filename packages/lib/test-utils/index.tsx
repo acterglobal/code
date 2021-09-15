@@ -1,5 +1,7 @@
 import React, { FC, ReactElement } from 'react'
+
 import { render, RenderOptions, RenderResult } from '@testing-library/react'
+
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 
 const AllTheProviders: FC = ({ children }) => {

@@ -1,5 +1,5 @@
-import { Worker, WorkerOptions } from 'bullmq'
 import { createRedisConnection as connection } from './connection'
+import { Worker, WorkerOptions } from 'bullmq'
 
 export const createWorker = (
   name: string,

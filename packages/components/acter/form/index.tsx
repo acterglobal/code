@@ -1,9 +1,12 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-
 import React, { FC, useState } from 'react'
-import { Form, Formik } from 'formik'
+
+import { useRouter } from 'next/router'
+
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+
+import { Form, Formik } from 'formik'
+
 import {
   BasicInformation,
   BasicInformationValues,
@@ -17,11 +20,11 @@ import {
   InterestAddSectionValues,
 } from '@acter/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from '@acter/components/styled'
-import { Acter, ActerType, InterestType } from '@acter/schema'
-import { useRouter } from 'next/router'
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+import { Stepper } from '@acter/components/util/stepper'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
-import { Stepper } from '@acter/components/util/stepper'
+import { Acter, ActerType, InterestType } from '@acter/schema'
 
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 

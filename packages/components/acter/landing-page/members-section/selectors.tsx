@@ -1,8 +1,11 @@
 import React, { FC } from 'react'
+
 import { Box, Button } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+
 import clsx from 'clsx'
+
 import { capitalize } from '@acter/lib/string/capitalize'
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -1,8 +1,10 @@
-import { FetchResult, MutationResult } from '@apollo/client'
-import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useRouter } from 'next/router'
+
+import { FetchResult, MutationResult } from '@apollo/client'
+
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
+import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
 
 type HandleMethod = (acterId: string) => Promise<FetchResult>
 

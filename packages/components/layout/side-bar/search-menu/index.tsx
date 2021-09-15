@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect, useMemo } from 'react'
+
 import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -8,13 +10,14 @@ import {
   Typography,
   useTheme,
 } from '@material-ui/core'
+
 import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SearchTabs } from '@acter/components/layout/side-bar/search-menu/tabs'
 import { SearchTypes } from '@acter/components/layout/side-bar/search-menu/types'
-import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
-import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
+import { ActerTypes, ActivityTypes, SearchType } from '@acter/lib/constants'
 import { ActerType, ActivityType } from '@acter/schema'
 
 export interface SearchMenuProps {

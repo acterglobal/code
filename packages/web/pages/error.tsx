@@ -1,5 +1,7 @@
 import { NextPage } from 'next'
+
 import { Typography } from '@material-ui/core'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 

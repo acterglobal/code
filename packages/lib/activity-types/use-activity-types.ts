@@ -1,4 +1,5 @@
 import { useQuery, QueryResult } from '@apollo/client'
+
 import { ActivityType } from '@acter/schema'
 import QUERY_ACTIVITY_TYPES from '@acter/schema/queries/query-activity-types.graphql'
 

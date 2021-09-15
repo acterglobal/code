@@ -1,10 +1,12 @@
 import React, { FC } from 'react'
+
 import {
   createStyles,
   withStyles,
   Switch as MUISwitch,
   Theme,
 } from '@material-ui/core'
+
 import { Size } from '@acter/lib/constants'
 
 const { SMALL, MEDIUM } = Size

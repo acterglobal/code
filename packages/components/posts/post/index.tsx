@@ -1,11 +1,14 @@
 import React, { FC, useState } from 'react'
+
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
-import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Post as PostType, User } from '@acter/schema'
+
+import { PostOptions } from './options'
 import clsx from 'clsx'
+
+import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'
-import { PostOptions } from './options'
+import { Post as PostType, User } from '@acter/schema'
 
 export interface PostsProps {
   user: User

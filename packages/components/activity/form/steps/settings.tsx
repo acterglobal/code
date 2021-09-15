@@ -1,15 +1,17 @@
 import React, { FC } from 'react'
+
 import { Box } from '@material-ui/core'
-import {
-  SelectOrganiser,
-  SelectOrganiserProps,
-  SelectOrganiserValues,
-} from '@acter/components/activity/form/fields/select-organiser'
+
 import {
   SelectFollowers,
   SelectFollowersProps,
   SelectFollowersValues,
 } from '@acter/components/activity/form/fields/select-followers'
+import {
+  SelectOrganiser,
+  SelectOrganiserProps,
+  SelectOrganiserValues,
+} from '@acter/components/activity/form/fields/select-organiser'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
 

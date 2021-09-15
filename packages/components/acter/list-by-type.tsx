@@ -1,20 +1,22 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
+
 import Image from 'next/image'
-import pluralize from 'pluralize'
+import Link from 'next/link'
+
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
-
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-
-import { Acter } from '@acter/schema'
 import {
   createStyles,
   makeStyles,
   withStyles,
   Theme,
 } from '@material-ui/core/styles'
+
+import pluralize from 'pluralize'
+
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { Acter } from '@acter/schema'
 
 export interface ActerListByTypeProps {
   acters: Acter[]

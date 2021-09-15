@@ -1,12 +1,14 @@
 import React from 'react'
+
 import { Meta, Story } from '@storybook/react'
+
+import { PostList, PostListProps } from '@acter/components/posts'
 import {
   ExamplePost,
   ExampleSubPost,
   ExampleActer,
 } from '@acter/schema/fixtures'
 import { ExampleUser } from '@acter/schema/fixtures'
-import { PostList, PostListProps } from '@acter/components/posts'
 
 export default {
   title: 'Post/Post',

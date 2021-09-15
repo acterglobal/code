@@ -1,14 +1,16 @@
 import React, { FC } from 'react'
+
 import { Form, Formik } from 'formik'
+
 import {
   InterestsAddSection,
   InterestAddSectionValues,
 } from '@acter/components/acter/form/interests-add-section'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
-import { InterestType } from '@acter/schema'
-import { useUser } from '@acter/lib/user/use-user'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useUser } from '@acter/lib/user/use-user'
+import { InterestType } from '@acter/schema'
 
 export interface ProfileInterestsFormProps {
   interestTypes: InterestType[]

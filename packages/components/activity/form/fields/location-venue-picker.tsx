@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Box,
   FormControlLabel,
@@ -8,6 +9,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
 import { Field, useFormikContext } from 'formik'
 import { TextField, RadioGroup } from 'formik-material-ui'
 
@@ -17,8 +19,10 @@ export interface LocationVenuePickerValues {
 
 export const LocationVenuePicker: FC = () => {
   const classes = useStyles()
-  const { values, setFieldValue } =
-    useFormikContext<LocationVenuePickerValues>()
+  const {
+    values,
+    setFieldValue,
+  } = useFormikContext<LocationVenuePickerValues>()
 
   return (
     <Box className={classes.container}>

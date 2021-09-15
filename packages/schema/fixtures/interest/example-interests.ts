@@ -1,4 +1,5 @@
 import { ExampleInterestType } from './example-interest-type'
+
 import { Interest } from '@acter/schema'
 
 export const ExampleInterest = {

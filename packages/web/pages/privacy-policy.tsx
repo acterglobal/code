@@ -1,7 +1,10 @@
 // TODO: fix the below lint error
+
 /* eslint no-irregular-whitespace: 0 */
 import React from 'react'
+
 import { NextPage } from 'next'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 

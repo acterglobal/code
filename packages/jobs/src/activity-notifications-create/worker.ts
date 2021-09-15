@@ -1,11 +1,13 @@
 import 'reflect-metadata'
+
+import { ActerPickWithUser } from '../activity-notifications-on-acter-create'
+import { ActivityNotification } from './types'
 import { Job } from 'bullmq'
-import { prisma } from '@acter/schema/prisma'
+
+import { activityNotificationsOnActerQueue } from '@acter/jobs/src/activity-notifications-on-acter-create'
 import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes, ACTIVITY_NOTIFICATIONS_CREATE } from '@acter/lib/constants'
-import { activityNotificationsOnActerQueue } from '@acter/jobs/src/activity-notifications-on-acter-create'
-import { ActivityNotification } from './types'
-import { ActerPickWithUser } from '../activity-notifications-on-acter-create'
+import { prisma } from '@acter/schema/prisma'
 
 export const activityNotificationsCreateWorker = createWorker(
   ACTIVITY_NOTIFICATIONS_CREATE,

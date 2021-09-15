@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
+
 import { useRouter } from 'next/router'
+
 import {
   SettingsContainer,
   SettingsContent,

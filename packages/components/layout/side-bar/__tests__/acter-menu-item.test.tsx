@@ -1,12 +1,15 @@
 import React from 'react'
+
 import { useRouter } from 'next/router'
-import { render, screen } from '@acter/lib/test-utils'
+
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
+
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
-import { ExampleActer } from '@acter/schema/fixtures'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
-import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
+import { render, screen } from '@acter/lib/test-utils'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/get-landing-page-tab')

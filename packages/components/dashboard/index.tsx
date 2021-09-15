@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Box,
   createStyles,
@@ -7,12 +8,12 @@ import {
   Theme,
   useTheme,
 } from '@material-ui/core'
-import { flattenFollowing } from '@acter/lib/acter/flatten-following'
-import { DefaultMessage } from '@acter/components/dashboard/default-message'
 
-import { useUser } from '@acter/lib/user/use-user'
-import { HomeIcon } from '@acter/components/icons/home-icon'
 import { DashboardContent } from '@acter/components/dashboard/content'
+import { DefaultMessage } from '@acter/components/dashboard/default-message'
+import { HomeIcon } from '@acter/components/icons/home-icon'
+import { flattenFollowing } from '@acter/lib/acter/flatten-following'
+import { useUser } from '@acter/lib/user/use-user'
 
 export const Dashboard: FC = () => {
   const classes = useStyles()

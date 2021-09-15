@@ -1,15 +1,18 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
-import { useFormikContext } from 'formik'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { FilePond, registerPlugin } from 'react-filepond'
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import FilePondPluginImageEdit from 'filepond-plugin-image-edit'
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
-import { ImageCropper } from '@acter/components/image-upload/cropper-editor'
-import 'filepond/dist/filepond.min.css'
-import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import axios from 'axios'
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import FilePondPluginImageEdit from 'filepond-plugin-image-edit'
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import 'filepond/dist/filepond.min.css'
+import { useFormikContext } from 'formik'
+
+import { ImageCropper } from '@acter/components/image-upload/cropper-editor'
 
 registerPlugin(
   FilePondPluginImagePreview,

@@ -1,9 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 
 import { ActerAvatar, ActerAvatarProps } from '@acter/components/acter/avatar'
-
 import { Acter } from '@acter/schema'
-
 import {
   ExampleActer,
   UserActerType,

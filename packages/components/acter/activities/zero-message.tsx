@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { Acter, ActerConnectionRole, Activity, User } from '@acter/schema'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { Acter, ActerConnectionRole, Activity, User } from '@acter/schema'
 
 interface ZeroMessageProps {
   acter: Acter

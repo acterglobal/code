@@ -1,9 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from '@acter/components/acter/form'
-
 import { ExampleActer, Interests } from '@acter/schema/fixtures'
-
 import {
   GroupActerType,
   NetworkActerType,

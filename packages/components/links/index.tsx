@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
 import { Box, Divider, IconButton, Typography } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import CancelIcon from '@material-ui/icons/Cancel'
+
 import { LinkForm, LinkFormProps } from '@acter/components/links/form'
 import { Link as LinkType } from '@acter/schema'
 

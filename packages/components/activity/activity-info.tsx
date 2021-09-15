@@ -1,19 +1,21 @@
 import React, { FC, useMemo } from 'react'
+
+import { Box, Hidden, Typography } from '@material-ui/core'
+import { green } from '@material-ui/core/colors'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   Computer,
   LocationOnOutlined,
   Event as CalenderIcon,
 } from '@material-ui/icons'
-import { Box, Hidden, Typography } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
-import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
-import { About } from '@acter/components/activity/about'
+
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
-import { capitalize } from '@acter/lib/string/capitalize'
+import { About } from '@acter/components/activity/about'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export type ActivityInfoProps = ConnectProps
 

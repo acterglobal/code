@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { Link } from '@acter/components/util/anchor-link'
+
+import Image from 'next/image'
+
 import {
   Box,
   Hidden,
@@ -11,15 +13,16 @@ import {
   Theme,
 } from '@material-ui/core'
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
-import Image from 'next/image'
+
 import { Connect, ConnectProps } from '@acter/components/acter/connect'
+import { Link } from '@acter/components/util/anchor-link'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
-import { useUser } from '@acter/lib/user/use-user'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export type HeaderSectionProps = Omit<ConnectProps, 'user'>
 

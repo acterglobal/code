@@ -1,4 +1,5 @@
 import { TypePolicies } from '@apollo/client'
+
 import { Acter } from '@acter/schema/types'
 
 type SearchResults = Acter[] | []

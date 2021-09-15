@@ -1,12 +1,15 @@
 import React, { FC } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box, Hidden, Typography } from '@material-ui/core'
+
 import Image from 'next/image'
-import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { getActerTypeIcon } from '@acter/lib/images/get-icons'
-import { Acter, InterestType } from '@acter/schema'
+
+import { Box, Hidden, Typography } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
 import { InterestsSection } from '@acter/components/interests/interests-section'
+import { getActerTypeIcon } from '@acter/lib/images/get-icons'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter, InterestType } from '@acter/schema'
 
 export interface ActerTileProps {
   acter: Acter

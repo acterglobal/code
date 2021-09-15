@@ -1,9 +1,11 @@
 import React from 'react'
-import { render, screen } from '@acter/lib/test-utils'
+
 import userEvent from '@testing-library/user-event'
+
 import { SessionIndicator } from '@acter/components/layout/session-indicator'
-import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
+import { render, screen } from '@acter/lib/test-utils'
 import { useUser } from '@acter/lib/user/use-user'
+import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('@acter/lib/user/use-user')
 

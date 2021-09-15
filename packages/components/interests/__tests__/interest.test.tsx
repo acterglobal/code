@@ -1,6 +1,7 @@
 import React from 'react'
-import { render } from '@acter/lib/test-utils'
+
 import { Interest } from '@acter/components/interests/interest'
+import { render } from '@acter/lib/test-utils'
 import { ExampleInterest } from '@acter/schema/fixtures/interest/example-interests'
 
 describe('[Interest]', () => {

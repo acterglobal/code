@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
+
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
+
 import {
   HeaderSection,
   HeaderSectionProps,

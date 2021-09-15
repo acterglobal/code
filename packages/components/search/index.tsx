@@ -1,14 +1,17 @@
 import React, { FC, useEffect, useState } from 'react'
+
 import { useRouter } from 'next/router'
+
 import { Box, Button, Grid, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { green } from '@material-ui/core/colors'
-import { SearchBar } from '@acter/components/search/search-bar'
-import { FilterTabs } from '@acter/components/search/filter-tabs'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import { DisplayResults } from '@acter/components/search/display-results'
+import { FilterTabs } from '@acter/components/search/filter-tabs'
+import { SearchBar } from '@acter/components/search/search-bar'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
-import { InterestType } from '@acter/schema'
 import { SearchType } from '@acter/lib/constants'
+import { InterestType } from '@acter/schema'
 
 export interface SearchProps {
   searchType: SearchType

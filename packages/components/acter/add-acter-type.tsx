@@ -1,9 +1,12 @@
 import React, { FC } from 'react'
+
+import { useRouter } from 'next/router'
+
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+
 import { ActerType } from '@acter/components/acter/acter-type'
-import { useRouter } from 'next/router'
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 
 const { ORGANISATION, NETWORK } = ActerTypes

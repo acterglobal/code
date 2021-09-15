@@ -1,8 +1,10 @@
 import { FC } from 'react'
+
 import { Box, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
-import { Link as LinkType } from '@acter/schema'
+
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Link as LinkType } from '@acter/schema'
 
 export interface LinkListProps {
   links: LinkType[]

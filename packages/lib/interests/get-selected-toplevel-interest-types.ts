@@ -1,5 +1,5 @@
-import { Interest, InterestType } from '@acter/schema'
 import { getTopLevelTypes } from '@acter/lib/interests'
+import { Interest, InterestType } from '@acter/schema'
 
 export const getSelectedTopLevelTypes = (
   typesWithSelectedInterests: InterestType[],

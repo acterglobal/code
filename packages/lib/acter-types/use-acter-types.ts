@@ -1,4 +1,5 @@
 import { useQuery, QueryResult } from '@apollo/client'
+
 import { ActerType } from '@acter/schema'
 import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
 

@@ -1,7 +1,9 @@
-import aws from 'aws-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { withSentry } from '@sentry/nextjs'
+
 import { getSession } from '@auth0/nextjs-auth0'
+import { withSentry } from '@sentry/nextjs'
+
+import aws from 'aws-sdk'
 
 const handler = (req: NextApiRequest, res: NextApiResponse): void => {
   const tokenUser = getSession(req, res)?.user?.email

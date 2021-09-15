@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
-import { Formik, Form, Field, FormikBag } from 'formik'
-import { TextField } from 'formik-material-ui'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import { Box, IconButton } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Delete } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+
+import { Formik, Form, Field, FormikBag } from 'formik'
+import { TextField } from 'formik-material-ui'
+
 import { Link } from '@acter/schema'
 
 export type LinkFormValues = Link & {

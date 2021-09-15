@@ -1,11 +1,15 @@
 import React, { FC } from 'react'
-import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
-import { Header } from '@acter/components/acter/landing-page/info-section/header'
-import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
-import { InterestsSection } from '@acter/components/interests/interests-section'
+
 import { useRouter } from 'next/router'
-import { Acter, InterestType } from '@acter/schema'
+
+import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+
+import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
+import { Header } from '@acter/components/acter/landing-page/info-section/header'
+import { InterestsSection } from '@acter/components/interests/interests-section'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { Acter, InterestType } from '@acter/schema'
+
 export interface InfoSectionProps {
   acter: Acter
   interestTypes: InterestType[]

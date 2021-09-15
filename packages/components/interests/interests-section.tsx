@@ -1,13 +1,16 @@
 import React, { FC } from 'react'
+
 import { Box, Typography } from '@material-ui/core'
+
 import { InterestTypes } from '@acter/components/interests/interest-types'
+import { Size } from '@acter/lib/constants'
 import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
 } from '@acter/lib/interests'
-import { InterestType, Interest } from '@acter/schema'
-import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { InterestType, Interest } from '@acter/schema'
+
 export interface InterestsSectionProps {
   interestTypes: InterestType[]
   selected?: Interest[]

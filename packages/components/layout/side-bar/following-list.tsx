@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { Link } from '@acter/components/util/anchor-link'
+
 import { useRouter } from 'next/router'
-import clsx from 'clsx'
+
 import {
   Badge,
   ListItem,
@@ -9,14 +9,18 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
+import clsx from 'clsx'
+
+import { ActerAvatar } from '@acter/components/acter/avatar'
+import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { Link } from '@acter/components/util/anchor-link'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
-import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerTypes } from '@acter/lib/constants'
-import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 import { useUser } from '@acter/lib/user/use-user'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
 

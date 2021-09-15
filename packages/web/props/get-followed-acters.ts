@@ -1,9 +1,7 @@
-import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo } from '@acter/lib/apollo'
-
-import QUERY_FOLLOWED_ACTERS from '@acter/schema/queries/query-followed-acters.graphql'
-
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { Acter } from '@acter/schema'
+import QUERY_FOLLOWED_ACTERS from '@acter/schema/queries/query-followed-acters.graphql'
 
 /**
  *

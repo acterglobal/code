@@ -1,9 +1,9 @@
 import React from 'react'
-import { render, screen, within } from '@acter/lib/test-utils'
 
 import { ActerListByType } from '@acter/components/acter/list-by-type'
-import { ExampleActerList } from '@acter/schema/fixtures'
 import { ActerTypes } from '@acter/lib/constants'
+import { render, screen, within } from '@acter/lib/test-utils'
+import { ExampleActerList } from '@acter/schema/fixtures'
 
 const { GROUP, NETWORK, ORGANISATION } = ActerTypes
 

@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
+
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
+
+import { ActivitiesSection } from './activities-section'
+
 import {
   LandingPageLayout,
   LandingPageLayoutProps,
 } from '@acter/components/acter/landing-page/layout'
-import { ActivitiesSection } from './activities-section'
 import { useUser } from '@acter/lib/user/use-user'
 
 export type ActerActivitiesProps = LandingPageLayoutProps

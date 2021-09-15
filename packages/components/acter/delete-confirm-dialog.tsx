@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
-import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-import { Button, ButtonsContainer } from '@acter/components/styled'
 
+import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+
+import { Button, ButtonsContainer } from '@acter/components/styled'
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Acter } from '@acter/schema'
 
 export interface ActerDeleteConfirmDialogProps {

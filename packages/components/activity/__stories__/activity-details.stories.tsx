@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
+
 import { Meta } from '@storybook/react'
+
 import {
   ActivityDetails as Activity,
   ActivityDetailsProps,

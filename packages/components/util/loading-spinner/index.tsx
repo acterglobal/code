@@ -1,5 +1,6 @@
-import { CircularProgress } from '@material-ui/core'
 import { FC } from 'react'
+
+import { CircularProgress } from '@material-ui/core'
 
 interface LoadingSpinnerProps {
   size?: number

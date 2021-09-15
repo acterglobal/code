@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+
 import {
   useLazyQuery,
   MutationOptions,
   QueryResult,
   ApolloError,
 } from '@apollo/client'
+
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Post } from '@acter/schema'
 import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'

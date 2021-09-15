@@ -1,5 +1,5 @@
-import { isSameDay, isValid } from 'date-fns'
 import { parseDateOrString } from '../parse-date-or-string'
+import { isSameDay, isValid } from 'date-fns'
 
 describe('parseDateOrString', () => {
   it('should parse a valid date string', () => {

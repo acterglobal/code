@@ -1,22 +1,25 @@
 import React, { FC } from 'react'
+
 import { useRouter } from 'next/router'
+
 import { Grid, Box, makeStyles, createStyles } from '@material-ui/core'
+
 import {
   InfoSection,
   InfoSectionProps,
 } from '@acter/components/acter/landing-page/info-section'
 import {
+  LandingPageLayout,
+  LandingPageLayoutProps,
+} from '@acter/components/acter/landing-page/layout'
+import {
   MembersSection,
   MembersSectionProps,
 } from '@acter/components/acter/landing-page/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
-import { ActerMenu } from '@acter/lib/constants'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
-import {
-  LandingPageLayout,
-  LandingPageLayoutProps,
-} from '@acter/components/acter/landing-page/layout'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerMenu } from '@acter/lib/constants'
 
 const { MEMBERS, FORUM } = ActerMenu
 

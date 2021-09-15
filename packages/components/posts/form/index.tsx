@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
+
 import {
   makeStyles,
   createStyles,
@@ -6,11 +7,13 @@ import {
   TextareaAutosize,
   useTheme,
 } from '@material-ui/core'
+
 import { Field, Form, Formik, FormikBag } from 'formik'
+
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Post as PostType, User } from '@acter/schema'
 import { Size } from '@acter/lib/constants'
+import { Post as PostType, User } from '@acter/schema'
 
 export type PostFormValues = PostType & {
   content: string

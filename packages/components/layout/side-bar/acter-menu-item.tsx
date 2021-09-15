@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+
 import { useRouter } from 'next/router'
-import { Link } from '@acter/components/util/anchor-link'
-import clsx from 'clsx'
+
 import {
   ListItem,
   ListItemIcon,
@@ -13,12 +13,16 @@ import {
   Box,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter, Notification } from '@acter/schema'
+
+import clsx from 'clsx'
+
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { ActerMenu } from '@acter/lib/constants'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
+import { ActerMenu } from '@acter/lib/constants'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
+import { Acter, Notification } from '@acter/schema'
 
 interface ActerMenuItemProps {
   acter: Acter

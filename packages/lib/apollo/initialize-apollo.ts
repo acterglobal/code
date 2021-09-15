@@ -3,10 +3,11 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
-import merge from 'deepmerge'
-import deepEqual from 'deep-equal'
+
 import { createApolloClient } from './create-apollo-client'
 import { ApolloClientType } from './types'
+import deepEqual from 'deep-equal'
+import merge from 'deepmerge'
 
 let apolloClient: ApolloClientType
 

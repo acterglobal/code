@@ -1,4 +1,7 @@
 import React, { FC } from 'react'
+
+import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -7,12 +10,13 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Acter } from '@acter/schema'
+
+import clsx from 'clsx'
+
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useRouter } from 'next/router'
 import { capitalize } from '@acter/lib/string/capitalize'
-import clsx from 'clsx'
+import { Acter } from '@acter/schema'
 
 export interface GroupsList {
   acters: Acter[]

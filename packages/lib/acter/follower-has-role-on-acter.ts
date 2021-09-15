@@ -1,5 +1,5 @@
-import { Acter, ActerConnectionRole } from '@acter/schema'
 import { connectionHasAtLeastRole } from '@acter/lib/acter/connection-has-at-least-role'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 
 /**
  * Determine if a given follower has at least the role given for an acter

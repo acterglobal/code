@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+
 import { ActivityTypes, InterestTypes } from '@acter/lib/constants'
 
 type Color = CSSProperties['color']

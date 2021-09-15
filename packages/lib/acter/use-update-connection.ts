@@ -1,7 +1,8 @@
 import { MutationResult, FetchResult } from '@apollo/client'
+
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
-import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
+import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
 
 type UpdateActerConnectionData = {
   updateActerConnection: ActerConnection

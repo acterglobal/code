@@ -1,7 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Modal } from '@acter/components/util/modal'
-import { Form, Formik, Field } from 'formik'
-import { TextField } from 'formik-material-ui'
+
 import {
   Box,
   Button,
@@ -13,14 +11,20 @@ import {
   FormLabel,
   FormHelperText,
 } from '@material-ui/core'
+
+import { Form, Formik, Field } from 'formik'
+import { TextField } from 'formik-material-ui'
+
 import { Switch } from '@acter/components/styled/switch'
-import { Acter, ActerJoinSettings } from '@acter/schema'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { Modal } from '@acter/components/util/modal'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { ActerTypes } from '@acter/lib/constants/acter-types'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { Acter, ActerJoinSettings } from '@acter/schema'
+
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter

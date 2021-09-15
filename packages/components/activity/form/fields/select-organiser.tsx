@@ -1,11 +1,14 @@
 import React, { FC } from 'react'
+
 import { Box, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { Acter } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
+import { Acter } from '@acter/schema'
 
 const { ORGANISATION, NETWORK } = ActerTypes
 

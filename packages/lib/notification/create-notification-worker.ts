@@ -1,6 +1,10 @@
+import { CreateEmailReturn, Email } from '../email'
+import { createNotification } from './create-notification'
 import { Job, Worker } from 'bullmq'
-import { createWorker } from '@acter/lib/bullmq'
+
+import { emailSendQueue, NotificationEmail } from '@acter/jobs'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes } from '@acter/lib/constants'
 import {
   Acter,
@@ -11,9 +15,6 @@ import {
   NotificationType,
 } from '@acter/schema'
 import { prisma, Prisma } from '@acter/schema/prisma'
-import { createNotification } from './create-notification'
-import { CreateEmailReturn, Email } from '../email'
-import { emailSendQueue, NotificationEmail } from '@acter/jobs'
 
 export type FollowerType = Partial<Acter> &
   Required<

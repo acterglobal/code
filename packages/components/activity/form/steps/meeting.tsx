@@ -1,8 +1,11 @@
 import React, { FC } from 'react'
+
 import { Box } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+
 import { LocationVenuePicker } from '@acter/components/activity/form/fields/location-venue-picker'
 import { StartEndTimeDatePicker } from '@acter/components/activity/form/fields/start-end-date-time-picker'
 import { FormSection } from '@acter/components/styled/form-section'

@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+
 import {
   Box,
   Checkbox,
@@ -6,14 +7,15 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core'
-import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { ActivitiesList } from '@acter/components/activity/list'
-import { AddActivityButton } from '@acter/components/activity/add-activity-button'
+
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
+import { AddActivityButton } from '@acter/components/activity/add-activity-button'
+import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { User } from '@acter/schema'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
 import { useUser } from '@acter/lib/user/use-user'
+import { User } from '@acter/schema'
 
 export interface ActivitySectionProps {
   /**

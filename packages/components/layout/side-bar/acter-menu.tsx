@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   ListItem,
   Divider,
@@ -7,25 +8,26 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
+import { ActerAvatar } from '@acter/components/acter/avatar'
 import {
   ForumIcon,
   MembersIcon,
   ActivitiesIcon,
   SettingsIcon,
 } from '@acter/components/icons'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { Acter, ActerConnectionRole } from '@acter/schema'
-import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import { GroupsSection } from '@acter/components/layout/side-bar/groups/groups-section'
 import { LinksList } from '@acter/components/layout/side-bar/links'
-import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
-import { NotificationType } from '@acter/schema'
-import { useUser } from '@acter/lib/user/use-user'
-import { useLinks } from '@acter/lib/links/use-links'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
+import { useLinks } from '@acter/lib/links/use-links'
+import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
+import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { Acter, ActerConnectionRole } from '@acter/schema'
+import { NotificationType } from '@acter/schema'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType

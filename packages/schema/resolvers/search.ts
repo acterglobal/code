@@ -1,13 +1,14 @@
+import { ActerWhereUniqueInput } from '../types'
 import { pipe } from 'fp-ts/function'
 import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { Acter } from '@acter/schema'
+
 import {
   getOrderBy,
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
-import { ActerWhereUniqueInput } from '../types'
+import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { Acter } from '@acter/schema'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',

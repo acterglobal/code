@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+
 import {
   Box,
   createStyles,
@@ -6,10 +7,11 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
-import { Modal } from '@acter/components/util/modal'
 import { MembersSection as Members } from '@acter/components/acter/landing-page/members-section'
 import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
+import { Modal } from '@acter/components/util/modal'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 export type MembersSectionProps = {

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { SvgIcon, SvgIconProps, useTheme } from '@material-ui/core'
 
 export const MembersIcon: FC<SvgIconProps> = (props) => {

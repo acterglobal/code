@@ -1,5 +1,4 @@
 import { Interest } from '@acter/schema'
-
 import { ExampleInterestType } from '@acter/schema/fixtures'
 
 export const ExampleApproach: Interest = {

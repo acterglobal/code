@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import clsx from 'clsx'
+
 import Link, { LinkProps } from 'next/link'
 
 import {
@@ -12,6 +12,9 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
+import clsx from 'clsx'
+
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export const SettingsContainer: FC = ({ children }) => {

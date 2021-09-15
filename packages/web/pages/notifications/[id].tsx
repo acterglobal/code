@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router'
+
 import { getUserProfile, notificationRedirect } from 'props'
+
 import {
   composeProps,
   ComposedGetServerSideProps,

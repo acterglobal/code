@@ -1,4 +1,9 @@
 import React, { FC, useState } from 'react'
+import Cropper from 'react-cropper'
+
+import { Box, Button, Modal } from '@material-ui/core/'
+import { green } from '@material-ui/core/colors'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   Crop as CropIcon,
   RotateLeft as RotateLeftIcon,
@@ -6,13 +11,9 @@ import {
   ZoomIn as ZoomInIcon,
   ZoomOut as ZoomOutIcon,
 } from '@material-ui/icons'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Box, Button, Modal } from '@material-ui/core/'
-import Cropper from 'react-cropper'
-import clsx from 'clsx'
 
+import clsx from 'clsx'
 import 'cropperjs/dist/cropper.css'
-import { green } from '@material-ui/core/colors'
 
 type cropDataType = {
   center: {

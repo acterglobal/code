@@ -1,14 +1,17 @@
 import React from 'react'
+
 import { NextPage } from 'next'
+
+import { getInterests } from 'props'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { ProfileInterestsForm } from '@acter/components/user/form/interests'
-import { InterestType } from '@acter/schema'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { getInterests } from 'props'
+import { InterestType } from '@acter/schema'
 
 interface UserProfilePageProps {
   interestTypes: InterestType[]

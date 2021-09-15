@@ -7,6 +7,7 @@ import {
   MutationHookOptions,
   MutationTuple,
 } from '@apollo/client'
+
 import { useSnackbar } from 'notistack'
 
 export interface UseMutationOptions<TData, TVariables>

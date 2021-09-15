@@ -1,15 +1,17 @@
 import { useState } from 'react'
+
 import { MutationResult, StoreObject, Cache, Reference } from '@apollo/client'
 import { Modifier } from '@apollo/client/cache/core/types/common'
+
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
-import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
-import POST_FRAGMENT from '@acter/schema/fragments/post-display.fragment.graphql'
-import { Post as PostType, Acter } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { Post as PostType, Acter } from '@acter/schema'
+import POST_FRAGMENT from '@acter/schema/fragments/post-display.fragment.graphql'
+import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
+import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 
 export type PostVariables = PostType & {
   acterId: string

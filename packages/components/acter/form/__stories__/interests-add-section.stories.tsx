@@ -1,5 +1,7 @@
 import { Story, Meta } from '@storybook/react'
+
 import { withFormik } from 'storybook-formik'
+
 import {
   InterestsAddSection,
   InterestsAddSectionProps,

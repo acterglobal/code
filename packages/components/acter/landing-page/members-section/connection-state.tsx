@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
+
 import { Box, IconButton, createStyles, withStyles } from '@material-ui/core'
 import { Create as EditIcon } from '@material-ui/icons'
+
 import {
   ConnectionStateEditor,
   ConnectionStateEditorProps,

@@ -1,6 +1,11 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
+
+import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
+import { createSlug } from '@acter/lib/acter/create-acter-slug'
+import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import {
   Acter,
   ActerConnectionRole,
@@ -9,10 +14,6 @@ import {
   ActerNotificationSettings,
   Activity,
 } from '@acter/schema'
-import { createSlug } from '@acter/lib/acter/create-acter-slug'
-import { ActerTypes } from '@acter/lib/constants'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole

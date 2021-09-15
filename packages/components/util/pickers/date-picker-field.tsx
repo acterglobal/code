@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
-import { KeyboardDatePicker } from 'formik-material-ui-pickers'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import { Field } from 'formik'
+import { KeyboardDatePicker } from 'formik-material-ui-pickers'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

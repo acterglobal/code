@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-import { Field } from 'formik'
-import { RadioGroup as FormikRadioGroup } from 'formik-material-ui'
+
 import {
   FormControl,
   FormLabel,
@@ -8,6 +7,9 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
+import { Field } from 'formik'
+import { RadioGroup as FormikRadioGroup } from 'formik-material-ui'
 
 export interface RadioGroupProps {
   /**

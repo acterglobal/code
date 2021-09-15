@@ -1,10 +1,11 @@
-import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
 import {
   FetchResult,
   MutationHookOptions,
   MutationResult,
   useMutation,
 } from '@apollo/client'
+
+import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
 
 type HandleMethod = (notificationId: string) => Promise<FetchResult>
 

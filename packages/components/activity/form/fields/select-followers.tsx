@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
-import { Field, useFormikContext } from 'formik'
+
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+
+import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Acter } from '@acter/schema'
 

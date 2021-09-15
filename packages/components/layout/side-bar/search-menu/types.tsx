@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
+
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { ActerType, ActivityType } from '@acter/schema'
+
 import {
   Type,
   SearchTypeProps,
 } from '@acter/components/layout/side-bar/search-menu/type'
 import { SearchType } from '@acter/lib/constants'
+import { ActerType, ActivityType } from '@acter/schema'
 
 export interface SearchTypesProps extends SearchTypeProps {
   subTypes: (ActerType | ActivityType)[]

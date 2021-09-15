@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
+
 import { AddActerType } from '@acter/components/acter/add-acter-type'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'

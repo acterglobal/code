@@ -1,11 +1,12 @@
 import { MutationResult } from '@apollo/client'
+
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import UPDATE_LINK from '@acter/schema/mutations/link-update.graphql'
-import { Acter, Link as LinkType } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
+import { Acter, Link as LinkType } from '@acter/schema'
+import UPDATE_LINK from '@acter/schema/mutations/link-update.graphql'
 
 export type LinkVariables = LinkType & {
   linkId: string

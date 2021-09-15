@@ -1,12 +1,11 @@
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
-
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema'
 import {
   ExampleActer,
   ExampleUserActer,
   ExampleUser,
 } from '@acter/schema/fixtures'
-import { ActerConnectionRole } from '@acter/schema'
 
 jest.mock('@acter/lib/acter/follower-has-role-on-acter')
 

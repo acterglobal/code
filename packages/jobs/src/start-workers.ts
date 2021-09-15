@@ -1,7 +1,8 @@
 import 'reflect-metadata'
-import { emailSendWorker } from './email-send/worker'
+
 import { activityNotificationsCreateWorker } from './activity-notifications-create/worker'
 import { activityNotificationsOnActerCreate } from './activity-notifications-on-acter-create/worker'
+import { emailSendWorker } from './email-send/worker'
 import { postNotificationsCreateWorker } from './post-notification-create/worker'
 
 console.log('Starting all workers')

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
+
 import { useRouter } from 'next/router'
-import { Link } from '@acter/components/util/anchor-link'
+
 import {
   Box,
   Drawer,
@@ -13,6 +14,7 @@ import {
   useTheme,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
+
 import {
   ActerIcon,
   HomeIcon,
@@ -23,12 +25,13 @@ import {
   ActerMenu,
   ActerMenuProps,
 } from '@acter/components/layout/side-bar/acter-menu'
-import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
+import { Link } from '@acter/components/util/anchor-link'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { SearchType } from '@acter/lib/constants'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { SearchType } from '@acter/lib/constants'
 
 export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
   searchType?: SearchType

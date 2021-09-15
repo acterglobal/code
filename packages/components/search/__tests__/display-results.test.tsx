@@ -1,14 +1,15 @@
 import React from 'react'
+
+import { DisplayResults } from '@acter/components/search/display-results'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActerSearch } from '@acter/lib/acter/use-acter-search'
+import { SearchType } from '@acter/lib/constants'
 import { render, screen, within } from '@acter/lib/test-utils'
 import {
   ExampleActerList,
   ExampleActivity,
   Interests,
 } from '@acter/schema/fixtures'
-import { DisplayResults } from '@acter/components/search/display-results'
-import { SearchType } from '@acter/lib/constants'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActerSearch } from '@acter/lib/acter/use-acter-search'
 
 jest.mock('@acter/lib/acter/use-acter-search')
 

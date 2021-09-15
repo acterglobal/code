@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+
 import {
   useLazyQuery,
   MutationOptions,
   QueryResult,
   ApolloError,
 } from '@apollo/client'
+
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Link } from '@acter/schema'
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'

@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   useQuery,
   QueryResult,
@@ -7,7 +9,6 @@ import {
   QueryHookOptions,
   ApolloQueryResult,
 } from '@apollo/client'
-import { useState } from 'react'
 
 interface UsePaginationQueryOptions<TData, TVariables>
   extends QueryHookOptions<TData, TVariables> {

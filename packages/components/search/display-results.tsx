@@ -1,16 +1,19 @@
 import React, { FC, useEffect } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+
 import { Box, CircularProgress, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { InterestType } from '@acter/schema'
-import { ActivityTile } from '@acter/components/activity/tile'
-import { ActerTile } from '@acter/components/acter/tile'
-import { SearchType } from '@acter/lib/constants'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Link } from '@acter/components/util/anchor-link'
-import clsx from 'clsx'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { useActerSearch } from '@acter/lib/acter/use-acter-search'
+
 import { LoadingSpinner } from '../util/loading-spinner'
+import clsx from 'clsx'
+
+import { ActerTile } from '@acter/components/acter/tile'
+import { ActivityTile } from '@acter/components/activity/tile'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActerSearch } from '@acter/lib/acter/use-acter-search'
+import { SearchType } from '@acter/lib/constants'
+import { InterestType } from '@acter/schema'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {

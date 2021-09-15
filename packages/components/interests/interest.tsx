@@ -1,10 +1,14 @@
 import React, { FC } from 'react'
-import { Interest as InterestType } from '@acter/schema'
+
+import Image from 'next/image'
+
 import { Box, Tooltip, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Image from 'next/image'
+
 import clsx from 'clsx'
+
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
+import { Interest as InterestType } from '@acter/schema'
 
 const { TAGS } = InterestTypeName
 export interface InterestProps {

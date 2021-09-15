@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
-import { Search as SearchIcon } from '@material-ui/icons'
+
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Search as SearchIcon } from '@material-ui/icons'
 
 export interface SearchBarProps {
   handleInputChange: (data: string) => void

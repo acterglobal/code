@@ -1,7 +1,8 @@
 import path from 'path'
+
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
-import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
+import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 import {
   Acter,
   ActerType,
