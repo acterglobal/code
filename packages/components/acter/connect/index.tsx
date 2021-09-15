@@ -32,9 +32,7 @@ export const Connect: FC = () => {
   }
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
-  if (!followers.length) {
-    return null
-  }
+  if (!followers.length) return null
 
   return (
     <DropdownMenu

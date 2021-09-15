@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getInterests, getActerTypes } from 'props'
+import { getInterests } from 'props'
 
 import { Head } from '@acter/components/layout/head'
 import { Search } from '@acter/components/search'
@@ -32,6 +32,6 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ interestTypes }) => {
 SearchPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, getInterests)
+  composeProps(ctx, getInterests)
 
 export default SearchPage

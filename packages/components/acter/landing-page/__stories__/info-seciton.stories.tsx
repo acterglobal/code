@@ -12,8 +12,5 @@ export default {
 } as Meta
 
 export const MetaSection: React.FC = () => (
-  <InfoSection
-    acter={ExampleActer}
-    interestTypes={Interests.data.interestTypes}
-  />
+  <InfoSection interestTypes={Interests.data.interestTypes} />
 )

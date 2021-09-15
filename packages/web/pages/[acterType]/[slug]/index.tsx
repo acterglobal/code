@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
 
 import {
   ActerLanding,
@@ -17,21 +16,18 @@ import {
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
 import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { ActerMenu as ActerMenuType, ActerTypes } from '@acter/lib/constants'
-import { useCreatePost } from '@acter/lib/post/use-create-post'
-import { useDeletePost } from '@acter/lib/post/use-delete-post'
-import { usePosts } from '@acter/lib/post/use-posts'
-import { useUpdatePost } from '@acter/lib/post/use-update-post'
-import { Acter, InterestType } from '@acter/schema'
+import { ActerTypes } from '@acter/lib/constants'
+import { InterestType } from '@acter/schema'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
-type ViewTypes = ActerLandingProps | ActivityDetailsProps | GroupLandingProps
+type ViewTypes = ActerLandingProps | ActivityDetailsProps
 // TODO: make below to its own component
 const getActerView = (acterType): FC<ViewTypes> => {
   switch (acterType.name) {
@@ -45,7 +41,6 @@ const getActerView = (acterType): FC<ViewTypes> => {
 }
 
 interface ActerLandingPageProps {
-  acter: Acter
   interestTypes: InterestType[]
 }
 
@@ -54,35 +49,20 @@ export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
 }) => {
   const router = useRouter()
   const { acter, loading: acterLoading } = useActer()
-  const { posts, loading: postsLoading } = usePosts()
 
-  //TODO: use all these hooks in child components to avoid the prop drilling.
-  const [createPost] = useCreatePost(acter)
-  const [deletePost] = useDeletePost()
-  const [updatePost] = useUpdatePost()
-
-  const tab = Array.isArray(router.query.tab)
-    ? router.query.tab.join()
-    : router.query.tab
-  const isPostsTab = tab === ActerMenuType.FORUM
-
-  if (acterLoading || (isPostsTab && postsLoading))
-    return <PageLoadingSpinner />
+  if (acterLoading) return <PageLoadingSpinner />
   if (!acter) return null
+
+  if (![ACTIVITY, GROUP].includes(acter?.ActerType.name as ActerTypes)) {
+    router.push(acterAsUrl({ acter, extraPath: ['forum'] }))
+  }
 
   const View = getActerView(acter?.ActerType)
 
   return (
     <>
       <Head title={`${acter?.name} - Acter`} />
-      <View
-        acter={acter}
-        interestTypes={interestTypes}
-        posts={posts}
-        onPostSubmit={createPost}
-        onPostUpdate={updatePost}
-        onPostDelete={deletePost}
-      />
+      <View interestTypes={interestTypes} />
     </>
   )
 }
@@ -90,6 +70,6 @@ export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
 ActerLandingPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, setActerType, getInterests, getPosts)
+  composeProps(ctx, getInterests)
 
 export default ActerLandingPage

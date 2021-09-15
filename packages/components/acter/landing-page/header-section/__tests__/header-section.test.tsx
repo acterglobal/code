@@ -14,6 +14,8 @@ import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/user/use-user')
+jest.mock('@acter/lib/acter/use-create-connection')
+jest.mock('@acter/lib/acter/use-delete-connection')
 
 const user = {
   ...ExampleUser,
@@ -35,7 +37,7 @@ describe('[Header Section]', () => {
   it('should render the header section component with correct content', () => {
     render(
       <MuiThemeProvider theme={theme}>
-        <HeaderSection onJoin={jest.fn()} onLeave={jest.fn()} loading={false} />
+        <HeaderSection />
       </MuiThemeProvider>
     )
     expect(screen.getByRole('acter-name')).toHaveTextContent(

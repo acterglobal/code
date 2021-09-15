@@ -18,13 +18,9 @@ export const MembersSection: FC = () => {
   const [openModal, setOpenModal] = useState(false)
 
   const handleClick = () => setOpenModal(true)
-
-  const handleModalClose = () => {
-    setOpenModal(false)
-  }
+  const handleModalClose = () => setOpenModal(false)
 
   const { acter, loading: acterLoading } = useActer()
-
   if (acterLoading || !acter) return null
 
   return (

@@ -1,84 +1,33 @@
 import { NextPage } from 'next'
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
-import {
-  getActerTypes,
-  setActerType,
-  getActer,
-  getLinks,
-  getInterests,
-} from 'props'
+import { getInterests } from 'props'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, InterestType, Link as LinkType } from '@acter/schema'
-import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
-import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
-import { useQuery } from '@apollo/client'
-import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import { InterestType } from '@acter/schema'
 import { ActerMembers } from '@acter/components/acter/members'
-import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 interface MembersPageProps {
-  acter: Acter
-  links: LinkType[]
   interestTypes: InterestType[]
 }
 
 export const ActerMembersPage: NextPage<MembersPageProps> = ({
-  acter,
   interestTypes,
-  links,
 }) => {
-  /* This query call fetches the cache data whenever cache updates */
-  const { data } = useQuery(QUERY_ACTER, {
-    variables: {
-      acterTypeId: acter.ActerType.id,
-      slug: acter.slug,
-    },
-  })
-
-  const { findFirstActer: displayActer } = data
-
-  const [
-    createActerConnection,
-    { loading: creatingConnection },
-  ] = useCreateActerConnection(displayActer)
-
-  const [
-    updateActerConnection,
-    { loading: updatingConnection },
-  ] = useUpdateActerConnection(displayActer)
-
-  const [
-    deleteActerConnection,
-    { loading: deletingConnection },
-  ] = useDeleteActerConnection(displayActer)
+  const { acter } = useActer()
 
   return (
-    <Layout acter={displayActer} links={links}>
-      <Head title={`${acter.name}  - members`} />
-      <ActerMembers
-        acter={displayActer}
-        interestTypes={interestTypes}
-        onJoin={createActerConnection}
-        onLeave={deleteActerConnection}
-        onConnectionStateChange={updateActerConnection}
-        loading={creatingConnection || deletingConnection || updatingConnection}
-      />
+    <Layout>
+      <Head title={`${acter?.name}  - members`} />
+      <ActerMembers interestTypes={interestTypes} />
     </Layout>
   )
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(
-    ctx,
-    getActerTypes,
-    setActerType,
-    getActer,
-    getInterests,
-    getLinks
-  )
+  composeProps(ctx, getInterests)
 
 export default ActerMembersPage

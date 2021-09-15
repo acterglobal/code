@@ -18,7 +18,10 @@ type DeleteConnectionOptions = UseMutationOptions<
   ConnectionVariables
 >
 
-type HandleMethod = (acter: Acter, follower: Acter) => Promise<FetchResult>
+export type HandleMethod = (
+  acter: Acter,
+  follower: Acter
+) => Promise<FetchResult>
 
 export const useDeleteActerConnection = (
   acter: Acter,
