@@ -2,6 +2,8 @@ __mocks__
 __stories__
 __tests__
 
+*.d.ts
+
 .github
 .husky
 .vscode
