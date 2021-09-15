@@ -14,6 +14,10 @@ const withTM = transpileModules([
   '@acter/schema',
 ])
 
+const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
+  ? false
+  : true
+
 module.exports = withPlugins(
   [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM],
   {
@@ -22,8 +26,8 @@ module.exports = withPlugins(
       path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
     },
     sentry: {
-      disableServerWebpackPlugin: true,
-      disableClientWebpackPlugin: true,
+      disableServerWebpackPlugin: disableSentrySourcemaps,
+      disableClientWebpackPlugin: disableSentrySourcemaps,
     },
     webpack: (config, options) => {
       config.plugins.push(
