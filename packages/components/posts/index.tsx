@@ -1,14 +1,17 @@
 import React, { FC } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
 import { Box, Divider } from '@material-ui/core'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { Post, PostsProps } from '@acter/components/posts/post/index'
-import { PostFormSection } from '@acter/components/posts/form/post-form-section'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
+import { LoadingSpinner } from '../util/loading-spinner'
+
 import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
+import { PostFormSection } from '@acter/components/posts/form/post-form-section'
+import { Post, PostsProps } from '@acter/components/posts/post/index'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, Post as PostType } from '@acter/schema'
-import { useUser } from '@acter/lib/user/use-user'
-import { LoadingSpinner } from '../util/loading-spinner'
 
 export interface PostListProps
   extends Omit<PostFormProps, 'user'>,

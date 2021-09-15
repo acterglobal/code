@@ -1,14 +1,10 @@
 import React, { FC } from 'react'
+
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
+
 import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
-import { Head } from '@acter/components/layout/head'
-import { Acter, InterestType } from '@acter/schema'
-import { Layout } from '@acter/components/layout'
+
 import {
   ActerLanding,
   ActerLandingProps,
@@ -18,16 +14,23 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { ActerMenu, ActerTypes } from '@acter/lib/constants'
-import { useDeletePost } from '@acter/lib/post/use-delete-post'
-import { useCreatePost } from '@acter/lib/post/use-create-post'
-import { useUpdatePost } from '@acter/lib/post/use-update-post'
-import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
-import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
-import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { usePosts } from '@acter/lib/post/use-posts'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
+import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
+import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
+import { ActerMenu, ActerTypes } from '@acter/lib/constants'
+import { useCreatePost } from '@acter/lib/post/use-create-post'
+import { useDeletePost } from '@acter/lib/post/use-delete-post'
+import { usePosts } from '@acter/lib/post/use-posts'
+import { useUpdatePost } from '@acter/lib/post/use-update-post'
+import { Acter, InterestType } from '@acter/schema'
 
 const { ACTIVITY, GROUP } = ActerTypes
 

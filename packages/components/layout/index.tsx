@@ -1,9 +1,11 @@
 import React, { FC, useEffect } from 'react'
-import { Container, createStyles, makeStyles } from '@material-ui/core'
-import { TopBar } from '@acter/components/layout/top-bar'
-import { Sidebar } from '@acter/components/layout/side-bar'
-import { SearchType } from '@acter/lib/constants'
 import { useIntercom } from 'react-use-intercom'
+
+import { Container, createStyles, makeStyles } from '@material-ui/core'
+
+import { Sidebar } from '@acter/components/layout/side-bar'
+import { TopBar } from '@acter/components/layout/top-bar'
+import { SearchType } from '@acter/lib/constants'
 
 export interface LayoutProps {
   children: React.ReactNode

@@ -1,10 +1,7 @@
+import { useEffect, useState } from 'react'
+
 import { NextPage } from 'next'
-import { Layout } from '@acter/components/layout'
-import { Head } from '@acter/components/layout/head'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
+
 import {
   checkRole,
   getActer,
@@ -13,15 +10,21 @@ import {
   getLinks,
   getUserProfile,
 } from 'props'
+
 import { ActerSettings } from '@acter/components/acter/settings'
-import { ActerConnectionRole } from '@acter/schema'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { useCreateLink } from '@acter/lib/links/use-create-link'
-import { useUpdateLink } from '@acter/lib/links/use-update-link'
-import { useDeleteLink } from '@acter/lib/links/use-delete-link'
-import { useEffect, useState } from 'react'
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import {
+  composeProps,
+  ComposedGetServerSideProps,
+} from '@acter/lib/compose-props'
+import { useCreateLink } from '@acter/lib/links/use-create-link'
+import { useDeleteLink } from '@acter/lib/links/use-delete-link'
 import { useLinks } from '@acter/lib/links/use-links'
+import { useUpdateLink } from '@acter/lib/links/use-update-link'
+import { ActerConnectionRole } from '@acter/schema'
 
 export const ActerSettingsPage: NextPage = () => {
   const baseTitle = 'Settings - Acter'

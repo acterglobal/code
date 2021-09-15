@@ -1,13 +1,15 @@
 import React, { FC, useState, useEffect } from 'react'
+
 import { Box, Grid } from '@material-ui/core'
-import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
-import { useActer } from '@acter/lib/acter/use-acter'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { ConnectProps } from '@acter/components/acter/connect'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
 import { MenuItem } from '@acter/components/acter/connect/menu-item'
-import { ConnectProps } from '@acter/components/acter/connect'
-import { Acter, ActerConnectionRole } from '@acter/schema'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 
 interface FollowerRowProps extends Omit<ConnectProps, 'user'> {
   /**

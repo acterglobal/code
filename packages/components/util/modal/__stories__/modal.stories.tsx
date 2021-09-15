@@ -1,7 +1,8 @@
-import { Story, Meta } from '@storybook/react'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
-
 import React from 'react'
+
+import { Story, Meta } from '@storybook/react'
+
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 
 const ChildComponent = () => {
   return (

@@ -1,10 +1,14 @@
 import React, { FC } from 'react'
+
+import { Box, Typography } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
 import { formatRelative, parseISO } from 'date-fns/fp'
 import { pipe } from 'fp-ts/function'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Box, Typography } from '@material-ui/core'
-import { Post } from '@acter/schema'
+
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Post } from '@acter/schema'
+
 export interface PostInfoProps {
   post: Post
 }

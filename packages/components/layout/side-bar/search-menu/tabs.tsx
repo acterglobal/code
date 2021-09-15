@@ -1,8 +1,12 @@
 import React, { FC } from 'react'
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import clsx from 'clsx'
-import { SearchType } from '@acter/lib/constants'
+
 import Link from 'next/link'
+
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+
+import clsx from 'clsx'
+
+import { SearchType } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface SearchTabsProps {

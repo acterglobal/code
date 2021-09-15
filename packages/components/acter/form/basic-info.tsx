@@ -1,8 +1,11 @@
 import React, { FC, useState } from 'react'
+
+import { InputLabel, Box } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { InputLabel, Box } from '@material-ui/core'
+
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues {

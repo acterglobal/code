@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
+
 import { Box, Hidden } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { InterestsSection } from '@acter/components/interests/interests-section'
+
 import { About } from '@acter/components/activity/about'
+import { InterestsSection } from '@acter/components/interests/interests-section'
 import { Acter, InterestType } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => ({

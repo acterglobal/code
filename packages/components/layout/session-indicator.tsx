@@ -1,9 +1,11 @@
 import React, { FC } from 'react'
-import { Link } from '@acter/components/util/anchor-link'
+
 import { Button, Link as MuiLink, MenuItem } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+
 import { ProfileButton } from '@acter/components/user/profile-button'
+import { Link } from '@acter/components/util/anchor-link'
+import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 

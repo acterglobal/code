@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
+
 import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { SessionIndicator } from '@acter/components/layout/session-indicator'
-
 import { User } from '@acter/schema'
 
 const useStyles = makeStyles((theme) => ({

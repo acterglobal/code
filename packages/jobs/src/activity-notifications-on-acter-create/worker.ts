@@ -1,8 +1,10 @@
 import 'reflect-metadata'
-import { ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER } from '@acter/lib/constants'
-import { createActivityNotificationEmail } from '@acter/lib/activity/email'
-import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
+
 import { ActivityNotificationForActer } from './types'
+
+import { createActivityNotificationEmail } from '@acter/lib/activity/email'
+import { ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER } from '@acter/lib/constants'
+import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { NotificationType } from '@acter/schema'
 
 export const activityNotificationsOnActerCreate = createNotificationWorker<ActivityNotificationForActer>(

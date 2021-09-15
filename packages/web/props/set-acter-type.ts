@@ -1,5 +1,5 @@
-import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 
 /**
  * Sets the current ActerType from page params from a list of ActerTypes feteched earlier

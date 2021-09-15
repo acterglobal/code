@@ -1,14 +1,17 @@
-export * from './interest/interests'
-export * from './interest/example-interests'
-export * from './interest/example-interest-type'
-export * from './interest/example-approach'
-export * from './interest/example-interest-type'
-
 import { ActivityActerType } from './acter-type/activity'
 import { GroupActerType } from './acter-type/group'
 import { NetworkActerType } from './acter-type/network'
 import { OrganisationActerType } from './acter-type/organisation'
 import { UserActerType } from './acter-type/user'
+import { EventActivityType } from './activity-type/event'
+import { IdeaActivityType } from './activity-type/idea'
+import { ProjectActivityType } from './activity-type/project'
+
+export * from './interest/interests'
+export * from './interest/example-interests'
+export * from './interest/example-interest-type'
+export * from './interest/example-approach'
+export * from './interest/example-interest-type'
 
 export {
   ActivityActerType,
@@ -24,10 +27,6 @@ export const ActerTypes = [
   OrganisationActerType,
   UserActerType,
 ]
-
-import { EventActivityType } from './activity-type/event'
-import { IdeaActivityType } from './activity-type/idea'
-import { ProjectActivityType } from './activity-type/project'
 
 export { EventActivityType, IdeaActivityType, ProjectActivityType }
 

@@ -1,12 +1,15 @@
 import React, { FC } from 'react'
+
 import { useRouter } from 'next/router'
-import { Link } from '@acter/components/util/anchor-link'
+
 import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { AddSharp as AddIcon } from '@material-ui/icons'
+
+import { Link } from '@acter/components/util/anchor-link'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
+import { ActerMenu } from '@acter/lib/constants'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@acter/schema'
-import { ActerMenu } from '@acter/lib/constants'
 
 export interface AddActivityButtonProps {
   acter: Acter

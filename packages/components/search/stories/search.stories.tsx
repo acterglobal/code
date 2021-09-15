@@ -1,14 +1,15 @@
 import { Meta, Story } from '@storybook/react'
+
 import {
   Search as SearchComponent,
   SearchProps,
 } from '@acter/components/search'
+import { SearchType } from '@acter/lib/constants'
 import {
   ExampleActivityActer,
   ExampleActivity,
   ExampleActer,
 } from '@acter/schema/fixtures'
-import { SearchType } from '@acter/lib/constants'
 
 const { ACTIVITIES, ACTERS } = SearchType
 

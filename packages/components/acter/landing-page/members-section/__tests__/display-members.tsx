@@ -1,13 +1,14 @@
 import React from 'react'
-import { render, screen } from '@acter/lib/test-utils'
+
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { MemberType } from '@acter/lib/constants'
+import { render, screen } from '@acter/lib/test-utils'
 import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUser,
 } from '@acter/schema/fixtures'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { MemberType } from '@acter/lib/constants'
 
 jest.mock('@acter/lib/acter/use-acter')
 

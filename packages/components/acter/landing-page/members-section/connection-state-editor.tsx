@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Formik, Form } from 'formik'
+
 import {
   Box,
   IconButton,
@@ -10,6 +10,9 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Save, Cancel } from '@material-ui/icons'
+
+import { Formik, Form } from 'formik'
+
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 export interface ConnectionStateEditorProps {

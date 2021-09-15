@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   IconButton,
   Typography,
@@ -7,6 +8,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import { AccountCircle, KeyboardArrowDownOutlined } from '@material-ui/icons'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { User } from '@acter/schema'
 

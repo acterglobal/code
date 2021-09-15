@@ -1,6 +1,8 @@
 import { Meta, Story } from '@storybook/react'
+
 import { withFormik } from 'storybook-formik'
 import { v4 } from 'uuid'
+
 import {
   SettingsStep,
   SettingsStepProps,

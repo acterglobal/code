@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Acter } from '@acter/schema'
+
 import {
   Box,
   createStyles,
@@ -8,9 +8,11 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core'
-import { ActerTypes } from '@acter/lib/constants'
-import { GroupsList } from '@acter/components/dashboard/groups-list'
+
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
+import { GroupsList } from '@acter/components/dashboard/groups-list'
+import { ActerTypes } from '@acter/lib/constants'
+import { Acter } from '@acter/schema'
 
 const { ACTIVITY, GROUP } = ActerTypes
 

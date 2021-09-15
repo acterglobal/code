@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import Markdown from 'markdown-to-jsx'
+
 import { Box, Typography } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
+import Markdown from 'markdown-to-jsx'
+
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 
 type PostContentProps = PostInfoProps

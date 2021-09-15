@@ -1,10 +1,11 @@
 import { MutationResult, StoreObject } from '@apollo/client'
+
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import DELETE_LINK from '@acter/schema/mutations/delete-link.graphql'
 import { Link as LinkType } from '@acter/schema'
+import DELETE_LINK from '@acter/schema/mutations/delete-link.graphql'
 
 export type LinkVariables = LinkType & {
   linkId: string

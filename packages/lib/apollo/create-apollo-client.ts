@@ -6,6 +6,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
+
 import { typePolicies } from './type-policies'
 
 export const createApolloClient = (

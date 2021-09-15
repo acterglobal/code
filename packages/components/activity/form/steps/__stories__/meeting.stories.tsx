@@ -1,7 +1,9 @@
 import { Meta, Story } from '@storybook/react'
+
 import { withFormik } from 'storybook-formik'
-import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
+
 import { BasicsStepValues } from '@acter/components/activity/form/steps/basics'
+import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
 
 type MeetingStepValues = BasicsStepValues & {

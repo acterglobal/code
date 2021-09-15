@@ -1,6 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { Head } from '@acter/components/layout/head'
+
 import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
 
 const Home: NextPage = () => (
   <Layout>

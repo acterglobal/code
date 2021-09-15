@@ -1,9 +1,13 @@
 import React, { FC, useState, useEffect } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+
 import dynamic from 'next/dynamic'
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
+import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
+
 import { Size } from '@acter/lib/constants'
 
 const Editor = dynamic(

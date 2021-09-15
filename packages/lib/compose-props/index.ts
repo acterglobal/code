@@ -1,7 +1,8 @@
 /* eslint-disable */
-/* TODO: FIX types */
 
+/* TODO: FIX types */
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+
 import merge from 'deepmerge'
 import { ParsedUrlQuery } from 'querystring'
 

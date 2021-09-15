@@ -1,29 +1,27 @@
 import React from 'react'
+
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
 
-import { Layout } from '@acter/components/layout'
-import { Head } from '@acter/components/layout/head'
+import { getActerTypes, setActerType, getInterests, getActer } from 'props'
+
 import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
-
+import { Layout } from '@acter/components/layout'
+import { Head } from '@acter/components/layout/head'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { getUpdateFunction } from '@acter/lib/acter/get-update-function'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
-
-import { getActerTypes, setActerType, getInterests, getActer } from 'props'
-
-import { ActerType, InterestType } from '@acter/schema'
-
-import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 import { ActerTypes } from '@acter/lib/constants'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { ActerType, InterestType } from '@acter/schema'
+import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
 interface NewActerPageProps {
   /**

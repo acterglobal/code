@@ -1,8 +1,6 @@
-import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { initializeApollo } from '@acter/lib/apollo'
-
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { ActivityType } from '@acter/schema'
-
 import QUERY_ACTIVITY_TYPES from '@acter/schema/queries/query-activity-types.graphql'
 
 /**

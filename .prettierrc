@@ -1,5 +1,16 @@
 {
   "tabWidth": 2,
   "semi": false,
-  "singleQuote": true
+  "singleQuote": true,
+  "importOrder": [
+    "^reflect-metadata",
+    "^react(.*)$",
+    "^next(.*)$",
+    "^@(?!(acter/))(.*)$",
+    "^(?!(@acter/))(.*)$",
+    "^@acter/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "experimentalBabelParserPluginsList": ["jsx", "typescript"]
 }

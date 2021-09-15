@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, screen } from '@acter/lib/test-utils'
 
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
+import { render, screen } from '@acter/lib/test-utils'
 
 const FOO = 'Foo'
 const BAR = 'Bar'

@@ -1,7 +1,9 @@
 import React, { FC, ReactNode } from 'react'
+
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import clsx from 'clsx'
 import { grey } from '@material-ui/core/colors'
+
+import clsx from 'clsx'
 
 export interface StepperProps {
   steps: ReactNode[]

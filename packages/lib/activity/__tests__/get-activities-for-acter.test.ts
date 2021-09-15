@@ -1,11 +1,3 @@
-import { add, sub } from 'date-fns'
-import {
-  ExampleActer,
-  ExampleActerConnection,
-  ExampleActivity,
-  ExampleActivityActer,
-} from '@acter/schema/fixtures'
-import { Acter, ActerConnection, Activity } from '@acter/schema'
 import {
   _getFollowedActivitiesMap,
   _addMissingOrganisedActivities,
@@ -13,6 +5,15 @@ import {
   _getActivitiesAfterDate,
   getActivitiesForActerByStartAt,
 } from '../get-activities-for-acter'
+import { add, sub } from 'date-fns'
+
+import { Acter, ActerConnection, Activity } from '@acter/schema'
+import {
+  ExampleActer,
+  ExampleActerConnection,
+  ExampleActivity,
+  ExampleActivityActer,
+} from '@acter/schema/fixtures'
 
 describe('getActivitiesForActer', () => {
   const now = new Date()

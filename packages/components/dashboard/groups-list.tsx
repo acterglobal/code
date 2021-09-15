@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Acter } from '@acter/schema'
+
 import {
   Box,
   createStyles,
@@ -7,9 +7,11 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+
 import { Link } from '@acter/components/util/anchor-link'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
 type GroupListProps = {
   groups: Acter[]

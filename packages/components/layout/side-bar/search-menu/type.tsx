@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Box,
   createStyles,
@@ -6,10 +7,12 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+
 import { Switch } from '@acter/components/styled/switch'
 import { SearchType } from '@acter/lib/constants'
 import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
+
 export interface SearchTypeProps {
   filterSubTypes: string[]
   onChange: (acterTypeNames: string[]) => void

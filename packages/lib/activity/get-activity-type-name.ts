@@ -1,4 +1,5 @@
 import { ActivityType } from '@acter/schema'
+
 /**
  * Gives activity type name by it activity type id
  * @param typeId activity type id

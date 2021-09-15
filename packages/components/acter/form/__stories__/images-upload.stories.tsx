@@ -1,5 +1,7 @@
 import { Meta, Story } from '@storybook/react'
+
 import { withFormik } from 'storybook-formik'
+
 import { ImageUploadSection } from '@acter/components/acter/form/image-upload-section'
 
 export default {

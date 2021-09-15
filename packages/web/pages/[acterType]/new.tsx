@@ -1,28 +1,26 @@
 import React from 'react'
+
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
+import { getActerTypes, setActerType, getInterests } from 'props'
 
-import { Layout } from '@acter/components/layout'
 import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
+import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
-
-import { getActerTypes, setActerType, getInterests } from 'props'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { getCreateFunction } from '@acter/lib/acter/get-create-function'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-
+import { ActerTypes } from '@acter/lib/constants'
 import { Acter, ActerType, InterestType } from '@acter/schema'
-
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
-import { ActerTypes } from '@acter/lib/constants'
-import { getCreateFunction } from '@acter/lib/acter/get-create-function'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 interface NewActerPageProps {
   /**

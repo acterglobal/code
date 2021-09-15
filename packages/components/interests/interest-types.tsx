@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Box,
   Divider,
@@ -7,9 +8,10 @@ import {
   createStyles,
   Theme,
 } from '@material-ui/core'
-import { InterestType } from '@acter/schema'
+
 import { Interest } from '@acter/components/interests/interest'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
+import { InterestType } from '@acter/schema'
 
 const { FOCUS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypeName
 export interface InterestTypesProps {

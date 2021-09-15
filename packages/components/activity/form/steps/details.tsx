@@ -1,12 +1,15 @@
 import React, { FC, useState } from 'react'
-import { useFormikContext } from 'formik'
+
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { ImageUpload } from '@acter/components/image-upload'
-import { TextEditor } from '@acter/components/util/text-editor'
+
+import { useFormikContext } from 'formik'
+
 import { InterestsAddSection } from '@acter/components/acter/form/interests-add-section'
+import { ImageUpload } from '@acter/components/image-upload'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
+import { TextEditor } from '@acter/components/util/text-editor'
 import { InterestType } from '@acter/schema'
 
 export interface DetailsStepProps {

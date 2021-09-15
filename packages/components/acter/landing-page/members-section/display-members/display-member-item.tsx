@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Divider,
   ListItem,
@@ -7,6 +8,7 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import {
   ConnectionState,

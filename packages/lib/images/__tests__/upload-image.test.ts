@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { uploadImage, FileDescription } from '@acter/lib/images/upload-image'
 
 jest.mock('axios')

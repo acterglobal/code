@@ -1,5 +1,4 @@
 import { Post } from '@acter/schema'
-
 import {
   ExampleUserActer,
   ExampleOrganisationActer,

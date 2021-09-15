@@ -1,9 +1,12 @@
 import React from 'react'
+
 import { NextPage } from 'next'
-import { Layout } from '@acter/components/layout'
+
 import { Typography } from '@material-ui/core'
-import { Box } from '@acter/components/styled'
+
+import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
+import { Box } from '@acter/components/styled'
 
 const Custom500: NextPage = () => {
   return (

@@ -1,14 +1,14 @@
-jest.mock('@acter/lib/apollo')
-
-import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
 import { addApolloState, initializeApollo } from '@acter/lib/apollo'
-import { getActerTypes } from '@acter/web/props/get-acter-types'
+import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
 import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
 } from '@acter/schema/fixtures'
+import { getActerTypes } from '@acter/web/props/get-acter-types'
+
+jest.mock('@acter/lib/apollo')
 
 describe('getActerTypes', () => {
   const mockInitializeApollo = initializeApollo as jest.Mock

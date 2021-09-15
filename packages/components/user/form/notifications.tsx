@@ -1,17 +1,19 @@
 import React, { FC } from 'react'
+
 import { Form, Formik } from 'formik'
+
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import {
   FormButtons,
   RadioGroup,
   SettingsRadio,
 } from '@acter/components/util/forms'
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useUser } from '@acter/lib/user/use-user'
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
 } from '@acter/schema'
-import { useUser } from '@acter/lib/user/use-user'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 
 export interface ProfileNotificationsFormValues {
   acterNotifySetting: ActerNotificationSettings

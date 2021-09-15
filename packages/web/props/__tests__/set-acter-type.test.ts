@@ -1,13 +1,11 @@
 import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
-
+import { ActerTypes } from '@acter/lib/constants'
 import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
 } from '@acter/schema/fixtures'
-
 import { setActerType } from '@acter/web/props/set-acter-type'
-import { ActerTypes } from '@acter/lib/constants'
 
 describe('setActerType', () => {
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]

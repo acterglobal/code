@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Box,
   createStyles,
@@ -7,18 +8,19 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import { useActer } from '@acter/lib/acter/use-acter'
+
+import { Header as AboutSection } from '@acter/components/acter/landing-page/info-section/header'
 import {
   HeaderSection,
   HeaderSectionProps,
 } from '@acter/components/group/header-section'
-import { Header as AboutSection } from '@acter/components/acter/landing-page/info-section/header'
 import {
   MembersSection,
   MembersSectionProps,
 } from '@acter/components/group/members-section'
 import { PostList, PostListProps } from '@acter/components/posts'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
 
 export type GroupLandingProps = HeaderSectionProps &
   MembersSectionProps &

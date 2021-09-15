@@ -1,9 +1,10 @@
 import React from 'react'
-import { render, screen } from '@acter/lib/test-utils'
-import userEvent from '@testing-library/user-event'
+
 import { MenuItem } from '@material-ui/core'
+import userEvent from '@testing-library/user-event'
 
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+import { render, screen } from '@acter/lib/test-utils'
 
 const Anchor = () => <div>Foo</div>
 

@@ -1,14 +1,17 @@
 import React, { FC, useState } from 'react'
-import { parse } from 'date-fns'
+
 import { Box } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+
+import { parse } from 'date-fns'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
+
 import {
   LocationVenuePicker,
   LocationVenuePickerValues,
 } from '@acter/components/activity/form/fields/location-venue-picker'
+import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
 import {
   StartEndTimeDatePicker,
   StartEndTimeDatePickerValues,

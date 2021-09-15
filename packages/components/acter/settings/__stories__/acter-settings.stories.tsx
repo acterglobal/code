@@ -1,10 +1,11 @@
 import React from 'react'
+
 import { Meta, Story } from '@storybook/react'
+
 import {
   ActerSettings,
   ActerSettingsProps,
 } from '@acter/components/acter/settings'
-
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {

@@ -1,5 +1,7 @@
 import { NextApiHandler } from 'next'
+
 import { handleLogin } from '@auth0/nextjs-auth0'
+
 import { getAuthRedirectUrl } from '@acter/lib/url/get-auth-redirect-url'
 
 const signupHandler: NextApiHandler = async (req, res) => {

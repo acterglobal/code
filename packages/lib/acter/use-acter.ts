@@ -1,11 +1,15 @@
 import { useState, useEffect, useMemo } from 'react'
+
+import { useRouter } from 'next/router'
+
 import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
+
+import { acterTypeAsUrl } from '../acter-types/acter-type-as-url'
+import { useActerTypes } from '../acter-types/use-acter-types'
+import { ParsedUrlQuery } from 'querystring'
+
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 import { Acter, ActerType } from '@acter/schema/types'
-import { useRouter } from 'next/router'
-import { useActerTypes } from '../acter-types/use-acter-types'
-import { acterTypeAsUrl } from '../acter-types/acter-type-as-url'
-import { ParsedUrlQuery } from 'querystring'
 
 type FindFirstActerData = {
   findFirstActer: Acter

@@ -1,5 +1,6 @@
-import { DATE_FORMAT_SHORT } from '@acter/lib/constants'
 import { parseAndFormat } from '../parse-and-format'
+
+import { DATE_FORMAT_SHORT } from '@acter/lib/constants'
 
 describe('parseAndFormat', () => {
   it('should format an ISO date string', () => {

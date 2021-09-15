@@ -1,6 +1,7 @@
-import nodemailer from 'nodemailer'
 import sendgrid from '@sendgrid/mail'
+
 import { Environments } from '../constants'
+import nodemailer from 'nodemailer'
 
 export interface Email {
   to: string

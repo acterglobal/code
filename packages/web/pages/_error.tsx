@@ -1,7 +1,9 @@
 import React from 'react'
-import NextErrorComponent, { ErrorProps } from 'next/error'
-import * as Sentry from '@sentry/nextjs'
+
 import { PHASE_PRODUCTION_SERVER } from 'next/constants'
+import NextErrorComponent, { ErrorProps } from 'next/error'
+
+import * as Sentry from '@sentry/nextjs'
 
 // eslint-disable-next-line
 export const ErrorWithSentry = ({ statusCode, hasGetInitialPropsRun, err }) => {

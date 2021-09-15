@@ -1,9 +1,13 @@
 import React, { FC } from 'react'
+
 import Image from 'next/image'
+
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { KeyboardArrowRightRounded } from '@material-ui/icons'
+
 import { ActerTypes } from '@acter/lib/constants'
+
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     border: '1px solid gray',

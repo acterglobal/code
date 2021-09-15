@@ -1,12 +1,15 @@
 import React from 'react'
+
 import { useRouter } from 'next/router'
-import { render, screen } from '@acter/lib/test-utils'
+
 import { MuiThemeProvider } from '@material-ui/core'
-import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
+
 import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
 import { theme } from '@acter/components/themes/acter-theme'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { render, screen } from '@acter/lib/test-utils'
 import { useUser } from '@acter/lib/user/use-user'
+import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/use-acter')
@@ -25,6 +28,7 @@ describe('[Header Section]', () => {
     mockUseActer.mockReturnValue({ acter: ExampleActer, loading: false })
     mockUseRouter.mockReturnValue({
       query: {},
+      route: '',
     })
   })
 

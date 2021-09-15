@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ActivityTileProps } from '@acter/components/activity/tile'
+
 import {
   Box,
   createStyles,
@@ -8,6 +8,8 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+
+import { ActivityTileProps } from '@acter/components/activity/tile'
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
 
 type InfoSectionProps = ActivityTileProps

@@ -1,10 +1,11 @@
+import { assert } from 'console'
+import { format } from 'date-fns'
 import marked from 'marked'
 import path from 'path'
-import { format } from 'date-fns'
+
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
-import { Acter, Notification, Post } from '@acter/schema'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
-import { assert } from 'console'
+import { Acter, Notification, Post } from '@acter/schema'
 
 type PostEmail = {
   acterName: string

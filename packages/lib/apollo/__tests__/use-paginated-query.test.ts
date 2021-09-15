@@ -1,5 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks'
 import { useQuery } from '@apollo/client'
+import { renderHook } from '@testing-library/react-hooks'
+
 import {
   usePaginatedQuery,
   _getOnCompleted,

@@ -1,6 +1,6 @@
+import { InterestTypes } from '@acter/lib/constants'
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
 import { Interests } from '@acter/schema/fixtures/interest/interests'
-import { InterestTypes } from '@acter/lib/constants'
 
 const { ENVIRONMENT, FOCUS, SOCIAL, TAGS } = InterestTypes
 const allInterests = Interests.data.interestTypes

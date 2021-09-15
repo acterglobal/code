@@ -1,12 +1,15 @@
 import React, { FC } from 'react'
+
 import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
+
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
+
 import { ImageUpload } from '@acter/components/image-upload'
-import { FormButtons } from '@acter/components/util/forms'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { useUser } from '@acter/lib/user/use-user'
+import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useUser } from '@acter/lib/user/use-user'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string

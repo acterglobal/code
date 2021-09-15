@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-import clsx from 'clsx'
-import { useFormikContext } from 'formik'
+
 import {
   List,
   ListItem,
@@ -11,9 +10,13 @@ import {
   Theme,
 } from '@material-ui/core'
 import { NavigateNextOutlined } from '@material-ui/icons'
+
+import clsx from 'clsx'
+import { useFormikContext } from 'formik'
+
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export interface ActivityTypeStepProps {
   onClick: (activityTypeId: string) => void

@@ -1,5 +1,7 @@
 import { Meta, Story } from '@storybook/react'
+
 import { withFormik } from 'storybook-formik'
+
 import {
   DetailsStep,
   DetailsStepProps,

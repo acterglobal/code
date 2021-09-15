@@ -1,7 +1,6 @@
-import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
-
-import { ActerConnectionRole } from '@acter/schema'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
+import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { ActerConnectionRole } from '@acter/schema'
 
 export const checkRole = (
   minRole: ActerConnectionRole

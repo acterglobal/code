@@ -1,16 +1,18 @@
 import React, { FC, useState } from 'react'
-import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
+
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
+
 import {
   DisplayMembers,
   DisplayMembersProps,
 } from '@acter/components/acter/landing-page/members-section/display-members'
+import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 

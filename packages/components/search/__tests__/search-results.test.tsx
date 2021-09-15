@@ -1,10 +1,12 @@
 import React from 'react'
+
 import { useRouter } from 'next/router'
-import { render, screen } from '@acter/lib/test-utils'
+
 import { Search } from '@acter/components/search'
-import { SearchType } from '@acter/lib/constants'
-import { ExampleActer } from '@acter/schema/fixtures'
 import { useActerSearch } from '@acter/lib/acter/use-acter-search'
+import { SearchType } from '@acter/lib/constants'
+import { render, screen } from '@acter/lib/test-utils'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/use-acter-search')

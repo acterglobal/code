@@ -1,7 +1,8 @@
 import React from 'react'
+
+import { InterestTypes } from '@acter/components/interests/interest-types'
 import { render, screen } from '@acter/lib/test-utils'
 import { Interests } from '@acter/schema/fixtures/interest/interests'
-import { InterestTypes } from '@acter/components/interests/interest-types'
 
 describe('[Interest Types]', () => {
   it('should show interests for a type', () => {

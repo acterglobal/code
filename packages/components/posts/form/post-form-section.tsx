@@ -1,15 +1,18 @@
 import React, { FC, useState } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
 import { Box } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
+import clsx from 'clsx'
+
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { User } from '@acter/schema'
 import {
   PostForm,
   PostFormProps,
   PostFormValues,
 } from '@acter/components/posts/form'
+import { User } from '@acter/schema'
 import { Post as PostType } from '@acter/schema'
-import clsx from 'clsx'
 
 export interface PostFormSectionProps extends PostFormProps {
   user: User

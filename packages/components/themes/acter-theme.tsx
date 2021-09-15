@@ -1,8 +1,11 @@
 import React, { FC } from 'react'
+
 import { ThemeProvider } from '@material-ui/core/styles'
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles'
-import { typography } from '@acter/components/themes/fonts'
+
 import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
+import { typography } from '@acter/components/themes/fonts'
+
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     colors: Colors

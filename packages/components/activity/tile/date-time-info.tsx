@@ -1,10 +1,4 @@
 import React, { FC } from 'react'
-import {
-  DAY_DATE_MONTH_FORMAT_SHORT,
-  DATE_MONTH_FORMAT_SHORT,
-  TIME_FORMAT_SHORT,
-} from '@acter/lib/constants'
-import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 
 import {
   Box,
@@ -15,6 +9,12 @@ import {
 } from '@material-ui/core'
 
 import { ActivityTileProps } from '@acter/components/activity/tile'
+import {
+  DAY_DATE_MONTH_FORMAT_SHORT,
+  DATE_MONTH_FORMAT_SHORT,
+  TIME_FORMAT_SHORT,
+} from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 
 type DateTimeInfoProps = ActivityTileProps
 

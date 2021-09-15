@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
-import { Activity } from '@acter/schema'
+
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+
 import { ActivitiesList as ListOfActivities } from '@acter/components/activity/list'
+import { Activity } from '@acter/schema'
 
 type ActivitiesListProps = {
   activities: Activity[]

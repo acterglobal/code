@@ -1,13 +1,16 @@
 import React, { FC, useState } from 'react'
+
 import dynamic from 'next/dynamic'
+
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
+
 import { GroupsList } from '@acter/components/layout/side-bar/groups/groups-list'
-import { Acter, ActerConnectionRole } from '@acter/schema'
 import { ActerTypes } from '@acter/lib/constants'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)

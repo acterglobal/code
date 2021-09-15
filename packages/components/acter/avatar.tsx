@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import {
   Avatar as MuiAvatar,
   createStyles,
@@ -7,7 +8,9 @@ import {
   Theme,
 } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
+
 import clsx from 'clsx'
+
 import { getInitials } from '@acter/lib/get-initials'
 import { Acter } from '@acter/schema'
 

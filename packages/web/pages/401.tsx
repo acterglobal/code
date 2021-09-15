@@ -1,8 +1,11 @@
 import React from 'react'
+
 import { NextPage } from 'next'
+
+import { Typography } from '@material-ui/core'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
-import { Typography } from '@material-ui/core'
 import { Box, Link } from '@acter/components/styled'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 

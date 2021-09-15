@@ -1,4 +1,5 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
+
 import {
   Menu,
   MenuProps,
@@ -6,6 +7,7 @@ import {
   createStyles,
   Theme,
 } from '@material-ui/core'
+
 interface DropdownMenuProps {
   anchorNode: ReactNode
   closeOnClick?: boolean

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { NextPage } from 'next'
+
 import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { ProfileNotificationsForm } from '@acter/components/user/form/notifications'

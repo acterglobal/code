@@ -1,14 +1,15 @@
 import React, { FC } from 'react'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
+import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
-import { Acter, User } from '@acter/schema'
 import { useUser } from '@acter/lib/user/use-user'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { Acter, User } from '@acter/schema'
 
 export interface ConnectProps {
   /**

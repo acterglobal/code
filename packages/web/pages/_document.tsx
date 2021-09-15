@@ -1,6 +1,9 @@
 import React, { ReactElement } from 'react'
+
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+
 import { ServerStyleSheets } from '@material-ui/core/styles'
+
 import { acterTheme } from '@acter/components/themes/acter-theme'
 
 export default class ActerDocument extends Document {

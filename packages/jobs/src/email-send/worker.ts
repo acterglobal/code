@@ -1,9 +1,10 @@
+import { NotificationEmail } from './types'
 import { Job } from 'bullmq'
+
 import { createWorker } from '@acter/lib/bullmq'
-import { prisma } from '@acter/schema/prisma'
 import { EMAIL_SEND_QUEUE } from '@acter/lib/constants'
 import { sendEmail } from '@acter/lib/email'
-import { NotificationEmail } from './types'
+import { prisma } from '@acter/schema/prisma'
 
 export const emailSendWorker = createWorker(
   EMAIL_SEND_QUEUE,

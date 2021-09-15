@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useUser as getUser } from '@auth0/nextjs-auth0'
+
 import { useLazyQuery, ApolloError, QueryResult } from '@apollo/client'
+import { useUser as getUser } from '@auth0/nextjs-auth0'
+
+import { initializeApollo } from '@acter/lib/apollo'
 import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 import { User } from '@acter/schema/types'
-import { initializeApollo } from '@acter/lib/apollo'
 
 type UseUserData = { user: User }
 

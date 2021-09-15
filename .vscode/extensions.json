@@ -9,6 +9,7 @@
     "prisma.prisma",
     "netcorext.uuid-generator",
     "github.vscode-pull-request-github",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "jbockle.jbockle-format-files"
   ]
 }

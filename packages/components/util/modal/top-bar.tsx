@@ -1,15 +1,18 @@
 import React, { FC } from 'react'
+
 import { Box, IconButton, MenuItem, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import {
   MoreVert as ThreeDotsIcon,
   Close as CloseIcon,
 } from '@material-ui/icons'
-import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+
 import { Link } from '@acter/components/util/anchor-link'
+import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter, User } from '@acter/schema'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter, User } from '@acter/schema'
+
 export interface TopBarProps {
   heading?: string
   actionButtons?: string[] | null

@@ -1,21 +1,25 @@
 import React, { FC } from 'react'
+
 import Image from 'next/image'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+import { useRouter } from 'next/router'
+
 import { Box, Grid, Hidden } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { ConnectProps } from '@acter/components/acter/connect'
-import { ActivityInfo } from '@acter/components/activity/activity-info'
-import { ActivityDescription } from '@acter/components/activity/activity-description'
-import { Participates } from '@acter/components/activity/participates'
-import { Organiser } from '@acter/components/activity/organiser'
-import { PostList, PostListProps } from '@acter/components/posts'
-import { InterestType } from '@acter/schema'
-import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { useRouter } from 'next/router'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useUser } from '@acter/lib/user/use-user'
-import { useActer } from '@acter/lib/acter/use-acter'
+
 import { LoadingSpinner } from '../util/loading-spinner'
+
+import { ConnectProps } from '@acter/components/acter/connect'
+import { ActivityDescription } from '@acter/components/activity/activity-description'
+import { ActivityInfo } from '@acter/components/activity/activity-info'
+import { Organiser } from '@acter/components/activity/organiser'
+import { Participates } from '@acter/components/activity/participates'
+import { PostList, PostListProps } from '@acter/components/posts'
+import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { useUser } from '@acter/lib/user/use-user'
+import { InterestType } from '@acter/schema'
 
 export interface ActivityDetailsProps extends ConnectProps, PostListProps {
   interestTypes: InterestType[]

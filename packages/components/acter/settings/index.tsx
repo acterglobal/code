@@ -1,17 +1,18 @@
 import React, { FC, useState } from 'react'
 
 import { MenuItem } from '@material-ui/core'
+
 import {
   ActerUsersSettings,
   ActerUsersSettingsProps,
 } from '@acter/components/acter/settings/acter-users-settings'
+import { Links as LinkSection, LinkProps } from '@acter/components/links'
 import {
   SettingsContainer,
   SettingsContent,
   SettingsMenu,
   SettingsSectionHeading,
 } from '@acter/components/util/settings-layout'
-import { Links as LinkSection, LinkProps } from '@acter/components/links'
 import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
 
 export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps

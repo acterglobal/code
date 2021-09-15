@@ -1,6 +1,7 @@
-import { parseISO } from 'date-fns'
-import { DATE_FORMAT_SHORT } from '@acter/lib/constants'
 import { getZonedFormattedDate } from '../get-zoned-formatted-date'
+import { parseISO } from 'date-fns'
+
+import { DATE_FORMAT_SHORT } from '@acter/lib/constants'
 
 describe('getZonedFormattedDate', () => {
   it('should handle timezone offsets', () => {
