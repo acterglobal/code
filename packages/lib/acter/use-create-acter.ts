@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
 
 import {
   UseMutationOptions,
@@ -14,7 +14,7 @@ export type ActerVariables = Acter & {
 }
 
 export type CreateActerData = {
-  createActer: Acter
+  createActerCustom: Acter
 }
 
 type CreateActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
@@ -39,7 +39,7 @@ export const useCreateActer = (
   >(ACTER_CREATE, {
     ...options,
     getSuccessMessage: (data: CreateActerData) =>
-      `${data.createActer.name} group created`,
+      `${data.createActerCustom.name} group created`,
   })
 
   const handleCreateActer = (acter: ActerVariables) =>

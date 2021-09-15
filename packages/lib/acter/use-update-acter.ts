@@ -15,7 +15,7 @@ import { Acter } from '@acter/schema'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 
 export type UpdateActerData = {
-  updateActer: Acter
+  updateActerCustom: Acter
 }
 
 type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
@@ -37,14 +37,13 @@ export const useUpdateActer = (
     ActerVariables
   >(UPDATE_ACTER, {
     getSuccessMessage: (data: UpdateActerData) =>
-      `${data.updateActer.name} updated`,
+      `${data.updateActerCustom.name} updated`,
     ...options,
   })
 
   const handleUpdateActer = async (
     updatedActer: ActerVariables
   ): Promise<any> => {
-    console.log('Updating with useUpdateActer')
     const acterId = acter?.id ? acter.id : updatedActer.id
     const variables = {
       // Load existing Acter data

@@ -1,7 +1,7 @@
 #import "../fragments/acter-display.fragment.graphql"
 
 mutation ActerDelete($acterId: String!) {
-  deleteActer(acterId: $acterId) {
+  deleteActerCustom(acterId: $acterId) {
     id
     name
     deletedAt

@@ -27,9 +27,11 @@ export const useCreateSubGroup = (
     update: (cache, result, updateOptions) => {
       options?.update?.(cache, result, updateOptions)
       const {
-        data: { createActer },
+        data: { createActerCustom },
       } = result
-      const groupRef = cache.identify((createActer as unknown) as StoreObject)
+      const groupRef = cache.identify(
+        (createActerCustom as unknown) as StoreObject
+      )
       cache.modify({
         id: cache.identify((acter as unknown) as StoreObject),
         fields: {

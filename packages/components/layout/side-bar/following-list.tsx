@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -29,9 +29,13 @@ export const FollowingList: FC = () => {
   const router = useRouter()
   const { user, loading } = useUser()
 
-  const followingActers = excludeActerTypes(
-    user?.Acter.Following.map(({ Following }) => Following),
-    [ACTIVITY, USER, GROUP]
+  const followingActers = useMemo(
+    () =>
+      excludeActerTypes(
+        user?.Acter.Following.map(({ Following }) => Following),
+        [ACTIVITY, USER, GROUP]
+      ),
+    [user?.Acter.Following]
   )
 
   const { notifications } = useFetchNotifications()

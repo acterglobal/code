@@ -40,7 +40,8 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
   const router = useRouter()
   const { acter, loading } = useActer()
   const [updateActer, { loading: updateActerLoading }] = useUpdateActer(acter, {
-    getSuccessMessage: ({ updateActer }) => `${updateActer.name} updated`,
+    getSuccessMessage: ({ updateActerCustom }) =>
+      `${updateActerCustom.name} updated`,
     onCompleted: () => router.push(acterAsUrl({ acter })),
   })
 

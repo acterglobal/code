@@ -1,3 +1,5 @@
+#import "../fragments/acter-full.fragment.graphql"
+
 mutation CreateActer(
   $name: String!
   $description: String
@@ -10,7 +12,7 @@ mutation CreateActer(
   $followerIds: [String!]!
   $parentActerId: String
 ) {
-  createActer(
+  createActerCustom(
     name: $name
     description: $description
     location: $location
@@ -22,16 +24,6 @@ mutation CreateActer(
     followerIds: $followerIds
     parentActerId: $parentActerId
   ) {
-    id
-    name
-    description
-    slug
-    location
-    url
-    useAdmins
-    parentActerId
-    ActerType {
-      name
-    }
+    ...ActerFull
   }
 }

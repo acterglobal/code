@@ -80,11 +80,11 @@ const _acterCreate = async ({
       const res = await createActivity({
         variables: prepareActivityValues(variables),
       })
-      return res.data.createActivity.Acter
+      return res.data.createActivityCustom.Acter
     }
     default: {
       const res = await createActer({ variables })
-      return res.data.createActer
+      return res.data.createActerCustom
     }
   }
 }
