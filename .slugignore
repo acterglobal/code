@@ -1,0 +1,9 @@
+__mocks__
+__stories__
+__tests__
+
+.github
+.husky
+.yarn
+.vscode
+docs
