@@ -34,7 +34,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
   const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (!acter) return null
 
   const handleClick = () => {
     setOpenModal(true)

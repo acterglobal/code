@@ -4,6 +4,7 @@ import { DisplayMembers } from '@acter/components/acter/landing-page/members-sec
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 import { render, screen } from '@acter/lib/test-utils'
+import { useUser } from '@acter/lib/user/use-user'
 import {
   ExampleActer,
   ExampleActerConnection,
@@ -11,6 +12,7 @@ import {
 } from '@acter/schema/fixtures'
 
 jest.mock('@acter/lib/acter/use-acter')
+jest.mock('@acter/lib/user/use-user')
 
 const { ORGANISATIONS } = MemberType
 
@@ -18,14 +20,15 @@ const mockFunction = jest.fn()
 
 describe('<DisplayMembers>', () => {
   const mockUseActer = useActer as jest.Mock
+  const mockUseUser = useUser as jest.Mock
   beforeEach(() => {
     mockUseActer.mockReturnValue({ acter: ExampleActer })
+    mockUseUser.mockReturnValue({ user: ExampleUser })
   })
 
   it('should display when there are no acters', () => {
     render(
       <DisplayMembers
-        user={ExampleUser}
         followers={[]}
         type={ORGANISATIONS}
         onConnectionStateChange={mockFunction}
@@ -63,7 +66,6 @@ describe('<DisplayMembers>', () => {
 
     render(
       <DisplayMembers
-        user={ExampleUser}
         followers={connections}
         type={ORGANISATIONS}
         onConnectionStateChange={mockFunction}

@@ -21,14 +21,12 @@ export type ActivityInfoProps = ConnectProps
 
 export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
   const { acter, loading: acterLoading } = useActer()
-
-  if (acterLoading) return <LoadingSpinner />
-  if (!acter) return null
-
   const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
     acter,
   ])
   const classes = useStyles({ activityTypeName })
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
 
   const displayFormat = acter.Activity.isAllDay
     ? DATE_FORMAT_NO_TIME

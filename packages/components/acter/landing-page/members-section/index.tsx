@@ -12,7 +12,6 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
-import { useUser } from '@acter/lib/user/use-user'
 
 const { ORGANISATIONS, PEOPLE } = MemberType
 
@@ -34,10 +33,9 @@ export const MembersSection: FC<MembersSectionProps> = ({
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
   const { acter, loading: acterLoading } = useActer()
-  const { user, loading: userLoading } = useUser()
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
 
   const followers = mapFollowersByType(acter)
 
@@ -57,7 +55,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
           activeSelector === PEOPLE ? followers.user : followers.organisation
         }
         type={activeSelector}
-        user={user}
         onConnectionStateChange={onConnectionStateChange}
         isOrganisation={activeSelector === ORGANISATIONS ? true : false}
       />

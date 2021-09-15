@@ -11,7 +11,7 @@ import { Post, PostsProps } from '@acter/components/posts/post/index'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole, Post as PostType } from '@acter/schema'
+import { ActerConnectionRole, Post as PostType } from '@acter/schema'
 
 export interface PostListProps
   extends Omit<PostFormProps, 'user'>,
@@ -38,7 +38,7 @@ export const PostList: FC<PostListProps> = ({
   const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (!acter) return null
 
   const isUserActerFollower = acter.Followers.find(
     ({ Follower }) => Follower.id === user?.Acter.id

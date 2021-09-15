@@ -14,7 +14,6 @@ import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
-import { useUser } from '@acter/lib/user/use-user'
 import { User } from '@acter/schema'
 
 export interface ActivitySectionProps {
@@ -26,13 +25,11 @@ export interface ActivitySectionProps {
 
 export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)
-  const { user, loading: userLoading } = useUser()
   const { acter, loading: acterLoading } = useActer()
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (!acterLoading) return <LoadingSpinner />
+  if (!acter) return null
 
-  if (!acter) return <LoadingSpinner />
   const { allActivities, futureActivities } = getActivitiesForActerByStartAt(
     acter
   )
@@ -44,7 +41,7 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   return (
     <>
       <TopSection>
-        <AddActivityButton acter={acter} user={user} />
+        <AddActivityButton />
 
         <FormControlsContainer>
           <FormControlLabel
@@ -61,7 +58,7 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
       </TopSection>
 
       <Box>
-        <ZeroMessage acter={acter} activities={displayActivities} user={user} />
+        <ZeroMessage activities={displayActivities} />
 
         <ActivitiesList activities={displayActivities} />
       </Box>

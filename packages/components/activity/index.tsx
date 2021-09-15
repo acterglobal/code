@@ -43,7 +43,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !user) return null
+  if (!acter) return null
 
   const handleModalClose = () => {
     router.push(

@@ -1,20 +1,23 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { DefaultMessage } from '@acter/components/dashboard/default-message'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole, Activity, User } from '@acter/schema'
+import { ActerConnectionRole, Activity } from '@acter/schema'
 
 interface ZeroMessageProps {
-  acter: Acter
   activities: Activity[]
-  user: User
 }
 
-export const ZeroMessage: FC<ZeroMessageProps> = ({
-  acter,
-  activities,
-  user,
-}) => {
+export const ZeroMessage: FC<ZeroMessageProps> = ({ activities }) => {
+  const { acter, loading: acterLoading } = useActer()
+  const { user, loading: userLoading } = useUser()
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter) return null
+
   if (activities.length <= 0) {
     if (userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)) {
       return (
