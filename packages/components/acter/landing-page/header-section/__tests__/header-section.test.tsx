@@ -28,6 +28,7 @@ describe('[Header Section]', () => {
     mockUseActer.mockReturnValue({ acter: ExampleActer, loading: false })
     mockUseRouter.mockReturnValue({
       query: {},
+      route: '',
     })
   })
 
