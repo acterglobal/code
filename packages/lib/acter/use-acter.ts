@@ -28,13 +28,18 @@ type ActerQueryResult = QueryResult<UseActerData, UseActerVariables> & {
   acter: Acter
 }
 
+type UseActerProps = {
+  fetchParent?: boolean
+}
+
 /**
  * Get the acter
  * @param acterTypeId this is the id of the acter type that is queried
  * @param slug this is the parsed URL slug of the acter
  * @returns an acter that was queried based on the slug & url slug
  */
-export const useActer = (): ActerQueryResult => {
+export const useActer = (options?: UseActerProps): ActerQueryResult => {
+  const { fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<ApolloError>()
@@ -74,6 +79,14 @@ export const useActer = (): ActerQueryResult => {
   useEffect(() => {
     if (data) {
       const { findFirstActer: acter } = data
+      if (fetchParent && acter.Parent) {
+        return fetchActers({
+          variables: {
+            acterTypeId: acter.Parent.ActerType.id,
+            slug: acter.Parent.slug,
+          },
+        })
+      }
       setActer(acter)
     }
   }, [data])

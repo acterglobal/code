@@ -21,10 +21,7 @@ import {
   AddIcon,
   SearchIcon,
 } from '@acter/components/icons'
-import {
-  ActerMenu,
-  ActerMenuProps,
-} from '@acter/components/layout/side-bar/acter-menu'
+import { ActerMenu } from '@acter/components/layout/side-bar/acter-menu'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
@@ -33,7 +30,7 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SearchType } from '@acter/lib/constants'
 
-export type SidebarProps = Omit<ActerMenuProps, 'acter'> & {
+export type SidebarProps = {
   searchType?: SearchType
 }
 
@@ -83,7 +80,7 @@ export const Sidebar: FC<SidebarProps> = ({ searchType }) => {
       {loading && <LoadingSpinner />}
       {acter && (
         <Box className={classes.subMenu}>
-          <ActerMenu acter={acter} />
+          <ActerMenu />
         </Box>
       )}
       {searchType && <SearchMenu searchType={searchType} />}
