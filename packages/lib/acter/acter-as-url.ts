@@ -9,7 +9,7 @@ interface ActerAsUrlProps {
   /**
    * Extra path items for URL
    */
-  extraPath?: string[]
+  extraPath?: string | string[]
   /**
    * Query string to add
    */
@@ -37,7 +37,12 @@ export const acterAsUrl = ({
   const baseURL = includeBaseUrl ? process.env.BASE_URL : ''
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const acterSlugLower = acter.slug.toLowerCase()
-  const url = [baseURL, acterTypeUrl, acterSlugLower, ...extraPath].join('/')
+  const url = [
+    baseURL,
+    acterTypeUrl,
+    acterSlugLower,
+    ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
+  ].join('/')
 
   if (Object.keys(query).length > 0) {
     const queryString = Object.keys(query)

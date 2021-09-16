@@ -23,6 +23,9 @@ describe('acterTypeAsUrl', () => {
     expect(
       acterAsUrl({ acter: ExampleActer, extraPath: ['some', 'extra', 'path'] })
     ).toBe('/organisations/my-organisation/some/extra/path')
+    expect(
+      acterAsUrl({ acter: ExampleActer, extraPath: 'some/extra/path' })
+    ).toBe('/organisations/my-organisation/some/extra/path')
   })
 
   it('should include the Base URL if requested', () => {

@@ -27,5 +27,6 @@ export const activityNotificationsOnActerCreate = createNotificationWorker<Activ
     getNotificationEmailSubject: ({ data: { activity }, notification }) =>
       `New ${activity.ActivityType.name} on ${notification.OnActer.name} via Acter`,
     notificationType: NotificationType.NEW_ACTIVITY,
+    notificationUrlPath: 'activities',
   }
 )

@@ -59,6 +59,10 @@ interface CreateNotificationWorker<T> {
    * The type of the notification
    */
   notificationType: NotificationType
+  /**
+   * Extra path for notification
+   */
+  notificationUrlPath?: string | string[]
 }
 
 export const createNotificationWorker = <T>({
@@ -69,6 +73,7 @@ export const createNotificationWorker = <T>({
   getNotificationEmail,
   getNotificationEmailSubject,
   notificationType,
+  notificationUrlPath = '',
 }: CreateNotificationWorker<T>): Worker => {
   return createWorker(queue, async (job: Job<T>) => {
     const data = await getJobData(job)
@@ -102,6 +107,7 @@ export const createNotificationWorker = <T>({
     const url = acterAsUrl({
       acter: following,
       includeBaseUrl: true,
+      extraPath: notificationUrlPath,
     })
     await Promise.all(
       followers.map(async ({ Follower }) => {
