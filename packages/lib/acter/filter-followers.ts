@@ -11,6 +11,9 @@ const { ACTIVITY, NETWORK, ORGANISATION, USER } = ActerTypes
 export const filterFollowers = (acter: Acter) => (
   following: Acter
 ): boolean => {
+  // Return if acter is not set
+  if (!acter) return false
+
   // Don't include self
   if (following.id === acter.id) return false
 

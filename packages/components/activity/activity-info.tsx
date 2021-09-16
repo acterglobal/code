@@ -26,6 +26,9 @@ export const ActivityInfo: FC = () => {
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
+  if (acterLoading) return <LoadingSpinner />
+  if (!acter) return null
+
   const displayFormat = acter.Activity.isAllDay
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT

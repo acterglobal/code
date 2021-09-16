@@ -3,6 +3,8 @@ import React from 'react'
 import { NextPage } from 'next'
 import { useRouter, NextRouter } from 'next/router'
 
+import { StoreObject } from '@apollo/client'
+
 import { getActerTypes, setActerType, getInterests } from 'props'
 
 import { ActerForm } from '@acter/components/acter/form'
@@ -39,12 +41,29 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
 }) => {
   const router: NextRouter = useRouter()
   const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
-  const [createActer] = useNotificationMutation(ACTER_CREATE)
+  // TODO: merge this with useCreateActer
+  const [createActer] = useNotificationMutation(ACTER_CREATE, {
+    update: (cache, result) => {
+      const {
+        data: { createActerCustom },
+      } = result
+      const ref = cache.identify((createActerCustom as unknown) as StoreObject)
+      createActerCustom.Followers.forEach(({ Follower }) => {
+        cache.modify({
+          id: cache.identify((Follower as unknown) as StoreObject),
+          fields: {
+            Following: (prevFollowing) => [...prevFollowing, { __ref: ref }],
+          },
+        })
+      })
+    },
+  })
 
   const [updateActer] = useUpdateActer({} as Acter, {
-    getSuccessMessage: ({ updateActer }) => `Created ${updateActer.name}`,
-    onCompleted: ({ updateActer }) =>
-      router.push(acterAsUrl({ acter: updateActer })),
+    getSuccessMessage: ({ updateActerCustom }) =>
+      `Created ${updateActerCustom.name}`,
+    onCompleted: ({ updateActerCustom }) =>
+      router.push(acterAsUrl({ acter: updateActerCustom })),
   })
 
   const Form = acterType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm

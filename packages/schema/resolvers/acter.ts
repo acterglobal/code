@@ -21,7 +21,7 @@ const { ADMIN } = ActerConnectionRole
 export class ActerResolver {
   @Authorized()
   @Mutation(() => Acter)
-  async createActer(
+  async createActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
@@ -123,7 +123,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Acter)
-  async updateActer(
+  async updateActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
     @Arg('name') name: string,
@@ -238,7 +238,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  async createActivity(
+  async createActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
@@ -263,7 +263,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Partial<Activity>> {
-    const acter = await this.createActer(
+    const acter = await this.createActerCustom(
       ctx,
       name,
       description,
@@ -332,7 +332,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  async updateActivity(
+  async updateActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
     @Arg('name') name: string,
@@ -362,7 +362,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Activity> {
-    await this.updateActer(
+    await this.updateActerCustom(
       ctx,
       acterId,
       name,
@@ -396,7 +396,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Acter)
-  async deleteActer(
+  async deleteActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
