@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 
-import { Box, ListItem } from '@material-ui/core'
+import { Box, Divider, ListItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { capitalize } from '@acter/lib/string/capitalize'
@@ -26,15 +26,23 @@ export const LinksList: FC<LinkListProps> = ({ links }) => {
   }
 
   return (
-    <Box className={classes.container}>
-      {links.map((link) => (
-        <ListItem className={classes.item} key={link.id}>
-          <a href={getUrl(link.url)} className={classes.links} target="_blank">
-            {capitalize(link.name)}
-          </a>
-        </ListItem>
-      ))}
-    </Box>
+    <>
+      <Divider className={classes.divider} />
+
+      <Box className={classes.container}>
+        {links.map((link) => (
+          <ListItem className={classes.item} key={link.id}>
+            <a
+              href={getUrl(link.url)}
+              className={classes.links}
+              target="_blank"
+            >
+              {capitalize(link.name)}
+            </a>
+          </ListItem>
+        ))}
+      </Box>
+    </>
   )
 }
 
@@ -63,6 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: 'white',
       },
+    },
+    divider: {
+      marginTop: theme.spacing(1),
     },
   })
 )
