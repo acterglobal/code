@@ -4,6 +4,7 @@ import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getActer, getLinks } from 'props'
 
 import { ActerActivities } from '@acter/components/acter/activities'
+import { ActerLayout } from '@acter/components/acter/layout'
 import { Head } from '@acter/components/layout/head'
 import {
   composeProps,
@@ -27,6 +28,8 @@ export const ActerActivitiesPage: NextPageWithLayout<ActivitiesPageProps> = ({
     </>
   )
 }
+
+ActerActivitiesPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getActerTypes, setActerType, getActer, getLinks)

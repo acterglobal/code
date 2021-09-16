@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -21,70 +21,51 @@ import {
   AddIcon,
   SearchIcon,
 } from '@acter/components/icons'
-import { ActerMenu } from '@acter/components/layout/side-bar/acter-menu'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
-import { SearchMenu } from '@acter/components/layout/side-bar/search-menu'
 import { Link } from '@acter/components/util/anchor-link'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { SearchType } from '@acter/lib/constants'
 
 export type SidebarProps = {
-  searchType?: SearchType
+  secondarySidebar?: () => ReactNode
 }
 
-const PRIMARY_WIDTH = 4
-const SECONDARY_WIDTH = 15
+export const PRIMARY_WIDTH = 8
 
-export const Sidebar: FC<SidebarProps> = ({ searchType }) => {
-  const { acter, loading } = useActer()
-  const [drawerWidth, setDrawerWidth] = useState(4)
-  const classes = useStyles({ drawerWidth })
+export const Sidebar: FC<SidebarProps> = ({ secondarySidebar }) => {
+  const classes = useStyles()
   const router = useRouter()
 
-  useEffect(() => {
-    if (acter || searchType) {
-      return setDrawerWidth(SECONDARY_WIDTH)
-    }
-    setDrawerWidth(PRIMARY_WIDTH)
-  }, [loading, acter, searchType])
-
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      open={true}
-      classes={{ root: classes.drawer, paper: classes.drawerPaper }}
-    >
-      <Box className={classes.menu}>
-        <List className={classes.list}>
-          <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
-          <IconMenuItem
-            Icon={HomeIcon}
-            href="/dashboard"
-            text="Home"
-            active={router.route === '/dashboard'}
-          />
-          <IconMenuItem
-            Icon={SearchIcon}
-            href="/search"
-            text="Search"
-            active={router.route === '/search'}
-          />
-          <Divider />
-          <FollowingList />
-          <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
-        </List>
-      </Box>
-      {loading && <LoadingSpinner />}
-      {acter && !searchType && (
-        <Box className={classes.subMenu}>
-          <ActerMenu />
+    <>
+      <Drawer
+        variant="permanent"
+        anchor="left"
+        open={true}
+        classes={{ root: classes.drawer, paper: classes.drawerPaper }}
+      >
+        <Box className={classes.menu}>
+          <List className={classes.list}>
+            <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
+            <IconMenuItem
+              Icon={HomeIcon}
+              href="/dashboard"
+              text="Home"
+              active={router.route === '/dashboard'}
+            />
+            <IconMenuItem
+              Icon={SearchIcon}
+              href="/search"
+              text="Search"
+              active={router.route === '/search'}
+            />
+            <Divider />
+            <FollowingList />
+            <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
+          </List>
         </Box>
-      )}
-      {searchType && <SearchMenu searchType={searchType} />}
-    </Drawer>
+      </Drawer>
+      {secondarySidebar?.()}
+    </>
   )
 }
 
@@ -96,7 +77,7 @@ interface IconMenuItemProps {
 }
 
 const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
   const theme = useTheme()
 
   return (
@@ -116,20 +97,17 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
   )
 }
 
-type StyleProps = {
-  drawerWidth?: number
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
-    drawer: ({ drawerWidth }: StyleProps) => ({
-      width: `${drawerWidth}rem`,
-    }),
-    drawerPaper: ({ drawerWidth }: StyleProps) => ({
+    drawer: {
+      width: theme.spacing(PRIMARY_WIDTH),
+    },
+    drawerPaper: {
       display: 'flex',
       flexDirection: 'row',
-      width: `${drawerWidth}rem`,
+      width: theme.spacing(PRIMARY_WIDTH),
+      backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
       '& .MuiDivider-root': {
         backgroundColor: theme.palette.secondary.light,
@@ -137,9 +115,8 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
         marginRight: theme.spacing(2),
         marginBottom: theme.spacing(1.4),
       },
-    }),
+    },
     menu: {
-      backgroundColor: theme.palette.secondary.dark,
       height: '100%',
     },
     list: {
@@ -154,15 +131,5 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       marginRight: 'auto',
       paddingBottom: 0,
     },
-    subMenu: ({ drawerWidth }: StyleProps) => ({
-      backgroundColor: theme.palette.secondary.main,
-      height: '100%',
-      width: `${drawerWidth}rem`,
-      color: theme.palette.secondary.contrastText,
-      '& .MuiListItem-root': {
-        paddingTop: 3,
-        paddingBottom: 3,
-      },
-    }),
   })
 )

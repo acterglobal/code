@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 import {
@@ -10,6 +10,7 @@ import {
   getUserProfile,
 } from 'props'
 
+import { ActerLayout } from '@acter/components/acter/layout'
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -60,6 +61,8 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
     </>
   )
 }
+
+ActerSettingsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(

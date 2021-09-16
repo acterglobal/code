@@ -9,6 +9,7 @@ import {
   ActerLanding,
   ActerLandingProps,
 } from '@acter/components/acter/landing-page'
+import { ActerLayout } from '@acter/components/acter/layout'
 import {
   ActivityDetails,
   ActivityDetailsProps,
@@ -21,7 +22,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { ActerMenu, ActerTypes } from '@acter/lib/constants'
+import { ActerMenu as ActerMenuType, ActerTypes } from '@acter/lib/constants'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { usePosts } from '@acter/lib/post/use-posts'
@@ -63,7 +64,7 @@ export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
   const tab = Array.isArray(router.query.tab)
     ? router.query.tab.join()
     : router.query.tab
-  const isPostsTab = tab === ActerMenu.FORUM
+  const isPostsTab = tab === ActerMenuType.FORUM
 
   if (acterLoading || (isPostsTab && postsLoading))
     return <PageLoadingSpinner />
@@ -85,6 +86,8 @@ export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
     </>
   )
 }
+
+ActerLandingPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getActerTypes, setActerType, getInterests, getPosts)
