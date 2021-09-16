@@ -1,4 +1,10 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
+import {
+  MutationResult,
+  FetchResult,
+  StoreObject,
+  Reference,
+} from '@apollo/client'
+import { Modifier } from '@apollo/client/cache/core/types/common'
 
 import {
   UseMutationOptions,
@@ -37,15 +43,27 @@ export const useCreateActerConnection = (
         const {
           data: { createActerConnectionCustom },
         } = result
-        const ref = cache.identify(
-          (createActerConnectionCustom as unknown) as StoreObject
-        )
+        const addIfNotExists: Modifier<Reference[]> = (
+          prev,
+          { readField, toReference }
+        ) =>
+          prev.some(
+            (ref) => readField('id', ref) === createActerConnectionCustom.id
+          )
+            ? prev
+            : [
+                ...prev,
+                toReference(
+                  (createActerConnectionCustom as unknown) as StoreObject
+                ),
+              ]
+
         cache.modify({
           id: cache.identify(
             (createActerConnectionCustom.Following as unknown) as StoreObject
           ),
           fields: {
-            Followers: (prevFollowers) => [...prevFollowers, ref],
+            Followers: addIfNotExists,
           },
         })
         cache.modify({
@@ -53,7 +71,7 @@ export const useCreateActerConnection = (
             (createActerConnectionCustom.Follower as unknown) as StoreObject
           ),
           fields: {
-            Following: (prevFollowing) => [...prevFollowing, ref],
+            Following: addIfNotExists,
           },
         })
       },

@@ -1,4 +1,5 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
+import { MutationResult, FetchResult, Reference } from '@apollo/client'
+import { Modifier } from '@apollo/client/cache/core/types/common'
 
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
 import {
@@ -37,22 +38,22 @@ export const useDeleteActerConnection = (
         const {
           variables: { followerActerId, followingActerId },
         } = updateOptions
-        const ref = cache.identify(
-          (deleteActerConnection as unknown) as StoreObject
-        )
+
+        const removeRef: Modifier<Reference[]> = (prev, { readField }) =>
+          prev.filter(
+            (ref) => deleteActerConnection.id !== readField('id', ref)
+          )
 
         cache.modify({
           id: `Acter:${followingActerId}`,
           fields: {
-            Followers: (prevFollowers) =>
-              prevFollowers.filter((follower) => follower.__ref !== ref),
+            Followers: removeRef,
           },
         })
         cache.modify({
           id: `Acter:${followerActerId}`,
           fields: {
-            Following: (prevFollowing) =>
-              prevFollowing.filter((following) => following.__ref !== ref),
+            Following: removeRef,
           },
         })
       },
