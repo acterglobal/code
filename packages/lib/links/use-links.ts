@@ -8,6 +8,7 @@ import {
 } from '@apollo/client'
 
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerTypes } from '@acter/lib/constants'
 import { Link } from '@acter/schema'
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
@@ -15,14 +16,14 @@ type LinksData = {
   links: Link[]
 }
 
-type LinksVarialbles = {
+type LinksVariables = {
   acterId: string
 }
 
-type UseLinksOptions = MutationOptions<LinksData, LinksVarialbles>
+type UseLinksOptions = MutationOptions<LinksData, LinksVariables>
 
 interface UseLinksResult
-  extends Omit<QueryResult<LinksData, LinksVarialbles>, 'data'> {
+  extends Omit<QueryResult<LinksData, LinksVariables>, 'data'> {
   links: Link[]
 }
 // TODO: DRY useActer in other hooks
@@ -35,7 +36,7 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   const [
     fetchLinks,
     { data, loading: queryLoading, error: queryError, ...restQueryResults },
-  ] = useLazyQuery<LinksData, LinksVarialbles>(QUERY_LINKS_BY_ACTER, {
+  ] = useLazyQuery<LinksData, LinksVariables>(QUERY_LINKS_BY_ACTER, {
     ...options,
   })
 
@@ -49,12 +50,16 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   }, [acterError, queryError])
 
   useEffect(() => {
-    if (acter?.id)
+    if (acter?.id) {
       fetchLinks({
         variables: {
-          acterId: acter.id,
+          acterId:
+            acter.ActerType.name === ActerTypes.GROUP
+              ? acter.Parent.id
+              : acter.id,
         },
       })
+    }
   }, [acter?.id])
 
   useEffect(() => {
