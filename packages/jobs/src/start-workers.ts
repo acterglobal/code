@@ -3,12 +3,14 @@ import 'reflect-metadata'
 import { activityNotificationsCreateWorker } from './activity-notifications-create/worker'
 import { activityNotificationsOnActerCreate } from './activity-notifications-on-acter-create/worker'
 import { emailSendWorker } from './email-send/worker'
+import { newMemberJoinNotificationWorker } from './new-member-join-notification/worker'
 import { postNotificationsCreateWorker } from './post-notification-create/worker'
 
 console.log('Starting all workers')
 ;[
   activityNotificationsCreateWorker,
   activityNotificationsOnActerCreate,
+  newMemberJoinNotificationWorker,
   emailSendWorker,
   postNotificationsCreateWorker,
 ].forEach((worker) => {

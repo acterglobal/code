@@ -1,5 +1,7 @@
 import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 
+import { newMemberJoinNotificationQueue } from '@acter/jobs'
+import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import {
@@ -43,7 +45,19 @@ export class ActerConnectionResolver {
         ? ActerConnectionRole.MEMBER
         : ActerConnectionRole.PENDING
 
-    return ctx.prisma.acterConnection.upsert({
+    const connection = await ctx.prisma.acterConnection.upsert({
+      include: {
+        Follower: {
+          include: {
+            ActerType: true,
+          },
+        },
+        Following: {
+          include: {
+            ActerType: true,
+          },
+        },
+      },
       create: {
         followerActerId,
         followingActerId,
@@ -58,6 +72,14 @@ export class ActerConnectionResolver {
         },
       },
     })
+
+    if (connection.Follower.ActerType.name === ActerTypes.USER) {
+      newMemberJoinNotificationQueue.add(`new-member-${connection.id}`, {
+        connection,
+      })
+    }
+
+    return connection
   }
 
   @Authorized()
