@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 
-import { Connect, ConnectProps } from '@acter/components/acter/connect'
+import { Connect } from '@acter/components/acter/connect'
 import { GroupForm as EditGroup } from '@acter/components/group/form'
 import { Link } from '@acter/components/util/anchor-link'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
@@ -21,13 +21,7 @@ import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
-export type HeaderSectionProps = ConnectProps
-
-export const HeaderSection: FC<HeaderSectionProps> = ({
-  onJoin,
-  onLeave,
-  loading,
-}) => {
+export const HeaderSection: FC = () => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
   const { user, loading: userLoading } = useUser()
@@ -65,7 +59,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({
         </Box>
 
         <Box>
-          <Connect onJoin={onJoin} onLeave={onLeave} loading={loading} />
+          <Connect />
         </Box>
       </Box>
 

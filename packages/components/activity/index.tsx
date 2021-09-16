@@ -8,7 +8,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { LoadingSpinner } from '../util/loading-spinner'
 
-import { ConnectProps } from '@acter/components/acter/connect'
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { ActivityInfo } from '@acter/components/activity/activity-info'
 import { Organiser } from '@acter/components/activity/organiser'
@@ -21,16 +20,13 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
 import { InterestType } from '@acter/schema'
 
-export interface ActivityDetailsProps extends ConnectProps, PostListProps {
+export interface ActivityDetailsProps extends PostListProps {
   interestTypes: InterestType[]
 }
 
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
   interestTypes,
   posts,
-  onJoin,
-  onLeave,
-  loading,
   onPostSubmit,
   onPostDelete,
   onPostUpdate,
@@ -72,7 +68,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
           />
         </Box>
 
-        <ActivityInfo onJoin={onJoin} onLeave={onLeave} loading={loading} />
+        <ActivityInfo />
 
         <Grid container spacing={2} className={classes.content}>
           <Hidden smDown>

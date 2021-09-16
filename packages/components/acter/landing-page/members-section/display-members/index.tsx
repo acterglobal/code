@@ -7,7 +7,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import pluralize from 'pluralize'
 
-import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -27,10 +26,6 @@ export interface DisplayMembersProps {
    */
   type: MemberType
   /**
-   * Action when Member state changes
-   */
-  onConnectionStateChange: ConnectionStateProps['onSubmit']
-  /**
    * Boolean to indicate organisation member/follower type
    */
   isOrganisation?: boolean
@@ -39,7 +34,6 @@ export interface DisplayMembersProps {
 export const DisplayMembers: FC<DisplayMembersProps> = ({
   followers = [],
   type,
-  onConnectionStateChange,
   isOrganisation,
 }) => {
   const classes = useStyles()
@@ -79,7 +73,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
                   connection={connection}
                   showJoinState={showJoinState}
                   canEdit={canEdit}
-                  onConnectionStateChange={onConnectionStateChange}
                 />
               </Link>
             )
@@ -93,7 +86,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
               connection={connection}
               showJoinState={showJoinState}
               canEdit={canEdit}
-              onConnectionStateChange={onConnectionStateChange}
             />
           )
         })}

@@ -9,7 +9,7 @@ import {
   Event as CalenderIcon,
 } from '@material-ui/icons'
 
-import { Connect, ConnectProps } from '@acter/components/acter/connect'
+import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -17,9 +17,7 @@ import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-export type ActivityInfoProps = ConnectProps
-
-export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
+export const ActivityInfo: FC = () => {
   const { acter, loading: acterLoading } = useActer()
   const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
     acter,
@@ -66,7 +64,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = (props) => {
               capitalize(acter.Activity.ActivityType.name)}
           </Box>
         </Box>
-        <Connect {...props} />
+        <Connect />
       </Box>
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline && acter.url && (

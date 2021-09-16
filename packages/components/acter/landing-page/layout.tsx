@@ -2,24 +2,14 @@ import React, { FC } from 'react'
 
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
-import {
-  HeaderSection,
-  HeaderSectionProps,
-} from '@acter/components/acter/landing-page/header-section'
+import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
 
-export type LandingPageLayoutProps = HeaderSectionProps
-
-export const LandingPageLayout: FC<LandingPageLayoutProps> = ({
-  onJoin,
-  onLeave,
-  loading,
-  children,
-}) => {
+export const LandingPageLayout: FC = ({ children }) => {
   const classes = useStyles()
 
   return (
     <Grid className={classes.header} container>
-      <HeaderSection onJoin={onJoin} onLeave={onLeave} loading={loading} />
+      <HeaderSection />
       <Grid container spacing={2} className={classes.content}>
         {children}
       </Grid>

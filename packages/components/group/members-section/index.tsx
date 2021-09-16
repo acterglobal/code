@@ -10,17 +10,10 @@ import {
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { MembersSection as Members } from '@acter/components/acter/landing-page/members-section'
-import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { Modal } from '@acter/components/util/modal'
 import { useActer } from '@acter/lib/acter/use-acter'
 
-export type MembersSectionProps = {
-  onConnectionStateChange: ConnectionStateProps['onSubmit']
-}
-
-export const MembersSection: FC<MembersSectionProps> = ({
-  onConnectionStateChange,
-}) => {
+export const MembersSection: FC = () => {
   const classes = useStyles()
   const [openModal, setOpenModal] = useState(false)
 
@@ -50,7 +43,7 @@ export const MembersSection: FC<MembersSectionProps> = ({
           handleModalClose={handleModalClose}
         >
           <Box className={classes.members}>
-            <Members onConnectionStateChange={onConnectionStateChange} />
+            <Members />
           </Box>
         </Modal>
       )}

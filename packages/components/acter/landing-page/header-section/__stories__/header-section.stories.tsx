@@ -2,10 +2,7 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import {
-  HeaderSection,
-  HeaderSectionProps,
-} from '@acter/components/acter/landing-page/header-section'
+import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
@@ -21,6 +18,4 @@ export default {
   },
 } as Meta
 
-export const Header: Story<HeaderSectionProps> = (args) => (
-  <HeaderSection {...args} />
-)
+export const Header: Story = (args) => <HeaderSection {...args} />

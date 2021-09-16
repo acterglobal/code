@@ -3,10 +3,7 @@ import React, { FC, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import {
-  DisplayMembers,
-  DisplayMembersProps,
-} from '@acter/components/acter/landing-page/members-section/display-members'
+import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
@@ -21,14 +18,7 @@ const useStyles = makeStyles({
   },
 })
 
-export type MembersSectionProps = Omit<
-  DisplayMembersProps,
-  'followers' | 'type' | 'user'
->
-
-export const MembersSection: FC<MembersSectionProps> = ({
-  onConnectionStateChange,
-}) => {
+export const MembersSection: FC = () => {
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
@@ -55,7 +45,6 @@ export const MembersSection: FC<MembersSectionProps> = ({
           activeSelector === PEOPLE ? followers.user : followers.organisation
         }
         type={activeSelector}
-        onConnectionStateChange={onConnectionStateChange}
         isOrganisation={activeSelector === ORGANISATIONS ? true : false}
       />
     </Box>

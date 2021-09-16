@@ -2,10 +2,7 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import {
-  ActerActivities,
-  ActerActivitiesProps,
-} from '@acter/components/acter/activities'
+import { ActerActivities } from '@acter/components/acter/activities'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
@@ -21,6 +18,4 @@ export default {
   },
 } as Meta
 
-export const Activities: Story<ActerActivitiesProps> = (props) => (
-  <ActerActivities {...props} />
-)
+export const Activities: Story = (props) => <ActerActivities {...props} />
