@@ -18,7 +18,6 @@ import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import {
   composeProps,
   ComposedGetServerSideProps,

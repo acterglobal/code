@@ -7,7 +7,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import pluralize from 'pluralize'
 
-import { ConnectionStateProps } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

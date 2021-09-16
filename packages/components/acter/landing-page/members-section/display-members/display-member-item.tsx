@@ -10,10 +10,7 @@ import {
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import {
-  ConnectionState,
-  ConnectionStateProps,
-} from '@acter/components/acter/landing-page/members-section/connection-state'
+import { ConnectionState } from '@acter/components/acter/landing-page/members-section/connection-state'
 import { Acter, ActerConnection, User } from '@acter/schema'
 
 export interface DisplayMemberItemProps {
