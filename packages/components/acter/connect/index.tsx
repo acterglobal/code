@@ -44,6 +44,7 @@ export const Connect: FC = () => {
         </ConnectButton>
       }
       closeOnClick={false}
+      size="large"
     >
       {followers.map((follower) => (
         <FollowerRow follower={follower} />

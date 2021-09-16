@@ -1,23 +1,27 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
 
-import {
-  Menu,
-  MenuProps,
-  withStyles,
-  createStyles,
-  Theme,
-} from '@material-ui/core'
+import { Menu, createStyles, makeStyles, Theme } from '@material-ui/core'
+
+const REGULAR_WIDTH = 20
+const LARGE_WIDTH = 30
+
+type Size = 'regular' | 'large'
 
 interface DropdownMenuProps {
   anchorNode: ReactNode
   closeOnClick?: boolean
+  size?: Size
   children: ReactNode
 }
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   anchorNode,
   closeOnClick = true,
+  size = 'regular',
   children,
 }) => {
+  const classes = useStyles({
+    size: size === 'regular' ? REGULAR_WIDTH : LARGE_WIDTH,
+  })
   const [menuAnchorEl, setMenuAnchorEl] = useState(null)
   const openMenu = (evt: MouseEvent) => setMenuAnchorEl(evt.currentTarget)
   const closeMenu = () => {
@@ -27,33 +31,34 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   return (
     <div>
       <div onClick={openMenu}>{anchorNode}</div>
-      <StyledMenu
+      <Menu
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        getContentAnchorEl={null}
         anchorEl={menuAnchorEl}
         open={Boolean(menuAnchorEl)}
         onClose={closeMenu}
         onClick={closeOnClick ? closeMenu : null}
+        classes={{ paper: classes.paper }}
       >
         {children}
-      </StyledMenu>
+      </Menu>
     </div>
   )
 }
 
-const StyledMenu = withStyles((theme: Theme) =>
+type StyleProps = {
+  size: number
+}
+
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     paper: {
-      minWidth: theme.spacing(20),
+      minWidth: ({ size }) => theme.spacing(size),
       borderRadius: theme.spacing(1),
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: theme.palette.divider,
     },
   })
-)((props: MenuProps) => (
-  <Menu
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-    getContentAnchorEl={null}
-    {...props}
-  />
-))
+)
