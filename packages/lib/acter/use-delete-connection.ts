@@ -31,7 +31,6 @@ export const useDeleteActerConnection = (
     DELETE_ACTER_CONNECTION,
     {
       ...options,
-
       update: (cache, result, updateOptions) => {
         options?.update?.(cache, result, updateOptions)
         const {
