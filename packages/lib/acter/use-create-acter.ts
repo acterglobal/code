@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
+import { MutationResult, FetchResult } from '@apollo/client'
 
 import {
   UseMutationOptions,

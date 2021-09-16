@@ -1,5 +1,7 @@
 import { FetchResult, MutationResult, StoreObject } from '@apollo/client'
 
+import { addToCacheList } from '../apollo/add-to-cache-list'
+
 import {
   useCreateActer,
   CreateActerData,
@@ -29,15 +31,10 @@ export const useCreateSubGroup = (
       const {
         data: { createActerCustom },
       } = result
-      const groupRef = cache.identify(
-        (createActerCustom as unknown) as StoreObject
-      )
       cache.modify({
         id: cache.identify((acter as unknown) as StoreObject),
         fields: {
-          Children: (prevChildren) => {
-            return [...prevChildren, { __ref: groupRef }]
-          },
+          Children: addToCacheList(createActerCustom),
         },
       })
     },
