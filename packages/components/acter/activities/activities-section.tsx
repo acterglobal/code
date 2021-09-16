@@ -27,7 +27,7 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)
   const { acter, loading: acterLoading } = useActer()
 
-  if (!acterLoading) return <LoadingSpinner />
+  if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
   const { allActivities, futureActivities } = getActivitiesForActerByStartAt(
