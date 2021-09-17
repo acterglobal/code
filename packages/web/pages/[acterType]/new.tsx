@@ -2,6 +2,8 @@ import React from 'react'
 
 import { useRouter, NextRouter } from 'next/router'
 
+import { StoreObject } from '@apollo/client'
+
 import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getInterests } from 'props'
 
@@ -11,6 +13,7 @@ import { Head } from '@acter/components/layout/head'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getCreateFunction } from '@acter/lib/acter/get-create-function'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import {
   composeProps,
@@ -44,12 +47,11 @@ export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
       const {
         data: { createActerCustom },
       } = result
-      const ref = cache.identify((createActerCustom as unknown) as StoreObject)
       createActerCustom.Followers.forEach(({ Follower }) => {
         cache.modify({
           id: cache.identify((Follower as unknown) as StoreObject),
           fields: {
-            Following: (prevFollowing) => [...prevFollowing, { __ref: ref }],
+            Following: addToCacheList(createActerCustom),
           },
         })
       })
