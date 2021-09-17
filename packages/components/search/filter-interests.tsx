@@ -12,7 +12,7 @@ import { InterestType } from '@acter/schema'
 
 export type FilterInterestsProps = {
   interestTypes: InterestType[]
-  applyFilters: (filterInterests: string[]) => void
+  applyFilters: (filterInterests?: string[]) => void
 }
 
 export const FilterInterests: FC<FilterInterestsProps> = ({
@@ -36,7 +36,7 @@ export const FilterInterests: FC<FilterInterestsProps> = ({
   }
 
   const handleClear = () => {
-    applyFilters([])
+    applyFilters()
     setSelectedInterestIds([])
     setClosePopover(!closePopover)
   }

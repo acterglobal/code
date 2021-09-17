@@ -138,15 +138,18 @@ export const _getOnCompleted = <TType, TData>({
   setHasMore,
   setResults,
 }: GetOnCompleted<TType, TData>) => (data: TData): void => {
-  const resultSet = data[resultKey]
-  if (!resultSet || !resultSet[resultSet.length - 1]?.id) return
-  const cursor = { id: resultSet[resultSet.length - 1].id }
-  setPagination({
-    ...paginationDefaults,
-    cursor,
-    skip: 1,
-  })
-  setHasMore(resultSet.length >= results.length + pagination.take)
-  setResults(resultSet)
+  if (data) {
+    const resultSet = data[resultKey]
+    if (resultSet && resultSet[resultSet.length - 1]?.id) {
+      const cursor = { id: resultSet[resultSet.length - 1].id }
+      setPagination({
+        ...paginationDefaults,
+        cursor,
+        skip: 1,
+      })
+      setHasMore(resultSet.length >= results.length + pagination.take)
+    }
+    setResults(resultSet)
+  }
   if (typeof onCompleted === 'function') onCompleted(data)
 }

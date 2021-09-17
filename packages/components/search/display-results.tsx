@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import { Box, CircularProgress, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { LoadingSpinner } from '../util/loading-spinner'
@@ -11,24 +11,25 @@ import { ActerTile } from '@acter/components/acter/tile'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActerSearch } from '@acter/lib/acter/use-acter-search'
 import { SearchType } from '@acter/lib/constants'
+import { useActerSearch } from '@acter/lib/search/use-acter-search'
+import { useSearchType } from '@acter/lib/search/use-search-type'
 import { InterestType } from '@acter/schema'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
-  searchType: SearchType
   interestTypes: InterestType[]
   setResultCount?: (number) => void
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = ({
-  searchType,
   interestTypes,
   setResultCount,
 }) => {
   const classes = useStyles()
-  const { acters, loading, loadMore, hasMore } = useActerSearch(searchType)
+  const searchType = useSearchType()
+
+  const { acters, loading, loadMore, hasMore } = useActerSearch()
 
   useEffect(() => {
     setResultCount?.(acters?.length || 0)
@@ -41,7 +42,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
       </Box>
     )
 
-  if (acters && acters.length === 0)
+  if (acters.length === 0)
     return (
       <Box className={classes.root}>
         <Typography variant="body2" aria-label="zero-acters">

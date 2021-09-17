@@ -12,7 +12,7 @@ import {
 import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
 import { SearchTabs } from '@acter/components/search/layout/menu/tabs'
-import { SearchTypes } from '@acter/components/search/layout/menu/types'
+import { SearchTypesPicker } from '@acter/components/search/layout/menu/types-picker'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 
 export const SearchMenu: FC = () => {
@@ -33,7 +33,7 @@ export const SearchMenu: FC = () => {
 
       <SearchTabs activeTab={searchType} />
 
-      <SearchTypes />
+      <SearchTypesPicker />
     </SecondaryMenu>
   )
 }

@@ -25,47 +25,40 @@ import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { Link } from '@acter/components/util/anchor-link'
 
-export type SidebarProps = {
-  secondarySidebar?: () => ReactNode
-}
-
 export const PRIMARY_WIDTH = 8
 
-export const Sidebar: FC<SidebarProps> = ({ secondarySidebar }) => {
+export const Sidebar: FC = () => {
   const classes = useStyles()
   const router = useRouter()
 
   return (
-    <>
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        open={true}
-        classes={{ root: classes.drawer, paper: classes.drawerPaper }}
-      >
-        <Box className={classes.menu}>
-          <List className={classes.list}>
-            <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
-            <IconMenuItem
-              Icon={HomeIcon}
-              href="/dashboard"
-              text="Home"
-              active={router.route === '/dashboard'}
-            />
-            <IconMenuItem
-              Icon={SearchIcon}
-              href="/search"
-              text="Search"
-              active={!!router.route.match(/^\/search/)}
-            />
-            <Divider />
-            <FollowingList />
-            <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
-          </List>
-        </Box>
-      </Drawer>
-      {secondarySidebar?.()}
-    </>
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      open={true}
+      classes={{ root: classes.drawer, paper: classes.drawerPaper }}
+    >
+      <Box className={classes.menu}>
+        <List className={classes.list}>
+          <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
+          <IconMenuItem
+            Icon={HomeIcon}
+            href="/dashboard"
+            text="Home"
+            active={router.route === '/dashboard'}
+          />
+          <IconMenuItem
+            Icon={SearchIcon}
+            href="/search"
+            text="Search"
+            active={!!router.route.match(/^\/search/)}
+          />
+          <Divider />
+          <FollowingList />
+          <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
+        </List>
+      </Box>
+    </Drawer>
   )
 }
 

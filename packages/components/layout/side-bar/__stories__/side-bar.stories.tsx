@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Story, Meta } from '@storybook/react'
 
-import { Sidebar, SidebarProps } from '@acter/components/layout/side-bar'
+import { Sidebar } from '@acter/components/layout/side-bar'
 import { ActerMenu } from '@acter/lib/constants'
 import {
   ExampleActer,
@@ -38,7 +38,7 @@ const user = {
   },
 }
 
-const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />
+const Template: Story = (args) => <Sidebar {...args} />
 
 export const LoggedOut = Template.bind({})
 
