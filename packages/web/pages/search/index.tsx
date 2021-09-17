@@ -3,9 +3,9 @@ import React from 'react'
 import { NextPageWithLayout } from 'pages/_app'
 import { getInterests, getActerTypes } from 'props'
 
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { Search } from '@acter/components/search'
+import { SearchLayout } from '@acter/components/search/layout'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -30,9 +30,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ interestTypes }) => {
   )
 }
 
-SearchPage.getLayout = (page) => (
-  <Layout searchType={SearchType.ACTERS}>{page}</Layout>
-)
+SearchPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getActerTypes, getInterests)

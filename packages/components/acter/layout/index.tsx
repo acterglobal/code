@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { ActerMenu } from '@acter/components/acter/menu'
+import { ActerMenu } from '@acter/components/acter/layout/menu'
 import { Layout } from '@acter/components/layout'
 
 export const ActerLayout: FC = ({ children }) => (

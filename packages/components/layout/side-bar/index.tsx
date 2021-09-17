@@ -56,7 +56,7 @@ export const Sidebar: FC<SidebarProps> = ({ secondarySidebar }) => {
               Icon={SearchIcon}
               href="/search"
               text="Search"
-              active={router.route === '/search'}
+              active={!!router.route.match(/^\/search/)}
             />
             <Divider />
             <FollowingList />
