@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import {
   Box,
@@ -9,10 +9,31 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { NetworkList } from './list'
+import { NetworksList } from '@acter/components/layout/side-bar/acter-menu/part-of/list'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerTypes } from '@acter/lib/constants'
+
+const { ACTIVITY, GROUP, USER } = ActerTypes
 
 export const PartOfSection: FC = () => {
   const classes = useStyles()
+
+  const { acter, loading: acterLoading } = useActer()
+
+  const followingActers = useMemo(
+    () =>
+      excludeActerTypes(
+        acter?.Following.map(({ Following }) => Following),
+        [ACTIVITY, USER, GROUP]
+      ),
+    [acter?.Following]
+  )
+
+  if (acterLoading) return <LoadingSpinner />
+
+  if (!acter || followingActers.length <= 0) return null
 
   return (
     <>
@@ -24,7 +45,7 @@ export const PartOfSection: FC = () => {
         </Typography>
       </Box>
 
-      <NetworkList />
+      <NetworksList followingActers={followingActers} />
     </>
   )
 }
