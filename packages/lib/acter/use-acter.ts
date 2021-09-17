@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 
 import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
 
-import { acterTypeAsUrl } from '../acter-types/acter-type-as-url'
-import { useActerTypes } from '../acter-types/use-acter-types'
 import { ParsedUrlQuery } from 'querystring'
 
+import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 import { Acter, ActerType } from '@acter/schema/types'
 
@@ -24,28 +24,41 @@ type UseActerVariables = {
   slug: string
 }
 
-type ActerQueryResult = QueryResult<UseActerData, UseActerVariables> & {
+type UseActerError = ApolloError | Error
+
+type ActerQueryResult = Omit<
+  QueryResult<UseActerData, UseActerVariables>,
+  'error'
+> & {
   acter: Acter
+  error: UseActerError
 }
 
 type UseActerProps = {
   fetchParent?: boolean
 }
 
+type RouterKeys = {
+  query: ParsedUrlQuery
+  asPath: string
+}
+
 /**
  * Get the acter
- * @param acterTypeId this is the id of the acter type that is queried
- * @param slug this is the parsed URL slug of the acter
- * @returns an acter that was queried based on the slug & url slug
+ * @param options for passing fetchParent or acterType which are optional
+ * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const { fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
   const [loading, setLoading] = useState<boolean>(false)
-  const [errors, setErrors] = useState<ApolloError>()
+  const [errors, setErrors] = useState<UseActerError>()
   const {
-    query: { acterType: acterTypeName, slug },
-  }: { query: ParsedUrlQuery } = useRouter()
+    query: { slug },
+    asPath,
+  }: RouterKeys = useRouter()
+
+  const acterTypeName = asPath.split('/')[1]
 
   const {
     acterTypes,
@@ -55,7 +68,14 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
 
   const acterType = useMemo<ActerType>(() => {
     if (acterTypes) {
-      return acterTypes.find((type) => acterTypeAsUrl(type) === acterTypeName)
+      const result = acterTypes.find(
+        (type) => acterTypeAsUrl(type) === acterTypeName
+      )
+      if (!result?.id) {
+        setErrors(Error('Not valid acter type'))
+        return null
+      }
+      return result
     }
   }, [acterTypes, acterTypeName])
 

@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
+
 import { Grid, makeStyles, createStyles } from '@material-ui/core'
+
 import {
   InfoSection,
   InfoSectionProps,
 } from '@acter/components/acter/landing-page/info-section'
-import { PostList } from '@acter/components/posts'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
+import { PostList } from '@acter/components/posts'
 
 export type ActerPostsProps = InfoSectionProps
 

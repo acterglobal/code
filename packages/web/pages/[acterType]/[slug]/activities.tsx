@@ -11,7 +11,7 @@ export const ActerActivitiesPage: NextPageWithLayout = () => {
   const { acter } = useActer()
   return (
     <>
-      <Head title={`${acter?.name} Settings - Acter`} />
+      <Head title={`${acter?.name} Activities - Acter`} />
 
       <ActerActivities />
     </>
