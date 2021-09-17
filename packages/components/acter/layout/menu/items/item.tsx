@@ -45,7 +45,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const tab = getLandingPageTab()
 
-  const isActive = router.query.acterType !== 'groups' && path === tab
+  const isActive = router.query.slug === acter.slug && path === tab
 
   const [updateNotifications] = useUpdateNotifications()
 
