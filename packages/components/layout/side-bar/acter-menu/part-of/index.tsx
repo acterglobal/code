@@ -1,7 +1,6 @@
 import React, { FC, useMemo } from 'react'
 
 import {
-  Box,
   createStyles,
   Divider,
   makeStyles,
@@ -39,11 +38,9 @@ export const PartOfSection: FC = () => {
     <>
       <Divider className={classes.divider} />
 
-      <Box className={classes.heading}>
-        <Typography className={classes.text} variant="caption">
-          Part of
-        </Typography>
-      </Box>
+      <Typography className={classes.heading} variant="caption">
+        Part of
+      </Typography>
 
       <NetworksList followingActers={followingActers} />
     </>
@@ -56,13 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
     },
     heading: {
-      marginTop: theme.spacing(1),
       marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    text: {
       fontWeight: theme.typography.fontWeightLight,
       color: theme.palette.secondary.contrastText,
     },

@@ -41,5 +41,16 @@ query ActersSearch(
         }
       }
     }
+    Following {
+      Following {
+        id
+        name
+        slug
+        avatarUrl
+        ActerType {
+          name
+        }
+      }
+    }
   }
 }

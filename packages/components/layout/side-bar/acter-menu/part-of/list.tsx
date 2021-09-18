@@ -27,7 +27,7 @@ export const NetworksList: FC<NetworksListProps> = ({ followingActers }) => {
         <ListItem className={classes.item} disableGutters>
           <Link href={acterAsUrl({ acter })}>
             <ListItemAvatar>
-              <ActerAvatar size={2.5} acter={acter} />
+              <ActerAvatar size={2.3} acter={acter} />
             </ListItemAvatar>
 
             <ListItemText
@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiListItemAvatar-root': {
         minWidth: 0,
       },
+      '& .MuiListItem-root': {
+        padding: 0,
+      },
     },
     item: {
       marginLeft: theme.spacing(1.5),
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         '&:hover': {
-          color: '#fff',
+          color: theme.colors.white,
         },
       },
     },

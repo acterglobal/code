@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         '&:hover': {
-          color: '#fff',
+          color: theme.colors.white,
         },
       },
     },
