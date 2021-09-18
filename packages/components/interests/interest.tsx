@@ -72,7 +72,7 @@ const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
   return (
     <>
       {chipSize === Size.SMALL && interest.name.length > 12 ? (
-        <Tooltip title={interest.name}>
+        <Tooltip title={interest.name} arrow>
           <Typography className={classes.name} variant="caption" noWrap>
             {type === TAGS ? `# ${interest.name}` : interest.name}
           </Typography>
