@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { GroupsSection } from '@acter/components/layout/side-bar/acter-menu/groups/groups-section'
+import { GroupsSection } from '@acter/components/layout/side-bar/acter-menu/groups'
 import { ActerMenuHeader } from '@acter/components/layout/side-bar/acter-menu/header'
 import { LinksList } from '@acter/components/layout/side-bar/acter-menu/links'
 import { PartOfSection } from '@acter/components/layout/side-bar/acter-menu/part-of'

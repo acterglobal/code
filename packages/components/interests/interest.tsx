@@ -2,11 +2,17 @@ import React, { FC } from 'react'
 
 import Image from 'next/image'
 
-import { Box, Tooltip, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Typography } from '@material-ui/core'
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles'
 
 import clsx from 'clsx'
 
+import { Tooltip } from '@acter/components/util/tool-tip'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 import { Interest as InterestType } from '@acter/schema'
 
@@ -68,11 +74,16 @@ export const Interest: FC<InterestProps> = ({
 
 const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
   const classes = useStyles({ type, size: chipSize })
+  const theme = useTheme()
 
   return (
     <>
       {chipSize === Size.SMALL && interest.name.length > 12 ? (
-        <Tooltip title={interest.name} arrow>
+        <Tooltip
+          title={interest.name}
+          backgroundColor={theme.palette.secondary.main}
+          color={theme.colors.white}
+        >
           <Typography className={classes.name} variant="caption" noWrap>
             {type === TAGS ? `# ${interest.name}` : interest.name}
           </Typography>

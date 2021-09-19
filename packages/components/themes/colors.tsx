@@ -2,7 +2,7 @@ import { CSSProperties } from 'react'
 
 import { ActivityTypes, InterestTypes } from '@acter/lib/constants'
 
-type Color = CSSProperties['color']
+export type Color = CSSProperties['color']
 
 type Grey = {
   extraLight: Color

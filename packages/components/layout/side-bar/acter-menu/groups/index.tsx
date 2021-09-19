@@ -6,7 +6,7 @@ import { Box, Divider, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 
-import { GroupsList } from '@acter/components/layout/side-bar/acter-menu/groups/groups-list'
+import { GroupsList } from '@acter/components/layout/side-bar/acter-menu/groups/list'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'

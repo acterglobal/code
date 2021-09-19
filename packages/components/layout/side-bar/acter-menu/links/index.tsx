@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Divider, ListItem } from '@material-ui/core'
+import { Box, Divider, ListItem, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
+import { Tooltip } from '@acter/components/util/tool-tip'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Link as LinkType } from '@acter/schema'
 
@@ -37,7 +38,17 @@ export const LinksList: FC<LinkListProps> = ({ links }) => {
               className={classes.links}
               target="_blank"
             >
-              {capitalize(link.name)}
+              {link.name.length > 15 ? (
+                <Tooltip title={link.name}>
+                  <Typography className={classes.name} variant="body2" noWrap>
+                    {capitalize(link.name)}
+                  </Typography>
+                </Tooltip>
+              ) : (
+                <Typography className={classes.name} variant="body2">
+                  {capitalize(link.name)}
+                </Typography>
+              )}
             </a>
           </ListItem>
         ))}
@@ -71,6 +82,13 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: 'white',
       },
+    },
+    name: {
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
+      width: 140,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     divider: {
       marginTop: theme.spacing(1),
