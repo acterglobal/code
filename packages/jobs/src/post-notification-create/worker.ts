@@ -33,6 +33,13 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
         },
       })
     },
+    getFollowersWhere: ({ post }) => ({
+      Follower: {
+        id: {
+          not: post.Author.id,
+        },
+      },
+    }),
     getNotificationEmail: ({ data: { post }, notification }) =>
       createPostEmailNotification({
         post,

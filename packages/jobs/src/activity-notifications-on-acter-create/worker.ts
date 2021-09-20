@@ -13,8 +13,10 @@ export const activityNotificationsOnActerCreate = createNotificationWorker<Activ
     getFollowing: async ({ acter }) => acter,
     getFollowersWhere: ({ activity }) => ({
       Follower: {
-        id: {
-          not: activity.createdByUserId,
+        User: {
+          id: {
+            not: activity.createdByUserId,
+          },
         },
       },
     }),

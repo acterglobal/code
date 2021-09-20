@@ -54,8 +54,6 @@ export const activityNotificationsCreateWorker = createWorker(
       },
     })
 
-    console.debug('Will try to send to the following: ', followers)
-
     // Now create a job to email the users for each follower
     followers.forEach(({ Follower }) => {
       const acter = Follower as ActerPickWithUser
