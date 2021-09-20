@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { NextPage } from 'next'
-
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getActer, getLinks } from 'props'
 
 import { ActerActivities } from '@acter/components/acter/activities'
-import { Layout } from '@acter/components/layout'
+import { ActerLayout } from '@acter/components/acter/layout'
 import { Head } from '@acter/components/layout/head'
 import {
   composeProps,
@@ -18,17 +17,19 @@ interface ActivitiesPageProps {
   links: LinkType[]
 }
 
-export const ActerActivitiesPage: NextPage<ActivitiesPageProps> = ({
+export const ActerActivitiesPage: NextPageWithLayout<ActivitiesPageProps> = ({
   acter,
 }) => {
   return (
-    <Layout>
+    <>
       <Head title={`${acter.name} Settings - Acter`} />
 
       <ActerActivities />
-    </Layout>
+    </>
   )
 }
+
+ActerActivitiesPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getActerTypes, setActerType, getActer, getLinks)

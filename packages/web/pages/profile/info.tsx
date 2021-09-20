@@ -1,19 +1,18 @@
 import React from 'react'
 
-import { NextPage } from 'next'
+import { NextPageWithLayout } from 'pages/_app'
 
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { ProfileInfoForm } from '@acter/components/user/form/info'
 
-export const UserProfileInfoPage: NextPage = () => {
+export const UserProfileInfoPage: NextPageWithLayout = () => {
   return (
-    <Layout>
+    <>
       <Head title="Profile - Acter" />
       <main>
         <ProfileInfoForm />
       </main>
-    </Layout>
+    </>
   )
 }
 

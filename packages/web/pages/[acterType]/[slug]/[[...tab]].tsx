@@ -1,20 +1,20 @@
 import React, { FC } from 'react'
 
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getInterests, getPosts } from 'props'
 
 import {
   ActerLanding,
   ActerLandingProps,
 } from '@acter/components/acter/landing-page'
+import { ActerLayout } from '@acter/components/acter/layout'
 import {
   ActivityDetails,
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { GroupLanding, GroupLandingProps } from '@acter/components/group'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -22,7 +22,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { ActerMenu, ActerTypes } from '@acter/lib/constants'
+import { ActerMenu as ActerMenuType, ActerTypes } from '@acter/lib/constants'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { usePosts } from '@acter/lib/post/use-posts'
@@ -49,7 +49,7 @@ interface ActerLandingPageProps {
   interestTypes: InterestType[]
 }
 
-export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
+export const ActerLandingPage: NextPageWithLayout<ActerLandingPageProps> = ({
   interestTypes,
 }) => {
   const router = useRouter()
@@ -64,7 +64,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const tab = Array.isArray(router.query.tab)
     ? router.query.tab.join()
     : router.query.tab
-  const isPostsTab = tab === ActerMenu.FORUM
+  const isPostsTab = tab === ActerMenuType.FORUM
 
   if (acterLoading || (isPostsTab && postsLoading))
     return <PageLoadingSpinner />
@@ -73,7 +73,7 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
   const View = getActerView(acter?.ActerType)
 
   return (
-    <Layout>
+    <>
       <Head title={`${acter?.name} - Acter`} />
       <View
         acter={acter}
@@ -83,9 +83,11 @@ export const ActerLandingPage: NextPage<ActerLandingPageProps> = ({
         onPostUpdate={updatePost}
         onPostDelete={deletePost}
       />
-    </Layout>
+    </>
   )
 }
+
+ActerLandingPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getActerTypes, setActerType, getInterests, getPosts)

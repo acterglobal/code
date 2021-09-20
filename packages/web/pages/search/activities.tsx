@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { NextPage } from 'next'
-
+import { NextPageWithLayout } from 'pages/_app'
 import { getInterests } from 'props'
 
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { Search } from '@acter/components/search'
+import { SearchLayout } from '@acter/components/search/layout'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -18,9 +17,11 @@ interface SearchPageProps {
   interestTypes: InterestType[]
 }
 
-const SearchActivitiesPage: NextPage<SearchPageProps> = ({ interestTypes }) => {
+const SearchActivitiesPage: NextPageWithLayout<SearchPageProps> = ({
+  interestTypes,
+}) => {
   return (
-    <Layout searchType={SearchType.ACTIVITIES}>
+    <>
       <Head title="Acter" />
 
       <main>
@@ -29,9 +30,11 @@ const SearchActivitiesPage: NextPage<SearchPageProps> = ({ interestTypes }) => {
           interestTypes={interestTypes}
         />
       </main>
-    </Layout>
+    </>
   )
 }
+
+SearchActivitiesPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getInterests)

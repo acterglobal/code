@@ -7,6 +7,7 @@ import { usePaginatedQuery } from '@acter/lib/apollo'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+import { useQuerystringTypes } from '@acter/lib/search/use-querystring-types'
 
 type QueryString = string | string[]
 
@@ -14,7 +15,7 @@ interface QueryVariables {
   search?: QueryString
   interests?: QueryString
   sort?: QueryString
-  types?: QueryString
+  types?: string[]
 }
 
 interface SearchVariables {
@@ -41,8 +42,9 @@ export const useActerSearch = (
   searchType: SearchType
 ): useActerSearchQueryResults => {
   const router = useRouter()
+  const types = useQuerystringTypes()
 
-  const { search, interests, sortBy: sort, types } = router.query
+  const { search, interests, sortBy: sort } = router.query
 
   const searchVariables = useMemo<SearchVariables>(
     () => getSearchVariablesFromQuery({ search, interests, sort, types }),
@@ -99,6 +101,6 @@ const getSearchVariablesFromQuery = ({
       : undefined,
     interests: interests ? (<string>interests).split(',') : undefined,
     orderBy: SearchActivitiesSortBy[sortBy] || SearchActivitiesSortBy.DATE,
-    types: types ? (types as string).split(',') : [],
+    types,
   }
 }

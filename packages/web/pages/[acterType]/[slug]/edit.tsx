@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
+import { NextPageWithLayout } from 'pages/_app'
 import { getActerTypes, setActerType, getInterests, getActer } from 'props'
 
 import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -33,7 +32,7 @@ interface NewActerPageProps {
    */
   interestTypes: InterestType[]
 }
-export const NewActerPage: NextPage<NewActerPageProps> = ({
+export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
   acterType,
   interestTypes,
 }) => {
@@ -61,7 +60,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
     acter.ActerType.name === ActerTypes.ACTIVITY ? ActivityForm : ActerForm
 
   return (
-    <Layout>
+    <>
       <Head title={`${acter.name} - Acter`} />
       <main>
         <Form
@@ -72,7 +71,7 @@ export const NewActerPage: NextPage<NewActerPageProps> = ({
           loading={updateActerLoading || updateActivityLoading}
         />
       </main>
-    </Layout>
+    </>
   )
 }
 

@@ -99,6 +99,7 @@ __metadata:
     "@apollo/client": "*"
     "@auth0/nextjs-auth0": "*"
     bullmq: "*"
+    next: "*"
     react: "*"
   languageName: unknown
   linkType: soft

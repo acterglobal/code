@@ -9,43 +9,29 @@ import {
 } from '@material-ui/core'
 
 import { Switch } from '@acter/components/styled/switch'
-import { SearchType } from '@acter/lib/constants'
 import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface SearchTypeProps {
-  filterSubTypes: string[]
-  onChange: (acterTypeNames: string[]) => void
-}
-export interface TypeProps extends SearchTypeProps {
-  activeTab: SearchType
   subTypeName: string
+  checked: boolean
+  showTypeIcon?: boolean
+  onChange: (checked: boolean) => void
 }
 
-export const Type: FC<TypeProps> = ({
-  activeTab,
+export const Type: FC<SearchTypeProps> = ({
   subTypeName,
-  filterSubTypes,
+  checked,
+  showTypeIcon: useTypeColorDot = false,
   onChange,
 }) => {
   const type: string = subTypeName
   const classes = useStyles({ type })
 
-  const handleChange = (addToList: boolean) => {
-    if (addToList) {
-      if (filterSubTypes.includes(subTypeName)) return
-      return onChange([...filterSubTypes, subTypeName])
-    }
-
-    onChange(filterSubTypes.filter((name) => name !== subTypeName))
-  }
-
   return (
     <Box className={classes.root}>
       <Box className={classes.type}>
-        {activeTab === SearchType.ACTIVITIES && (
-          <Box className={classes.icon}></Box>
-        )}
+        {useTypeColorDot && <Box className={classes.icon}></Box>}
         <Typography className={classes.typeName} variant="body2">
           {capitalize(subTypeName)}s
         </Typography>
@@ -53,8 +39,8 @@ export const Type: FC<TypeProps> = ({
       <Switch
         name={subTypeName}
         size={Size.SMALL}
-        checked={filterSubTypes?.includes(subTypeName)}
-        onChange={handleChange}
+        checked={checked}
+        onChange={onChange}
       />
     </Box>
   )

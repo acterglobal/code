@@ -10,7 +10,6 @@ import {
 const defaultRoute = '/profile/info'
 
 export const NotificationPage = (): void => {
-  console.log('In render')
   const router = useRouter()
   router.replace(defaultRoute)
 }

@@ -3,17 +3,12 @@ import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 
-import { Sidebar } from '@acter/components/layout/side-bar'
+import { Sidebar, SidebarProps } from '@acter/components/layout/side-bar'
 import { TopBar } from '@acter/components/layout/top-bar'
-import { SearchType } from '@acter/lib/constants'
 
-export interface LayoutProps {
-  children: React.ReactNode
-  searchType?: SearchType
-  dashboard?: boolean
-}
+export type LayoutProps = SidebarProps
 
-export const Layout: FC<LayoutProps> = ({ children, searchType }) => {
+export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
   const classes = useStyles()
 
   const { boot } = useIntercom()
@@ -24,7 +19,7 @@ export const Layout: FC<LayoutProps> = ({ children, searchType }) => {
 
   return (
     <div className={classes.root}>
-      <Sidebar searchType={searchType} />
+      <Sidebar secondarySidebar={secondarySidebar} />
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}
