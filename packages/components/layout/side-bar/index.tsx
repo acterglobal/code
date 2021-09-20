@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: theme.spacing(PRIMARY_WIDTH),
     },
     drawerPaper: {
+      border: 'none',
       display: 'flex',
       flexDirection: 'row',
       width: theme.spacing(PRIMARY_WIDTH),

@@ -1,23 +1,18 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { PageLoadingSpinner } from '@acter/components/util/page-loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActer } from '@acter/lib/acter/use-acter'
+export const ActerLandingPage: NextPageWithLayout = () => <></>
 
-export const ActerLandingPage: NextPageWithLayout = () => {
-  const router = useRouter()
-  const { acter, loading: acterLoading } = useActer()
-
-  if (acterLoading) return <PageLoadingSpinner />
-  if (!acter) return null
-
-  router.push(acterAsUrl({ acter, extraPath: ['forum'] }))
-
-  return <></>
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  return {
+    props: {},
+    redirect: {
+      destination: `/${params.acterType}/${params.slug}/forum`,
+    },
+  }
 }
 
 export default ActerLandingPage
