@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 
+import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import {
   ForumIcon,
   MembersIcon,
   ActivitiesIcon,
   SettingsIcon,
 } from '@acter/components/icons'
-import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu/tabs/acter-menu-item'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'

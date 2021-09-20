@@ -120,8 +120,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     item: {
-      magrinLeft: 'auto',
-      marginRight: 'auto',
       paddingBottom: 0,
     },
   })

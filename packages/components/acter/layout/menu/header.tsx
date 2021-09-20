@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
       height: 50,
-      marginBottom: 5,
+      marginBottom: 10,
     },
   })
 )

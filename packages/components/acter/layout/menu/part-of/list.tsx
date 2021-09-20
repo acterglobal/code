@@ -60,9 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiListItemAvatar-root': {
         minWidth: 0,
       },
-      '& .MuiListItem-root': {
-        padding: 0,
-      },
     },
     item: {
       marginLeft: theme.spacing(2),

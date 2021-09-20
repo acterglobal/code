@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { NetworksList } from '@acter/components/layout/side-bar/acter-menu/part-of/list'
+import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { useActer } from '@acter/lib/acter/use-acter'

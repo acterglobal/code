@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 
-import { GroupsSection } from '@acter/components/layout/side-bar/acter-menu/groups'
-import { ActerMenuHeader } from '@acter/components/layout/side-bar/acter-menu/header'
-import { LinksList } from '@acter/components/layout/side-bar/acter-menu/links'
-import { PartOfSection } from '@acter/components/layout/side-bar/acter-menu/part-of'
-import { ActerMenuTabs } from '@acter/components/layout/side-bar/acter-menu/tabs'
+import { GroupsSection } from '@acter/components/acter/layout/menu/groups'
+import { ActerMenuHeader } from '@acter/components/acter/layout/menu/header'
+import { ActerMenuTabs } from '@acter/components/acter/layout/menu/items'
+import { LinksList } from '@acter/components/acter/layout/menu/links'
+import { PartOfSection } from '@acter/components/acter/layout/menu/part-of'
+import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useLinks } from '@acter/lib/links/use-links'
@@ -24,7 +25,7 @@ export const ActerMenu: FC = () => {
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   return (
-    <>
+    <SecondaryMenu>
       <ActerMenuHeader acter={acter} />
 
       <ActerMenuTabs acter={acter} user={user} />
@@ -34,6 +35,6 @@ export const ActerMenu: FC = () => {
       {(isAdmin || isMember) && <GroupsSection acter={acter} />}
 
       <PartOfSection />
-    </>
+    </SecondaryMenu>
   )
 }

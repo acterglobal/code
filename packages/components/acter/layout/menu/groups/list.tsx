@@ -33,7 +33,7 @@ export const GroupsList: FC<GroupsList> = ({ acters }) => {
           <Link href={acterAsUrl({ acter })}>
             {acter.name.length > 15 ? (
               <Tooltip title={acter.name}>
-                {/* Tooltip needs to hold ref for custom components so need to wrap in div */}
+                {/* Tooltip needs to hold ref for custom components so need to wrap in div which holds ref */}
                 <div>
                   <GroupName acter={acter} />
                 </div>
@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
           color: theme.colors.white,
         },
       },
+      marginBottom: theme.spacing(0.8),
     },
     name: {
       fontWeight: theme.typography.fontWeightLight,

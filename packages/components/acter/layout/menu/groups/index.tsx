@@ -6,7 +6,7 @@ import { Box, Divider, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 
-import { GroupsList } from '@acter/components/layout/side-bar/acter-menu/groups/list'
+import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -75,8 +75,10 @@ export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    divider: {
+      marginTop: theme.spacing(1.5),
+    },
     heading: {
-      marginTop: theme.spacing(1),
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
       display: 'flex',
@@ -93,9 +95,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: theme.colors.white,
       },
-    },
-    divider: {
-      marginTop: theme.spacing(1),
     },
   })
 )
