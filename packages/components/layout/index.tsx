@@ -1,12 +1,14 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 
-import { Sidebar, SidebarProps } from '@acter/components/layout/side-bar'
+import { Sidebar } from '@acter/components/layout/side-bar'
 import { TopBar } from '@acter/components/layout/top-bar'
 
-export type LayoutProps = SidebarProps
+export type LayoutProps = {
+  secondarySidebar?: () => ReactNode
+}
 
 export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
   const classes = useStyles()
@@ -19,7 +21,8 @@ export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
 
   return (
     <div className={classes.root}>
-      <Sidebar secondarySidebar={secondarySidebar} />
+      <Sidebar />
+      {secondarySidebar?.()}
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}

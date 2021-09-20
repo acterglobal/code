@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
+import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -11,53 +10,55 @@ import { FilterTabs } from '@acter/components/search/filter-tabs'
 import { SearchBar } from '@acter/components/search/search-bar'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
+import { searchVar } from '@acter/lib/search/search-var'
+import { useSearchType } from '@acter/lib/search/use-search-type'
+import { useSearchTypes } from '@acter/lib/search/use-search-types'
 import { InterestType } from '@acter/schema'
 
 export interface SearchProps {
-  searchType: SearchType
   interestTypes: InterestType[]
 }
 
-export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
+export const Search: FC<SearchProps> = ({ interestTypes }) => {
   const classes = useStyles()
-  const router = useRouter()
+  const searchType = useSearchType()
   const [searchText, setSearchText] = useState('')
-  const [filterInterests, setFilterInterests] = useState([])
-  const [sortBy, setSortBy] = useState(SearchActivitiesSortBy.DATE)
-  const [searchReady, setSearchReady] = useState(false)
   const [resultCount, setResultCount] = useState(0)
+  const [searchReady, setSearchReady] = useState(false)
+
+  const types = useSearchTypes()
+  const searchVariables = useReactiveVar(searchVar)
+
+  useEffect(() => {
+    searchVar({
+      ...searchVariables,
+      types,
+    })
+    setSearchReady(true)
+  }, [])
 
   const handleInputChange = (inputText: string) => setSearchText(inputText)
 
-  const handleFilterInterests = (filterInterests: string[]) => {
-    setFilterInterests(filterInterests)
-    handleSearch({ searchText, filterInterests, sortBy })
-  }
-
-  const handleSortBy = (sortBy: SearchActivitiesSortBy) => {
-    setSortBy(sortBy)
-    handleSearch({ searchText, filterInterests, sortBy })
-  }
-
-  const handleSearch = ({ searchText, filterInterests, sortBy }) => {
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        search: searchText,
-        interests: filterInterests.length > 0 ? filterInterests.join(',') : '',
-        sortBy,
-      },
+  const handleFilterInterests = (interests: string[]) => {
+    searchVar({
+      ...searchVariables,
+      interests,
     })
   }
 
-  useEffect(() => {
-    if (!router.query?.types) return setSearchReady(false)
-    const types = Array.isArray(router.query.types)
-      ? router.query.types
-      : [router.query.types]
-    setSearchReady(types.length >= 0)
-  }, [router.query?.types])
+  const handleSortBy = (orderBy: SearchActivitiesSortBy) => {
+    searchVar({
+      ...searchVariables,
+      orderBy,
+    })
+  }
+
+  const handleSearch = () => {
+    searchVar({
+      ...searchVariables,
+      searchText,
+    })
+  }
 
   return (
     <Box className={classes.root}>
@@ -82,9 +83,7 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
             <Button
               className={classes.searchButton}
               variant="contained"
-              onClick={() =>
-                handleSearch({ searchText, filterInterests, sortBy })
-              }
+              onClick={handleSearch}
             >
               <Typography variant="caption">Search</Typography>
             </Button>
@@ -94,23 +93,13 @@ export const Search: FC<SearchProps> = ({ searchType, interestTypes }) => {
             searchType={searchType}
             interestTypes={interestTypes}
             applyFilters={handleFilterInterests}
-            sortBy={sortBy}
+            sortBy={searchVariables.orderBy}
             applySortBy={handleSortBy}
           />
         </Grid>
       </Box>
-
-      {!searchReady && (
-        <Box className={classes.emptySearchTypesMessage}>
-          <Typography variant="body2">
-            You must select at least one type on the left to search
-          </Typography>
-        </Box>
-      )}
-
       {searchReady && (
         <DisplayResults
-          searchType={searchType}
           interestTypes={interestTypes}
           setResultCount={setResultCount}
         />

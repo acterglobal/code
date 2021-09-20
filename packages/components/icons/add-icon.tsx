@@ -5,7 +5,6 @@ import {
   SvgIconProps,
   makeStyles,
   createStyles,
-  Theme,
 } from '@material-ui/core'
 
 export const AddIcon: FC<SvgIconProps> = (props) => {
@@ -33,7 +32,7 @@ export const AddIcon: FC<SvgIconProps> = (props) => {
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     svg: {
       color: 'red',

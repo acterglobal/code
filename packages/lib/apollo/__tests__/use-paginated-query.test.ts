@@ -59,14 +59,12 @@ describe('usePaginatedQuery', () => {
       _getOnCompleted(getOnCompletedParams)({})
       expect(setPagination).not.toHaveBeenCalled()
       expect(setHasMore).not.toHaveBeenCalled()
-      expect(setResults).not.toHaveBeenCalled()
     })
 
     it('should skip pagination if the results do not include an id', () => {
       _getOnCompleted(getOnCompletedParams)({ foo: [{ bar: 'blah' }] })
       expect(setPagination).not.toHaveBeenCalled()
       expect(setHasMore).not.toHaveBeenCalled()
-      expect(setResults).not.toHaveBeenCalled()
     })
 
     it('should set the cursor to the id of the last result and skip 1 in pagination', () => {

@@ -10,7 +10,6 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { SearchType } from '@acter/lib/constants'
 import { InterestType } from '@acter/schema'
 
 interface SearchPageProps {
@@ -25,10 +24,7 @@ const SearchActivitiesPage: NextPageWithLayout<SearchPageProps> = ({
       <Head title="Acter" />
 
       <main>
-        <Search
-          searchType={SearchType.ACTIVITIES}
-          interestTypes={interestTypes}
-        />
+        <Search interestTypes={interestTypes} />
       </main>
     </>
   )

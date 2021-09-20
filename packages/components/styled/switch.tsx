@@ -20,7 +20,7 @@ export interface SwitchProps {
 
 export const Switch: FC<SwitchProps> = ({
   name,
-  checked,
+  checked = false,
   onChange,
   size = MEDIUM,
 }) => {
