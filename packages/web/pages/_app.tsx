@@ -40,14 +40,12 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
       <ApolloProvider client={apolloClient}>
         <UserProvider>
           <ActerThemeProvider>
-            {getLayout(
-              <SnackbarProvider
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-              >
-                <CssBaseline />
-                <Component {...pageProps} err={err} />
-              </SnackbarProvider>
-            )}
+            <SnackbarProvider
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            >
+              <CssBaseline />
+              {getLayout(<Component {...pageProps} err={err} />)}
+            </SnackbarProvider>
           </ActerThemeProvider>
         </UserProvider>
       </ApolloProvider>
