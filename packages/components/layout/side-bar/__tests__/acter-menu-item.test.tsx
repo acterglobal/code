@@ -55,18 +55,26 @@ describe('ActerMenuItem', () => {
   })
 
   it('should display as selected when router tab matches path', () => {
-    mockNextRouter.mockReturnValue({ query: { tab: [fooTab] } })
+    mockNextRouter.mockReturnValue({ query: { slug: 'example-slug' } })
     render(
-      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+      <ActerMenuItem
+        acter={{ ...ExampleActer, slug: 'example-slug' }}
+        Icon={ForumIcon}
+        path={fooTab}
+      />
     )
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
   })
 
   it('should display first item as selected when tab prop not set', () => {
-    mockNextRouter.mockReturnValue({ query: { tab: [fooTab] } })
+    mockNextRouter.mockReturnValue({ query: { slug: 'example-slug' } })
     render(
-      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+      <ActerMenuItem
+        acter={{ ...ExampleActer, slug: 'example-slug' }}
+        Icon={ForumIcon}
+        path={fooTab}
+      />
     )
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
