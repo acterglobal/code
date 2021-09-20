@@ -41,7 +41,11 @@ query ActersSearch(
         }
       }
     }
-    Following {
+    Following(
+      where: {
+        Following: { is: { ActerType: { is: { name: { in: ["network"] } } } } }
+      }
+    ) {
       Following {
         id
         name
