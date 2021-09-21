@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       color: theme.palette.secondary.contrastText,
       '& .MuiListItem-root': {
-        paddingTop: 3,
-        paddingBottom: 3,
+        paddingTop: 0,
+        paddingBottom: 0,
       },
       '& .MuiDivider-root': {
         backgroundColor: theme.palette.secondary.light,

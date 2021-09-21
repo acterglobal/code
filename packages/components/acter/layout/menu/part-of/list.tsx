@@ -1,0 +1,85 @@
+import React, { FC } from 'react'
+
+import {
+  Box,
+  createStyles,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
+
+import { ActerAvatar } from '@acter/components/acter/avatar'
+import { Link } from '@acter/components/util/anchor-link'
+import { Tooltip } from '@acter/components/util/tool-tip'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { Acter } from '@acter/schema'
+
+interface NetworksListProps {
+  followingActers: Acter[]
+}
+
+export const NetworksList: FC<NetworksListProps> = ({ followingActers }) => {
+  const classes = useStyles()
+  return (
+    <Box className={classes.container}>
+      {followingActers.map((acter) => (
+        <ListItem className={classes.item} disableGutters>
+          <Link href={acterAsUrl({ acter })}>
+            <ListItemAvatar>
+              <ActerAvatar size={2.3} acter={acter} />
+            </ListItemAvatar>
+
+            {acter.name.length > 18 ? (
+              <Tooltip title={acter.name}>
+                <ListItemText
+                  classes={{ primary: classes.name }}
+                  primary={acter.name}
+                  primaryTypographyProps={{ noWrap: true }}
+                />
+              </Tooltip>
+            ) : (
+              <ListItemText
+                classes={{ primary: classes.name }}
+                primary={acter.name}
+              />
+            )}
+          </Link>
+        </ListItem>
+      ))}
+    </Box>
+  )
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+      '& .MuiListItemAvatar-root': {
+        minWidth: 0,
+      },
+    },
+    item: {
+      marginLeft: theme.spacing(2),
+      '& a': {
+        display: 'flex',
+        alignItems: 'center',
+        color: theme.palette.secondary.contrastText,
+        textDecoration: 'none',
+        '&:hover': {
+          color: theme.colors.white,
+        },
+      },
+    },
+    name: {
+      marginLeft: theme.spacing(0.7),
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
+      width: 125,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  })
+)

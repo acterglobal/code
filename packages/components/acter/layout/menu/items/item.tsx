@@ -89,10 +89,14 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
+    item: {
+      ...commonStyles(theme).item,
+      marginBottom: theme.spacing(0.5),
+    },
     currentItem: {
       '& .MuiListItemText-primary': {
         fontWeight: theme.typography.fontWeightMedium,
-        color: '#fff',
+        color: theme.colors.white,
       },
     },
     icon: {
@@ -104,7 +108,6 @@ const useStyles = makeStyles((theme: Theme) =>
           color: theme.colors.white,
         },
       },
-
       textTransform: 'capitalize',
     },
     notifyBadge: {

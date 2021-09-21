@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 
-import { ActerMenuItem } from '@acter/components/layout/side-bar/acter-menu-item'
+import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'

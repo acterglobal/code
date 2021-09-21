@@ -41,5 +41,20 @@ query ActersSearch(
         }
       }
     }
+    Following(
+      where: {
+        Following: { is: { ActerType: { is: { name: { in: ["network"] } } } } }
+      }
+    ) {
+      Following {
+        id
+        name
+        slug
+        avatarUrl
+        ActerType {
+          name
+        }
+      }
+    }
   }
 }
