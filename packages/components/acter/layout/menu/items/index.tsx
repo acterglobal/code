@@ -20,12 +20,12 @@ import {
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
-export interface ActerMenuTabsProps {
+export interface ActerMenuItemsProps {
   acter: Acter
   user: User
 }
 
-export const ActerMenuTabs: FC<ActerMenuTabsProps> = ({ acter, user }) => {
+export const ActerMenuItems: FC<ActerMenuItemsProps> = ({ acter, user }) => {
   const { notifications } = useFetchNotifications()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 

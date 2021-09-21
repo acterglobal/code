@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { GroupsSection } from '@acter/components/acter/layout/menu/groups'
 import { ActerMenuHeader } from '@acter/components/acter/layout/menu/header'
-import { ActerMenuTabs } from '@acter/components/acter/layout/menu/items'
+import { ActerMenuItems } from '@acter/components/acter/layout/menu/items'
 import { LinksList } from '@acter/components/acter/layout/menu/links'
 import { PartOfSection } from '@acter/components/acter/layout/menu/part-of'
 import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
@@ -28,7 +28,7 @@ export const ActerMenu: FC = () => {
     <SecondaryMenu>
       <ActerMenuHeader acter={acter} />
 
-      <ActerMenuTabs acter={acter} user={user} />
+      <ActerMenuItems acter={acter} user={user} />
 
       {(isAdmin || isMember) && links.length > 0 && <LinksList links={links} />}
 
