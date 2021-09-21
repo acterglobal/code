@@ -1,28 +1,17 @@
 import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getActerTypes, setActerType, getActer, getLinks } from 'props'
 
 import { ActerActivities } from '@acter/components/acter/activities'
 import { ActerLayout } from '@acter/components/acter/layout'
 import { Head } from '@acter/components/layout/head'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
-import { Acter, Link as LinkType } from '@acter/schema'
+import { useActer } from '@acter/lib/acter/use-acter'
 
-interface ActivitiesPageProps {
-  acter: Acter
-  links: LinkType[]
-}
-
-export const ActerActivitiesPage: NextPageWithLayout<ActivitiesPageProps> = ({
-  acter,
-}) => {
+export const ActerActivitiesPage: NextPageWithLayout = () => {
+  const { acter } = useActer()
   return (
     <>
-      <Head title={`${acter.name} Settings - Acter`} />
+      <Head title={`${acter?.name} Activities - Acter`} />
 
       <ActerActivities />
     </>
@@ -30,8 +19,5 @@ export const ActerActivitiesPage: NextPageWithLayout<ActivitiesPageProps> = ({
 }
 
 ActerActivitiesPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
-
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, setActerType, getActer, getLinks)
 
 export default ActerActivitiesPage

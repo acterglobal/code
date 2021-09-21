@@ -12,7 +12,7 @@ import { ActivityDescription } from '@acter/components/activity/activity-descrip
 import { ActivityInfo } from '@acter/components/activity/activity-info'
 import { Organiser } from '@acter/components/activity/organiser'
 import { Participates } from '@acter/components/activity/participates'
-import { PostList, PostListProps } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts'
 import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -20,16 +20,12 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
 import { InterestType } from '@acter/schema'
 
-export interface ActivityDetailsProps extends PostListProps {
+export interface ActivityDetailsProps {
   interestTypes: InterestType[]
 }
 
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
   interestTypes,
-  posts,
-  onPostSubmit,
-  onPostDelete,
-  onPostUpdate,
 }) => {
   const classes = useStyles()
 
@@ -92,12 +88,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
           </Grid>
         </Hidden>
 
-        <PostList
-          posts={posts}
-          onPostSubmit={onPostSubmit}
-          onPostDelete={onPostDelete}
-          onPostUpdate={onPostUpdate}
-        />
+        <PostList />
       </Box>
     </Modal>
   )

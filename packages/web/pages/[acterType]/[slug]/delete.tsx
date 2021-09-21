@@ -3,29 +3,19 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getActerTypes, setActerType, getActer } from 'props'
 
 import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
-import { Acter } from '@acter/schema'
 
-interface DeleteActerPageProps {
-  /**
-   * The Acter to be deleted
-   */
-  acter: Acter
-}
-
-export const DeleteActerPage: NextPageWithLayout<DeleteActerPageProps> = ({
-  acter,
-}) => {
+export const DeleteActerPage: NextPageWithLayout = () => {
   const router = useRouter()
+  const { acter, loading: acterLoading } = useActer()
 
   const [deleteActer] = useDeleteActer()
+
+  if (!acter || acterLoading) return <LoadingSpinner />
 
   return (
     <ActerDeleteConfirmDialog
@@ -35,8 +25,5 @@ export const DeleteActerPage: NextPageWithLayout<DeleteActerPageProps> = ({
     />
   )
 }
-
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, setActerType, getActer)
 
 export default DeleteActerPage

@@ -7,6 +7,7 @@ import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
+import { ActerMenu } from '@acter/lib/constants'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 import { render, screen } from '@acter/lib/test-utils'
 import { ExampleActer } from '@acter/schema/fixtures'
@@ -21,6 +22,8 @@ describe('ActerMenuItem', () => {
   const mockGetLandingPageTab = getLandingPageTab as jest.Mock
   const mockUseUpdateNotifications = useUpdateNotifications as jest.Mock
   const mockUseActerTypes = useActerTypes as jest.Mock
+
+  const fooTab = 'foo' as ActerMenu
 
   beforeEach(() => {
     mockNextRouter.mockClear()
@@ -37,7 +40,7 @@ describe('ActerMenuItem', () => {
       <ActerMenuItem
         acter={ExampleActer}
         Icon={ForumIcon}
-        path="foo"
+        path={fooTab}
         text="Bar"
       />
     )
@@ -45,25 +48,33 @@ describe('ActerMenuItem', () => {
   })
 
   it('should use the path for display text when text prop not set', () => {
-    render(<ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path="foo" />)
+    render(
+      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+    )
     expect(screen.getByRole('link', { name: 'foo' })).toBeTruthy()
   })
 
   it('should display as selected when router tab matches path', () => {
-    const fooTab = 'foo'
-    mockNextRouter.mockReturnValue({ query: { tab: [fooTab] } })
+    mockNextRouter.mockReturnValue({ query: { slug: 'example-slug' } })
     render(
-      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+      <ActerMenuItem
+        acter={{ ...ExampleActer, slug: 'example-slug' }}
+        Icon={ForumIcon}
+        path={fooTab}
+      />
     )
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
   })
 
   it('should display first item as selected when tab prop not set', () => {
-    const fooTab = 'foo'
-    mockNextRouter.mockReturnValue({ query: { tab: [fooTab] } })
+    mockNextRouter.mockReturnValue({ query: { slug: 'example-slug' } })
     render(
-      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+      <ActerMenuItem
+        acter={{ ...ExampleActer, slug: 'example-slug' }}
+        Icon={ForumIcon}
+        path={fooTab}
+      />
     )
 
     expect(screen.getByRole('listitem')).toHaveAttribute('aria-current', 'true')
@@ -71,7 +82,9 @@ describe('ActerMenuItem', () => {
 
   it('should set inactive tab', () => {
     mockGetLandingPageTab.mockReturnValue('bar')
-    render(<ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={'foo'} />)
+    render(
+      <ActerMenuItem acter={ExampleActer} Icon={ForumIcon} path={fooTab} />
+    )
 
     expect(screen.getByRole('listitem')).toHaveAttribute(
       'aria-current',

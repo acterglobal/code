@@ -15,27 +15,29 @@ type PostsData = {
   posts: Post[]
 }
 
-type PostsVarialbles = {
+type PostsVariables = {
   acterId: string
 }
 
-type UsePostsOptions = MutationOptions<PostsData, PostsVarialbles>
+type UsePostsOptions = MutationOptions<PostsData, PostsVariables>
+
+type UsePostError = ApolloError | Error
 
 interface UsePostsResult
-  extends Omit<QueryResult<PostsData, PostsVarialbles>, 'data'> {
+  extends Omit<QueryResult<PostsData, PostsVariables>, 'data'> {
   posts: Post[]
 }
 
 export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<ApolloError>()
+  const [error, setError] = useState<UsePostError>()
   const [posts, setPosts] = useState<Post[]>([])
   const { acter, loading: acterLoading, error: acterError } = useActer()
 
   const [
     fetchPosts,
     { data, loading: queryLoading, error: queryError, ...restQueryResults },
-  ] = useLazyQuery<PostsData, PostsVarialbles>(GET_POSTS, {
+  ] = useLazyQuery<PostsData, PostsVariables>(GET_POSTS, {
     ...options,
   })
 

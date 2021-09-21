@@ -2,48 +2,38 @@ import React, { FC, useState } from 'react'
 
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
-import { PostOptions } from './options'
 import clsx from 'clsx'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'
+import { PostOptions } from '@acter/components/posts/post/options'
+import { useDeletePost } from '@acter/lib/post/use-delete-post'
+import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { Post as PostType, User } from '@acter/schema'
 
 export interface PostsProps {
   user: User
   post?: PostType
   parentId?: string
-  onPostDelete: (post: PostType) => Promise<void>
-  onPostUpdate?: (values: PostFormValues) => Promise<void>
 }
 
-export const Post: FC<PostsProps> = ({
-  user,
-  post,
-  parentId,
-  onPostUpdate,
-  onPostDelete,
-}) => {
+export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
-  const handleEdit = () => {
-    setToggleForm(!toggleForm)
-  }
+  const [updatePost] = useUpdatePost()
+  const [deletePost] = useDeletePost()
 
-  const handleCancelEdit = () => {
-    setToggleForm(!toggleForm)
-  }
+  const handleEdit = () => setToggleForm(!toggleForm)
+  const handleCancelEdit = () => setToggleForm(!toggleForm)
 
   const handleSubmit = (values: PostFormValues) => {
     setToggleForm(!toggleForm)
-    onPostUpdate(values)
+    updatePost(values)
   }
 
-  const onDelete = () => {
-    onPostDelete(post)
-  }
+  const handleDelete = () => deletePost(post)
 
   if (toggleForm) {
     return (
@@ -64,7 +54,7 @@ export const Post: FC<PostsProps> = ({
         <PostContent post={post} />
 
         {user.Acter.id === post.Author.id && (
-          <PostOptions onEdit={handleEdit} onDelete={onDelete} />
+          <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
         )}
       </Box>
     )

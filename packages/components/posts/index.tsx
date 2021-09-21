@@ -3,41 +3,23 @@ import React, { FC } from 'react'
 import { Box, Divider } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { LoadingSpinner } from '../util/loading-spinner'
-
-import { PostFormProps, PostFormValues } from '@acter/components/posts/form'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
-import { Post, PostsProps } from '@acter/components/posts/post/index'
+import { Post } from '@acter/components/posts/post/index'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { usePosts } from '@acter/lib/post/use-posts'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole, Post as PostType } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 
-export interface PostListProps
-  extends Omit<PostFormProps, 'user'>,
-    Omit<PostsProps, 'user'> {
-  /**
-   * Posts to display
-   */
-  posts: PostType[]
-  /**
-   * Callback function to update Posts
-   */
-  onPostUpdate?: (values: PostFormValues) => Promise<void>
-}
-
-export const PostList: FC<PostListProps> = ({
-  posts,
-  onPostSubmit,
-  onPostDelete,
-  onPostUpdate,
-}) => {
+export const PostList: FC = () => {
   const classes = useStyles()
 
+  const { posts, loading: postsLoading } = usePosts()
   const { user, loading: userLoading } = useUser()
   const { acter, loading: acterLoading } = useActer()
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (acterLoading || userLoading || postsLoading) return <LoadingSpinner />
   if (!acter) return null
 
   const isUserActerFollower = acter.Followers.find(
@@ -49,16 +31,11 @@ export const PostList: FC<PostListProps> = ({
   return (
     <Box className={classes.mainContainer}>
       {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
-        <PostFormSection user={user} onPostSubmit={onPostSubmit} />
+        <PostFormSection user={user} />
       )}
       {posts?.map((post) => (
         <Box key={`post-${post.id}`} className={classes.contentContainer}>
-          <Post
-            post={post}
-            user={user}
-            onPostUpdate={onPostUpdate}
-            onPostDelete={onPostDelete}
-          />
+          <Post post={post} user={user} />
           <Box className={classes.commentSection}>
             <Divider className={classes.divider} />
             {post.Comments?.map((comment) => (
@@ -67,16 +44,10 @@ export const PostList: FC<PostListProps> = ({
                 post={comment}
                 parentId={post.id}
                 user={user}
-                onPostUpdate={onPostUpdate}
-                onPostDelete={onPostDelete}
               />
             ))}
             <Box>
-              <PostFormSection
-                parentId={post.id}
-                user={user}
-                onPostSubmit={onPostSubmit}
-              />
+              <PostFormSection parentId={post.id} user={user} />
             </Box>
           </Box>
         </Box>

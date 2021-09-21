@@ -12,18 +12,11 @@ import {
 import { Header as AboutSection } from '@acter/components/acter/landing-page/info-section/header'
 import { HeaderSection } from '@acter/components/group/header-section'
 import { MembersSection } from '@acter/components/group/members-section'
-import { PostList, PostListProps } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 
-export type GroupLandingProps = PostListProps
-
-export const GroupLanding: FC<GroupLandingProps> = ({
-  posts,
-  onPostSubmit,
-  onPostDelete,
-  onPostUpdate,
-}) => {
+export const GroupLanding: FC = () => {
   const classes = useStyles()
 
   const { acter, loading: acterLoading } = useActer()
@@ -37,12 +30,7 @@ export const GroupLanding: FC<GroupLandingProps> = ({
       <Grid container spacing={2} className={classes.content}>
         <Grid item xs={12} md={8}>
           <Box className={classes.posts}>
-            <PostList
-              posts={posts}
-              onPostSubmit={onPostSubmit}
-              onPostDelete={onPostDelete}
-              onPostUpdate={onPostUpdate}
-            />
+            <PostList />
           </Box>
         </Grid>
 

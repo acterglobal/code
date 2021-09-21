@@ -22,6 +22,7 @@ type LinksVariables = {
 
 type UseLinksOptions = MutationOptions<LinksData, LinksVariables>
 
+type UseLinksError = ApolloError | Error
 interface UseLinksResult
   extends Omit<QueryResult<LinksData, LinksVariables>, 'data'> {
   links: Link[]
@@ -29,7 +30,7 @@ interface UseLinksResult
 // TODO: DRY useActer in other hooks
 export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<ApolloError>()
+  const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
   const { acter, loading: acterLoading, error: acterError } = useActer()
 

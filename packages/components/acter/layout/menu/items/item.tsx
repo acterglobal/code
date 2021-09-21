@@ -20,14 +20,14 @@ import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
-import { ActerMenu } from '@acter/lib/constants'
+import { ActerMenu as Path } from '@acter/lib/constants'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 import { Acter, Notification } from '@acter/schema'
 
 interface ActerMenuItemProps {
   acter: Acter
   Icon: SvgIconComponent
-  path: string
+  path: Path
   text?: string
   notifications?: Notification[]
 }
@@ -43,9 +43,9 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
   const theme = useTheme()
   const router = useRouter()
 
-  const tab = getLandingPageTab(router, ActerMenu.FORUM)
+  const tab = getLandingPageTab()
 
-  const isActive = router.query.acterType !== 'groups' && path === tab
+  const isActive = router.query.slug === acter.slug && path === tab
 
   const [updateNotifications] = useUpdateNotifications()
 

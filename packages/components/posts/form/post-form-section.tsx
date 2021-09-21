@@ -11,10 +11,14 @@ import {
   PostFormProps,
   PostFormValues,
 } from '@acter/components/posts/form'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { User } from '@acter/schema'
 import { Post as PostType } from '@acter/schema'
 
-export interface PostFormSectionProps extends PostFormProps {
+export interface PostFormSectionProps
+  extends Omit<PostFormProps, 'onPostSubmit'> {
   user: User
   post?: PostType
   parentId?: string
@@ -24,16 +28,19 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   user,
   post,
   parentId,
-  onPostSubmit,
 }) => {
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
+  const { acter, loading: acterLoading } = useActer()
+  const [createPost] = useCreatePost(acter)
+
+  if (!acter || acterLoading) return <LoadingSpinner />
 
   const handleClick = () => setShowForm(!showForm)
 
   const handlePostSubmit = (data: PostFormValues) => {
     setShowForm(false)
-    onPostSubmit(data)
+    createPost(data)
   }
 
   return (

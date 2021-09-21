@@ -7,16 +7,21 @@ import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Header } from '@acter/components/acter/landing-page/info-section/header'
 import { InterestsSection } from '@acter/components/interests/interests-section'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { Acter, InterestType } from '@acter/schema'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { InterestType } from '@acter/schema'
 
 export interface InfoSectionProps {
-  acter: Acter
   interestTypes: InterestType[]
 }
 
-export const InfoSection: FC<InfoSectionProps> = ({ acter, interestTypes }) => {
+export const InfoSection: FC<InfoSectionProps> = ({ interestTypes }) => {
   const router = useRouter()
+  const { acter, loading: acterLoading } = useActer()
+
+  if (!acter || acterLoading) return <LoadingSpinner />
+
   const handleOnAvatarClick = () =>
     router.push(`${acterAsUrl({ acter, extraPath: ['members'] })}`)
 
