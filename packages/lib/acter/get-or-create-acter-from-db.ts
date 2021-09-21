@@ -4,10 +4,18 @@ import { ActerTypes } from '@acter/lib/constants'
 import { Acter, User } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-export const getOrCreateActerFromDB = async (user: User): Promise<Acter> => {
+type GetOrCreateActerFromDB = {
+  user: User
+  nickname?: string
+}
+
+export const getOrCreateActerFromDB = async ({
+  user,
+  nickname,
+}: GetOrCreateActerFromDB): Promise<Acter> => {
   if (user.Acter) return user.Acter
 
-  const name = user.email.match(/^(.*)@/)[1]
+  const name = nickname || user.email.match(/^(.*)@/)[1]
   const slug = await getUniqueActerSlugFromDB(name)
   const userActerType = await getActerTypeFromDB(ActerTypes.USER)
 

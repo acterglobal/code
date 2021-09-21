@@ -5,6 +5,7 @@ import { activityNotificationsOnActerCreate } from './activity-notifications-on-
 import { emailSendWorker } from './email-send/worker'
 import { newMemberJoinNotificationWorker } from './new-member-join-notification/worker'
 import { postNotificationsCreateWorker } from './post-notification-create/worker'
+import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
 
 console.log('Starting all workers')
 ;[
@@ -13,6 +14,7 @@ console.log('Starting all workers')
   newMemberJoinNotificationWorker,
   emailSendWorker,
   postNotificationsCreateWorker,
+  syncAuth0IntercomDataWorker,
 ].forEach((worker) => {
   worker.on('drained', () =>
     console.log(`No (more) jobs for ${worker.name} to complete. Ready...`)

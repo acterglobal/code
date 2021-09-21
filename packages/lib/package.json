@@ -7,7 +7,6 @@
   "dependencies": {
     "@prisma/client": "^2.26.0",
     "@sendgrid/mail": "^7.4.5",
-    "axios": "^0.21.1",
     "deep-equal": "^2.0.5",
     "deepmerge": "^4.2.2",
     "handlebars": "^4.7.7",
@@ -28,6 +27,7 @@
   "peerDependencies": {
     "@apollo/client": "*",
     "@auth0/nextjs-auth0": "*",
+    "axios": "*",
     "bullmq": "*",
     "next": "*",
     "react": "*"
