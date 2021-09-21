@@ -3,6 +3,7 @@ import path from 'path'
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getArticle } from '@acter/lib/string/get-article'
 import {
   Acter,
   ActerType,
@@ -50,9 +51,6 @@ export const createActivityNotificationEmail = ({
   activity,
   notification,
 }: CreateActivityNotificationEmailParams): CreateEmailReturn => {
-  console.debug('createActivityNotificationEmail acter', acter)
-  console.debug('createActivityNotificationEmail activity', activity)
-  console.debug('createActivityNotificationEmail notification', notification)
   const baseUrl = process.env.BASE_URL
   const notificationUrl = [baseUrl, 'notifications', notification.id].join('/')
   const html = createEmailTemplate<ActivityEmail>(
@@ -68,7 +66,8 @@ export const createActivityNotificationEmail = ({
     startAt: parseAndFormat(activity.startAt, DATE_FORMAT_LONG),
   })
   const { OnActer } = notification
-  const text = `A new activity titled "${activity.Acter.name} was added on an ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
+  const aAn = getArticle(OnActer.name)
+  const text = `A new activity titled "${activity.Acter.name} was added on ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
 
   return { html, text }
 }

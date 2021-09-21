@@ -1,12 +1,11 @@
-import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
-import { Acter, Notification } from '@acter/schema'
 import path from 'path'
 
+import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getArticle } from '@acter/lib/string/get-article'
+import { Acter, Notification } from '@acter/schema'
+
 type NewMemberNotificationEmail = {
-  aAn: string
-  followerName: string
-  onActerName: string
-  onActerType: string
+  text: string
   notificationUrl: string
 }
 
@@ -22,17 +21,14 @@ export const createNewMemberNotificationEmail = ({
   const baseUrl = process.env.BASE_URL
   const notificationUrl = [baseUrl, 'notifications', notification.id].join('/')
   const { OnActer } = notification
-  const aAn = OnActer.ActerType.name.substr(0, 1).match(/[aeiou]/) ? 'an' : 'a'
+  const aAn = getArticle(OnActer.ActerType.name)
+  const text = `${follower.name} just joined ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}.`
   const html = createEmailTemplate<NewMemberNotificationEmail>(
     path.join(__dirname, 'template.hbs')
   )({
-    aAn,
-    followerName: follower.name,
-    onActerName: OnActer.name,
-    onActerType: OnActer.ActerType.name,
+    text,
     notificationUrl,
   })
-  const text = `"${follower.name} just joined ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
 
-  return { html, text }
+  return { html, text: `${text} To see it, visit: ${notificationUrl}` }
 }

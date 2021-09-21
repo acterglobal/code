@@ -5,6 +5,7 @@ import path from 'path'
 
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getArticle } from '@acter/lib/string/get-article'
 import { Acter, Notification, Post } from '@acter/schema'
 
 type PostEmail = {
@@ -17,11 +18,11 @@ type PostEmail = {
 }
 
 export type PostWithActerAndAuthor = Omit<Post, 'Acter' | 'Author'> & {
-  Acter: ActerName
-  Author: ActerName
+  Acter: ActerNameAndID
+  Author: ActerNameAndID
 }
 
-type ActerName = Pick<Acter, 'name'>
+type ActerNameAndID = Pick<Acter, 'id' | 'name'>
 
 type CreatePostEmailNotificationParams = {
   notification: Notification
@@ -52,7 +53,8 @@ export const createPostEmailNotification = ({
     sentBy: post.Author.name,
   })
   const { OnActer } = notification
-  const text = `A new post was created on an ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
+  const aAn = getArticle(OnActer.name)
+  const text = `A new post was created on ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
 
   return { html, text }
 }
