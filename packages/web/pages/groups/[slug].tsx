@@ -3,14 +3,14 @@ import { NextPageWithLayout } from 'pages/_app'
 import { ActerLayout } from '@acter/components/acter/layout'
 import { GroupLanding } from '@acter/components/group'
 import { Head } from '@acter/components/layout/head'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { useTitle } from '@acter/lib/acter/use-title'
 
 export const GroupLandingPage: NextPageWithLayout = () => {
-  const { acter } = useActer()
+  const { title } = useTitle('Acter')
 
   return (
     <>
-      <Head title={`${acter?.name} - Acter`} />
+      <Head title={title} />
       <GroupLanding />
     </>
   )

@@ -7,7 +7,7 @@ import {
   ActivityDetailsProps,
 } from '@acter/components/activity'
 import { Head } from '@acter/components/layout/head'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { useTitle } from '@acter/lib/acter/use-title'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -18,11 +18,11 @@ type ActivityLandingPageProps = ActivityDetailsProps
 export const ActivityLandingPage: NextPageWithLayout<ActivityLandingPageProps> = ({
   interestTypes,
 }) => {
-  const { acter } = useActer()
+  const { title } = useTitle('Activities')
 
   return (
     <>
-      <Head title={`${acter?.name} - Activity`} />
+      <Head title={title} />
       <ActivityDetails interestTypes={interestTypes} />
     </>
   )
