@@ -1,14 +1,11 @@
-import React from 'react'
-
-import { NextPage } from 'next'
-
+import { NextPageWithLayout } from 'pages/_app'
 import { getInterests } from 'props'
 
+import { ActerLayout } from '@acter/components/acter/layout'
 import {
   ActivityDetails,
   ActivityDetailsProps,
 } from '@acter/components/activity'
-import { Layout } from '@acter/components/layout'
 import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
@@ -18,18 +15,20 @@ import {
 
 type ActivityLandingPageProps = ActivityDetailsProps
 
-export const ActivityLandingPage: NextPage<ActivityLandingPageProps> = ({
+export const ActivityLandingPage: NextPageWithLayout<ActivityLandingPageProps> = ({
   interestTypes,
 }) => {
   const { acter } = useActer()
 
   return (
-    <Layout>
+    <>
       <Head title={`${acter?.name} - Activity`} />
       <ActivityDetails interestTypes={interestTypes} />
-    </Layout>
+    </>
   )
 }
+
+ActivityLandingPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
   composeProps(ctx, getInterests)
