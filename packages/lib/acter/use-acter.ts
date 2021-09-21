@@ -4,8 +4,6 @@ import { useRouter } from 'next/router'
 
 import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
 
-import { ParsedUrlQuery } from 'querystring'
-
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
@@ -38,11 +36,6 @@ type UseActerProps = {
   fetchParent?: boolean
 }
 
-type RouterKeys = {
-  query: ParsedUrlQuery
-  asPath: string
-}
-
 /**
  * Get the acter
  * @param options for passing fetchParent or acterType which are optional
@@ -56,7 +49,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const {
     query: { slug },
     asPath,
-  }: RouterKeys = useRouter()
+  } = useRouter()
 
   const acterTypeName = asPath.split('/')[1]
 
