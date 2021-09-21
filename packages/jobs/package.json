@@ -10,12 +10,17 @@
   },
   "dependencies": {
     "@swc/core": "^1.2.76",
+    "auth0": "^2.36.2",
     "handlebars": "^4.7.7",
     "reflect-metadata": "*",
     "ts-node": "*",
     "typescript": "*"
   },
   "peerDependencies": {
+    "axios": "*",
     "bullmq": "*"
+  },
+  "devDependencies": {
+    "@types/auth0": "^2.33.5"
   }
 }

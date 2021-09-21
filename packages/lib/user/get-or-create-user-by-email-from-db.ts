@@ -1,15 +1,21 @@
 import { User } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-export const getOrCreateUserByEmailFromDB = async (
+type GetOrCreateActerFromDBParams = {
   email: string
-): Promise<User> => {
+  auth0ProviderId: string
+}
+
+export const getOrCreateUserByEmailFromDB = async ({
+  email,
+  auth0ProviderId,
+}: GetOrCreateActerFromDBParams): Promise<User> => {
   return prisma.user.upsert({
     include: {
       Acter: true,
     },
-    create: { email },
-    update: {},
+    create: { email, auth0ProviderId },
+    update: { auth0ProviderId },
     where: { email },
   })
 }

@@ -1,18 +1,35 @@
-import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
+import { handleAuth, handleCallback, AfterCallback } from '@auth0/nextjs-auth0'
 
+import { syncAuth0IntercomQueue } from '@acter/jobs/src/sync-auth0-intercom-data'
 import { getOrCreateActerFromDB } from '@acter/lib/acter/get-or-create-acter-from-db'
 import { getOrCreateUserByEmailFromDB } from '@acter/lib/user/get-or-create-user-by-email-from-db'
 
-const afterCallback = async (_req, res, session, _state) => {
+const afterCallback: AfterCallback = async (_req, res, session, _state) => {
   try {
     // TODO: check for email_verified
     // TODO: don't implicitly link accounts
-    const user = await getOrCreateUserByEmailFromDB(session.user.email)
-    await getOrCreateActerFromDB(user)
+    const { email, nickname, sub: auth0ProviderId } = session.user
+    const user = await getOrCreateUserByEmailFromDB({
+      email,
+      auth0ProviderId,
+    })
+    const acter = await getOrCreateActerFromDB({ user, nickname })
+    const userWithActer = {
+      ...user,
+      Acter: acter,
+      sub: session.user.sub,
+    }
+
+    syncAuth0IntercomQueue.add(`user-login-${user.id}`, {
+      user: userWithActer,
+      session,
+    })
+
     return {
       ...session,
       user: {
         ...user,
+        Acter: acter,
         sub: session.user.sub,
       },
     }
