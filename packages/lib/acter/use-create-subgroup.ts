@@ -1,13 +1,12 @@
 import { FetchResult, MutationResult, StoreObject } from '@apollo/client'
 
-import { addToCacheList } from '../apollo/add-to-cache-list'
-
 import {
   useCreateActer,
   CreateActerData,
   ActerVariables,
 } from '@acter/lib/acter/use-create-acter'
 import { UseMutationOptions } from '@acter/lib/apollo'
+import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
 import { Acter } from '@acter/schema'
 
 type UseCreateSubGroupOptions = UseMutationOptions<
