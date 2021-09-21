@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
+      whiteSpace: 'pre',
     },
     divider: {
       backgroundColor: theme.colors.grey.main,
