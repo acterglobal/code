@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 
-import Link from 'next/link'
-
 import { Box, Divider, Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import pluralize from 'pluralize'
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
+import { Link } from '@acter/components/util/anchor-link'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
