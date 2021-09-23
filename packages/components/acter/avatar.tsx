@@ -44,9 +44,14 @@ const useStyles = makeStyles((theme: Theme) => {
 export interface ActerAvatarProps {
   acter: Acter
   size?: number
+  sidebar?: boolean
 }
 
-export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
+export const ActerAvatar: FC<ActerAvatarProps> = ({
+  acter,
+  size = 6,
+  sidebar,
+}) => {
   const classes = useStyles({ size })
 
   const avatarUrl = `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
@@ -59,6 +64,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
           ? null
           : classes[acter.ActerType.name.toLocaleLowerCase()]
       )}
+      style={sidebar && { backgroundColor: 'white', color: '#2A2A2A' }}
       alt={`${acter.ActerType.name} ${acter.name}`}
       src={avatarUrl}
     >
@@ -73,8 +79,16 @@ export const Avatar = withStyles((theme: Theme) =>
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
-      backgroundColor: theme.palette.primary.main,
       border: '1px solid white',
+      // backgroundColor: theme.colors.white,
+      // color: '#2A2A2A',
     },
+    // userBackground: {
+    //   backgroundColor: theme.palette.primary.main,
+    // },
+    // acterBackground: {
+    //   backgroundColor: 'white',
+    //   color: '#2A2A2A',
+    // },
   })
 )(MuiAvatar)
