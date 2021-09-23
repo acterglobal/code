@@ -123,6 +123,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatarImage: {
       borderRadius: '50%',
+      backgroundColor: theme.colors.white,
       borderColor: theme.palette.secondary.main,
       marginLeft: theme.spacing(6) + 2,
       width: 130,
