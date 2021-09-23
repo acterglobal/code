@@ -79,16 +79,8 @@ export const Avatar = withStyles((theme: Theme) =>
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
+      backgroundColor: theme.palette.primary.main,
       border: '1px solid white',
-      // backgroundColor: theme.colors.white,
-      // color: '#2A2A2A',
     },
-    // userBackground: {
-    //   backgroundColor: theme.palette.primary.main,
-    // },
-    // acterBackground: {
-    //   backgroundColor: 'white',
-    //   color: '#2A2A2A',
-    // },
   })
 )(MuiAvatar)
