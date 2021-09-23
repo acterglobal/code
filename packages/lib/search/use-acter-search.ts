@@ -48,10 +48,10 @@ export const useActerSearch = (): useActerSearchQueryResults => {
     ...restQueryResult
   } = usePaginatedQuery(queries[searchType], resultKey, {
     variables: searchVariables,
-    pageSize: 20,
+    pageSize: parseInt(process.env.NEXT_PUBLIC_SEARCH_PAGE_SIZE) || 20,
     onCompleted: (data) => {
       setLoading(false)
-      setActers(data[resultKey])
+      if (data && data[resultKey]) setActers(data[resultKey])
     },
   })
 

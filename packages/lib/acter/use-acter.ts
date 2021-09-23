@@ -92,7 +92,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   useEffect(() => {
     if (data) {
       const { findFirstActer: acter } = data
-      if (fetchParent && acter.Parent) {
+      if (fetchParent && acter?.Parent) {
         return fetchActers({
           variables: {
             acterTypeId: acter.Parent.ActerType.id,
