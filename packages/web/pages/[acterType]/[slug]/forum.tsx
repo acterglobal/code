@@ -4,7 +4,7 @@ import { getInterests } from 'props'
 import { ActerLayout } from '@acter/components/acter/layout'
 import { ActerPosts } from '@acter/components/acter/posts'
 import { Head } from '@acter/components/layout/head'
-import { useTitle } from '@acter/lib/acter/use-title'
+import { useActerTitle } from '@acter/lib/acter/use-title'
 import {
   composeProps,
   ComposedGetServerSideProps,
@@ -18,7 +18,7 @@ interface PostsPageProps {
 export const ActerPostsPage: NextPageWithLayout<PostsPageProps> = ({
   interestTypes,
 }) => {
-  const { title } = useTitle('forum')
+  const { title } = useActerTitle('forum')
 
   return (
     <>
