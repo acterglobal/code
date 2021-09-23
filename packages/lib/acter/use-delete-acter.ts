@@ -20,18 +20,18 @@ export const useDeleteActer = (): [HandleMethod, MutationResult] => {
     {
       update: (cache, { data }) =>
         cache.modify({
-          id: cache.identify(data.deleteActer),
+          id: cache.identify(data.deleteActerCustom),
           fields: (_, { DELETE }) => DELETE,
         }),
 
       onCompleted: (data) => {
-        const redirectUrl = data.deleteActer.Parent
-          ? acterAsUrl({ acter: data.deleteActer.Parent })
+        const redirectUrl = data.deleteActerCustom.Parent
+          ? acterAsUrl({ acter: data.deleteActerCustom.Parent })
           : '/dashboard'
         router.push(redirectUrl)
       },
 
-      getSuccessMessage: (data) => `${data.deleteActer.name} is deleted`,
+      getSuccessMessage: (data) => `${data.deleteActerCustom.name} is deleted`,
     }
   )
   const handleDeleteActer = (acterId) => deleteActer({ variables: { acterId } })
