@@ -11,8 +11,10 @@ import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   ActerType,
+  Activity,
   Notification,
   NotificationType,
+  Post,
 } from '@acter/schema'
 import { prisma, Prisma } from '@acter/schema/prisma'
 
@@ -56,9 +58,17 @@ interface CreateNotificationWorker<T> {
    */
   getNotificationEmailSubject: (props: NotificationEmailProps<T>) => string
   /**
+   * Optionally get Activity
+   */
+  getActivity?: (data: T) => Activity
+  /**
+   * Optionally get Post
+   */
+  getPost?: (data: T) => Post
+  /**
    * The type of the notification
    */
-  notificationType: NotificationType
+  type: NotificationType
   /**
    * Extra path for notification
    */
@@ -72,21 +82,19 @@ export const createNotificationWorker = <T>({
   getFollowersWhere = () => ({}),
   getNotificationEmail,
   getNotificationEmailSubject,
-  notificationType,
+  getActivity,
+  getPost,
+  type,
   notificationUrlPath = '',
 }: CreateNotificationWorker<T>): Worker => {
   return createWorker(queue, async (job: Job<T>) => {
     const data = await getJobData(job)
     const following = await getFollowing(data)
+    const followersWhere = getFollowersWhere(data)
     const followers = await prisma.acterConnection.findMany({
-      select: {
+      include: {
         Follower: {
-          select: {
-            id: true,
-            name: true,
-            slug: true,
-            acterNotifySetting: true,
-            acterNotifyEmailFrequency: true,
+          include: {
             ActerType: true,
             User: true,
           },
@@ -94,28 +102,48 @@ export const createNotificationWorker = <T>({
       },
       where: {
         followingActerId: following.id,
+        ...followersWhere,
         Follower: {
           ActerType: {
+            ...(followersWhere?.Follower
+              ?.ActerType as Prisma.ActerTypeWhereInput),
             name: ActerTypes.USER,
           },
+          ...(followersWhere?.Follower as Prisma.ActerWhereInput),
           acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
-          acterNotifyEmailFrequency: ActerNotificationEmailFrequency.INSTANT,
+          acterNotifyEmailFrequency: {
+            not: ActerNotificationEmailFrequency.NEVER,
+          },
         },
-        ...getFollowersWhere(data),
       },
     })
+    console.log(
+      'Sending to followers',
+      followers.map(
+        ({
+          Follower: {
+            name,
+            ActerType: { name: acterTypeName },
+          },
+        }) => ({ name, acterTypeName })
+      )
+    )
     const url = acterAsUrl({
       acter: following,
       includeBaseUrl: true,
       extraPath: notificationUrlPath,
     })
+    const activity = getActivity?.(data)
+    const post = getPost?.(data)
     await Promise.all(
       followers.map(async ({ Follower }) => {
         const notification = await createNotification({
-          toActer: Follower,
-          onActer: following,
+          ToActer: Follower,
+          OnActer: following,
           url,
-          notificationType,
+          type,
+          Activity: activity,
+          Post: post,
         })
 
         if (notification.sendTo) {

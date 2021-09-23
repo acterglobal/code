@@ -12,11 +12,6 @@ export const newMemberJoinNotificationWorker = createNotificationWorker<NewMembe
     queue: NEW_MEMBER_NOTIFICATION_QUEUE,
     getFollowing: async ({ connection }) => connection.Following,
     getFollowersWhere: ({ connection }) => ({
-      Follower: {
-        ActerType: {
-          name: ActerTypes.USER,
-        },
-      },
       role: ActerConnectionRole.ADMIN,
       followingActerId: connection.followingActerId,
     }),
@@ -28,7 +23,7 @@ export const newMemberJoinNotificationWorker = createNotificationWorker<NewMembe
     }) => createNewMemberNotificationEmail({ follower, notification }),
     getNotificationEmailSubject: ({ notification }) =>
       `New member on ${notification.OnActer.name}`,
-    notificationType: NotificationType.NEW_MEMBER,
+    type: NotificationType.NEW_MEMBER,
     notificationUrlPath: 'members',
   }
 )

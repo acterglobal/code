@@ -5,7 +5,7 @@ import { PostNotificationCreate } from './types'
 import { POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { createPostEmailNotification } from '@acter/lib/post/email'
-import { NotificationType } from '@acter/schema'
+import { NotificationType, Post } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
 export const postNotificationsCreateWorker = createNotificationWorker<PostNotificationCreate>(
@@ -47,7 +47,8 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
       }),
     getNotificationEmailSubject: ({ notification }) =>
       `New post on ${notification.OnActer.name} via Acter`,
-    notificationType: NotificationType.NEW_POST,
+    getPost: ({ post }) => post as Post,
+    type: NotificationType.NEW_POST,
     notificationUrlPath: 'forum',
   }
 )

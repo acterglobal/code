@@ -192,6 +192,7 @@ model Activity {
   Organiser   Acter?  @relation(name: "organiser", fields: [organiserId], references: [id])
   organiserId String? @map("organiser_id")
 
+  Notification Notification[]
   @@map("activities")
 }
 
@@ -219,6 +220,7 @@ model Post {
   Author   Acter  @relation("authored", fields: [authorId], references: [id])
   authorId String @map("author_id")
 
+  Notification Notification[]
   @@map("posts")
 }
 
@@ -292,6 +294,13 @@ model Notification {
 
   OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id])
   onActerId String @map("on_acter_id")
+
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String? @map("post_id")
+
+  Activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String?   @map("activity_id")
+
 
   @@index([toActerId, viewedAt])
   @@index([onActerId, toActerId, type])

@@ -1,43 +1,46 @@
-import { prisma } from '@acter/schema/prisma'
 import {
-  Acter,
   ActerNotificationEmailFrequency,
+  Activity,
   Notification,
-  NotificationType,
-  User,
-} from '@acter/schema/types'
+  Post,
+} from '@acter/schema'
+import { prisma } from '@acter/schema/prisma'
 
-type ActerPick = Pick<Acter, 'id' | 'acterNotifyEmailFrequency'> & {
-  User: UserPick
-}
-type UserPick = Pick<User, 'email'>
-
-interface CreateNotificationParams {
-  toActer: ActerPick
-  onActer: Pick<Acter, 'id'>
-  url: string
-  notificationType: NotificationType
+type CreateNotificationParams = Pick<
+  Notification,
+  'ToActer' | 'OnActer' | 'url' | 'type'
+> & {
+  Activity?: Activity
+  Post?: Post
 }
 
 export const createNotification = async ({
-  toActer,
-  onActer,
+  ToActer,
+  OnActer,
   url,
-  notificationType,
+  type,
+  Activity,
+  Post,
 }: CreateNotificationParams): Promise<Notification> => {
   // Only send to those that we want to email
   const sendTo =
-    toActer.acterNotifyEmailFrequency ===
+    ToActer.acterNotifyEmailFrequency ===
     ActerNotificationEmailFrequency.INSTANT
-      ? toActer.User.email
+      ? ToActer.User.email
       : ''
+  const activityConnect = Activity
+    ? { Activity: { connect: { id: Activity.id } } }
+    : {}
+  const postConnect = Post ? { Post: { connect: { id: Post.id } } } : {}
   return await prisma.notification.create({
     data: {
-      type: notificationType,
-      url,
-      ToActer: { connect: { id: toActer.id } },
-      OnActer: { connect: { id: onActer.id } },
       sendTo,
+      type,
+      url,
+      ToActer: { connect: { id: ToActer.id } },
+      OnActer: { connect: { id: OnActer.id } },
+      ...activityConnect,
+      ...postConnect,
     },
     include: {
       ToActer: true,
