@@ -1,10 +1,10 @@
-import { format } from 'date-fns'
+import { format } from 'date-fns-tz'
 import Handlebars from 'handlebars'
 import marked from 'marked'
 import path from 'path'
 
 import { NotificationByActer } from '@acter/jobs/src/daily-digest/types'
-import { DATE_FORMAT_SHORT } from '@acter/lib/constants'
+import { DATE_FORMAT_TZ, DATE_FORMAT_SHORT_TZ } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -22,7 +22,15 @@ export const createDailyDigestEmail = ({
   })
   Handlebars.registerHelper('dateFormat', function (date) {
     try {
-      return format(date, DATE_FORMAT_SHORT)
+      return format(date, DATE_FORMAT_TZ)
+    } catch (e) {
+      console.error(e)
+      return date
+    }
+  })
+  Handlebars.registerHelper('dateFormatShort', function (date) {
+    try {
+      return format(date, DATE_FORMAT_SHORT_TZ)
     } catch (e) {
       console.error(e)
       return date
@@ -49,7 +57,7 @@ export const createDailyDigestEmail = ({
           (activity) =>
             `A new activity titled "${activity.Acter.name} at ${parseAndFormat(
               activity.startAt,
-              DATE_FORMAT_SHORT
+              DATE_FORMAT_TZ
             )}.`
         )
         .join('\n')
@@ -60,7 +68,7 @@ export const createDailyDigestEmail = ({
           (post) =>
             `${post.Author.name} created a new post at ${parseAndFormat(
               post.createdAt,
-              DATE_FORMAT_SHORT
+              DATE_FORMAT_SHORT_TZ
             )}:\n ${post.content}`
         )
         .join('\n')

@@ -16,7 +16,7 @@ export const getImageUrl = (
   imageType: 'avatar' | 'banner',
   options?: ImageUrlOptions
 ): string => {
-  const { suffix = '', includeBaseUrl = false } = options
+  const { suffix = '', includeBaseUrl = false } = options || {}
   const baseURL = includeBaseUrl ? process.env.NEXT_PUBLIC_IMAGE_LOADER_URL : ''
   const imageSuffix = process.env.NEXT_PUBLIC_DEFAULT_IMAGE_SUFFIX || ''
   const imagePath = imageName

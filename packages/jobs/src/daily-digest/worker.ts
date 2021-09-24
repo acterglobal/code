@@ -4,12 +4,11 @@ import { DailyDigest, NotificationByActerMap } from './types'
 import { Job } from 'bullmq'
 import { getTime } from 'date-fns'
 
-import { emailSendQueue } from '@acter/jobs'
+import { emailSendQueue, NotificationEmail } from '@acter/jobs'
 import { createWorker } from '@acter/lib/bullmq'
 import { DAILY_DIGEST_CREATE, DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
-import { Email } from '@acter/lib/email'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { createDailyDigestEmail } from '@acter/lib/user/email/daily-digest'
 import { prisma } from '@acter/schema/prisma'
@@ -35,6 +34,7 @@ export const dailyDigestWorker = createWorker(
         Activity: {
           include: {
             Acter: true,
+            ActivityType: true,
             createdByUser: {
               include: {
                 Acter: true,
@@ -80,11 +80,12 @@ export const dailyDigestWorker = createWorker(
       notificationsByActer: { acters: Object.values(notificationsByActer) },
     })
 
-    const email: Email = {
+    const email: NotificationEmail = {
       to: acter.User.email,
       subject: `Acter Daily Digest for ${formattedAfterDateTime}`,
       html,
       text,
+      notifications: notifications.map(({ id }) => ({ id })),
     }
     emailSendQueue.add(
       `email-digest-${acter.id}-${getTime(parseDateOrString(afterDateTime))}`,

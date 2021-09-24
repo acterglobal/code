@@ -161,7 +161,7 @@ export const createNotificationWorker = <T>({
           }
           const emailData: NotificationEmail = {
             ...email,
-            notification,
+            notifications: notification,
           }
           emailSendQueue.add(
             `email-${queue}-notification-${notification.id}`,
