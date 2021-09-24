@@ -11,7 +11,10 @@ import { pipe } from 'fp-ts/function'
 
 import { Activity } from '@acter/schema'
 
-export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
+export type ActivityFormData = Omit<
+  Partial<Activity>,
+  'isOnline' | '_count'
+> & {
   startDate?: Date
   startTime?: Date
   endDate?: Date
@@ -38,6 +41,7 @@ export const prepareActivityValues = (
   )
 }
 
+// TODO: this functionality should exist entirely on the DateTimePicker
 export const _setStartAndEndTime = (
   formData: ActivityFormData
 ): ActivityFormData => {
