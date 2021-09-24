@@ -76,7 +76,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
       }
       return result
     }
-  }, [acterTypes, acterTypeName])
+  }, [acterTypes, acterTypeName, acterId])
 
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
@@ -105,20 +105,21 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   }, [acterType, slug])
 
   useEffect(() => {
-    if (!acterId && data) {
-      const { findFirstActer: acter } = data
-      if (fetchParent && acter?.Parent) {
-        return fetchActer({
-          variables: {
-            acterTypeId: acter.Parent.ActerType.id,
-            slug: acter.Parent.slug,
-          },
-        })
+    if (data) {
+      if (acterId) {
+        setActer(data.acter)
+      } else {
+        const { findFirstActer: acter } = data
+        if (fetchParent && acter?.Parent) {
+          return fetchActer({
+            variables: {
+              acterTypeId: acter.Parent.ActerType.id,
+              slug: acter.Parent.slug,
+            },
+          })
+        }
+        setActer(acter)
       }
-      setActer(acter)
-    }
-    if (acterId && data) {
-      setActer(data.acter)
     }
   }, [data])
 
