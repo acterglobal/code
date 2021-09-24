@@ -1,8 +1,9 @@
 import path from 'path'
 
-import { DATE_FORMAT_LONG } from '@acter/lib/constants'
+import { DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { getArticle } from '@acter/lib/string/get-article'
 import {
   Acter,
@@ -51,8 +52,7 @@ export const createActivityNotificationEmail = ({
   activity,
   notification,
 }: CreateActivityNotificationEmailParams): CreateEmailReturn => {
-  const baseUrl = process.env.BASE_URL
-  const notificationUrl = [baseUrl, 'notifications', notification.id].join('/')
+  const notificationUrl = getNotificationUrl(notification)
   const html = createEmailTemplate<ActivityEmail>(
     path.join(__dirname, 'template.hbs')
   )({
@@ -60,10 +60,10 @@ export const createActivityNotificationEmail = ({
     acterType: acter.ActerType?.name?.toLocaleLowerCase(),
     activityName: activity.Acter.name,
     activityType: activity.ActivityType?.name?.toLocaleLowerCase(),
-    endAt: parseAndFormat(activity.endAt, DATE_FORMAT_LONG),
+    endAt: parseAndFormat(activity.endAt, DATE_TIME_FORMAT_LONG),
     isAllDay: activity.isAllDay,
     notificationUrl,
-    startAt: parseAndFormat(activity.startAt, DATE_FORMAT_LONG),
+    startAt: parseAndFormat(activity.startAt, DATE_TIME_FORMAT_LONG),
   })
   const { OnActer } = notification
   const aAn = getArticle(OnActer.name)

@@ -1,0 +1,42 @@
+{{#each acters}}
+  <div>
+    <table>
+      <tr>
+        <td style="width: 50px"><img src="{{avatarUrl acter}}"
+            style="vertical-align: middle; width: 50px; height: 50px; border-radius: 50%;" /></td>
+        <td>
+          <h2>{{acter.name}}</h2>
+        </td>
+      </tr>
+    </table>
+
+    {{#if posts.length}}
+      <h3>Posts</h3>
+      {{#each posts}}
+        <p style='font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;'>
+          On {{dateFormat createdAt}} {{Author.name}} <a href="{{notificationUrl}}">wrote</a>:</p>
+        <blockquote
+          style='font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 5px; Margin-right: 5px; Background-color: #f9f9f9; padding: 5px;'>
+          {{{marked content}}}
+        </blockquote>
+      {{/each}}
+    {{/if}}
+    {{#if activities.length}}
+      <h3>Activities</h3>
+      {{#each activities}}
+        <p style='font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;'>
+          {{createdByUser.Acter.name}} created the {{activityType}} <a href="{{notificationUrl}}">{{activityName}}</a>
+        </p>
+
+        <p style='font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;'>
+          It will occur
+          {{#if isAllDay}}
+            on {{#dateFormat}}{{startAt}}{{/dateFormat}}
+          {{else}}
+            from {{#dateFormat}}{{startAt}}{{/dateFormat}} to {{#dateFormat}}{{endAt}}{{/dateFormat}}
+          {{/if }}.
+        </p>
+      {{/each}}
+    {{/if}}
+  </div>
+{{/each}}

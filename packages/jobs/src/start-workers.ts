@@ -70,7 +70,9 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
     {},
     {
       repeat: {
-        cron: '0 * * * * *',
+        // cron: '0 * * * * *',
+        immediately: true,
+        every: 60000,
       },
     }
   )

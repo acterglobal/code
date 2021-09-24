@@ -1,18 +1,17 @@
 import 'reflect-metadata'
 
-import { DailyDigest } from './types'
+import { DailyDigest, NotificationByActerMap } from './types'
 import { Job } from 'bullmq'
+import { getTime } from 'date-fns'
 
-import { createActivityNotificationEmail } from '@acter/lib/activity/email'
+import { emailSendQueue } from '@acter/jobs'
 import { createWorker } from '@acter/lib/bullmq'
-import {
-  ActerTypes,
-  DAILY_DIGEST_CREATE,
-  DATE_FORMAT_SHORT,
-} from '@acter/lib/constants'
+import { DAILY_DIGEST_CREATE, DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
-import { Acter, Activity, NotificationType, Post } from '@acter/schema'
+import { Email } from '@acter/lib/email'
+import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
+import { createDailyDigestEmail } from '@acter/lib/user/email/daily-digest'
 import { prisma } from '@acter/schema/prisma'
 
 export const dailyDigestWorker = createWorker(
@@ -23,7 +22,7 @@ export const dailyDigestWorker = createWorker(
     } = job
     const formattedAfterDateTime = parseAndFormat(
       afterDateTime,
-      DATE_FORMAT_SHORT
+      DATE_FORMAT_LONG
     )
 
     const notifications = await prisma.notification.findMany({
@@ -36,6 +35,11 @@ export const dailyDigestWorker = createWorker(
         Activity: {
           include: {
             Acter: true,
+            createdByUser: {
+              include: {
+                Acter: true,
+              },
+            },
           },
         },
         Post: {
@@ -50,16 +54,12 @@ export const dailyDigestWorker = createWorker(
       },
     })
 
-    type ActerNotificationsMap = {
-      acter: Acter
-      activities: Activity[]
-      posts: Post[]
-    }
-    type NotificationByActerMap = Record<string, ActerNotificationsMap>
-    const notificationsByActer = notifications.reduce(
-      (memo, { OnActer, Activity, Post }) => {
-        const activities = Activity ? [Activity] : []
-        const posts = Post ? [Post] : []
+    const notificationsByActer: NotificationByActerMap = notifications.reduce(
+      (memo, notification) => {
+        const { OnActer, Activity, Post } = notification
+        const notificationUrl = getNotificationUrl(notification)
+        const activities = Activity ? [{ ...Activity, notificationUrl }] : []
+        const posts = Post ? [{ ...Post, notificationUrl }] : []
 
         return {
           ...memo,
@@ -76,143 +76,22 @@ export const dailyDigestWorker = createWorker(
       {} as NotificationByActerMap
     )
 
-    console.log(notificationsByActer)
-
-    Object.keys(notificationsByActer).map((id) => {
-      const { acter, activities, posts } = notificationsByActer[id]
-
-      console.log(
-        `Here is the news for ${acter.ActerType.name} ${acter.name} for ${formattedAfterDateTime}`
-      )
-      if (activities.length) {
-        console.log('\nActivities')
-        activities.map((activity: Activity) => {
-          console.log(
-            `A new activity titled "${
-              activity.Acter.name
-            } at ${parseDateOrString(activity.startAt)}.`
-          )
-        })
-      }
-      if (posts.length) {
-        console.log('\nPosts')
-        posts.map((post: Post) => {
-          console.log(
-            `${post.Author.name} created a new post at ${parseAndFormat(
-              post.createdAt,
-              DATE_FORMAT_SHORT
-            )}:\n ${post.content}`
-          )
-        })
-      }
-      console.log('\n')
+    const { html, text } = createDailyDigestEmail({
+      notificationsByActer: { acters: Object.values(notificationsByActer) },
     })
-    // // Get all the Acters and Activities this user is following
-    // const following = await prisma.acterConnection.findMany({
-    //   include: {
-    //     Following: {
-    //       include: {
-    //         ActerType: true,
-    //       },
-    //     },
-    //   },
-    //   where: {
-    //     followerActerId: acter.id,
-    //   },
-    // })
 
-    // await Promise.all(
-    //   following.map(async ({ Following }) => {
-    //     const [posts, activities] = await Promise.all([
-    //       // Get recent posts
-    //       getPosts({ acter: Following, afterDateTime }),
-    //       // Get newly followed Activities
-    //       getActivities({ acter: Following, afterDateTime }),
-    //     ])
-
-    //     console.log(
-    //       `Here is the news for ${Following.ActerType.name} ${Following.name} for ${formattedAfterDateTime}`
-    //     )
-    //     posts && console.log(posts.join('\n'))
-    //     activities && console.log(activities.join('\n'))
-    //   })
-    // )
+    const email: Email = {
+      to: acter.User.email,
+      subject: `Acter Daily Digest for ${formattedAfterDateTime}`,
+      html,
+      text,
+    }
+    emailSendQueue.add(
+      `email-digest-${acter.id}-${getTime(parseDateOrString(afterDateTime))}`,
+      email,
+      {
+        removeOnComplete: true,
+      }
+    )
   }
 )
-
-interface GetForActerParams {
-  /**
-   * The Acter or Activity for which we are getting attached items
-   */
-  acter: Acter
-  /**
-   * Date after which we are fetching posts
-   */
-  afterDateTime: Date
-}
-
-type GetForActerResult = Array<string> | false
-
-/**
- * Get all the Posts for a give Acter or Activity
- * @param params GetForActer params
- * @returns
- */
-const getPosts = async ({
-  acter,
-  afterDateTime,
-}: GetForActerParams): Promise<GetForActerResult> => {
-  const posts = await prisma.post.findMany({
-    include: {
-      Author: true,
-    },
-    where: {
-      acterId: acter.id,
-      createdAt: {
-        gte: afterDateTime,
-      },
-    },
-  })
-  return posts.map(
-    (post) =>
-      `${post.Author.name} created a new post on an ${acter.ActerType.name} you follow on Acter, ${acter.name}.`
-  )
-}
-
-/**
- *
- * @param params GetForActer params
- * @returns
- */
-const getActivities = async ({
-  acter,
-  afterDateTime,
-}: GetForActerParams): Promise<GetForActerResult> => {
-  if (acter.ActerType.name === ActerTypes.ACTIVITY) return false
-  const activities = await prisma.acterConnection.findMany({
-    include: {
-      Following: {
-        include: {
-          Activity: true,
-        },
-      },
-    },
-    where: {
-      followerActerId: acter.id,
-      Following: {
-        ActerType: {
-          name: ActerTypes.ACTIVITY,
-        },
-      },
-      // TODO: we *might* want to do this on the Acter instead of the connection
-      createdAt: {
-        gte: afterDateTime,
-      },
-    },
-  })
-
-  return activities.map(
-    ({ Following }) =>
-      `A new activity titled "${Following.name} was added on an ${acter.ActerType.name} you follow on Acter, ${acter.name}.`
-  )
-}

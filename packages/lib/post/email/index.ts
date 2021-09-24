@@ -3,8 +3,9 @@ import { format } from 'date-fns'
 import marked from 'marked'
 import path from 'path'
 
-import { DATE_FORMAT_LONG } from '@acter/lib/constants'
+import { DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { getArticle } from '@acter/lib/string/get-article'
 import { Acter, Notification, Post } from '@acter/schema'
 
@@ -37,11 +38,7 @@ export const createPostEmailNotification = ({
   assert(!!post.Author?.name, 'Post Author name required')
   assert(!!post.createdAt, 'Post created at required')
 
-  const notificationUrl = [
-    process.env.BASE_URL,
-    'notifications',
-    notification.id,
-  ].join('/')
+  const notificationUrl = getNotificationUrl(notification)
   const content = marked(post.content)
   const html = createEmailTemplate<PostEmail>(
     path.join(__dirname, 'template.hbs')
@@ -49,7 +46,7 @@ export const createPostEmailNotification = ({
     acterName: post.Acter.name,
     content,
     notificationUrl,
-    sentAt: format(post.createdAt, DATE_FORMAT_LONG),
+    sentAt: format(post.createdAt, DATE_TIME_FORMAT_LONG),
     sentBy: post.Author.name,
   })
   const { OnActer } = notification
