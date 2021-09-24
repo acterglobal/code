@@ -6,7 +6,8 @@ import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
+import QUERY_ACTER_SLUG from '@acter/schema/queries/acter-by-slug.graphql'
 import { Acter, ActerType } from '@acter/schema/types'
 
 type FindFirstActerData = {
@@ -16,6 +17,8 @@ type FindFirstActerData = {
 type UseActerData = {
   acter: Acter
 } & FindFirstActerData
+
+type ActerData = UseActerData
 
 type UseActerVariables = {
   acterTypeId: string
@@ -33,6 +36,7 @@ type ActerQueryResult = Omit<
 }
 
 type UseActerProps = {
+  acterId?: string
   fetchParent?: boolean
 }
 
@@ -42,7 +46,7 @@ type UseActerProps = {
  * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
-  const { fetchParent = false } = options || {}
+  const { acterId, fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
@@ -60,6 +64,8 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   } = useActerTypes()
 
   const acterType = useMemo<ActerType>(() => {
+    if (acterId) return null
+
     if (acterTypes) {
       const result = acterTypes.find(
         (type) => acterTypeAsUrl(type) === acterTypeName
@@ -72,14 +78,23 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     }
   }, [acterTypes, acterTypeName])
 
+  const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
+
   const [
-    fetchActers,
+    fetchActer,
     { data, loading: dataLoading, error: dataError, ...restQueryResult },
-  ] = useLazyQuery<FindFirstActerData>(QUERY_ACTER)
+  ] = useLazyQuery<ActerData>(query)
+
+  useEffect(() => {
+    if (acterId) {
+      return fetchActer({ variables: { acterId } })
+    }
+    setActer(null)
+  }, [acterId])
 
   useEffect(() => {
     if (acterType && slug) {
-      return fetchActers({
+      return fetchActer({
         variables: {
           acterTypeId: acterType.id,
           slug,
@@ -90,10 +105,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   }, [acterType, slug])
 
   useEffect(() => {
-    if (data) {
+    if (!acterId && data) {
       const { findFirstActer: acter } = data
       if (fetchParent && acter?.Parent) {
-        return fetchActers({
+        return fetchActer({
           variables: {
             acterTypeId: acter.Parent.ActerType.id,
             slug: acter.Parent.slug,
@@ -101,6 +116,9 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
         })
       }
       setActer(acter)
+    }
+    if (acterId && data) {
+      setActer(data.acter)
     }
   }, [data])
 

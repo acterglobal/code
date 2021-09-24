@@ -1,0 +1,28 @@
+#import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/acter-full.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
+
+query ActerById($acterId: String) {
+  acter(where: { id: $acterId }) {
+    ...ActerFull
+    createdByUserId
+    Activity {
+      ...ActivityDisplay
+      Organiser {
+        ...ActerDisplay
+      }
+    }
+    ActivitiesOrganized(
+      where: { Acter: { is: { deletedAt: { equals: null } } } }
+      orderBy: { startAt: asc }
+    ) {
+      ...ActivityDisplay
+      Acter {
+        ...ActerDisplay
+      }
+    }
+    Parent {
+      ...ActerFull
+    }
+  }
+}
