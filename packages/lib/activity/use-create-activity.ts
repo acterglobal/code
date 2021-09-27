@@ -1,4 +1,6 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
+
+import { addToCacheList } from '../apollo/add-to-cache-list'
 
 import {
   ActivityFormData,
@@ -38,11 +40,26 @@ export const useCreateActivity = (
     ActivityVariables
   >(CREATE_ACTIVITY, {
     ...options,
+    update: (cache, results, updateOptions) => {
+      options?.update?.(cache, results, updateOptions)
+      const { createActivityCustom: newActivity } = results.data
+
+      cache.modify({
+        id: cache.identify(
+          (newActivity.Acter.Parent as unknown) as StoreObject
+        ),
+        fields: {
+          ActivitiesOrganized: addToCacheList(newActivity),
+        },
+      })
+    },
     getSuccessMessage: () => `Activity created`,
   })
 
-  const handleCreateActivity = (data: ActivityVariables) =>
-    createActivity({ variables: { ...prepareActivityValues(data) } })
+  const handleCreateActivity = (data: ActivityVariables) => {
+    console.log('DATA ', data)
+    return createActivity({ variables: { ...prepareActivityValues(data) } })
+  }
 
   return [handleCreateActivity, mutationResult]
 }
