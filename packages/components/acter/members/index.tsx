@@ -1,15 +1,12 @@
 import React, { FC } from 'react'
+
 import { Grid, makeStyles, createStyles } from '@material-ui/core'
-import {
-  InfoSection,
-  InfoSectionProps,
-} from '@acter/components/acter/landing-page/info-section'
+
+import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { MembersSection } from '@acter/components/acter/landing-page/members-section'
 
-export type ActerMembersProps = InfoSectionProps
-
-export const ActerMembers: FC<ActerMembersProps> = ({ interestTypes }) => {
+export const ActerMembers: FC = () => {
   const classes = useStyles({})
 
   return (
@@ -18,7 +15,7 @@ export const ActerMembers: FC<ActerMembersProps> = ({ interestTypes }) => {
         <MembersSection />
       </Grid>
       <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
-        <InfoSection interestTypes={interestTypes} />
+        <InfoSection />
       </Grid>
     </LandingPageLayout>
   )

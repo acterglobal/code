@@ -18,15 +18,8 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
-import { InterestType } from '@acter/schema'
 
-export interface ActivityDetailsProps {
-  interestTypes: InterestType[]
-}
-
-export const ActivityDetails: FC<ActivityDetailsProps> = ({
-  interestTypes,
-}) => {
+export const ActivityDetails: FC = () => {
   const classes = useStyles()
 
   const router = useRouter()
@@ -69,10 +62,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         <Grid container spacing={2} className={classes.content}>
           <Hidden smDown>
             <Grid item xs={12} sm={8}>
-              <ActivityDescription
-                acter={acter}
-                interestTypes={interestTypes}
-              />
+              <ActivityDescription acter={acter} />
             </Grid>
           </Hidden>
 
@@ -84,7 +74,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
         <Hidden mdUp>
           <Grid item xs={12} sm={8}>
-            <ActivityDescription acter={acter} interestTypes={interestTypes} />
+            <ActivityDescription acter={acter} />
           </Grid>
         </Hidden>
 

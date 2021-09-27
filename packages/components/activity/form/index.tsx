@@ -14,7 +14,6 @@ import {
 } from '@acter/components/activity/form/steps/basics'
 import {
   DetailsStep,
-  DetailsStepProps,
   DetailsStepValues,
 } from '@acter/components/activity/form/steps/details'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
@@ -51,7 +50,6 @@ const getSteps = (activityType: ActivityTypes, acter?: Acter): FC[] => {
 
 export interface ActivityFormProps
   extends Omit<ActivityTypeStepProps, 'onClick'>,
-    DetailsStepProps,
     Omit<SettingsStepProps, 'acters'> {
   /**
    * The ActivityType Acter for this
@@ -77,11 +75,7 @@ export interface ActivityFormValues
   endAt: Date
 }
 
-export const ActivityForm: FC<ActivityFormProps> = ({
-  acter,
-  interestTypes,
-  onSubmit,
-}) => {
+export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
   const router = useRouter()
   const classes = useStyles()
   const { activityTypes, loading } = useActivityTypes()
@@ -225,9 +219,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                     {steps[activeStep] == SettingsStep && (
                       <SettingsStep acters={acters} />
                     )}
-                    {steps[activeStep] === DetailsStep && (
-                      <DetailsStep interestTypes={interestTypes} />
-                    )}
+                    {steps[activeStep] === DetailsStep && <DetailsStep />}
                   </>
                 </Box>
 

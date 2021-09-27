@@ -5,7 +5,6 @@ import { useRouter, NextRouter } from 'next/router'
 import { StoreObject } from '@apollo/client'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getInterests } from 'props'
 
 import { ActivityForm } from '@acter/components/activity/form'
 import { Head } from '@acter/components/layout/head'
@@ -15,25 +14,12 @@ import { getCreateFunction } from '@acter/lib/acter/get-create-function'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
-import { Acter, InterestType } from '@acter/schema'
+import { Acter } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
-interface NewActerPageProps {
-  /**
-   * List of interests grouped by Interest Type
-   */
-  interestTypes: InterestType[]
-}
-
-export const NewActivityPage: NextPageWithLayout<NewActerPageProps> = ({
-  interestTypes,
-}) => {
+export const NewActivityPage: NextPageWithLayout = () => {
   const router: NextRouter = useRouter()
 
   const [createActivity] = useNotificationMutation(CREATE_ACTIVITY)
@@ -73,7 +59,6 @@ export const NewActivityPage: NextPageWithLayout<NewActerPageProps> = ({
       <Head title="New Activity" />
       <main>
         <ActivityForm
-          interestTypes={interestTypes}
           onSubmit={getCreateFunction({
             acterType,
             createActivity,
@@ -85,8 +70,5 @@ export const NewActivityPage: NextPageWithLayout<NewActerPageProps> = ({
     </>
   )
 }
-
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getInterests)
 
 export default NewActivityPage

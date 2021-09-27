@@ -3,19 +3,13 @@ import React, { FC, useState, useEffect } from 'react'
 import { useFormikContext } from 'formik'
 
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
-import { InterestType } from '@acter/schema'
-
-export interface InterestsAddSectionProps {
-  interestTypes: InterestType[]
-}
+import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export interface InterestAddSectionValues {
   interestIds: string[]
 }
 
-export const InterestsAddSection: FC<InterestsAddSectionProps> = ({
-  interestTypes,
-}) => {
+export const InterestsAddSection: FC = () => {
   const { values, setFieldValue } = useFormikContext<InterestAddSectionValues>()
   const [selectedInterests, setSelectedInterests] = useState<string[]>(
     values.interestIds
@@ -24,6 +18,8 @@ export const InterestsAddSection: FC<InterestsAddSectionProps> = ({
   useEffect(() => {
     setFieldValue('interestIds', selectedInterests)
   }, [selectedInterests])
+  const { interestTypes } = useInterestTypes()
+  if (!interestTypes) return null
 
   return (
     <InterestsPicker

@@ -10,13 +10,8 @@ import { InterestsSection } from '@acter/components/interests/interests-section'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { InterestType } from '@acter/schema'
 
-export interface InfoSectionProps {
-  interestTypes: InterestType[]
-}
-
-export const InfoSection: FC<InfoSectionProps> = ({ interestTypes }) => {
+export const InfoSection: FC = () => {
   const router = useRouter()
   const { acter, loading: acterLoading } = useActer()
 
@@ -32,7 +27,6 @@ export const InfoSection: FC<InfoSectionProps> = ({ interestTypes }) => {
       </Box>
       <Box>
         <InterestsSection
-          interestTypes={interestTypes}
           selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
         />
       </Box>

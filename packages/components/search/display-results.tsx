@@ -14,18 +14,13 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
-import { InterestType } from '@acter/schema'
 
 const { ACTIVITIES, ACTERS } = SearchType
 export interface DisplayResultsProps {
-  interestTypes: InterestType[]
   setResultCount?: (number) => void
 }
 
-export const DisplayResults: FC<DisplayResultsProps> = ({
-  interestTypes,
-  setResultCount,
-}) => {
+export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
   const classes = useStyles()
   const searchType = useSearchType()
 
@@ -64,9 +59,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({
         {acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
             <Link href={acterAsUrl({ acter })} passHref>
-              {searchType === ACTERS && (
-                <ActerTile acter={acter} interestTypes={interestTypes} />
-              )}
+              {searchType === ACTERS && <ActerTile acter={acter} />}
               {searchType === ACTIVITIES && (
                 <ActivityTile activity={acter.Activity} />
               )}

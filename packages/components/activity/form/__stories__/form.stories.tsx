@@ -7,14 +7,9 @@ import {
   ActivityFormProps,
   ActivityFormValues,
 } from '@acter/components/activity/form'
-import {
-  Interests,
-  ExampleActivityActer,
-  ExampleActivity,
-} from '@acter/schema/fixtures'
+import { ExampleActivityActer, ExampleActivity } from '@acter/schema/fixtures'
 
 const args: ActivityFormProps = {
-  interestTypes: Interests.data.interestTypes,
   onSubmit: () => null,
 }
 

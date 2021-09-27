@@ -8,21 +8,20 @@ import { Form, Formik } from 'formik'
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
 import { Popover } from '@acter/components/util/popover'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
-import { InterestType } from '@acter/schema'
+import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export type FilterInterestsProps = {
-  interestTypes: InterestType[]
   applyFilters: (filterInterests?: string[]) => void
 }
 
-export const FilterInterests: FC<FilterInterestsProps> = ({
-  interestTypes,
-  applyFilters,
-}) => {
+export const FilterInterests: FC<FilterInterestsProps> = ({ applyFilters }) => {
   const classes = useStyles()
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
-
   const [selectedInterestIds, setSelectedInterestIds] = useState([])
+
+  const { interestTypes } = useInterestTypes()
+  if (!interestTypes) return null
+
   const interestNames = interestNameMap(interestTypes)
 
   const initialValues = {

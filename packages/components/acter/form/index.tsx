@@ -24,7 +24,7 @@ import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-
 import { Stepper } from '@acter/components/util/stepper'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
-import { Acter, ActerType, InterestType } from '@acter/schema'
+import { Acter, ActerType } from '@acter/schema'
 
 const steps = [BasicInformation, ImageUploadSection, InterestsAddSection]
 
@@ -39,7 +39,6 @@ export type FormSetFieldValue = (
 export interface ActerFormProps {
   acter?: Acter
   acterType: ActerType
-  interestTypes: InterestType[]
   onSubmit: (any) => any
 }
 
@@ -55,7 +54,6 @@ export interface ActerFormValues
 export const ActerForm: FC<ActerFormProps> = ({
   acter,
   acterType,
-  interestTypes,
   onSubmit,
 }) => {
   const classes = useStyles()
@@ -113,7 +111,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                   <ImageUploadSection />
                 )}
                 {steps[activeStep] === InterestsAddSection && (
-                  <InterestsAddSection interestTypes={interestTypes} />
+                  <InterestsAddSection />
                 )}
               </Box>
 
