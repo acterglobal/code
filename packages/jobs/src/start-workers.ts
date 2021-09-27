@@ -57,21 +57,25 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
     worker.resume()
   })
 
-  await dailyDigestQueueScheduler.waitUntilReady()
-  // Reset the Digest create cron job
-  const repeatable = await dailyDigestCronQueue.getRepeatableJobs()
-  await Promise.all(
-    repeatable.map((job) => dailyDigestCronQueue.removeRepeatableByKey(job.key))
-  )
-  await dailyDigestCronQueue.drain()
-
-  await dailyDigestCronQueue.add(
-    'daily-digest-cron',
-    {},
-    {
-      repeat: {
-        cron: '* 0 * * *',
-      },
-    }
-  )
+  const dailyDigestCron = process.env.DAILY_DIGEST_CRON
+  if (dailyDigestCron) {
+    await dailyDigestQueueScheduler.waitUntilReady()
+    // Reset the Digest create cron job
+    const repeatable = await dailyDigestCronQueue.getRepeatableJobs()
+    await Promise.all(
+      repeatable.map((job) =>
+        dailyDigestCronQueue.removeRepeatableByKey(job.key)
+      )
+    )
+    await dailyDigestCronQueue.drain()
+    await dailyDigestCronQueue.add(
+      'daily-digest-cron',
+      {},
+      {
+        repeat: {
+          cron: dailyDigestCron,
+        },
+      }
+    )
+  }
 })()
