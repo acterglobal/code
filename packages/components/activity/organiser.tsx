@@ -47,6 +47,8 @@ interface OrganiserProps {
 export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   const classes = useStyles()
   const router = useRouter()
+  if (!acter) return null
+
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
