@@ -62,7 +62,7 @@ export const FollowingList: FC = () => {
               badgeContent={getBadgeNumber(acter)}
               overlap="circular"
             >
-              <ActerAvatar acter={acter} size={4} sidebar />
+              <ActerAvatar acter={acter} size={4} />
             </Badge>
           </Link>
         </ListItem>
