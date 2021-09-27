@@ -73,7 +73,7 @@ export const Avatar = withStyles((theme: Theme) =>
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
-      border: '1px solid white',
+      border: `1px solid ${theme.palette.secondary.dark}`,
     },
   })
 )(MuiAvatar)
