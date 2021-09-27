@@ -20,22 +20,22 @@ const useStyles = makeStyles((theme: Theme) => {
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
       backgroundColor: theme.colors.white,
-      color: '#2A2A2A',
+      color: theme.palette.secondary.dark,
     },
     user: {
-      color: '#2A2A2A',
+      color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
     group: {
-      color: '#2A2A2A',
+      color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
     organisation: {
-      color: '#2A2A2A',
+      color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
     network: {
-      color: '#2A2A2A',
+      color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
   })
