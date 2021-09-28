@@ -10,7 +10,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { usePosts } from '@acter/lib/post/use-posts'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 export const PostList: FC = () => {
   const classes = useStyles()
@@ -26,32 +26,38 @@ export const PostList: FC = () => {
     ({ Follower }) => Follower.id === user?.Acter.id
   )
 
-  if (!user || !isUserActerFollower) return null
+  const isActerPublic = acter.acterJoinSetting === ActerJoinSettings.EVERYONE
+
+  if (!isActerPublic && (!user || !isUserActerFollower)) return null
+
+  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   return (
     <Box className={classes.mainContainer}>
-      {userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) && (
-        <PostFormSection user={user} />
-      )}
-      {posts?.map((post) => (
-        <Box key={`post-${post.id}`} className={classes.contentContainer}>
-          <Post post={post} user={user} />
-          <Box className={classes.commentSection}>
-            <Divider className={classes.divider} />
-            {post.Comments?.map((comment) => (
-              <Post
-                key={`post-${post.id}-comment-${comment.id}`}
-                post={comment}
-                parentId={post.id}
-                user={user}
-              />
-            ))}
-            <Box>
-              <PostFormSection parentId={post.id} user={user} />
+      {isMember && <PostFormSection user={user} />}
+
+      {(isActerPublic || isMember) && (
+        <>
+          {posts?.map((post) => (
+            <Box key={`post-${post.id}`} className={classes.contentContainer}>
+              <Post post={post} user={user} />
+              <Box className={classes.commentSection}>
+                <Divider className={classes.divider} />
+                {post.Comments?.map((comment) => (
+                  <Post
+                    key={`post-${post.id}-comment-${comment.id}`}
+                    post={comment}
+                    parentId={post.id}
+                    user={user}
+                  />
+                ))}
+
+                {isMember && <PostFormSection parentId={post.id} user={user} />}
+              </Box>
             </Box>
-          </Box>
-        </Box>
-      ))}
+          ))}
+        </>
+      )}
     </Box>
   )
 }
