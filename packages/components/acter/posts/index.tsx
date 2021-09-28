@@ -2,16 +2,11 @@ import React, { FC } from 'react'
 
 import { Grid, makeStyles, createStyles } from '@material-ui/core'
 
-import {
-  InfoSection,
-  InfoSectionProps,
-} from '@acter/components/acter/landing-page/info-section'
+import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { PostList } from '@acter/components/posts'
 
-export type ActerPostsProps = InfoSectionProps
-
-export const ActerPosts: FC<ActerPostsProps> = ({ interestTypes }) => {
+export const ActerPosts: FC = () => {
   const classes = useStyles({})
 
   return (
@@ -20,7 +15,7 @@ export const ActerPosts: FC<ActerPostsProps> = ({ interestTypes }) => {
         <PostList />
       </Grid>
       <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
-        <InfoSection interestTypes={interestTypes} />
+        <InfoSection />
       </Grid>
     </LandingPageLayout>
   )

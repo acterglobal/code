@@ -5,7 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { About } from '@acter/components/activity/about'
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { Acter, InterestType } from '@acter/schema'
+import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -21,12 +21,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface ActivityDescriptionProps {
   acter: Acter
-  interestTypes: InterestType[]
 }
 
 export const ActivityDescription: FC<ActivityDescriptionProps> = ({
   acter,
-  interestTypes,
 }) => {
   const classes = useStyles()
   return (
@@ -35,7 +33,6 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
         <About acter={acter} />
       </Hidden>
       <InterestsSection
-        interestTypes={interestTypes}
         selected={acter.ActerInterests.map(({ Interest }) => Interest)}
       />
     </Box>

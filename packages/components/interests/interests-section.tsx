@@ -2,22 +2,28 @@ import React, { FC } from 'react'
 
 import { Box, Typography } from '@material-ui/core'
 
+import { LoadingSpinner } from '../util/loading-spinner'
+
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { Size } from '@acter/lib/constants'
 import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
 } from '@acter/lib/interests'
+import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { InterestType, Interest } from '@acter/schema'
+import { Interest } from '@acter/schema'
 
 export interface InterestsSectionProps {
-  interestTypes: InterestType[]
   selected?: Interest[]
 }
 
-export const InterestsSection: FC<InterestsSectionProps> = (props) => {
-  const { interestTypes, selected } = props
+export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
+  const { interestTypes, loading: interestTypesLoading } = useInterestTypes()
+
+  if (interestTypesLoading) return <LoadingSpinner />
+  if (!interestTypes) return null
+
   const typesWithSelectedInterests = getSelectedInterests(
     interestTypes,
     selected

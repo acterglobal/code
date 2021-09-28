@@ -15,7 +15,6 @@ type FilterTabsProps = FilterInterestsProps &
 
 export const FilterTabs: FC<FilterTabsProps> = ({
   searchType,
-  interestTypes,
   applyFilters,
   sortBy,
   applySortBy,
@@ -28,10 +27,7 @@ export const FilterTabs: FC<FilterTabsProps> = ({
       sm={searchType === SearchType.ACTERS ? 4 : 6}
       className={classes.root}
     >
-      <FilterInterests
-        interestTypes={interestTypes}
-        applyFilters={applyFilters}
-      />
+      <FilterInterests applyFilters={applyFilters} />
 
       {searchType === SearchType.ACTIVITIES && (
         <SortBy sortBy={sortBy} applySortBy={applySortBy} />

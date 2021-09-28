@@ -9,12 +9,9 @@ import { InterestsAddSection } from '@acter/components/acter/form/interests-add-
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { InterestType } from '@acter/schema'
-
-export interface DetailsStepProps {
-  interestTypes: InterestType[]
-}
+import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export interface DetailsStepValues {
   bannerUrl?: string
@@ -22,10 +19,12 @@ export interface DetailsStepValues {
   interestIds: string[]
 }
 
-export const DetailsStep: FC<DetailsStepProps> = ({ interestTypes }) => {
+export const DetailsStep: FC = () => {
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<DetailsStepValues>()
+
+  const { interestTypes, loading } = useInterestTypes()
 
   return (
     <Box className={classes.container}>
@@ -49,10 +48,13 @@ export const DetailsStep: FC<DetailsStepProps> = ({ interestTypes }) => {
           editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
-      <FormSection>
-        <FormLabel>Choose interests</FormLabel>
-        <InterestsAddSection interestTypes={interestTypes} />
-      </FormSection>
+      {loading && <LoadingSpinner />}
+      {interestTypes ? (
+        <FormSection>
+          <FormLabel>Choose interests</FormLabel>
+          <InterestsAddSection />
+        </FormSection>
+      ) : null}
     </Box>
   )
 }

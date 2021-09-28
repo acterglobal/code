@@ -6,14 +6,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { ActerImage } from '@acter/components/acter/tile/acter-image'
 import { ActerTileInfo } from '@acter/components/acter/tile/info-section'
 import { ActerTileInterests } from '@acter/components/acter/tile/interests-section'
-import { Acter, InterestType } from '@acter/schema'
+import { Acter } from '@acter/schema'
 
 export interface ActerTileProps {
   acter: Acter
-  interestTypes: InterestType[]
 }
 
-export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
+export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
   const classes = useStyles()
 
   return (
@@ -22,7 +21,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, interestTypes }) => {
 
       <ActerTileInfo acter={acter} />
 
-      <ActerTileInterests acter={acter} interestTypes={interestTypes} />
+      <ActerTileInterests acter={acter} />
     </Box>
   )
 }

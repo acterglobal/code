@@ -2,10 +2,7 @@ import React, { FC } from 'react'
 
 import { Meta } from '@storybook/react'
 
-import {
-  ActivityDetails as Activity,
-  ActivityDetailsProps,
-} from '@acter/components/activity'
+import { ActivityDetails as Activity } from '@acter/components/activity'
 import {
   ExampleActivity,
   ExampleActer,
@@ -30,6 +27,4 @@ export default {
   },
 } as Meta
 
-export const ActivityDetails: FC<ActivityDetailsProps> = (args) => (
-  <Activity {...args} />
-)
+export const ActivityDetails: FC = (args) => <Activity {...args} />

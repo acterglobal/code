@@ -2,10 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { withFormik } from 'storybook-formik'
 
-import {
-  InterestsAddSection,
-  InterestsAddSectionProps,
-} from '@acter/components/acter/form/interests-add-section'
+import { InterestsAddSection } from '@acter/components/acter/form/interests-add-section'
 import { Interests } from '@acter/schema/fixtures'
 
 export default {
@@ -19,6 +16,4 @@ export default {
   decorators: [withFormik],
 } as Meta
 
-export const InterestsAdd: Story<InterestsAddSectionProps> = (args) => (
-  <InterestsAddSection {...args} />
-)
+export const InterestsAdd: Story = (args) => <InterestsAddSection {...args} />

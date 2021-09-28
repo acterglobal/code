@@ -1,38 +1,23 @@
 import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getInterests } from 'props'
 
 import { Head } from '@acter/components/layout/head'
 import { Search } from '@acter/components/search'
 import { SearchLayout } from '@acter/components/search/layout'
-import {
-  composeProps,
-  ComposedGetServerSideProps,
-} from '@acter/lib/compose-props'
-import { InterestType } from '@acter/schema'
 
-interface SearchPageProps {
-  interestTypes: InterestType[]
-}
-
-const SearchActivitiesPage: NextPageWithLayout<SearchPageProps> = ({
-  interestTypes,
-}) => {
+const SearchActivitiesPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Acter" />
 
       <main>
-        <Search interestTypes={interestTypes} />
+        <Search />
       </main>
     </>
   )
 }
 
 SearchActivitiesPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
-
-export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getInterests)
 
 export default SearchActivitiesPage

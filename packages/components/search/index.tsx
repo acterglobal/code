@@ -13,13 +13,8 @@ import { SearchType } from '@acter/lib/constants'
 import { searchVar } from '@acter/lib/search/search-var'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { useSearchTypes } from '@acter/lib/search/use-search-types'
-import { InterestType } from '@acter/schema'
 
-export interface SearchProps {
-  interestTypes: InterestType[]
-}
-
-export const Search: FC<SearchProps> = ({ interestTypes }) => {
+export const Search: FC = () => {
   const classes = useStyles()
   const searchType = useSearchType()
   const [searchText, setSearchText] = useState('')
@@ -91,19 +86,13 @@ export const Search: FC<SearchProps> = ({ interestTypes }) => {
 
           <FilterTabs
             searchType={searchType}
-            interestTypes={interestTypes}
             applyFilters={handleFilterInterests}
             sortBy={searchVariables.orderBy}
             applySortBy={handleSortBy}
           />
         </Grid>
       </Box>
-      {searchReady && (
-        <DisplayResults
-          interestTypes={interestTypes}
-          setResultCount={setResultCount}
-        />
-      )}
+      {searchReady && <DisplayResults setResultCount={setResultCount} />}
     </Box>
   )
 }

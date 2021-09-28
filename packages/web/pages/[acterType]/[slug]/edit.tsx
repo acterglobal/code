@@ -3,7 +3,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import { NextPageWithLayout } from 'pages/_app'
-import { getActerTypes, setActerType, getInterests, getActer } from 'props'
+import { getActerTypes, setActerType, getActer } from 'props'
 
 import { ActerForm } from '@acter/components/acter/form'
 import { ActivityForm } from '@acter/components/activity/form'
@@ -19,7 +19,7 @@ import {
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
-import { ActerType, InterestType } from '@acter/schema'
+import { ActerType } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
 interface NewActerPageProps {
@@ -27,14 +27,9 @@ interface NewActerPageProps {
    * The ActerType we are creating
    */
   acterType: ActerType
-  /**
-   * List of interests grouped by Interest Type
-   */
-  interestTypes: InterestType[]
 }
 export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
   acterType,
-  interestTypes,
 }) => {
   const router = useRouter()
   const { acter, loading } = useActer()
@@ -66,7 +61,6 @@ export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
         <Form
           acter={acter}
           acterType={acterType}
-          interestTypes={interestTypes}
           onSubmit={getUpdateFunction({ acter, updateActivity, updateActer })}
           loading={updateActerLoading || updateActivityLoading}
         />
@@ -76,6 +70,6 @@ export const NewActerPage: NextPageWithLayout<NewActerPageProps> = ({
 }
 
 export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
-  composeProps(ctx, getActerTypes, setActerType, getInterests, getActer)
+  composeProps(ctx, getActerTypes, setActerType, getActer)
 
 export default NewActerPage

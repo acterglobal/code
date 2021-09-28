@@ -1,9 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import {
-  Search as SearchComponent,
-  SearchProps,
-} from '@acter/components/search'
+import { Search as SearchComponent } from '@acter/components/search'
 import { SearchType } from '@acter/lib/constants'
 import {
   ExampleActivityActer,
@@ -29,7 +26,7 @@ const activities = [...Array(8)].map(() => acter)
 
 const acters = [...Array(4)].map(() => ExampleActer)
 
-const Template: Story<SearchProps> = (args) => <SearchComponent {...args} />
+const Template: Story = (args) => <SearchComponent {...args} />
 
 export const Activities = Template.bind({})
 Activities.args = {
