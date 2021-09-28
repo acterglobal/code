@@ -7,7 +7,6 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core'
-import { green } from '@material-ui/core/colors'
 
 import clsx from 'clsx'
 
@@ -20,23 +19,24 @@ const useStyles = makeStyles((theme: Theme) => {
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
-      backgroundColor: green[600],
+      backgroundColor: theme.colors.white,
+      color: theme.palette.secondary.dark,
     },
     user: {
-      color: theme.palette.getContrastText(green[600]),
-      backgroundColor: green[400],
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
     },
     group: {
-      color: theme.palette.getContrastText(green[600]),
-      backgroundColor: green[600],
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
     },
     organisation: {
-      color: theme.palette.getContrastText(green[700]),
-      backgroundColor: green[700],
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
     },
     network: {
-      color: theme.palette.getContrastText(green[800]),
-      backgroundColor: green[800],
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
     },
   })
 })
@@ -73,8 +73,7 @@ export const Avatar = withStyles((theme: Theme) =>
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
-      backgroundColor: theme.palette.primary.main,
-      border: '1px solid white',
+      border: `1px solid ${theme.palette.secondary.dark}`,
     },
   })
 )(MuiAvatar)
