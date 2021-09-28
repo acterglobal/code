@@ -65,6 +65,7 @@ export const useUser = (): UseUserQueryResult => {
   }, [userError, dataError])
 
   useEffect(() => {
+    console.log('Call useeffect session', sessionUser)
     if (sessionUser?.email) {
       getUserData({ variables: { email: sessionUser.email } })
     }

@@ -13,6 +13,10 @@ const loginHandler: NextApiHandler = async (req, res) => {
     const redirectUrl = getAuthRedirectUrl(req)
     await handleLogin(req, res, {
       returnTo: redirectUrl,
+      authorizationParams: {
+        response_type: 'code',
+        scope: 'openid profile email',
+      },
     })
   } catch (err) {
     console.error('Failed in loginHandler:', err)

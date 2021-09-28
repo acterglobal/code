@@ -30,7 +30,8 @@
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
     "db:seed": "yarn workspace @acter/schema db:seed",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@apollo/client": "^3.4.0",
@@ -41,6 +42,8 @@
     "@babel/preset-env": "^7.14.9",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
+    "@cypress/react": "^5.10.0",
+    "@cypress/webpack-dev-server": "^1.6.0",
     "@material-ui/core": "^4.12.3",
     "axios": "^0.21.4",
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
@@ -48,15 +51,18 @@
     "date-fns": "^2.22.1",
     "env-cmd": "^10.1.0",
     "graphql": "^15.4.0",
+    "html-webpack-plugin": "5",
     "just-capitalize": "^1.0.1",
     "notistack": "^1.0.10",
     "pm2": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "reflect-metadata": "^0.1.13",
-    "tar": "^6.1.8"
+    "tar": "^6.1.8",
+    "webpack-dev-server": "3"
   },
   "devDependencies": {
+    "@hapi/iron": "^6.0.0",
     "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^6.3.4",
     "@storybook/addon-docs": "^6.3.4",
@@ -79,9 +85,13 @@
     "@types/react-draft-wysiwyg": "^1.13.2",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
+    "auth0-js": "^9.16.4",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "cli-confirm": "^1.0.1",
+    "cypress": "^8.4.1",
+    "cypress-localstorage-commands": "^1.5.0",
+    "cypress-nextjs-auth0": "^2.0.1",
     "eslint": "^7.20.0",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
@@ -91,13 +101,14 @@
     "ignore-loader": "^0.1.2",
     "jest": "^27.0.6",
     "jest-transform-graphql": "^2.1.0",
+    "jsonwebtoken": "^8.5.1",
     "syncpack": "^5.7.11",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.0.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5",
-    "webpack": "^5.45.1"
+    "webpack": "5"
   },
   "browser": {
     "fs": false,

@@ -96,6 +96,7 @@ module.exports = withPlugins([withGraphql], {
           })
         )
       }
+      config.resolve.fallback = { fs: false }
       return config
     },
     basePath,

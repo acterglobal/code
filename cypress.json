@@ -1,0 +1,4 @@
+{
+  "testFiles": "**/*.*",
+  "componentFolder": "cypress"
+}
