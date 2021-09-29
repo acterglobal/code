@@ -1,32 +1,24 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import mockRouter from 'next-router-mock'
 
 import { DisplayResults } from '@acter/components/search/display-results'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { render, screen, within } from '@acter/lib/test-utils'
-import {
-  ExampleActerList,
-  ExampleActivity,
-  Interests,
-} from '@acter/schema/fixtures'
+import { ExampleActerList, ExampleActivity } from '@acter/schema/fixtures'
 
-jest.mock('next/router')
+jest.mock('next/dist/client/router', () => require('next-router-mock'))
 jest.mock('@acter/lib/search/use-acter-search')
 
 describe('Display search results', () => {
-  const mockUseRouter = useRouter as jest.Mock
-
   const mockuseActerSearch = useActerSearch as jest.Mock
 
   it('should display search results with a list of Acters', async () => {
-    mockUseRouter.mockReturnValue({
-      pathname: '/search',
-    })
+    mockRouter.setCurrentUrl('/search')
     mockuseActerSearch.mockReturnValue({ acters: ExampleActerList })
 
-    render(<DisplayResults interestTypes={Interests.data.interestTypes} />)
+    render(<DisplayResults />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -41,16 +33,14 @@ describe('Display search results', () => {
   })
 
   it('should display search results with a list of Activities', async () => {
-    mockUseRouter.mockReturnValue({
-      pathname: '/search/activities',
-    })
+    mockRouter.setCurrentUrl('/search/activities')
     const activities = ExampleActerList.map((acter) => ({
       ...acter,
       Activity: ExampleActivity,
     }))
     mockuseActerSearch.mockReturnValue({ acters: activities })
 
-    render(<DisplayResults interestTypes={Interests.data.interestTypes} />)
+    render(<DisplayResults />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -70,7 +60,7 @@ describe('Display search results', () => {
   it('should display a message with no search results', async () => {
     mockuseActerSearch.mockReturnValue({ acters: [] })
 
-    render(<DisplayResults interestTypes={Interests.data.interestTypes} />)
+    render(<DisplayResults />)
     const items = screen.queryAllByRole('listitem')
     const message = screen.queryByLabelText('zero-acters').textContent
 
