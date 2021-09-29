@@ -15,7 +15,8 @@
     "dev": "yarn workspace @acter/web dev",
     "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @acter/web start",
-    "storybook": "yarn workspace @acter/components storybook",
+    "storybook": "yarn workspace @acter/components dev",
+    "build:storybook": "yarn generate && yarn workspace @acter/components build",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "env-cmd jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
@@ -29,8 +30,7 @@
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
-    "db:seed": "yarn workspace @acter/schema db:seed",
-    "build-storybook": "build-storybook"
+    "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
     "@apollo/client": "^3.4.0",

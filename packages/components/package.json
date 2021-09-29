@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "dev": "start-storybook -p 6006",
+    "build": "yarn workspace @acter/schema build && build-storybook"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.0.0",

@@ -53,3 +53,6 @@ redis*
 
 # Typescript incremental build files
 .tsbuildinfo
+
+#Storybook
+storybook-static
