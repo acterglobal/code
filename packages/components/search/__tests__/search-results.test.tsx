@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import mockRouter from 'next-router-mock'
 
 import { useReactiveVar } from '@apollo/client'
 
@@ -9,13 +9,12 @@ import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { render, screen } from '@acter/lib/test-utils'
 import { ExampleActer } from '@acter/schema/fixtures'
 
-jest.mock('next/router')
+jest.mock('next/dist/client/router', () => require('next-router-mock'))
 jest.mock('@apollo/client')
 jest.mock('@acter/lib/search/use-acter-search')
 jest.mock('@acter/lib/search/search-var')
 
 describe('Display search results', () => {
-  const mockUseRouter = useRouter as jest.Mock
   const mockUseActerSearch = useActerSearch as jest.Mock
   const mockUseReactiveVar = useReactiveVar as jest.Mock
 
@@ -25,9 +24,7 @@ describe('Display search results', () => {
   }
 
   beforeEach(() => {
-    mockUseRouter.mockReturnValue({
-      pathname: '/search',
-    })
+    mockRouter.setCurrentUrl('/search')
     mockUseReactiveVar.mockReturnValue({
       orderBy: 'NAME',
     })
@@ -41,7 +38,7 @@ describe('Display search results', () => {
       acters,
     })
 
-    render(<Search interestTypes={[]} />)
+    render(<Search />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe('4 Results')
@@ -53,7 +50,7 @@ describe('Display search results', () => {
       acters: [],
     })
 
-    render(<Search interestTypes={[]} />)
+    render(<Search />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe('0 Results')
@@ -66,7 +63,7 @@ describe('Display search results', () => {
       ...defaultMockuseActerSearch,
       acters,
     })
-    render(<Search interestTypes={[]} />)
+    render(<Search />)
 
     const results = screen.getByLabelText('search-results').textContent
     expect(results).toBe(`${acters.length} Result`)
