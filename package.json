@@ -30,7 +30,9 @@
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
     "db:seed": "yarn workspace @acter/schema db:seed",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@apollo/client": "^3.4.0",
@@ -82,6 +84,8 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "cli-confirm": "^1.0.1",
+    "cypress": "^8.5.0",
+    "cypress-nextjs-auth0": "^2.0.1",
     "eslint": "^7.20.0",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
