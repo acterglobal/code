@@ -1,4 +1,4 @@
 {
-  "testFiles": "**/*.*",
-  "componentFolder": "cypress"
+  "port": 3001,
+  "chromeWebSecurity": false
 }

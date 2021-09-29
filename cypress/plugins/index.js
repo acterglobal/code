@@ -15,15 +15,16 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+
+import encrypt from 'cypress-nextjs-auth0/encrypt'
+
 // eslint-disable-next-line no-unused-vars
-
-//import injectDevServer from '@cypress/react/plugins/next'
-
-const injectDevServer = require('@cypress/react/plugins/next')
 module.exports = (on, config) => {
-  injectDevServer(on, config)
-
-  return config
+  on('task', { encrypt })
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 }
+
+
+// const encrypt = require('cypress-nextjs-auth0/encrypt');
+
