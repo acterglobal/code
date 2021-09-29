@@ -1,22 +1,23 @@
 import React from 'react'
 
-import mockRouter from 'next-router-mock'
-
 import { useReactiveVar } from '@apollo/client'
 
 import { Search } from '@acter/components/search'
+import { SearchType } from '@acter/lib/constants'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
+import { useSearchType } from '@acter/lib/search/use-search-type'
 import { render, screen } from '@acter/lib/test-utils'
 import { ExampleActer } from '@acter/schema/fixtures'
 
-jest.mock('next/dist/client/router', () => require('next-router-mock'))
 jest.mock('@apollo/client')
 jest.mock('@acter/lib/search/use-acter-search')
+jest.mock('@acter/lib/search/use-search-type')
 jest.mock('@acter/lib/search/search-var')
 
 describe('Display search results', () => {
   const mockUseActerSearch = useActerSearch as jest.Mock
   const mockUseReactiveVar = useReactiveVar as jest.Mock
+  const mockUseSearchType = useSearchType as jest.Mock
 
   const defaultMockuseActerSearch = {
     loadMore: () => null,
@@ -24,7 +25,7 @@ describe('Display search results', () => {
   }
 
   beforeEach(() => {
-    mockRouter.setCurrentUrl('/search')
+    mockUseSearchType.mockReturnValue(SearchType.ACTERS)
     mockUseReactiveVar.mockReturnValue({
       orderBy: 'NAME',
     })
