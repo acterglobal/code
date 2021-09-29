@@ -11,6 +11,7 @@ import { InfoSection } from '@acter/components/activity/tile/info-section'
 import { Drawer } from '@acter/components/util/drawer'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
 import { ActionButton } from '@acter/lib/constants'
 import { Activity } from '@acter/schema'
 
@@ -30,9 +31,6 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const [drawerHeading, setDrawerHeading] = useState('')
   const [openDrawer, setOpenDrawer] = useState(false)
   const [action, setAction] = useState<ActionButton>()
-  const { acter, loading: acterLoading } = useActer({
-    acterId: activityActerId,
-  })
 
   const handleClose = () => {
     setOpenDrawer(false)
@@ -43,6 +41,11 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
     setOpenDrawer(true)
     setAction(null)
   }
+
+  const { acter, loading: acterLoading } = useActer({
+    acterId: activityActerId,
+  })
+  const [updateActivity] = useUpdateActivity({ onCompleted: handleClose })
 
   return (
     <>
@@ -70,7 +73,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
         ) : action === EDIT ? (
           <EditActivity
             acter={acter}
-            onSubmit={() => null}
+            onSubmit={updateActivity}
             setDrawerHeading={setDrawerHeading}
           />
         ) : (
