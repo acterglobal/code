@@ -95,7 +95,6 @@
     "ignore-loader": "^0.1.2",
     "jest": "^27.0.6",
     "jest-transform-graphql": "^2.1.0",
-    "jsonwebtoken": "^8.5.1",
     "syncpack": "^5.7.11",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.0.0",
