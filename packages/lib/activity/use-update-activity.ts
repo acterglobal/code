@@ -4,6 +4,7 @@ import {
   ActivityFormData,
   prepareActivityValues,
 } from '@acter/lib/acter/prepare-activity-values'
+import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -11,9 +12,7 @@ import {
 import { Activity } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
-export type ActivityVariables = ActivityFormData & {
-  followerIds: string[]
-}
+export type ActivityVariables = ActivityFormData
 
 export type UpdateActivityData = {
   updateActivityCustom: Activity
@@ -40,18 +39,19 @@ export const useUpdateActivity = (
     ActivityVariables
   >(UPDATE_ACTIVITY, {
     ...options,
-    getSuccessMessage: () => `Activity created`,
-    onError: (err) => console.log('ERROR ....', err),
+    getSuccessMessage: () => `Activity updated`,
   })
 
-  const handleCreateActivity = (data: ActivityVariables) =>
-    updateActivity({
+  const handleCreateActivity = async (formData: ActivityVariables) => {
+    const data = prepareActivityValues(formData)
+    const dataWithPic = await _updatePictures(data)
+
+    return updateActivity({
       variables: {
-        acterId: data.id,
-        followerIds: [],
-        ...prepareActivityValues(data),
+        ...dataWithPic,
       },
     })
+  }
 
   return [handleCreateActivity, mutationResult]
 }

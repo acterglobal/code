@@ -56,10 +56,8 @@ export const useCreateActivity = (
     getSuccessMessage: () => `Activity created`,
   })
 
-  const handleCreateActivity = (data: ActivityVariables) => {
-    console.log('DATA ', data)
-    return createActivity({ variables: { ...prepareActivityValues(data) } })
-  }
+  const handleCreateActivity = (data: ActivityVariables) =>
+    createActivity({ variables: { ...prepareActivityValues(data) } })
 
   return [handleCreateActivity, mutationResult]
 }
