@@ -5,7 +5,6 @@
 context('Logging in', () => {
   it('Should login', () => {
     cy.loginUser().then((user) => {
-      console.log('This is user ', user)
       expect(user.email).to.equal(Cypress.env('auth0Username'))
     })
   })
