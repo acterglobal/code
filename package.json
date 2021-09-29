@@ -16,7 +16,6 @@
     "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components dev",
-    "build:storybook": "yarn generate && yarn workspace @acter/components build",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "env-cmd jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "start-storybook -p 6006",
-    "build": "yarn workspace @acter/schema build && build-storybook"
+    "storybook-build": "yarn workspace @acter/schema build && build-storybook"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.0.0",
