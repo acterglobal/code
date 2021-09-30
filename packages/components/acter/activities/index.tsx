@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { di } from 'react-magnetic-di'
+import { di } from 'react-magnetic-di/macro'
 
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 

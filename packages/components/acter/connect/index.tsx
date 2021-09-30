@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import { di } from 'react-magnetic-di'
+import { di } from 'react-magnetic-di/macro'
 
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'

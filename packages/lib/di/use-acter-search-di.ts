@@ -1,4 +1,4 @@
-import { injectable } from 'react-magnetic-di'
+import { injectable } from 'react-magnetic-di/macro'
 
 import {
   useActerSearch,

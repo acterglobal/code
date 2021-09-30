@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { di } from 'react-magnetic-di'
+import { di } from 'react-magnetic-di/macro'
 
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'

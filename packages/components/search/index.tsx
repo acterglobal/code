@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { di } from 'react-magnetic-di'
+import { di } from 'react-magnetic-di/macro'
 
 import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Grid, Typography } from '@material-ui/core'

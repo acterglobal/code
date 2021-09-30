@@ -1,4 +1,4 @@
-import { DiProvider } from 'react-magnetic-di'
+import { DiProvider } from 'react-magnetic-di/macro'
 
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import * as NextImage from 'next/image'

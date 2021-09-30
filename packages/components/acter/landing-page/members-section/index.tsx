@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { di } from 'react-magnetic-di'
+import { di } from 'react-magnetic-di/macro'
 
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'

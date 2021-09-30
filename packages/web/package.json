@@ -38,5 +38,10 @@
     "react": "*",
     "react-dom": "*",
     "reflect-metadata": "*"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

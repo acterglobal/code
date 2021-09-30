@@ -1,4 +1,4 @@
-import { injectable } from 'react-magnetic-di'
+import { injectable } from 'react-magnetic-di/macro'
 
 import { ActerQueryResult, useActer } from '@acter/lib/acter/use-acter'
 import { Acter } from '@acter/schema'
