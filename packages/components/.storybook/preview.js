@@ -1,3 +1,5 @@
+import { DiProvider } from 'react-magnetic-di'
+
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import * as NextImage from 'next/image'
 
@@ -5,6 +7,14 @@ import { MockedProvider } from '@apollo/client/testing'
 import { UserContext } from '@auth0/nextjs-auth0'
 
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
+import {
+  useActerDi,
+  useActerSearchDi,
+  usePostsDi,
+  useSearchTypeDi,
+  useSnackbarDi,
+  useUserDi,
+} from '@acter/lib/di'
 
 const OriginalNextImage = NextImage.default
 
@@ -26,19 +36,44 @@ export const parameters = {
   nextRouter: {
     Provider: RouterContext.Provider,
   },
-  apolloapolloClient: {
+  apolloClient: {
     MockedProvider,
   },
 }
 
 export const decorators = [
-  (story) => (
-    <MockedProvider>
-      <UserContext.Provider
-        value={{ user: { name: 'damon' }, isLoading: false }}
+  (story, props) => {
+    const {
+      parameters: {
+        di: {
+          useActer = useActerDi(),
+          useActerSearch = useActerSearchDi(),
+          usePosts = usePostsDi(),
+          useSearchType = useSearchTypeDi(),
+          useSnackbar = useSnackbarDi(),
+          useUser = useUserDi(),
+        } = {},
+      },
+    } = props
+    return (
+      <DiProvider
+        use={[
+          useActer,
+          useActerSearch,
+          usePosts,
+          useSearchType,
+          useSnackbar,
+          useUser,
+        ]}
       >
-        <ActerThemeProvider>{story()}</ActerThemeProvider>
-      </UserContext.Provider>
-    </MockedProvider>
-  ),
+        <MockedProvider>
+          <UserContext.Provider
+            value={{ user: { name: 'damon' }, isLoading: false }}
+          >
+            <ActerThemeProvider>{story()}</ActerThemeProvider>
+          </UserContext.Provider>
+        </MockedProvider>
+      </DiProvider>
+    )
+  },
 ]

@@ -2,13 +2,12 @@ import { Meta, Story } from '@storybook/react'
 
 import { Search as SearchComponent } from '@acter/components/search'
 import { SearchType } from '@acter/lib/constants'
+import { useActerSearchDi, useSearchTypeDi } from '@acter/lib/di'
 import {
   ExampleActivityActer,
   ExampleActivity,
   ExampleActer,
 } from '@acter/schema/fixtures'
-
-const { ACTIVITIES, ACTERS } = SearchType
 
 export default {
   title: 'Search/SearchPage',
@@ -29,18 +28,18 @@ const acters = [...Array(4)].map(() => ExampleActer)
 const Template: Story = (args) => <SearchComponent {...args} />
 
 export const Activities = Template.bind({})
-Activities.args = {
-  searchType: ACTIVITIES,
-  acters: activities,
+Activities.parameters = {
+  di: {
+    useActerSearch: useActerSearchDi(activities),
+    useSearchType: useSearchTypeDi(SearchType.ACTIVITIES),
+  },
 }
 
 export const Acters = Template.bind({})
-Acters.args = {
-  searchType: ACTERS,
-  acters: acters,
+Acters.parameters = {
+  di: {
+    useActerSearch: useActerSearchDi(acters),
+  },
 }
+
 export const ZeroActers = Template.bind({})
-Acters.args = {
-  searchType: ACTERS,
-  acters: [],
-}

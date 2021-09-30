@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
+import { di } from 'react-magnetic-di'
 
 import { useRouter } from 'next/router'
 
@@ -22,6 +23,7 @@ import {
 import { useActivities } from '@acter/lib/activity/use-activities'
 
 export const ActivitiesSection: FC = () => {
+  di(useActer)
   const [showPastActivities, setShowPastActivities] = useState(true)
   const { acter, loading: acterLoading } = useActer()
   const { activities, loading: activitiesLoading } = useActivities(acter?.id)

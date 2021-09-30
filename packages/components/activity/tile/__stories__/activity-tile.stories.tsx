@@ -1,5 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 
+import { add } from 'date-fns'
+
 import {
   ActivityTile,
   ActivityTileProps,
@@ -37,7 +39,7 @@ export const SmallContent = Template.bind({})
 SmallContent.args = {
   activity: {
     ...ExampleActivity,
-    endAt: new Date().getDate() + 10,
+    endAt: add(new Date(), { days: 10 }),
     Acter: {
       ...ExampleActer,
       name: 'Small content',

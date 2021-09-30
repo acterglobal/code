@@ -11,7 +11,7 @@ import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 import { Acter } from '@acter/schema/types'
 
-interface useActerSearchQueryResults {
+export interface UseActerSearchQueryResults {
   acters: Acter[]
   loading: boolean
   error: ApolloError
@@ -24,7 +24,7 @@ interface useActerSearchQueryResults {
  * @param searchType to use the search query for acter or activities
  * @returns acter/activities list, loading status, error, rest of the query results
  */
-export const useActerSearch = (): useActerSearchQueryResults => {
+export const useActerSearch = (): UseActerSearchQueryResults => {
   const searchType = useSearchType()
   const searchVariables = useReactiveVar(searchVar)
   const initialSearch = useRef(true)

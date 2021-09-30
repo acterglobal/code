@@ -1,3 +1,5 @@
+import { di } from 'react-magnetic-di/macro'
+
 import {
   useMutation,
   ApolloError,
@@ -32,6 +34,7 @@ export const useNotificationMutation = <
   mutation: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: UseMutationOptions<TData, TVariables>
 ): MutationTuple<TData, TVariables> => {
+  di(useSnackbar)
   const { enqueueSnackbar } = useSnackbar()
   const { getErrorMessage, getSuccessMessage, ...restOptions } = options || {}
   return useMutation<TData, OperationVariables>(mutation, {

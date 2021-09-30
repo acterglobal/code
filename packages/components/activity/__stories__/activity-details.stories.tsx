@@ -6,17 +6,24 @@ import {
   ActivityDetails as Activity,
   ActivityDetailsProps,
 } from '@acter/components/activity'
+import { Acter } from '@acter/schema'
 import {
-  ExampleActivity,
   ExampleActer,
-  Interests,
+  ExampleActivityActer,
+  ExampleActerConnection,
+  ExampleActivity,
 } from '@acter/schema/fixtures'
 
-const acter = {
-  ...ExampleActer,
-  Activity: { ...ExampleActivity, type: 'Idea' },
-  ActerInterests: [{ Interest: Interests.data.interestTypes[1].Interests[0] }],
-  Followers: [{ Follower: ExampleActer }],
+const acter: Acter = {
+  ...ExampleActivityActer,
+  Activity: ExampleActivity,
+  ActerInterests: [],
+  Followers: [
+    {
+      ...ExampleActerConnection,
+      Follower: ExampleActer,
+    },
+  ],
 }
 
 export default {

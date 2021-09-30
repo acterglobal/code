@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { di } from 'react-magnetic-di'
 
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -21,6 +22,7 @@ export interface DisplayResultsProps {
 }
 
 export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
+  di(useActerSearch, useSearchType)
   const classes = useStyles()
   const searchType = useSearchType()
 

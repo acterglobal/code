@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react'
+import { di } from 'react-magnetic-di'
 
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
@@ -11,6 +12,7 @@ import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Connect: FC = () => {
+  di(useActer, useUser)
   const { loginUrl } = useAuthRedirect()
   const { user, loading: userLoading } = useUser()
   const { acter, loading: acterLoading } = useActer()

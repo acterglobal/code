@@ -3,9 +3,10 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { formatRelative, parseISO } from 'date-fns/fp'
+import { formatRelative } from 'date-fns/fp'
 import { pipe } from 'fp-ts/function'
 
+import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post } from '@acter/schema'
 
@@ -17,7 +18,11 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
   const classes = useStyles()
 
   //@ts-ignore
-  const timeStamp = pipe(post.updatedAt, parseISO, formatRelative(new Date()))
+  const timeStamp = pipe(
+    post.updatedAt,
+    parseDateOrString,
+    formatRelative(new Date())
+  )
 
   return (
     <Box>

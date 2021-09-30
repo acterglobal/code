@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di'
 
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
@@ -7,6 +8,7 @@ import { ActivitiesSection } from './activities-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 
 export const ActerActivities: FC = () => {
+  di(useUser)
   const classes = useStyles()
 
   return (
