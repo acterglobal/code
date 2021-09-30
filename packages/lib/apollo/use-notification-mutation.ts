@@ -1,4 +1,4 @@
-import { di } from 'react-magnetic-di/macro'
+import { di } from 'react-magnetic-di'
 
 import {
   useMutation,
