@@ -20,7 +20,7 @@ const useActer = useActerDi({
 })
 
 export default {
-  title: 'Post/Post',
+  title: 'Pages/Posts',
   component: PostList,
   parameters: {
     di: {
@@ -29,4 +29,4 @@ export default {
   },
 } as Meta
 
-export const Posts: Story = (props) => <PostList {...props} />
+export const Main: Story = (props) => <PostList {...props} />

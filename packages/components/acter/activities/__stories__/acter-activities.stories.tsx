@@ -6,7 +6,7 @@ import { ActerActivities } from '@acter/components/acter/activities'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
-  title: 'acter/Activities',
+  title: 'Organisms/Acter/Activities',
   component: ActerActivities,
   args: {
     acter: ExampleActer,

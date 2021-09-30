@@ -27,7 +27,7 @@ const acter: Acter = {
 }
 
 export default {
-  title: 'Activity/ActivityDetails',
+  title: 'Pages/Activity/ActivityDetails',
   component: Activity,
   args: {
     acter: acter,

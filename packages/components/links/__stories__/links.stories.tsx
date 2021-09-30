@@ -6,7 +6,7 @@ import { Links, LinkProps } from '@acter/components/links'
 import { ExampleLink, ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Acter/Link',
+  title: 'Atoms/Acter/Link',
   component: Links,
   args: {
     links: [

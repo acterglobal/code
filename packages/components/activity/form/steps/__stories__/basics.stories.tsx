@@ -9,7 +9,7 @@ import {
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Activity/Form/Steps/Basics',
+  title: 'Organisms/Activity/Form/Steps/Basics',
   component: BasicsStep,
   args: {
     acters: [ExampleActer],

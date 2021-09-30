@@ -6,7 +6,7 @@ import { InterestsAddSection } from '@acter/components/acter/form/interests-add-
 import { Interests } from '@acter/schema/fixtures'
 
 export default {
-  title: 'interests/InterestsAdd',
+  title: 'Organisms/Interests/InterestsAdd',
   component: InterestsAddSection,
   args: {
     interestTypes: Interests.data.interestTypes,

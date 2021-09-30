@@ -9,7 +9,7 @@ import {
 } from '@acter/schema/fixtures'
 
 export default {
-  title: 'acter/Form',
+  title: 'Organisms/Acter/Form',
   component: ActerForm,
   argTypes: {
     onSubmit: { action: 'form submit' },

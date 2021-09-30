@@ -7,7 +7,7 @@ import { ExampleActer } from '@acter/schema/fixtures'
 import { ExampleUser } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Post/Form',
+  title: 'Organisms/Posts/Form',
   component: PostForm,
   args: {
     user: { ...ExampleUser, Acter: ExampleActer },

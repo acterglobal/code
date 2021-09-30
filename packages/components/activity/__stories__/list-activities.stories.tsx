@@ -21,7 +21,7 @@ const acter = ({
 } as unknown) as Acter
 
 export default {
-  title: 'Activity/ActivitiesList',
+  title: 'Pages/Activity/ActivitiesList',
   component: ActivitiesList,
   args: {
     acter: acter,

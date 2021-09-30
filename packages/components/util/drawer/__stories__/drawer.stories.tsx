@@ -11,7 +11,7 @@ const ChildComponent = () => {
 }
 
 export default {
-  title: 'util/drawer',
+  title: 'Organisms/Util/drawer',
   component: Drawer,
 } as Meta
 

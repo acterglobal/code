@@ -39,6 +39,11 @@ export const parameters = {
   apolloClient: {
     MockedProvider,
   },
+  options: {
+    storySort: {
+      order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
+    },
+  },
 }
 
 export const decorators = [

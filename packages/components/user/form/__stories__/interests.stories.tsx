@@ -8,7 +8,7 @@ import {
 } from '@acter/schema/fixtures'
 
 export default {
-  title: 'UserProfile/Form/Interests',
+  title: 'Organisms/User/Form/Interests',
   component: ProfileInterestsForm,
   args: {
     user: {

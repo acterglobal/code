@@ -6,7 +6,7 @@ import {
 } from '@acter/components/acter/select-acter-type'
 
 export default {
-  title: 'acter/AddActerSelector',
+  title: 'Organisms/Acter/SelectActerType',
   component: SelectActerType,
   argTypes: {
     onSubmit: {
@@ -15,6 +15,6 @@ export default {
   },
 } as Meta
 
-export const AddActerSelector: Story<SelectActerTypeProps> = (args) => (
+export const Default: Story<SelectActerTypeProps> = (args) => (
   <SelectActerType {...args} />
 )

@@ -14,7 +14,7 @@ import {
 } from '@acter/schema/fixtures/activity/example-activity'
 
 export default {
-  title: 'Activity/ActivityTile',
+  title: 'Organisms/Activity/ActivityTile',
   component: ActivityTile,
   args: {
     activity: ExampleActivity,

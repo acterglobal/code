@@ -7,7 +7,7 @@ import {
 import { ExampleActerList } from '@acter/schema/fixtures'
 
 export default {
-  title: 'acter/ListByType',
+  title: 'Organisms/Acter/ListByType',
   component: ActerListByType,
   args: {
     acters: ExampleActerList,

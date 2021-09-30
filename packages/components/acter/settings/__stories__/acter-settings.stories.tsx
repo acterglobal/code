@@ -9,7 +9,7 @@ import {
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'acter/Settings',
+  title: 'Pages/Acter/Settings',
   component: ActerSettings,
   argTypes: {
     onSettingsChange: { action: 'submitted' },

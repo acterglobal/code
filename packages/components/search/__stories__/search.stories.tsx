@@ -10,7 +10,7 @@ import {
 } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Search/SearchPage',
+  title: 'Pages/Search',
   component: SearchComponent,
   args: {
     searchType: '',

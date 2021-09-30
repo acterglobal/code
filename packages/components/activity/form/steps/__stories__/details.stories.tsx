@@ -8,7 +8,7 @@ import {
 } from '@acter/components/activity/form/steps/details'
 
 export default {
-  title: 'Activity/Form/Steps/Details',
+  title: 'Organisms/Activity/Form/Steps/Details',
   component: DetailsStep,
 
   decorators: [withFormik],

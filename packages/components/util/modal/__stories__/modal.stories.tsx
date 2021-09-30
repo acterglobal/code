@@ -11,7 +11,7 @@ const ChildComponent = () => {
 }
 
 export default {
-  title: 'util/modal',
+  title: 'Organisms/Util/Modal',
   component: Modal,
 } as Meta
 
