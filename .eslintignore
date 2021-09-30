@@ -3,3 +3,6 @@ coverage
 .next
 @acter/schema/types
 packages/schema/types
+
+#Storybook
+storybook-static
