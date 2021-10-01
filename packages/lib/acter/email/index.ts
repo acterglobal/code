@@ -1,6 +1,7 @@
 import path from 'path'
 
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
+import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { getArticle } from '@acter/lib/string/get-article'
 import { Acter, Notification } from '@acter/schema'
 
@@ -18,8 +19,7 @@ export const createNewMemberNotificationEmail = ({
   follower,
   notification,
 }: CreateNewMemberNotificationEmailParams): CreateEmailReturn => {
-  const baseUrl = process.env.BASE_URL
-  const notificationUrl = [baseUrl, 'notifications', notification.id].join('/')
+  const notificationUrl = getNotificationUrl(notification)
   const { OnActer } = notification
   const aAn = getArticle(OnActer.ActerType.name)
   const text = `${follower.name} just joined ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}.`

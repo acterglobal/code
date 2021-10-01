@@ -60,7 +60,7 @@ export const getCreateFunction = ({
 }
 
 type InternalCreateActerProps = Omit<GetCreateFunctionProps, 'updateActer'> & {
-  data: Partial<Acter>
+  data: Partial<Acter | Activity>
 }
 
 const _acterCreate = async ({

@@ -17,22 +17,25 @@ export const emailSendWorker = createWorker(
       })
 
       const sentAt = new Date()
-      if (job.data.notification) {
-        const notification = await prisma.notification.update({
+      if (job.data.notifications) {
+        const notifications = Array.isArray(job.data.notifications)
+          ? job.data.notifications
+          : [job.data.notifications]
+        const notificationIds = notifications.map(({ id }) => id)
+        const notification = await prisma.notification.updateMany({
           data: {
             sentAt,
           },
           where: {
-            id: job.data.notification.id,
-          },
-          select: {
-            id: true,
-            sentAt: true,
+            id: {
+              in: notificationIds,
+            },
           },
         })
         job.updateProgress({
-          step: 'Notification updated',
-          notificationId: notification.id,
+          step: 'Notifications updated',
+          sentAt,
+          notificationIds,
         })
         return {
           ...res,

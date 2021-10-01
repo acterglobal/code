@@ -1,9 +1,12 @@
 import { Email } from '@acter/lib/email'
-import { Notification } from '@acter/schema/types'
+
+interface Notification {
+  id: string
+}
 
 export interface NotificationEmail extends Email {
   /**
-   * Notification to close out on send success
+   * Notifications to close out on send success
    */
-  notification?: Notification
+  notifications?: Notification | Notification[]
 }
