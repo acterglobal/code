@@ -6,5 +6,5 @@
     "jose": "^3.19.0",
     "openid-client": "^4.9.0"
   },
-  "type": "commonjs"
+  "type": "module"
 }

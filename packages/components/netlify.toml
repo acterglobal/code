@@ -1,0 +1,29 @@
+[build]
+base = 'packages/components'
+command = 'yarn storybook-build'
+ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF . ../functions/ ../lib/"
+publish = 'storybook-static'
+
+[functions]
+directory = '../functions'
+node_bundler = 'esbuild'
+external_node_modules = ['cookie', 'jose', 'openid-client']
+
+[[redirects]]
+from = "/auth/*"
+to = "/.netlify/functions/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "/*"
+to = "/:splat"
+status = 200
+force = false
+conditions = { Role = "admin" }
+
+[[redirects]]
+from = "/*"
+to = "/auth/login"
+status = 302
+force = false

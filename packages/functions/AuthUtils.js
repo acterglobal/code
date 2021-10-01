@@ -92,7 +92,7 @@ const generateAuth0LogoutUrl = () => {
   return `${auth0DomainLogout}?${urlReturnTo}&${urlClientId}`
 }
 
-const handleLogin = async (event) => {
+export const handleLogin = async (event) => {
   if (!event || !event.headers) {
     throw new Error('Malformed event')
   }
@@ -118,7 +118,7 @@ const handleLogin = async (event) => {
   }
 }
 
-const handleCallback = async (event) => {
+export const handleCallback = async (event) => {
   if (!event || !event.headers || !event.headers.cookie) {
     throw new Error('Invalid request')
   }
@@ -170,7 +170,7 @@ const handleCallback = async (event) => {
   }
 }
 
-const handleLogout = async () => {
+export const handleLogout = async () => {
   return {
     statusCode: 302,
     headers: {
@@ -179,10 +179,4 @@ const handleLogout = async () => {
       'Set-Cookie': generateLogoutCookie(),
     },
   }
-}
-
-module.exports = {
-  handleLogin,
-  handleCallback,
-  handleLogout,
 }
