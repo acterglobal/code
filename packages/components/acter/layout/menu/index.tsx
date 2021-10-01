@@ -34,7 +34,7 @@ export const ActerMenu: FC = () => {
 
       {(isAdmin || isMember) && <GroupsSection acter={acter} />}
 
-      <PartOfSection />
+      <PartOfSection acter={acter} />
     </SecondaryMenu>
   )
 }
