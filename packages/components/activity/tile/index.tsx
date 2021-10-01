@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
+import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
 import { ActivityDetails } from '@acter/components/activity'
 import { ActivityType } from '@acter/components/activity/tile/activity-type'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
@@ -11,6 +12,7 @@ import { InfoSection } from '@acter/components/activity/tile/info-section'
 import { Drawer } from '@acter/components/util/drawer'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
 import { ActionButton } from '@acter/lib/constants'
 import { Activity } from '@acter/schema'
@@ -46,6 +48,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
     acterId: activityActerId,
   })
   const [updateActivity] = useUpdateActivity({ onCompleted: handleClose })
+  const [deleteActivity] = useDeleteActer({
+    onCompleted: () => handleClose(),
+  })
 
   return (
     <>
@@ -75,6 +80,12 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
             acter={acter}
             onSubmit={updateActivity}
             setDrawerHeading={setDrawerHeading}
+          />
+        ) : action === DELETE ? (
+          <ActerDeleteConfirmDialog
+            acter={acter}
+            onCancel={handleClose}
+            onSubmit={() => deleteActivity(acter.id)}
           />
         ) : (
           <ActivityDetails acter={acter} />
