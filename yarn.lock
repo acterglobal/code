@@ -12134,6 +12134,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"functions@workspace:packages/functions":
+  version: 0.0.0-use.local
+  resolution: "functions@workspace:packages/functions"
+  dependencies:
+    cookie: ^0.4.1
+    jose: ^3.19.0
+    openid-client: ^4.9.0
+  languageName: unknown
+  linkType: soft
+
 "fuse.js@npm:^3.6.1":
   version: 3.6.1
   resolution: "fuse.js@npm:3.6.1"
@@ -14873,6 +14883,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"jose@npm:^3.19.0":
+  version: 3.19.0
+  resolution: "jose@npm:3.19.0"
+  checksum: a9a4b877419a4b1f51baaf3640b7d76f222075c3ceee568ecde04322ed5b650c5f6479656ccb1b182c358b6a4c8ada2c4c0c60278fd22d8b9764a3a339b73c1a
+  languageName: node
+  linkType: hard
+
 "js-cookie@npm:^2.2.1":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
@@ -17336,6 +17353,21 @@ fsevents@^1.2.7:
     object-hash: ^2.0.1
     oidc-token-hash: ^5.0.1
   checksum: d77507f82beaf7313387660e5eeb31b47f578851512b151db9ca6cd065f58916ca628b7a8dbefa32a8eac2e07a5335b751e887b300aa22ee07c334cf46d7dc77
+  languageName: node
+  linkType: hard
+
+"openid-client@npm:^4.9.0":
+  version: 4.9.0
+  resolution: "openid-client@npm:4.9.0"
+  dependencies:
+    aggregate-error: ^3.1.0
+    got: ^11.8.0
+    jose: ^2.0.5
+    lru-cache: ^6.0.0
+    make-error: ^1.3.6
+    object-hash: ^2.0.1
+    oidc-token-hash: ^5.0.1
+  checksum: e2424187e68b282c727723a760172101c1cdefec425ccdd52d845a45ba4f6261de6cdff2963964189289ec7dd14dfb9fa340b21e40067b92b051b0a4287d5b9b
   languageName: node
   linkType: hard
 
