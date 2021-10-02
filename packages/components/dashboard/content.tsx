@@ -9,7 +9,7 @@ import {
   Divider,
 } from '@material-ui/core'
 
-import { ActivitiesList } from '@acter/components/dashboard/activities-list'
+import { ActivitiesList } from '@acter/components/activity/list'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
@@ -17,7 +17,7 @@ import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 
-const { GROUP } = ActerTypes
+const { ACTIVITY, GROUP } = ActerTypes
 
 export const DashboardContent: FC = () => {
   const classes = useStyles()
@@ -37,20 +37,28 @@ export const DashboardContent: FC = () => {
     <Box className={classes.container}>
       <Box className={classes.groups}>
         <Heading title="My Groups" />
-        {groups.length === 0 ? <ZeroMessage /> : <GroupsList groups={groups} />}
+        <Box className={classes.content}>
+          {groups.length === 0 ? (
+            <ZeroMessage messageFor={GROUP} />
+          ) : (
+            <GroupsList groups={groups} />
+          )}
+        </Box>
       </Box>
 
       <Box className={classes.activities}>
         <Heading title="My Activities" />
-        {activities ? (
-          <>
-            {activities.length === 0 ? (
-              <ZeroMessage />
-            ) : (
-              <ActivitiesList activities={activities} />
-            )}
-          </>
-        ) : null}
+        <Box className={classes.content}>
+          {activities ? (
+            <>
+              {activities.length === 0 ? (
+                <ZeroMessage messageFor={ACTIVITY} />
+              ) : (
+                <ActivitiesList activities={activities} />
+              )}
+            </>
+          ) : null}
+        </Box>
       </Box>
     </Box>
   )
@@ -60,21 +68,25 @@ type HeadingProps = { title: string }
 const Heading: FC<HeadingProps> = ({ title }) => {
   const classes = useStyles()
   return (
-    <>
+    <Box className={classes.headingSection}>
       <Typography variant="h6" className={classes.heading}>
         {title}
       </Typography>
       <Divider className={classes.divider} />
-    </>
+    </Box>
   )
 }
 
-const ZeroMessage = () => {
+const ZeroMessage = ({ messageFor }) => {
   const classes = useStyles()
   return (
     <Typography variant="body2" className={classes.zeroMessage}>
-      You are currently not part of any groups. As you join new groups they will
-      show here.
+      {messageFor === GROUP &&
+        `You are currently not part of any groups. As you join new groups they will
+      show here.`}
+      {messageFor === ACTIVITY &&
+        `You are currently not participating in any activities. As you join new
+        activities, they will show here.`}
     </Typography>
   )
 }
@@ -93,6 +105,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(5),
       paddingRight: theme.spacing(1),
     },
+    headingSection: {
+      marginTop: 20,
+      width: '100%',
+      backgroundColor: theme.colors.white,
+      position: 'fixed',
+      zIndex: 99,
+    },
     heading: {
       fontSize: theme.spacing(2),
       fontWeight: theme.typography.fontWeightBold,
@@ -108,6 +127,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontStyle: 'italic',
       fontWeight: theme.typography.fontWeightLight,
       color: theme.palette.secondary.main,
+    },
+    content: {
+      marginTop: 70,
     },
   })
 )
