@@ -10,24 +10,11 @@ import {
 } from '@material-ui/core'
 
 import { DashboardContent } from '@acter/components/dashboard/content'
-import { DefaultMessage } from '@acter/components/dashboard/default-message'
 import { HomeIcon } from '@acter/components/icons/home-icon'
-import { flattenFollowing } from '@acter/lib/acter/flatten-following'
-import { useUser } from '@acter/lib/user/use-user'
 
 export const Dashboard: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
-
-  const { user, loading } = useUser()
-
-  if (loading) return <>Loading...</>
-  if (!user) return null
-
-  const acters = flattenFollowing(user?.Acter)
-  if (acters.length === 0) {
-    return <DefaultMessage />
-  }
 
   return (
     <Box className={classes.container}>
@@ -44,7 +31,7 @@ export const Dashboard: FC = () => {
           Dashboard
         </Typography>
       </Box>
-      <DashboardContent acters={acters} />
+      <DashboardContent />
     </Box>
   )
 }

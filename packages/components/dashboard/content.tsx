@@ -11,19 +11,26 @@ import {
 
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
+import { flattenFollowing } from '@acter/lib/acter/flatten-following'
+import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
-import { Acter } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
-const { ACTIVITY, GROUP } = ActerTypes
+const { GROUP } = ActerTypes
 
-export type DashboardContentProps = { acters: Acter[] }
-
-export const DashboardContent: FC<DashboardContentProps> = ({ acters }) => {
+export const DashboardContent: FC = () => {
   const classes = useStyles()
+  const { user, loading: userLoading } = useUser()
+
+  const { activities, loading: activitiesLoading } = useActivities(
+    user?.Acter.id
+  )
+
+  if (userLoading || activitiesLoading) return <>Loading...</>
+  if (!user) return null
+
+  const acters = flattenFollowing(user?.Acter)
   const groups = acters.filter((acter) => acter.ActerType.name === GROUP)
-  const activities = acters
-    .filter((acter) => acter.ActerType.name === ACTIVITY)
-    .map((acter) => acter.Activity)
 
   return (
     <Box className={classes.container}>
@@ -31,13 +38,18 @@ export const DashboardContent: FC<DashboardContentProps> = ({ acters }) => {
         <Heading title="My Groups" />
         {groups.length === 0 ? <ZeroMessage /> : <GroupsList groups={groups} />}
       </Box>
+
       <Box className={classes.activities}>
         <Heading title="My Activities" />
-        {activities.length === 0 ? (
-          <ZeroMessage />
-        ) : (
-          <ActivitiesList activities={activities} />
-        )}
+        {activities ? (
+          <>
+            {activities.length === 0 ? (
+              <ZeroMessage />
+            ) : (
+              <ActivitiesList activities={activities} />
+            )}
+          </>
+        ) : null}
       </Box>
     </Box>
   )

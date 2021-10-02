@@ -16,19 +16,16 @@ import { ActivitiesList } from '@acter/components/activity/list'
 import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
-import { User } from '@acter/schema'
+import {
+  _getActivitiesAfterDate,
+  _sortActivitiesByStartAt,
+} from '@acter/lib/activity/get-activities-for-acter'
+import { useActivities } from '@acter/lib/activity/use-activities'
 
-export interface ActivitySectionProps {
-  /**
-   * Currently logged in user
-   */
-  user: User
-}
-
-export const ActivitiesSection: FC<ActivitySectionProps> = () => {
+export const ActivitiesSection: FC = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)
   const { acter, loading: acterLoading } = useActer()
+  const { activities, loading: activitiesLoading } = useActivities(acter?.id)
 
   const { query } = useRouter()
   const [showActivity, setShowActivity] = useState<boolean>(false)
@@ -37,12 +34,11 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
     if (query?.acterId) setShowActivity(true)
   }, [query?.acterId])
 
-  if (acterLoading) return <LoadingSpinner />
-  if (!acter) return null
+  if (acterLoading || activitiesLoading) return <LoadingSpinner />
+  if (!acter || !activities) return null
 
-  const { allActivities, futureActivities } = getActivitiesForActerByStartAt(
-    acter
-  )
+  const allActivities = _sortActivitiesByStartAt(activities)
+  const futureActivities = _getActivitiesAfterDate(allActivities, new Date())
 
   const displayActivities = showPastActivities
     ? allActivities
