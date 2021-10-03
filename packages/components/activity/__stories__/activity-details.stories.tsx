@@ -1,13 +1,15 @@
-import React, { FC } from 'react'
+import React from 'react'
 
-import { Meta } from '@storybook/react'
+import { Meta, Story } from '@storybook/react'
 
-import { ActivityDetails as Activity } from '@acter/components/activity'
+import {
+  ActivityDetails as Activity,
+  ActivityDetailsProps,
+} from '@acter/components/activity'
 import {
   ExampleActivity,
   ExampleActer,
   Interests,
-  ExampleUser,
 } from '@acter/schema/fixtures'
 
 const acter = {
@@ -22,9 +24,9 @@ export default {
   component: Activity,
   args: {
     acter: acter,
-    interestTypes: Interests.data.interestTypes,
-    user: ExampleUser,
   },
 } as Meta
 
-export const ActivityDetails: FC = (args) => <Activity {...args} />
+export const ActivityDetails: Story<ActivityDetailsProps> = (args) => (
+  <Activity {...args} />
+)

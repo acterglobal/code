@@ -13,7 +13,7 @@ import { PostList } from '@acter/components/posts'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
-interface ActivityDetailsProps {
+export interface ActivityDetailsProps {
   acter: Acter
 }
 
