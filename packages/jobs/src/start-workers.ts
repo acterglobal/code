@@ -73,7 +73,8 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
       {},
       {
         repeat: {
-          cron: dailyDigestCron,
+          // cron: dailyDigestCron,
+          every: 60000,
         },
       }
     )

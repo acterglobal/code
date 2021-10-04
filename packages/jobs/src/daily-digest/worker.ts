@@ -11,6 +11,7 @@ import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { createDailyDigestEmail } from '@acter/lib/user/email/daily-digest'
+import { NotificationType } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
 export const dailyDigestWorker = createWorker(
@@ -51,6 +52,9 @@ export const dailyDigestWorker = createWorker(
       where: {
         toActerId: acter.id,
         sentAt: null,
+        type: {
+          in: [NotificationType.NEW_ACTIVITY, NotificationType.NEW_POST],
+        },
       },
     })
 
@@ -60,6 +64,8 @@ export const dailyDigestWorker = createWorker(
         const notificationUrl = getNotificationUrl(notification)
         const activities = Activity ? [{ ...Activity, notificationUrl }] : []
         const posts = Post ? [{ ...Post, notificationUrl }] : []
+
+        if (activities.length === 0 && posts.length === 0) return memo
 
         return {
           ...memo,

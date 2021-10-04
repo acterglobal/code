@@ -31,11 +31,7 @@
             </h4>
             <p style='font-family: sans-serif; font-size: 14px; font-weight: bold; margin: 0; Margin-bottom: 15px;'>
               {{ActivityType.name}}
-              {{#if isAllDay}}
-                {{dateFormat startAt}}
-              {{else}}
-                {{dateFormat startAt}} to {{dateFormat endAt}}
-              {{/if }}
+              {{dateFormat startAt endAt isAllDay}}
             </p>
             <p style='font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;'>
               {{Acter.description}}
