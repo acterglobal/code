@@ -16,6 +16,7 @@ type PostEmail = {
   notificationUrl: string
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any
+  postType: string
 }
 
 export type PostWithActerAndAuthor = Omit<Post, 'Acter' | 'Author'> & {
@@ -40,18 +41,20 @@ export const createPostEmailNotification = ({
 
   const notificationUrl = getNotificationUrl(notification)
   const content = marked(post.content)
+  const postType = post.parentId ? 'comment' : 'post'
   const html = createEmailTemplate<PostEmail>(
     path.join(__dirname, 'template.hbs')
   )({
     acterName: post.Acter.name,
     content,
     notificationUrl,
+    postType,
     sentAt: format(post.createdAt, DATE_TIME_FORMAT_LONG),
     sentBy: post.Author.name,
   })
   const { OnActer } = notification
   const aAn = getArticle(OnActer.name)
-  const text = `A new post was created on ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
+  const text = `A new ${postType} was created on ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}. To see it, visit: ${notificationUrl}`
 
   return { html, text }
 }
