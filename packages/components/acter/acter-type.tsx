@@ -57,7 +57,9 @@ export const ActerType: FC<ActerTypeProps> = ({ acterType, onClick }) => {
       <Box style={{ marginLeft: 20 }}>
         <Image src={`assets/${acterType}-logo.png`} width={45} height={45} />
       </Box>
-      <Box>
+      <Box
+        id={acterType === ActerTypes.ORGANISATION ? 'organisation' : 'network'}
+      >
         <Typography className={classes.title} variant="h6">
           Create {acterType}
         </Typography>

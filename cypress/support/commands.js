@@ -30,8 +30,9 @@ Cypress.Commands.add('loginUser', () => {
           client_secret: Cypress.env('auth0ClientSecret'),
         },
       }).then(({ body }) => {
+        
         cy.getCookie(Cypress.env('auth0SessionCookieName')).should('exist')
-
+        console.log('This is body ', body)
         const {access_token } = body
 
         cy.getUserInfo(access_token).then((user) => {
