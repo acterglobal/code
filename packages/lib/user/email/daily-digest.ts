@@ -1,13 +1,19 @@
-import { format } from 'date-fns-tz'
+import { isEqual } from 'date-fns'
+import { format } from 'date-fns-tz/fp'
 import Handlebars from 'handlebars'
 import marked from 'marked'
 import path from 'path'
 
 import { NotificationByActer } from '@acter/jobs/src/daily-digest/types'
-import { DATE_FORMAT_TZ, DATE_FORMAT_SHORT_TZ } from '@acter/lib/constants'
+import {
+  DATE_FORMAT_TZ,
+  DATE_FORMAT_SHORT_TZ,
+  DATE_FORMAT_NO_TIME,
+} from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
 type CreateDailyDigestEmailParams = {
@@ -20,22 +26,32 @@ export const createDailyDigestEmail = ({
   Handlebars.registerHelper('marked', function (markdownString) {
     return marked(markdownString)
   })
-  Handlebars.registerHelper('dateFormat', function (date) {
-    try {
-      return format(date, DATE_FORMAT_TZ)
-    } catch (e) {
-      console.error(e)
-      return date
+  Handlebars.registerHelper(
+    'dateFormat',
+    function (startAt: Date, endAt: Date, isAllDay: boolean): string {
+      try {
+        const formatString = isAllDay ? DATE_FORMAT_NO_TIME : DATE_FORMAT_TZ
+        const [formattedStartAt, formattedEndAt] = [startAt, endAt].map(
+          format(formatString)
+        )
+        if (isEqual(startAt, endAt)) {
+          return `on ${formattedStartAt}`
+        }
+        return `from ${formattedStartAt} to ${formattedEndAt}`
+      } catch (e) {
+        console.error(e)
+      }
     }
-  })
+  )
   Handlebars.registerHelper('dateFormatShort', function (date) {
     try {
-      return format(date, DATE_FORMAT_SHORT_TZ)
+      return format(DATE_FORMAT_SHORT_TZ)(date)
     } catch (e) {
       console.error(e)
       return date
     }
   })
+  Handlebars.registerHelper('capitalize', capitalize)
   Handlebars.registerHelper('avatarUrl', function (acter: Acter) {
     return getImageUrl(acter.avatarUrl, 'avatar', {
       suffix: '?w=64&h=64&crop=entropy',
