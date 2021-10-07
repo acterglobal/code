@@ -64,6 +64,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   const isLastStep = () => activeStep + 1 === totalSteps
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
+  const handleSelectStep = (selectedStep: number) => setActiveStep(selectedStep)
 
   const onStepSubmit = async (values, { setSubmitting }) => {
     if (!isLastStep()) {
@@ -116,7 +117,11 @@ export const ActerForm: FC<ActerFormProps> = ({
               </Box>
 
               <Box className={classes.stepBars}>
-                <Stepper activeStep={activeStep} steps={steps} />
+                <Stepper
+                  activeStep={activeStep}
+                  steps={steps}
+                  handleSelectStep={handleSelectStep}
+                />
               </Box>
 
               <ButtonsContainer>

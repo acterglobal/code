@@ -92,6 +92,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
     activeStep + 1 === totalSteps || activityType === ActivityTypes.MEETING
   const handlePrev = () => setActiveStep(Math.max(activeStep - 1, 0))
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
+  const handleSelectStep = (selectedStep: number) => setActiveStep(selectedStep)
 
   const onStepSubmit = (
     values: ActivityFormValues,
@@ -226,7 +227,11 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
                 {steps[activeStep] !== ActivityTypeStep && (
                   <Box className={classes.footer}>
                     {steps[activeStep] !== MeetingStep && (
-                      <Stepper activeStep={activeStep} steps={steps} />
+                      <Stepper
+                        activeStep={activeStep}
+                        steps={steps}
+                        handleSelectStep={handleSelectStep}
+                      />
                     )}
 
                     <Box className={classes.btnsContainer}>
