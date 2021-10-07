@@ -1,11 +1,16 @@
 import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
 
-import { ActerVariables } from '@acter/lib/acter/use-create-acter'
 import { uploadImage } from '@acter/lib/images/upload-image'
 import { Acter } from '@acter/schema'
 
 export type ActerPictureType = 'avatar' | 'banner'
+
+interface ActerPictureData {
+  id: string
+  avatarUrl?: string
+  bannerUrl?: string
+}
 
 //TODO: make this a type
 export const initialValues = {
@@ -25,7 +30,7 @@ interface UpdateActerWithPicturesProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formData?: any
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateActer: (data: ActerVariables) => Promise<any>
+  updateActer: (data: ActerPictureData) => Promise<any>
 }
 
 /**
@@ -60,7 +65,7 @@ UpdateActerWithPicturesProps): Promise<any> => {
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _updateActer = (updateActer: (any) => any) => (
-  variables: ActerVariables
+  variables: ActerPictureData
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => updateActer({ variables })
 
@@ -70,12 +75,12 @@ const _updateActer = (updateActer: (any) => any) => (
  * @returns ActerData with avatar and banner images set, if available
  */
 export const _updatePictures = async (
-  data: ActerVariables
-): Promise<ActerVariables> => {
+  data: ActerPictureData
+): Promise<ActerPictureData> => {
   const folder = `acter/${md5(data.id)}`
-  const dataWithPics = (await ['avatar', 'banner'].reduce<
-    Promise<ActerVariables>
-  >(_updatePicture(folder), Promise.resolve(data))) as ActerVariables
+  const dataWithPics = await ['avatar', 'banner'].reduce<
+    Promise<ActerPictureData>
+  >(_updatePicture(folder), Promise.resolve(data))
   return await {
     ...data,
     ...dataWithPics,
@@ -88,9 +93,9 @@ export const _updatePictures = async (
  * @returns a reducer function that takes an ActerData Promise and the picture type
  */
 export const _updatePicture = (folder: string) => async (
-  dataPromise: Promise<ActerVariables>,
+  dataPromise: Promise<ActerPictureData>,
   type: ActerPictureType
-): Promise<ActerVariables> => {
+): Promise<ActerPictureData> => {
   //TODO: error handling for failed upload
   const variables = await dataPromise
   const file = variables[type]

@@ -7,7 +7,7 @@ import {
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 
-export type ActerVariables = Acter & {
+export interface ActerVariables extends Acter {
   acterId?: string
   interestIds: ActerInterest[] | string[]
   followerIds: ActerConnection[] | string[]
