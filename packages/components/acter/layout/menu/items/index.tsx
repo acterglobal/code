@@ -8,7 +8,7 @@ import {
   SettingsIcon,
 } from '@acter/components/icons'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
-import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
+import { useNotifications } from '@acter/lib/notification/use-notifications'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import {
   Acter,
@@ -26,7 +26,7 @@ export interface ActerMenuItemsProps {
 }
 
 export const ActerMenuItems: FC<ActerMenuItemsProps> = ({ acter, user }) => {
-  const { notifications } = useFetchNotifications()
+  const { notifications } = useNotifications()
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   const getNotifications = (type: NotificationType) =>

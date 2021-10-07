@@ -2,6 +2,7 @@ import {
   FetchResult,
   MutationHookOptions,
   MutationResult,
+  StoreObject,
   useMutation,
 } from '@apollo/client'
 
@@ -11,7 +12,6 @@ type HandleMethod = (notificationId: string) => Promise<FetchResult>
 
 /**
  * To update notifications when viewed
- * @param notificationId on which notification should update
  * @returns updateNotification mutation and its results
  */
 export const useUpdateNotifications = (
@@ -21,21 +21,13 @@ export const useUpdateNotifications = (
     UPDATE_NOTIFICATION_VIEWED,
     {
       ...options,
-      update: (cache, result) => {
-        if (typeof options?.update === 'function') {
-          const { update, ...restOptions } = options
-          update(cache, result, restOptions)
-        }
+      update: (cache, result, updateOptions) => {
+        options?.update?.(cache, result, updateOptions)
+
         const { updateNotification: updatedNotification } = result.data
         cache.modify({
-          fields: {
-            notifications: (existingNotificationRefs, { readField }) => {
-              return existingNotificationRefs.filter(
-                (existingRef) =>
-                  updatedNotification.id !== readField('id', existingRef)
-              )
-            },
-          },
+          id: cache.identify((updatedNotification as unknown) as StoreObject),
+          fields: (_, { DELETE }) => DELETE,
         })
       },
     }

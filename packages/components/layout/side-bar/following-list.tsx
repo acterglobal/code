@@ -19,7 +19,7 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
-import { useFetchNotifications } from '@acter/lib/notification/use-fetch-notifications'
+import { useNotifications } from '@acter/lib/notification/use-notifications'
 import { useUser } from '@acter/lib/user/use-user'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
@@ -38,7 +38,7 @@ export const FollowingList: FC = () => {
     [user?.Acter.Following]
   )
 
-  const { notifications } = useFetchNotifications()
+  const { notifications } = useNotifications()
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 

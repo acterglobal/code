@@ -48,11 +48,9 @@ export const useCreatePost = (
     PostVariables
   >(isComment ? CREATE_COMMENT : CREATE_POST, {
     ...options,
-    update: (cache, result) => {
-      if (typeof options?.update === 'function') {
-        const { update, ...restOptions } = options
-        update(cache, result, restOptions)
-      }
+    update: (cache, result, updateOptions) => {
+      options?.update?.(cache, result, updateOptions)
+
       const {
         data: { createPost: newPost },
       } = result
