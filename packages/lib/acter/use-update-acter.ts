@@ -73,7 +73,7 @@ export const useUpdateActer = (
       return followerIds
     }
 
-    const dataWithPics = await _updatePictures(variables)
+    const dataWithPics = (await _updatePictures(variables)) as ActerVariables
     return updateActer({
       variables: {
         ...dataWithPics,

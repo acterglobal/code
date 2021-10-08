@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
+import { ActivityVariables } from '@acter/lib/activity/use-create-activity'
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter, ActerType, Activity } from '@acter/schema'
 
@@ -72,13 +73,14 @@ const _acterCreate = async ({
   // Make sure ActerType ID is set
   const variables = {
     followerIds: [],
+    interestIds: [],
     ...data,
     acterTypeId: acterType.id,
   }
   switch (acterType.name) {
     case ACTIVITY: {
       const res = await createActivity({
-        variables: prepareActivityValues(variables),
+        variables: prepareActivityValues(variables as ActivityVariables),
       })
       return res.data.createActivityCustom.Acter
     }

@@ -11,10 +11,8 @@ import { pipe } from 'fp-ts/function'
 
 import { Activity } from '@acter/schema'
 
-export type ActivityFormData = Omit<
-  Partial<Activity>,
-  'isOnline' | '_count'
-> & {
+export type ActivityFormData = Omit<Partial<Activity>, 'isOnline'> & {
+  id: string
   startDate?: Date
   startTime?: Date
   endDate?: Date
