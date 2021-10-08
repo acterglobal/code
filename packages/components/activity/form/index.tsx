@@ -1,7 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import clsx from 'clsx'
@@ -28,8 +26,9 @@ import {
   ActivityTypeStepValues,
 } from '@acter/components/activity/form/steps/type'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Stepper } from '@acter/components/util/stepper'
+import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
+import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
@@ -64,6 +63,14 @@ export interface ActivityFormProps
    * Whether the form is loading/saving
    */
   loading?: boolean
+  /**
+   * Whether the form is loading/saving
+   */
+  setDrawerHeading?: (heading: string) => void
+  /**
+   * Organiser id
+   */
+  organiserActerId?: string
 }
 
 export interface ActivityFormValues
@@ -73,16 +80,23 @@ export interface ActivityFormValues
     SettingsStepValues {
   startAt: Date
   endAt: Date
+  acterTypeId: string
 }
 
-export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
-  const router = useRouter()
+export const ActivityForm: FC<ActivityFormProps> = ({
+  acter,
+  onSubmit,
+  setDrawerHeading,
+  organiserActerId,
+}) => {
   const classes = useStyles()
-  const { activityTypes, loading } = useActivityTypes()
+  const { activityTypes, loading: activityTypesLoading } = useActivityTypes()
   const { user } = useUser()
 
+  const { acterTypes, loading: acterTypesLoading } = useActerTypes()
+  const acterType = getActerTypeByName(acterTypes, ActerTypes.ACTIVITY)
+
   const [activityType, setActivityType] = useState(null)
-  const [heading, setHeading] = useState('')
   const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
 
   const steps = getSteps(activityType, acter)
@@ -111,30 +125,29 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
   useEffect(() => {
     if (acter?.id) {
       setActivityType(acter.Activity.ActivityType.name)
-      setHeading(`Edit ${acter.Activity.ActivityType.name}`)
+      setDrawerHeading(`Edit ${acter.Activity.ActivityType.name}`)
       setSubmitButtonLabel('Save')
     }
   }, [])
 
   useEffect(() => {
     if (activityType && !acter?.id) {
-      setHeading(`Add ${activityType}`)
+      setDrawerHeading(`Add ${activityType}`)
     }
   }, [activityType])
 
   useEffect(() => {
     if (steps[activeStep] === ActivityTypeStep) {
-      setHeading(`Add Activity`)
+      setDrawerHeading(`Add Activity`)
     }
   }, [activeStep])
-
-  if (loading) return <LoadingSpinner />
-  if (!activityTypes) return null
 
   const handleOnClick = (activityTypeId: string) => {
     setActivityType(getActivityTypeNameById(activityTypeId, activityTypes))
     handleNext()
   }
+  if (activityTypesLoading || acterTypesLoading) return <LoadingSpinner />
+  if (!activityTypes || !acterTypes || !user) return null
 
   let startAt = null
   let endAt = null
@@ -154,10 +167,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
   const interestIds = getInterestIdsFromActer(acter)
 
   const initialValues: ActivityFormValues = {
-    organiserActerId:
-      router?.query?.organiserActerId?.toString() ||
-      acter?.Activity?.Organiser?.id ||
-      '',
+    organiserActerId: organiserActerId || acter?.Activity?.Organiser?.id || '',
     name: '',
     description: '',
     location: '',
@@ -175,8 +185,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
     endDate: endAt,
     endTime: endAt,
     endAt,
+    acterTypeId: acterType?.id,
   }
-  if (!user) return null
 
   // Fake an acter to determine potential followers when this is a new Activity
   const checkActer = acter
@@ -193,12 +203,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
       } as Acter)
   const acters = getFollowers(user, checkActer)
 
-  const handleModalClose = () => router.back()
-
-  // TODO: Add validation
-
   return (
-    <Modal handleModalClose={handleModalClose} heading={heading}>
+    <>
       <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
         {({ isSubmitting }) => {
           return (
@@ -234,7 +240,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
                       />
                     )}
 
-                    <Box className={classes.btnsContainer}>
+                    <Box className={classes.buttonsContainer}>
                       <Button
                         variant="text"
                         color="primary"
@@ -264,7 +270,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({ acter, onSubmit }) => {
           )
         }}
       </Formik>
-    </Modal>
+    </>
   )
 }
 
@@ -300,7 +306,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       flexDirection: 'column',
     },
-    btnsContainer: {
+    buttonsContainer: {
       display: 'flex',
       justifyContent: 'space-evenly',
     },

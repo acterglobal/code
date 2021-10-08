@@ -11,22 +11,19 @@ import {
 
 import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
-export const ActivityInfo: FC = () => {
-  const { acter, loading: acterLoading } = useActer()
+interface ActivityInfoProps {
+  acter: Acter
+}
+export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
   const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
     acter,
   ])
   const classes = useStyles({ activityTypeName })
-  if (acterLoading) return <LoadingSpinner />
-  if (!acter) return null
-
-  if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
   const displayFormat = acter.Activity.isAllDay

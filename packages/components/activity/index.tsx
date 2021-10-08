@@ -57,7 +57,7 @@ export const ActivityDetails: FC = () => {
           />
         </Box>
 
-        <ActivityInfo />
+        <ActivityInfo acter={acter} />
 
         <Grid container spacing={2} className={classes.content}>
           <Hidden smDown>
