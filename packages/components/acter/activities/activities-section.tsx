@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
-import { AddActivityButton } from '@acter/components/activity/add-activity-button'
+import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -41,7 +41,7 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   return (
     <>
       <TopSection>
-        <AddActivityButton />
+        <AddActivitySection />
 
         <FormControlsContainer>
           <FormControlLabel
