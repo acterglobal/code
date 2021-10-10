@@ -2,7 +2,7 @@
 #import "../fragments/acter-full.fragment.graphql"
 #import "../fragments/activity-display.fragment.graphql"
 
-fragment ActerReallyFull on Acter {
+fragment ActerWithActivities on Acter {
   ...ActerFull
   createdByUserId
   Activity {

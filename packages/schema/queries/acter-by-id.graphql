@@ -2,6 +2,6 @@
 
 query ActerById($acterId: String) {
   acter(where: { id: $acterId }) {
-    ...ActerReallyFull
+    ...ActerWithActivities
   }
 }
