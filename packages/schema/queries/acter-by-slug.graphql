@@ -1,6 +1,4 @@
-#import "../fragments/acter-display.fragment.graphql"
-#import "../fragments/acter-full.fragment.graphql"
-#import "../fragments/activity-display.fragment.graphql"
+#import "../fragments/acter-really-full.fragment.graphql"
 
 query ActerBySlug($acterTypeId: String!, $slug: String!) {
   findFirstActer(
@@ -12,25 +10,6 @@ query ActerBySlug($acterTypeId: String!, $slug: String!) {
       }
     }
   ) {
-    ...ActerFull
-    createdByUserId
-    Activity {
-      ...ActivityDisplay
-      Organiser {
-        ...ActerDisplay
-      }
-    }
-    ActivitiesOrganized(
-      where: { Acter: { is: { deletedAt: { equals: null } } } }
-      orderBy: { startAt: asc }
-    ) {
-      ...ActivityDisplay
-      Acter {
-        ...ActerDisplay
-      }
-    }
-    Parent {
-      ...ActerFull
-    }
+    ...ActerWithActivities
   }
 }
