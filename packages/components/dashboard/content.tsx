@@ -11,6 +11,7 @@ import {
 
 import { ActivitiesList } from '@acter/components/dashboard/activities-list'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
@@ -26,7 +27,7 @@ export const DashboardContent: FC = () => {
     user?.Acter.id
   )
 
-  if (userLoading || activitiesLoading) return <>Loading...</>
+  if (userLoading || activitiesLoading) return <LoadingSpinner />
   if (!user) return null
 
   const acters = flattenFollowing(user?.Acter)

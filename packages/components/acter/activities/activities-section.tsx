@@ -17,8 +17,8 @@ import { ActivityLanding } from '@acter/components/activity/tile/activity-landin
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
-  _getActivitiesAfterDate,
-  _sortActivitiesByStartAt,
+  getActivitiesAfterDate,
+  sortActivitiesByStartAt,
 } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
 
@@ -37,8 +37,8 @@ export const ActivitiesSection: FC = () => {
   if (acterLoading || activitiesLoading) return <LoadingSpinner />
   if (!acter || !activities) return null
 
-  const allActivities = _sortActivitiesByStartAt(activities)
-  const futureActivities = _getActivitiesAfterDate(allActivities, new Date())
+  const allActivities = sortActivitiesByStartAt(activities)
+  const futureActivities = getActivitiesAfterDate(allActivities, new Date())
 
   const displayActivities = showPastActivities
     ? allActivities
