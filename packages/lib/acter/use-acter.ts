@@ -42,7 +42,7 @@ type UseActerProps = {
 
 /**
  * Get the acter
- * @param options for passing fetchParent or acterType which are optional
+ * @param options for passing fetchParent or acterId which are optional
  * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
