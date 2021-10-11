@@ -1,18 +1,20 @@
 #import "./acter-display.fragment.graphql"
-#import "./activity-display.fragment.graphql"
 
 fragment ActerFull on Acter {
   ...ActerDisplay
-  Following(where: { Following: { is: { deletedAt: { equals: null } } } }) {
+  Following(
+    where: {
+      Following: {
+        is: {
+          ActerType: { isNot: { name: { equals: "activity" } } }
+          deletedAt: { equals: null }
+        }
+      }
+    }
+  ) {
     id
     Following {
       ...ActerDisplay
-      Activity {
-        ...ActivityDisplay
-        Acter {
-          ...ActerDisplay
-        }
-      }
     }
   }
   Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
