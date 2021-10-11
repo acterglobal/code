@@ -20,11 +20,12 @@ interface ActivityInfoProps {
   acter: Acter
 }
 export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
+  if (!acter) return null
+
   const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
     acter,
   ])
   const classes = useStyles({ activityTypeName })
-  if (!acter) return null
 
   const displayFormat = acter.Activity.isAllDay
     ? DATE_FORMAT_NO_TIME

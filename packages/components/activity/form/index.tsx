@@ -81,6 +81,7 @@ export interface ActivityFormValues
   startAt: Date
   endAt: Date
   acterTypeId: string
+  acterId: string
 }
 
 export const ActivityForm: FC<ActivityFormProps> = ({
@@ -186,6 +187,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     endTime: endAt,
     endAt,
     acterTypeId: acterType?.id,
+    acterId: acter?.id,
   }
 
   // Fake an acter to determine potential followers when this is a new Activity

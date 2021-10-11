@@ -58,12 +58,14 @@ export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
       >
         {acters.map((acter, index) => (
           <Box className={classes.singleItem} key={index} role="listitem">
-            <Link href={acterAsUrl({ acter })} passHref>
-              {searchType === ACTERS && <ActerTile acter={acter} />}
-              {searchType === ACTIVITIES && (
-                <ActivityTile activity={acter.Activity} />
-              )}
-            </Link>
+            {searchType === ACTERS && (
+              <Link href={acterAsUrl({ acter })} passHref>
+                <ActerTile acter={acter} />
+              </Link>
+            )}
+            {searchType === ACTIVITIES && (
+              <ActivityTile activity={acter.Activity} />
+            )}
           </Box>
         ))}
       </InfiniteScroll>

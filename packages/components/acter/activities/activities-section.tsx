@@ -1,4 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+
+import { useRouter } from 'next/router'
 
 import {
   Box,
@@ -11,6 +13,7 @@ import {
 import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
+import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getActivitiesForActerByStartAt } from '@acter/lib/activity/get-activities-for-acter'
@@ -26,6 +29,13 @@ export interface ActivitySectionProps {
 export const ActivitiesSection: FC<ActivitySectionProps> = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)
   const { acter, loading: acterLoading } = useActer()
+
+  const { query } = useRouter()
+  const [showActivity, setShowActivity] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (query?.acterId) setShowActivity(true)
+  }, [query?.acterId])
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
@@ -62,6 +72,14 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
 
         <ActivitiesList activities={displayActivities} />
       </Box>
+
+      {showActivity && (
+        <ActivityLanding
+          acterId={query?.acterId as string}
+          openDrawer={showActivity}
+          handleCloseDrawer={() => setShowActivity(false)}
+        />
+      )}
     </>
   )
 }

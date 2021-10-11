@@ -2,9 +2,8 @@ import React, { FC } from 'react'
 
 import { Box, Typography } from '@material-ui/core'
 
-import { LoadingSpinner } from '../util/loading-spinner'
-
 import { InterestTypes } from '@acter/components/interests/interest-types'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { Size } from '@acter/lib/constants'
 import {
   getSelectedTopLevelTypes,

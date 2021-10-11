@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
+
+import { ActivityLanding } from './activity-landing'
 
 import { ActivityType } from '@acter/components/activity/tile/activity-type'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
@@ -12,17 +14,31 @@ export interface ActivityTileProps {
 }
 
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
-  if (!activity.id) return null
+  if (!activity) return null
+
   const classes = useStyles()
+  const [showActivity, setShowActivity] = useState<boolean>(false)
+  const handleClick = () => setShowActivity(true)
+  const handleClose = () => setShowActivity(false)
 
   return (
-    <Box className={classes.root}>
-      <ImageSection activity={activity} />
+    <>
+      <Box className={classes.root} onClick={handleClick}>
+        <ImageSection activity={activity} />
 
-      <InfoSection activity={activity} />
+        <InfoSection activity={activity} />
 
-      <ActivityType activity={activity} />
-    </Box>
+        <ActivityType activity={activity} />
+      </Box>
+
+      {showActivity && (
+        <ActivityLanding
+          acterId={activity.Acter.id}
+          openDrawer={showActivity}
+          handleCloseDrawer={handleClose}
+        />
+      )}
+    </>
   )
 }
 
@@ -35,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 210,
       height: 218,
       position: 'relative',
+      cursor: 'pointer',
     },
   })
 )
