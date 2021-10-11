@@ -1,0 +1,24 @@
+#import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
+
+query ActivitiesFollowedByActer($followerId: String!) {
+  activities(
+    where: {
+      Acter: {
+        is: {
+          Followers: {
+            some: { Follower: { is: { id: { equals: $followerId } } } }
+          }
+          Following: {
+            every: { Following: { is: { deletedAt: { equals: null } } } }
+          }
+        }
+      }
+    }
+  ) {
+    ...ActivityDisplay
+    Acter {
+      ...ActerDisplay
+    }
+  }
+}

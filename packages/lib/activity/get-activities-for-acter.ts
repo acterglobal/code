@@ -19,10 +19,10 @@ export const getActivitiesForActerByStartAt = (
     _getFollowedActivitiesMap,
     _addMissingOrganisedActivities(acter),
     Object.values,
-    _sortActivitiesByStartAt
+    sortActivitiesByStartAt
   )
   const now = new Date()
-  const futureActivities = _getActivitiesAfterDate(allActivities, now)
+  const futureActivities = getActivitiesAfterDate(allActivities, now)
   return { allActivities, futureActivities }
 }
 
@@ -47,7 +47,7 @@ export const _addMissingOrganisedActivities = (acter: Acter) => (
     followed
   )
 
-export const _sortActivitiesByStartAt = (activities: Activity[]): Activity[] =>
+export const sortActivitiesByStartAt = (activities: Activity[]): Activity[] =>
   [...activities].sort((a, b) =>
     differenceInMilliseconds(
       parseDateOrString(a.startAt),
@@ -55,7 +55,7 @@ export const _sortActivitiesByStartAt = (activities: Activity[]): Activity[] =>
     )
   )
 
-export const _getActivitiesAfterDate = (
+export const getActivitiesAfterDate = (
   activities: Activity[],
   afterDate: Date
 ): Activity[] =>

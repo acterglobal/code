@@ -1,8 +1,8 @@
 import {
   _getFollowedActivitiesMap,
   _addMissingOrganisedActivities,
-  _sortActivitiesByStartAt,
-  _getActivitiesAfterDate,
+  sortActivitiesByStartAt,
+  getActivitiesAfterDate,
   getActivitiesForActerByStartAt,
 } from '../get-activities-for-acter'
 import { add, sub } from 'date-fns'
@@ -119,18 +119,18 @@ describe('getActivitiesForActer', () => {
     })
   })
 
-  describe('_sortActivitiesByStartAt', () => {
+  describe('sortActivitiesByStartAt', () => {
     it('should sort activities by start date', () => {
       expect(
-        _sortActivitiesByStartAt([activity2, activity3, activity1])
+        sortActivitiesByStartAt([activity2, activity3, activity1])
       ).toEqual([activity1, activity2, activity3])
     })
   })
 
-  describe('_getActivitiesAfterDate', () => {
+  describe('getActivitiesAfterDate', () => {
     it('should return a list of Activities happening in the future', () => {
       expect(
-        _getActivitiesAfterDate(
+        getActivitiesAfterDate(
           [activity1, activity2, activity3],
           add(activity1.startAt, { seconds: 1 })
         )
