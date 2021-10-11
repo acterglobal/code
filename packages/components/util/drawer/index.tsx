@@ -24,7 +24,11 @@ export const Drawer: FC<DrawerProps> = ({
   const classes = useStyles()
 
   return (
-    <MUIDrawer anchor="right" open={open}>
+    <MUIDrawer
+      anchor="right"
+      open={open}
+      ModalProps={{ onBackdropClick: handleClose }}
+    >
       <TopBar
         handleClose={handleClose}
         actionButtons={actionButtons}

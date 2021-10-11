@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
 import { ActivityDetails } from '@acter/components/activity'
 import { Drawer } from '@acter/components/util/drawer'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
@@ -37,9 +36,10 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
     handleCloseDrawer()
   }
 
-  const { acter, loading: acterLoading } = useActer({ acterId })
+  const { acter } = useActer({ acterId })
   const [updateActivity] = useUpdateActivity({ onCompleted: handleClose })
   const [deleteActivity] = useDeleteActer({ onCompleted: handleClose })
+  if (!acter) return null
 
   return (
     <Drawer
@@ -50,9 +50,7 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
       actionButtons={[EDIT, DELETE]}
       setAction={setAction}
     >
-      {acterLoading ? (
-        <LoadingSpinner />
-      ) : action === EDIT ? (
+      {action === EDIT ? (
         <EditActivity
           acter={acter}
           onSubmit={updateActivity}
