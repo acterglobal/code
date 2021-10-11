@@ -59,13 +59,18 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
 
   const dailyDigestCron = process.env.DAILY_DIGEST_CRON
   if (dailyDigestCron) {
+    console.log(
+      'Staring digest cron with cron of ',
+      process.env.DAILY_DIGEST_CRON
+    )
     await dailyDigestQueueScheduler.waitUntilReady()
     // Reset the Digest create cron job
     const repeatable = await dailyDigestCronQueue.getRepeatableJobs()
     await Promise.all(
-      repeatable.map((job) =>
-        dailyDigestCronQueue.removeRepeatableByKey(job.key)
-      )
+      repeatable.map((job) => {
+        console.log('Killing previous job', job)
+        return dailyDigestCronQueue.removeRepeatableByKey(job.key)
+      })
     )
     await dailyDigestCronQueue.drain()
     await dailyDigestCronQueue.add(
@@ -73,8 +78,7 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
       {},
       {
         repeat: {
-          // cron: dailyDigestCron,
-          every: 60000,
+          cron: dailyDigestCron,
         },
       }
     )
