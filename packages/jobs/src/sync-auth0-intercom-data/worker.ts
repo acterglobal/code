@@ -46,7 +46,7 @@ const syncIntercomData = async ({
     role: 'user',
     external_id: user.id,
     email: user.email,
-    last_seen_at: now,
+    last_seen_at: getUnixTime(now),
     signed_up_at: getUnixTime(parseDateOrString(user.Acter.createdAt)),
     name: user.Acter.name,
     custom_attributes: {
