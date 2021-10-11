@@ -19,6 +19,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const classes = useStyles()
   const [showActivity, setShowActivity] = useState<boolean>(false)
   const handleClick = () => setShowActivity(true)
+  const handleClose = () => setShowActivity(false)
 
   return (
     <>
@@ -30,7 +31,13 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
         <ActivityType activity={activity} />
       </Box>
 
-      {showActivity && <ActivityLanding acterId={activity.Acter.id} />}
+      {showActivity && (
+        <ActivityLanding
+          acterId={activity.Acter.id}
+          openDrawer={showActivity}
+          handleCloseDrawer={handleClose}
+        />
+      )}
     </>
   )
 }

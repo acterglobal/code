@@ -73,7 +73,13 @@ export const ActivitiesSection: FC<ActivitySectionProps> = () => {
         <ActivitiesList activities={displayActivities} />
       </Box>
 
-      {showActivity && <ActivityLanding acterId={query?.acterId as string} />}
+      {showActivity && (
+        <ActivityLanding
+          acterId={query?.acterId as string}
+          openDrawer={showActivity}
+          handleCloseDrawer={() => setShowActivity(false)}
+        />
+      )}
     </>
   )
 }
