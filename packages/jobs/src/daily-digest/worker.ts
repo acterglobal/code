@@ -58,6 +58,11 @@ export const dailyDigestWorker = createWorker(
       },
     })
 
+    if (notifications.length === 0) {
+      console.log('No notifications, exiting')
+      return
+    }
+
     const notificationsByActer: NotificationByActerMap = notifications.reduce(
       (memo, notification) => {
         const { OnActer, Activity, Post } = notification
