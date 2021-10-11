@@ -19,19 +19,13 @@ export const syncAuth0IntercomDataWorker = createWorker(
       data: { session, user },
     } = job
 
+    assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
     assert(
-      !!process.env.NEXT_PUBLIC_INTERCOM_ACCESS_TOKEN,
-      'Intercom access token missing'
-    )
-    assert(
-      !!process.env.NEXT_PUBLIC_AUTH0_MANAGEMENT_API_URL,
+      !!process.env.AUTH0_MANAGEMENT_API_URL,
       'Auth0 management API URL missing'
     )
-    assert(!!process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID, 'Auth0 client ID missing')
-    assert(
-      !!process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
-      'Auth0 client secret missing'
-    )
+    assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
+    assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
 
     const intercomUser = await syncIntercomData({ user, session })
     await syncIntercomToAuth0({ session, intercomUser })
@@ -45,7 +39,7 @@ const syncIntercomData = async ({
 }: SyncAuth0IntercomData): Promise<IntercomUser> => {
   const now = new Date().getTime()
   const headers = {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_INTERCOM_ACCESS_TOKEN}`,
+    Authorization: `Bearer ${process.env.INTERCOM_ACCESS_TOKEN}`,
   }
   const baseUrl = 'https://api.intercom.io/contacts'
   const data = {
@@ -107,9 +101,9 @@ const syncIntercomToAuth0 = async ({
   intercomUser,
 }: SyncIntercomToAuth0Params): Promise<void> => {
   const auth0 = new ManagementClient({
-    domain: process.env.NEXT_PUBLIC_AUTH0_MANAGEMENT_API_URL,
-    clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-    clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
+    domain: process.env.AUTH0_MANAGEMENT_API_URL,
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
   })
 
   let auth0User
