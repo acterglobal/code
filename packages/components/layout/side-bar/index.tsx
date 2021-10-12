@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { useUser } from '@auth0/nextjs-auth0'
 import {
   Box,
   Drawer,
@@ -15,12 +16,8 @@ import {
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 
-import {
-  ActerIcon,
-  HomeIcon,
-  AddIcon,
-  SearchIcon,
-} from '@acter/components/icons'
+import { AddActer } from '@acter/components/acter/add-acter'
+import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { Link } from '@acter/components/util/anchor-link'
@@ -30,7 +27,7 @@ export const PRIMARY_WIDTH = 8
 export const Sidebar: FC = () => {
   const classes = useStyles()
   const router = useRouter()
-
+  const { user } = useUser()
   return (
     <Drawer
       variant="permanent"
@@ -53,9 +50,14 @@ export const Sidebar: FC = () => {
             text="Search"
             active={!!router.route.match(/^\/search/)}
           />
-          <Divider />
-          <FollowingList />
-          <IconMenuItem Icon={AddIcon} href="/acters/new" text="Add Acter" />
+
+          {user && (
+            <>
+              <Divider />
+              <FollowingList />
+              <AddActer />
+            </>
+          )}
         </List>
       </Box>
     </Drawer>

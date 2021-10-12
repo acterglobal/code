@@ -39,7 +39,7 @@ export const useCreateActer = (
   >(ACTER_CREATE, {
     ...options,
     getSuccessMessage: (data: CreateActerData) =>
-      `${data.createActerCustom.name} group created`,
+      `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`,
   })
 
   const handleCreateActer = (acter: ActerVariables) =>
