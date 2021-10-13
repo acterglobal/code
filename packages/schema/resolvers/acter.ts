@@ -41,12 +41,17 @@ export class ActerResolver {
     followerIds: [string]
   ): Promise<Acter> {
     const currentUser = await getCurrentUserFromContext(ctx)
+    // Found existing organisation Acter with slug
 
     if (!currentUser) {
       const err = 'No user found'
       console.error(err)
       throw err
+    } else {
+      console.log('This is current user ', currentUser)
     }
+    console.log('This is the resolver')
+
     const createdByUserId = currentUser.id
 
     const acterType = await ctx.prisma.acterType.findFirst({
