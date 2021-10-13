@@ -69,7 +69,7 @@ export const ActerTileInfo: FC<ActerTileInfoProps> = ({ acter }) => {
 
           <Box className={classes.container}>
             {followingActers.map((acter) => (
-              <Link href={acterAsUrl({ acter })}>
+              <Link key={`acter-${acter.id}`} href={acterAsUrl({ acter })}>
                 <ActerAvatar size={2.3} acter={acter} />
                 <Typography variant="caption" className={classes.networkTitle}>
                   {acter.name}
