@@ -4,12 +4,13 @@ import { User } from '@acter/schema'
 export const getCurrentUserFromContext = async (
   ctx: ActerGraphQLContext
 ): Promise<Partial<User>> => {
-  console.log('This is current user context')
-  return ctx.prisma.user.findFirst({
-    select: {
-      id: true,
-      Acter: true,
-    },
-    where: { id: ctx.session?.user?.id },
-  })
+  if (ctx.session) {
+    return ctx.prisma.user.findFirst({
+      select: {
+        id: true,
+        Acter: true,
+      },
+      where: { id: ctx.session?.user?.id },
+    })
+  }
 }
