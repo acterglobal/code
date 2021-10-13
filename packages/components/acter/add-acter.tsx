@@ -4,13 +4,14 @@ import { StoreObject } from '@apollo/client'
 import { ListItem } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-import { AddActerType } from '@acter/components/acter/add-acter-type'
 import { ActerForm } from '@acter/components/acter/form'
+import { SelectActerType } from '@acter/components/acter/select-acter-type'
 import { AddIcon } from '@acter/components/icons'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
+import { useUser } from '@acter/lib/user/use-user'
 import { ActerType } from '@acter/schema'
 
 export const AddActer: FC = () => {
@@ -35,14 +36,15 @@ export const AddActer: FC = () => {
     setShowActerForm(true)
   }
 
+  const { user } = useUser()
   const { acterTypes } = useActerTypes()
 
   const [createActer] = useCreateActer({
     update: (cache, { data }) => {
       const { createActerCustom: newActer } = data
       cache.modify({
-        id: cache.identify((newActer as unknown) as StoreObject),
-        fields: { acters: addToCacheList(newActer) },
+        id: cache.identify((user?.Acter as unknown) as StoreObject),
+        fields: { Following: addToCacheList(newActer) },
       })
     },
     onCompleted: handleDrawerClose,
@@ -54,7 +56,7 @@ export const AddActer: FC = () => {
         <AddIcon fontSize="large" aria-label="Add Acter" />
       </ListItem>
 
-      {acterTypes && (
+      {acterTypes && user && (
         <Drawer
           heading={heading}
           open={openDrawer}
@@ -63,7 +65,7 @@ export const AddActer: FC = () => {
           {showActerForm ? (
             <ActerForm acterType={acterType} onSubmit={createActer} />
           ) : (
-            <AddActerType onClick={handleChooseActerType} />
+            <SelectActerType onClick={handleChooseActerType} />
           )}
         </Drawer>
       )}

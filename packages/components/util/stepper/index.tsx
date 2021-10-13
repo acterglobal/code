@@ -30,9 +30,9 @@ export const Stepper: FC<StepperProps> = ({
           color="primary"
           className={classes.button}
           onClick={() => handleClick(index)}
+          key={index}
         >
           <Box
-            key={index}
             className={clsx(classes.bar, activeStep >= index && classes.active)}
           ></Box>
         </Button>

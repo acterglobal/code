@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/react'
 
 import {
-  AddActerType,
-  AddActerTypeProps,
-} from '@acter/components/acter/add-acter-type'
+  SelectActerType,
+  SelectActerTypeProps,
+} from '@acter/components/acter/select-acter-type'
 
 export default {
   title: 'acter/AddActerSelector',
-  component: AddActerType,
+  component: SelectActerType,
   argTypes: {
     onSubmit: {
       action: 'clicked',
@@ -15,6 +15,6 @@ export default {
   },
 } as Meta
 
-export const AddActerSelector: Story<AddActerTypeProps> = (args) => (
-  <AddActerType {...args} />
+export const AddActerSelector: Story<SelectActerTypeProps> = (args) => (
+  <SelectActerType {...args} />
 )

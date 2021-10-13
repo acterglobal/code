@@ -8,11 +8,11 @@ import { ActerTypes } from '@acter/lib/constants/acter-types'
 
 const { ORGANISATION, NETWORK } = ActerTypes
 
-export interface AddActerTypeProps {
+export interface SelectActerTypeProps {
   onClick: (acterType: string) => void
 }
 
-export const AddActerType: FC<AddActerTypeProps> = ({ onClick }) => {
+export const SelectActerType: FC<SelectActerTypeProps> = ({ onClick }) => {
   const classes = useStyles()
 
   return (
