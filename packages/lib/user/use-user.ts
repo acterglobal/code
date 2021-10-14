@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import { useLazyQuery, ApolloError, QueryResult } from '@apollo/client'
 import { useUser as getUser } from '@auth0/nextjs-auth0'
+
+import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { initializeApollo } from '@acter/lib/apollo'
 import { User } from '@acter/schema'
@@ -11,9 +12,12 @@ type UseUserData = { user: User }
 
 type UseUserVariables = { email: string }
 
-type UserQueryResult = Omit<QueryResult<UseUserData, UseUserVariables>, 'error'>
+type UserQueryResult = Omit<
+  UseQueryState<UseUserData, UseUserVariables>,
+  'error'
+>
 
-type UseUserError = Error | ApolloError
+type UseUserError = Error | CombinedError
 
 export type UseUserQueryResult = UseUserData &
   UserQueryResult & { error?: UseUserError[] }
@@ -24,12 +28,12 @@ export type UseUserQueryResult = UseUserData &
  */
 export const useUser = (): UseUserQueryResult => {
   const [userData, setUserData] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [fetching, setFetching] = useState(false)
   const [errors, setErrors] = useState<UseUserError[]>()
 
   const {
     user: sessionUser,
-    isLoading: userLoading,
+    isLoading: userFetching,
     error: userError,
   } = getUser()
 
@@ -45,17 +49,20 @@ export const useUser = (): UseUserQueryResult => {
   }, [cache])
 
   const [
-    getUserData,
-    { loading: dataLoading, error: dataError, ...restQueryResult },
-  ] = useLazyQuery(GET_USER, {
-    onCompleted: ({ user }) => {
-      setUserData(user)
-    },
+    { data, fetching: dataFetching, error: dataError, ...restQueryResult },
+  ] = useQuery({
+    query: GET_USER,
+    variables: { email: sessionUser?.email },
+    pause: !sessionUser?.email,
   })
 
   useEffect(() => {
-    setLoading(userLoading || dataLoading)
-  }, [userLoading, dataLoading])
+    setFetching(userFetching || dataFetching)
+  }, [userFetching, dataFetching])
+
+  useEffect(() => {
+    if (data?.user) setUserData(data.user)
+  }, [data])
 
   useEffect(() => {
     const userErrorOrEmpty = userError ? [userError] : []
@@ -64,15 +71,9 @@ export const useUser = (): UseUserQueryResult => {
     if (theErrors.length > 0) setErrors(theErrors)
   }, [userError, dataError])
 
-  useEffect(() => {
-    if (sessionUser?.email) {
-      getUserData({ variables: { email: sessionUser.email } })
-    }
-  }, [sessionUser])
-
   return {
     user: userData,
-    loading,
+    fetching,
     error: errors,
     ...(restQueryResult as UserQueryResult),
   }

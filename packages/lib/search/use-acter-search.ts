@@ -4,7 +4,7 @@ import { useSearchType } from './use-search-type'
 
 import { usePaginatedQuery, UsePaginatedState } from '@acter/lib/apollo'
 import { SearchType, ResultKey } from '@acter/lib/constants'
-import { searchVar } from '@acter/lib/search/search-var'
+import { searchVar, SearchVariables } from '@acter/lib/search/search-var'
 import { Acter } from '@acter/schema'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'

@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
 import { di } from 'react-magnetic-di/macro'
 
-import {
-  useLazyQuery,
-  MutationOptions,
-  QueryResult,
-  ApolloError,
-} from '@apollo/client'
+import { CombinedError, useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Post } from '@acter/schema'
@@ -20,32 +15,33 @@ type PostsVariables = {
   acterId: string
 }
 
-type UsePostsOptions = MutationOptions<PostsData, PostsVariables>
+type UsePostsOptions = UseQueryArgs<PostsVariables, PostsData>
 
-type UsePostError = ApolloError | Error
+type UsePostError = CombinedError | Error
 
-export interface UsePostsResult
-  extends Omit<QueryResult<PostsData, PostsVariables>, 'data'> {
+interface UsePostsResult
+  extends Omit<UseQueryState<PostsData, PostsVariables>, 'data'> {
   posts: Post[]
 }
 
 export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
   di(useActer)
-  const [loading, setLoading] = useState(false)
+  const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UsePostError>()
   const [posts, setPosts] = useState<Post[]>([])
-  const { acter, loading: acterLoading, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer()
 
   const [
-    fetchPosts,
-    { data, loading: queryLoading, error: queryError, ...restQueryResults },
-  ] = useLazyQuery<PostsData, PostsVariables>(GET_POSTS, {
+    { data, fetching: queryFetching, error: queryError, ...restQueryResults },
+  ] = useQuery<PostsData, PostsVariables>({
+    query: GET_POSTS,
     ...options,
+    pause: !acter?.id,
   })
 
   useEffect(() => {
-    setLoading(acterLoading || queryLoading)
-  }, [acterLoading, queryLoading])
+    setFetching(acterFetching || queryFetching)
+  }, [acterFetching, queryFetching])
 
   useEffect(() => {
     if (acterError) return setError(acterError)
@@ -53,17 +49,8 @@ export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
   }, [acterError, queryError])
 
   useEffect(() => {
-    if (acter?.id)
-      fetchPosts({
-        variables: {
-          acterId: acter.id,
-        },
-      })
-  }, [acter?.id])
-
-  useEffect(() => {
     if (data?.posts) setPosts(data.posts)
   }, [data?.posts])
 
-  return { posts, loading, error, ...restQueryResults } as UsePostsResult
+  return { posts, fetching, error, ...restQueryResults } as UsePostsResult
 }

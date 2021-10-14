@@ -26,13 +26,13 @@ export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
   const classes = useStyles()
   const searchType = useSearchType()
 
-  const { acters, loading, loadMore, hasMore } = useActerSearch()
+  const { acters, fetching, loadMore, hasMore } = useActerSearch()
 
   useEffect(() => {
     setResultCount?.(acters?.length || 0)
   }, [acters?.length])
 
-  if (loading && acters.length === 0)
+  if (fetching && acters.length === 0)
     return (
       <Box className={classes.loading}>
         <LoadingSpinner />

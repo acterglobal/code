@@ -2,11 +2,11 @@ import { useState, useEffect, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { ApolloError, QueryResult, useLazyQuery } from '@apollo/client'
+import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { Acter, ActerType } from '@acter/schema'
+import { Acter } from '@acter/schema'
 import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
 import QUERY_ACTER_SLUG from '@acter/schema/queries/acter-by-slug.graphql'
 
@@ -20,15 +20,21 @@ type UseActerData = {
 
 type ActerData = UseActerData
 
-type UseActerVariables = {
+type UseActerVariablesById = {
+  acterId: string
+}
+
+type UseActerVariablesByTypeAndSlug = {
   acterTypeId: string
   slug: string
 }
 
-type UseActerError = ApolloError | Error
+type UseActerVariables = UseActerVariablesById | UseActerVariablesByTypeAndSlug
 
-export type ActerQueryResult = Omit<
-  QueryResult<UseActerData, UseActerVariables>,
+type UseActerError = CombinedError | Error
+
+type ActerQueryResult = Omit<
+  UseQueryState<UseActerData, UseActerVariables>,
   'error'
 > & {
   acter: Acter
@@ -48,9 +54,10 @@ type UseActerProps = {
  * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
-  const { acterId, fetchParent = false } = options || {}
+  const { fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [acterId, setActerId] = useState(options?.acterId)
+  const [fetching, setFetching] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
   const router = useRouter()
 
@@ -59,12 +66,14 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
 
   const {
     acterTypes,
-    loading: acterTypesLoading,
+    fetching: acterTypesFetching,
     error: acterTypesError,
   } = useActerTypes()
 
-  const acterType = useMemo<ActerType>(() => {
-    if (acterId) return null
+  const variables = useMemo<UseActerVariables>(() => {
+    if (acterId) return {
+      acterId
+    }
 
     if (acterTypes) {
       const result = acterTypes.find(
@@ -72,37 +81,25 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
       )
       if (!result?.id) {
         setErrors(Error('Not valid acter type'))
-        return null
       }
-      return result
+      return {
+        acterTypeId: result.id,
+        slug: <string>slug
+      }
     }
+
+    return null
   }, [acterTypes, acterTypeName, acterId])
 
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
   const [
-    fetchActer,
-    { data, loading: dataLoading, error: dataError, ...restQueryResult },
-  ] = useLazyQuery<ActerData>(query)
-
-  useEffect(() => {
-    if (acterId) {
-      return fetchActer({ variables: { acterId } })
-    }
-    setActer(null)
-  }, [acterId])
-
-  useEffect(() => {
-    if (acterType && slug) {
-      return fetchActer({
-        variables: {
-          acterTypeId: acterType.id,
-          slug,
-        },
-      })
-    }
-    setActer(null)
-  }, [acterType, slug])
+    { data, fetching: dataFetching, error: dataError, ...restQueryResult },
+  ] = useQuery<ActerData>({
+    query,
+    variables,
+    pause: !variables
+  })
 
   useEffect(() => {
     if (data) {
@@ -111,12 +108,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
       } else {
         const { findFirstActer: acter } = data
         if (fetchParent && acter?.Parent) {
-          return fetchActer({
-            variables: {
-              acterTypeId: acter.Parent.ActerType.id,
-              slug: acter.Parent.slug,
-            },
-          })
+          setActerId(acter.Parent.id)
         }
         setActer(acter)
       }
@@ -124,8 +116,8 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   }, [data])
 
   useEffect(() => {
-    setLoading(acterTypesLoading || dataLoading)
-  }, [acterTypesLoading, dataLoading])
+    setFetching(acterTypesFetching || dataFetching)
+  }, [acterTypesFetching, dataFetching])
 
   useEffect(() => {
     if (acterTypesError) return setErrors(acterTypesError)
@@ -135,7 +127,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   return {
     ...(restQueryResult as ActerQueryResult),
     acter,
-    loading,
+    fetching,
     error: errors,
   }
 }

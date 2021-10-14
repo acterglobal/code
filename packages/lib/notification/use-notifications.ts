@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { ApolloError, useLazyQuery } from '@apollo/client'
+import { useQuery } from 'urql'
 
 import {
   getNotificationsGroupByActer,
@@ -13,8 +13,6 @@ import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-us
 
 type UseNotificationsQueryResults = {
   notifications: Notifications
-  loading: boolean
-  error: ApolloError
 }
 /**
  * Gives notification info for new posts/activities/members on a specific acter
@@ -25,24 +23,14 @@ export const useNotifications = (): UseNotificationsQueryResults => {
   const { user } = useUser()
   const { asPath: url } = useRouter()
 
-  const [
-    fetchNotifications,
-    { data, loading, error, refetch, ...restQueryResult },
-  ] = useLazyQuery(GET_NOTIFICATIONS)
+  const [{ data, ...restQueryResult }, refetch] = useQuery({
+    query: GET_NOTIFICATIONS,
+    pause: !user?.Acter?.id,
+  })
 
   useEffect(() => {
     if (user) {
-      fetchNotifications({
-        variables: { toActer: user.Acter.id },
-      })
-    }
-  }, [user])
-
-  useEffect(() => {
-    if (user) {
-      refetch({
-        variables: { toActer: user.Acter.id },
-      })
+      refetch()
     }
   }, [url])
 
@@ -52,5 +40,5 @@ export const useNotifications = (): UseNotificationsQueryResults => {
     }
   }, [data])
 
-  return { notifications, loading, error, ...restQueryResult }
+  return { notifications, ...restQueryResult }
 }

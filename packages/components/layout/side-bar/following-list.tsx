@@ -27,7 +27,7 @@ const { ACTIVITY, GROUP, USER } = ActerTypes
 export const FollowingList: FC = () => {
   const classes = useStyles()
   const router = useRouter()
-  const { user, loading } = useUser()
+  const { user, fetching } = useUser()
 
   const followingActers = useMemo(
     () =>
@@ -35,14 +35,14 @@ export const FollowingList: FC = () => {
         user?.Acter.Following.map(({ Following }) => Following),
         [ACTIVITY, USER, GROUP]
       ),
-    [user?.Acter.Following]
+    [user?.Acter?.Following]
   )
 
   const { notifications } = useNotifications()
 
   const getBadgeNumber = (acter) => notifications[acter.id]?.length || 0
 
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!user) return null
 
   return (
