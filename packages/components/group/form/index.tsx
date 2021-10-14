@@ -17,30 +17,21 @@ import { TextField } from 'formik-material-ui'
 
 import { Switch } from '@acter/components/styled/switch'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { Modal } from '@acter/components/util/modal'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { Acter, ActerJoinSettings } from '@acter/schema'
 
 export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
-  modalHeading: string
-  submitButtonLabel: string
-  openModal: boolean
-  setModal: (open: boolean) => void
+  onSubmit: (data: Acter) => void
 }
 
 export const GroupForm: FC<GroupFormProps> = ({
   acter,
   parentActer,
-  modalHeading,
-  submitButtonLabel,
-  openModal,
-  setModal,
+  onSubmit,
 }) => {
   const classes = useStyles()
   const { acterTypes, loading } = useActerTypes()
@@ -52,9 +43,6 @@ export const GroupForm: FC<GroupFormProps> = ({
   const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
 
   const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
-
-  const [createGroup] = useCreateSubGroup(parentActer)
-  const [updateGroup] = useUpdateActer(acter)
 
   const initialValues = {
     name: '',
@@ -68,29 +56,22 @@ export const GroupForm: FC<GroupFormProps> = ({
     data.acterJoinSetting = isActerJoinRestricted
       ? ActerJoinSettings.RESTRICTED
       : ActerJoinSettings.EVERYONE
-    const save = acter?.id ? updateGroup : createGroup
-    save({ ...data })
-    handleModalClose()
+    return onSubmit(data)
   }
-  const handleModalClose = () => setModal(!openModal)
   const handleSwitch = () => setIsActerJoinRestricted(!isActerJoinRestricted)
 
   if (loading) return <LoadingSpinner />
   if (!acterTypes) return
 
   return (
-    <Modal
-      open={openModal}
-      heading={modalHeading}
-      handleModalClose={handleModalClose}
-    >
-      <Box className={classes.content}>
-        <Typography className={classes.headerMessage} variant="body2">
-          Working groups are where your community can plan, communicate, share
-          and organise around a specific topic.
-        </Typography>
+    <Box className={classes.content}>
+      <Typography className={classes.headerMessage} variant="body2">
+        Working groups are where your community can plan, communicate, share and
+        organise around a specific topic.
+      </Typography>
 
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        {({ isSubmitting }) => (
           <Form>
             <Field
               className={classes.field}
@@ -131,14 +112,15 @@ export const GroupForm: FC<GroupFormProps> = ({
                 color="primary"
                 variant="contained"
                 type="submit"
+                disabled={isSubmitting}
               >
-                {submitButtonLabel}
+                {acter?.id ? 'Save' : 'Create'}
               </Button>
             </Box>
           </Form>
-        </Formik>
-      </Box>
-    </Modal>
+        )}
+      </Formik>
+    </Box>
   )
 }
 

@@ -1,9 +1,13 @@
+import { useEffect, useState } from 'react'
+
 import { MutationResult, FetchResult } from '@apollo/client'
 
+import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
+import { ActerTypes } from '@acter/lib/constants'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 
@@ -33,6 +37,14 @@ export type HandleMethod<TData> = (
 export const useCreateActer = (
   options?: CreateActerOptions
 ): [HandleMethod<CreateActerData>, MutationResult] => {
+  const [formData, setFormData] = useState(null)
+  const [newActer, setNewActer] = useState(null)
+  const [updateActer] = useUpdateActer(newActer)
+
+  useEffect(() => {
+    if (newActer && formData) updateActer(formData)
+  }, [newActer])
+
   const [createActer, mutationResult] = useNotificationMutation<
     CreateActerData,
     ActerVariables
@@ -40,16 +52,25 @@ export const useCreateActer = (
     ...options,
     getSuccessMessage: (data: CreateActerData) =>
       `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`,
+
+    onCompleted: (data) => {
+      options?.onCompleted?.(data)
+      if (data.createActerCustom.ActerType.name !== ActerTypes.GROUP) {
+        setNewActer(data.createActerCustom)
+      }
+    },
   })
 
-  const handleCreateActer = (acter: ActerVariables) =>
-    createActer({
+  const handleCreateActer = (acter: ActerVariables) => {
+    setFormData(acter)
+    return createActer({
       variables: {
         followerIds: [],
         interestIds: [],
         ...acter,
       },
     })
+  }
 
   return [handleCreateActer, mutationResult]
 }

@@ -34,7 +34,7 @@ export type FormSetFieldValue = (
 
 export interface ActerFormProps {
   acter?: Acter
-  acterType: ActerType
+  acterType?: ActerType
   onSubmit: (any) => any
 }
 
@@ -79,7 +79,7 @@ export const ActerForm: FC<ActerFormProps> = ({
 
   //TODO: create type for this
   const initialValues: ActerFormValues = {
-    acterTypeId: acterType.id,
+    acterTypeId: acter?.ActerType.id || acterType?.id,
     name: '',
     description: '',
     location: '',

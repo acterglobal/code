@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 
 import { Button, ButtonsContainer } from '@acter/components/styled'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Acter } from '@acter/schema'
 
 export interface ActerDeleteConfirmDialogProps {
@@ -26,19 +25,17 @@ export const ActerDeleteConfirmDialog: FC<ActerDeleteConfirmDialogProps> = ({
   onCancel,
   onSubmit,
 }) => (
-  <Modal handleModalClose={onCancel}>
-    <ContentContainer>
-      Are you sure you want to delete "{acter.name}"?
-      <ButtonsContainer>
-        <Button variant="outlined" color="primary" onClick={onCancel}>
-          Cancel
-        </Button>
-        <DeleteButton variant="contained" color="secondary" onClick={onSubmit}>
-          Delete
-        </DeleteButton>
-      </ButtonsContainer>
-    </ContentContainer>
-  </Modal>
+  <ContentContainer>
+    Are you sure you want to delete "{acter.name}"?
+    <ButtonsContainer>
+      <Button variant="outlined" color="primary" onClick={onCancel}>
+        Cancel
+      </Button>
+      <DeleteButton variant="contained" color="secondary" onClick={onSubmit}>
+        Delete
+      </DeleteButton>
+    </ButtonsContainer>
+  </ContentContainer>
 )
 
 const ContentContainer = withStyles((theme: Theme) =>

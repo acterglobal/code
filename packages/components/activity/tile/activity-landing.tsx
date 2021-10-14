@@ -2,7 +2,7 @@ import React, { useState, FC } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { ActerDeleteConfirmDialog } from '@acter/components/acter/delete-confirm-dialog'
+import { ActerDeleteConfirmDialog as DeleteActivity } from '@acter/components/acter/delete-confirm-dialog'
 import { ActivityDetails } from '@acter/components/activity'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -58,7 +58,7 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
           setDrawerHeading={setDrawerHeading}
         />
       ) : action === DELETE ? (
-        <ActerDeleteConfirmDialog
+        <DeleteActivity
           acter={acter}
           onCancel={handleClose}
           onSubmit={() => deleteActivity(acter.id)}

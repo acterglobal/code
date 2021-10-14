@@ -5,19 +5,16 @@ import Image from 'next/image'
 import {
   Box,
   Hidden,
-  IconButton,
   Typography,
   createStyles,
   makeStyles,
   useMediaQuery,
   Theme,
 } from '@material-ui/core'
-import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 
 import { Connect } from '@acter/components/acter/connect'
-import { Link } from '@acter/components/util/anchor-link'
+import { ActionButtons } from '@acter/components/acter/landing-page/header-section/action-buttons'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
@@ -78,24 +75,11 @@ export const HeaderSection: FC = () => {
             </Typography>
           </Box>
 
-          <Hidden xsDown>
-            <Box>
-              {isAdmin && (
-                <>
-                  <Link href={acterAsUrl({ acter, extraPath: ['edit'] })}>
-                    <IconButton>
-                      <EditIcon />
-                    </IconButton>
-                  </Link>
-                  <Link href={acterAsUrl({ acter, extraPath: ['delete'] })}>
-                    <IconButton>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Link>
-                </>
-              )}
-            </Box>
-          </Hidden>
+          {isAdmin && (
+            <Hidden xsDown>
+              <ActionButtons acter={acter} />
+            </Hidden>
+          )}
         </Box>
         <Box className={classes.buttonContainer}>
           <Connect />

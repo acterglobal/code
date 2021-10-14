@@ -7,6 +7,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { AddRounded as AddIcon } from '@material-ui/icons'
 
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
+import { Drawer } from '@acter/components/util/drawer'
+import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -20,9 +22,15 @@ export interface GroupsSectionProps {
 }
 export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
   const classes = useStyles()
-  const [openModal, setOpenModal] = useState(false)
+  const [openDrawer, setOpenDrawer] = useState(false)
+
+  const handleAddGroup = () => setOpenDrawer(true)
+  const handleCloseDrawer = () => setOpenDrawer(false)
 
   const { user } = useUser()
+  const [createGroup] = useCreateSubGroup(acter, {
+    onCompleted: handleCloseDrawer,
+  })
   if (!user) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
@@ -36,10 +44,6 @@ export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
   )
 
   const activeGroups = groups.filter((group) => group.deletedAt === null)
-
-  const handleAddGroup = () => {
-    setOpenModal(true)
-  }
 
   return (
     <>
@@ -60,15 +64,13 @@ export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
 
       <GroupsList acters={activeGroups} />
 
-      {openModal && (
-        <AddGroup
-          parentActer={acter}
-          modalHeading="Create work group"
-          submitButtonLabel="Create"
-          openModal={openModal}
-          setModal={setOpenModal}
-        />
-      )}
+      <Drawer
+        open={openDrawer}
+        heading="Create work group"
+        handleClose={handleCloseDrawer}
+      >
+        <AddGroup parentActer={acter} onSubmit={createGroup} />
+      </Drawer>
     </>
   )
 }

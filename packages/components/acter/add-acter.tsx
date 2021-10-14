@@ -1,18 +1,22 @@
 import React, { FC, useState } from 'react'
 
+import dynamic from 'next/dynamic'
+
 import { StoreObject } from '@apollo/client'
 import { ListItem } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-import { ActerForm } from '@acter/components/acter/form'
 import { SelectActerType } from '@acter/components/acter/select-acter-type'
 import { AddIcon } from '@acter/components/icons'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
-import { useUser } from '@acter/lib/user/use-user'
 import { ActerType } from '@acter/schema'
+
+const ActerForm = dynamic(() =>
+  import('@acter/components/acter/form').then((mod) => mod.ActerForm)
+)
 
 export const AddActer: FC = () => {
   const classes = useStyles()
@@ -20,6 +24,7 @@ export const AddActer: FC = () => {
   const [showActerForm, setShowActerForm] = useState(false)
   const [heading, setHeading] = useState('Create')
   const [acterType, setActerType] = useState<ActerType>(null)
+  const { acterTypes } = useActerTypes()
 
   const handleAddIconClick = () => setOpenDrawer(true)
 
@@ -36,15 +41,14 @@ export const AddActer: FC = () => {
     setShowActerForm(true)
   }
 
-  const { user } = useUser()
-  const { acterTypes } = useActerTypes()
-
   const [createActer] = useCreateActer({
     update: (cache, { data }) => {
       const { createActerCustom: newActer } = data
-      cache.modify({
-        id: cache.identify((user?.Acter as unknown) as StoreObject),
-        fields: { Following: addToCacheList(newActer) },
+      newActer.Followers.forEach(({ Follower }) => {
+        cache.modify({
+          id: cache.identify((Follower as unknown) as StoreObject),
+          fields: { Following: addToCacheList(newActer) },
+        })
       })
     },
     onCompleted: handleDrawerClose,
@@ -56,7 +60,7 @@ export const AddActer: FC = () => {
         <AddIcon fontSize="large" aria-label="Add Acter" />
       </ListItem>
 
-      {acterTypes && user && (
+      {acterTypes && (
         <Drawer
           heading={heading}
           open={openDrawer}
