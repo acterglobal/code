@@ -10,7 +10,6 @@ import {
   withStyles,
 } from '@material-ui/core'
 
-import { ZeroMessage } from '@acter/components/acter/activities/zero-message'
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
@@ -63,11 +62,7 @@ export const ActivitiesSection: FC = () => {
         </FormControlsContainer>
       </TopSection>
 
-      <Box>
-        <ZeroMessage activities={displayActivities} />
-
-        <ActivitiesList activities={displayActivities} />
-      </Box>
+      <ActivitiesList activities={displayActivities} />
 
       {showActivity && (
         <ActivityLanding
