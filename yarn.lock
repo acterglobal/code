@@ -96,6 +96,8 @@ __metadata:
     "@sendgrid/mail": ^7.4.5
     "@types/intercom-client": ^2.11.11
     "@types/mime": ^2.0.3
+    "@urql/core": ^2.3.3
+    "@urql/exchange-graphcache": ^4.3.5
     date-fns-tz: ^1.1.6
     deep-equal: ^2.0.5
     deepmerge: ^4.2.2
@@ -109,6 +111,7 @@ __metadata:
     pluralize: ^8.0.0
     ramda: ^0.27.1
     slugify: ^1.4.6
+    urql: ^2.0.5
   peerDependencies:
     "@apollo/client": "*"
     "@auth0/nextjs-auth0": "*"
@@ -2912,7 +2915,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-typed-document-node/core@npm:^3.0.0":
+"@graphql-typed-document-node/core@npm:^3.0.0, @graphql-typed-document-node/core@npm:^3.1.0":
   version: 3.1.0
   resolution: "@graphql-typed-document-node/core@npm:3.1.0"
   peerDependencies:
@@ -7783,6 +7786,30 @@ __metadata:
   version: 0.2.1
   resolution: "@ungap/from-entries@npm:0.2.1"
   checksum: b40f7902ecd5bf3c50bfe3c02e17ab2c868be3732c5b6b02cb04b15f1382919ffff88bd389879d6ddc131e5b19b3a9a20951433b4320229c3ecc9f0f305d287e
+  languageName: node
+  linkType: hard
+
+"@urql/core@npm:>=2.3.3, @urql/core@npm:^2.3.2, @urql/core@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@urql/core@npm:2.3.3"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.0
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: 86665ebe50011f6b3530e0108dd1f3c5e11275c96615d552dfc5f04a980a1623b5f342b347188c64c7baefb8352ab65f6771e5b8259de3d14e043d8286066e24
+  languageName: node
+  linkType: hard
+
+"@urql/exchange-graphcache@npm:^4.3.5":
+  version: 4.3.5
+  resolution: "@urql/exchange-graphcache@npm:4.3.5"
+  dependencies:
+    "@urql/core": ">=2.3.3"
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: 368139d6e81ec64379b3ebf103bc1f74420249b51d3177de03cfcc16a4c930c6a57b32ac9c547a18ffbd7fa0f5b11fdb3e9239da1bcd1eff1234c26d687a7813
   languageName: node
   linkType: hard
 
@@ -28243,6 +28270,19 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
+"urql@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "urql@npm:2.0.5"
+  dependencies:
+    "@urql/core": ^2.3.2
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+    react: ">= 16.8.0"
+  checksum: a0a52777a3b92c31caf83f89a40530246af7705fde7c6c61914c812524ab2016190e48f1e853877f8b4140404ec73723c3cd46795bc67fce2e923ee8578d72f9
+  languageName: node
+  linkType: hard
+
 "use-composed-ref@npm:^1.0.0":
   version: 1.1.0
   resolution: "use-composed-ref@npm:1.1.0"
@@ -29050,6 +29090,13 @@ typescript@^4.1.5:
     triple-beam: ^1.3.0
     winston-transport: ^4.4.0
   checksum: 89a0a8db4e577d0df2bee8af67a751663fb80aaa782750b5a0a151a6bf97074dd0eb7c81780e196197735b851c12ea9c176952128fc51fae07a8a5ddba82913a
+  languageName: node
+  linkType: hard
+
+"wonka@npm:^4.0.14":
+  version: 4.0.15
+  resolution: "wonka@npm:4.0.15"
+  checksum: afbee7359ed2d0a9146bf682f3953cb093f47d5f827e767e6ef33cb70ca6f30631afe5fe31dbb8d6c7eaed26c4ac6426e7c13568917c017ef6f42c71139b38f7
   languageName: node
   linkType: hard
 

@@ -31,6 +31,7 @@ query ActersSearch(
   ) {
     ...ActerDisplay
     ActerInterests {
+      id
       Interest {
         id
         name
@@ -46,12 +47,14 @@ query ActersSearch(
         Following: { is: { ActerType: { is: { name: { in: ["network"] } } } } }
       }
     ) {
+      id
       Following {
         id
         name
         slug
         avatarUrl
         ActerType {
+          id
           name
         }
       }

@@ -32,7 +32,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
     setResultCount?.(acters?.length || 0)
   }, [acters?.length])
 
-  if (loading)
+  if (loading && acters.length === 0)
     return (
       <Box className={classes.loading}>
         <LoadingSpinner />

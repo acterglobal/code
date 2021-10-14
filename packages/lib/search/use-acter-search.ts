@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { ApolloError, useReactiveVar } from '@apollo/client'
+import { CombinedError } from '@urql/core'
 
 import { useSearchType } from './use-search-type'
+import { useQuery } from 'urql'
 
 import { usePaginatedQuery } from '@acter/lib/apollo'
 import { SearchType, ResultKey } from '@acter/lib/constants'
@@ -14,9 +16,22 @@ import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 export interface UseActerSearchQueryResults {
   acters: Acter[]
   loading: boolean
-  error: ApolloError
+  error: CombinedError
   loadMore: () => void
   hasMore: boolean
+}
+
+type Cursor = Record<'id', 'string'>
+
+type Pagination = {
+  take: number
+  skip: number
+  cursor?: Cursor
+}
+
+const paginationDefaults: Pagination = {
+  take: 10,
+  skip: 0,
 }
 
 /**
@@ -29,6 +44,8 @@ export const useActerSearch = (): UseActerSearchQueryResults => {
   const searchVariables = useReactiveVar(searchVar)
   const initialSearch = useRef(true)
   const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const [pagination, setPagination] = useState(paginationDefaults)
 
   const [acters, setActers] = useState<Acter[]>([])
 
@@ -39,21 +56,25 @@ export const useActerSearch = (): UseActerSearchQueryResults => {
 
   const resultKey = ResultKey[searchType.toUpperCase()]
 
-  const {
-    loading: searchLoading,
-    error,
-    hasMore,
-    fetchMore,
-    refetch,
-    ...restQueryResult
-  } = usePaginatedQuery(queries[searchType], resultKey, {
-    variables: searchVariables,
-    pageSize: parseInt(process.env.NEXT_PUBLIC_SEARCH_PAGE_SIZE) || 20,
-    onCompleted: (data) => {
-      setLoading(false)
-      if (data && data[resultKey]) setActers(data[resultKey])
+  const [
+    { data, fetching: searchLoading, error, ...restQueryResult },
+  ] = useQuery({
+    query: queries[searchType],
+    variables: {
+      ...searchVariables,
+      ...{ ...pagination, take: pagination.take + 1 },
     },
   })
+
+  useEffect(() => {
+    if (data && data[resultKey]) {
+      const resultSet = data[resultKey]
+      const nextHasMore = resultSet.length > acters.length + pagination.take
+      setHasMore(nextHasMore)
+      const sliceEnd = nextHasMore ? -1 : undefined
+      setActers([...resultSet.slice(0, sliceEnd)])
+    }
+  }, [data])
 
   useEffect(() => {
     setLoading(searchLoading)
@@ -62,19 +83,18 @@ export const useActerSearch = (): UseActerSearchQueryResults => {
   // Reset the search if one of our search facets have changed
   useEffect(() => {
     if (!initialSearch.current) {
-      setLoading(true)
-      refetch({
-        variables: searchVariables,
-        resetPagination: true,
-      })
+      setPagination(paginationDefaults)
     }
+    initialSearch.current = false
   }, [JSON.stringify(searchVariables)])
 
-  useEffect(() => {
-    initialSearch.current = false
-  }, [])
-
-  const loadMore = () => fetchMore({ variables: searchVariables })
+  const loadMore = () => {
+    hasMore &&
+      setPagination({
+        ...pagination,
+        cursor: { id: data[resultKey][data[resultKey].length - 1].id },
+      })
+  }
 
   return { acters, loading, error, loadMore, hasMore, ...restQueryResult }
 }

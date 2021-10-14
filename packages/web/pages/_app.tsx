@@ -15,6 +15,7 @@ import { SnackbarProvider } from 'notistack'
 import { Layout } from '@acter/components/layout'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 import { useApollo } from '@acter/lib/apollo'
+import { UrqlProvider } from '@acter/lib/urql'
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -38,16 +39,18 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   return (
     <IntercomProvider appId={INTERCOM_APP_ID}>
       <ApolloProvider client={apolloClient}>
-        <UserProvider>
-          <ActerThemeProvider>
-            <SnackbarProvider
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            >
-              <CssBaseline />
-              {getLayout(<Component {...pageProps} err={err} />)}
-            </SnackbarProvider>
-          </ActerThemeProvider>
-        </UserProvider>
+        <UrqlProvider>
+          <UserProvider>
+            <ActerThemeProvider>
+              <SnackbarProvider
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              >
+                <CssBaseline />
+                {getLayout(<Component {...pageProps} err={err} />)}
+              </SnackbarProvider>
+            </ActerThemeProvider>
+          </UserProvider>
+        </UrqlProvider>
       </ApolloProvider>
     </IntercomProvider>
   )
