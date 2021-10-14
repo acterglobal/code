@@ -31,8 +31,8 @@ export const ActivitiesSection: FC = () => {
   const [showActivity, setShowActivity] = useState<boolean>(false)
 
   useEffect(() => {
-    if (query?.acterId) setShowActivity(true)
-  }, [query?.acterId])
+    if (query?.activity) setShowActivity(true)
+  }, [query?.activity])
 
   if (acterLoading || activitiesLoading) return <LoadingSpinner />
   if (!acter || !activities) return null
@@ -71,7 +71,7 @@ export const ActivitiesSection: FC = () => {
 
       {showActivity && (
         <ActivityLanding
-          acterId={query?.acterId as string}
+          activitySlug={`${query.slug}-${query.activity}`}
           openDrawer={showActivity}
           handleCloseDrawer={() => setShowActivity(false)}
         />
