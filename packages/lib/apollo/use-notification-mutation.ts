@@ -1,21 +1,20 @@
+import { useEffect } from 'react'
 import { di } from 'react-magnetic-di/macro'
 
-import {
-  useMutation,
-  ApolloError,
-  OperationVariables,
-  DocumentNode,
-  TypedDocumentNode,
-  MutationHookOptions,
-  MutationTuple,
-} from '@apollo/client'
-
+import { DocumentNode } from 'graphql/language/ast'
 import { useSnackbar } from 'notistack'
+import {
+  CombinedError,
+  TypedDocumentNode,
+  useMutation,
+  UseMutationResponse,
+} from 'urql'
 
-export interface UseMutationOptions<TData, TVariables>
-  extends MutationHookOptions<TData, TVariables> {
+export interface UseMutationOptions<TData, TVariables> {
   variables?: TVariables
-  getErrorMessage?: (data: ApolloError) => string
+  onError?: (error: CombinedError) => void
+  getErrorMessage?: (data: CombinedError) => string
+  onCompleted?: (data: TData) => void
   getSuccessMessage?: (data: TData) => string
 }
 
@@ -29,32 +28,40 @@ export interface UseMutationOptions<TData, TVariables>
 export const useNotificationMutation = <
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   TData = any,
-  TVariables = OperationVariables
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TVariables = any
 >(
   mutation: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: UseMutationOptions<TData, TVariables>
-): MutationTuple<TData, TVariables> => {
+): UseMutationResponse<TData, TVariables> => {
   di(useSnackbar)
   const { enqueueSnackbar } = useSnackbar()
   const { getErrorMessage, getSuccessMessage, ...restOptions } = options || {}
-  return useMutation<TData, OperationVariables>(mutation, {
-    ...restOptions,
-    onError: (err) => {
+  const [result, runMutation] = useMutation<TData, TVariables>(mutation)
+
+  const { data, error } = result
+
+  useEffect(() => {
+    if (error) {
       const message =
         typeof getErrorMessage === 'function'
-          ? getErrorMessage(err)
-          : err.message
+          ? getErrorMessage(error)
+          : error.message
       enqueueSnackbar(message, { variant: 'error' })
-      if (typeof restOptions.onError === 'function') restOptions.onError(err)
-    },
-    onCompleted: (data) => {
+      restOptions?.onError?.(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (data) {
       const message =
         typeof getSuccessMessage === 'function'
           ? getSuccessMessage(data)
           : 'Success'
       enqueueSnackbar(message, { variant: 'success' })
-      if (typeof restOptions.onCompleted === 'function')
-        restOptions.onCompleted(data)
-    },
-  })
+      restOptions?.onCompleted?.(data)
+    }
+  }, [data])
+
+  return [result, runMutation]
 }

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { MutationResult, FetchResult } from '@apollo/client'
+import { useRouter } from 'next/router'
+
+import { acterAsUrl } from './acter-as-url'
+import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import {
@@ -26,7 +29,16 @@ type CreateActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
 export type HandleMethod<TData> = (
   acter: ActerVariables
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => Promise<FetchResult<TData, Record<string, any>, Record<string, any>>>
+) => Promise<OperationResult<TData, Record<string, any>>>
+
+type CreateActerUseMutationState = UseMutationState<
+  CreateActerData,
+  ActerVariables
+>
+type CreateActerUseMutationRestState = Omit<
+  CreateActerUseMutationState,
+  'data' | 'fetching' | 'error>'
+>
 
 /**
  * Custom hook that creates new acter
@@ -36,41 +48,87 @@ export type HandleMethod<TData> = (
  */
 export const useCreateActer = (
   options?: CreateActerOptions
-): [HandleMethod<CreateActerData>, MutationResult] => {
-  const [formData, setFormData] = useState(null)
-  const [newActer, setNewActer] = useState(null)
-  const [updateActer] = useUpdateActer(newActer)
+): [HandleMethod<CreateActerData>, CreateActerUseMutationState] => {
+  const [fetching, setFetching] = useState(false)
+  const [resultData, setResultData] = useState<CreateActerData>(null)
+  const [error, setError] = useState<CombinedError>()
+  const [restState, setRestState] = useState<CreateActerUseMutationRestState>()
+  const router = useRouter()
 
-  useEffect(() => {
-    if (newActer && formData) updateActer(formData)
-  }, [newActer])
+  const [
+    updateActer,
+    {
+      data: updateData,
+      fetching: updateFetching,
+      error: updateError,
+      ...updateRestState
+    },
+  ] = useUpdateActer({} as Acter)
 
-  const [createActer, mutationResult] = useNotificationMutation<
-    CreateActerData,
-    ActerVariables
-  >(ACTER_CREATE, {
+  const [
+    {
+      data: createData,
+      fetching: createFetching,
+      error: createError,
+      ...createRestState
+    },
+    createActer,
+  ] = useNotificationMutation<CreateActerData, ActerVariables>(ACTER_CREATE, {
     ...options,
     getSuccessMessage: (data: CreateActerData) =>
       `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`,
-
-    onCompleted: (data) => {
-      options?.onCompleted?.(data)
-      if (data.createActerCustom.ActerType.name !== ActerTypes.GROUP) {
-        setNewActer(data.createActerCustom)
-      }
-    },
   })
 
-  const handleCreateActer = (acter: ActerVariables) => {
-    setFormData(acter)
-    return createActer({
-      variables: {
+  useEffect(() => {
+    setFetching(createFetching || updateFetching)
+  }, [createFetching, updateFetching])
+
+  useEffect(() => {
+    setError(createError || updateError)
+  }, [createError, updateError])
+
+  useEffect(() => {
+    setRestState({
+      ...createRestState,
+      ...updateRestState,
+    })
+  }, [JSON.stringify(createRestState), JSON.stringify(updateRestState)])
+
+  useEffect(() => {
+    if (createData) {
+      // Bypass image upload osv. for Groups
+      if (createData.createActerCustom.ActerType.name === ActerTypes.GROUP) {
+        setFetching(false)
+        setResultData(createData)
+        return
+      }
+
+      updateActer({
         followerIds: [],
         interestIds: [],
-        ...acter,
-      },
+        ...createData.createActerCustom,
+      })
+    }
+  }, [createData])
+
+  useEffect(() => {
+    if (updateData) {
+      setResultData({ createActerCustom: updateData.updateActerCustom })
+      router.push(acterAsUrl({ acter: updateData.updateActerCustom }))
+    }
+  }, [updateData])
+
+  const handleCreateActer: HandleMethod<CreateActerData> = async (acter) => {
+    setFetching(true)
+    return createActer({
+      followerIds: [],
+      interestIds: [],
+      ...acter,
     })
   }
 
-  return [handleCreateActer, mutationResult]
+  return [
+    handleCreateActer,
+    { data: resultData, fetching, error, ...restState },
+  ]
 }

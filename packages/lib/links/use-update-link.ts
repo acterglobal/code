@@ -1,4 +1,4 @@
-import { MutationResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -18,7 +18,9 @@ type UpdateLinkData = { updateLink: LinkType }
 
 type UpdateLinkOptions = UseMutationOptions<UpdateLinkData, LinkVariables>
 
-export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  link: LinkType | TData
+) => Promise<OperationResult<UpdateLinkData, LinkVariables>>
 
 /**
  * Custom hook that updates a link
@@ -31,9 +33,12 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 export const useUpdateLink = (
   acter: Acter,
   options?: UpdateLinkOptions
-): [HandleMethod<UpdateLinkData>, MutationResult] => {
+): [
+  HandleMethod<UpdateLinkData>,
+  UseMutationState<UpdateLinkData, LinkVariables>
+] => {
   const { user } = useUser()
-  const [updateLink, mutationResult] = useNotificationMutation<
+  const [mutationResult, updateLink] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
   >(UPDATE_LINK, {
@@ -44,13 +49,11 @@ export const useUpdateLink = (
   const handleLink = async (values: LinkVariables) => {
     if (!user) throw 'User is not set'
 
-    updateLink({
-      variables: {
-        ...values,
-        linkId: values.id,
-        acterId: acter.id,
-        userId: user?.id,
-      },
+    return updateLink({
+      ...values,
+      linkId: values.id,
+      acterId: acter.id,
+      userId: user?.id,
     })
   }
   return [handleLink, mutationResult]

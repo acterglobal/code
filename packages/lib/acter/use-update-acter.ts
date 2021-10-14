@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { MutationResult } from '@apollo/client'
+import { UseMutationState } from 'urql'
 
 import {
   // TODO move these functions elsewhere
@@ -31,8 +30,11 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
 export const useUpdateActer = (
   acter: Acter,
   options?: UpdateActerOptions
-): [HandleMethod<UpdateActerData>, MutationResult] => {
-  const [updateActer, mutationResult] = useNotificationMutation<
+): [
+  HandleMethod<UpdateActerData>,
+  UseMutationState<UpdateActerData, ActerVariables>
+] => {
+  const [mutationResult, updateActer] = useNotificationMutation<
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {
@@ -43,6 +45,7 @@ export const useUpdateActer = (
 
   const handleUpdateActer = async (
     updatedActer: ActerVariables
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
     const acterId = acter?.id ? acter.id : updatedActer.id
     const variables = {
@@ -54,6 +57,7 @@ export const useUpdateActer = (
     }
 
     const setInterestIds = (
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
       updatedActer: { interestIds: any },
       acter: Acter
     ) => {
@@ -64,6 +68,7 @@ export const useUpdateActer = (
     }
 
     const setFollowerIds = (
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
       updatedActer: { followerIds: any },
       acter: Acter
     ) => {
@@ -75,11 +80,9 @@ export const useUpdateActer = (
 
     const dataWithPics = (await _updatePictures(variables)) as ActerVariables
     return updateActer({
-      variables: {
-        ...dataWithPics,
-        followerIds: setFollowerIds(updatedActer, acter),
-        interestIds: setInterestIds(updatedActer, acter),
-      },
+      ...dataWithPics,
+      followerIds: setFollowerIds(updatedActer, acter),
+      interestIds: setInterestIds(updatedActer, acter),
     })
   }
 

@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
@@ -16,10 +16,13 @@ type UpdateActerConnectionVariables = {
 type HandleMethod = (
   connection: ActerConnection,
   role: ActerConnectionRole
-) => Promise<FetchResult<UpdateActerConnectionData>>
+) => Promise<OperationResult<UpdateActerConnectionData>>
 
-export const useUpdateActerConnection = (): [HandleMethod, MutationResult] => {
-  const [updateConnection, mutationResult] = useNotificationMutation<
+export const useUpdateActerConnection = (): [
+  HandleMethod,
+  UseMutationState<UpdateActerConnectionData, UpdateActerConnectionVariables>
+] => {
+  const [mutationResult, updateConnection] = useNotificationMutation<
     UpdateActerConnectionData,
     UpdateActerConnectionVariables
   >(UPDATE_ACTER_CONNECTION)
@@ -29,10 +32,8 @@ export const useUpdateActerConnection = (): [HandleMethod, MutationResult] => {
     role: ActerConnectionRole
   ) =>
     updateConnection({
-      variables: {
-        connectionId: connection.id,
-        role: role,
-      },
+      connectionId: connection.id,
+      role: role,
     })
 
   return [handleUpdateConnection, mutationResult]

@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   ActivityFormData,
@@ -23,7 +23,9 @@ type UpdateActivityOptions = UseMutationOptions<
   ActivityVariables
 >
 
-export type HandleMethod = (activity: ActivityVariables) => Promise<FetchResult>
+export type HandleMethod = (
+  activity: ActivityVariables
+) => Promise<OperationResult<UpdateActivityData, ActivityVariables>>
 
 /**
  * Custom hook that updates new activity
@@ -33,8 +35,8 @@ export type HandleMethod = (activity: ActivityVariables) => Promise<FetchResult>
  */
 export const useUpdateActivity = (
   options?: UpdateActivityOptions
-): [HandleMethod, MutationResult] => {
-  const [updateActivity, mutationResult] = useNotificationMutation<
+): [HandleMethod, UseMutationState<UpdateActivityData, ActivityVariables>] => {
+  const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
   >(UPDATE_ACTIVITY, {
@@ -47,9 +49,7 @@ export const useUpdateActivity = (
     const dataWithPic = await _updatePictures(data)
 
     return updateActivity({
-      variables: {
-        ...dataWithPic,
-      },
+      ...dataWithPic,
     })
   }
 

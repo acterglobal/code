@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -41,18 +41,24 @@ export const AddActer: FC = () => {
     setShowActerForm(true)
   }
 
-  const [createActer] = useCreateActer({
-    update: (cache, { data }) => {
-      const { createActerCustom: newActer } = data
-      newActer.Followers.forEach(({ Follower }) => {
-        cache.modify({
-          id: cache.identify((Follower as unknown) as StoreObject),
-          fields: { Following: addToCacheList(newActer) },
-        })
-      })
-    },
-    onCompleted: handleDrawerClose,
+  const [createActer, { data }] = useCreateActer({
+    // update: (cache, { data }) => {
+    //   const { createActerCustom: newActer } = data
+    //   newActer.Followers.forEach(({ Follower }) => {
+    //     cache.modify({
+    //       id: cache.identify((Follower as unknown) as StoreObject),
+    //       fields: { Following: addToCacheList(newActer) },
+    //     })
+    //   })
+    // },
+    // onCompleted: handleDrawerClose,
   })
+
+  useEffect(() => {
+    if (data) {
+      handleDrawerClose()
+    }
+  }, [data])
 
   return (
     <>
