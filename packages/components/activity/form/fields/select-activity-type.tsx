@@ -17,8 +17,8 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
   selectedTypeId,
   onChange,
 }) => {
-  const { activityTypes, loading } = useActivityTypes()
-  if (loading) return <LoadingSpinner />
+  const { activityTypes, fetching } = useActivityTypes()
+  if (fetching) return <LoadingSpinner />
   if (!activityTypes) return null
 
   const [color, setColor] = useState<ActivityTypes>()

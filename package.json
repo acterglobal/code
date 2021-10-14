@@ -47,7 +47,6 @@
     "bullmq": "^1.40.1",
     "date-fns": "^2.22.1",
     "env-cmd": "^10.1.0",
-    "graphql": "^15.4.0",
     "just-capitalize": "^1.0.1",
     "notistack": "^1.0.10",
     "pm2": "^5.1.0",

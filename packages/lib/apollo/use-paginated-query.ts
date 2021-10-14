@@ -1,20 +1,8 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState } from 'react'
 
-import {
-  useQuery,
-  QueryResult,
-  OperationVariables,
-  DocumentNode,
-  TypedDocumentNode,
-  QueryHookOptions,
-  ApolloQueryResult,
-} from '@apollo/client'
-
-interface UsePaginationQueryOptions<TData, TVariables>
-  extends QueryHookOptions<TData, TVariables> {
-  pageSize?: number
-  pagination?: Pagination
-}
+import { DocumentNode } from 'graphql/language/ast'
+import { useQuery, TypedDocumentNode, UseQueryArgs, UseQueryState } from 'urql'
 
 interface RefetchQuery<TVariables> {
   variables?: TVariables
@@ -22,105 +10,129 @@ interface RefetchQuery<TVariables> {
 }
 
 export interface Pagination {
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   cursor?: Record<'id', any>
   skip: number
   take: number
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface UsePaginatedResults<TType = any, TData = any, TVariables = any>
-  extends Omit<QueryResult<TData, TVariables>, 'refetch'> {
+export type VariablesWithPagination<TVariables> = TVariables & Pagination
+
+export interface UsePaginatedState<TType = any, TData = any, TVariables = any>
+  extends UseQueryState<TData, TVariables> {
   results: TType[]
-  loading: boolean
+  fetching: boolean
   hasMore: boolean
   pagination: Pagination
-  refetch: (
-    options?: RefetchQuery<TVariables>
-  ) => Promise<ApolloQueryResult<TData>>
+  loadMore: () => void
 }
 
-export const usePaginatedQuery = <
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TType = any,
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TData = any,
-  TVariables = OperationVariables
->(
+export type refetch<TVariables = any> = (
+  options?: RefetchQuery<TVariables>
+) => void
+
+export type UsePaginatedResponse<TType = any, TData = any, TVariables = any> = [
+  UsePaginatedState<TType, TData, TVariables>,
+  refetch
+]
+
+interface UsePaginationQueryOptions<TData, TVariables>
+  extends UseQueryArgs<TVariables, TData> {
   /**
    * The GraphQL query
    */
-  query: DocumentNode | TypedDocumentNode<TData, TVariables>,
+  query: DocumentNode | TypedDocumentNode<TData, TVariables>
   /**
    * Key used for fetching results out of data
    */
-  resultKey: string,
+  resultKey: string
   /**
-   * Standard useQuery options from Apollo
+   * The variables used for the query
    */
-  options?: UsePaginationQueryOptions<TData, TVariables>
-): UsePaginatedResults<TType, TData, TVariables> => {
-  const { variables, pageSize = 10, onCompleted, ...restOptions } = options
+  variables: TVariables
+  /**
+   * Number of items per page
+   */
+  pageSize?: number
+  /**
+   * Pagination options
+   */
+  pagination?: Pagination
+}
+
+export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
+  options: UsePaginationQueryOptions<TData, TVariables>
+): UsePaginatedResponse<TType, TData, TVariables> => {
+  const {
+    query,
+    resultKey,
+    variables,
+    pageSize = 10,
+    pagination: paginationParams,
+  } = options
   const [results, setResults] = useState<TType[]>([])
   const [hasMore, setHasMore] = useState(true)
+  const initialSearch = useRef(true)
 
   const paginationDefaults: Pagination = {
     skip: 0,
     take: pageSize,
     cursor: undefined,
-    ...(options.pagination || {}),
+    ...paginationParams,
   }
   const [pagination, setPagination] = useState<Pagination>(paginationDefaults)
 
-  const { refetch, ...restQueryResult } = useQuery<TData, TVariables>(query, {
-    ...restOptions,
+  const [{ data, ...restQueryResult }, refetch] = useQuery<
+    TData,
+    VariablesWithPagination<TVariables>
+  >({
+    ...options,
+    query,
     variables: {
       ...variables,
-      ...pagination,
+      ...{ ...pagination, take: pagination.take + 1 },
     },
-    onCompleted: _getOnCompleted<TType, TData>({
-      pagination,
-      paginationDefaults,
-      resultKey,
-      results,
-      onCompleted,
-      setPagination,
-      setHasMore,
-      setResults,
-    }),
   })
 
-  const refetchWithReset = (refetchOptions: RefetchQuery<TVariables> = {}) => {
-    const refetchVariables = refetchOptions.variables || variables
-    if (refetchOptions?.resetPagination) {
-      setPagination(paginationDefaults)
-      setResults([])
-      setHasMore(true)
-      return refetch({
-        ...refetchVariables,
-        ...paginationDefaults,
-      })
-    }
-    return refetch({ ...refetchVariables, ...pagination })
-  }
+  useEffect(() => {
+    _getResults({ pagination, resultKey, results, setHasMore, setResults })(
+      data
+    )
+  }, [data])
 
-  return {
-    results,
+  // Reset the search if one of our variables have changed
+  useEffect(() => {
+    if (!initialSearch.current) {
+      setPagination(paginationDefaults)
+    }
+    initialSearch.current = false
+  }, [JSON.stringify(variables)])
+
+  const loadMore = _getLoadMore({
+    data,
+    resultKey,
     hasMore,
-    refetch: refetchWithReset,
     pagination,
-    ...restQueryResult,
-  }
+    setPagination,
+  })
+
+  return [
+    {
+      ...restQueryResult,
+      data,
+      results,
+      hasMore,
+      pagination,
+      loadMore,
+    },
+    refetch,
+  ]
 }
 
-interface GetOnCompleted<TType, TData> {
+interface GetResultsProps<TType> {
   pagination: Pagination
-  paginationDefaults: Pagination
   resultKey: string
   results: TType[]
-  onCompleted?: (data: TData) => void
   setHasMore: (boolean) => void
-  setPagination: (Pagination) => void
   setResults: (results: TType[]) => void
 }
 
@@ -128,28 +140,59 @@ interface GetOnCompleted<TType, TData> {
  * Exported function for testing. Do not use.
  * @param param0 variables passed from main function
  */
-export const _getOnCompleted = <TType, TData>({
+export const _getResults = <TType, TData>({
   pagination,
-  paginationDefaults,
   resultKey,
   results,
-  onCompleted,
-  setPagination,
   setHasMore,
   setResults,
-}: GetOnCompleted<TType, TData>) => (data: TData): void => {
-  if (data) {
-    const resultSet = data[resultKey]
-    if (resultSet && resultSet[resultSet.length - 1]?.id) {
-      const cursor = { id: resultSet[resultSet.length - 1].id }
-      setPagination({
-        ...paginationDefaults,
-        cursor,
-        skip: 1,
-      })
-      setHasMore(resultSet.length >= results.length + pagination.take)
-    }
-    setResults(resultSet)
+}: GetResultsProps<TType>) => (data: TData): void => {
+  if (data && data[resultKey]) {
+    const nextResults = data[resultKey]
+    const nextHasMore = nextResults.length > results.length + pagination.take
+    setHasMore(nextHasMore)
+    const sliceEnd = nextHasMore ? -1 : undefined
+    setResults([...nextResults.slice(0, sliceEnd)])
   }
-  if (typeof onCompleted === 'function') onCompleted(data)
 }
+
+export interface GetLoadMoreProps<TData = any> {
+  /**
+   * data from useQuery
+   */
+  data: TData
+  /**
+   * Key to find results in data
+   */
+  resultKey: string
+  /**
+   * Whether there are more results
+   */
+  hasMore: boolean
+  /**
+   * Current pagination
+   */
+  pagination: Pagination
+  /**
+   * setPagination useState function
+   */
+  setPagination: (Pagination) => void
+}
+
+/**
+ * DO NOT USE. Exported function for testing.
+ * @param GetLoadMoreProps
+ * @returns void
+ */
+export const _getLoadMore = ({
+  data,
+  resultKey,
+  hasMore,
+  pagination,
+  setPagination,
+}: GetLoadMoreProps) => (): void =>
+  hasMore &&
+  setPagination({
+    ...pagination,
+    cursor: { id: data[resultKey][data[resultKey].length - 1].id },
+  })

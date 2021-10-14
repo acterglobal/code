@@ -91,10 +91,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   organiserActerId,
 }) => {
   const classes = useStyles()
-  const { activityTypes, loading: activityTypesLoading } = useActivityTypes()
+  const { activityTypes, fetching: activityTypesLoading } = useActivityTypes()
   const { user } = useUser()
 
-  const { acterTypes, loading: acterTypesLoading } = useActerTypes()
+  const { acterTypes, fetching: acterTypesLoading } = useActerTypes()
   const acterType = getActerTypeByName(acterTypes, ActerTypes.ACTIVITY)
 
   const [activityType, setActivityType] = useState(null)
