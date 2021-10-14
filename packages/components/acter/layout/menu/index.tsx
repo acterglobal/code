@@ -13,8 +13,8 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const ActerMenu: FC = () => {
-  const { acter, loading: acterLoading } = useActer({ fetchParent: true })
-  const { user, loading: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer({ fetchParent: true })
+  const { user, fetching: userLoading } = useUser()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null

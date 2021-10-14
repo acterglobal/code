@@ -21,11 +21,11 @@ export interface ProfileInfoFormValues {
 
 export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
-  const { user, loading } = useUser()
+  const { user, fetching } = useUser()
 
   const [updateActer] = useUpdateActer(user?.Acter)
 
-  if (loading) return <>Loading...</>
+  if (fetching) return <>Loading...</>
   if (!user) return null
 
   const { email } = user

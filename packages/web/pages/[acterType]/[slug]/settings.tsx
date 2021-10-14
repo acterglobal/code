@@ -28,10 +28,10 @@ import { ActerConnectionRole } from '@acter/schema'
 export const ActerSettingsPage: NextPageWithLayout = () => {
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
-  const [loading, setLoading] = useState(false)
-  const { acter, loading: getActerLoading } = useActer()
-  const { links, loading: linksLoading } = useLinks()
-  const [updateActer, { loading: updateActerLoading }] = useUpdateActer(acter)
+  const [fetching, setLoading] = useState(false)
+  const { acter, fetching: getActerLoading } = useActer()
+  const { links, fetching: linksLoading } = useLinks()
+  const [updateActer, { fetching: updateActerLoading }] = useUpdateActer(acter)
 
   useEffect(() => {
     setLoading(getActerLoading || linksLoading || updateActerLoading)
@@ -51,7 +51,7 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
       <main>
         <ActerSettings
           onSettingsChange={updateActer}
-          loading={loading}
+          fetching={fetching}
           links={links}
           onLinkSubmit={createLink}
           onLinkUpdate={updateLink}

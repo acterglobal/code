@@ -28,7 +28,7 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
 }) => {
   const [
     updateActerConnection,
-    { loading: updatingConnection },
+    { fetching: updatingConnection },
   ] = useUpdateActerConnection()
 
   const { Follower, role } = connection

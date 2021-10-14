@@ -22,13 +22,13 @@ describe('SessionIndicator', () => {
 
   it('when the user is not logged in should show a sign in button', () => {
     mockUseUser.mockReturnValue({
-      loading: false,
+      fetching: false,
     })
     render(<SessionIndicator />)
     expect(screen.findByRole('button', { name: 'signin-button' })).toBeTruthy()
 
     expect(
-      screen.queryByRole('progressbar', { name: 'session-loading-indicator' })
+      screen.queryByRole('progressbar', { name: 'session-fetching-indicator' })
     ).toBeFalsy()
     expect(screen.queryByRole('button', { name: 'profile-button' })).toBeFalsy()
     expect(screen.queryByRole('menu', { name: 'session-menu' })).toBeFalsy()
@@ -38,7 +38,7 @@ describe('SessionIndicator', () => {
     beforeEach(() => {
       mockUseUser.mockReturnValue({
         user,
-        loading: false,
+        fetching: false,
       })
     })
     it('should show the profile button and menu', () => {
@@ -48,7 +48,9 @@ describe('SessionIndicator', () => {
       ).toBeTruthy()
 
       expect(
-        screen.queryByRole('progressbar', { name: 'session-loading-indicator' })
+        screen.queryByRole('progressbar', {
+          name: 'session-fetching-indicator',
+        })
       ).toBeFalsy()
       expect(
         screen.queryByRole('button', { name: 'signin-button' })
@@ -66,7 +68,9 @@ describe('SessionIndicator', () => {
       expect(screen.queryByRole('menu', { name: 'session-menu' })).toBeFalsy()
 
       expect(
-        screen.queryByRole('progressbar', { name: 'session-loading-indicator' })
+        screen.queryByRole('progressbar', {
+          name: 'session-fetching-indicator',
+        })
       ).toBeFalsy()
       expect(
         screen.queryByRole('button', { name: 'signin-button' })

@@ -12,9 +12,9 @@ import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const ProfileInterestsForm: FC = () => {
-  const { user, loading } = useUser()
+  const { user, fetching } = useUser()
   const [updateActer] = useUpdateActer(user?.Acter)
-  if (loading || !user) {
+  if (fetching || !user) {
     return <>Loading...</>
   }
 

@@ -30,16 +30,16 @@ export const getUserProfile = (
     }
   }
 
-  const { loading, error, data } = await apollo.query({
+  const { fetching, error, data } = await apollo.query({
     query: GET_USER,
     // TODO: refactor this to use separate accounts with possible merge
     variables: { email: session.user.email },
   })
 
-  if (loading) {
+  if (fetching) {
     return {
       props: {
-        loading: true,
+        fetching: true,
       },
     }
   }

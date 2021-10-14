@@ -33,7 +33,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   di(useActer)
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
   const [createPost] = useCreatePost(acter)
 
   if (!acter || acterLoading) return <LoadingSpinner />

@@ -24,7 +24,7 @@ export const DetailsStep: FC = () => {
   const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<DetailsStepValues>()
 
-  const { interestTypes, loading } = useInterestTypes()
+  const { interestTypes, fetching } = useInterestTypes()
 
   return (
     <Box className={classes.container}>
@@ -48,7 +48,7 @@ export const DetailsStep: FC = () => {
           editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
-      {loading && <LoadingSpinner />}
+      {fetching && <LoadingSpinner />}
       {interestTypes ? (
         <FormSection>
           <FormLabel>Choose interests</FormLabel>

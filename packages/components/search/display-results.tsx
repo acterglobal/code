@@ -34,7 +34,7 @@ export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
 
   if (fetching && acters.length === 0)
     return (
-      <Box className={classes.loading}>
+      <Box className={classes.fetching}>
         <LoadingSpinner />
       </Box>
     )
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.text.primary,
       },
     },
-    loading: {
+    fetching: {
       marginTop: theme.spacing(5),
       display: 'flex',
       justifyContent: 'center',

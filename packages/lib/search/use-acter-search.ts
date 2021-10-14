@@ -21,7 +21,7 @@ interface UseActerSearchQueryResults
 /**
  * Gives acter/activities list for the search parameters
  * @param searchType to use the search query for acter or activities
- * @returns acter/activities list, loading status, error, rest of the query results
+ * @returns acter/activities list, fetchingstatus, error, rest of the query results
  */
 export const useActerSearch = (): UseActerSearchQueryResults => {
   const searchType = useSearchType()

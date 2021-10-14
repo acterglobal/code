@@ -32,7 +32,7 @@ export const FollowingList: FC = () => {
   const followingActers = useMemo(
     () =>
       excludeActerTypes(
-        user?.Acter.Following.map(({ Following }) => Following),
+        user?.Acter?.Following.map(({ Following }) => Following),
         [ACTIVITY, USER, GROUP]
       ),
     [user?.Acter?.Following]

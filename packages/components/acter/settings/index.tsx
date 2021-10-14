@@ -20,7 +20,7 @@ export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
 export const ActerSettings: FC<ActerSettingsProps> = ({
   links,
   onSettingsChange,
-  loading,
+  fetching,
   onLinkSubmit,
   onLinkUpdate,
   onLinkDelete,
@@ -47,7 +47,7 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
             <SettingsSectionHeading>Join</SettingsSectionHeading>
             <ActerUsersSettings
               onSettingsChange={onSettingsChange}
-              loading={loading}
+              fetching={fetching}
             />
           </>
         )}

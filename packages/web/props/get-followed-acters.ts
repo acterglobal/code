@@ -22,15 +22,15 @@ export const getFollowedActers: ComposedGetServerSideProps = async ({
     }
   }
 
-  const { loading, error, data } = await apollo.query({
+  const { fetching, error, data } = await apollo.query({
     query: QUERY_FOLLOWED_ACTERS,
     variables: { acterId: props?.user?.acterId },
   })
 
-  if (loading) {
+  if (fetching) {
     return {
       props: {
-        loading: true,
+        fetching: true,
       },
     }
   }

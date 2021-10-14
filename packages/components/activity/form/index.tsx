@@ -60,11 +60,11 @@ export interface ActivityFormProps
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => any
   /**
-   * Whether the form is loading/saving
+   * Whether the form is fetching/saving
    */
-  loading?: boolean
+  fetching?: boolean
   /**
-   * Whether the form is loading/saving
+   * Whether the form is fetching/saving
    */
   setDrawerHeading?: (heading: string) => void
   /**

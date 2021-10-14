@@ -25,7 +25,7 @@ import { useActivities } from '@acter/lib/activity/use-activities'
 export const ActivitiesSection: FC = () => {
   di(useActer)
   const [showPastActivities, setShowPastActivities] = useState(true)
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
   const { activities, loading: activitiesLoading } = useActivities(acter?.id)
 
   const { query } = useRouter()
