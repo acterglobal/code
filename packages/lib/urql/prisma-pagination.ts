@@ -13,7 +13,8 @@ export const prismaPagination = ({
   cursorArgument = 'cursor',
   takeArgument = 'take',
   mergeMode = 'after',
-}: PaginationParams = {}): Resolver<any, any, any> => {
+}: //eslint-disable-next-line @typescript-eslint/no-explicit-any
+PaginationParams = {}): Resolver<any, any, any> => {
   const compareArgs = (
     fieldArgs: Variables,
     connectionArgs: Variables
@@ -67,7 +68,6 @@ export const prismaPagination = ({
       }
 
       const links = cache.resolve(entityKey, fieldKey) as string[]
-      const currentOffset = args[cursorArgument]
 
       if (links === null || links.length === 0) {
         continue
@@ -92,6 +92,7 @@ export const prismaPagination = ({
     const hasCurrentPage = cache.resolve(entityKey, fieldName, fieldArgs)
     if (hasCurrentPage) {
       return result
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
     } else if (!(info as any).store.schema) {
       return undefined
     } else {

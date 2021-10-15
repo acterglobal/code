@@ -1,4 +1,4 @@
-import { MutationResult } from '@apollo/client'
+import { UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -32,34 +32,37 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 export const useCreateLink = (
   acter: Acter,
   options?: CreateLinkOptions
-): [HandleMethod<CreateLinkData>, MutationResult] => {
+): [
+  HandleMethod<CreateLinkData>,
+  UseMutationState<CreateLinkData, LinkVariables>
+] => {
   const { user } = useUser()
 
-  const [createLink, mutationResult] = useNotificationMutation<
+  const [mutationResult, createLink] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
   >(CREATE_LINK, {
     ...options,
-    update: (cache, result, updateOptions) => {
-      options?.update?.(cache, result, updateOptions)
+    // update: (cache, result, updateOptions) => {
+    //   options?.update?.(cache, result, updateOptions)
 
-      const {
-        data: { createLink: newLink },
-      } = result
+    //   const {
+    //     data: { createLink: newLink },
+    //   } = result
 
-      cache.modify({
-        fields: {
-          links: (existingLinksRefs) => {
-            const newLinkRef = cache.writeFragment({
-              data: newLink,
-              fragment: LINK_FRAGMENT,
-              fragmentName: 'LinkDisplay',
-            })
-            return [...existingLinksRefs, newLinkRef]
-          },
-        },
-      })
-    },
+    //   cache.modify({
+    //     fields: {
+    //       links: (existingLinksRefs) => {
+    //         const newLinkRef = cache.writeFragment({
+    //           data: newLink,
+    //           fragment: LINK_FRAGMENT,
+    //           fragmentName: 'LinkDisplay',
+    //         })
+    //         return [...existingLinksRefs, newLinkRef]
+    //       },
+    //     },
+    //   })
+    // },
 
     getSuccessMessage: () => 'Link created',
   })
@@ -68,11 +71,9 @@ export const useCreateLink = (
     if (!user) throw 'User is not set'
 
     createLink({
-      variables: {
-        ...values,
-        acterId: acter.id,
-        userId: user?.id,
-      },
+      ...values,
+      acterId: acter.id,
+      userId: user?.id,
     })
   }
   return [handleLink, mutationResult]

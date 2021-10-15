@@ -32,6 +32,9 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },
   ] = useQuery<LinksData, LinksVariables>({
     query: QUERY_LINKS_BY_ACTER,
+    variables: {
+      acterId: acter?.id,
+    },
     pause: !acter?.id,
     ...options,
   })
