@@ -33,7 +33,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
 
       {showActivity && (
         <ActivityLanding
-          acterId={activity.Acter.id}
+          activitySlug={activity.Acter.slug}
           openDrawer={showActivity}
           handleCloseDrawer={handleClose}
         />

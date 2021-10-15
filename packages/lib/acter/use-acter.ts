@@ -38,11 +38,13 @@ type ActerQueryResult = Omit<
 type UseActerProps = {
   acterId?: string
   fetchParent?: boolean
+  acterTypeName?: string
+  slug?: string
 }
 
 /**
  * Get the acter
- * @param options for passing fetchParent or acterId which are optional
+ * @param options for passing acterId/fetchParent/acterTypeName/slug which are optional
  * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
@@ -50,12 +52,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const [acter, setActer] = useState<Acter>()
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
-  const {
-    query: { slug },
-    asPath,
-  } = useRouter()
+  const router = useRouter()
 
-  const acterTypeName = asPath.split('/')[1]
+  const slug = options?.slug || router.query?.slug
+  const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
 
   const {
     acterTypes,

@@ -17,17 +17,15 @@ const EditActivity = dynamic(() =>
 )
 
 interface ActivityLandingProps {
-  acterId: string
+  activitySlug: string
   openDrawer: boolean
   handleCloseDrawer: () => void
 }
 export const ActivityLanding: FC<ActivityLandingProps> = ({
-  acterId,
+  activitySlug,
   openDrawer,
   handleCloseDrawer,
 }) => {
-  if (!acterId) return null
-
   const [drawerHeading, setDrawerHeading] = useState<string>('')
   const [action, setAction] = useState<ActionButton>(null)
 
@@ -36,7 +34,10 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
     handleCloseDrawer()
   }
 
-  const { acter } = useActer({ acterId })
+  const { acter } = useActer({
+    acterTypeName: 'activities',
+    slug: activitySlug,
+  })
   const [updateActivity] = useUpdateActivity({ onCompleted: handleClose })
   const [deleteActivity] = useDeleteActer({ onCompleted: handleClose })
   if (!acter) return null
