@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core'
 
 import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
@@ -18,8 +17,7 @@ const { ACTIVITY, GROUP, USER } = ActerTypes
 
 export const PartOfSection: FC = () => {
   const classes = useStyles()
-
-  const { acter, loading: acterLoading } = useActer()
+  const { acter } = useActer({ fetchParent: true })
 
   const followingActers = useMemo(
     () =>
@@ -29,8 +27,6 @@ export const PartOfSection: FC = () => {
       ),
     [acter?.Following]
   )
-
-  if (acterLoading) return <LoadingSpinner />
 
   if (!acter || followingActers.length <= 0) return null
 

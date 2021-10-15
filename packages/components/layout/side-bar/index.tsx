@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { useUser } from '@auth0/nextjs-auth0'
 import {
   Box,
   Drawer,
@@ -21,6 +20,7 @@ import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
 import { Link } from '@acter/components/util/anchor-link'
+import { useUser } from '@acter/lib/user/use-user'
 
 export const PRIMARY_WIDTH = 8
 

@@ -8,30 +8,30 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { Drawer } from '@acter/components/util/drawer'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { Acter, ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)
 )
-export interface GroupsSectionProps {
-  acter: Acter
-}
-export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
+
+export const GroupsSection: FC = () => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleAddGroup = () => setOpenDrawer(true)
   const handleCloseDrawer = () => setOpenDrawer(false)
 
+  const { acter } = useActer({ fetchParent: true })
   const { user } = useUser()
   const [createGroup] = useCreateSubGroup(acter, {
     onCompleted: handleCloseDrawer,
   })
-  if (!user) return null
+  if (!user || !acter) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
     user,

@@ -72,7 +72,7 @@ export const Avatar = withStyles((theme: Theme) =>
     root: {
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
-      fontSize: '100%',
+      fontSize: ({ size }: { size: number }) => `${size * 0.2}rem`,
       border: `1px solid ${theme.palette.secondary.dark}`,
     },
   })
