@@ -13,4 +13,5 @@ export const getCurrentUserFromContext = async (
       where: { id: ctx.session.user?.id },
     })
   }
+  return null
 }
