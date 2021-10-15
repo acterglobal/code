@@ -3,6 +3,7 @@ import React, { FC, useState, useEffect } from 'react'
 import { useFormikContext } from 'formik'
 
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export interface InterestAddSectionValues {
@@ -18,7 +19,9 @@ export const InterestsAddSection: FC = () => {
   useEffect(() => {
     setFieldValue('interestIds', selectedInterests)
   }, [selectedInterests])
-  const { interestTypes } = useInterestTypes()
+  const { interestTypes, loading } = useInterestTypes()
+
+  if (loading) return <LoadingSpinner />
   if (!interestTypes) return null
 
   return (

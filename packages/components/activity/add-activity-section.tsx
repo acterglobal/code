@@ -6,7 +6,6 @@ import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
 import { AddSharp as AddIcon } from '@material-ui/icons'
 
 import { Drawer } from '@acter/components/util/drawer'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActivity } from '@acter/lib/activity/use-create-activity'
@@ -26,11 +25,10 @@ export const AddActivitySection: FC = () => {
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
 
-  const { acter, loading: acterLoading } = useActer()
-  const { user, loading: userLoading } = useUser()
+  const { acter } = useActer()
+  const { user } = useUser()
   const [createActivity] = useCreateActivity({ onCompleted: handleClose })
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
 
   const tab = getLandingPageTab()

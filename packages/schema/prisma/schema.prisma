@@ -68,8 +68,8 @@ model Acter {
 
   // Soft delete: if this field is set we have deleted this Acter
   deletedAt      DateTime? @map("deleted_at")
-  deltedByUserId String?   @map("deleted_by_user_id")
-  DeletedByUser  User?     @relation("acter_deleted_by_user", fields: [deltedByUserId], references: [id])
+  deletedByUserId String?   @map("deleted_by_user_id")
+  DeletedByUser  User?     @relation("acter_deleted_by_user", fields: [deletedByUserId], references: [id])
 
   // The type of acter, i.e. User, Organisation, etc
   ActerType ActerType @relation(fields: [acterTypeId], references: [id])

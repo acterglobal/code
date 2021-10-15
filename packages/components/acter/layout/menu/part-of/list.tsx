@@ -25,7 +25,7 @@ export const NetworksList: FC<NetworksListProps> = ({ followingActers }) => {
   return (
     <Box className={classes.container}>
       {followingActers.map((acter) => (
-        <ListItem className={classes.item} disableGutters>
+        <ListItem key={acter.id} className={classes.item} disableGutters>
           <Link href={acterAsUrl({ acter })}>
             <ListItemAvatar>
               <ActerAvatar size={2.3} acter={acter} />

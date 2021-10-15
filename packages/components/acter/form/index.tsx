@@ -1,8 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import React, { FC, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { Form, Formik } from 'formik'
@@ -20,9 +18,7 @@ import {
   InterestAddSectionValues,
 } from '@acter/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from '@acter/components/styled'
-import { StateFullModal as Modal } from '@acter/components/util/modal/statefull-modal'
 import { Stepper } from '@acter/components/util/stepper'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { Acter, ActerType } from '@acter/schema'
 
@@ -38,7 +34,7 @@ export type FormSetFieldValue = (
 
 export interface ActerFormProps {
   acter?: Acter
-  acterType: ActerType
+  acterType?: ActerType
   onSubmit: (any) => any
 }
 
@@ -57,7 +53,6 @@ export const ActerForm: FC<ActerFormProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles()
-  const router = useRouter()
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
 
@@ -80,14 +75,11 @@ export const ActerForm: FC<ActerFormProps> = ({
     }
   }
 
-  const handleModalClose = () =>
-    router.push(acter ? acterAsUrl({ acter }) : '/dashboard')
-
   const interestIds = getInterestIdsFromActer(acter)
 
   //TODO: create type for this
   const initialValues: ActerFormValues = {
-    acterTypeId: acterType.id,
+    acterTypeId: acter?.ActerType.id || acterType?.id,
     name: '',
     description: '',
     location: '',
@@ -101,53 +93,51 @@ export const ActerForm: FC<ActerFormProps> = ({
   }
 
   return (
-    <Modal handleModalClose={handleModalClose}>
-      <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
-        {({ isSubmitting }) => (
-          <Box className={classes.container}>
-            <Form>
-              <Box className={classes.fields}>
-                {steps[activeStep] === BasicInformation && <BasicInformation />}
-                {steps[activeStep] === ImageUploadSection && (
-                  <ImageUploadSection />
-                )}
-                {steps[activeStep] === InterestsAddSection && (
-                  <InterestsAddSection />
-                )}
-              </Box>
+    <Formik initialValues={initialValues} onSubmit={onStepSubmit}>
+      {({ isSubmitting }) => (
+        <Box className={classes.container}>
+          <Form>
+            <Box className={classes.fields}>
+              {steps[activeStep] === BasicInformation && <BasicInformation />}
+              {steps[activeStep] === ImageUploadSection && (
+                <ImageUploadSection />
+              )}
+              {steps[activeStep] === InterestsAddSection && (
+                <InterestsAddSection />
+              )}
+            </Box>
 
-              <Box className={classes.stepBars}>
-                <Stepper
-                  activeStep={activeStep}
-                  steps={steps}
-                  handleSelectStep={handleSelectStep}
-                />
-              </Box>
+            <Box className={classes.stepBars}>
+              <Stepper
+                activeStep={activeStep}
+                steps={steps}
+                handleSelectStep={handleSelectStep}
+              />
+            </Box>
 
-              <ButtonsContainer>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  disabled={activeStep === 0 || isSubmitting}
-                  onClick={handlePrev}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ color: 'white' }}
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isLastStep() ? 'Submit' : 'Continue'}
-                </Button>
-              </ButtonsContainer>
-            </Form>
-          </Box>
-        )}
-      </Formik>
-    </Modal>
+            <ButtonsContainer>
+              <Button
+                variant="outlined"
+                color="primary"
+                disabled={activeStep === 0 || isSubmitting}
+                onClick={handlePrev}
+              >
+                Back
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ color: 'white' }}
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isLastStep() ? 'Submit' : 'Continue'}
+              </Button>
+            </ButtonsContainer>
+          </Form>
+        </Box>
+      )}
+    </Formik>
   )
 }
 

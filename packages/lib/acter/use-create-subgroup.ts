@@ -25,6 +25,7 @@ export const useCreateSubGroup = (
   options?: UseCreateSubGroupOptions
 ): UseCreateSubGroupResultTuple => {
   return useCreateActer({
+    ...options,
     update: (cache, result, updateOptions) => {
       options?.update?.(cache, result, updateOptions)
       const {

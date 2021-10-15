@@ -1,20 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import {
   Box,
   createStyles,
-  IconButton,
   makeStyles,
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 
 import { Connect } from '@acter/components/acter/connect'
-import { GroupForm as EditGroup } from '@acter/components/group/form'
-import { Link } from '@acter/components/util/anchor-link'
+import { ActionButtons } from '@acter/components/acter/landing-page/header-section/action-buttons'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
@@ -23,16 +19,11 @@ import { ActerConnectionRole } from '@acter/schema'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
-  const [openModal, setOpenModal] = useState(false)
   const { user, loading: userLoading } = useUser()
   const { acter, loading: acterLoading } = useActer()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
-
-  const handleClick = () => {
-    setOpenModal(true)
-  }
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
@@ -44,35 +35,13 @@ export const HeaderSection: FC = () => {
             # {capitalize(acter.name)}
           </Typography>
 
-          {isAdmin && (
-            <>
-              <IconButton onClick={handleClick}>
-                <EditIcon fontSize="small" />
-              </IconButton>
-              <Link href={acterAsUrl({ acter, extraPath: ['delete'] })}>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </Link>
-            </>
-          )}
+          {isAdmin && <ActionButtons acter={acter} />}
         </Box>
 
         <Box>
           <Connect />
         </Box>
       </Box>
-
-      {openModal && (
-        <EditGroup
-          acter={acter}
-          parentActer={acter.Parent}
-          modalHeading="Update work group"
-          submitButtonLabel="Update"
-          openModal={openModal}
-          setModal={setOpenModal}
-        />
-      )}
     </>
   )
 }
