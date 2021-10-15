@@ -97,6 +97,7 @@ __metadata:
     "@types/intercom-client": ^2.11.11
     "@types/mime": ^2.0.3
     "@urql/core": ^2.3.3
+    "@urql/devtools": ^2.0.3
     "@urql/exchange-graphcache": ^4.3.5
     date-fns-tz: ^1.1.6
     deep-equal: ^2.0.5
@@ -7799,6 +7800,18 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 86665ebe50011f6b3530e0108dd1f3c5e11275c96615d552dfc5f04a980a1623b5f342b347188c64c7baefb8352ab65f6771e5b8259de3d14e043d8286066e24
+  languageName: node
+  linkType: hard
+
+"@urql/devtools@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@urql/devtools@npm:2.0.3"
+  dependencies:
+    wonka: ">= 4.0.9"
+  peerDependencies:
+    "@urql/core": ">= 1.14.0"
+    graphql: ">= 0.11.0"
+  checksum: 9b4a46dd0b6cca5296667bc0e658212c3101cd1c0d01dcc0be736e5b5159beaf6aa982115dd7546ff5425ed91e1688132a82a8f101bf8ad560245b97bb533f59
   languageName: node
   linkType: hard
 
@@ -29093,7 +29106,7 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
-"wonka@npm:^4.0.14":
+"wonka@npm:>= 4.0.9, wonka@npm:^4.0.14":
   version: 4.0.15
   resolution: "wonka@npm:4.0.15"
   checksum: afbee7359ed2d0a9146bf682f3953cb093f47d5f827e767e6ef33cb70ca6f30631afe5fe31dbb8d6c7eaed26c4ac6426e7c13568917c017ef6f42c71139b38f7

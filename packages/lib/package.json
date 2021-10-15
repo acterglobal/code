@@ -8,6 +8,7 @@
     "@prisma/client": "^2.26.0",
     "@sendgrid/mail": "^7.4.5",
     "@urql/core": "^2.3.3",
+    "@urql/devtools": "^2.0.3",
     "@urql/exchange-graphcache": "^4.3.5",
     "date-fns-tz": "^1.1.6",
     "deep-equal": "^2.0.5",
