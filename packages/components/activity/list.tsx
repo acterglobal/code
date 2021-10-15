@@ -23,7 +23,6 @@ export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
   const classes = useStyles()
   const { acter } = useActer()
   const { user } = useUser()
-  if (!acter) return null
 
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
