@@ -4,15 +4,13 @@ import { Box, Divider, ListItem, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { Tooltip } from '@acter/components/util/tool-tip'
+import { useLinks } from '@acter/lib/links/use-links'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { Link as LinkType } from '@acter/schema'
 
-export interface LinkListProps {
-  links: LinkType[]
-}
-
-export const LinksList: FC<LinkListProps> = ({ links }) => {
+export const LinksList: FC = () => {
   const classes = useStyles()
+  const { links } = useLinks()
+  if (!links || links.length === 0) return null
 
   const getUrl = (url) => {
     if (!url) {

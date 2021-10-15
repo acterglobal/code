@@ -10,13 +10,13 @@ import {
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { Acter } from '@acter/schema'
+import { useActer } from '@acter/lib/acter/use-acter'
 
-interface ActerMenuHeaderProps {
-  acter: Acter
-}
-export const ActerMenuHeader: FC<ActerMenuHeaderProps> = ({ acter }) => {
+export const ActerMenuHeader: FC = () => {
   const classes = useStyles()
+  const { acter } = useActer({ fetchParent: true })
+  if (!acter) return null
+
   return (
     <ListItem divider className={classes.acterHeaderItem}>
       <ListItemAvatar>

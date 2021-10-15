@@ -7,26 +7,23 @@ import {
   ActivitiesIcon,
   SettingsIcon,
 } from '@acter/components/icons'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerMenu as ActerMenuEnum } from '@acter/lib/constants'
 import { useNotifications } from '@acter/lib/notification/use-notifications'
+import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import {
-  Acter,
-  ActerConnectionRole,
-  NotificationType,
-  User,
-} from '@acter/schema'
+import { ActerConnectionRole, NotificationType } from '@acter/schema'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
-export interface ActerMenuItemsProps {
-  acter: Acter
-  user: User
-}
-
-export const ActerMenuItems: FC<ActerMenuItemsProps> = ({ acter, user }) => {
+export const ActerMenuItems: FC = () => {
+  const { acter } = useActer({ fetchParent: true })
+  const { user } = useUser()
   const { notifications } = useNotifications()
+
+  if (!acter) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   const getNotifications = (type: NotificationType) =>

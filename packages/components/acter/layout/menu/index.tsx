@@ -8,33 +8,31 @@ import { PartOfSection } from '@acter/components/acter/layout/menu/part-of'
 import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useLinks } from '@acter/lib/links/use-links'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const ActerMenu: FC = () => {
   const { acter, loading: acterLoading } = useActer({ fetchParent: true })
-  const { links, loading: linksLoading } = useLinks()
   const { user, loading: userLoading } = useUser()
 
-  if (acterLoading || linksLoading || userLoading) return <LoadingSpinner />
-  if (!acter || !links) return null
+  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (!acter) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   return (
     <SecondaryMenu>
-      <ActerMenuHeader acter={acter} />
+      <ActerMenuHeader />
 
-      <ActerMenuItems acter={acter} user={user} />
+      <ActerMenuItems />
 
-      {(isAdmin || isMember) && links.length > 0 && <LinksList links={links} />}
+      {(isAdmin || isMember) && <LinksList />}
 
-      {(isAdmin || isMember) && <GroupsSection acter={acter} />}
+      {(isAdmin || isMember) && <GroupsSection />}
 
-      <PartOfSection acter={acter} />
+      <PartOfSection />
     </SecondaryMenu>
   )
 }
