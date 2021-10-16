@@ -6,7 +6,7 @@ import { cacheExchange } from '@urql/exchange-graphcache'
 import { prismaPagination } from './prisma-pagination'
 import { createClient, dedupExchange, fetchExchange, Provider } from 'urql'
 
-import { createLink } from '@acter/lib/urql/updates/create-link'
+import * as updates from '@acter/lib/urql/updates'
 
 const cache = cacheExchange({
   resolvers: {
@@ -15,9 +15,7 @@ const cache = cacheExchange({
     },
   },
   updates: {
-    Mutation: {
-      createLink,
-    },
+    Mutation: updates,
   },
 })
 

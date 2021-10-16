@@ -6,7 +6,6 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter, Link as LinkType } from '@acter/schema'
-import LINK_FRAGMENT from '@acter/schema/fragments/link-display.fragment.graphql'
 import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
 
 export type LinkVariables = LinkType & {
@@ -43,28 +42,7 @@ export const useCreateLink = (
     LinkVariables
   >(CREATE_LINK, {
     ...options,
-    // update: (cache, result, updateOptions) => {
-    //   options?.update?.(cache, result, updateOptions)
-
-    //   const {
-    //     data: { createLink: newLink },
-    //   } = result
-
-    //   cache.modify({
-    //     fields: {
-    //       links: (existingLinksRefs) => {
-    //         const newLinkRef = cache.writeFragment({
-    //           data: newLink,
-    //           fragment: LINK_FRAGMENT,
-    //           fragmentName: 'LinkDisplay',
-    //         })
-    //         return [...existingLinksRefs, newLinkRef]
-    //       },
-    //     },
-    //   })
-    // },
-
-    getSuccessMessage: () => 'Link created',
+    getSuccessMessage: ({ createLink: { name } }) => `Link "${name}" created`,
   })
 
   const handleLink = async (values: LinkVariables) => {

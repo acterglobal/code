@@ -2,7 +2,7 @@ import { UpdateResolver, NullArray } from '@urql/exchange-graphcache'
 
 import { Link } from '@acter/schema'
 
-interface LinkWithType extends Link {
+export interface LinkWithType extends Link {
   __typename: string
 }
 
@@ -32,15 +32,13 @@ export const createLink: UpdateResolver<LinkData> = (
   if (!acterId) return
 
   const queryFields = cache.inspectFields('Query')
-  const acterLinks = queryFields.filter(
-    ({ fieldName, arguments: fieldArgs }) => {
-      return fieldName === 'links' && (<FieldArgs>fieldArgs).where?.acterId?.equals === acterId
-    }
-  )
 
-  acterLinks.forEach(({ fieldKey }) => {
-    const links = <NullArray<LinkWithType>>cache.resolve('Query', fieldKey)
-    links.unshift(result.createLink)
-    cache.link('Query', fieldKey, <NullArray<'todo'>>links)
+  queryFields.forEach(({ fieldName, arguments: fieldArgs , fieldKey }) => {
+    if (fieldName === 'links' && 
+      (<FieldArgs>fieldArgs).where?.acterId?.equals === acterId) {
+        const links = <NullArray<LinkWithType>>cache.resolve('Query', fieldKey)
+        links.unshift(result.createLink)
+        cache.link('Query', fieldKey, <NullArray<string>>links)
+      }
   })
 }

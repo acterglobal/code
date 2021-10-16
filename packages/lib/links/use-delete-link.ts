@@ -1,4 +1,4 @@
-import { MutationResult, StoreObject } from '@apollo/client'
+import { UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -26,34 +26,22 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 export const useDeleteLink = (
   options?: DeleteLinkOptions
-): [HandleMethod<DeleteLinkData>, MutationResult] => {
-  const [deleteLink, mutationResult] = useNotificationMutation<
+): [
+  HandleMethod<DeleteLinkData>,
+  UseMutationState<DeleteLinkData, LinkVariables>
+] => {
+  const [mutationResult, deleteLink] = useNotificationMutation<
     DeleteLinkData,
     LinkVariables
   >(DELETE_LINK, {
     ...options,
-    update: (cache, result, updateOptions) => {
-      options?.update?.(cache, result, updateOptions)
-
-      const {
-        data: { deleteLink: deletedLink },
-      } = result
-
-      cache.modify({
-        id: cache.identify((deletedLink as unknown) as StoreObject),
-        fields: (_, { DELETE }) => DELETE,
-      })
-    },
-
-    getSuccessMessage: () => 'Link deleted',
+    getSuccessMessage: ({ deleteLink: { name } }) => `Link "${name}" deleted`,
   })
 
   const handleDeleteLink = async (values: LinkVariables) => {
     deleteLink({
-      variables: {
-        ...values,
-        linkId: values.id,
-      },
+      ...values,
+      linkId: values.id,
     })
   }
 
