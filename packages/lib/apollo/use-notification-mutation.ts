@@ -31,7 +31,7 @@ export const useNotificationMutation = <
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   TVariables = any
 >(
-  mutation: DocumentNode | TypedDocumentNode<TData, TVariables>,
+  mutation: DocumentNode | TypedDocumentNode<TData, TVariables> | string,
   options?: UseMutationOptions<TData, TVariables>
 ): UseMutationResponse<TData, TVariables> => {
   di(useSnackbar)

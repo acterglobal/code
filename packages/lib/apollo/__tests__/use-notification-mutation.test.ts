@@ -1,16 +1,24 @@
-import { useMutation } from '@apollo/client'
+import { renderHook } from '@testing-library/react-hooks'
 
 import { useSnackbar } from 'notistack'
+import { useMutation } from 'urql'
 
 import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
 
-jest.mock('@apollo/client')
 jest.mock('notistack')
+jest.mock('urql')
 
 describe('useNotificationMutation', () => {
   let useMutationMock
   let useSnackbarMock
   let enqueueSnackbarMock
+
+  const mutation = `
+mutation Fake() {
+  fake() {
+    id
+  }
+}`
 
   beforeEach(() => {
     useMutationMock = useMutation as jest.Mock
@@ -23,81 +31,114 @@ describe('useNotificationMutation', () => {
   })
 
   describe('onError', () => {
-    it('should display a default error message when getErrorMessage is not provided', () => {
+    it('should display a default error message when getErrorMessage is not provided', async () => {
       const message = 'there was an error'
       // Short-circuit to just call onError
-      useMutationMock.mockImplementation((mutation, { onError }) =>
-        onError({ message })
-      )
-      useNotificationMutation('')
+      useMutationMock.mockReturnValue([
+        { error: new Error(message) },
+        jest.fn(),
+      ])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() => useNotificationMutation(mutation))
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledWith(message, { variant: 'error' })
     })
 
-    it('should use the error message function when passed', () => {
+    it('should use the error message function when passed', async () => {
       const message = 'there was an error'
       // Short-circuit to just call onError
-      useMutationMock.mockImplementation((mutation, { onError }) =>
-        onError({ message })
+      useMutationMock.mockReturnValue([
+        { error: new Error(message) },
+        jest.fn(),
+      ])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() =>
+        useNotificationMutation(mutation, {
+          getErrorMessage: ({ message }) => `${message}!`,
+        })
       )
-      useNotificationMutation('', {
-        getErrorMessage: ({ message }) => `${message}!`,
-      })
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledWith(`${message}!`, {
         variant: 'error',
       })
     })
 
-    it('should call any additional onError functionality if present', () => {
+    it('should call any additional onError functionality if present', async () => {
       const message = 'there was an error'
+      const error = new Error(message)
       const onError = jest.fn()
-      useMutationMock.mockImplementation((mutation, { onError }) =>
-        onError({ message })
+      useMutationMock.mockReturnValue([{ error }, jest.fn()])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() =>
+        useNotificationMutation(mutation, {
+          onError,
+        })
       )
-      useNotificationMutation('', {
-        onError,
-      })
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledTimes(1)
-      expect(onError).toBeCalledWith({ message })
+      expect(onError).toBeCalledWith(error)
     })
   })
 
   describe('onSuccess', () => {
-    it('should display a default success message when getSuccessMessage is not provided', () => {
+    it('should display a default success message when getSuccessMessage is not provided', async () => {
       // Short-circuit to just call onError
-      useMutationMock.mockImplementation((mutation, { onCompleted }) =>
-        onCompleted()
-      )
-      useNotificationMutation('')
+      useMutationMock.mockReturnValue([{ data: {} }, jest.fn()])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() => useNotificationMutation(mutation))
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledWith('Success', {
         variant: 'success',
       })
     })
 
-    it('should use the success message function when passed', () => {
-      const message = 'Woohoo!'
+    it('should use the success message function when passed', async () => {
+      const message = 'Woohoo'
       // Short-circuit to just call onError
-      useMutationMock.mockImplementation((mutation, { onCompleted }) =>
-        onCompleted({ message })
+      useMutationMock.mockReturnValue([{ data: {} }, jest.fn()])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() =>
+        useNotificationMutation(mutation, {
+          getSuccessMessage: () => `${message}!`,
+        })
       )
-      useNotificationMutation('', {
-        getSuccessMessage: ({ message }) => `${message}!`,
-      })
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledWith(`${message}!`, {
         variant: 'success',
       })
     })
 
-    it('should call any additional onCompleted functionality if present', () => {
-      const message = 'Woohoo'
+    it('should call any additional onCompleted functionality if present', async () => {
       const onCompleted = jest.fn()
-      useMutationMock.mockImplementation((mutation, { onCompleted }) =>
-        onCompleted({ message })
+      const data = { foo: 'bar' }
+      useMutationMock.mockReturnValue([{ data }, jest.fn()])
+      const {
+        result: {
+          current: [_, mutate],
+        },
+      } = renderHook(() =>
+        useNotificationMutation(mutation, {
+          onCompleted,
+        })
       )
-      useNotificationMutation('', {
-        onCompleted,
-      })
+      await mutate()
       expect(enqueueSnackbarMock).toBeCalledTimes(1)
-      expect(onCompleted).toBeCalledWith({ message })
+      expect(onCompleted).toBeCalledWith(data)
     })
   })
 })
