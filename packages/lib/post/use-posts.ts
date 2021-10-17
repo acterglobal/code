@@ -34,9 +34,12 @@ export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
   const [
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },
   ] = useQuery<PostsData, PostsVariables>({
-    query: GET_POSTS,
     ...options,
+    query: GET_POSTS,
     pause: !acter?.id,
+    variables: {
+      acterId: acter?.id,
+    },
   })
 
   useEffect(() => {

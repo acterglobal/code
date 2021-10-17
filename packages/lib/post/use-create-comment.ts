@@ -6,11 +6,12 @@ import {
 } from '@acter/lib/apollo/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType, Acter } from '@acter/schema'
-import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
+import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
 
 export type PostVariables = PostType & {
   acterId: string
   authorId: string
+  parentId: string
 }
 
 type CreatePostData = { createPost: PostType }
@@ -24,7 +25,7 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
  * @returns handle method to create post
  * @returns mutation results from apollo
  */
-export const useCreatePost = (
+export const useCreateComment = (
   acter: Acter,
   options?: CreatePostOptions
 ): [
@@ -36,9 +37,9 @@ export const useCreatePost = (
   const [mutationResult, createPost] = useNotificationMutation<
     CreatePostData,
     PostVariables
-  >(CREATE_POST, {
+  >(CREATE_COMMENT, {
     ...options,
-    getSuccessMessage: () => 'Post created',
+    getSuccessMessage: () => 'Comment created',
   })
 
   const handlePost = async (values: PostVariables) => {
