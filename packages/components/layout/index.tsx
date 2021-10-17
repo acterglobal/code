@@ -1,4 +1,5 @@
 import React, { FC, ReactNode, useEffect } from 'react'
+import CookieConsent from 'react-cookie-consent'
 import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
@@ -26,6 +27,9 @@ export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}
+        <CookieConsent style={{ width: '30%', alignItems: 'flex-end' }}>
+          This website uses cookies to enhance the user experience.
+        </CookieConsent>
       </Container>
     </div>
   )
