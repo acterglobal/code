@@ -3,6 +3,10 @@ import React, { FC, useState } from 'react'
 import { MenuItem } from '@material-ui/core'
 
 import {
+  ActerVisibilitySettings as ActerPrivacySettings,
+  ActerVisibilitySettingsProps as ActerPrivacySettingsProps,
+} from '@acter/components/acter/settings/acter-privacy-settings'
+import {
   ActerUsersSettings,
   ActerUsersSettingsProps,
 } from '@acter/components/acter/settings/acter-users-settings'
@@ -15,7 +19,9 @@ import {
 } from '@acter/components/util/settings-layout'
 import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
 
-export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
+export type ActerSettingsProps = ActerUsersSettingsProps &
+  LinkProps &
+  ActerPrivacySettingsProps
 
 export const ActerSettings: FC<ActerSettingsProps> = ({
   links,
@@ -36,6 +42,9 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
         <MenuItem onClick={() => handleClick(ActerSettingsMenu.LINKS)}>
           Links
         </MenuItem>
+        <MenuItem onClick={() => handleClick(ActerSettingsMenu.PRIVACY)}>
+          Privacy
+        </MenuItem>
       </SettingsMenu>
 
       <SettingsContent>
@@ -50,6 +59,15 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
         )}
         {showContent === ActerSettingsMenu.LINKS && (
           <LinkSection links={links} />
+        )}
+        {showContent === ActerSettingsMenu.PRIVACY && (
+          <>
+            <SettingsSectionHeading>Privacy Setting</SettingsSectionHeading>
+            <ActerPrivacySettings
+              onSettingsChange={onSettingsChange}
+              loading={loading}
+            />
+          </>
         )}
       </SettingsContent>
     </SettingsContainer>
