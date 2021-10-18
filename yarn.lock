@@ -43,6 +43,7 @@ __metadata:
     next: "*"
     node-polyfill-webpack-plugin: ^1.1.4
     pluralize: ^8.0.0
+    react-copy-to-clipboard: ^5.0.4
     react-cropper: ^2.1.8
     react-draft-wysiwyg: ^1.14.7
     react-filepond: ^7.1.1
@@ -11054,7 +11055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-to-clipboard@npm:^3.3.1":
+"copy-to-clipboard@npm:^3, copy-to-clipboard@npm:^3.3.1":
   version: 3.3.1
   resolution: "copy-to-clipboard@npm:3.3.1"
   dependencies:
@@ -22882,6 +22883,18 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
   checksum: 7aab1a94ef195b6421a4e9f26153507852121f243a630eacd507d0090db65c0502081b8a19abb10e2a91ba5fecbf2360f3bb9dd23a7b83791eaf248c43256728
+  languageName: node
+  linkType: hard
+
+"react-copy-to-clipboard@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "react-copy-to-clipboard@npm:5.0.4"
+  dependencies:
+    copy-to-clipboard: ^3
+    prop-types: ^15.5.8
+  peerDependencies:
+    react: ^15.3.0 || ^16.0.0 || ^17.0.0
+  checksum: dae8caae192d4937a151ec3ddad540fe4846d28646aee6d90774abcc6a077761926c99f2bcd9506a76a65524ec2c32b5ec1341e8096fcd3f6335365eaf065137
   languageName: node
   linkType: hard
 
