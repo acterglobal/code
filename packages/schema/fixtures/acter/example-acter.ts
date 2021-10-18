@@ -3,6 +3,7 @@ import {
   ActerJoinSettings,
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
+  ActerPrivacySettings,
 } from '@acter/schema'
 import {
   ExampleUser,
@@ -34,6 +35,7 @@ export const ExampleActer: Acter = {
   acterJoinSetting: ActerJoinSettings.EVERYONE,
   acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
   acterNotifyEmailFrequency: ActerNotificationEmailFrequency.NEVER,
+  acterPrivacySetting: ActerPrivacySettings.PUBLIC,
 }
 
 export const ExampleUserActer: Acter = {
