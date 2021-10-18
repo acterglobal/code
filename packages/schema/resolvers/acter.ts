@@ -47,6 +47,7 @@ export class ActerResolver {
       console.error(err)
       throw err
     }
+
     const createdByUserId = currentUser.id
 
     const acterType = await ctx.prisma.acterType.findFirst({
