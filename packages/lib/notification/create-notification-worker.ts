@@ -70,9 +70,9 @@ interface CreateNotificationWorker<T> {
    */
   type: NotificationType
   /**
-   * Extra path for notification
+   * Url path for notification on
    */
-  notificationUrlPath?: string | string[]
+  getNotificationUrlPath: (data?: string) => string
 }
 
 export const createNotificationWorker = <T>({
@@ -85,7 +85,7 @@ export const createNotificationWorker = <T>({
   getActivity,
   getPost,
   type,
-  notificationUrlPath = '',
+  getNotificationUrlPath,
 }: CreateNotificationWorker<T>): Worker => {
   return createWorker(queue, async (job: Job<T>) => {
     const data = await getJobData(job)
@@ -128,13 +128,15 @@ export const createNotificationWorker = <T>({
         }) => ({ name, acterTypeName })
       )
     )
+    const activity = getActivity?.(data)
+    const post = getPost?.(data)
+    const extraPath = getNotificationUrlPath(activity?.Acter.name || post?.id)
     const url = acterAsUrl({
       acter: following,
       includeBaseUrl: true,
-      extraPath: notificationUrlPath,
+      extraPath,
     })
-    const activity = getActivity?.(data)
-    const post = getPost?.(data)
+
     await Promise.all(
       followers.map(async ({ Follower }) => {
         const notification = await createNotification({

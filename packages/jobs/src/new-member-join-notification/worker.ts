@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { NewMemberJoinNotification } from './types'
 
 import { createNewMemberNotificationEmail } from '@acter/lib/acter/email'
-import { ActerTypes, NEW_MEMBER_NOTIFICATION_QUEUE } from '@acter/lib/constants'
+import { NEW_MEMBER_NOTIFICATION_QUEUE } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { ActerConnectionRole, NotificationType } from '@acter/schema'
 
@@ -24,6 +24,6 @@ export const newMemberJoinNotificationWorker = createNotificationWorker<NewMembe
     getNotificationEmailSubject: ({ notification }) =>
       `New member on ${notification.OnActer.name}`,
     type: NotificationType.NEW_MEMBER,
-    notificationUrlPath: 'members',
+    getNotificationUrlPath: () => 'members',
   }
 )

@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { ActivityNotificationForActer } from './types'
+import slugify from 'slugify'
 
 import { createActivityNotificationEmail } from '@acter/lib/activity/email'
 import { ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER } from '@acter/lib/constants'
@@ -30,6 +31,7 @@ export const activityNotificationsOnActerCreate = createNotificationWorker<Activ
     getNotificationEmailSubject: ({ data: { activity }, notification }) =>
       `New ${activity.ActivityType.name} on ${notification.OnActer.name} via Acter`,
     type: NotificationType.NEW_ACTIVITY,
-    notificationUrlPath: 'activities',
+    getNotificationUrlPath: (activityName) =>
+      `activities?activity=${slugify(activityName)}`,
   }
 )
