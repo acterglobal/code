@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, useEffect } from 'react'
-import CookieConsent from 'react-cookie-consent'
 import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
