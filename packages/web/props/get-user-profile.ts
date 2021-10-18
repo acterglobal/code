@@ -8,7 +8,7 @@ import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 
 export const getUserProfile = (
   requireUser = true
-): ComposedGetServerSideProps => async ({ req, res }) => {
+): ComposedGetServerSideProps => async ({ req, res, resolvedUrl }) => {
   const apollo = initializeApollo()
 
   // @ts-ignore
@@ -16,10 +16,11 @@ export const getUserProfile = (
 
   if (!session) {
     if (requireUser) {
+      const loginUrl = `/api/auth/login?returnTo=${resolvedUrl}`
       return {
         props: {},
         redirect: {
-          destination: '/401',
+          destination: loginUrl,
         },
       }
     }
