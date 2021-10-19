@@ -72,7 +72,9 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
 
   const variables = useMemo<UseActerVariables>(() => {
     if (acterId) return {
-      acterId
+      acterId,
+      acterTypeId: undefined,
+      slug: undefined,
     }
 
     if (acterTypes) {
@@ -83,13 +85,14 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
         setErrors(Error('Not valid acter type'))
       }
       return {
+        acterId: undefined,
         acterTypeId: result.id,
         slug: <string>slug
       }
     }
 
     return null
-  }, [acterTypes, acterTypeName, acterId])
+  }, [acterTypes.length, acterTypeName, acterId, slug])
 
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
