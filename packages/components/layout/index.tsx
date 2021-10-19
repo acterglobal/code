@@ -3,6 +3,7 @@ import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 
+import { CookieBar } from '@acter/components/layout/cookie-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
 import { TopBar } from '@acter/components/layout/top-bar'
 
@@ -26,6 +27,7 @@ export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
       <Container maxWidth="xl" className={classes.container}>
         <TopBar />
         {children}
+        <CookieBar />
       </Container>
     </div>
   )
