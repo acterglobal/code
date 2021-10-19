@@ -11,7 +11,7 @@ export const CookieBar: FC = () => {
     <CookieConsent debug={true} style={{ zIndex: 1300 }}>
       This website uses cookies to enhance the user experience.
       <Link href={'/privacy-policy'}>
-        <a className={classes.link}>
+        <a className={classes.link} target="_blank">
           {' '}
           You can click here to read our Privacy Policy.
         </a>
