@@ -33,6 +33,11 @@ enum ActerNotificationEmailFrequency {
   INSTANT
 }
 
+enum ActerPrivacySettings {
+  PUBLIC
+  PRIVATE
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -57,6 +62,8 @@ model Acter {
   acterNotifySetting        ActerNotificationSettings       @default(NONE) @map("acter_notify_setting")
   //   How often to send an email for Notifications
   acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(NEVER) @map("acter_notify_email_frequency")
+  //   Whether an Acter is visible in public Search
+  acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
 
   // Associations
   // List of Interests for this Acter
@@ -67,9 +74,9 @@ model Acter {
   createdByUserId String @map("created_by_user_id")
 
   // Soft delete: if this field is set we have deleted this Acter
-  deletedAt      DateTime? @map("deleted_at")
+  deletedAt       DateTime? @map("deleted_at")
   deletedByUserId String?   @map("deleted_by_user_id")
-  DeletedByUser  User?     @relation("acter_deleted_by_user", fields: [deletedByUserId], references: [id])
+  DeletedByUser   User?     @relation("acter_deleted_by_user", fields: [deletedByUserId], references: [id])
 
   // The type of acter, i.e. User, Organisation, etc
   ActerType ActerType @relation(fields: [acterTypeId], references: [id])
