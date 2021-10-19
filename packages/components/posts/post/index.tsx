@@ -8,6 +8,7 @@ import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { Post as PostType, User } from '@acter/schema'
@@ -22,8 +23,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
-  const [updatePost] = useUpdatePost()
-  const [deletePost] = useDeletePost()
+  const [updatePost, { fetching: updateFetching }] = useUpdatePost()
+  const [deletePost, { fetching: deleteFetching }] = useDeletePost()
 
   const handleEdit = () => setToggleForm(!toggleForm)
   const handleCancelEdit = () => setToggleForm(!toggleForm)
@@ -34,6 +35,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   }
 
   const handleDelete = () => deletePost(post)
+
+  if (updateFetching || deleteFetching) return <LoadingSpinner />
 
   if (toggleForm) {
     return (

@@ -92,7 +92,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     }
 
     return null
-  }, [acterTypes.length, acterTypeName, acterId, slug])
+  }, [acterTypes?.length, acterTypeName, acterId, slug])
 
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 

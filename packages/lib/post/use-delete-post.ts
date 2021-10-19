@@ -1,4 +1,4 @@
-import { MutationResult, StoreObject } from '@apollo/client'
+import { UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -31,33 +31,20 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
 
 export const useDeletePost = (
   options?: DeletePostOptions
-): [HandleMethod<DeletePostData>, MutationResult] => {
-  const [deletePost, mutationResult] = useNotificationMutation<
+): [
+  HandleMethod<DeletePostData>,
+  UseMutationState<DeletePostData, PostVariables>
+] => {
+  const [mutationResult, deletePost] = useNotificationMutation<
     DeletePostData,
     PostVariables
   >(DELETE_POST, {
     ...options,
-    update: (cache, result, updateOptions) => {
-      options?.update?.(cache, result, updateOptions)
-
-      const {
-        data: { deletePost: deletedPost },
-      } = result
-
-      cache.modify({
-        id: cache.identify((deletedPost as unknown) as StoreObject),
-        fields: (_, { DELETE }) => DELETE,
-      })
-    },
-    getSuccessMessage: (data) =>
-      data.deletePost.parentId ? 'Comment deleted' : 'Post deleted',
   })
 
   const handleDeletePost = async (values: PostType) => {
     deletePost({
-      variables: {
-        postId: values.id,
-      },
+      postId: values.id,
     })
   }
 

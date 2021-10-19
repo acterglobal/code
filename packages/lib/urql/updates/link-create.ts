@@ -1,10 +1,15 @@
-import { UpdateResolver, NullArray } from '@urql/exchange-graphcache'
+import { UpdateResolver } from '@urql/exchange-graphcache'
 
-import { Link } from '@acter/schema'
+import {
+  forEachQueryFields,
+  matchOnActerId,
+  prependItemFn,
+} from '../util/query-fields-for-each'
+
 import { WithTypeName } from '@acter/lib/urql/types'
-import { forEachQueryFields } from '../util/query-fields-for-each'
+import { Link } from '@acter/schema'
 
-type LinkWithType = WithTypeName<Link>
+export type LinkWithType = WithTypeName<Link>
 
 interface LinkData {
   createLink?: LinkWithType
@@ -16,8 +21,11 @@ export const createLink: UpdateResolver<LinkData> = (
   cache,
   _info
 ) => {
-  forEachQueryFields({cache, result: result.createLink, fieldNameMatch: 'links', fn: ({fieldKey, items}) => {
-    items.unshift(result.createLink)
-    cache.link('Query', fieldKey, <NullArray<string>>items)
-  }})
+  forEachQueryFields({
+    cache,
+    result: result.createLink,
+    fieldNameMatch: 'links',
+    match: matchOnActerId,
+    fn: prependItemFn({ cache, result: result.createLink }),
+  })
 }
