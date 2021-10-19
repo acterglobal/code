@@ -8,7 +8,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 export const CookieBar: FC = () => {
   const classes = useStyles()
   return (
-    <CookieConsent debug={true} style={{ zIndex: 1300 }}>
+    <CookieConsent style={{ zIndex: 1300 }}>
       This website uses cookies to enhance the user experience.
       <Link href={'/privacy-policy'}>
         <a className={classes.link} target="_blank">
