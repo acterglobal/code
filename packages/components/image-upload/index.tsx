@@ -177,13 +177,13 @@ export const ImageUpload: FC<ImageUploadProps> = ({
         ref={pond}
         onaddfilestart={handleFileSelected}
         onaddfile={handleImageUpload}
+        onremovefile={() => setFiles([])}
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
         labelIdle={`<span class="filepond--label-action"> Browse</span>  image file for ${
           imageType.charAt(0).toUpperCase() + imageType.slice(1)
         }`}
-        //@ts-ignore
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
         //@ts-ignore
