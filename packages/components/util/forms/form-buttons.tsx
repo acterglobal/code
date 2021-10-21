@@ -32,7 +32,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
 
   const handleClick = () => {
     resetForm()
-    onCancel()
+    onCancel && onCancel()
   }
 
   return (
