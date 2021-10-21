@@ -106,6 +106,8 @@ model Acter {
   NotificationsTo Notification[] @relation("notificationToActer")
   NotificationsOn Notification[] @relation("notificationOnActer")
 
+  Invite Invite[] @relation("inviteToActer")
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -277,6 +279,29 @@ model InterestType {
   @@map("interest_types")
 }
 
+model Invite {
+  id         String   @id @default(uuid())
+  email      String
+  message    String
+  error      String
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  sentAt     DateTime @map("sent_at")
+  acceptedAt DateTime @map("accepted_at")
+
+  // The acter to which we're inviting someone
+  OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id])
+  onActerId String @map("on_acter_id")
+
+  // The User that created this Acter
+  createdByUser   User   @relation("invite_created_by_user", fields: [createdByUserId], references: [id])
+  createdByUserId String @map("created_by_user_id")
+
+  @@unique(name: "oneEmailInvitePerActer", fields: [onActerId, email])
+  @@index(name: "inviteEmailForActer", fields: [onActerId, email])
+  @@map("invites")
+}
+
 enum NotificationType {
   NEW_POST
   NEW_ACTIVITY
@@ -327,7 +352,7 @@ model User {
   intercomId      String? @map("intercom_id")
 
   Acter   Acter?  @relation(fields: [acterId], references: [id])
-  acterId String?
+  acterId String? @unique
 
   ActersCreated    Acter[]           @relation("acter_created_by_user")
   ActerConnections ActerConnection[] @relation("acter_connection_created_by_user")
@@ -339,6 +364,8 @@ model User {
   ActivitiesCreated Activity[] @relation("activity_created_by_user")
 
   ActersDeleted Acter[] @relation("acter_deleted_by_user")
+
+  Invite Invite[] @relation("invite_created_by_user")
 
   @@map("users")
 }
