@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import {
   Box,
@@ -14,34 +14,42 @@ import { Form, Formik } from 'formik'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreateInvite } from '@acter/lib/invites/use-create-invites'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export type InviteFormValues = {
   inviteLink: string
-  emailAddresses: string[]
-  invitationMessage: string
+  emails: string[]
+  message: string
+  acterId: string
+  userId: string
 }
 
 export const InviteForm: FC = () => {
   const classes = useStyles()
-  const [status, setStatus] = useState(false)
 
+  const [createInvite] = useCreateInvite()
   const { acter } = useActer()
   const { user } = useUser()
   if (!acter || !user) return null
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  const acterName = capitalize(acter.name)
 
   const initialValues: InviteFormValues = {
     inviteLink: acterAsUrl({ acter, includeBaseUrl: true }),
-    emailAddresses: [],
-    invitationMessage: `Hi! I'm inviting you to join “Actor name” on Acter. “Acter name” is using Acter as our dedicated space for communication & collaboration.`,
+    emails: [],
+    message: `Hi! 
+I'm inviting you to join ${acterName} on Acter. ${acterName} is using Acter as our dedicated space for communication & collaboration.`,
+    acterId: acter.id,
+    userId: user.id,
   }
 
-  const handleSubmit = (data) => {
-    console.log('DATA', data)
-    setStatus(true)
+  const handleSubmit = (values: InviteFormValues, { setFieldValue }) => {
+    values.emails.map((email) => createInvite({ ...values, email }))
+    setFieldValue('emails', [])
   }
 
   return (
@@ -59,10 +67,6 @@ export const InviteForm: FC = () => {
           <InviteByEmail />
         </Form>
       </Formik>
-
-      {status && (
-        <Typography className={classes.status}>Invites sent</Typography>
-      )}
     </Box>
   )
 }

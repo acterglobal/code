@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "invites" ALTER COLUMN "error" DROP NOT NULL,
+ALTER COLUMN "sent_at" DROP NOT NULL,
+ALTER COLUMN "accepted_at" DROP NOT NULL;

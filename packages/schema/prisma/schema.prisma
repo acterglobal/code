@@ -283,11 +283,11 @@ model Invite {
   id         String   @id @default(uuid())
   email      String
   message    String
-  error      String
+  error      String?
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
-  sentAt     DateTime @map("sent_at")
-  acceptedAt DateTime @map("accepted_at")
+  sentAt     DateTime? @map("sent_at")
+  acceptedAt DateTime? @map("accepted_at")
 
   // The acter to which we're inviting someone
   OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)

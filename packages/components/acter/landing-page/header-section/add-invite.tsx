@@ -8,7 +8,7 @@ import { Drawer } from '@acter/components/util/drawer'
 export const AddInviteSection: FC = () => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [drawerHeading, setDrawerHeading] = useState('Invite people')
+  const [drawerHeading] = useState('Invite people')
 
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
@@ -24,7 +24,7 @@ export const AddInviteSection: FC = () => {
         open={openDrawer}
         handleClose={handleClose}
       >
-        <InvitesSection setDrawerHeading={setDrawerHeading} />
+        <InvitesSection />
       </Drawer>
     </>
   )

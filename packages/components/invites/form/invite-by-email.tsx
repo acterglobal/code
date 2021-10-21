@@ -18,8 +18,11 @@ import { EmailAddressChip } from '@acter/components/invites/form/email-address-c
 
 export const InviteByEmail: FC = () => {
   const classes = useStyles()
-  const { values, setFieldValue } = useFormikContext<InviteFormValues>()
-  const [emails, setEmails] = useState(values.emailAddresses)
+  const {
+    values: { emails },
+    setFieldValue,
+  } = useFormikContext<InviteFormValues>()
+  // const [emails, setEmails] = useState(values.emailAddresses)
   const [input, setInput] = useState('')
 
   useEffect(() => {
@@ -28,7 +31,8 @@ export const InviteByEmail: FC = () => {
 
   const handleDeleteEmailAddress = (emailAddress) => {
     const updatedEmailList = emails.filter((email) => email !== emailAddress)
-    setEmails(updatedEmailList)
+    // setEmails(updatedEmailList)
+    setFieldValue('emails', updatedEmailList)
   }
 
   const handleKeyDown = (event) => {
@@ -38,7 +42,9 @@ export const InviteByEmail: FC = () => {
       const isValidEmail = validate(email) && !emails.includes(email)
 
       if (isValidEmail) {
-        setEmails([...emails, email])
+        // setEmails([...emails, email])
+        setFieldValue('emails', [...emails, email])
+
         setInput('')
       }
     }
@@ -53,7 +59,8 @@ export const InviteByEmail: FC = () => {
       (email) => validate(email) && !emails.includes(email)
     )
 
-    if (validEmails.length !== 0) setEmails([...emails, ...validEmails])
+    if (validEmails.length !== 0)
+      setFieldValue('emails', [...emails, ...validEmails])
     else setInput(input)
   }
 
@@ -78,14 +85,10 @@ export const InviteByEmail: FC = () => {
         />
       </Box>
 
-      <Field
-        name="invitationMessage"
-        className={classes.invitationMessage}
-        as="textarea"
-      />
+      <Field name="message" className={classes.message} as="textarea" />
       <Button
         className={classes.button}
-        disabled={values.emailAddresses.length <= 0}
+        disabled={emails.length <= 0}
         type="submit"
       >
         Send invites
@@ -122,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'none',
       width: '100%',
     },
-    invitationMessage: {
+    message: {
       outline: 'none',
       resize: 'none',
       color: theme.colors.grey.dark,
