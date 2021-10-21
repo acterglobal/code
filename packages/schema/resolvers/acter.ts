@@ -247,6 +247,8 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
+    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
+    acterPrivacySetting: ActerPrivacySettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -267,6 +269,7 @@ export class ActerResolver {
       url,
       acterJoinSetting,
       acterNotifyEmailFrequency,
+      acterPrivacySetting,
       acterTypeId,
       organiserActerId,
       interestIds,
@@ -331,6 +334,8 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
+    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
+    acterPrivacySetting: ActerPrivacySettings,
     @Arg('bannerUrl', { nullable: true })
     bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -353,6 +358,7 @@ export class ActerResolver {
       acterJoinSetting,
       acterNotifySetting,
       acterNotifyEmailFrequency,
+      acterPrivacySetting,
       null,
       bannerUrl,
       interestIds,
