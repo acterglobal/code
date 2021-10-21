@@ -151,8 +151,6 @@ export class ActerResolver {
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
-    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
-    acterPrivacySetting: ActerPrivacySettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
       nullable: true,
     })
