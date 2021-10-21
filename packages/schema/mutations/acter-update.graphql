@@ -9,6 +9,7 @@ mutation ActerUpdate(
   $acterJoinSetting: ActerJoinSettings
   $acterNotifySetting: ActerNotificationSettings
   $acterNotifyEmailFrequency: ActerNotificationEmailFrequency
+  $acterPrivacySetting: ActerPrivacySettings
   $avatarUrl: String
   $bannerUrl: String
   $interestIds: [String!]!
@@ -23,6 +24,7 @@ mutation ActerUpdate(
     acterJoinSetting: $acterJoinSetting
     acterNotifySetting: $acterNotifySetting
     acterNotifyEmailFrequency: $acterNotifyEmailFrequency
+    acterPrivacySetting: $acterPrivacySetting
     avatarUrl: $avatarUrl
     bannerUrl: $bannerUrl
     interestIds: $interestIds

@@ -56,7 +56,7 @@ export const ActerVisibilitySettings: FC<ActerVisibilitySettingsProps> = ({
             </FormLabel>
             <RadioGroup
               aria-label="acter-privacy-setting"
-              name="acterprivacysetting"
+              name="acterPrivacySetting"
               value={values.acterPrivacySetting}
               onChange={handleChange}
             >

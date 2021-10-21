@@ -16,6 +16,7 @@ import {
   ActerJoinSettings,
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
+  ActerPrivacySettings,
   Activity,
 } from '@acter/schema'
 import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
@@ -38,6 +39,8 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
+    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
+    acterPrivacySetting: ActerPrivacySettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -102,6 +105,7 @@ export class ActerResolver {
         url,
         acterJoinSetting,
         acterNotifyEmailFrequency,
+        acterPrivacySetting,
         acterTypeId,
         parentActerId,
         updatedAt: new Date(),
@@ -130,6 +134,8 @@ export class ActerResolver {
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
+    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
+    acterPrivacySetting: ActerPrivacySettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
       nullable: true,
     })
@@ -209,6 +215,7 @@ export class ActerResolver {
         acterJoinSetting,
         acterNotifySetting,
         acterNotifyEmailFrequency,
+        acterPrivacySetting,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
