@@ -3,13 +3,13 @@ import React, { FC, useState } from 'react'
 import { MenuItem } from '@material-ui/core'
 
 import {
-  ActerVisibilitySettings as ActerPrivacySettings,
-  ActerVisibilitySettingsProps as ActerPrivacySettingsProps,
-} from '@acter/components/acter/settings/acter-privacy-settings'
-import {
   ActerUsersSettings,
   ActerUsersSettingsProps,
 } from '@acter/components/acter/settings/acter-users-settings'
+import {
+  ActerVisibilitySettings as ActerPrivacySettings,
+  ActerVisibilitySettingsProps as ActerPrivacySettingsProps,
+} from '@acter/components/acter/settings/acter-visibility-settings'
 import { Links as LinkSection, LinkProps } from '@acter/components/links'
 import {
   SettingsContainer,
