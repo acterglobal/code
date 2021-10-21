@@ -134,8 +134,6 @@ export class ActerResolver {
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
-    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
-    acterPrivacySetting: ActerPrivacySettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
       nullable: true,
     })
@@ -144,6 +142,8 @@ export class ActerResolver {
       nullable: true,
     })
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
+    @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
+    acterPrivacySetting: ActerPrivacySettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
