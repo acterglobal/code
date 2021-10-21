@@ -15,6 +15,7 @@ import {
 
 import { Connect } from '@acter/components/acter/connect'
 import { ActionButtons } from '@acter/components/acter/landing-page/header-section/action-buttons'
+import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -83,7 +84,9 @@ export const HeaderSection: FC = () => {
             </Hidden>
           )}
         </Box>
+
         <Box className={classes.buttonContainer}>
+          <AddInviteSection />
           <Connect />
         </Box>
       </Box>

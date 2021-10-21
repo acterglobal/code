@@ -34,6 +34,7 @@ export type Colors = {
   black: Color
   grey: Grey
   white: Color
+  red: Color
   activityTypes: ActivityTypeColors
   interestTypes: InterestTypeColors
   others: OtherColors
@@ -57,6 +58,7 @@ export const paletteColors = {
 export const colors: Colors = {
   black: '#000',
   white: '#fff',
+  red: '#FF6754',
   grey: {
     extraLight: '#F2F2F2',
     light: '#D9D9D9',
