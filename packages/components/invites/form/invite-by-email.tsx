@@ -10,6 +10,7 @@ import {
   Theme,
 } from '@material-ui/core'
 
+import { validate } from 'email-validator'
 import { Field, useFormikContext } from 'formik'
 
 import { InviteFormValues } from '@acter/components/invites/form'
@@ -34,8 +35,9 @@ export const InviteByEmail: FC = () => {
     if (['Enter', 'Tab', ','].includes(event.key)) {
       event.preventDefault()
       const email = input.trim()
+      const isValidEmail = validate(email) && !emails.includes(email)
 
-      if (isValidEmail(email)) {
+      if (isValidEmail) {
         setEmails([...emails, email])
         setInput('')
       }
@@ -46,19 +48,14 @@ export const InviteByEmail: FC = () => {
   const handlePaste = (event) => {
     event.preventDefault()
     const input = event.clipboardData.getData('text')
-    // eslint-disable-next-line no-useless-escape
-    const allEmails = input.match(/[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/g)
+    const allEmails = input.split(/[\s,]/)
+    const validEmails = allEmails.filter(
+      (email) => validate(email) && !emails.includes(email)
+    )
 
-    if (Array.isArray(allEmails)) {
-      const validEmails = allEmails.filter((email) => !emails.includes(email))
-      setEmails([...emails, ...validEmails])
-    } else setInput(input)
+    if (validEmails.length !== 0) setEmails([...emails, ...validEmails])
+    else setInput(input)
   }
-
-  // TODO: check email does not have any spaces
-  const isValidEmail = (email: string) =>
-    // eslint-disable-next-line no-useless-escape
-    /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email) && !emails.includes(email)
 
   return (
     <FormGroup>
