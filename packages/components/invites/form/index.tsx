@@ -24,8 +24,7 @@ export type InviteFormValues = {
   inviteLink: string
   emails: string[]
   message: string
-  acterId: string
-  userId: string
+  onActerId: string
 }
 
 export const InviteForm: FC = () => {
@@ -43,8 +42,7 @@ export const InviteForm: FC = () => {
     emails: [],
     message: `Hi! 
 I'm inviting you to join ${acterName} on Acter. ${acterName} is using Acter as our dedicated space for communication & collaboration.`,
-    acterId: acter.id,
-    userId: user.id,
+    onActerId: acter.id,
   }
 
   const handleSubmit = (values: InviteFormValues, { setFieldValue }) => {

@@ -10,11 +10,10 @@ import CREATE_INVITE from '@acter/schema/mutations/invite-create.graphql'
 export type InviteVariables = {
   email: string
   message: string
-  acterId: string
-  userId: string
+  onActerId: string
 }
 
-type CreateInviteData = { createInvite: Invite }
+type CreateInviteData = { createInviteCustom: Invite }
 
 type CreateInviteOptions = UseMutationOptions<CreateInviteData, InviteVariables>
 
@@ -29,7 +28,7 @@ export type HandleMethod = (values: InviteVariables) => Promise<FetchResult>
 export const useCreateInvite = (
   options?: CreateInviteOptions
 ): [HandleMethod, MutationResult] => {
-  const [createInvite, mutationResult] = useNotificationMutation(
+  const [createInviteCustom, mutationResult] = useNotificationMutation(
     CREATE_INVITE,
     {
       ...options,
@@ -38,7 +37,7 @@ export const useCreateInvite = (
   )
 
   const handleCreateInvite = (values: InviteVariables) =>
-    createInvite({ variables: { ...values } })
+    createInviteCustom({ variables: values })
 
   return [handleCreateInvite, mutationResult]
 }

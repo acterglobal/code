@@ -22,7 +22,6 @@ export const InviteByEmail: FC = () => {
     values: { emails },
     setFieldValue,
   } = useFormikContext<InviteFormValues>()
-  // const [emails, setEmails] = useState(values.emailAddresses)
   const [input, setInput] = useState('')
 
   useEffect(() => {
@@ -31,7 +30,6 @@ export const InviteByEmail: FC = () => {
 
   const handleDeleteEmailAddress = (emailAddress) => {
     const updatedEmailList = emails.filter((email) => email !== emailAddress)
-    // setEmails(updatedEmailList)
     setFieldValue('emails', updatedEmailList)
   }
 
@@ -42,9 +40,7 @@ export const InviteByEmail: FC = () => {
       const isValidEmail = validate(email) && !emails.includes(email)
 
       if (isValidEmail) {
-        // setEmails([...emails, email])
         setFieldValue('emails', [...emails, email])
-
         setInput('')
       }
     }
@@ -88,6 +84,8 @@ export const InviteByEmail: FC = () => {
       <Field name="message" className={classes.message} as="textarea" />
       <Button
         className={classes.button}
+        variant="outlined"
+        color="inherit"
         disabled={emails.length <= 0}
         type="submit"
       >
@@ -140,12 +138,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       alignSelf: 'end',
-      borderRadius: theme.spacing(0.6),
-      width: theme.spacing(13),
       height: theme.spacing(4.5),
       color: theme.palette.primary.main,
-      border: '1px solid',
-      borderColor: theme.palette.primary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightMedium,
       fontSize: '0.75rem',

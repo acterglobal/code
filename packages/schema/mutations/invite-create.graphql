@@ -1,17 +1,5 @@
-mutation CreateInvite(
-  $email: String!
-  $message: String!
-  $acterId: String!
-  $userId: String!
-) {
-  createInvite(
-    data: {
-      email: $email
-      message: $message
-      OnActer: { connect: { id: $acterId } }
-      createdByUser: { connect: { id: $userId } }
-    }
-  ) {
+mutation CreateInvite($email: String!, $message: String!, $onActerId: String!) {
+  createInviteCustom(email: $email, message: $message, onActerId: $onActerId) {
     email
     message
     OnActer {
