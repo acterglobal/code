@@ -19,6 +19,7 @@ import {
   ActerNotificationSettings,
   Activity,
 } from '@acter/schema'
+import { SessionChecker } from '@acter/schema/middlewares/session-checker'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -26,6 +27,7 @@ const { ADMIN } = ActerConnectionRole
 export class ActerResolver {
   @Authorized()
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async createActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
@@ -123,6 +125,7 @@ export class ActerResolver {
 
   @Authorized(ADMIN)
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async updateActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
@@ -377,6 +380,7 @@ export class ActerResolver {
 
   @Authorized(ADMIN)
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async deleteActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
