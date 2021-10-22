@@ -1,10 +1,16 @@
-import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
+import {
+  Authorized,
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from 'type-graphql'
 
 import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import {
   Acter,
@@ -14,6 +20,7 @@ import {
   ActerNotificationSettings,
   Activity,
 } from '@acter/schema'
+import { SessionChecker } from '@acter/schema/middlewares/session-checker'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -21,6 +28,7 @@ const { ADMIN } = ActerConnectionRole
 export class ActerResolver {
   @Authorized()
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async createActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
@@ -40,13 +48,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
 
     const createdByUserId = currentUser.id
 
@@ -124,6 +126,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async updateActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
@@ -148,7 +151,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
+    const currentUser = ctx.session.user
 
     const acter = await ctx.prisma.acter.findUnique({
       select: {
@@ -397,11 +400,12 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Acter)
+  @UseMiddleware(SessionChecker)
   async deleteActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
+    const currentUser = ctx.session.user
     const acter = await ctx.prisma.acter.findUnique({
       select: {
         id: true,

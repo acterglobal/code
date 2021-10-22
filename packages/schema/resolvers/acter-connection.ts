@@ -1,30 +1,34 @@
-import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
+import {
+  Authorized,
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from 'type-graphql'
 
 import { newMemberJoinNotificationQueue } from '@acter/jobs'
 import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import {
   ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
+import { SessionChecker } from '@acter/schema/middlewares/session-checker'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
+  @UseMiddleware(SessionChecker)
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
     @Arg('followingActerId') followingActerId: string
   ): Promise<ActerConnection> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
+
     const createdByUserId = currentUser.id
 
     const followingActer = await ctx.prisma.acter.findFirst({
@@ -84,17 +88,13 @@ export class ActerConnectionResolver {
 
   @Authorized()
   @Mutation(() => ActerConnection)
+  @UseMiddleware(SessionChecker)
   async updateActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('connectionId') connectionId: string,
     @Arg('role') role: ActerConnectionRole
   ): Promise<ActerConnection> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
 
     const connection = await ctx.prisma.acterConnection.findFirst({
       where: { id: connectionId },
