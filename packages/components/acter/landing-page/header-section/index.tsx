@@ -19,9 +19,6 @@ import { AddInviteSection } from '@acter/components/acter/landing-page/header-se
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { useUser } from '@acter/lib/user/use-user'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
 
 export const HeaderSection: FC = () => {
   di(useActer, useUser)
@@ -33,12 +30,9 @@ export const HeaderSection: FC = () => {
   const avatarDims = smallScreen ? 65 : 140
 
   const { acter, loading: acterLoading } = useActer()
-  const { user, loading: userLoading } = useUser()
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
-
-  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   return (
     <Box className={classes.bannerSection}>
@@ -78,11 +72,9 @@ export const HeaderSection: FC = () => {
             </Typography>
           </Box>
 
-          {isAdmin && (
-            <Hidden xsDown>
-              <ActionButtons acter={acter} />
-            </Hidden>
-          )}
+          <Hidden xsDown>
+            <ActionButtons />
+          </Hidden>
         </Box>
 
         <Box className={classes.buttonContainer}>

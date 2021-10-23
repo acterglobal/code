@@ -4,6 +4,7 @@ import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
+import { useUser } from '@acter/lib/user/use-user'
 
 export const AddInviteSection: FC = () => {
   const classes = useStyles()
@@ -12,6 +13,9 @@ export const AddInviteSection: FC = () => {
 
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
+
+  const { user } = useUser()
+  if (!user) return null
 
   return (
     <>
