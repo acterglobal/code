@@ -35,7 +35,7 @@ export const FollowingList: FC = () => {
         user?.Acter?.Following.map(({ Following }) => Following),
         [ACTIVITY, USER, GROUP]
       ),
-    [user?.Acter?.Following]
+    [user?.Acter?.Following?.length]
   )
 
   const { notifications } = useNotifications()
@@ -47,7 +47,7 @@ export const FollowingList: FC = () => {
 
   return (
     <>
-      {followingActers.map((acter) => (
+      {followingActers?.map((acter) => (
         <ListItem
           key={`following-${acter.id}`}
           className={clsx({

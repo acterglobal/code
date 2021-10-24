@@ -25,7 +25,7 @@ export const PostList: FC = () => {
   if (!acter) return null
 
   const isUserActerFollower = acter.Followers.find(
-    ({ Follower }) => Follower.id === user?.Acter.id
+    ({ Follower }) => Follower.id === user?.Acter?.id
   )
 
   const isActerPublic = acter.acterJoinSetting === ActerJoinSettings.EVERYONE

@@ -56,7 +56,7 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostContent post={post} />
 
-        {user?.Acter.id === post.Author.id && (
+        {user?.Acter?.id === post.Author.id && (
           <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
         )}
       </Box>

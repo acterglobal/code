@@ -25,6 +25,7 @@ fragment ActerFull on Acter {
     }
   }
   ActerInterests {
+    id
     Interest {
       id
       name

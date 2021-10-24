@@ -86,7 +86,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
       }
       return {
         acterId: undefined,
-        acterTypeId: result.id,
+        acterTypeId: result?.id,
         slug: <string>slug
       }
     }

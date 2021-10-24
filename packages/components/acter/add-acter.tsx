@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { StoreObject } from '@apollo/client'
 import { ListItem } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
@@ -11,7 +10,6 @@ import { AddIcon } from '@acter/components/icons'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
-import { addToCacheList } from '@acter/lib/apollo/add-to-cache-list'
 import { ActerType } from '@acter/schema'
 
 const ActerForm = dynamic(() =>
@@ -41,17 +39,8 @@ export const AddActer: FC = () => {
     setShowActerForm(true)
   }
 
-  const [createActer, { data }] = useCreateActer({
-    // update: (cache, { data }) => {
-    //   const { createActerCustom: newActer } = data
-    //   newActer.Followers.forEach(({ Follower }) => {
-    //     cache.modify({
-    //       id: cache.identify((Follower as unknown) as StoreObject),
-    //       fields: { Following: addToCacheList(newActer) },
-    //     })
-    //   })
-    // },
-    // onCompleted: handleDrawerClose,
+  const [{ data }, createActer] = useCreateActer({
+    onCompleted: handleDrawerClose,
   })
 
   useEffect(() => {

@@ -48,7 +48,7 @@ type CreateActerUseMutationRestState = Omit<
  */
 export const useCreateActer = (
   options?: CreateActerOptions
-): [HandleMethod<CreateActerData>, CreateActerUseMutationState] => {
+): [CreateActerUseMutationState, HandleMethod<CreateActerData>] => {
   const [fetching, setFetching] = useState(false)
   const [resultData, setResultData] = useState<CreateActerData>(null)
   const [error, setError] = useState<CombinedError>()
@@ -128,7 +128,7 @@ export const useCreateActer = (
   }
 
   return [
-    handleCreateActer,
     { data: resultData, fetching, error, ...restState },
+    handleCreateActer,
   ]
 }
