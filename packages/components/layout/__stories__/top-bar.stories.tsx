@@ -4,7 +4,7 @@ import { TopBar } from '@acter/components/layout/top-bar'
 import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'layout/TopBar',
+  title: 'Organisms/Layout/TopBar',
   component: TopBar,
 } as Meta
 

@@ -6,7 +6,7 @@ import { HeaderSection } from '@acter/components/acter/landing-page/header-secti
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
-  title: 'landingpage/Header',
+  title: 'Organisms/Acter/Header',
   component: HeaderSection,
   args: {
     acter: ExampleActer,

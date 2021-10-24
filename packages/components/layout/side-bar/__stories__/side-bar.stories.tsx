@@ -11,7 +11,7 @@ import {
 } from '@acter/schema/fixtures'
 
 export default {
-  title: 'layout/Side Bar',
+  title: 'Organisms/Layout/Side Bar',
   component: Sidebar,
   args: {
     size: 50,

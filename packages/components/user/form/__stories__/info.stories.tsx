@@ -4,7 +4,7 @@ import { ProfileInfoForm } from '@acter/components/user/form/info'
 import { ExampleUser, ExampleUserActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'UserProfile/Form/Info',
+  title: 'Organisms/User/Form/Info',
   component: ProfileInfoForm,
   args: {
     user: {

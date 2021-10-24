@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import { Box, Divider, Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
@@ -35,6 +36,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
   type,
   isOrganisation,
 }) => {
+  di(useActer, useUser)
   const classes = useStyles()
   const { acter, loading: acterLoading } = useActer()
   const { user, loading: userLoading } = useUser()

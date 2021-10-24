@@ -5,7 +5,7 @@ import { withFormik } from 'storybook-formik'
 import { ImageUploadSection } from '@acter/components/acter/form/image-upload-section'
 
 export default {
-  title: 'acter/ImagesUpload',
+  title: 'Molecules/Acter/ImagesUpload',
   component: ImageUploadSection,
   args: {
     onFile: () => null,

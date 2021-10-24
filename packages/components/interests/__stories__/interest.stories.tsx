@@ -7,7 +7,7 @@ import { ExampleInterest } from '@acter/schema/fixtures'
 const { APPROACH, TAGS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypes
 
 export default {
-  title: 'interests/Interest',
+  title: 'Atoms/Interests',
   component: Interest,
 } as Meta
 

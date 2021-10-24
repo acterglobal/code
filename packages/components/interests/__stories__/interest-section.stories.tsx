@@ -7,7 +7,7 @@ import {
 import { Interests } from '@acter/schema/fixtures'
 
 export default {
-  title: 'interests/Section',
+  title: 'Organisms/Interests/Section',
   component: InterestsSection,
   args: {
     columns: false,

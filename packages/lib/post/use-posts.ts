@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import {
   useLazyQuery,
@@ -23,12 +24,13 @@ type UsePostsOptions = MutationOptions<PostsData, PostsVariables>
 
 type UsePostError = ApolloError | Error
 
-interface UsePostsResult
+export interface UsePostsResult
   extends Omit<QueryResult<PostsData, PostsVariables>, 'data'> {
   posts: Post[]
 }
 
 export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
+  di(useActer)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<UsePostError>()
   const [posts, setPosts] = useState<Post[]>([])

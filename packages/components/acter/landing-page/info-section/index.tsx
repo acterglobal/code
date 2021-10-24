@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import { useRouter } from 'next/router'
 
@@ -12,6 +13,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 export const InfoSection: FC = () => {
+  di(useActer)
   const router = useRouter()
   const { acter, loading: acterLoading } = useActer()
 

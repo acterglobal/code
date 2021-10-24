@@ -15,7 +15,7 @@ type UserQueryResult = Omit<QueryResult<UseUserData, UseUserVariables>, 'error'>
 
 type UseUserError = Error | ApolloError
 
-type UseUserQueryResult = UseUserData &
+export type UseUserQueryResult = UseUserData &
   UserQueryResult & { error?: UseUserError[] }
 
 /**

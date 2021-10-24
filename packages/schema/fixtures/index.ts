@@ -7,7 +7,10 @@ import { EventActivityType } from './activity-type/event'
 import { IdeaActivityType } from './activity-type/idea'
 import { ProjectActivityType } from './activity-type/project'
 
+export * from './user/example-user'
+
 export * from './interest/interests'
+export * from './interest/example-acter-interest'
 export * from './interest/example-interests'
 export * from './interest/example-interest-type'
 export * from './interest/example-approach'
@@ -37,8 +40,6 @@ export const ActivityTypes = [
 ]
 
 export * from './acter-connection/example-acter-connection'
-
-export * from './user/example-user'
 
 export * from './acter/example-acter'
 export * from './acter/example-acter-list'

@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "storybook": "start-storybook -s ../web/public -p 6006",
-    "build-storybook": "build-storybook"
+    "dev": "start-storybook -p 6006",
+    "storybook-build": "yarn workspace @acter/schema build && build-storybook"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.0.0",
@@ -36,16 +36,23 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.14.5",
-    "@storybook/addon-actions": "^6.3.4",
-    "@storybook/addon-essentials": "^6.3.4",
-    "@storybook/addon-links": "^6.3.4",
-    "@storybook/react": "^6.3.4",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-docs": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/builder-webpack5": "^6.3.8",
+    "@storybook/manager-webpack5": "^6.3.8",
+    "@storybook/react": "^6.3.8",
+    "babel-loader": "^8.2.2",
     "babel-plugin-polyfill-corejs2": "^0.2.2",
     "babel-plugin-polyfill-regenerator": "^0.2.2",
+    "next": "*",
     "sb": "^6.3.2",
-    "storybook-addon-next-router": "^3.0.5",
+    "storybook-addon-next-router": "^3.0.8",
     "storybook-formik": "^2.1.6",
     "typescript": "*",
     "webpack": "*"
@@ -57,8 +64,14 @@
     "date-fns": "*",
     "date-fns-tz": "*",
     "fp-ts": "*",
+    "graphql-tag": "*",
     "just-capitalize": "*",
     "react": "*",
     "react-dom": "*"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

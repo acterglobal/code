@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import Image from 'next/image'
 
@@ -22,6 +23,7 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const HeaderSection: FC = () => {
+  di(useActer, useUser)
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')

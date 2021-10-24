@@ -1,20 +1,19 @@
-const path = require('path')
 const webpack = require('webpack')
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
-  core: {
-    builder: 'webpack5',
-  },
-  stories: ['../**/*.stories.mdx', '../**/*.stories.@(ts|tsx)'],
+  stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-formik/register',
     'storybook-addon-next-router',
+    'storybook-addon-apollo-client',
   ],
+  core: {
+    builder: 'webpack5',
+  },
 
-  webpackFinal: (config) => {
+  webpackFinal: async (config, { configType }) => {
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(
         /^type-graphql$/,
@@ -26,7 +25,12 @@ module.exports = {
         }
       )
     )
-    config.plugins.push(new NodePolyfillPlugin())
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    })
+
     return config
   },
 }

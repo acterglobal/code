@@ -13,7 +13,7 @@ import {
 const Content: FC = () => <main>Main content</main>
 
 export default {
-  title: 'layout/Overall',
+  title: 'Layouts/Overall',
   component: Layout,
   args: {
     children: <Content />,

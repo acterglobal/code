@@ -27,7 +27,7 @@ type UseActerVariables = {
 
 type UseActerError = ApolloError | Error
 
-type ActerQueryResult = Omit<
+export type ActerQueryResult = Omit<
   QueryResult<UseActerData, UseActerVariables>,
   'error'
 > & {

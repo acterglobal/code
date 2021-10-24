@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
@@ -15,6 +16,7 @@ import { useSearchType } from '@acter/lib/search/use-search-type'
 import { useSearchTypes } from '@acter/lib/search/use-search-types'
 
 export const Search: FC = () => {
+  di(useSearchType)
   const classes = useStyles()
   const searchType = useSearchType()
   const [searchText, setSearchText] = useState('')

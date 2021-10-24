@@ -11,7 +11,7 @@ import {
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Activity/Form/Steps/Settings',
+  title: 'Organisms/Activity/Form/Steps/Settings',
   component: SettingsStep,
   args: {
     acters: [

@@ -6,7 +6,7 @@ import {
 } from '@acter/components/util/text-editor'
 
 export default {
-  title: 'util/TextEditor',
+  title: 'Organisms/Util/TextEditor',
   component: TextEditorComponent,
   args: {
     initialValue: null,

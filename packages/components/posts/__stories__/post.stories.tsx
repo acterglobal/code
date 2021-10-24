@@ -3,25 +3,30 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
 import { PostList } from '@acter/components/posts'
+import { useActerDi, acterDefault } from '@acter/lib/di'
 import {
-  ExamplePost,
-  ExampleSubPost,
-  ExampleActer,
+  ExampleActerConnection,
+  ExampleUserActer,
 } from '@acter/schema/fixtures'
-import { ExampleUser } from '@acter/schema/fixtures'
+
+const useActer = useActerDi({
+  ...acterDefault,
+  Followers: [
+    {
+      ...ExampleActerConnection,
+      Follower: ExampleUserActer,
+    },
+  ],
+})
 
 export default {
-  title: 'Post/Post',
+  title: 'Pages/Posts',
   component: PostList,
-  args: {
-    posts: [
-      {
-        ...ExamplePost,
-        Comments: [ExampleSubPost, ExampleSubPost],
-      },
-    ],
-    user: { ...ExampleUser, Acter: ExampleActer },
+  parameters: {
+    di: {
+      useActer,
+    },
   },
 } as Meta
 
-export const Posts: Story = (props) => <PostList {...props} />
+export const Main: Story = (props) => <PostList {...props} />

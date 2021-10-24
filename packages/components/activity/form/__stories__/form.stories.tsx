@@ -14,7 +14,7 @@ const args: ActivityFormProps = {
 }
 
 export default {
-  title: 'Activity/Form',
+  title: 'Organisms/Activity/Form',
   component: ActivityForm,
   args,
   decorators: [withFormik],

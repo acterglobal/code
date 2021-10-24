@@ -4,7 +4,7 @@ import { SessionIndicator } from '@acter/components/layout/session-indicator'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
-  title: 'layout/UserSession',
+  title: 'Atoms/User/UserSession',
   component: SessionIndicator,
   parameters: {
     nextAuth: {

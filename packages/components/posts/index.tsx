@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import { Box, Divider } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -13,6 +14,7 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 export const PostList: FC = () => {
+  di(useActer, usePosts, useUser)
   const classes = useStyles()
 
   const { posts, loading: postsLoading } = usePosts()

@@ -11,7 +11,7 @@ type MeetingStepValues = BasicsStepValues & {
 }
 
 export default {
-  title: 'Activity/Form/Steps/Meeting',
+  title: 'Organisms/Activity/Form/Steps/Meeting',
   component: MeetingStep,
   args: {
     acters: [ExampleActer],

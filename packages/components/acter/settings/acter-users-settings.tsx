@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import {
   FormControl,
@@ -34,6 +35,7 @@ export interface ActerUsersSettingsProps {
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
   onSettingsChange,
 }) => {
+  di(useActer)
   const { acter, loading } = useActer()
   const classes = useStyles()
   if (loading) return <LoadingSpinner />

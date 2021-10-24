@@ -15,7 +15,7 @@
     "dev": "yarn workspace @acter/web dev",
     "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @acter/web start",
-    "storybook": "yarn workspace @acter/components storybook",
+    "storybook": "yarn workspace @acter/components dev",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "env-cmd jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
@@ -29,8 +29,7 @@
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
-    "db:seed": "yarn workspace @acter/schema db:seed",
-    "build-storybook": "build-storybook"
+    "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
     "@apollo/client": "^3.4.0",
@@ -43,6 +42,7 @@
     "@babel/preset-typescript": "^7.14.5",
     "@material-ui/core": "^4.12.3",
     "axios": "^0.21.4",
+    "babel-plugin-macros": "^3.1.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
     "bullmq": "^1.40.1",
     "date-fns": "^2.22.1",
@@ -54,6 +54,7 @@
     "react": "^17.0.2",
     "react-cookie-consent": "^6.4.1",
     "react-dom": "^17.0.2",
+    "react-magnetic-di": "^2.2.6",
     "reflect-metadata": "^0.1.13",
     "tar": "^6.1.8"
   },
@@ -92,6 +93,7 @@
     "ignore-loader": "^0.1.2",
     "jest": "^27.0.6",
     "jest-transform-graphql": "^2.1.0",
+    "netlify-cli": "^6.9.28",
     "syncpack": "^5.7.11",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.0.0",

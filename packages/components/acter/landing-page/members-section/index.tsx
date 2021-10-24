@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { di } from 'react-magnetic-di/macro'
 
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
 })
 
 export const MembersSection: FC = () => {
+  di(useActer)
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 

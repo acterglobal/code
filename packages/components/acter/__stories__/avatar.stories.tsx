@@ -11,7 +11,7 @@ import {
 } from '@acter/schema/fixtures'
 
 export default {
-  title: 'acter/Avatar',
+  title: 'Atoms/Acter/Avatar',
   component: ActerAvatar,
   args: { acter: ExampleActer },
 } as Meta
