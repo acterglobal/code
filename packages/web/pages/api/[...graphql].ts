@@ -8,8 +8,8 @@ import { withSentry } from '@sentry/nextjs'
 import { ApolloServer } from 'apollo-server-micro'
 
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { generateSchema } from '@acter/schema/generate-schema'
 import { prisma } from '@acter/schema/prisma'
-import { schema } from '@acter/schema/schema'
 
 export const config = {
   api: {
@@ -17,28 +17,31 @@ export const config = {
   },
 }
 
-let apolloServer
-const server = new ApolloServer({
-  schema,
-  context: ({ req, res }): ActerGraphQLContext => {
-    const session = getSession(req, res)
-    return {
-      session,
-      prisma,
-    }
-  },
-})
+let server: ApolloServer
 
 const graphqlHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   // Only start the server once
-  if (typeof apolloServer === 'undefined') {
+  if (!server) {
+    const schema = await generateSchema()
+    server = new ApolloServer({
+      schema,
+      context: ({ req, res }): ActerGraphQLContext => {
+        const session = getSession(req, res)
+        return {
+          session,
+          prisma,
+        }
+      },
+    })
     await server.start()
-    apolloServer = server
+  } else {
+    console.log('Apollo server already exists')
   }
-  const handler = apolloServer.createHandler({ path: '/api/graphql' })
+
+  const handler = server.createHandler({ path: '/api/graphql' })
   return handler(req, res)
 }
 

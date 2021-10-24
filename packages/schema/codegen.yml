@@ -1,0 +1,9 @@
+overwrite: true
+schema: './generated/schema.graphql'
+documents: null
+generates:
+  ./generated/graphql-urql-introspection.json:
+    plugins:
+      - urql-introspection
+    config:
+      module: commonjs

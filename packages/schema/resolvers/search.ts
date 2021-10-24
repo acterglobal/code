@@ -8,7 +8,7 @@ import {
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import type { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { Acter } from '@acter/schema'
-import { ActerWhereUniqueInput } from '@acter/schema/types'
+import { ActerWhereUniqueInput } from '@acter/schema/generated'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
