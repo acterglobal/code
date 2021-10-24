@@ -2,9 +2,9 @@ import { GetServerSidePropsResult } from 'next'
 
 import { initializeApollo } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { Notification } from '@acter/schema'
 import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
 import GET_NOTIFICATION from '@acter/schema/queries/notification-get.graphql'
-import { Notification } from '@acter/schema/types'
 
 const redirectOnMissingData: GetServerSidePropsResult<Record<string, never>> = {
   props: {},

@@ -12,7 +12,7 @@ import {
   ActivityType,
   Notification,
   User,
-} from '@acter/schema/types'
+} from '@acter/schema'
 
 type ActivityEmail = {
   acterName: string
