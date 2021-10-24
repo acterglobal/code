@@ -14,6 +14,7 @@ const afterCallback: AfterCallback = async (_req, res, session, _state) => {
       auth0ProviderId,
     })
     const acter = await getOrCreateActerFromDB({ user, nickname })
+
     const userWithActer = {
       ...user,
       Acter: acter,
@@ -27,11 +28,7 @@ const afterCallback: AfterCallback = async (_req, res, session, _state) => {
 
     return {
       ...session,
-      user: {
-        ...user,
-        Acter: acter,
-        sub: session.user.sub,
-      },
+      user: userWithActer,
     }
   } catch (err) {
     res.status(err.status || 500).end(err.message)
