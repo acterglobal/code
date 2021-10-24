@@ -128,9 +128,9 @@ model ActerConnection {
   CreatedByUser   User   @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
-  Follower         Acter  @relation("follower", fields: [followerActerId], references: [id])
+  Follower         Acter  @relation("follower", fields: [followerActerId], references: [id], onDelete: Cascade)
   followerActerId  String @map("follower_acter_id")
-  Following        Acter  @relation("following", fields: [followingActerId], references: [id])
+  Following        Acter  @relation("following", fields: [followingActerId], references: [id], onDelete: Cascade)
   followingActerId String @map("following_acter_id")
 
   @@unique(name: "acter_follower_following", fields: [followerActerId, followingActerId])
@@ -145,9 +145,9 @@ model ActerInterest {
   CreatedByUser   User   @relation("acter_interest_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
-  Acter      Acter    @relation(fields: [acterId], references: [id])
+  Acter      Acter    @relation(fields: [acterId], references: [id], onDelete: Cascade)
   acterId    String
-  Interest   Interest @relation(fields: [interestId], references: [id])
+  Interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
   interestId String
 
   @@unique(name: "acter_interests_unique", fields: [acterId, interestId])
@@ -195,7 +195,7 @@ model Activity {
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
 
-  Acter   Acter?  @relation(name: "acter", fields: [acterId], references: [id])
+  Acter   Acter?  @relation(name: "acter", fields: [acterId], references: [id], onDelete: Cascade)
   acterId String? @unique @map("acter_id")
 
   Organiser   Acter?  @relation(name: "organiser", fields: [organiserId], references: [id])
@@ -219,7 +219,7 @@ model Post {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Parent   Post?   @relation("PostToPost", fields: [parentId], references: [id])
+  Parent   Post?   @relation("PostToPost", fields: [parentId], references: [id], onDelete: Cascade)
   parentId String? @map("parent_id")
   Comments Post[]  @relation("PostToPost")
 
@@ -255,7 +255,7 @@ model Interest {
   description String?
   sdgNumber   String? @map("sdg_number")
 
-  InterestType   InterestType @relation(fields: [interestTypeId], references: [id])
+  InterestType   InterestType @relation(fields: [interestTypeId], references: [id], onDelete: Cascade)
   interestTypeId String       @map("interest_type_id")
 
   InterestActers ActerInterest[]
@@ -290,7 +290,7 @@ model Invite {
   acceptedAt DateTime @map("accepted_at")
 
   // The acter to which we're inviting someone
-  OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id])
+  OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)
   onActerId String @map("on_acter_id")
 
   // The User that created this Acter
@@ -321,10 +321,10 @@ model Notification {
 
   viewedAt DateTime? @map("viewed_at")
 
-  ToActer   Acter  @relation("notificationOnActer", fields: [toActerId], references: [id])
+  ToActer   Acter  @relation("notificationOnActer", fields: [toActerId], references: [id], onDelete: Cascade)
   toActerId String @map("to_acter_id")
 
-  OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id])
+  OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id], onDelete: Cascade)
   onActerId String @map("on_acter_id")
 
   Post   Post?   @relation(fields: [postId], references: [id])
@@ -351,7 +351,7 @@ model User {
   auth0ProviderId String? @map("auth0_provider_id")
   intercomId      String? @map("intercom_id")
 
-  Acter   Acter?  @relation(fields: [acterId], references: [id])
+  Acter   Acter?  @relation(fields: [acterId], references: [id], onDelete: Cascade)
   acterId String? @unique
 
   ActersCreated    Acter[]           @relation("acter_created_by_user")
