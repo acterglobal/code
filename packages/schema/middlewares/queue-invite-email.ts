@@ -14,8 +14,6 @@ export const QueueInviteEmail: MiddlewareFn = async (_, next) => {
   inviteEmailCreateQueue.add(
     `create-invite-email-${invite.id}`,
     { ...invite },
-    {
-      removeOnComplete: true,
-    }
+    { removeOnComplete: true }
   )
 }
