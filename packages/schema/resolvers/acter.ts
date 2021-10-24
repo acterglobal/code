@@ -1,6 +1,13 @@
-import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
+import { QueueNewActivityNotification } from '../middlewares/queue-activity-notifications'
+import {
+  Authorized,
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from 'type-graphql'
 
-import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
@@ -239,6 +246,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
+  @UseMiddleware(QueueNewActivityNotification)
   async createActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
@@ -279,7 +287,7 @@ export class ActerResolver {
       followerIds
     )
 
-    const activity = (await ctx.prisma.activity.create({
+    const activity = await ctx.prisma.activity.create({
       data: {
         startAt,
         endAt,
@@ -313,20 +321,7 @@ export class ActerResolver {
         },
         ActivityType: true,
       },
-    })) as ActivityPick
-    console.debug(
-      'Setting Activity notification from custom resolver',
-      activity
-    )
-    activityNotificationsQueue.add(
-      `new-activity-${activity.id}`,
-      {
-        activity,
-      },
-      {
-        removeOnComplete: true,
-      }
-    )
+    })
 
     return activity as Partial<Activity>
   }

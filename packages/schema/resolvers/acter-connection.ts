@@ -1,7 +1,13 @@
-import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
+import { QueueNewMemberJoinNotification } from '../middlewares/queue-member-join-notification'
+import {
+  Authorized,
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from 'type-graphql'
 
-import { newMemberJoinNotificationQueue } from '@acter/jobs'
-import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import {
@@ -14,6 +20,7 @@ import {
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
+  @UseMiddleware(QueueNewMemberJoinNotification)
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
@@ -72,12 +79,6 @@ export class ActerConnectionResolver {
         },
       },
     })
-
-    if (connection.Follower.ActerType.name === ActerTypes.USER) {
-      newMemberJoinNotificationQueue.add(`new-member-${connection.id}`, {
-        connection,
-      })
-    }
 
     return connection
   }

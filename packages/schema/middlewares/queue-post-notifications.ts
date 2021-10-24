@@ -3,7 +3,7 @@ import { MiddlewareFn } from 'type-graphql'
 import { postNotificationCreateQueue } from '@acter/jobs'
 import { NotificationQueueType } from '@acter/lib/constants'
 
-export const queueNotificationsMiddleware = (
+export const QueuePostNotifications = (
   type: NotificationQueueType
 ): MiddlewareFn => async (_, next) => {
   const result = await next()
