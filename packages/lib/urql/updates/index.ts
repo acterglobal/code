@@ -1,3 +1,4 @@
+export * from './acter-connection-delete'
 export * from './acter-create'
 export * from './link-create'
 export * from './link-delete'

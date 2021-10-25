@@ -1,4 +1,4 @@
-import { UseMutationState } from 'urql'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -20,7 +20,9 @@ interface DeletePostOptions
   onCompleted: (DeletePostData) => PostType[] | void
 }
 
-export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  post: PostType | TData
+) => Promise<OperationResult<DeletePostData, PostVariables>>
 
 /**
  * Custom hook that deletes a post
@@ -42,11 +44,10 @@ export const useDeletePost = (
     ...options,
   })
 
-  const handleDeletePost = async (values: PostType) => {
+  const handleDeletePost = async (values: PostType) =>
     deletePost({
       postId: values.id,
     })
-  }
 
   return [handleDeletePost, mutationResult]
 }

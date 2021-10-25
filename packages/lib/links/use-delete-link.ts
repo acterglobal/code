@@ -1,4 +1,4 @@
-import { UseMutationState } from 'urql'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -15,7 +15,9 @@ type DeleteLinkData = { deleteLink: LinkType }
 
 type DeleteLinkOptions = UseMutationOptions<DeleteLinkData, LinkVariables>
 
-export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  link: LinkType | TData
+) => Promise<OperationResult<DeleteLinkData, LinkVariables>>
 
 /**
  * Custom hook that deletes a link
@@ -38,12 +40,11 @@ export const useDeleteLink = (
     getSuccessMessage: ({ deleteLink: { name } }) => `Link "${name}" deleted`,
   })
 
-  const handleDeleteLink = async (values: LinkVariables) => {
+  const handleDeleteLink = async (values: LinkVariables) =>
     deleteLink({
       ...values,
       linkId: values.id,
     })
-  }
 
   return [handleDeleteLink, mutationResult]
 }
