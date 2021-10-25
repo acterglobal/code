@@ -14,7 +14,6 @@ import {
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
-import { SessionChecker } from '@acter/schema/middlewares/session-checker'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
@@ -81,7 +80,6 @@ export class ActerConnectionResolver {
 
   @Authorized()
   @Mutation(() => ActerConnection)
-  @UseMiddleware(SessionChecker)
   async updateActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('connectionId') connectionId: string,
