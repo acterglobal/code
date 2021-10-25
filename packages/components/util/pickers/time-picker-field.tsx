@@ -39,6 +39,7 @@ export const TimePickerField: FC<TimePickerProps> = (props) => {
       InputAdornmentProps={{ position: 'start' }}
       InputProps={{ className: classes.timepicker }}
       required={required}
+      disabledKeyboardNavigation
     />
   )
 }
