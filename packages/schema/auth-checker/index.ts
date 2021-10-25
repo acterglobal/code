@@ -22,8 +22,13 @@ export const authChecker: AuthChecker<
   }
 
   // Check ADMIN access
-  if (roles.includes(ADMIN) && args?.acterId) {
+  if (roles.includes(ADMIN)) {
     const { user } = session
+
+    if (!args?.acterId) {
+      console.error('Missing acter id on which user has admin role.')
+      return false
+    }
 
     const isAdmin = await prisma.acterConnection.findFirst({
       where: {
