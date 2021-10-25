@@ -37,7 +37,8 @@ export const useDeleteLink = (
     LinkVariables
   >(DELETE_LINK, {
     ...options,
-    getSuccessMessage: ({ deleteLink: { name } }) => `Link "${name}" deleted`,
+    // TODO: figure out why data is empty here so we can't use deleted Link name in message
+    // getSuccessMessage: ({ deleteLink: { name } }) => `Link "${name}" deleted`,
   })
 
   const handleDeleteLink = async (values: LinkVariables) =>
