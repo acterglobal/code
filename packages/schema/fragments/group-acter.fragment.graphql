@@ -6,6 +6,7 @@ fragment Group on Acter {
   url
   location
   ActerType {
+    id
     name
   }
 }

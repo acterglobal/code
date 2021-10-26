@@ -1,6 +1,6 @@
 import { UpdateResolver } from '@urql/exchange-graphcache'
 
-import { setCacheConnection } from '../util/set-cache-connection'
+import { addItemToFieldList } from '../util/add-item-to-field-list'
 
 import { WithTypeName } from '@acter/lib/urql/types'
 import { Acter } from '@acter/schema'
@@ -18,11 +18,21 @@ export const createActerCustom: UpdateResolver<ActerData> = (
   _info
 ) => {
   result.createActerCustom.Followers.forEach((connection) => {
-    setCacheConnection({
+    addItemToFieldList({
       cache,
-      onActer: connection.Follower,
-      onFieldName: 'Following',
-      connection,
+      target: connection.Follower,
+      field: 'Following',
+      item: connection,
     })
   })
+
+  if (result.createActerCustom.Parent) {
+    const Parent = result.createActerCustom.Parent as WithTypeName<Acter>
+    addItemToFieldList({
+      cache,
+      target: Parent,
+      field: 'Children',
+      item: result.createActerCustom,
+    })
+  }
 }

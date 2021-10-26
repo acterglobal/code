@@ -8,6 +8,7 @@ fragment ActivityDisplay on Activity {
   isAllDay
   activityTypeId
   ActivityType {
+    id
     name
   }
   Organiser {

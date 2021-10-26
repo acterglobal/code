@@ -61,7 +61,7 @@ export const useNotificationMutation = <
       enqueueSnackbar(message, { variant: 'success' })
       restOptions?.onCompleted?.(data)
     }
-  }, [data])
+  }, [JSON.stringify(data)])
 
   return [result, runMutation]
 }

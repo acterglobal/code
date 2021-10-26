@@ -75,8 +75,10 @@ export const useCreateActer = (
     createActer,
   ] = useNotificationMutation<CreateActerData, ActerVariables>(ACTER_CREATE, {
     ...options,
-    getSuccessMessage: (data: CreateActerData) =>
-      `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`,
+    // TODO: Figure out why this is thowing an error
+    // getSuccessMessage: (data: CreateActerData) => {
+    // return `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`
+    // },
   })
 
   useEffect(() => {
@@ -95,9 +97,9 @@ export const useCreateActer = (
   }, [JSON.stringify(createRestState), JSON.stringify(updateRestState)])
 
   useEffect(() => {
-    if (createData) {
+    if (createData?.createActerCustom) {
       // Bypass image upload osv. for Groups
-      if (createData.createActerCustom.ActerType.name === ActerTypes.GROUP) {
+      if (createData.createActerCustom?.ActerType?.name === ActerTypes.GROUP) {
         setFetching(false)
         setResultData(createData)
         return
@@ -109,22 +111,23 @@ export const useCreateActer = (
         ...createData.createActerCustom,
       })
     }
-  }, [createData])
+  }, [JSON.stringify(createData)])
 
   useEffect(() => {
     if (updateData) {
       setResultData({ createActerCustom: updateData.updateActerCustom })
       router.push(acterAsUrl({ acter: updateData.updateActerCustom }))
     }
-  }, [updateData])
+  }, [JSON.stringify(updateData)])
 
   const handleCreateActer: HandleMethod<CreateActerData> = async (acter) => {
     setFetching(true)
-    return createActer({
+    const result = await createActer({
       followerIds: [],
       interestIds: [],
       ...acter,
     })
+    return result
   }
 
   return [
