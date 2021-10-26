@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { AccessTime } from '@material-ui/icons'
 
 import { Field } from 'formik'
-import { KeyboardTimePicker } from 'formik-material-ui-pickers'
+import { TimePicker } from 'formik-material-ui-pickers'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ export const TimePickerField: FC<TimePickerProps> = (props) => {
 
   return (
     <Field
-      component={KeyboardTimePicker}
+      component={TimePicker}
       fullWidth
       label={label}
       name={name}
@@ -39,7 +39,6 @@ export const TimePickerField: FC<TimePickerProps> = (props) => {
       InputAdornmentProps={{ position: 'start' }}
       InputProps={{ className: classes.timepicker }}
       required={required}
-      disabledKeyboardNavigation
     />
   )
 }
