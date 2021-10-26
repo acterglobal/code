@@ -10,13 +10,12 @@ import {
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { Invite } from '@acter/schema'
 import { CheckInviteExists } from '@acter/schema/middlewares/check-invite-exists'
-import { SessionChecker } from '@acter/schema/middlewares/session-checker'
 
 @Resolver(Invite)
 export class InviteResolver {
   @Authorized()
   @Mutation(() => Invite)
-  @UseMiddleware(SessionChecker, CheckInviteExists)
+  @UseMiddleware(CheckInviteExists)
   async createInviteCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('email') email: string,

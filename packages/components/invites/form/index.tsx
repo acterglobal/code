@@ -34,6 +34,7 @@ export const InviteForm: FC = () => {
   const { acter } = useActer()
   const { user } = useUser()
   if (!acter || !user) return null
+
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const acterName = capitalize(acter.name)
 
