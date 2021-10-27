@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { di } from 'react-magnetic-di/macro'
 
 import dynamic from 'next/dynamic'
@@ -29,7 +29,13 @@ export const AddActivitySection: FC = () => {
 
   const { acter } = useActer()
   const { user } = useUser()
-  const [createActivity] = useCreateActivity({ onCompleted: handleClose })
+  const [createActivity, { data }] = useCreateActivity()
+
+  useEffect(() => {
+    if (data?.createActivityCustom) {
+      setOpenDrawer(false)
+    }
+  }, [JSON.stringify(data)])
 
   const tab = getLandingPageTab()
 

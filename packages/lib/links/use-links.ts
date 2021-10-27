@@ -26,7 +26,7 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
-  const { acter, fetching: acterFecthing, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer()
 
   const [
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },
@@ -40,8 +40,8 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   })
 
   useEffect(() => {
-    setFetching(acterFecthing || queryFetching)
-  }, [acterFecthing, queryFetching])
+    setFetching(acterFetching || queryFetching)
+  }, [acterFetching, queryFetching])
 
   useEffect(() => {
     if (acterError) return setError(acterError)

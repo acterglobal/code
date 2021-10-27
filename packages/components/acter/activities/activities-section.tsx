@@ -25,8 +25,8 @@ import { useActivities } from '@acter/lib/activity/use-activities'
 export const ActivitiesSection: FC = () => {
   di(useActer)
   const [showPastActivities, setShowPastActivities] = useState(true)
-  const { acter, fetching: acterLoading } = useActer()
-  const { activities, loading: activitiesLoading } = useActivities(acter?.id)
+  const { acter, fetching: acterFetching } = useActer()
+  const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
 
   const { query } = useRouter()
   const [showActivity, setShowActivity] = useState<boolean>(false)
@@ -35,7 +35,7 @@ export const ActivitiesSection: FC = () => {
     if (query?.activity) setShowActivity(true)
   }, [query?.activity])
 
-  if (acterLoading || activitiesLoading) return <LoadingSpinner />
+  if (acterFetching || activitiesFetching) return <LoadingSpinner />
   if (!acter || !activities) return null
 
   const allActivities = sortActivitiesByStartAt(activities)

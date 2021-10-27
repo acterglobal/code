@@ -1,4 +1,4 @@
-import { UseMutationState } from 'urql'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
@@ -17,7 +17,9 @@ type CreateLinkData = { createLink: LinkType }
 
 type CreateLinkOptions = UseMutationOptions<CreateLinkData, LinkVariables>
 
-export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  link: LinkType | TData
+) => Promise<OperationResult<CreateLinkData, LinkVariables>>
 
 /**
  * Custom hook that creates a new link
@@ -48,7 +50,7 @@ export const useCreateLink = (
   const handleLink = async (values: LinkVariables) => {
     if (!user) throw 'User is not set'
 
-    createLink({
+    return createLink({
       ...values,
       acterId: acter.id,
       userId: user?.id,
