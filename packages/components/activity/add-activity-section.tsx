@@ -31,8 +31,6 @@ export const AddActivitySection: FC = () => {
   const { user } = useUser()
   const [createActivity] = useCreateActivity({ onCompleted: handleClose })
 
-  if (!acter) return null
-
   const tab = getLandingPageTab()
 
   if (tab !== ActerMenu.ACTIVITIES) return null
@@ -42,6 +40,8 @@ export const AddActivitySection: FC = () => {
     ActerConnectionRole.MEMBER,
     acter
   )
+
+  if (!acter) return null
 
   if (!canCreateActivity) return null
 
