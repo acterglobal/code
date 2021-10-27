@@ -21,7 +21,7 @@ export type HandleMethod = (
 ) => Promise<FetchResult>
 
 /**
- * Custom hook that creates a new invite
+ * Custom hook that create invites
  * @param options - mutation options e.g. data or variables
  * @returns handleMethod to create invite and the mutation results
  */

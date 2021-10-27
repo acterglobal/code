@@ -1,3 +1,4 @@
+import { QueueInviteEmail } from './middlewares/queue-invite-email'
 import { QueuePostNotifications } from './middlewares/queue-post-notifications'
 import { buildSchemaSync, UseMiddleware } from 'type-graphql'
 
@@ -14,6 +15,9 @@ import {
 } from '@acter/schema/types'
 
 const resolversEnhanceMap: ResolversEnhanceMap = {
+  Invite: {
+    createManyInvite: [UseMiddleware(QueueInviteEmail)],
+  },
   Post: {
     createPost: [
       UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),

@@ -1,3 +1,5 @@
-import { Invite } from '@acter/schema'
+import { InviteCreateManyInput } from '@acter/schema/types'
 
-export type InviteEmailCreate = Invite
+export type InviteEmailCreate = InviteCreateManyInput & {
+  senderName: string
+}

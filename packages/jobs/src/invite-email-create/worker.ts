@@ -13,7 +13,7 @@ export const inviteEmailCreateWorker = createWorker(
   INVITE_EMAIL_CREATE,
   async (job: Job<InviteEmailCreate>) => {
     try {
-      const { id, email, message, onActerId } = job.data
+      const { id, email, message, onActerId, senderName } = job.data
 
       const onActer = await prisma.acter.findFirst({ where: { id: onActerId } })
       const acterType = await prisma.acterType.findFirst({
@@ -29,6 +29,7 @@ export const inviteEmailCreateWorker = createWorker(
         acterName: onActer.name,
         acterUrl,
         message,
+        senderName,
       })
 
       const emailData: Email = {
