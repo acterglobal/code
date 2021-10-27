@@ -23,12 +23,10 @@ describe('auth-checker', () => {
   } as unknown) as ResolverData<ActerGraphQLContext>
 
   it('should return false if no session user is available', async () => {
-    const roles = []
-    const result = await authChecker(options, roles)
+    const result = await authChecker(options, [])
     expect(result).toBe(false)
 
-    roles.push(ActerConnectionRole.MEMBER)
-    const result1 = await authChecker(options, roles)
+    const result1 = await authChecker(options, [ActerConnectionRole.MEMBER])
     expect(result1).toBe(false)
   })
 
@@ -53,9 +51,10 @@ describe('auth-checker', () => {
   it('should return true for ADMIN role', async () => {
     options.context.session.user = { ...ExampleUser, Acter: ExampleActer }
     options.args.acterId = '13243laa3223kfj3'
-    const roles = [ActerConnectionRole.ADMIN]
 
-    const authCheckerFn = await authChecker(options, roles)
+    const authCheckerFn = await authChecker(options, [
+      ActerConnectionRole.ADMIN,
+    ])
     expect(authCheckerFn).toBe(true)
   })
 })
