@@ -9,7 +9,6 @@ import {
 } from 'type-graphql'
 
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
 import {
   ActerConnection,
   ActerConnectionRole,
@@ -26,12 +25,8 @@ export class ActerConnectionResolver {
     @Arg('followerActerId') followerActerId: string,
     @Arg('followingActerId') followingActerId: string
   ): Promise<ActerConnection> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
+
     const createdByUserId = currentUser.id
 
     const followingActer = await ctx.prisma.acter.findFirst({
@@ -90,12 +85,7 @@ export class ActerConnectionResolver {
     @Arg('connectionId') connectionId: string,
     @Arg('role') role: ActerConnectionRole
   ): Promise<ActerConnection> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
 
     const connection = await ctx.prisma.acterConnection.findFirst({
       where: { id: connectionId },

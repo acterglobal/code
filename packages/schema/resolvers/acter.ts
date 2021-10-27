@@ -11,8 +11,6 @@ import {
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
-import { getCurrentUserFromContext } from '@acter/lib/user/get-current-user-from-context'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import {
   Acter,
   ActerConnectionRole,
@@ -47,13 +45,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
+    const currentUser = ctx.session.user
 
     const createdByUserId = currentUser.id
 
@@ -129,7 +121,7 @@ export class ActerResolver {
     })
   }
 
-  @Authorized()
+  @Authorized(ADMIN)
   @Mutation(() => Acter)
   async updateActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
@@ -155,7 +147,7 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
+    const currentUser = ctx.session.user
 
     const acter = await ctx.prisma.acter.findUnique({
       select: {
@@ -168,13 +160,6 @@ export class ActerResolver {
       },
       where: { id: acterId },
     })
-
-    const isAdmin = userHasRoleOnActer(currentUser, ADMIN, acter)
-
-    if (!isAdmin) {
-      console.error(`User ${currentUser.id} cannot modify acter ${acter.id}`)
-      throw 'Not authorized'
-    }
 
     //TODO: DRY up how we do the same logic for both interests and followers
     const currentInterestIdMap = acter.ActerInterests.reduce(
@@ -390,34 +375,16 @@ export class ActerResolver {
     })
   }
 
-  @Authorized()
+  @Authorized(ADMIN)
   @Mutation(() => Acter)
   async deleteActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
-    const currentUser = await getCurrentUserFromContext(ctx)
-    const acter = await ctx.prisma.acter.findUnique({
-      select: {
-        id: true,
-        createdByUserId: true,
-        Followers: {
-          include: { Follower: true },
-        },
-      },
-      where: { id: acterId },
-    })
-
-    const isAdmin = userHasRoleOnActer(currentUser, ADMIN, acter)
-
-    if (!isAdmin) {
-      throw 'Not authorized'
-    }
-
     return await ctx.prisma.acter.update({
       data: {
         deletedAt: new Date(),
-        deletedByUserId: currentUser.id,
+        deletedByUserId: ctx.session.user.id,
       },
       where: {
         id: acterId,
