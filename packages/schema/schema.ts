@@ -1,4 +1,4 @@
-import { queueNotificationsMiddleware } from './middlewares/queue-notifications'
+import { QueuePostNotifications } from './middlewares/queue-post-notifications'
 import { buildSchemaSync, UseMiddleware } from 'type-graphql'
 
 import { NotificationQueueType } from '@acter/lib/constants'
@@ -16,9 +16,7 @@ import {
 const resolversEnhanceMap: ResolversEnhanceMap = {
   Post: {
     createPost: [
-      UseMiddleware(
-        queueNotificationsMiddleware(NotificationQueueType.NEW_POST)
-      ),
+      UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),
     ],
   },
 }
