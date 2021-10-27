@@ -5,7 +5,6 @@ import { NotificationQueueType } from '@acter/lib/constants'
 import { authChecker } from '@acter/schema/auth-checker'
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
-import { InviteResolver } from '@acter/schema/resolvers/invite'
 import { SearchResolver } from '@acter/schema/resolvers/search'
 import {
   ResolversEnhanceMap,
@@ -31,7 +30,6 @@ export const schema = buildSchemaSync({
     ...relationResolvers,
     ActerResolver,
     ActerConnectionResolver,
-    InviteResolver,
     SearchResolver,
   ],
   validate: false,

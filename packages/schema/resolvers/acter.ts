@@ -47,12 +47,6 @@ export class ActerResolver {
   ): Promise<Acter> {
     const currentUser = ctx.session.user
 
-    if (!currentUser) {
-      const err = 'No user found'
-      console.error(err)
-      throw err
-    }
-
     const createdByUserId = currentUser.id
 
     const acterType = await ctx.prisma.acterType.findFirst({
