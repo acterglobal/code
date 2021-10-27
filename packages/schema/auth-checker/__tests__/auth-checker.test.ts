@@ -22,9 +22,8 @@ describe('auth-checker', () => {
     },
   } as unknown) as ResolverData<ActerGraphQLContext>
 
-  const roles = []
-
   it('should return false if no session user is available', async () => {
+    const roles = []
     const result = await authChecker(options, roles)
     expect(result).toBe(false)
 
@@ -35,23 +34,20 @@ describe('auth-checker', () => {
 
   it('should return false if given roles are other than ADMIN', async () => {
     options.context.session.user = { ...ExampleUser }
+    let roles = [ActerConnectionRole.MEMBER]
 
-    roles.push(ActerConnectionRole.MEMBER)
     const result = await authChecker(options, roles)
     expect(result).toBe(false)
 
-    roles.push(ActerConnectionRole.PENDING)
+    roles = [ActerConnectionRole.PENDING]
+
     const result1 = await authChecker(options, roles)
     expect(result1).toBe(false)
-
-    roles.push(1234)
-    const result2 = await authChecker(options, roles)
-    expect(result2).toBe(false)
   })
 
   it('should return false for ADMIN role and if no acterId (Acter on which user is admin) passed in args', async () => {
     options.context.session.user = { ...ExampleUser }
-    roles.push(ActerConnectionRole.ADMIN)
+    const roles = [ActerConnectionRole.ADMIN]
 
     const authCheckerFn = await authChecker(options, roles)
     expect(authCheckerFn).toBe(false)
@@ -60,7 +56,7 @@ describe('auth-checker', () => {
   it('should return true for ADMIN role', async () => {
     options.context.session.user = { ...ExampleUser, Acter: ExampleActer }
     options.args.acterId = '13243laa3223kfj3'
-    roles.push(ActerConnectionRole.ADMIN)
+    const roles = [ActerConnectionRole.ADMIN]
 
     const authCheckerFn = await authChecker(options, roles)
     expect(authCheckerFn).toBe(true)
