@@ -1,6 +1,9 @@
-import { Data, UpdateResolver } from '@urql/exchange-graphcache'
+import { UpdateResolver } from '@urql/exchange-graphcache'
 
+import { forEachQueryFields, removeItemFn } from '../util/query-fields-for-each'
 import { LinkWithType } from './link-create'
+
+import { Link } from '@acter/schema'
 
 type LinkData = {
   deleteLink?: LinkWithType
@@ -12,5 +15,10 @@ export const deleteLink: UpdateResolver<LinkData> = (
   cache,
   _info
 ) => {
-  cache.invalidate((result.deleteLink as unknown) as Data)
+  forEachQueryFields({
+    cache,
+    result: result.deleteLink,
+    fieldNameMatch: 'links',
+    fn: removeItemFn<Link>({ cache, result: result.deleteLink }),
+  })
 }

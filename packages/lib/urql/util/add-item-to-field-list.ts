@@ -22,9 +22,9 @@ export const addItemToFieldList = <TTarget, TItem>({
   cache.inspectFields(Target).forEach(({ fieldName, fieldKey }) => {
     if (fieldName === field) {
       const list = [
-        ...[prepend ? Item : undefined],
+        ...(prepend ? [Item] : []),
         ...(cache.resolve(Target, fieldKey) as NullArray<string>),
-        ...[prepend ? undefined : Item],
+        ...(prepend ? [] : [Item]),
       ]
       cache.link(Target, fieldKey, list as NullArray<string | Data>)
     }

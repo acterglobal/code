@@ -75,10 +75,9 @@ export const useCreateActer = (
     createActer,
   ] = useNotificationMutation<CreateActerData, ActerVariables>(ACTER_CREATE, {
     ...options,
-    // TODO: Figure out why this is thowing an error
-    // getSuccessMessage: (data: CreateActerData) => {
-    // return `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`
-    // },
+    getSuccessMessage: (data: CreateActerData) => {
+      return `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`
+    },
   })
 
   useEffect(() => {
