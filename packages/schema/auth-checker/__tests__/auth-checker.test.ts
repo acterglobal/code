@@ -34,14 +34,11 @@ describe('auth-checker', () => {
 
   it('should return false if given roles are other than ADMIN', async () => {
     options.context.session.user = { ...ExampleUser }
-    let roles = [ActerConnectionRole.MEMBER]
 
-    const result = await authChecker(options, roles)
+    const result = await authChecker(options, [ActerConnectionRole.MEMBER])
     expect(result).toBe(false)
 
-    roles = [ActerConnectionRole.PENDING]
-
-    const result1 = await authChecker(options, roles)
+    const result1 = await authChecker(options, [ActerConnectionRole.PENDING])
     expect(result1).toBe(false)
   })
 
