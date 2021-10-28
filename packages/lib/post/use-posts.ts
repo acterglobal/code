@@ -15,7 +15,14 @@ type PostsVariables = {
   acterId: string
 }
 
-type UsePostsOptions = UseQueryArgs<PostsVariables, PostsData>
+type UsePostsOptions = UseQueryArgs<PostsVariables, PostsData> & {
+  acterId?: string
+}
+
+type UsePostsParams = {
+  acterId?: string
+  options?: UsePostsOptions
+}
 
 type UsePostError = CombinedError | Error
 
@@ -24,12 +31,15 @@ export interface UsePostsResult
   posts: Post[]
 }
 
-export const usePosts = (options?: UsePostsOptions): UsePostsResult => {
+export const usePosts = (params?: UsePostsParams): UsePostsResult => {
   di(useActer)
+  const { acterId, options } = params
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UsePostError>()
   const [posts, setPosts] = useState<Post[]>([])
-  const { acter, fetching: acterFetching, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer({
+    acterId,
+  })
 
   const [
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },

@@ -13,13 +13,17 @@ import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
-export const PostList: FC = () => {
+interface PostListProps {
+  acterId?: string
+}
+
+export const PostList: FC<PostListProps> = ({ acterId }) => {
   di(useActer, usePosts, useUser)
   const classes = useStyles()
 
-  const { posts, fetching: postsLoading } = usePosts()
+  const { posts, fetching: postsLoading } = usePosts({ acterId })
   const { user, fetching: userLoading } = useUser()
-  const { acter, fetching: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer({ acterId })
 
   if (acterLoading || userLoading || postsLoading) return <LoadingSpinner />
   if (!acter) return null
@@ -36,7 +40,7 @@ export const PostList: FC = () => {
 
   return (
     <Box className={classes.mainContainer}>
-      {isMember && <PostFormSection user={user} />}
+      {isMember && <PostFormSection user={user} acterId={acterId} />}
 
       {(isActerPublic || isMember) && (
         <>
@@ -54,7 +58,13 @@ export const PostList: FC = () => {
                   />
                 ))}
 
-                {isMember && <PostFormSection parentId={post.id} user={user} />}
+                {isMember && (
+                  <PostFormSection
+                    parentId={post.id}
+                    user={user}
+                    acterId={acterId}
+                  />
+                )}
               </Box>
             </Box>
           ))}

@@ -55,14 +55,14 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ acter }) => {
         </Grid>
       </Hidden>
 
-      <PostList />
+      <PostList acterId={acter.id} />
     </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.grey.extraLight,
     width: 800,
     height: '100%',
     [theme.breakpoints.down('sm')]: {

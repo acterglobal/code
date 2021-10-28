@@ -42,7 +42,6 @@ const useStyles = makeStyles(
     content: {
       height: '100%',
       overflow: 'scroll',
-      paddingBottom: 30,
     },
   })
 )
