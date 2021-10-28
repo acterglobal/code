@@ -113,6 +113,7 @@ model Acter {
 
 enum ActerConnectionRole {
   PENDING
+  REJECTED
   MEMBER
   ADMIN
 }
