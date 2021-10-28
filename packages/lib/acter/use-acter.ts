@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { ActerVariables } from './use-create-acter'
 import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
@@ -59,9 +60,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const [acterId, setActerId] = useState(options?.acterId)
   const [fetching, setFetching] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
+  const [pause, setPause] = useState(true)
+  const [variables, setVariables] = useState<UseActerVariables>()
   const router = useRouter()
 
-  const slug = options?.slug || router.query?.slug
   const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
 
   const {
@@ -70,30 +72,6 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     error: acterTypesError,
   } = useActerTypes()
 
-  const variables = useMemo<UseActerVariables>(() => {
-    if (acterId) return {
-      acterId,
-      acterTypeId: undefined,
-      slug: undefined,
-    }
-
-    if (acterTypes) {
-      const result = acterTypes.find(
-        (type) => acterTypeAsUrl(type) === acterTypeName
-      )
-      if (!result?.id) {
-        setErrors(Error('Not valid acter type'))
-      }
-      return {
-        acterId: undefined,
-        acterTypeId: result?.id,
-        slug: <string>slug
-      }
-    }
-
-    return null
-  }, [acterTypes?.length, acterTypeName, acterId, slug])
-
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
   const [
@@ -101,8 +79,48 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   ] = useQuery<ActerData>({
     query,
     variables,
-    pause: !variables
+    pause,
   })
+
+  useEffect(() => {
+    if (!dataFetching) {
+      if (acterId) {
+        setPause(false)
+        setVariables({
+          acterId,
+          acterTypeId: undefined,
+          slug: undefined,
+        })
+        return
+      }
+
+      if (acterTypes) {
+        const slug = options?.slug || router.query?.slug
+        const result = acterTypes.find(
+          (type) => acterTypeAsUrl(type) === acterTypeName
+        )
+        if (!result?.id) {
+          setErrors(Error('Not valid acter type'))
+        }
+        setPause(!(!!result?.id && !!slug))
+        setVariables({
+          acterId: undefined,
+          acterTypeId: result?.id,
+          slug: slug as string,
+        })
+        return
+      }
+
+      setPause(true)
+      setVariables(undefined)
+    }
+  }, [
+    acterTypes?.length,
+    acterTypeName,
+    acterId,
+    options?.slug,
+    router.query?.slug,
+  ])
 
   useEffect(() => {
     if (data) {
