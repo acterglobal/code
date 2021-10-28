@@ -23,7 +23,7 @@ export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
  * Custom hook that creates new post
  * @params acter user displayPostList
  * @returns handle method to create post
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useCreateComment = (
   acter: Acter,

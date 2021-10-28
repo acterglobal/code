@@ -44,7 +44,7 @@ type CreateActerUseMutationRestState = Omit<
  * Custom hook that creates new acter
  * @param acter
  * @returns handle method to create acter
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useCreateActer = (
   options?: CreateActerOptions

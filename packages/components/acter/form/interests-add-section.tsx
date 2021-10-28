@@ -19,9 +19,9 @@ export const InterestsAddSection: FC = () => {
   useEffect(() => {
     setFieldValue('interestIds', selectedInterests)
   }, [selectedInterests])
-  const { interestTypes, loading } = useInterestTypes()
+  const { interestTypes, fetching } = useInterestTypes()
 
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!interestTypes) return null
 
   return (

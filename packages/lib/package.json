@@ -13,7 +13,6 @@
     "date-fns-tz": "^1.1.6",
     "deep-equal": "^2.0.5",
     "deepmerge": "^4.2.2",
-    "graphql": "^15.4.0",
     "handlebars": "^4.7.7",
     "intercom-client": "^2.11.2",
     "ioredis": "^4.27.6",
@@ -31,10 +30,10 @@
     "@types/mime": "^2.0.3"
   },
   "peerDependencies": {
-    "@apollo/client": "*",
     "@auth0/nextjs-auth0": "*",
     "axios": "*",
     "bullmq": "*",
+    "graphql": "*",
     "next": "*",
     "notistack": "*",
     "react": "*"

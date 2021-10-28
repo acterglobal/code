@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import { withUrqlClient } from 'next-urql'
+
 import { NextPageWithLayout } from 'pages/_app'
 import {
   checkRole,
@@ -19,10 +21,8 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { useCreateLink } from '@acter/lib/links/use-create-link'
-import { useDeleteLink } from '@acter/lib/links/use-delete-link'
 import { useLinks } from '@acter/lib/links/use-links'
-import { useUpdateLink } from '@acter/lib/links/use-update-link'
+import { getUrqlClientOptions } from '@acter/lib/urql'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const ActerSettingsPage: NextPageWithLayout = () => {
@@ -41,10 +41,6 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
     if (acter?.name) setTitle(`${acter.name} - ${baseTitle}`)
   }, [acter])
 
-  const [createLink] = useCreateLink(acter)
-  const [updateLink] = useUpdateLink(acter)
-  const [deleteLink] = useDeleteLink()
-
   return (
     <>
       <Head title={title} />
@@ -53,9 +49,6 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
           onSettingsChange={updateActer}
           fetching={fetching}
           links={links}
-          onLinkSubmit={createLink}
-          onLinkUpdate={updateLink}
-          onLinkDelete={deleteLink}
         />
       </main>
     </>
@@ -75,4 +68,4 @@ export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
     getLinks
   )
 
-export default ActerSettingsPage
+export default withUrqlClient(getUrqlClientOptions)(ActerSettingsPage)

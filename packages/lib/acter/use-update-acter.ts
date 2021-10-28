@@ -23,7 +23,7 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
  * Custom hook that updates acter
  * @param acter
  * @returns handle method to update acter
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 
 // TODO Move to use this hook everywhere

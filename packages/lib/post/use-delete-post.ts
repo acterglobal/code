@@ -28,7 +28,7 @@ export type HandleMethod<TData> = (
  * Custom hook that deletes a post
  * @param displayPostList
  * @returns handle method to delete post
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 
 export const useDeletePost = (

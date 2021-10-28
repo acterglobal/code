@@ -27,7 +27,7 @@ export type HandleMethod<TData> = (
  * Custom hook that updates a post
  * @param displayPostList
  * @returns handle method to update post
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useUpdatePost = (
   options?: UpdatePostOptions

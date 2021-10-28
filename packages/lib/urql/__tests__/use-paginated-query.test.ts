@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client'
 import { renderHook } from '@testing-library/react-hooks'
 
 import { DocumentNode } from 'graphql/language/ast'
 
+import { getUrqlClient } from '@acter/lib/urql'
 import {
   usePaginatedQuery,
   _getResults,
@@ -11,13 +11,13 @@ import {
   GetLoadMoreProps,
 } from '@acter/lib/urql/use-paginated-query'
 
-jest.mock('@apollo/client')
+jest.mock('@acter/lib/urql')
 
 describe('usePaginatedQuery', () => {
-  const useQueryMock = useQuery as jest.Mock
   const setPagination = jest.fn()
   const setHasMore = jest.fn()
   const setResults = jest.fn()
+  const mockGetUrqlClient = getUrqlClient as jest.Mock
 
   const paginationDefaults: Pagination = {
     cursor: undefined,
@@ -33,16 +33,19 @@ describe('usePaginatedQuery', () => {
   beforeEach(() => {
     //eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;[setPagination, setHasMore, setResults].forEach((fn) => fn.mockReset())
+    mockGetUrqlClient.mockReset()
   })
 
   it('should send the first request with no cursor', () => {
-    useQueryMock.mockImplementation((_query, { variables }) => {
-      expect(variables).toEqual({
-        skip: 0,
-        take: 10,
-        cursor: null,
-      })
-    })
+    mockGetUrqlClient.mockImplementation(() => ({
+      query: (_query, { variables }) => {
+        expect(variables).toEqual({
+          skip: 0,
+          take: 10,
+          cursor: null,
+        })
+      },
+    }))
 
     renderHook(() =>
       usePaginatedQuery({

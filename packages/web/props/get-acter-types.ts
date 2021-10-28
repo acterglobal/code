@@ -1,5 +1,5 @@
-import { initializeApollo } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { getUrqlClient } from '@acter/lib/urql'
 import { ActerType } from '@acter/schema'
 import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
 
@@ -8,11 +8,9 @@ import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
  * @returns props including an array of acterTypes
  */
 export const getActerTypes: ComposedGetServerSideProps = async () => {
-  const apollo = initializeApollo()
-
-  const { data, error } = await apollo.query({
-    query: QUERY_ACTER_TYPES,
-  })
+  const { data, error } = await getUrqlClient()
+    .query(QUERY_ACTER_TYPES)
+    .toPromise()
 
   if (error) {
     return {

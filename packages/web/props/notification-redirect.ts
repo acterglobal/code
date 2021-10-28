@@ -1,7 +1,7 @@
 import { GetServerSidePropsResult } from 'next'
 
-import { initializeApollo } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { getUrqlClient } from '@acter/lib/urql'
 import { Notification } from '@acter/schema'
 import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
 import GET_NOTIFICATION from '@acter/schema/queries/notification-get.graphql'
@@ -26,16 +26,16 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     `Moving forward with user ${props.user.email} and id ${params.id}`
   )
 
-  const apollo = initializeApollo()
-  const { data, error } = await apollo.query<{
-    findFirstNotification: Notification
-  }>({
-    query: GET_NOTIFICATION,
-    variables: {
+  const urqlClient = getUrqlClient()
+
+  const { data, error } = await urqlClient
+    .query<{
+      findFirstNotification: Notification
+    }>(GET_NOTIFICATION, {
       notificationId: params.id,
       email: props.user.email,
-    },
-  })
+    })
+    .toPromise()
 
   if (error) {
     console.error('Error', error)
@@ -61,13 +61,16 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   try {
     const {
       data: { updateNotification },
-    } = await apollo.mutate<{ updateNotification: Notification }>({
-      mutation: UPDATE_NOTIFICATION_VIEWED,
-      variables: {
-        notificationId: params.id,
-        viewedAt: new Date(),
-      },
-    })
+    } = await urqlClient
+      .mutation<{ updateNotification: Notification }>(
+        UPDATE_NOTIFICATION_VIEWED,
+        {
+          notificationId: params.id,
+          viewedAt: new Date(),
+        }
+      )
+      .toPromise()
+
     return {
       props: {},
       redirect: {

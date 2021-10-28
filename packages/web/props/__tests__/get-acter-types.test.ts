@@ -1,6 +1,6 @@
-import { addApolloState, initializeApollo } from '@acter/lib/apollo'
 import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
+import { getUrqlClient } from '@acter/lib/urql'
 import {
   GroupActerType,
   NetworkActerType,
@@ -8,28 +8,24 @@ import {
 } from '@acter/schema/fixtures'
 import { getActerTypes } from '@acter/web/props/get-acter-types'
 
-jest.mock('@acter/lib/apollo')
+jest.mock('@acter/lib/urql')
 
 describe('getActerTypes', () => {
-  const mockInitializeApollo = initializeApollo as jest.Mock
-  const mockAddApolloState = addApolloState as jest.Mock
-
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]
   let context = ({} as unknown) as ComposedGetServerSidePropsContext
-
-  beforeAll(() => {
-    mockAddApolloState.mockImplementation((apollo, props) => props)
-  })
+  const mockGetUrqlClient = getUrqlClient as jest.Mock
 
   beforeEach(() => {
-    mockInitializeApollo.mockReset()
+    mockGetUrqlClient.mockReset()
     context = ({} as unknown) as ComposedGetServerSidePropsContext
   })
   it('should return an error if acter type query fails', async () => {
     const error = 'there was an error'
-    mockInitializeApollo.mockReturnValue({
+    mockGetUrqlClient.mockReturnValue({
       query: () => ({
-        error,
+        toPromise: () => ({
+          error,
+        }),
       }),
     })
 
@@ -42,9 +38,12 @@ describe('getActerTypes', () => {
     )
   })
   it('should set selected acter type as well as list of all acter types', async () => {
-    // eslint-disable-next-line
-    mockInitializeApollo.mockReturnValue({
-      query: () => ({ data: { acterTypes } }),
+    mockGetUrqlClient.mockReturnValue({
+      query: () => ({
+        toPromise: () => ({
+          data: { acterTypes },
+        }),
+      }),
     })
     context = ({
       params: { acterType: ActerTypes.ORGANISATION },

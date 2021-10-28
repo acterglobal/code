@@ -31,7 +31,7 @@ export type HandleMethod = (
  * Custom hook that updates new activity
  * @param options
  * @returns handle method to update activity
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useUpdateActivity = (
   options?: UpdateActivityOptions

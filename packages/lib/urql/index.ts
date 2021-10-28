@@ -1,8 +1,11 @@
+import { initUrqlClient } from 'next-urql'
+
 import { devtoolsExchange } from '@urql/devtools'
 import { cacheExchange } from '@urql/exchange-graphcache'
 
 import { prismaPagination } from './prisma-pagination'
 import {
+  Client,
   ClientOptions,
   createClient,
   dedupExchange,
@@ -16,29 +19,33 @@ export * from './use-notification-mutation'
 export * from './use-paginated-query'
 export * from './provider'
 
-const cache = cacheExchange({
-  resolvers: {
-    Query: {
-      acters: prismaPagination(),
+export const getUrqlClientOptions = (): ClientOptions => {
+  const cache = cacheExchange({
+    resolvers: {
+      Query: {
+        acters: prismaPagination(),
+      },
     },
-  },
-  updates: {
-    Mutation: updates,
-  },
-})
+    updates: {
+      Mutation: updates,
+    },
+  })
 
-const isServerSide = typeof window === 'undefined'
+  const isServerSide = typeof window === 'undefined'
 
-// The `ssrExchange` must be initialized with `isClient` and `initialState`
-const ssr = ssrExchange({
-  isClient: !isServerSide,
-  initialState: !isServerSide ? window['__URQL_DATA__'] : undefined,
-})
+  // The `ssrExchange` must be initialized with `isClient` and `initialState`
+  const ssr = ssrExchange({
+    isClient: !isServerSide,
+    initialState: !isServerSide ? window['__URQL_DATA__'] : undefined,
+  })
 
-export const urqlClientOptions: ClientOptions = {
-  url: process.env.NEXT_PUBLIC_GRAPHQL_URL,
-  exchanges: [dedupExchange, cache, devtoolsExchange, ssr, fetchExchange],
-  suspense: false,
+  const config = {
+    url: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    exchanges: [dedupExchange, cache, devtoolsExchange, ssr, fetchExchange],
+    suspense: false,
+  }
+  return config
 }
 
-export const urqlClient = createClient(urqlClientOptions)
+export const getUrqlClient = (): Client =>
+  initUrqlClient(getUrqlClientOptions(), false)

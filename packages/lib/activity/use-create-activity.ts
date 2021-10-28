@@ -30,7 +30,7 @@ export type HandleMethod = (
  * Custom hook that creates new activity
  * @param options
  * @returns handle method to create activity
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useCreateActivity = (
   options?: CreateActivityOptions
