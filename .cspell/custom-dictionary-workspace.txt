@@ -1,0 +1,10 @@
+# Custom Dictionary Words
+acter
+acters
+clsx
+Formik
+graphcache
+Mockuse
+ORGANISATIONS
+Organiser
+urql
