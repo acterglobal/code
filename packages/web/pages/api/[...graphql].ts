@@ -7,7 +7,7 @@ import { withSentry } from '@sentry/nextjs'
 
 import { ApolloServer } from 'apollo-server-micro'
 
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { generateSchema } from '@acter/schema/generate-schema'
 import { prisma } from '@acter/schema/prisma'
 

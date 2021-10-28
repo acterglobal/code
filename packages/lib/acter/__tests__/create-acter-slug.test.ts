@@ -1,5 +1,5 @@
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 
 describe('createSlug', () => {
   const mockedResults = Promise.resolve({

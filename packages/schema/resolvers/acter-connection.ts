@@ -1,4 +1,3 @@
-import { QueueNewMemberJoinNotification } from '../middlewares/queue-member-join-notification'
 import {
   Authorized,
   Resolver,
@@ -8,12 +7,13 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
-import type { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
+import { QueueNewMemberJoinNotification } from '@acter/schema/middlewares/queue-member-join-notification'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
