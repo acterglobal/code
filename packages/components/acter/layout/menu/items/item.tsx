@@ -47,7 +47,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const isActive = router.query.slug === acter.slug && path === tab
 
-  const [updateNotifications] = useUpdateNotifications()
+  const [_, updateNotifications] = useUpdateNotifications()
 
   const handleClick = () =>
     notifications?.map((notification) => updateNotifications(notification.id))
