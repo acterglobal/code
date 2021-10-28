@@ -159,22 +159,26 @@ __metadata:
     aws-sdk: ^2.940.0
     env-cmd: ^10.1.0
     eslint-config-next: ^11.0.1
+    graphql: ^16.0.0
     micro: ^9.3.4
     next: ^11.1.0
     next-compose-plugins: ^2.2.1
     next-graphql-loader: ^1.0.1
     next-transpile-modules: ^8.0.0
     react-use-intercom: ^1.3.0
-    type-graphql: ^1.1.1
   peerDependencies:
     "@apollo/client": "*"
     "@auth0/nextjs-auth0": "*"
     "@material-ui/core": "*"
     just-capitalize: "*"
+    next-urql: "*"
     notistack: "*"
     react: "*"
     react-dom: "*"
+    react-is: "*"
     reflect-metadata: "*"
+    type-graphql: "*"
+    urql: "*"
   languageName: unknown
   linkType: soft
 
@@ -7792,14 +7796,14 @@ __metadata:
   linkType: hard
 
 "@urql/core@npm:>=2.3.3, @urql/core@npm:^2.3.2, @urql/core@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "@urql/core@npm:2.3.3"
+  version: 2.3.4
+  resolution: "@urql/core@npm:2.3.4"
   dependencies:
     "@graphql-typed-document-node/core": ^3.1.0
     wonka: ^4.0.14
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-  checksum: 86665ebe50011f6b3530e0108dd1f3c5e11275c96615d552dfc5f04a980a1623b5f342b347188c64c7baefb8352ab65f6771e5b8259de3d14e043d8286066e24
+  checksum: 36c2f6ad83a406f5dc8fbae4cbe58e6bb6f6580a934b24e6a73e99098d10fd47fd9f084aacf45bc84ba35588b9c46e8830fc433e8f4f686d281439fca2504593
   languageName: node
   linkType: hard
 
@@ -8359,6 +8363,7 @@ __metadata:
     eslint: ^7.20.0
     eslint-plugin-jest: ^24.4.0
     eslint-plugin-you-dont-need-lodash-underscore: ^6.12.0
+    graphql: ^16.0.0
     graphql-tag: ^2.11.0
     husky: ^5.0.9
     identity-obj-proxy: ^3.0.0
@@ -8367,11 +8372,13 @@ __metadata:
     jest-transform-graphql: ^2.1.0
     just-capitalize: ^1.0.1
     netlify-cli: ^6.9.28
+    next-urql: ^3.2.1
     notistack: ^1.0.10
     pm2: ^5.1.0
     react: ^17.0.2
     react-cookie-consent: ^6.4.1
     react-dom: ^17.0.2
+    react-is: ^17.0.2
     react-magnetic-di: ^2.2.6
     reflect-metadata: ^0.1.13
     syncpack: ^5.7.11
@@ -8381,6 +8388,7 @@ __metadata:
     tsconfig-paths-webpack-plugin: ^3.3.0
     tslib: ^2.3.0
     typescript: ^4.3.5
+    urql: ^2.0.5
     webpack: ^5.45.1
   languageName: unknown
   linkType: soft
@@ -15963,6 +15971,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"graphql@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "graphql@npm:16.0.0"
+  checksum: 6b7c09cbafdcafde7bf69e84fb35abc5641bd923cd3b4894f12bbb6ee412478a959906937a63c8ad7cf37b3e5b980c26001f89be90ac9bcf4cefade3a4efd21f
+  languageName: node
+  linkType: hard
+
 "gud@npm:^1.0.0":
   version: 1.0.0
   resolution: "gud@npm:1.0.0"
@@ -21190,6 +21205,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"next-urql@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "next-urql@npm:3.2.1"
+  dependencies:
+    react-ssr-prepass: ^1.4.0
+  peerDependencies:
+    react: ">=16.8.0"
+    urql: ^2.0.0
+  checksum: 871ca74b638f4ad1233d64c8b0df244a219c218d9638fa13fcf1c3fbde363451f2cfd220990c7ec012b46a503cb0726e56c60c0565589f40592b4410722ecf98
+  languageName: node
+  linkType: hard
+
 "next@npm:*, next@npm:^11.1.0":
   version: 11.1.2
   resolution: "next@npm:11.1.2"
@@ -24110,6 +24137,15 @@ fsevents@^1.2.7:
     react: ^0.14.0 || ^15.0.0-0 || ^16.0.0 || ^17.0.0
     react-dom: ^0.14.0 || ^15.0.0-0 || ^16.0.0 || ^17.0.0
   checksum: 58ec9166dc458a1fd7929df8658d9dae3c1534968efbe66ffd026e3c38672b64374afa9df371d529e13fccab1758328d8fc52454745000d481b076ef457da7d7
+  languageName: node
+  linkType: hard
+
+"react-ssr-prepass@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "react-ssr-prepass@npm:1.4.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  checksum: dc7db3f15128ca2facca44a0088de1378ffc2852ad0852eeb1b063350a5019a0353f8d4a0bbfdd0a68aaf7ed865c08ecfbf042b882492a4c5bca2b64535df257
   languageName: node
   linkType: hard
 
