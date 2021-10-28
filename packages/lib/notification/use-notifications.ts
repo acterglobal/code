@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
-import { useQuery } from 'urql'
+import { useQuery, UseQueryState } from 'urql'
 
 import {
   getNotificationsGroupByActer,
-  NotificationsData as Notifications,
+  NotificationsData,
 } from '@acter/lib/notification/get-notifications-group-by-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 
-type UseNotificationsQueryResults = {
-  notifications: Notifications
+type UseNotificationsQueryResults = UseQueryState & {
+  notifications: NotificationsData
 }
+
 /**
  * Gives notification info for new posts/activities/members on a specific acter
  * @returns object with count of new posts/activities/members
  */
 export const useNotifications = (): UseNotificationsQueryResults => {
-  const [notifications, setNotifications] = useState<Notifications>({})
+  const [notifications, setNotifications] = useState<NotificationsData>({})
   const { user } = useUser()
-  const { asPath: url } = useRouter()
 
-  const [{ data, ...restQueryResult }, refetch] = useQuery({
+  const [{ data, fetching, ...restQueryResult }] = useQuery({
     query: GET_NOTIFICATIONS,
+    variables: { toActer: user?.Acter?.id },
     pause: !user?.Acter?.id,
   })
-
-  useEffect(() => {
-    if (user) {
-      refetch()
-    }
-  }, [url])
 
   useEffect(() => {
     if (data) {
@@ -40,5 +33,5 @@ export const useNotifications = (): UseNotificationsQueryResults => {
     }
   }, [data])
 
-  return { notifications, ...restQueryResult }
+  return { notifications, fetching, ...restQueryResult }
 }
