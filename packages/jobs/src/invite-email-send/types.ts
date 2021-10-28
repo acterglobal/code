@@ -1,3 +1,3 @@
 import { Email } from '@acter/lib/email'
 
-export type InvitesSendEmail = Email
+export type InviteEmailSend = Email & { invitationId: string }
