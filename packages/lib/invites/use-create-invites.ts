@@ -4,20 +4,21 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
-import { Invite } from '@acter/schema'
-import CREATE_INVITE from '@acter/schema/mutations/invite-create.graphql'
+import CREATE_INVITES from '@acter/schema/mutations/invites-create.graphql'
+import { InviteCreateManyInput } from '@acter/schema/types'
 
-export type InviteVariables = {
-  email: string
-  message: string
-  onActerId: string
-}
+export type CreateInvitesVariables = { data: InviteCreateManyInput[] }
 
-type CreateInviteData = { createInviteCustom: Invite }
+type CreateInvitesData = { count: number }
 
-type CreateInviteOptions = UseMutationOptions<CreateInviteData, InviteVariables>
+type CreateInviteOptions = UseMutationOptions<
+  CreateInvitesData,
+  CreateInvitesVariables
+>
 
-export type HandleMethod = (values: InviteVariables) => Promise<FetchResult>
+export type HandleMethod = (
+  values: InviteCreateManyInput[]
+) => Promise<FetchResult>
 
 /**
  * Custom hook that creates a new invite
@@ -25,19 +26,19 @@ export type HandleMethod = (values: InviteVariables) => Promise<FetchResult>
  * @returns handleMethod to create invite and the mutation results
  */
 
-export const useCreateInvite = (
+export const useCreateInvites = (
   options?: CreateInviteOptions
 ): [HandleMethod, MutationResult] => {
-  const [createInviteCustom, mutationResult] = useNotificationMutation(
-    CREATE_INVITE,
+  const [createManyInvite, mutationResult] = useNotificationMutation(
+    CREATE_INVITES,
     {
       ...options,
-      getSuccessMessage: () => 'Invitation sent.',
+      getSuccessMessage: () => 'Invitations sent.',
     }
   )
 
-  const handleCreateInvite = (values: InviteVariables) =>
-    createInviteCustom({ variables: values })
+  const handleCreateInvite = (values) =>
+    createManyInvite({ variables: { data: values } })
 
   return [handleCreateInvite, mutationResult]
 }

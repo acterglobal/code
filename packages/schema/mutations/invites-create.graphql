@@ -1,0 +1,5 @@
+mutation CreateInvites($data: [InviteCreateManyInput!]!) {
+  createManyInvite(data: $data, skipDuplicates: true) {
+    count
+  }
+}

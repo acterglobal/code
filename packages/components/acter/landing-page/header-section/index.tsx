@@ -21,7 +21,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 export const HeaderSection: FC = () => {
-  di(useActer, useUser)
+  di(useActer)
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')

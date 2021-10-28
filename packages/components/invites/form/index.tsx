@@ -14,23 +14,25 @@ import { Form, Formik } from 'formik'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useCreateInvite } from '@acter/lib/invites/use-create-invites'
+import { useCreateInvites } from '@acter/lib/invites/use-create-invites'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
+import { InviteCreateManyInput } from '@acter/schema/types/resolvers/inputs/InviteCreateManyInput'
 
 export type InviteFormValues = {
   inviteLink: string
   emails: string[]
   message: string
   onActerId: string
+  createdByUserId: string
 }
 
 export const InviteForm: FC = () => {
   const classes = useStyles()
 
-  const [createInvite] = useCreateInvite()
+  const [createInvites] = useCreateInvites()
   const { acter } = useActer()
   const { user } = useUser()
   if (!acter || !user) return null
@@ -44,10 +46,24 @@ export const InviteForm: FC = () => {
     message: `Hi! 
 I'm inviting you to join ${acterName} on Acter. ${acterName} is using Acter as our dedicated space for communication & collaboration.`,
     onActerId: acter.id,
+    createdByUserId: user.id,
   }
 
   const handleSubmit = (values: InviteFormValues, { setFieldValue }) => {
-    values.emails.map((email) => createInvite({ ...values, email }))
+    const { message, onActerId, createdByUserId } = values
+    const data: InviteCreateManyInput[] = []
+
+    values.emails.map((email) => {
+      data.push({
+        email,
+        message,
+        onActerId,
+        createdByUserId,
+      })
+    })
+
+    createInvites(data)
+
     setFieldValue('emails', [])
   }
 
