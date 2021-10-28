@@ -74,7 +74,7 @@ const ThreeDots: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: theme.spacing(5.5),
+      height: theme.spacing(6.2),
       padding: 5,
       display: 'flex',
       justifyContent: 'space-between',

@@ -7,10 +7,13 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 
 import { ActerDeleteConfirmDialog as DeleteActer } from '@acter/components/acter/delete-confirm-dialog'
 import { Drawer } from '@acter/components/util/drawer'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { ActerTypes, ActionButton } from '@acter/lib/constants'
-import { Acter } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema'
 
 const EditActer = dynamic(() =>
   import('@acter/components/acter/form').then((mod) => mod.ActerForm)
@@ -21,14 +24,13 @@ const EditGroup = dynamic(() =>
 
 const { EDIT, DELETE } = ActionButton
 
-interface ActionButtonsProps {
-  acter: Acter
-}
-
-export const ActionButtons: FC<ActionButtonsProps> = ({ acter }) => {
+export const ActionButtons: FC = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
   const [action, setAction] = useState<ActionButton>(null)
+
+  const { user } = useUser()
+  const { acter } = useActer()
 
   const handleEdit = () => {
     setAction(EDIT)
@@ -51,6 +53,11 @@ export const ActionButtons: FC<ActionButtonsProps> = ({ acter }) => {
     onCompleted: handleDrawerClose,
   })
   const [deleteActer] = useDeleteActer({ onCompleted: handleDrawerClose })
+
+  if (!acter || !user) return null
+
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  if (!isAdmin) return null
 
   return (
     <>
