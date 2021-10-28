@@ -1,57 +1,44 @@
 import React, { FC, useEffect, useState } from 'react'
 import { di } from 'react-magnetic-di/macro'
 
-import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { DisplayResults } from '@acter/components/search/display-results'
 import { FilterTabs } from '@acter/components/search/filter-tabs'
 import { SearchBar } from '@acter/components/search/search-bar'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
-import { searchVar } from '@acter/lib/search/search-var'
 import { useSearchType } from '@acter/lib/search/use-search-type'
-import { useSearchTypes } from '@acter/lib/search/use-search-types'
 
 export const Search: FC = () => {
   di(useSearchType)
   const classes = useStyles()
   const searchType = useSearchType()
   const [searchText, setSearchText] = useState('')
-  const [resultCount, setResultCount] = useState(0)
-  const [searchReady, setSearchReady] = useState(false)
 
-  const types = useSearchTypes()
-  const searchVariables = useReactiveVar(searchVar)
-
-  useEffect(() => {
-    searchVar({
-      ...searchVariables,
-      types,
-    })
-    setSearchReady(true)
-  }, [])
+  const [searchVariables, setSearchVariables] = useSearchVariables()
 
   const handleInputChange = (inputText: string) => setSearchText(inputText)
 
   const handleFilterInterests = (interests: string[]) => {
-    searchVar({
+    setSearchVariables({
       ...searchVariables,
       interests,
     })
   }
 
   const handleSortBy = (orderBy: SearchActivitiesSortBy) => {
-    searchVar({
+    setSearchVariables({
       ...searchVariables,
       orderBy,
     })
   }
 
   const handleSearch = () => {
-    searchVar({
+    setSearchVariables({
       ...searchVariables,
       searchText,
     })
@@ -67,13 +54,6 @@ export const Search: FC = () => {
             sm={searchType === SearchType.ACTERS ? 8 : 6}
             className={classes.searchSectionItem}
           >
-            <Typography
-              className={classes.results}
-              variant="body2"
-              aria-label="search-results"
-            >
-              {resultCount} {resultCount === 1 ? 'Result' : 'Results'}
-            </Typography>
             <Box className={classes.searchInput}>
               <SearchBar handleInputChange={handleInputChange} />
             </Box>
@@ -94,7 +74,7 @@ export const Search: FC = () => {
           />
         </Grid>
       </Box>
-      {searchReady && <DisplayResults setResultCount={setResultCount} />}
+      <DisplayResults />
     </Box>
   )
 }

@@ -1,24 +1,23 @@
 import React, { FC } from 'react'
 
-import { useReactiveVar } from '@apollo/client'
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
+import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { Type } from '@acter/components/search/layout/menu/type'
 import { SearchType } from '@acter/lib/constants'
-import { searchVar } from '@acter/lib/search/search-var'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { SearchTypes, useSearchTypes } from '@acter/lib/search/use-search-types'
 
 export const SearchTypesPicker: FC = () => {
   const searchType = useSearchType()
   const types = useSearchTypes()
-  const search = useReactiveVar(searchVar)
+  const [search, searchVar] = useSearchVariables()
   const classes = useStyles()
 
   // Callback for individual type selectors
   const handleChange = (type: SearchTypes) => (checked: boolean) => {
     if (checked) {
-      if (!search.types.includes(type))
+      if (!search.types?.includes(type))
         return searchVar({
           ...search,
           types: [...search.types, type],
@@ -26,7 +25,7 @@ export const SearchTypesPicker: FC = () => {
     }
     return searchVar({
       ...search,
-      types: search.types.filter((subType) => subType !== type),
+      types: search.types?.filter((subType) => subType !== type),
     })
   }
 

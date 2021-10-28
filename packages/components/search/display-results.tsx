@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { di } from 'react-magnetic-di/macro'
 
@@ -17,20 +17,14 @@ import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 
 const { ACTIVITIES, ACTERS } = SearchType
-export interface DisplayResultsProps {
-  setResultCount?: (number) => void
-}
 
-export const DisplayResults: FC<DisplayResultsProps> = ({ setResultCount }) => {
+export const DisplayResults: FC = () => {
   di(useActerSearch, useSearchType)
+
   const classes = useStyles()
   const searchType = useSearchType()
 
   const { acters, fetching, loadMore, hasMore } = useActerSearch()
-
-  useEffect(() => {
-    setResultCount?.(acters?.length || 0)
-  }, [acters?.length])
 
   if (fetching && acters.length === 0)
     return (
