@@ -6,11 +6,11 @@ import { acterAsUrl } from './acter-as-url'
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { ActerTypes } from '@acter/lib/constants'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
-import { ActerTypes } from '@acter/lib/constants'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 

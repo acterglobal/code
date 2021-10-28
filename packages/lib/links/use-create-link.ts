@@ -3,7 +3,7 @@ import { OperationResult, UseMutationState } from 'urql'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter, Link as LinkType } from '@acter/schema'
 import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'

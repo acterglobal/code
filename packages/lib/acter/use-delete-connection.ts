@@ -4,7 +4,7 @@ import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerConnection } from '@acter/schema'
 import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
 

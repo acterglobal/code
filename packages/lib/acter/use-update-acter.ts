@@ -9,7 +9,7 @@ import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 import {
   useNotificationMutation,
   UseMutationOptions,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter } from '@acter/schema'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 

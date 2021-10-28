@@ -3,7 +3,7 @@ import { UseMutationState } from 'urql'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType, Acter } from '@acter/schema'
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'

@@ -7,7 +7,7 @@ import {
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 

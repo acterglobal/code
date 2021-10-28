@@ -6,7 +6,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter } from '@acter/schema'
 import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
 

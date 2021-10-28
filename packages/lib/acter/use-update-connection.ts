@@ -1,6 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
-import { useNotificationMutation } from '@acter/lib/apollo/use-notification-mutation'
+import { useNotificationMutation } from '@acter/lib/urql/use-notification-mutation'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
 

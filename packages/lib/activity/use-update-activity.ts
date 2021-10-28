@@ -8,7 +8,7 @@ import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 

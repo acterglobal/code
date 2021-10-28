@@ -8,6 +8,9 @@ import { createClient, dedupExchange, fetchExchange, Provider } from 'urql'
 
 import * as updates from '@acter/lib/urql/updates'
 
+export * from './use-notification-mutation'
+export * from './use-paginated-query'
+
 const cache = cacheExchange({
   resolvers: {
     Query: {

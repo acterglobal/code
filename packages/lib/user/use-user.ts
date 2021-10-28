@@ -4,7 +4,6 @@ import { useUser as getUser } from '@auth0/nextjs-auth0'
 
 import { CombinedError, useQuery, UseQueryState } from 'urql'
 
-import { initializeApollo } from '@acter/lib/apollo'
 import { User } from '@acter/schema'
 import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 
@@ -36,17 +35,6 @@ export const useUser = (): UseUserQueryResult => {
     isLoading: userFetching,
     error: userError,
   } = getUser()
-
-  const apollo = initializeApollo()
-
-  const cache = apollo.readQuery({
-    query: GET_USER,
-    variables: { email: sessionUser?.email },
-  })
-
-  useEffect(() => {
-    setUserData(cache?.user)
-  }, [cache])
 
   const [
     { data, fetching: dataFetching, error: dataError, ...restQueryResult },
