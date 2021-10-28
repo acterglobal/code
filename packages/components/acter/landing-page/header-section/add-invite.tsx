@@ -9,7 +9,7 @@ import { useUser } from '@acter/lib/user/use-user'
 export const AddInviteSection: FC = () => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [drawerHeading] = useState('Invite people')
+  const [drawerHeading, setDrawerHeading] = useState('Invite people')
 
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
@@ -28,7 +28,7 @@ export const AddInviteSection: FC = () => {
         open={openDrawer}
         handleClose={handleClose}
       >
-        <InvitesSection />
+        <InvitesSection setDrawerHeading={setDrawerHeading} />
       </Drawer>
     </>
   )
