@@ -2,14 +2,17 @@ import { MiddlewareFn } from 'type-graphql'
 
 import { inviteEmailCreateQueue } from '@acter/jobs'
 import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 
 export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
   { context, args },
   next
 ) => {
   try {
+    const { data } = args as CreateInvitesVariables
     const user = context.session.user
-    const isSessionUser = args.data.every(
+
+    const isSessionUser = data.every(
       (invitation) => invitation.createdByUserId === user.id
     )
     if (!isSessionUser) {
@@ -19,9 +22,7 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
 
     await next()
 
-    args.data.map((invitation) => {
-      console.log('Adding to invite email queue 🍄🍄🍄', invitation)
-
+    data.map((invitation) => {
       inviteEmailCreateQueue.add(
         `create-invite-email-${invitation.email}`,
         { ...invitation, senderName: user.Acter.name },
