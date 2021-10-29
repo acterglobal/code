@@ -6,7 +6,7 @@ import clsx from 'clsx'
 
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
-import { Actions } from '@acter/lib/constants'
+import { InviteActions } from '@acter/lib/constants'
 import {
   ActerConnection as RequestType,
   ActerConnectionRole,
@@ -15,7 +15,7 @@ import {
 const { MEMBER, REJECTED } = ActerConnectionRole
 
 interface ActionProps {
-  action: Actions
+  action: InviteActions
   request: RequestType
 }
 
@@ -28,7 +28,7 @@ export const Action: FC<ActionProps> = ({ action, request }) => {
   ] = useUpdateActerConnection()
 
   const handleClick = () => {
-    const role = action === Actions.APPROVE ? MEMBER : REJECTED
+    const role = action === InviteActions.APPROVE ? MEMBER : REJECTED
     updateActerConnection(request, role)
   }
 
