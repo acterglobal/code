@@ -15,7 +15,7 @@ type ActerSearchData = {
   acters: Acter[]
 }
 
-interface UseActerSearchQueryResults
+export interface UseActerSearchQueryResults
   extends Omit<UsePaginatedState<Acter, ActerSearchData>, 'results'> {
   acters: Acter[]
 }

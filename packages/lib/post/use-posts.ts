@@ -19,7 +19,7 @@ type UsePostsOptions = UseQueryArgs<PostsVariables, PostsData>
 
 type UsePostError = CombinedError | Error
 
-interface UsePostsResult
+export interface UsePostsResult
   extends Omit<UseQueryState<PostsData, PostsVariables>, 'data'> {
   posts: Post[]
 }
