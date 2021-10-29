@@ -12,7 +12,8 @@ import {
   crudResolvers,
   relationResolvers,
 } from '@acter/schema/generated'
-import { queueNotificationsMiddleware } from '@acter/schema/middlewares/queue-notifications'
+import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
+import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
 import { SearchResolver } from '@acter/schema/resolvers/search'
@@ -21,11 +22,12 @@ export const generateSchema = async (
   writeSchema = false
 ): Promise<GraphQLSchema> => {
   const resolversEnhanceMap: ResolversEnhanceMap = {
+    Invite: {
+      createManyInvite: [UseMiddleware(QueueInviteEmail)],
+    },
     Post: {
       createPost: [
-        UseMiddleware(
-          queueNotificationsMiddleware(NotificationQueueType.NEW_POST)
-        ),
+        UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),
       ],
     },
   }

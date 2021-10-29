@@ -20,7 +20,7 @@ import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
-import { InviteCreateManyInput } from '@acter/schema/types'
+import { InviteCreateManyInput } from '@acter/schema/generated/resolvers/inputs/InviteCreateManyInput'
 
 export type InviteFormValues = {
   inviteLink: string
