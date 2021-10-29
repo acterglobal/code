@@ -6,11 +6,14 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
+  Box,
 } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ConnectionState } from '@acter/components/acter/landing-page/members-section/connection-state'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, ActerConnection, User } from '@acter/schema'
 
 export interface DisplayMemberItemProps {
@@ -34,6 +37,10 @@ export interface DisplayMemberItemProps {
    * Boolean indicating whether the user can edit member details
    */
   canEdit?: boolean
+  /**
+   * Boolean to indicate organisation member/follower type
+   */
+  isOrganisation?: boolean
 }
 
 export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
@@ -42,23 +49,25 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
   connection,
   showJoinState,
   canEdit,
+  isOrganisation,
 }) => {
   const classes = useStyles()
   return (
     <>
       <ListItem>
-        <ListItemAvatar>
-          <ActerAvatar acter={Follower} />
-        </ListItemAvatar>
-        <ListItemText
-          classes={{
-            primary: classes.name,
-            secondary: classes.acterType,
-          }}
-          className={classes.memberInfo}
-          primary={Follower.name}
-          secondary={Follower.ActerType.name}
-        />
+        {isOrganisation ? (
+          <Link
+            href={`${acterAsUrl({ acter: Follower })}`}
+            key={`follower-${Follower.id}`}
+          >
+            <Box style={{ display: 'flex' }}>
+              <MemberDetails follower={Follower} />
+            </Box>
+          </Link>
+        ) : (
+          <MemberDetails follower={Follower} />
+        )}
+
         {showJoinState && (
           <ListItemSecondaryAction>
             <ConnectionState
@@ -72,6 +81,29 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
         classes={{ root: classes.divider }}
         variant="inset"
         component="li"
+      />
+    </>
+  )
+}
+
+type MemberDetailsProps = {
+  follower: Acter
+}
+const MemberDetails: FC<MemberDetailsProps> = ({ follower }) => {
+  const classes = useStyles()
+  return (
+    <>
+      <ListItemAvatar>
+        <ActerAvatar acter={follower} />
+      </ListItemAvatar>
+      <ListItemText
+        classes={{
+          primary: classes.name,
+          secondary: classes.acterType,
+        }}
+        className={classes.memberInfo}
+        primary={follower.name}
+        secondary={follower.ActerType.name}
       />
     </>
   )

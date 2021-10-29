@@ -7,9 +7,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import pluralize from 'pluralize'
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
-import { Link } from '@acter/components/util/anchor-link'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
@@ -62,23 +60,6 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
         {followers.map((connection) => {
           const { Follower } = connection
 
-          if (isOrganisation) {
-            return (
-              <Link
-                href={`${acterAsUrl({ acter: Follower })}`}
-                key={`follower-${Follower.id}`}
-              >
-                <DisplayMemberItem
-                  user={user}
-                  Follower={Follower}
-                  connection={connection}
-                  showJoinState={showJoinState}
-                  canEdit={canEdit}
-                />
-              </Link>
-            )
-          }
-
           return (
             <DisplayMemberItem
               key={`follower-${Follower.id}`}
@@ -87,6 +68,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
               connection={connection}
               showJoinState={showJoinState}
               canEdit={canEdit}
+              isOrganisation={isOrganisation}
             />
           )
         })}
