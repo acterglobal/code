@@ -5,7 +5,10 @@ import { useRouter } from 'next/router'
 import { acterAsUrl } from './acter-as-url'
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
-import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import {
+  UpdateActerData,
+  useUpdateActer,
+} from '@acter/lib/acter/use-update-acter'
 import { ActerTypes } from '@acter/lib/constants'
 import {
   UseMutationOptions,
@@ -24,6 +27,8 @@ export type CreateActerData = {
   createActerCustom: Acter
 }
 
+type ActerData = CreateActerData | UpdateActerData
+
 type CreateActerOptions = UseMutationOptions<CreateActerData, ActerVariables>
 
 export type HandleMethod<TData> = (
@@ -31,10 +36,7 @@ export type HandleMethod<TData> = (
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => Promise<OperationResult<TData, Record<string, any>>>
 
-type CreateActerUseMutationState = UseMutationState<
-  CreateActerData,
-  ActerVariables
->
+type CreateActerUseMutationState = UseMutationState<ActerData, ActerVariables>
 type CreateActerUseMutationRestState = Omit<
   CreateActerUseMutationState,
   'data' | 'fetching' | 'error>'
@@ -48,9 +50,9 @@ type CreateActerUseMutationRestState = Omit<
  */
 export const useCreateActer = (
   options?: CreateActerOptions
-): [CreateActerUseMutationState, HandleMethod<CreateActerData>] => {
+): [CreateActerUseMutationState, HandleMethod<ActerData>] => {
   const [fetching, setFetching] = useState(false)
-  const [resultData, setResultData] = useState<CreateActerData>(null)
+  const [resultData, setResultData] = useState<ActerData>(null)
   const [error, setError] = useState<CombinedError>()
   const [restState, setRestState] = useState<CreateActerUseMutationRestState>()
   const router = useRouter()
@@ -63,7 +65,10 @@ export const useCreateActer = (
       ...updateRestState
     },
     updateActer,
-  ] = useUpdateActer({} as Acter)
+  ] = useUpdateActer({} as Acter, {
+    getSuccessMessage: (data) =>
+      `Images uploaded for ${data.updateActerCustom.name}`,
+  })
 
   const [
     {
@@ -95,38 +100,32 @@ export const useCreateActer = (
     })
   }, [JSON.stringify(createRestState), JSON.stringify(updateRestState)])
 
-  useEffect(() => {
-    if (createData?.createActerCustom) {
-      // Bypass image upload osv. for Groups
-      if (createData.createActerCustom?.ActerType?.name === ActerTypes.GROUP) {
-        setFetching(false)
-        setResultData(createData)
-        return
-      }
-
-      updateActer({
-        followerIds: [],
-        interestIds: [],
-        ...createData.createActerCustom,
-      })
-    }
-  }, [JSON.stringify(createData)])
-
-  useEffect(() => {
-    if (updateData) {
-      setResultData({ createActerCustom: updateData.updateActerCustom })
-      router.push(acterAsUrl({ acter: updateData.updateActerCustom }))
-    }
-  }, [JSON.stringify(updateData)])
-
-  const handleCreateActer: HandleMethod<CreateActerData> = async (acter) => {
+  const handleCreateActer: HandleMethod<UpdateActerData> = async (acter) => {
     setFetching(true)
-    const result = await createActer({
+    const { data } = await createActer({
       followerIds: [],
       interestIds: [],
       ...acter,
     })
-    return result
+
+    // Bypass image upload osv. for Groups
+    if (data.createActerCustom?.ActerType?.name === ActerTypes.GROUP) {
+      setFetching(false)
+      setResultData(createData)
+      return
+    }
+
+    const updateResult = await updateActer({
+      followerIds: [],
+      interestIds: [],
+      ...acter,
+      ...data.createActerCustom,
+    })
+
+    setResultData(updateResult.data)
+    router.push(acterAsUrl({ acter: updateResult.data.updateActerCustom }))
+
+    return updateResult
   }
 
   return [

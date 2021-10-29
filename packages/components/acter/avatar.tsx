@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import {
   Avatar as MuiAvatar,
@@ -49,7 +49,13 @@ export interface ActerAvatarProps {
 export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   const classes = useStyles({ size })
 
-  const avatarUrl = `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
+  const avatarUrl = useMemo(
+    () =>
+      acter.avatarUrl
+        ? `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
+        : '',
+    [acter.avatarUrl]
+  )
 
   return (
     <Avatar

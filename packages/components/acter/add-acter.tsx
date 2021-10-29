@@ -39,15 +39,13 @@ export const AddActer: FC = () => {
     setShowActerForm(true)
   }
 
-  const [{ data }, createActer] = useCreateActer({
-    onCompleted: handleDrawerClose,
-  })
+  const [{ data, fetching }, createActer] = useCreateActer()
 
   useEffect(() => {
-    if (data) {
+    if (!fetching && data) {
       handleDrawerClose()
     }
-  }, [data])
+  }, [data, fetching])
 
   return (
     <>
