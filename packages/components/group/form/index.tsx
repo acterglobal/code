@@ -34,7 +34,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles()
-  const { acterTypes, loading } = useActerTypes()
+  const { acterTypes, fetching } = useActerTypes()
 
   const joinSetting = acter
     ? acter.acterJoinSetting
@@ -60,7 +60,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   }
   const handleSwitch = () => setIsActerJoinRestricted(!isActerJoinRestricted)
 
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!acterTypes) return
 
   return (

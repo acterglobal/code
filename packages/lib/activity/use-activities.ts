@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { QueryResult, useLazyQuery } from '@apollo/client'
+import { useQuery, UseQueryState } from 'urql'
 
 import { Activity } from '@acter/schema'
 import QUERY_ACTIVITIES from '@acter/schema/queries/activities-followed-by-acter.graphql'
@@ -9,20 +9,17 @@ type UseActivitiesData = {
   activities: Activity[]
 }
 
-type UseActivitiesResult = QueryResult & UseActivitiesData
+type UseActivitiesResponse = UseQueryState<UseActivitiesData> &
+  UseActivitiesData
 
-export const useActivities = (followerId: string): UseActivitiesResult => {
+export const useActivities = (followerId: string): UseActivitiesResponse => {
   const [activities, setActivities] = useState<Activity[]>()
 
-  const [fetchActivities, { data, ...restQueryResult }] = useLazyQuery(
-    QUERY_ACTIVITIES
-  )
-
-  useEffect(() => {
-    if (followerId) {
-      fetchActivities({ variables: { followerId } })
-    }
-  }, [followerId])
+  const [{ data, ...restQueryResult }] = useQuery({
+    query: QUERY_ACTIVITIES,
+    pause: !followerId,
+    variables: { followerId },
+  })
 
   useEffect(() => {
     if (data) {
@@ -30,5 +27,5 @@ export const useActivities = (followerId: string): UseActivitiesResult => {
     }
   }, [data])
 
-  return { ...restQueryResult, activities } as UseActivitiesResult
+  return { ...restQueryResult, activities }
 }

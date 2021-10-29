@@ -60,11 +60,11 @@ export interface ActivityFormProps
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => any
   /**
-   * Whether the form is loading/saving
+   * Whether the form is fetching/saving
    */
-  loading?: boolean
+  fetching?: boolean
   /**
-   * Whether the form is loading/saving
+   * Whether the form is fetching/saving
    */
   setDrawerHeading?: (heading: string) => void
   /**
@@ -91,10 +91,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   organiserActerId,
 }) => {
   const classes = useStyles()
-  const { activityTypes, loading: activityTypesLoading } = useActivityTypes()
+  const { activityTypes, fetching: activityTypesLoading } = useActivityTypes()
   const { user } = useUser()
 
-  const { acterTypes, loading: acterTypesLoading } = useActerTypes()
+  const { acterTypes, fetching: acterTypesLoading } = useActerTypes()
   const acterType = getActerTypeByName(acterTypes, ActerTypes.ACTIVITY)
 
   const [activityType, setActivityType] = useState(null)

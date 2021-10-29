@@ -1,12 +1,11 @@
-import { MutationResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter, Link as LinkType } from '@acter/schema'
-import LINK_FRAGMENT from '@acter/schema/fragments/link-display.fragment.graphql'
 import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
 
 export type LinkVariables = LinkType & {
@@ -18,7 +17,9 @@ type CreateLinkData = { createLink: LinkType }
 
 type CreateLinkOptions = UseMutationOptions<CreateLinkData, LinkVariables>
 
-export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  link: LinkType | TData
+) => Promise<OperationResult<CreateLinkData, LinkVariables>>
 
 /**
  * Custom hook that creates a new link
@@ -32,48 +33,28 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 export const useCreateLink = (
   acter: Acter,
   options?: CreateLinkOptions
-): [HandleMethod<CreateLinkData>, MutationResult] => {
+): [
+  UseMutationState<CreateLinkData, LinkVariables>,
+  HandleMethod<CreateLinkData>
+] => {
   const { user } = useUser()
 
-  const [createLink, mutationResult] = useNotificationMutation<
+  const [mutationResult, createLink] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
   >(CREATE_LINK, {
     ...options,
-    update: (cache, result, updateOptions) => {
-      options?.update?.(cache, result, updateOptions)
-
-      const {
-        data: { createLink: newLink },
-      } = result
-
-      cache.modify({
-        fields: {
-          links: (existingLinksRefs) => {
-            const newLinkRef = cache.writeFragment({
-              data: newLink,
-              fragment: LINK_FRAGMENT,
-              fragmentName: 'LinkDisplay',
-            })
-            return [...existingLinksRefs, newLinkRef]
-          },
-        },
-      })
-    },
-
-    getSuccessMessage: () => 'Link created',
+    getSuccessMessage: ({ createLink: { name } }) => `Link "${name}" created`,
   })
 
   const handleLink = async (values: LinkVariables) => {
     if (!user) throw 'User is not set'
 
-    createLink({
-      variables: {
-        ...values,
-        acterId: acter.id,
-        userId: user?.id,
-      },
+    return createLink({
+      ...values,
+      acterId: acter.id,
+      userId: user?.id,
     })
   }
-  return [handleLink, mutationResult]
+  return [mutationResult, handleLink]
 }

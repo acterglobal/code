@@ -19,9 +19,9 @@ import { useUser } from '@acter/lib/user/use-user'
 export const Dashboard: FC = () => {
   const classes = useStyles()
 
-  const { user, loading } = useUser()
+  const { user, fetching } = useUser()
 
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
 
   return (
     <Box className={classes.container}>

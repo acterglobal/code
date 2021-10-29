@@ -29,7 +29,7 @@ export const HeaderSection: FC = () => {
 
   const avatarDims = smallScreen ? 65 : 140
 
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null

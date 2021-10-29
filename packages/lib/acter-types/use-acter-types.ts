@@ -1,4 +1,4 @@
-import { useQuery, QueryResult } from '@apollo/client'
+import { useQuery, UseQueryState } from 'urql'
 
 import { ActerType } from '@acter/schema'
 import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
@@ -7,15 +7,15 @@ type UseActerTypesData = {
   acterTypes: ActerType[]
 }
 
-type ActerTypesQueryResult = QueryResult<UseActerTypesData> & {
+type ActerTypesQueryState = UseQueryState<UseActerTypesData> & {
   acterTypes: ActerType[]
 }
 
-export const useActerTypes = (): ActerTypesQueryResult => {
-  const queryResult = useQuery<UseActerTypesData>(QUERY_ACTER_TYPES)
+export const useActerTypes = (): ActerTypesQueryState => {
+  const [result] = useQuery<UseActerTypesData>({ query: QUERY_ACTER_TYPES })
 
   return {
-    ...queryResult,
-    acterTypes: queryResult?.data?.acterTypes,
+    ...result,
+    acterTypes: result?.data?.acterTypes,
   }
 }

@@ -9,7 +9,7 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useCreateSubGroup } from '@acter/lib/acter/use-create-subgroup'
+import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -28,7 +28,8 @@ export const GroupsSection: FC = () => {
 
   const { acter } = useActer({ fetchParent: true })
   const { user } = useUser()
-  const [createGroup] = useCreateSubGroup(acter, {
+  // TODO: show loading state
+  const [_, createGroup] = useCreateActer({
     onCompleted: handleCloseDrawer,
   })
   if (!user || !acter) return null

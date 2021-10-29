@@ -1,31 +1,25 @@
 import { getActer } from '../get-acter'
 
-import { addApolloState, initializeApollo } from '@acter/lib/apollo'
 import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
+import { getUrqlClient } from '@acter/lib/urql'
 import { OrganisationActerType, ExampleActer } from '@acter/schema/fixtures'
 
-jest.mock('@acter/lib/apollo')
-
-const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
-const goodContext = ({
-  props: {
-    acterType: OrganisationActerType,
-  },
-  params: {
-    slug: ExampleActer.slug,
-  },
-} as unknown) as ComposedGetServerSidePropsContext
+jest.mock('@acter/lib/urql')
 
 describe('getActer', () => {
-  const mockInitializeApollo = initializeApollo as jest.Mock
-  const mockAddApolloState = addApolloState as jest.Mock
-
-  beforeAll(() => {
-    mockAddApolloState.mockImplementation((apollo, props) => props)
-  })
+  const mockGetUrqlClient = getUrqlClient as jest.Mock
+  const emptyContext = ({} as unknown) as ComposedGetServerSidePropsContext
+  const goodContext = ({
+    props: {
+      acterType: OrganisationActerType,
+    },
+    params: {
+      slug: ExampleActer.slug,
+    },
+  } as unknown) as ComposedGetServerSidePropsContext
 
   beforeEach(() => {
-    mockInitializeApollo.mockReset()
+    mockGetUrqlClient.mockReset()
   })
 
   it('should return not found when there is missing data', async () => {
@@ -46,8 +40,12 @@ describe('getActer', () => {
 
   it('should return an error if the acter query fails', async () => {
     const error = 'there was an error'
-    mockInitializeApollo.mockReturnValue({
-      query: () => ({ error }),
+    mockGetUrqlClient.mockReturnValue({
+      query: () => ({
+        toPromise: () => ({
+          error,
+        }),
+      }),
     })
 
     expect(await getActer(goodContext)).toStrictEqual(
@@ -56,9 +54,12 @@ describe('getActer', () => {
   })
 
   it('should return an Acter', async () => {
-    // eslint-disable-next-line
-    mockInitializeApollo.mockReturnValue({
-      query: () => ({ data: { findFirstActer: ExampleActer } }),
+    mockGetUrqlClient.mockReturnValue({
+      query: () => ({
+        toPromise: () => ({
+          data: { findFirstActer: ExampleActer },
+        }),
+      }),
     })
     expect(await getActer(goodContext)).toStrictEqual(
       expect.objectContaining({ props: { acter: ExampleActer } })

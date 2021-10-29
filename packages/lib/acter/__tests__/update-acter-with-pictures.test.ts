@@ -75,7 +75,7 @@ describe('upsertActerWithPictures', () => {
       expect(uploadFn).toBeCalledTimes(0)
     })
 
-    it('should throw an error if there was a problem uploading the image', async () => {
+    it('should throw an error if there was a problem upfetchingthe image', async () => {
       const err = new Error('There was an error')
       uploadImage.mockImplementation(() => {
         throw err

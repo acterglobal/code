@@ -1,5 +1,5 @@
-import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { getUrqlClient } from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
 
@@ -20,14 +20,12 @@ export const getActer: ComposedGetServerSideProps = async ({
     }
   }
 
-  const apollo = initializeApollo()
-  const { data, error } = await apollo.query({
-    query: QUERY_ACTER,
-    variables: {
+  const { data, error } = await getUrqlClient()
+    .query(QUERY_ACTER, {
       acterTypeId: props.acterType.id,
       slug: params.slug,
-    },
-  })
+    })
+    .toPromise()
 
   if (error) {
     return {
@@ -46,9 +44,9 @@ export const getActer: ComposedGetServerSideProps = async ({
     }
   }
 
-  return addApolloState(apollo, {
+  return {
     props: {
       acter,
     },
-  })
+  }
 }

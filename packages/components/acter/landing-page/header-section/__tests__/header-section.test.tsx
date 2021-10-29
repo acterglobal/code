@@ -26,8 +26,8 @@ describe('[Header Section]', () => {
   const mockUseRouter = useRouter as jest.Mock
   const mockUseUser = useUser as jest.Mock
   beforeEach(() => {
-    mockUseUser.mockReturnValue({ user, loading: false })
-    mockUseActer.mockReturnValue({ acter: ExampleActer, loading: false })
+    mockUseUser.mockReturnValue({ user, fetching: false })
+    mockUseActer.mockReturnValue({ acter: ExampleActer, fetching: false })
     mockUseRouter.mockReturnValue({
       query: {},
       route: '',

@@ -1,50 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
-import { ApolloError, useLazyQuery } from '@apollo/client'
+import { useQuery, UseQueryState } from 'urql'
 
 import {
   getNotificationsGroupByActer,
-  NotificationsData as Notifications,
+  NotificationsData,
 } from '@acter/lib/notification/get-notifications-group-by-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 
-type UseNotificationsQueryResults = {
-  notifications: Notifications
-  loading: boolean
-  error: ApolloError
+type UseNotificationsQueryResults = UseQueryState & {
+  notifications: NotificationsData
 }
+
 /**
  * Gives notification info for new posts/activities/members on a specific acter
  * @returns object with count of new posts/activities/members
  */
 export const useNotifications = (): UseNotificationsQueryResults => {
-  const [notifications, setNotifications] = useState<Notifications>({})
+  const [notifications, setNotifications] = useState<NotificationsData>({})
   const { user } = useUser()
-  const { asPath: url } = useRouter()
 
-  const [
-    fetchNotifications,
-    { data, loading, error, refetch, ...restQueryResult },
-  ] = useLazyQuery(GET_NOTIFICATIONS)
-
-  useEffect(() => {
-    if (user) {
-      fetchNotifications({
-        variables: { toActer: user.Acter.id },
-      })
-    }
-  }, [user])
-
-  useEffect(() => {
-    if (user) {
-      refetch({
-        variables: { toActer: user.Acter.id },
-      })
-    }
-  }, [url])
+  const [{ data, fetching, ...restQueryResult }] = useQuery({
+    query: GET_NOTIFICATIONS,
+    variables: { toActer: user?.Acter?.id },
+    pause: !user?.Acter?.id,
+  })
 
   useEffect(() => {
     if (data) {
@@ -52,5 +33,5 @@ export const useNotifications = (): UseNotificationsQueryResults => {
     }
   }, [data])
 
-  return { notifications, loading, error, ...restQueryResult }
+  return { notifications, fetching, ...restQueryResult }
 }

@@ -1,11 +1,9 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
-
-import { addToCacheList } from '../apollo/add-to-cache-list'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerConnection } from '@acter/schema'
 import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
 
@@ -18,48 +16,28 @@ type CreateConnectionData = {
   createActerConnectionCustom: ActerConnection
 }
 
-type CreateConnectionOptions = UseMutationOptions<
+type CreateConnectionState = UseMutationOptions<
   CreateConnectionData,
   ConnectionVariables
 >
 
-export type HandleMethod = (
+export type HandleMethod<TData> = (
   acter: Acter,
   follower: Acter
-) => Promise<FetchResult>
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => Promise<OperationResult<TData, Record<string, any>>>
 
 export const useCreateActerConnection = (
   acter: Acter,
-  options?: CreateConnectionOptions
-): [HandleMethod, MutationResult] => {
-  const [createConnection, mutationResult] = useNotificationMutation(
+  options?: CreateConnectionState
+): [
+  UseMutationState<CreateConnectionData, ConnectionVariables>,
+  HandleMethod<CreateConnectionData>
+] => {
+  const [mutationResult, createConnection] = useNotificationMutation(
     CREATE_ACTER_CONNECTION,
     {
       ...options,
-
-      update: (cache, result, updateOptions) => {
-        options?.update?.(cache, result, updateOptions)
-        const {
-          data: { createActerConnectionCustom },
-        } = result
-
-        cache.modify({
-          id: cache.identify(
-            (createActerConnectionCustom.Following as unknown) as StoreObject
-          ),
-          fields: {
-            Followers: addToCacheList(createActerConnectionCustom),
-          },
-        })
-        cache.modify({
-          id: cache.identify(
-            (createActerConnectionCustom.Follower as unknown) as StoreObject
-          ),
-          fields: {
-            Following: addToCacheList(createActerConnectionCustom),
-          },
-        })
-      },
       getSuccessMessage: ({
         createActerConnectionCustom: {
           Follower: { name },
@@ -70,11 +48,9 @@ export const useCreateActerConnection = (
 
   const handleCreateConnection = (acter: Acter, follower: Acter) =>
     createConnection({
-      variables: {
-        followerActerId: follower.id,
-        followingActerId: acter.id,
-      },
+      followerActerId: follower.id,
+      followingActerId: acter.id,
     })
 
-  return [handleCreateConnection, mutationResult]
+  return [mutationResult, handleCreateConnection]
 }

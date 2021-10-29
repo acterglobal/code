@@ -1,6 +1,6 @@
-import { initializeApollo, addApolloState } from '@acter/lib/apollo'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
+import { getUrqlClient } from '@acter/lib/urql'
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
 /**
@@ -10,16 +10,14 @@ import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
  */
 export const getLinks: ComposedGetServerSideProps = async ({ props }) => {
   const { acter } = props
-  const apollo = initializeApollo()
-  const { data, error } = await apollo.query({
-    query: QUERY_LINKS_BY_ACTER,
-    variables: {
+  const { data, error } = await getUrqlClient()
+    .query(QUERY_LINKS_BY_ACTER, {
       acterId:
         acter?.ActerType.name === ActerTypes.GROUP
           ? acter?.Parent.id
           : acter?.id,
-    },
-  })
+    })
+    .toPromise()
   if (error) {
     return {
       props: {
@@ -34,9 +32,9 @@ export const getLinks: ComposedGetServerSideProps = async ({ props }) => {
       notFound: true,
     }
   }
-  return addApolloState(apollo, {
+  return {
     props: {
       links,
     },
-  })
+  }
 }

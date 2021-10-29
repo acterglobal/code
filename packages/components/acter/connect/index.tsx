@@ -14,8 +14,8 @@ import { useUser } from '@acter/lib/user/use-user'
 export const Connect: FC = () => {
   di(useActer, useUser)
   const { loginUrl } = useAuthRedirect()
-  const { user, loading: userLoading } = useUser()
-  const { acter, loading: acterLoading } = useActer()
+  const { user, fetching: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer()
 
   const followers = useMemo(
     () =>

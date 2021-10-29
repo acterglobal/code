@@ -36,8 +36,8 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
 }) => {
   di(useActer, useUser)
   const classes = useStyles()
-  const { acter, loading: acterLoading } = useActer()
-  const { user, loading: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer()
+  const { user, fetching: userLoading } = useUser()
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null

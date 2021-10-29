@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { MutationResult } from '@apollo/client'
+import { UseMutationState } from 'urql'
 
 import {
   // TODO move these functions elsewhere
@@ -10,7 +9,7 @@ import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
 import {
   useNotificationMutation,
   UseMutationOptions,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Acter } from '@acter/schema'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 
@@ -24,15 +23,18 @@ type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
  * Custom hook that updates acter
  * @param acter
  * @returns handle method to update acter
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 
 // TODO Move to use this hook everywhere
 export const useUpdateActer = (
   acter: Acter,
   options?: UpdateActerOptions
-): [HandleMethod<UpdateActerData>, MutationResult] => {
-  const [updateActer, mutationResult] = useNotificationMutation<
+): [
+  UseMutationState<UpdateActerData, ActerVariables>,
+  HandleMethod<UpdateActerData>
+] => {
+  const [mutationResult, updateActer] = useNotificationMutation<
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {
@@ -43,6 +45,7 @@ export const useUpdateActer = (
 
   const handleUpdateActer = async (
     updatedActer: ActerVariables
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
     const acterId = acter?.id ? acter.id : updatedActer.id
     const variables = {
@@ -54,6 +57,7 @@ export const useUpdateActer = (
     }
 
     const setInterestIds = (
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
       updatedActer: { interestIds: any },
       acter: Acter
     ) => {
@@ -64,6 +68,7 @@ export const useUpdateActer = (
     }
 
     const setFollowerIds = (
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
       updatedActer: { followerIds: any },
       acter: Acter
     ) => {
@@ -75,13 +80,11 @@ export const useUpdateActer = (
 
     const dataWithPics = (await _updatePictures(variables)) as ActerVariables
     return updateActer({
-      variables: {
-        ...dataWithPics,
-        followerIds: setFollowerIds(updatedActer, acter),
-        interestIds: setInterestIds(updatedActer, acter),
-      },
+      ...dataWithPics,
+      followerIds: setFollowerIds(updatedActer, acter),
+      interestIds: setInterestIds(updatedActer, acter),
     })
   }
 
-  return [handleUpdateActer, mutationResult]
+  return [mutationResult, handleUpdateActer]
 }

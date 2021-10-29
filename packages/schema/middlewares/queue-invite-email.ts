@@ -1,8 +1,8 @@
 import { MiddlewareFn } from 'type-graphql'
 
 import { inviteEmailCreateQueue } from '@acter/jobs'
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
+import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 
 export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
   { context, args },

@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import {
-  useLazyQuery,
-  MutationOptions,
-  QueryResult,
-  ApolloError,
-} from '@apollo/client'
+import { CombinedError, useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes } from '@acter/lib/constants'
 import { Link } from '@acter/schema'
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
@@ -20,30 +14,34 @@ type LinksVariables = {
   acterId: string
 }
 
-type UseLinksOptions = MutationOptions<LinksData, LinksVariables>
+type UseLinksOptions = UseQueryArgs<LinksVariables, LinksData>
 
-type UseLinksError = ApolloError | Error
+type UseLinksError = CombinedError | Error
 interface UseLinksResult
-  extends Omit<QueryResult<LinksData, LinksVariables>, 'data'> {
+  extends Omit<UseQueryState<LinksData, LinksVariables>, 'data'> {
   links: Link[]
 }
 // TODO: DRY useActer in other hooks
 export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
-  const [loading, setLoading] = useState(false)
+  const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
-  const { acter, loading: acterLoading, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer()
 
   const [
-    fetchLinks,
-    { data, loading: queryLoading, error: queryError, ...restQueryResults },
-  ] = useLazyQuery<LinksData, LinksVariables>(QUERY_LINKS_BY_ACTER, {
+    { data, fetching: queryFetching, error: queryError, ...restQueryResults },
+  ] = useQuery<LinksData, LinksVariables>({
+    query: QUERY_LINKS_BY_ACTER,
+    variables: {
+      acterId: acter?.id,
+    },
+    pause: !acter?.id,
     ...options,
   })
 
   useEffect(() => {
-    setLoading(acterLoading || queryLoading)
-  }, [acterLoading, queryLoading])
+    setFetching(acterFetching || queryFetching)
+  }, [acterFetching, queryFetching])
 
   useEffect(() => {
     if (acterError) return setError(acterError)
@@ -51,21 +49,8 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   }, [acterError, queryError])
 
   useEffect(() => {
-    if (acter?.id) {
-      fetchLinks({
-        variables: {
-          acterId:
-            acter.ActerType.name === ActerTypes.GROUP
-              ? acter.Parent.id
-              : acter.id,
-        },
-      })
-    }
-  }, [acter?.id])
-
-  useEffect(() => {
     if (data?.links) setLinks(data.links)
   }, [data?.links])
 
-  return { links, loading, error, ...restQueryResults } as UseLinksResult
+  return { links, fetching, error, ...restQueryResults } as UseLinksResult
 }

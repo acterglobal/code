@@ -18,7 +18,7 @@ export interface InterestsSectionProps {
 }
 
 export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
-  const { interestTypes, loading: interestTypesLoading } = useInterestTypes()
+  const { interestTypes, fetching: interestTypesLoading } = useInterestTypes()
 
   if (interestTypesLoading) return <LoadingSpinner />
   if (!interestTypes) return null

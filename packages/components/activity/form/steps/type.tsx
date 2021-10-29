@@ -28,9 +28,9 @@ export interface ActivityTypeStepValues {
 
 export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({ onClick }) => {
   const classes = useStyles()
-  const { activityTypes, loading } = useActivityTypes()
+  const { activityTypes, fetching } = useActivityTypes()
 
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!activityTypes) return null
 
   const { setFieldValue } = useFormikContext()

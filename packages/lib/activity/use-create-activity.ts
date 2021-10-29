@@ -1,6 +1,4 @@
-import { MutationResult, FetchResult, StoreObject } from '@apollo/client'
-
-import { addToCacheList } from '../apollo/add-to-cache-list'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   ActivityFormData,
@@ -9,7 +7,7 @@ import {
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
@@ -24,40 +22,30 @@ type CreateActivityOptions = UseMutationOptions<
   ActivityVariables
 >
 
-export type HandleMethod = (activity: ActivityVariables) => Promise<FetchResult>
+export type HandleMethod = (
+  activity: ActivityVariables
+) => Promise<OperationResult<CreateActivityData, ActivityVariables>>
 
 /**
  * Custom hook that creates new activity
  * @param options
  * @returns handle method to create activity
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useCreateActivity = (
   options?: CreateActivityOptions
-): [HandleMethod, MutationResult] => {
-  const [createActivity, mutationResult] = useNotificationMutation<
+): [UseMutationState<CreateActivityData, ActivityVariables>, HandleMethod] => {
+  const [mutationResult, createActivity] = useNotificationMutation<
     CreateActivityData,
     ActivityVariables
   >(CREATE_ACTIVITY, {
     ...options,
-    update: (cache, results, updateOptions) => {
-      options?.update?.(cache, results, updateOptions)
-      const { createActivityCustom: newActivity } = results.data
-
-      cache.modify({
-        id: cache.identify(
-          (newActivity.Acter.Parent as unknown) as StoreObject
-        ),
-        fields: {
-          ActivitiesOrganized: addToCacheList(newActivity),
-        },
-      })
-    },
-    getSuccessMessage: () => `Activity created`,
+    getSuccessMessage: ({ createActivityCustom }) =>
+      `${createActivityCustom?.Acter?.name} created`,
   })
 
   const handleCreateActivity = (data: ActivityVariables) =>
-    createActivity({ variables: { ...prepareActivityValues(data) } })
+    createActivity({ ...prepareActivityValues(data) })
 
-  return [handleCreateActivity, mutationResult]
+  return [mutationResult, handleCreateActivity]
 }

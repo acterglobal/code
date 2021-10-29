@@ -17,15 +17,15 @@ export const PostList: FC = () => {
   di(useActer, usePosts, useUser)
   const classes = useStyles()
 
-  const { posts, loading: postsLoading } = usePosts()
-  const { user, loading: userLoading } = useUser()
-  const { acter, loading: acterLoading } = useActer()
+  const { posts, fetching: postsLoading } = usePosts()
+  const { user, fetching: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading || userLoading || postsLoading) return <LoadingSpinner />
   if (!acter) return null
 
   const isUserActerFollower = acter.Followers.find(
-    ({ Follower }) => Follower.id === user?.Acter.id
+    ({ Follower }) => Follower.id === user?.Acter?.id
   )
 
   const isActerPublic = acter.acterJoinSetting === ActerJoinSettings.EVERYONE

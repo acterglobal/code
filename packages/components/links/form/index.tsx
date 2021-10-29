@@ -8,6 +8,10 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Formik, Form, Field, FormikBag } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreateLink } from '@acter/lib/links/use-create-link'
+import { useDeleteLink } from '@acter/lib/links/use-delete-link'
+import { useUpdateLink } from '@acter/lib/links/use-update-link'
 import { Link } from '@acter/schema'
 
 export type LinkFormValues = Link & {
@@ -18,17 +22,9 @@ export type LinkFormValues = Link & {
 
 export interface LinkFormProps {
   link?: Link
-  onLinkSubmit: (values: LinkFormValues) => Promise<void>
-  onLinkUpdate?: (values: LinkFormValues) => Promise<void>
-  onLinkDelete?: (values: LinkFormValues) => Promise<void>
 }
 
-export const LinkForm: FC<LinkFormProps> = ({
-  link,
-  onLinkSubmit,
-  onLinkUpdate,
-  onLinkDelete,
-}) => {
+export const LinkForm: FC<LinkFormProps> = ({ link }) => {
   const classes = useStyles()
   const initialValues: LinkFormValues = {
     id: link?.id || null,
@@ -37,16 +33,22 @@ export const LinkForm: FC<LinkFormProps> = ({
     ...link,
   }
 
+  const { acter } = useActer()
+
+  const [_createResult, createLink] = useCreateLink(acter)
+  const [_updateResult, updateLink] = useUpdateLink(acter)
+  const [_deleteResult, deleteLink] = useDeleteLink()
+
   const handleSubmit = (
     values: LinkFormValues,
     formikbag: FormikBag<LinkFormProps, Link>
   ) => {
-    link ? onLinkUpdate(values) : onLinkSubmit(values)
+    link ? updateLink(values) : createLink(values)
     formikbag.resetForm()
   }
 
   const onDelete = () => {
-    onLinkDelete(link)
+    deleteLink(link)
   }
 
   return (

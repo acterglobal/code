@@ -15,7 +15,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 export const InfoSection: FC = () => {
   di(useActer)
   const router = useRouter()
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (!acter || acterLoading) return <LoadingSpinner />
 

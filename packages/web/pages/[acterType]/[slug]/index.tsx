@@ -1,10 +1,12 @@
 import React from 'react'
 
 import { GetServerSideProps } from 'next'
+import { withUrqlClient } from 'next-urql'
 
 import { NextPageWithLayout } from 'pages/_app'
 
 import { UrlActerTypes } from '@acter/lib/constants'
+import { getUrqlClientOptions } from '@acter/lib/urql'
 
 const { NETWORKS, ORGANISATIONS } = UrlActerTypes
 
@@ -25,4 +27,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-export default ActerLandingPage
+export default withUrqlClient(getUrqlClientOptions)(ActerLandingPage)

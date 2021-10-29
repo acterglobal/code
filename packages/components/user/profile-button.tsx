@@ -54,7 +54,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
         <AccountCircle />
       )}
       <Typography className={classes.text}>
-        {user.Acter.name || user.email}
+        {user.Acter?.name || user.email}
       </Typography>
       <KeyboardArrowDownOutlined className={classes.downIcon} />
     </IconButton>

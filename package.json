@@ -32,7 +32,6 @@
     "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.0",
     "@babel/core": "^7.14.8",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-decorators": "^7.12.12",
@@ -49,14 +48,17 @@
     "env-cmd": "^10.1.0",
     "graphql": "^15.4.0",
     "just-capitalize": "^1.0.1",
+    "next-urql": "^3.2.1",
     "notistack": "^1.0.10",
     "pm2": "^5.1.0",
     "react": "^17.0.2",
     "react-cookie-consent": "^6.4.1",
     "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
     "react-magnetic-di": "^2.2.6",
     "reflect-metadata": "^0.1.13",
-    "tar": "^6.1.8"
+    "tar": "^6.1.8",
+    "urql": "^2.0.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.14.5",

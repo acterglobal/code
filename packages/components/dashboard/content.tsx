@@ -21,9 +21,9 @@ const { ACTIVITY, GROUP } = ActerTypes
 
 export const DashboardContent: FC = () => {
   const classes = useStyles()
-  const { user, loading: userLoading } = useUser()
+  const { user, fetching: userLoading } = useUser()
 
-  const { activities, loading: activitiesLoading } = useActivities(
+  const { activities, fetching: activitiesLoading } = useActivities(
     user?.Acter.id
   )
 

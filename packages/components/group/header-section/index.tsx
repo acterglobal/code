@@ -17,7 +17,7 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null

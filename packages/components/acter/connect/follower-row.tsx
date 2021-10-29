@@ -22,17 +22,17 @@ interface FollowerRowProps {
 export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
-  const [loading, setLoading] = useState(false)
-  const { acter, loading: acterLoading } = useActer()
+  const [fetching, setLoading] = useState(false)
+  const { acter, fetching: acterLoading } = useActer()
 
   const [
+    { fetching: creatingConnection },
     createActerConnection,
-    { loading: creatingConnection },
   ] = useCreateActerConnection(acter)
 
   const [
+    { fetching: deletingConnection },
     deleteActerConnection,
-    { loading: deletingConnection },
   ] = useDeleteActerConnection(acter)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
 
   const connection = getActerConnection(acter, follower)
   useEffect(() => {
-    if (loading) {
+    if (fetching) {
       setOnClick(() => noop)
       return
     }
@@ -49,7 +49,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
     setOnClick(() =>
       connection ? deleteActerConnection : createActerConnection
     )
-  }, [loading, connection])
+  }, [fetching, connection])
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null

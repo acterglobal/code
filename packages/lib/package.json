@@ -7,6 +7,9 @@
   "dependencies": {
     "@prisma/client": "^2.26.0",
     "@sendgrid/mail": "^7.4.5",
+    "@urql/core": "^2.3.3",
+    "@urql/devtools": "^2.0.3",
+    "@urql/exchange-graphcache": "^4.3.5",
     "date-fns-tz": "^1.1.6",
     "deep-equal": "^2.0.5",
     "deepmerge": "^4.2.2",
@@ -19,17 +22,18 @@
     "nodemailer": "^6.6.2",
     "pluralize": "^8.0.0",
     "ramda": "^0.27.1",
-    "slugify": "^1.4.6"
+    "slugify": "^1.4.6",
+    "urql": "^2.0.5"
   },
   "devDependencies": {
     "@types/intercom-client": "^2.11.11",
     "@types/mime": "^2.0.3"
   },
   "peerDependencies": {
-    "@apollo/client": "*",
     "@auth0/nextjs-auth0": "*",
     "axios": "*",
     "bullmq": "*",
+    "graphql": "*",
     "next": "*",
     "notistack": "*",
     "react": "*"

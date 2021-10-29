@@ -21,10 +21,10 @@ export interface ProfileNotificationsFormValues {
 }
 
 export const ProfileNotificationsForm: FC = () => {
-  const { user, loading } = useUser()
-  const [updateActer] = useUpdateActer(user?.Acter)
+  const { user, fetching } = useUser()
+  const [_, updateActer] = useUpdateActer(user?.Acter)
 
-  if (loading || !user) {
+  if (fetching || !user) {
     return <>Loading...</>
   }
 

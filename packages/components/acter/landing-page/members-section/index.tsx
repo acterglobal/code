@@ -24,7 +24,7 @@ export const MembersSection: FC = () => {
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
 
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null

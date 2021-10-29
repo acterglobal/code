@@ -33,7 +33,7 @@ export type InviteFormValues = {
 export const InviteForm: FC = () => {
   const classes = useStyles()
 
-  const [createInvites] = useCreateInvites()
+  const [_, createInvites] = useCreateInvites()
   const { acter } = useActer()
   const { user } = useUser()
   if (!acter || !user) return null

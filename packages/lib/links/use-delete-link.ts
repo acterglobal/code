@@ -1,9 +1,9 @@
-import { MutationResult, StoreObject } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Link as LinkType } from '@acter/schema'
 import DELETE_LINK from '@acter/schema/mutations/delete-link.graphql'
 
@@ -15,7 +15,9 @@ type DeleteLinkData = { deleteLink: LinkType }
 
 type DeleteLinkOptions = UseMutationOptions<DeleteLinkData, LinkVariables>
 
-export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  link: LinkType | TData
+) => Promise<OperationResult<DeleteLinkData, LinkVariables>>
 
 /**
  * Custom hook that deletes a link
@@ -26,36 +28,25 @@ export type HandleMethod<TData> = (link: LinkType | TData) => Promise<void>
 
 export const useDeleteLink = (
   options?: DeleteLinkOptions
-): [HandleMethod<DeleteLinkData>, MutationResult] => {
-  const [deleteLink, mutationResult] = useNotificationMutation<
+): [
+  UseMutationState<DeleteLinkData, LinkVariables>,
+  HandleMethod<DeleteLinkData>
+] => {
+  const [mutationResult, deleteLink] = useNotificationMutation<
     DeleteLinkData,
     LinkVariables
   >(DELETE_LINK, {
     ...options,
-    update: (cache, result, updateOptions) => {
-      options?.update?.(cache, result, updateOptions)
-
-      const {
-        data: { deleteLink: deletedLink },
-      } = result
-
-      cache.modify({
-        id: cache.identify((deletedLink as unknown) as StoreObject),
-        fields: (_, { DELETE }) => DELETE,
-      })
+    getSuccessMessage: (data) => {
+      return `Link "${data.deleteLink.name}" deleted`
     },
-
-    getSuccessMessage: () => 'Link deleted',
   })
 
-  const handleDeleteLink = async (values: LinkVariables) => {
+  const handleDeleteLink = async (values: LinkVariables) =>
     deleteLink({
-      variables: {
-        ...values,
-        linkId: values.id,
-      },
+      ...values,
+      linkId: values.id,
     })
-  }
 
-  return [handleDeleteLink, mutationResult]
+  return [mutationResult, handleDeleteLink]
 }

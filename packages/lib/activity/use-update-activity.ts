@@ -1,4 +1,4 @@
-import { MutationResult, FetchResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   ActivityFormData,
@@ -8,7 +8,7 @@ import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
@@ -23,18 +23,20 @@ type UpdateActivityOptions = UseMutationOptions<
   ActivityVariables
 >
 
-export type HandleMethod = (activity: ActivityVariables) => Promise<FetchResult>
+export type HandleMethod = (
+  activity: ActivityVariables
+) => Promise<OperationResult<UpdateActivityData, ActivityVariables>>
 
 /**
  * Custom hook that updates new activity
  * @param options
  * @returns handle method to update activity
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useUpdateActivity = (
   options?: UpdateActivityOptions
-): [HandleMethod, MutationResult] => {
-  const [updateActivity, mutationResult] = useNotificationMutation<
+): [UseMutationState<UpdateActivityData, ActivityVariables>, HandleMethod] => {
+  const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
   >(UPDATE_ACTIVITY, {
@@ -47,11 +49,9 @@ export const useUpdateActivity = (
     const dataWithPic = await _updatePictures(data)
 
     return updateActivity({
-      variables: {
-        ...dataWithPic,
-      },
+      ...dataWithPic,
     })
   }
 
-  return [handleCreateActivity, mutationResult]
+  return [mutationResult, handleCreateActivity]
 }

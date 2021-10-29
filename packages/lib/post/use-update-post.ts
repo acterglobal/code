@@ -1,9 +1,9 @@
-import { MutationResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { Post as PostType } from '@acter/schema'
 import UPDATE_POST from '@acter/schema/mutations/post-update.graphql'
 
@@ -19,18 +19,23 @@ interface UpdatePostOptions
   onCompleted: (UpdatePostData) => PostType[] | void
 }
 
-export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  post: PostType | TData
+) => Promise<OperationResult<UpdatePostData, PostVariables>>
 
 /**
  * Custom hook that updates a post
  * @param displayPostList
  * @returns handle method to update post
- * @returns mutation results from apollo
+ * @returns mutation results
  */
 export const useUpdatePost = (
   options?: UpdatePostOptions
-): [HandleMethod<UpdatePostData>, MutationResult] => {
-  const [updatePost, mutationResult] = useNotificationMutation<
+): [
+  UseMutationState<UpdatePostData, PostVariables>,
+  HandleMethod<UpdatePostData>
+] => {
+  const [mutationResult, updatePost] = useNotificationMutation<
     UpdatePostData,
     PostVariables
   >(UPDATE_POST, {
@@ -39,13 +44,11 @@ export const useUpdatePost = (
   })
 
   const handlePost = async (values: PostVariables) => {
-    updatePost({
-      variables: {
-        ...values,
-        postId: values.id,
-      },
+    return updatePost({
+      ...values,
+      postId: values.id,
     })
   }
 
-  return [handlePost, mutationResult]
+  return [mutationResult, handlePost]
 }

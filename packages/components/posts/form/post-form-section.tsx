@@ -14,6 +14,7 @@ import {
 } from '@acter/components/posts/form'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useCreateComment } from '@acter/lib/post/use-create-comment'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { User } from '@acter/schema'
 import { Post as PostType } from '@acter/schema'
@@ -33,16 +34,22 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   di(useActer)
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
-  const { acter, loading: acterLoading } = useActer()
-  const [createPost] = useCreatePost(acter)
+  const { acter, fetching: acterLoading } = useActer()
+  const [{ fetching: createPostFetching }, createPost] = useCreatePost(acter)
+  const [createComment, { fetching: createCommentFetching }] = useCreateComment(
+    acter
+  )
 
-  if (!acter || acterLoading) return <LoadingSpinner />
+  if (!acter || acterLoading || createPostFetching || createCommentFetching)
+    return <LoadingSpinner />
 
   const handleClick = () => setShowForm(!showForm)
 
+  const createFn = parentId ? createComment : createPost
+
   const handlePostSubmit = (data: PostFormValues) => {
     setShowForm(false)
-    createPost(data)
+    createFn(data)
   }
 
   return (

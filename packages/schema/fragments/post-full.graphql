@@ -1,0 +1,11 @@
+#import "../fragments/post-display.fragment.graphql"
+
+fragment PostFull on Post {
+  ...PostDisplay
+  Comments {
+    ...PostDisplay
+  }
+  Parent {
+    id
+  }
+}

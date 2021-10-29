@@ -1,4 +1,3 @@
-import { QueueNewActivityNotification } from '../middlewares/queue-activity-notifications'
 import {
   Authorized,
   Resolver,
@@ -10,7 +9,7 @@ import {
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
-import type { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   Acter,
   ActerConnectionRole,
@@ -19,6 +18,7 @@ import {
   ActerNotificationSettings,
   Activity,
 } from '@acter/schema'
+import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole

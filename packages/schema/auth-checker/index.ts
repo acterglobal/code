@@ -1,6 +1,6 @@
 import { AuthChecker } from 'type-graphql'
 
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
 
 const { ADMIN } = ActerConnectionRole

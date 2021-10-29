@@ -20,10 +20,7 @@ export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
 export const ActerSettings: FC<ActerSettingsProps> = ({
   links,
   onSettingsChange,
-  loading,
-  onLinkSubmit,
-  onLinkUpdate,
-  onLinkDelete,
+  fetching,
 }) => {
   const [showContent, setShowContent] = useState(ActerSettingsMenu.MEMBERS)
   const handleClick = (content) => {
@@ -47,17 +44,12 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
             <SettingsSectionHeading>Join</SettingsSectionHeading>
             <ActerUsersSettings
               onSettingsChange={onSettingsChange}
-              loading={loading}
+              fetching={fetching}
             />
           </>
         )}
         {showContent === ActerSettingsMenu.LINKS && (
-          <LinkSection
-            links={links}
-            onLinkSubmit={onLinkSubmit}
-            onLinkUpdate={onLinkUpdate}
-            onLinkDelete={onLinkDelete}
-          />
+          <LinkSection links={links} />
         )}
       </SettingsContent>
     </SettingsContainer>

@@ -29,16 +29,16 @@ export interface ActerUsersSettingsProps {
   /**
    * Whether we're in the middle of updating
    */
-  loading: boolean
+  fetching: boolean
 }
 
 export const ActerUsersSettings: FC<ActerUsersSettingsProps> = ({
   onSettingsChange,
 }) => {
   di(useActer)
-  const { acter, loading } = useActer()
+  const { acter, fetching } = useActer()
   const classes = useStyles()
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!acter) return null
 
   const initialValues: ActerUserSettingsInitialValues = {
