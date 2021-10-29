@@ -27,7 +27,6 @@ export const ExampleActer: Acter = {
   url: 'company url',
   avatarUrl: `https://acter-dev.imgix.net/assets/default-avatar.png`,
   bannerUrl: `https://acter-dev.imgix.net/assets/default-banner.png`,
-  useAdmins: false,
   createdAt: new Date(),
   updatedAt: new Date(),
   createdByUserId: ExampleUser.id,

@@ -50,7 +50,6 @@ model Acter {
   url         String?
   avatarUrl   String?  @map("avatar_url")
   bannerUrl   String?  @map("banner_url")
-  useAdmins   Boolean  @default(false) @map("use_admins")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -159,25 +158,7 @@ model ActerType {
   name String @unique
 
   Acter Acter[]
-
-  ActerTypeRules   ActerTypeRule[] @relation("subject")
-  RulesOnActerType ActerTypeRule[] @relation("object")
   @@map("acter_types")
-}
-
-model ActerTypeRule {
-  id        String  @id @default(uuid())
-  canCreate Boolean @default(false) @map("can_create")
-  canJoin   Boolean @default(false) @map("can_join")
-  canBecome Boolean @default(false) @map("can_become")
-
-  Subject            ActerType @relation("subject", fields: [subjectActerTypeId], references: [id])
-  subjectActerTypeId String    @map("subject_acter_type_id")
-  Object             ActerType @relation("object", fields: [objectActerTypeId], references: [id])
-  objectActerTypeId  String    @map("object_acter_type_id")
-
-  @@unique(name: "subject_object_acter_type_ids", fields: [subjectActerTypeId, objectActerTypeId])
-  @@map("acter_type_rules")
 }
 
 model Activity {
@@ -280,12 +261,12 @@ model InterestType {
 }
 
 model Invite {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   email      String
   message    String
   error      String?
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
   sentAt     DateTime? @map("sent_at")
   acceptedAt DateTime? @map("accepted_at")
 
