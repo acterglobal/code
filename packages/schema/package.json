@@ -4,7 +4,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "yarn prisma generate",
+    "build": "yarn generate && yarn build:schema && yarn build:codegen",
+    "generate": "yarn prisma generate",
+    "build:schema": "ts-node ./build-schema",
+    "build:codegen": "graphql-codegen --config codegen.yml",
     "db:migrate": "yarn db:migrate:run --create-only",
     "db:migrate:run": "yarn env-cmd prisma migrate dev",
     "db:migrate:prod": "yarn env-cmd migrate deploy",
@@ -25,6 +28,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.2.1",
+    "@graphql-codegen/urql-introspection": "^2.1.0",
     "@types/bull": "^3.15.2",
     "@types/node": "^16.9.1",
     "ts-node": "^10.2.1",

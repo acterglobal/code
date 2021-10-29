@@ -11,7 +11,7 @@ node_modules
 .pnp.*
 
 # Prisma TypeGraphQL
-/packages/schema/types
+generated
 
 # testing
 /coverage

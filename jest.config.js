@@ -14,7 +14,7 @@ module.exports = {
     '/node_modules/',
     '\\.(gql|graphql)$',
     '/.next/',
-    '/packages/schema/types',
+    '/packages/schema/generated',
   ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module

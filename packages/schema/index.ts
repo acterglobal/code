@@ -1,2 +1,2 @@
-export * from './types/enums'
-export * from './types/models'
+export * from './generated/enums'
+export * from './generated/models'

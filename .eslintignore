@@ -1,8 +1,7 @@
 node_modules
 coverage
 .next
-@acter/schema/types
-packages/schema/types
+generated
 
 #Storybook
 storybook-static

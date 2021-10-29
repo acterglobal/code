@@ -4,8 +4,8 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/apollo/use-notification-mutation'
+import { InviteCreateManyInput } from '@acter/schema/generated/resolvers/inputs/InviteCreateManyInput'
 import CREATE_INVITES from '@acter/schema/mutations/invites-create.graphql'
-import { InviteCreateManyInput } from '@acter/schema/types'
 
 export type CreateInvitesVariables = { data: InviteCreateManyInput[] }
 
