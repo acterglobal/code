@@ -1,10 +1,4 @@
-import {
-  Acter,
-  ActerType,
-  Activity,
-  ActivityType,
-  User,
-} from '@acter/schema/types'
+import { Acter, ActerType, Activity, ActivityType, User } from '@acter/schema'
 
 export type ActerPick = Acter &
   Required<

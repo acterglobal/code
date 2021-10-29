@@ -4,8 +4,8 @@ import { useLazyQuery, ApolloError, QueryResult } from '@apollo/client'
 import { useUser as getUser } from '@auth0/nextjs-auth0'
 
 import { initializeApollo } from '@acter/lib/apollo'
+import { User } from '@acter/schema'
 import GET_USER from '@acter/schema/queries/user-by-email.graphql'
-import { User } from '@acter/schema/types'
 
 type UseUserData = { user: User }
 
