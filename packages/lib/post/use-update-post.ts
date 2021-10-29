@@ -32,8 +32,8 @@ export type HandleMethod<TData> = (
 export const useUpdatePost = (
   options?: UpdatePostOptions
 ): [
-  HandleMethod<UpdatePostData>,
-  UseMutationState<UpdatePostData, PostVariables>
+  UseMutationState<UpdatePostData, PostVariables>,
+  HandleMethod<UpdatePostData>
 ] => {
   const [mutationResult, updatePost] = useNotificationMutation<
     UpdatePostData,
@@ -50,5 +50,5 @@ export const useUpdatePost = (
     })
   }
 
-  return [handlePost, mutationResult]
+  return [mutationResult, handlePost]
 }

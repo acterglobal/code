@@ -23,7 +23,7 @@ export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
   const { user, fetching } = useUser()
 
-  const [updateActer] = useUpdateActer(user?.Acter)
+  const [_, updateActer] = useUpdateActer(user?.Acter)
 
   if (fetching) return <>Loading...</>
   if (!user) return null

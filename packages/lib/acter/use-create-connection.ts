@@ -31,8 +31,8 @@ export const useCreateActerConnection = (
   acter: Acter,
   options?: CreateConnectionState
 ): [
-  HandleMethod<CreateConnectionData>,
-  UseMutationState<CreateConnectionData, ConnectionVariables>
+  UseMutationState<CreateConnectionData, ConnectionVariables>,
+  HandleMethod<CreateConnectionData>
 ] => {
   const [mutationResult, createConnection] = useNotificationMutation(
     CREATE_ACTER_CONNECTION,
@@ -52,5 +52,5 @@ export const useCreateActerConnection = (
       followingActerId: acter.id,
     })
 
-  return [handleCreateConnection, mutationResult]
+  return [mutationResult, handleCreateConnection]
 }

@@ -35,7 +35,7 @@ export type HandleMethod = (
  */
 export const useUpdateActivity = (
   options?: UpdateActivityOptions
-): [HandleMethod, UseMutationState<UpdateActivityData, ActivityVariables>] => {
+): [UseMutationState<UpdateActivityData, ActivityVariables>, HandleMethod] => {
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
@@ -53,5 +53,5 @@ export const useUpdateActivity = (
     })
   }
 
-  return [handleCreateActivity, mutationResult]
+  return [mutationResult, handleCreateActivity]
 }

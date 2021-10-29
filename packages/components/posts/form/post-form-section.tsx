@@ -35,7 +35,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
   const { acter, fetching: acterLoading } = useActer()
-  const [createPost, { fetching: createPostFetching }] = useCreatePost(acter)
+  const [{ fetching: createPostFetching }, createPost] = useCreatePost(acter)
   const [createComment, { fetching: createCommentFetching }] = useCreateComment(
     acter
   )

@@ -34,8 +34,8 @@ export type HandleMethod<TData> = (
 export const useDeletePost = (
   options?: DeletePostOptions
 ): [
-  HandleMethod<DeletePostData>,
-  UseMutationState<DeletePostData, PostVariables>
+  UseMutationState<DeletePostData, PostVariables>,
+  HandleMethod<DeletePostData>
 ] => {
   const [mutationResult, deletePost] = useNotificationMutation<
     DeletePostData,
@@ -49,5 +49,5 @@ export const useDeletePost = (
       postId: values.id,
     })
 
-  return [handleDeletePost, mutationResult]
+  return [mutationResult, handleDeletePost]
 }

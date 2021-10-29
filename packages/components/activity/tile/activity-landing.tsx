@@ -38,8 +38,8 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
     acterTypeName: 'activities',
     slug: activitySlug,
   })
-  const [updateActivity] = useUpdateActivity({ onCompleted: handleClose })
-  const [deleteActivity] = useDeleteActer({ onCompleted: handleClose })
+  const [_, updateActivity] = useUpdateActivity({ onCompleted: handleClose })
+  const [_, deleteActivity] = useDeleteActer({ onCompleted: handleClose })
   if (!acter) return null
 
   return (

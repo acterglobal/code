@@ -34,8 +34,8 @@ export const useUpdateLink = (
   acter: Acter,
   options?: UpdateLinkOptions
 ): [
-  HandleMethod<UpdateLinkData>,
-  UseMutationState<UpdateLinkData, LinkVariables>
+  UseMutationState<UpdateLinkData, LinkVariables>,
+  HandleMethod<UpdateLinkData>
 ] => {
   const { user } = useUser()
   const [mutationResult, updateLink] = useNotificationMutation<
@@ -56,5 +56,5 @@ export const useUpdateLink = (
       userId: user?.id,
     })
   }
-  return [handleLink, mutationResult]
+  return [mutationResult, handleLink]
 }

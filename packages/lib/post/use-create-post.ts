@@ -1,4 +1,4 @@
-import { UseMutationState } from 'urql'
+import { UseMutationState, OperationResult } from 'urql'
 
 import {
   UseMutationOptions,
@@ -16,7 +16,9 @@ export type PostVariables = PostType & {
 type CreatePostData = { createPost: PostType }
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
-export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  post: PostType | TData
+) => Promise<OperationResult<CreatePostData, PostVariables>>
 
 /**
  * Custom hook that creates new post
@@ -28,8 +30,8 @@ export const useCreatePost = (
   acter: Acter,
   options?: CreatePostOptions
 ): [
-  HandleMethod<CreatePostData>,
-  UseMutationState<CreatePostData, PostVariables>
+  UseMutationState<CreatePostData, PostVariables>,
+  HandleMethod<CreatePostData>
 ] => {
   const { user } = useUser()
 
@@ -43,12 +45,12 @@ export const useCreatePost = (
 
   const handlePost = async (values: PostVariables) => {
     if (!user) throw 'User is not set.'
-    createPost({
+    return createPost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,
     })
   }
 
-  return [handlePost, mutationResult]
+  return [mutationResult, handlePost]
 }

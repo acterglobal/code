@@ -49,10 +49,12 @@ export const ActionButtons: FC = () => {
     setAction(null)
   }
 
-  const [updateActer] = useUpdateActer(acter, {
+  const [_updateResult, updateActer] = useUpdateActer(acter, {
     onCompleted: handleDrawerClose,
   })
-  const [deleteActer] = useDeleteActer({ onCompleted: handleDrawerClose })
+  const [_deleteResult, deleteActer] = useDeleteActer({
+    onCompleted: handleDrawerClose,
+  })
 
   if (!acter || !user) return null
 

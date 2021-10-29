@@ -23,8 +23,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
 
-  const [updatePost, { fetching: updateFetching }] = useUpdatePost()
-  const [deletePost, { fetching: deleteFetching }] = useDeletePost()
+  const [{ fetching: updateFetching }, updatePost] = useUpdatePost()
+  const [{ fetching: deleteFetching }, deletePost] = useDeletePost()
 
   const handleEdit = () => setToggleForm(!toggleForm)
   const handleCancelEdit = () => setToggleForm(!toggleForm)

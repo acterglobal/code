@@ -27,8 +27,8 @@ export const ConnectionStateEditor: FC<ConnectionStateEditorProps> = ({
   onCancel,
 }) => {
   const [
-    updateActerConnection,
     { fetching: updatingConnection },
+    updateActerConnection,
   ] = useUpdateActerConnection()
 
   const { Follower, role } = connection

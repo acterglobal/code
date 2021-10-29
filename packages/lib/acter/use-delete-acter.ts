@@ -24,7 +24,7 @@ type DeleteActerOptions = UseMutationOptions<DeleteActerData, ActerVariables>
  */
 export const useDeleteActer = (
   options?: DeleteActerOptions
-): [HandleMethod, UseMutationState<DeleteActerData, ActerVariables>] => {
+): [UseMutationState<DeleteActerData, ActerVariables>, HandleMethod] => {
   const router = useRouter()
   const [mutationResult, deleteActer] = useNotificationMutation<
     DeleteActerData,
@@ -46,5 +46,5 @@ export const useDeleteActer = (
   })
   const handleDeleteActer = (acterId) => deleteActer({ acterId })
 
-  return [handleDeleteActer, mutationResult]
+  return [mutationResult, handleDeleteActer]
 }

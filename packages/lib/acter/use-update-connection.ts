@@ -19,8 +19,8 @@ type HandleMethod = (
 ) => Promise<OperationResult<UpdateActerConnectionData>>
 
 export const useUpdateActerConnection = (): [
-  HandleMethod,
-  UseMutationState<UpdateActerConnectionData, UpdateActerConnectionVariables>
+  UseMutationState<UpdateActerConnectionData, UpdateActerConnectionVariables>,
+  HandleMethod
 ] => {
   const [mutationResult, updateConnection] = useNotificationMutation<
     UpdateActerConnectionData,
@@ -36,5 +36,5 @@ export const useUpdateActerConnection = (): [
       role: role,
     })
 
-  return [handleUpdateConnection, mutationResult]
+  return [mutationResult, handleUpdateConnection]
 }

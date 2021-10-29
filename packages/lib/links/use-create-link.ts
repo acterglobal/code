@@ -34,8 +34,8 @@ export const useCreateLink = (
   acter: Acter,
   options?: CreateLinkOptions
 ): [
-  HandleMethod<CreateLinkData>,
-  UseMutationState<CreateLinkData, LinkVariables>
+  UseMutationState<CreateLinkData, LinkVariables>,
+  HandleMethod<CreateLinkData>
 ] => {
   const { user } = useUser()
 
@@ -56,5 +56,5 @@ export const useCreateLink = (
       userId: user?.id,
     })
   }
-  return [handleLink, mutationResult]
+  return [mutationResult, handleLink]
 }

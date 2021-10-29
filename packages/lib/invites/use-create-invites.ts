@@ -1,9 +1,9 @@
-import { FetchResult, MutationResult } from '@apollo/client'
+import { OperationResult, UseMutationState } from 'urql'
 
 import {
   UseMutationOptions,
   useNotificationMutation,
-} from '@acter/lib/apollo/use-notification-mutation'
+} from '@acter/lib/urql/use-notification-mutation'
 import { InviteCreateManyInput } from '@acter/schema/generated/resolvers/inputs/InviteCreateManyInput'
 import CREATE_INVITES from '@acter/schema/mutations/invites-create.graphql'
 
@@ -18,7 +18,7 @@ type CreateInviteOptions = UseMutationOptions<
 
 export type HandleMethod = (
   values: InviteCreateManyInput[]
-) => Promise<FetchResult>
+) => Promise<OperationResult<CreateInvitesData, CreateInvitesVariables>>
 
 /**
  * Custom hook that create invites
@@ -28,8 +28,11 @@ export type HandleMethod = (
 
 export const useCreateInvites = (
   options?: CreateInviteOptions
-): [HandleMethod, MutationResult] => {
-  const [createManyInvite, mutationResult] = useNotificationMutation(
+): [
+  UseMutationState<CreateInvitesData, CreateInvitesVariables>,
+  HandleMethod
+] => {
+  const [mutationResult, createManyInvite] = useNotificationMutation(
     CREATE_INVITES,
     {
       ...options,
@@ -37,8 +40,7 @@ export const useCreateInvites = (
     }
   )
 
-  const handleCreateInvite = (values) =>
-    createManyInvite({ variables: { data: values } })
+  const handleCreateInvite = (values) => createManyInvite({ data: values })
 
-  return [handleCreateInvite, mutationResult]
+  return [mutationResult, handleCreateInvite]
 }

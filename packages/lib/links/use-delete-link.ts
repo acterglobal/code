@@ -29,8 +29,8 @@ export type HandleMethod<TData> = (
 export const useDeleteLink = (
   options?: DeleteLinkOptions
 ): [
-  HandleMethod<DeleteLinkData>,
-  UseMutationState<DeleteLinkData, LinkVariables>
+  UseMutationState<DeleteLinkData, LinkVariables>,
+  HandleMethod<DeleteLinkData>
 ] => {
   const [mutationResult, deleteLink] = useNotificationMutation<
     DeleteLinkData,
@@ -48,5 +48,5 @@ export const useDeleteLink = (
       linkId: values.id,
     })
 
-  return [handleDeleteLink, mutationResult]
+  return [mutationResult, handleDeleteLink]
 }

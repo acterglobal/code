@@ -31,8 +31,8 @@ export const useUpdateActer = (
   acter: Acter,
   options?: UpdateActerOptions
 ): [
-  HandleMethod<UpdateActerData>,
-  UseMutationState<UpdateActerData, ActerVariables>
+  UseMutationState<UpdateActerData, ActerVariables>,
+  HandleMethod<UpdateActerData>
 ] => {
   const [mutationResult, updateActer] = useNotificationMutation<
     UpdateActerData,
@@ -86,5 +86,5 @@ export const useUpdateActer = (
     })
   }
 
-  return [handleUpdateActer, mutationResult]
+  return [mutationResult, handleUpdateActer]
 }

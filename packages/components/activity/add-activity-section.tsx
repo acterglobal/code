@@ -29,7 +29,7 @@ export const AddActivitySection: FC = () => {
 
   const { acter } = useActer()
   const { user } = useUser()
-  const [createActivity, { data }] = useCreateActivity()
+  const [{ data }, createActivity] = useCreateActivity()
 
   useEffect(() => {
     if (data?.createActivityCustom) {

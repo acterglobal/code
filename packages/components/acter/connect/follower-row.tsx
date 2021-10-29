@@ -26,13 +26,13 @@ export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
   const { acter, fetching: acterLoading } = useActer()
 
   const [
-    createActerConnection,
     { fetching: creatingConnection },
+    createActerConnection,
   ] = useCreateActerConnection(acter)
 
   const [
-    deleteActerConnection,
     { fetching: deletingConnection },
+    deleteActerConnection,
   ] = useDeleteActerConnection(acter)
 
   useEffect(() => {

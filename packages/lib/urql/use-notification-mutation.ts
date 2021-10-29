@@ -19,11 +19,11 @@ export interface UseMutationOptions<TData, TVariables> {
 }
 
 /**
- * Wrapper function for Apollo GraphQL's useMutation() function that adds
+ * Wrapper function for Urql's useMutation() function that adds
  * notifications via notistack
  * @param mutation The GraphQL mutation function
- * @param options Apollo mutation options
- * @returns The same thing that ApolloGraphQL's useMutation() function does
+ * @param options Urql mutation options
+ * @returns The same thing that Urql's useMutation() function does
  */
 export const useNotificationMutation = <
   //eslint-disable-next-line @typescript-eslint/no-explicit-any

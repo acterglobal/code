@@ -31,7 +31,7 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
   const [fetching, setLoading] = useState(false)
   const { acter, fetching: getActerLoading } = useActer()
   const { links, fetching: linksLoading } = useLinks()
-  const [updateActer, { fetching: updateActerLoading }] = useUpdateActer(acter)
+  const [{ fetching: updateActerLoading }, updateActer] = useUpdateActer(acter)
 
   useEffect(() => {
     setLoading(getActerLoading || linksLoading || updateActerLoading)

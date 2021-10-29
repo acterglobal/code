@@ -35,9 +35,9 @@ export const LinkForm: FC<LinkFormProps> = ({ link }) => {
 
   const { acter } = useActer()
 
-  const [createLink] = useCreateLink(acter)
-  const [updateLink] = useUpdateLink(acter)
-  const [deleteLink] = useDeleteLink()
+  const [_createResult, createLink] = useCreateLink(acter)
+  const [_updateResult, updateLink] = useUpdateLink(acter)
+  const [_deleteResult, deleteLink] = useDeleteLink()
 
   const handleSubmit = (
     values: LinkFormValues,

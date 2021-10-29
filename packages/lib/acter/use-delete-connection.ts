@@ -26,8 +26,8 @@ export const useDeleteActerConnection = (
   acter: Acter,
   options?: DeleteConnectionOptions
 ): [
-  HandleMethod,
-  UseMutationState<DeleteConnectionData, ConnectionVariables>
+  UseMutationState<DeleteConnectionData, ConnectionVariables>,
+  HandleMethod
 ] => {
   const [mutationResult, deleteConnection] = useNotificationMutation(
     DELETE_ACTER_CONNECTION,
@@ -43,5 +43,5 @@ export const useDeleteActerConnection = (
       followingActerId: acter.id,
     })
 
-  return [handleDeleteConnection, mutationResult]
+  return [mutationResult, handleDeleteConnection]
 }
