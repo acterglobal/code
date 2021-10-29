@@ -2,15 +2,17 @@ import React, { FC } from 'react'
 
 import {
   Box,
+  Button,
   createStyles,
   ListItem,
   makeStyles,
   Theme,
   Typography,
+  useTheme,
 } from '@material-ui/core'
 
-import clsx from 'clsx'
-
+// import { inviteEmailCreateQueue } from '@acter/jobs'
+import { useUser } from '@acter/lib/user/use-user'
 import { Invite } from '@acter/schema'
 
 interface InvitationProps {
@@ -18,6 +20,19 @@ interface InvitationProps {
 }
 export const Invitation: FC<InvitationProps> = ({ invite }) => {
   const classes = useStyles()
+  const theme = useTheme()
+  const { user } = useUser()
+
+  if (!user) return null
+
+  const handleCancel = () => null
+  const handleResend = () => {
+    // inviteEmailCreateQueue.add(
+    //   `create-invite-email-${invite.email}`,
+    //   { ...invite, senderName: user.Acter.name },
+    //   { removeOnComplete: true }
+    // )
+  }
 
   return (
     <ListItem className={classes.item}>
@@ -25,10 +40,21 @@ export const Invitation: FC<InvitationProps> = ({ invite }) => {
         <Typography className={classes.email}>{invite.email}</Typography>
       </Box>
       <Box className={classes.actions}>
-        <Typography className={classes.action}>Cancel</Typography>
-        <Typography className={clsx(classes.action, classes.resend)}>
+        <Button
+          color="inherit"
+          className={classes.action}
+          onClick={handleCancel}
+        >
+          Cancel
+        </Button>
+        <Button
+          color="inherit"
+          style={{ color: theme.palette.primary.main }}
+          className={classes.action}
+          onClick={handleResend}
+        >
           Resend
-        </Typography>
+        </Button>
       </Box>
     </ListItem>
   )
@@ -53,9 +79,8 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     action: {
-      fontWeight: theme.typography.fontWeightMedium,
+      textTransform: 'capitalize',
       fontSize: '0.85rem',
-      cursor: 'pointer',
     },
     resend: {
       color: theme.palette.primary.main,

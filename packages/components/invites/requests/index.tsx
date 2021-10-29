@@ -45,7 +45,7 @@ export const Requests: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     zeroMessage: {
-      marginTop: theme.spacing(5),
+      marginTop: theme.spacing(7),
       fontSize: '0.85rem',
       textAlign: 'center',
       color: theme.colors.grey.dark,
