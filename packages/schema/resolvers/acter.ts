@@ -10,7 +10,7 @@ import {
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
-import { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
+import type { ActerGraphQLContext } from '@acter/lib/contexts/graphql-api'
 import {
   Acter,
   ActerConnectionRole,

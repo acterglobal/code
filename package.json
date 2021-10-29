@@ -59,6 +59,7 @@
     "tar": "^6.1.8"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^6.3.4",
     "@storybook/addon-docs": "^6.3.4",
