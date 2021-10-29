@@ -6,7 +6,6 @@ mutation ActerUpdate(
   $description: String
   $location: String
   $url: String
-  $useAdmins: Boolean
   $acterJoinSetting: ActerJoinSettings
   $acterNotifySetting: ActerNotificationSettings
   $acterNotifyEmailFrequency: ActerNotificationEmailFrequency
@@ -21,7 +20,6 @@ mutation ActerUpdate(
     description: $description
     location: $location
     url: $url
-    useAdmins: $useAdmins
     acterJoinSetting: $acterJoinSetting
     acterNotifySetting: $acterNotifySetting
     acterNotifyEmailFrequency: $acterNotifyEmailFrequency

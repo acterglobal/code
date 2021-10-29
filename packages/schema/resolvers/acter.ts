@@ -32,7 +32,6 @@ export class ActerResolver {
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
@@ -101,7 +100,6 @@ export class ActerResolver {
         slug,
         location,
         url,
-        useAdmins,
         acterJoinSetting,
         acterNotifyEmailFrequency,
         acterTypeId,
@@ -130,7 +128,6 @@ export class ActerResolver {
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -209,7 +206,6 @@ export class ActerResolver {
         description,
         location,
         url,
-        useAdmins,
         acterJoinSetting,
         acterNotifySetting,
         acterNotifyEmailFrequency,
@@ -238,7 +234,6 @@ export class ActerResolver {
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifyEmailFrequency', () => ActerNotificationEmailFrequency, {
@@ -263,7 +258,6 @@ export class ActerResolver {
       description,
       location,
       url,
-      useAdmins,
       acterJoinSetting,
       acterNotifyEmailFrequency,
       acterTypeId,
@@ -320,7 +314,6 @@ export class ActerResolver {
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('useAdmins', { nullable: true }) useAdmins: boolean,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -350,7 +343,6 @@ export class ActerResolver {
       description,
       location,
       url,
-      useAdmins,
       acterJoinSetting,
       acterNotifySetting,
       acterNotifyEmailFrequency,
