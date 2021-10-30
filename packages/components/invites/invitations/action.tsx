@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
@@ -8,8 +8,10 @@ import { useSnackbar } from 'notistack'
 
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { InviteActions } from '@acter/lib/constants'
+import { useUpdateInvite } from '@acter/lib/invites/use-update-invte'
 import { Invite } from '@acter/schema'
 
+const { CANCEL } = InviteActions
 interface ActionProps {
   action: InviteActions
   invite: Invite
@@ -20,7 +22,15 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
-  const handleCancel = () => null
+  const [updateInvite, { loading: updating }] = useUpdateInvite({
+    getSuccessMessage: () => 'Invitation canceled',
+  })
+
+  useEffect(() => {
+    setLoading(updating)
+  }, [updating])
+
+  const handleCancel = () => updateInvite(invite.id)
 
   const handleResend = async () => {
     setLoading(true)
@@ -38,7 +48,8 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
     <Button
       color="inherit"
       className={clsx(classes.action, classes[action])}
-      onClick={action === InviteActions.CANCEL ? handleCancel : handleResend}
+      onClick={action === CANCEL ? handleCancel : handleResend}
+      disabled={action === CANCEL && invite.expiredAt ? true : false}
     >
       {loading ? <LoadingSpinner size={13} thickness={5} /> : action}
     </Button>

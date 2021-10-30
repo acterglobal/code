@@ -1,0 +1,10 @@
+#import "../fragments/invite.fragment.graphql"
+
+mutation UpdateInviteExpired($inviteId: String!, $expiredAt: DateTime!) {
+  updateInvite(
+    where: { id: $inviteId }
+    data: { expiredAt: { set: $expiredAt } }
+  ) {
+    ...InviteData
+  }
+}

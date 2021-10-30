@@ -1,3 +1,5 @@
+#import "../fragments/invite.fragment.graphql"
+
 query GetInvites($onActerId: String!, $createdByUserId: String!) {
   invites(
     where: {
@@ -7,10 +9,6 @@ query GetInvites($onActerId: String!, $createdByUserId: String!) {
     }
     orderBy: { sentAt: desc }
   ) {
-    id
-    email
-    onActerId
-    message
-    sentAt
+    ...InviteData
   }
 }
