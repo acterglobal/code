@@ -17,7 +17,7 @@ export const inviteEmailSendWorker = createWorker(
       })
 
       const invite = await prisma.invite.update({
-        data: { sentAt: new Date() },
+        data: { sentAt: new Date(), expiredAt: null },
         where: { id: job.data.invitationId },
       })
 

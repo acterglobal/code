@@ -5,10 +5,10 @@ import {
   inviteEmailSendQueue,
   InviteEmailSend,
 } from '@acter/jobs/src/invite-email-send'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createWorker } from '@acter/lib/bullmq'
 import { INVITE_EMAIL_CREATE } from '@acter/lib/constants'
 import { createInviteEmail } from '@acter/lib/invites/email'
+import { getInviteUrl } from '@acter/lib/invites/get-invite-url'
 import { prisma } from '@acter/schema/prisma'
 
 export const inviteEmailCreateWorker = createWorker(
@@ -27,18 +27,12 @@ export const inviteEmailCreateWorker = createWorker(
         where: { onActerId, email, createdByUserId },
       })
       const onActer = await prisma.acter.findFirst({ where: { id: onActerId } })
-      const acterType = await prisma.acterType.findFirst({
-        where: { id: onActer.acterTypeId },
-      })
 
-      const acterUrl = acterAsUrl({
-        acter: { ...onActer, ActerType: acterType },
-        includeBaseUrl: true,
-      })
+      const inviteUrl = getInviteUrl(invitation.id)
 
       const { html, text } = createInviteEmail({
         acterName: onActer.name,
-        acterUrl,
+        inviteUrl,
         message,
         senderName,
       })

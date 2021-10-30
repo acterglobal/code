@@ -4,7 +4,7 @@ import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 
 type InviteEmail = {
   acterName: string
-  acterUrl: string
+  inviteUrl: string
   parentActerName?: string
   senderName?: string
   message?: string
@@ -14,7 +14,7 @@ type CreateInviteEmailParams = InviteEmail
 
 export const createInviteEmail = ({
   acterName,
-  acterUrl,
+  inviteUrl,
   parentActerName,
   senderName,
   message = null,
@@ -23,7 +23,7 @@ export const createInviteEmail = ({
     path.join(__dirname, 'template.hbs')
   )({
     acterName,
-    acterUrl,
+    inviteUrl,
     parentActerName,
     senderName,
     message,
