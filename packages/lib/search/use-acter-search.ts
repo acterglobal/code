@@ -47,6 +47,7 @@ export const useActerSearch = (
     query: queries[searchType],
     resultKey,
     variables: searchVariables,
+    pageSize: searchType === SearchType.ACTIVITIES ? 20 : 10,
   })
 
   return { acters: results, ...restQueryResult }

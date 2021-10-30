@@ -30,8 +30,8 @@ export const useCreatePost = (
   acter: Acter,
   options?: CreatePostOptions
 ): [
-  UseMutationState<CreatePostData, PostVariables>,
-  HandleMethod<CreatePostData>
+  HandleMethod<CreatePostData>,
+  UseMutationState<CreatePostData, PostVariables>
 ] => {
   const { user } = useUser()
 
@@ -52,5 +52,5 @@ export const useCreatePost = (
     })
   }
 
-  return [mutationResult, handlePost]
+  return [handlePost, mutationResult]
 }
