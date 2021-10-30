@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+
+import { useUpdateActivity } from './use-update-activity'
 import { OperationResult, UseMutationState } from 'urql'
 
 import {
@@ -35,17 +38,35 @@ export type HandleMethod = (
 export const useCreateActivity = (
   options?: CreateActivityOptions
 ): [UseMutationState<CreateActivityData, ActivityVariables>, HandleMethod] => {
+  const [formData, setFormData] = useState(null)
+  const [newActivity, setNewActivity] = useState(null)
+  const [_, updateActivity] = useUpdateActivity()
+
+  useEffect(() => {
+    if (newActivity && formData) {
+      updateActivity({
+        ...newActivity,
+        ...formData,
+        acterId: newActivity.Acter.id,
+      })
+    }
+  }, [newActivity])
+
   const [mutationResult, createActivity] = useNotificationMutation<
     CreateActivityData,
     ActivityVariables
   >(CREATE_ACTIVITY, {
     ...options,
+    onCompleted: ({ createActivityCustom }) =>
+      setNewActivity(createActivityCustom),
     getSuccessMessage: ({ createActivityCustom }) =>
       `${createActivityCustom?.Acter?.name} created`,
   })
 
-  const handleCreateActivity = (data: ActivityVariables) =>
-    createActivity({ ...prepareActivityValues(data) })
+  const handleCreateActivity = (data: ActivityVariables) => {
+    setFormData(data)
+    return createActivity({ ...prepareActivityValues(data) })
+  }
 
   return [mutationResult, handleCreateActivity]
 }
