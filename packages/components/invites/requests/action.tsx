@@ -23,8 +23,8 @@ export const Action: FC<ActionProps> = ({ action, request }) => {
   const classes = useStyles()
 
   const [
+    { fetching: updatingConnection },
     updateActerConnection,
-    { loading: updatingConnection },
   ] = useUpdateActerConnection()
 
   const handleClick = () => {

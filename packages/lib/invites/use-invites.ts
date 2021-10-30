@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
-import { ApolloError, useLazyQuery } from '@apollo/client'
+import { CombinedError, useQuery } from 'urql'
 
 import { Invite } from '@acter/schema'
 import GET_INVITES from '@acter/schema/queries/get-invites-by-acter-and-created-by-user.graphql'
 
 type UseInvitesQueryResults = {
   invites: Invite[]
-  loading: boolean
-  error: ApolloError
+  fetching: boolean
+  error: CombinedError
 }
 type InvitesQueryData = { invites: Invite[] }
 type InvitesQueryVariables = {
@@ -26,18 +26,23 @@ export const useInvites = (
 ): UseInvitesQueryResults => {
   const { onActerId, createdByUserId } = params
 
+  const [pause, setPause] = useState(true)
+  const [variables, setVariables] = useState<InvitesQueryVariables>()
   const [invites, setInvites] = useState<Invite[]>([])
 
-  const [
-    fetchInvites,
-    { data, loading, error, ...restQueryResult },
-  ] = useLazyQuery<InvitesQueryData, InvitesQueryVariables>(GET_INVITES)
+  const [{ data, fetching, error, ...restQueryResult }] = useQuery<
+    InvitesQueryData,
+    InvitesQueryVariables
+  >({
+    query: GET_INVITES,
+    variables,
+    pause,
+  })
 
   useEffect(() => {
     if (onActerId && createdByUserId) {
-      fetchInvites({
-        variables: { onActerId, createdByUserId },
-      })
+      setVariables({ onActerId, createdByUserId })
+      setPause(false)
     }
   }, [onActerId, createdByUserId])
 
@@ -47,5 +52,5 @@ export const useInvites = (
     }
   }, [data])
 
-  return { invites, loading, error, ...restQueryResult }
+  return { invites, fetching, error, ...restQueryResult }
 }

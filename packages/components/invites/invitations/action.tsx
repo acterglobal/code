@@ -22,7 +22,7 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
-  const [updateInvite, { loading: updating }] = useUpdateInvite({
+  const [{ fetching: updating }, updateInvite] = useUpdateInvite({
     getSuccessMessage: () => 'Invitation canceled',
   })
 

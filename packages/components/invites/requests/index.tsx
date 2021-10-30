@@ -18,7 +18,7 @@ const { PENDING } = ActerConnectionRole
 
 export const Requests: FC = () => {
   const classes = useStyles()
-  const { acter, loading: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null

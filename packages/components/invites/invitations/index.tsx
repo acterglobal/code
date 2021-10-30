@@ -17,9 +17,9 @@ import { useUser } from '@acter/lib/user/use-user'
 
 export const Invitations: FC = () => {
   const classes = useStyles()
-  const { acter, loading: acterLoading } = useActer()
-  const { user, loading: userLoading } = useUser()
-  const { invites, loading: invitesLoading } = useInvites({
+  const { acter, fetching: acterLoading } = useActer()
+  const { user, fetching: userLoading } = useUser()
+  const { invites, fetching: invitesLoading } = useInvites({
     onActerId: acter?.id,
     createdByUserId: user?.id,
   })
