@@ -48,6 +48,16 @@ describe('auth-checker', () => {
     expect(authCheckerFn).toBe(false)
   })
 
+  it('should return true for updating user profile', async () => {
+    options.context.session.user = { ...ExampleUser, Acter: ExampleActer }
+    options.args.acterId = ExampleActer.id
+
+    const authCheckerFn = await authChecker(options, [
+      ActerConnectionRole.ADMIN,
+    ])
+    expect(authCheckerFn).toBe(true)
+  })
+
   it('should return true for ADMIN role', async () => {
     options.context.session.user = { ...ExampleUser, Acter: ExampleActer }
     options.args.acterId = '13243laa3223kfj3'

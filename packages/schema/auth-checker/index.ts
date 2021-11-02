@@ -38,7 +38,7 @@ export const authChecker: AuthChecker<
       },
     })
 
-    if (!isAdmin) {
+    if (!isAdmin && user.Acter.id !== args?.acterId) {
       console.error('Not authorized')
       return false
     }
