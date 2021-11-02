@@ -25,6 +25,7 @@ const interestTypes: interestTypeMap[] = [
         sortOrder: 1,
         interests: [
           { name: 'Air', description: '', sdgNumber: '' },
+          { name: 'Animal welfare', description: '', sdgNumber: '' },
           { name: 'Biodiversity land', description: '', sdgNumber: '15' },
           { name: 'Biodiversity water', description: '', sdgNumber: '14' },
           { name: 'Clean freshwater', description: '', sdgNumber: '6' },
@@ -108,6 +109,7 @@ const interestTypes: interestTypeMap[] = [
     name: 'Tags',
     sortOrder: 3,
     interests: [
+      { name: 'Animal welfare', description: '', sdgNumber: '' },
       { name: 'AntiRacism', description: '', sdgNumber: '' },
       { name: 'BalticSea', description: '', sdgNumber: '' },
       { name: 'BalticSeaYouthPlatform', description: '', sdgNumber: '' },
