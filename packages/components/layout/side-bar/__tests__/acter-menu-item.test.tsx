@@ -8,18 +8,21 @@ import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { ActerMenu } from '@acter/lib/constants'
+import { useNotifications } from '@acter/lib/notification/use-notifications'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 import { render, screen } from '@acter/lib/test-utils'
 import { ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/get-landing-page-tab')
+jest.mock('@acter/lib/notification/use-notifications')
 jest.mock('@acter/lib/notification/use-update-notifications')
 jest.mock('@acter/lib/acter-types/use-acter-types')
 
 describe('ActerMenuItem', () => {
   const mockNextRouter = useRouter as jest.Mock
   const mockGetLandingPageTab = getLandingPageTab as jest.Mock
+  const mockUseNotifications = useNotifications as jest.Mock
   const mockUseUpdateNotifications = useUpdateNotifications as jest.Mock
   const mockUseActerTypes = useActerTypes as jest.Mock
 
@@ -29,6 +32,7 @@ describe('ActerMenuItem', () => {
     mockNextRouter.mockClear()
     mockNextRouter.mockReturnValue({ query: {} })
     mockGetLandingPageTab.mockReturnValue('foo')
+    mockUseNotifications.mockReturnValue({ reexecuteQuery: jest.fn })
     mockUseUpdateNotifications.mockReturnValue([])
     mockUseActerTypes.mockReturnValue({
       acterTypes: [],

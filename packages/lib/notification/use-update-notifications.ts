@@ -1,22 +1,19 @@
-import { OperationResult, useMutation, UseMutationState } from 'urql'
+import { useNotifications } from './use-notifications'
+import { useMutation, UseMutationState } from 'urql'
 
 import { Notification } from '@acter/schema'
-import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
+import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notifications-update-viewed.graphql'
 
 type UseUpdateNotificationData = {
   updateNotification: Notification
 }
 
 type NotificationUpdateVariables = {
-  notificationId: string
+  ids: string[]
   viewedAt: Date
 }
 
-type HandleMethod = (
-  notificationId: string
-) => Promise<
-  OperationResult<UseUpdateNotificationData, NotificationUpdateVariables>
->
+type HandleMethod = (notificationIds: string[]) => Promise<void>
 
 /**
  * To update notifications when viewed
@@ -30,11 +27,13 @@ export const useUpdateNotifications = (): [
     UseUpdateNotificationData,
     NotificationUpdateVariables
   >(UPDATE_NOTIFICATION_VIEWED)
-  const handleUpdateNotification = (notificationId) =>
+  const { reexecuteQuery } = useNotifications()
+
+  const handleUpdateNotification = (notificationIds) =>
     updateNotification({
-      notificationId,
+      ids: [...notificationIds],
       viewedAt: new Date(),
-    })
+    }).then(() => reexecuteQuery({ requestPolicy: 'cache-and-network' }))
 
   return [result, handleUpdateNotification]
 }
