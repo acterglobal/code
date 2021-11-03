@@ -7,7 +7,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-formik/register',
     'storybook-addon-next-router',
-    'storybook-addon-apollo-client',
+    '@urql/storybook-addon',
   ],
   core: {
     builder: 'webpack5',

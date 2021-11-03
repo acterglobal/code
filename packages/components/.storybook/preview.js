@@ -1,19 +1,11 @@
-import { DiProvider } from 'react-magnetic-di/macro'
-
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import * as NextImage from 'next/image'
 
 import { UserContext } from '@auth0/nextjs-auth0'
 
+import { SnackbarProvider } from 'notistack'
+
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
-import {
-  useActerDi,
-  useActerSearchDi,
-  usePostsDi,
-  useSearchTypeDi,
-  useSnackbarDi,
-  useUserDi,
-} from '@acter/lib/di'
 
 const OriginalNextImage = NextImage.default
 
@@ -35,9 +27,6 @@ export const parameters = {
   nextRouter: {
     Provider: RouterContext.Provider,
   },
-  apolloClient: {
-    MockedProvider,
-  },
   options: {
     storySort: {
       order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
@@ -46,36 +35,15 @@ export const parameters = {
 }
 
 export const decorators = [
-  (story, props) => {
-    const {
-      parameters: {
-        di: {
-          useActer = useActerDi(),
-          useActerSearch = useActerSearchDi(),
-          usePosts = usePostsDi(),
-          useSearchType = useSearchTypeDi(),
-          useSnackbar = useSnackbarDi(),
-          useUser = useUserDi(),
-        } = {},
-      },
-    } = props
+  (story) => {
     return (
-      <DiProvider
-        use={[
-          useActer,
-          useActerSearch,
-          usePosts,
-          useSearchType,
-          useSnackbar,
-          useUser,
-        ]}
-      >
+      <SnackbarProvider>
         <UserContext.Provider
           value={{ user: { name: 'damon' }, isLoading: false }}
         >
           <ActerThemeProvider>{story()}</ActerThemeProvider>
         </UserContext.Provider>
-      </DiProvider>
+      </SnackbarProvider>
     )
   },
 ]

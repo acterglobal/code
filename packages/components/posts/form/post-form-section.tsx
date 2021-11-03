@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -32,7 +31,6 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   parentId,
   acterId,
 }) => {
-  di(useActer)
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
   const { acter } = useActer({ acterId })

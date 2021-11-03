@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import { CombinedError, useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
@@ -32,7 +31,6 @@ export interface UsePostsResult
 }
 
 export const usePosts = (params?: UsePostsParams): UsePostsResult => {
-  di(useActer)
   const { acterId, options } = params
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UsePostError>()

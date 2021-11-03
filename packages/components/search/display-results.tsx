@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { di } from 'react-magnetic-di/macro'
 
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -19,8 +18,6 @@ import { useSearchType } from '@acter/lib/search/use-search-type'
 const { ACTIVITIES, ACTERS } = SearchType
 
 export const DisplayResults: FC = () => {
-  di(useActerSearch, useSearchType)
-
   const classes = useStyles()
   const searchType = useSearchType()
 
