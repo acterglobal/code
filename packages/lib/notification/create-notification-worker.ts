@@ -130,7 +130,10 @@ export const createNotificationWorker = <T>({
     )
     const activity = getActivity?.(data)
     const post = getPost?.(data)
-    const extraPath = getNotificationUrlPath(activity?.Acter.name || post?.id)
+
+    const extraPath = getNotificationUrlPath(
+      activity?.Acter.name || post?.parentId || post?.id
+    )
     const url = acterAsUrl({
       acter: following,
       includeBaseUrl: true,

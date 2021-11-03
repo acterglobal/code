@@ -1,5 +1,4 @@
 #import "../fragments/post-display.fragment.graphql"
-#import "../fragments/acter-display.fragment.graphql"
 
 query GetPost($id: String!) {
   post(where: { id: $id }) {

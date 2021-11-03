@@ -49,6 +49,6 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
       `New post on ${notification.OnActer.name} via Acter`,
     getPost: ({ post }) => post as Post,
     type: NotificationType.NEW_POST,
-    getNotificationUrlPath: (postId) => `forum?post=${postId}`,
+    getNotificationUrlPath: (postId) => `forum/${postId}`,
   }
 )
