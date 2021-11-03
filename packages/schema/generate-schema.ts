@@ -24,6 +24,7 @@ export const generateSchema = async (
   const resolversEnhanceMap: ResolversEnhanceMap = {
     Invite: {
       createManyInvite: [UseMiddleware(QueueInviteEmail)],
+      updateInvite: [UseMiddleware(QueueInviteEmail)],
     },
     Post: {
       createPost: [

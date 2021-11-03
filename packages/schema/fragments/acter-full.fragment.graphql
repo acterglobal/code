@@ -24,6 +24,7 @@ fragment ActerFull on Acter {
       ...ActerDisplay
       createdByUser {
         Acter {
+          id
           name
         }
       }

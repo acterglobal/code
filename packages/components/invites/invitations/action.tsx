@@ -2,13 +2,11 @@ import React, { FC, useEffect, useState } from 'react'
 
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import axios from 'axios'
 import clsx from 'clsx'
-import { useSnackbar } from 'notistack'
 
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { InviteActions } from '@acter/lib/constants'
-import { useUpdateInvite } from '@acter/lib/invites/use-update-invte'
+import { useUpdateInvite } from '@acter/lib/invites/use-update-invite'
 import { Invite } from '@acter/schema'
 
 const { CANCEL } = InviteActions
@@ -19,30 +17,18 @@ interface ActionProps {
 
 export const Action: FC<ActionProps> = ({ action, invite }) => {
   const classes = useStyles()
-  const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
-  const [{ fetching: updating }, updateInvite] = useUpdateInvite({
-    getSuccessMessage: () => 'Invitation canceled',
-  })
+  const [{ fetching: updating }, updateInvite] = useUpdateInvite()
 
   useEffect(() => {
     setLoading(updating)
   }, [updating])
 
-  const handleCancel = () => updateInvite(invite.id)
+  const handleCancel = () => updateInvite({ inviteId: invite.id })
 
-  const handleResend = async () => {
-    setLoading(true)
-    try {
-      const res = await axios.get(`/api/resend-invitation?id=${invite.id}`)
-      enqueueSnackbar(res.data, { variant: 'success' })
-      setLoading(false)
-    } catch (error) {
-      enqueueSnackbar(error.response.data, { variant: 'error' })
-      setLoading(false)
-    }
-  }
+  const handleResend = () =>
+    updateInvite({ inviteId: invite.id, expiredAt: null })
 
   return (
     <Button

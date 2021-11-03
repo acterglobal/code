@@ -12,7 +12,6 @@ import { Invitation } from '@acter/components/invites/invitations/invitation'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useInvites } from '@acter/lib/invites/use-invites'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Invitations: FC = () => {
@@ -31,7 +30,7 @@ export const Invitations: FC = () => {
     <>
       {invites.length === 0 ? (
         <Typography className={classes.zeroMessage}>
-          {`${capitalize(acter.name)} has no new invitations.`}
+          {`${acter.name} has no new invitations.`}
         </Typography>
       ) : (
         <List className={classes.list}>
