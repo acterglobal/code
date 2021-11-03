@@ -1,0 +1,8 @@
+mutation UpdateNotificationsViewed($ids: [String!], $viewedAt: DateTime!) {
+  updateManyNotification(
+    where: { id: { in: $ids } }
+    data: { viewedAt: { set: $viewedAt } }
+  ) {
+    count
+  }
+}

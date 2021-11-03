@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useQuery, UseQueryState } from 'urql'
+import { OperationContext, useQuery, UseQueryState } from 'urql'
 
 import {
   getNotificationsGroupByActer,
@@ -9,8 +9,10 @@ import {
 import { useUser } from '@acter/lib/user/use-user'
 import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 
+type ReexecuteQuery = (opts?: Partial<OperationContext>) => void
 type UseNotificationsQueryResults = UseQueryState & {
   notifications: NotificationsData
+  reexecuteQuery: ReexecuteQuery
 }
 
 /**
@@ -21,7 +23,7 @@ export const useNotifications = (): UseNotificationsQueryResults => {
   const [notifications, setNotifications] = useState<NotificationsData>({})
   const { user } = useUser()
 
-  const [{ data, fetching, ...restQueryResult }] = useQuery({
+  const [{ data, fetching, ...restQueryResult }, reexecuteQuery] = useQuery({
     query: GET_NOTIFICATIONS,
     variables: { toActer: user?.Acter?.id },
     pause: !user?.Acter?.id,
@@ -33,5 +35,5 @@ export const useNotifications = (): UseNotificationsQueryResults => {
     }
   }, [data])
 
-  return { notifications, fetching, ...restQueryResult }
+  return { notifications, fetching, reexecuteQuery, ...restQueryResult }
 }

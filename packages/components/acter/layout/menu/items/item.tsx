@@ -49,8 +49,11 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
 
   const [_, updateNotifications] = useUpdateNotifications()
 
-  const handleClick = () =>
-    notifications?.map((notification) => updateNotifications(notification.id))
+  const handleClick = () => {
+    if (notifications?.length > 0) {
+      updateNotifications(notifications?.map((notification) => notification.id))
+    }
+  }
 
   return (
     <ListItem
