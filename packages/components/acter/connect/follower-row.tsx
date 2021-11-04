@@ -17,13 +17,17 @@ interface FollowerRowProps {
    * The follower Acter
    */
   follower: Acter
+  /**
+   * Acter's id to follow
+   */
+  acterId?: string
 }
 
-export const FollowerRow: FC<FollowerRowProps> = ({ follower }) => {
+export const FollowerRow: FC<FollowerRowProps> = ({ follower, acterId }) => {
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
   const [fetching, setLoading] = useState(false)
-  const { acter, fetching: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer({ acterId })
 
   const [
     { fetching: creatingConnection },

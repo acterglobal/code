@@ -11,11 +11,15 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
-export const Connect: FC = () => {
+interface ConnectProps {
+  acterId?: string
+}
+
+export const Connect: FC<ConnectProps> = ({ acterId }) => {
   di(useActer, useUser)
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
-  const { acter, fetching: acterLoading } = useActer()
+  const { acter, fetching: acterLoading } = useActer({ acterId })
 
   const followers = useMemo(
     () =>
@@ -47,7 +51,7 @@ export const Connect: FC = () => {
       size="large"
     >
       {followers.map((follower) => (
-        <FollowerRow follower={follower} />
+        <FollowerRow follower={follower} acterId={acterId} />
       ))}
     </DropdownMenu>
   )
