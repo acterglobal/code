@@ -1,0 +1,7 @@
+fragment InviteData on Invite {
+  id
+  email
+  onActerId
+  sentAt
+  expiredAt
+}

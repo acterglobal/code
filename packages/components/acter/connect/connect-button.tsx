@@ -6,7 +6,6 @@ export const ConnectButton = withStyles((theme: Theme) =>
       borderRadius: theme.spacing(3),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      marginRight: theme.spacing(3),
       minWidth: theme.spacing(13),
       height: theme.spacing(3.5),
       backgroundColor: theme.palette.primary.main,

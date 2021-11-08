@@ -22,6 +22,12 @@ fragment ActerFull on Acter {
     role
     Follower {
       ...ActerDisplay
+      createdByUser {
+        Acter {
+          id
+          name
+        }
+      }
     }
   }
   ActerInterests {

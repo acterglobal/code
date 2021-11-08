@@ -144,6 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonContainer: {
       display: 'flex',
       fontSize: '.8rem',
+      marginRight: theme.spacing(3),
     },
   })
 )

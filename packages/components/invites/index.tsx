@@ -1,22 +1,70 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import {
+  Box,
+  createStyles,
+  makeStyles,
+  Tab,
+  Tabs,
+  Theme,
+} from '@material-ui/core'
 
 import { InviteForm } from '@acter/components/invites/form'
+import { Invitations } from '@acter/components/invites/invitations'
+import { Requests } from '@acter/components/invites/requests'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { InviteTabs } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
-export const InvitesSection: FC = () => {
+const { INVITE, INVITATIONS, REQUESTS } = InviteTabs
+interface InvitesSectionProps {
+  setDrawerHeading: (heading: string) => void
+}
+
+export const InvitesSection: FC<InvitesSectionProps> = ({
+  setDrawerHeading,
+}) => {
+  const [currentTab, setCurrentTab] = useState(0)
+  const tabs = [INVITE, REQUESTS, INVITATIONS]
   const classes = useStyles()
+
+  const handleChange = (_, tab) => {
+    setCurrentTab(tab)
+    setDrawerHeading(tabs[tab])
+  }
+
   const { acter } = useActer()
   const { user } = useUser()
 
   if (!acter || !user) return null
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
-  return <Box className={classes.root}>{isMember && <InviteForm />}</Box>
+  return (
+    <Box className={classes.root}>
+      {isMember && !isAdmin && <InviteForm />}
+
+      {isAdmin && (
+        <>
+          <Tabs
+            value={currentTab}
+            onChange={handleChange}
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            {tabs.map((tab, i) => (
+              <Tab label={tab} id={tab} key={`tab-${i}`} />
+            ))}
+          </Tabs>
+          {tabs[currentTab] === INVITE && <InviteForm />}
+          {tabs[currentTab] === REQUESTS && <Requests />}
+          {tabs[currentTab] === INVITATIONS && <Invitations />}
+        </>
+      )}
+    </Box>
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>

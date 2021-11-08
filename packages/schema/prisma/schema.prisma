@@ -113,6 +113,7 @@ model Acter {
 
 enum ActerConnectionRole {
   PENDING
+  REJECTED
   MEMBER
   ADMIN
 }
@@ -269,6 +270,7 @@ model Invite {
   updatedAt  DateTime  @updatedAt @map("updated_at")
   sentAt     DateTime? @map("sent_at")
   acceptedAt DateTime? @map("accepted_at")
+  expiredAt DateTime? @map("expired_at")
 
   // The acter to which we're inviting someone
   OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)
