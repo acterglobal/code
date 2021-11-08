@@ -23,7 +23,7 @@ export const deletePost: UpdateResolver<PostData> = (
   forEachQueryFields({
     cache,
     result: result.deletePost,
-    fieldNameMatch: 'links',
+    fieldNameMatch: 'posts',
     fn: removeItemFn<Post>({ cache, result: result.deletePost }),
   })
   cache.invalidate((result.deletePost as unknown) as Data)
