@@ -50,6 +50,7 @@
     "just-capitalize": "^1.0.1",
     "next-urql": "^3.2.1",
     "notistack": "^1.0.10",
+    "pluralize": "^8.0.0",
     "pm2": "^5.1.0",
     "react": "^17.0.2",
     "react-cookie-consent": "^6.4.1",

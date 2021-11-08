@@ -8,5 +8,8 @@ mutation ActerDelete($acterId: String!) {
     Parent {
       ...ActerDisplay
     }
+    Activity {
+      id
+    }
   }
 }

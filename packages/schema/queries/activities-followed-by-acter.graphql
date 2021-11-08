@@ -6,11 +6,9 @@ query ActivitiesFollowedByActer($followerId: String!) {
     where: {
       Acter: {
         is: {
+          deletedAt: { equals: null }
           Followers: {
             some: { Follower: { is: { id: { equals: $followerId } } } }
-          }
-          Following: {
-            every: { Following: { is: { deletedAt: { equals: null } } } }
           }
         }
       }

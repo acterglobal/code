@@ -20,7 +20,6 @@
     "md5": "^2.3.0",
     "mime": "^2.5.2",
     "nodemailer": "^6.6.2",
-    "pluralize": "^8.0.0",
     "ramda": "^0.27.1",
     "slugify": "^1.4.6",
     "urql": "^2.0.5"
@@ -36,6 +35,7 @@
     "graphql": "*",
     "next": "*",
     "notistack": "*",
+    "pluralize": "*",
     "react": "*"
   }
 }
