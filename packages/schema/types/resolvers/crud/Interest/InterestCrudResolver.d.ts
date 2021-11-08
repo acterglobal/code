@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateInterestArgs } from "./args/AggregateInterestArgs";
+import { CreateInterestArgs } from "./args/CreateInterestArgs";
+import { CreateManyInterestArgs } from "./args/CreateManyInterestArgs";
+import { DeleteInterestArgs } from "./args/DeleteInterestArgs";
+import { DeleteManyInterestArgs } from "./args/DeleteManyInterestArgs";
+import { FindFirstInterestArgs } from "./args/FindFirstInterestArgs";
+import { FindManyInterestArgs } from "./args/FindManyInterestArgs";
+import { FindUniqueInterestArgs } from "./args/FindUniqueInterestArgs";
+import { GroupByInterestArgs } from "./args/GroupByInterestArgs";
+import { UpdateInterestArgs } from "./args/UpdateInterestArgs";
+import { UpdateManyInterestArgs } from "./args/UpdateManyInterestArgs";
+import { UpsertInterestArgs } from "./args/UpsertInterestArgs";
+import { Interest } from "../../../models/Interest";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateInterest } from "../../outputs/AggregateInterest";
+import { InterestGroupBy } from "../../outputs/InterestGroupBy";
+export declare class InterestCrudResolver {
+    interest(ctx: any, info: GraphQLResolveInfo, args: FindUniqueInterestArgs): Promise<Interest | null>;
+    findFirstInterest(ctx: any, info: GraphQLResolveInfo, args: FindFirstInterestArgs): Promise<Interest | null>;
+    interests(ctx: any, info: GraphQLResolveInfo, args: FindManyInterestArgs): Promise<Interest[]>;
+    createInterest(ctx: any, info: GraphQLResolveInfo, args: CreateInterestArgs): Promise<Interest>;
+    createManyInterest(ctx: any, info: GraphQLResolveInfo, args: CreateManyInterestArgs): Promise<AffectedRowsOutput>;
+    deleteInterest(ctx: any, info: GraphQLResolveInfo, args: DeleteInterestArgs): Promise<Interest | null>;
+    updateInterest(ctx: any, info: GraphQLResolveInfo, args: UpdateInterestArgs): Promise<Interest | null>;
+    deleteManyInterest(ctx: any, info: GraphQLResolveInfo, args: DeleteManyInterestArgs): Promise<AffectedRowsOutput>;
+    updateManyInterest(ctx: any, info: GraphQLResolveInfo, args: UpdateManyInterestArgs): Promise<AffectedRowsOutput>;
+    upsertInterest(ctx: any, info: GraphQLResolveInfo, args: UpsertInterestArgs): Promise<Interest>;
+    aggregateInterest(ctx: any, info: GraphQLResolveInfo, args: AggregateInterestArgs): Promise<AggregateInterest>;
+    groupByInterest(ctx: any, info: GraphQLResolveInfo, args: GroupByInterestArgs): Promise<InterestGroupBy[]>;
+}

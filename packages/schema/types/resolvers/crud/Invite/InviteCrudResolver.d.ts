@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateInviteArgs } from "./args/AggregateInviteArgs";
+import { CreateInviteArgs } from "./args/CreateInviteArgs";
+import { CreateManyInviteArgs } from "./args/CreateManyInviteArgs";
+import { DeleteInviteArgs } from "./args/DeleteInviteArgs";
+import { DeleteManyInviteArgs } from "./args/DeleteManyInviteArgs";
+import { FindFirstInviteArgs } from "./args/FindFirstInviteArgs";
+import { FindManyInviteArgs } from "./args/FindManyInviteArgs";
+import { FindUniqueInviteArgs } from "./args/FindUniqueInviteArgs";
+import { GroupByInviteArgs } from "./args/GroupByInviteArgs";
+import { UpdateInviteArgs } from "./args/UpdateInviteArgs";
+import { UpdateManyInviteArgs } from "./args/UpdateManyInviteArgs";
+import { UpsertInviteArgs } from "./args/UpsertInviteArgs";
+import { Invite } from "../../../models/Invite";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateInvite } from "../../outputs/AggregateInvite";
+import { InviteGroupBy } from "../../outputs/InviteGroupBy";
+export declare class InviteCrudResolver {
+    invite(ctx: any, info: GraphQLResolveInfo, args: FindUniqueInviteArgs): Promise<Invite | null>;
+    findFirstInvite(ctx: any, info: GraphQLResolveInfo, args: FindFirstInviteArgs): Promise<Invite | null>;
+    invites(ctx: any, info: GraphQLResolveInfo, args: FindManyInviteArgs): Promise<Invite[]>;
+    createInvite(ctx: any, info: GraphQLResolveInfo, args: CreateInviteArgs): Promise<Invite>;
+    createManyInvite(ctx: any, info: GraphQLResolveInfo, args: CreateManyInviteArgs): Promise<AffectedRowsOutput>;
+    deleteInvite(ctx: any, info: GraphQLResolveInfo, args: DeleteInviteArgs): Promise<Invite | null>;
+    updateInvite(ctx: any, info: GraphQLResolveInfo, args: UpdateInviteArgs): Promise<Invite | null>;
+    deleteManyInvite(ctx: any, info: GraphQLResolveInfo, args: DeleteManyInviteArgs): Promise<AffectedRowsOutput>;
+    updateManyInvite(ctx: any, info: GraphQLResolveInfo, args: UpdateManyInviteArgs): Promise<AffectedRowsOutput>;
+    upsertInvite(ctx: any, info: GraphQLResolveInfo, args: UpsertInviteArgs): Promise<Invite>;
+    aggregateInvite(ctx: any, info: GraphQLResolveInfo, args: AggregateInviteArgs): Promise<AggregateInvite>;
+    groupByInvite(ctx: any, info: GraphQLResolveInfo, args: GroupByInviteArgs): Promise<InviteGroupBy[]>;
+}

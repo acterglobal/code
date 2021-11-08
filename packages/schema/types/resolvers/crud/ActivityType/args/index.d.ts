@@ -1,0 +1,12 @@
+export { AggregateActivityTypeArgs } from "./AggregateActivityTypeArgs";
+export { CreateActivityTypeArgs } from "./CreateActivityTypeArgs";
+export { CreateManyActivityTypeArgs } from "./CreateManyActivityTypeArgs";
+export { DeleteActivityTypeArgs } from "./DeleteActivityTypeArgs";
+export { DeleteManyActivityTypeArgs } from "./DeleteManyActivityTypeArgs";
+export { FindFirstActivityTypeArgs } from "./FindFirstActivityTypeArgs";
+export { FindManyActivityTypeArgs } from "./FindManyActivityTypeArgs";
+export { FindUniqueActivityTypeArgs } from "./FindUniqueActivityTypeArgs";
+export { GroupByActivityTypeArgs } from "./GroupByActivityTypeArgs";
+export { UpdateActivityTypeArgs } from "./UpdateActivityTypeArgs";
+export { UpdateManyActivityTypeArgs } from "./UpdateManyActivityTypeArgs";
+export { UpsertActivityTypeArgs } from "./UpsertActivityTypeArgs";

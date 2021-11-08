@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateInterestTypeArgs } from "./args/AggregateInterestTypeArgs";
+import { CreateInterestTypeArgs } from "./args/CreateInterestTypeArgs";
+import { CreateManyInterestTypeArgs } from "./args/CreateManyInterestTypeArgs";
+import { DeleteInterestTypeArgs } from "./args/DeleteInterestTypeArgs";
+import { DeleteManyInterestTypeArgs } from "./args/DeleteManyInterestTypeArgs";
+import { FindFirstInterestTypeArgs } from "./args/FindFirstInterestTypeArgs";
+import { FindManyInterestTypeArgs } from "./args/FindManyInterestTypeArgs";
+import { FindUniqueInterestTypeArgs } from "./args/FindUniqueInterestTypeArgs";
+import { GroupByInterestTypeArgs } from "./args/GroupByInterestTypeArgs";
+import { UpdateInterestTypeArgs } from "./args/UpdateInterestTypeArgs";
+import { UpdateManyInterestTypeArgs } from "./args/UpdateManyInterestTypeArgs";
+import { UpsertInterestTypeArgs } from "./args/UpsertInterestTypeArgs";
+import { InterestType } from "../../../models/InterestType";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateInterestType } from "../../outputs/AggregateInterestType";
+import { InterestTypeGroupBy } from "../../outputs/InterestTypeGroupBy";
+export declare class InterestTypeCrudResolver {
+    interestType(ctx: any, info: GraphQLResolveInfo, args: FindUniqueInterestTypeArgs): Promise<InterestType | null>;
+    findFirstInterestType(ctx: any, info: GraphQLResolveInfo, args: FindFirstInterestTypeArgs): Promise<InterestType | null>;
+    interestTypes(ctx: any, info: GraphQLResolveInfo, args: FindManyInterestTypeArgs): Promise<InterestType[]>;
+    createInterestType(ctx: any, info: GraphQLResolveInfo, args: CreateInterestTypeArgs): Promise<InterestType>;
+    createManyInterestType(ctx: any, info: GraphQLResolveInfo, args: CreateManyInterestTypeArgs): Promise<AffectedRowsOutput>;
+    deleteInterestType(ctx: any, info: GraphQLResolveInfo, args: DeleteInterestTypeArgs): Promise<InterestType | null>;
+    updateInterestType(ctx: any, info: GraphQLResolveInfo, args: UpdateInterestTypeArgs): Promise<InterestType | null>;
+    deleteManyInterestType(ctx: any, info: GraphQLResolveInfo, args: DeleteManyInterestTypeArgs): Promise<AffectedRowsOutput>;
+    updateManyInterestType(ctx: any, info: GraphQLResolveInfo, args: UpdateManyInterestTypeArgs): Promise<AffectedRowsOutput>;
+    upsertInterestType(ctx: any, info: GraphQLResolveInfo, args: UpsertInterestTypeArgs): Promise<InterestType>;
+    aggregateInterestType(ctx: any, info: GraphQLResolveInfo, args: AggregateInterestTypeArgs): Promise<AggregateInterestType>;
+    groupByInterestType(ctx: any, info: GraphQLResolveInfo, args: GroupByInterestTypeArgs): Promise<InterestTypeGroupBy[]>;
+}

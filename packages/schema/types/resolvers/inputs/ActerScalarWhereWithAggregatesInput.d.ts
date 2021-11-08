@@ -1,0 +1,37 @@
+import { BoolWithAggregatesFilter } from "../inputs/BoolWithAggregatesFilter";
+import { DateTimeNullableWithAggregatesFilter } from "../inputs/DateTimeNullableWithAggregatesFilter";
+import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
+import { EnumActerJoinSettingsWithAggregatesFilter } from "../inputs/EnumActerJoinSettingsWithAggregatesFilter";
+import { EnumActerNotificationEmailFrequencyWithAggregatesFilter } from "../inputs/EnumActerNotificationEmailFrequencyWithAggregatesFilter";
+import { EnumActerNotificationSettingsWithAggregatesFilter } from "../inputs/EnumActerNotificationSettingsWithAggregatesFilter";
+import { EnumActerPrivacySettingsWithAggregatesFilter } from "../inputs/EnumActerPrivacySettingsWithAggregatesFilter";
+import { FloatNullableWithAggregatesFilter } from "../inputs/FloatNullableWithAggregatesFilter";
+import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
+import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
+export declare class ActerScalarWhereWithAggregatesInput {
+    AND?: ActerScalarWhereWithAggregatesInput[] | undefined;
+    OR?: ActerScalarWhereWithAggregatesInput[] | undefined;
+    NOT?: ActerScalarWhereWithAggregatesInput[] | undefined;
+    id?: StringWithAggregatesFilter | undefined;
+    acterTypeId?: StringWithAggregatesFilter | undefined;
+    name?: StringNullableWithAggregatesFilter | undefined;
+    slug?: StringNullableWithAggregatesFilter | undefined;
+    description?: StringNullableWithAggregatesFilter | undefined;
+    location?: StringNullableWithAggregatesFilter | undefined;
+    locationLat?: FloatNullableWithAggregatesFilter | undefined;
+    locationLng?: FloatNullableWithAggregatesFilter | undefined;
+    url?: StringNullableWithAggregatesFilter | undefined;
+    avatarUrl?: StringNullableWithAggregatesFilter | undefined;
+    bannerUrl?: StringNullableWithAggregatesFilter | undefined;
+    useAdmins?: BoolWithAggregatesFilter | undefined;
+    createdAt?: DateTimeWithAggregatesFilter | undefined;
+    updatedAt?: DateTimeWithAggregatesFilter | undefined;
+    acterJoinSetting?: EnumActerJoinSettingsWithAggregatesFilter | undefined;
+    acterNotifySetting?: EnumActerNotificationSettingsWithAggregatesFilter | undefined;
+    acterNotifyEmailFrequency?: EnumActerNotificationEmailFrequencyWithAggregatesFilter | undefined;
+    acterPrivacySetting?: EnumActerPrivacySettingsWithAggregatesFilter | undefined;
+    createdByUserId?: StringWithAggregatesFilter | undefined;
+    deletedAt?: DateTimeNullableWithAggregatesFilter | undefined;
+    deletedByUserId?: StringNullableWithAggregatesFilter | undefined;
+    parentActerId?: StringNullableWithAggregatesFilter | undefined;
+}

@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateActerTypeArgs } from "./args/AggregateActerTypeArgs";
+import { CreateActerTypeArgs } from "./args/CreateActerTypeArgs";
+import { CreateManyActerTypeArgs } from "./args/CreateManyActerTypeArgs";
+import { DeleteActerTypeArgs } from "./args/DeleteActerTypeArgs";
+import { DeleteManyActerTypeArgs } from "./args/DeleteManyActerTypeArgs";
+import { FindFirstActerTypeArgs } from "./args/FindFirstActerTypeArgs";
+import { FindManyActerTypeArgs } from "./args/FindManyActerTypeArgs";
+import { FindUniqueActerTypeArgs } from "./args/FindUniqueActerTypeArgs";
+import { GroupByActerTypeArgs } from "./args/GroupByActerTypeArgs";
+import { UpdateActerTypeArgs } from "./args/UpdateActerTypeArgs";
+import { UpdateManyActerTypeArgs } from "./args/UpdateManyActerTypeArgs";
+import { UpsertActerTypeArgs } from "./args/UpsertActerTypeArgs";
+import { ActerType } from "../../../models/ActerType";
+import { ActerTypeGroupBy } from "../../outputs/ActerTypeGroupBy";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateActerType } from "../../outputs/AggregateActerType";
+export declare class ActerTypeCrudResolver {
+    acterType(ctx: any, info: GraphQLResolveInfo, args: FindUniqueActerTypeArgs): Promise<ActerType | null>;
+    findFirstActerType(ctx: any, info: GraphQLResolveInfo, args: FindFirstActerTypeArgs): Promise<ActerType | null>;
+    acterTypes(ctx: any, info: GraphQLResolveInfo, args: FindManyActerTypeArgs): Promise<ActerType[]>;
+    createActerType(ctx: any, info: GraphQLResolveInfo, args: CreateActerTypeArgs): Promise<ActerType>;
+    createManyActerType(ctx: any, info: GraphQLResolveInfo, args: CreateManyActerTypeArgs): Promise<AffectedRowsOutput>;
+    deleteActerType(ctx: any, info: GraphQLResolveInfo, args: DeleteActerTypeArgs): Promise<ActerType | null>;
+    updateActerType(ctx: any, info: GraphQLResolveInfo, args: UpdateActerTypeArgs): Promise<ActerType | null>;
+    deleteManyActerType(ctx: any, info: GraphQLResolveInfo, args: DeleteManyActerTypeArgs): Promise<AffectedRowsOutput>;
+    updateManyActerType(ctx: any, info: GraphQLResolveInfo, args: UpdateManyActerTypeArgs): Promise<AffectedRowsOutput>;
+    upsertActerType(ctx: any, info: GraphQLResolveInfo, args: UpsertActerTypeArgs): Promise<ActerType>;
+    aggregateActerType(ctx: any, info: GraphQLResolveInfo, args: AggregateActerTypeArgs): Promise<AggregateActerType>;
+    groupByActerType(ctx: any, info: GraphQLResolveInfo, args: GroupByActerTypeArgs): Promise<ActerTypeGroupBy[]>;
+}
