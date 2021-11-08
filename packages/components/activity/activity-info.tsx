@@ -65,7 +65,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
               capitalize(acter.Activity.ActivityType.name)}
           </Box>
         </Box>
-        <Connect />
+        <Connect acterId={acter.id} />
       </Box>
       <Box className={classes.locationContainer}>
         {acter.Activity.isOnline && acter.url && (
