@@ -8,9 +8,15 @@ import { TextField } from 'formik-material-ui'
 
 import { LocationVenuePicker } from '@acter/components/activity/form/fields/location-venue-picker'
 import { StartEndTimeDatePicker } from '@acter/components/activity/form/fields/start-end-date-time-picker'
+import {
+  SettingsStep,
+  SettingsStepProps,
+} from '@acter/components/activity/form/steps/settings'
 import { FormSection } from '@acter/components/styled/form-section'
 
-export const MeetingStep: FC = () => {
+export type MeetingStepProps = SettingsStepProps
+
+export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
   const classes = useStyles()
 
   return (
@@ -47,10 +53,13 @@ export const MeetingStep: FC = () => {
           rows={5}
         />
       </FormSection>
+
+      <FormSection>
+        <SettingsStep acters={acters} />
+      </FormSection>
     </Box>
   )
 }
-
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',

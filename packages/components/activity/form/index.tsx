@@ -223,7 +223,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                     <ActivityTypeStep onClick={handleOnClick} />
                   )}
                   <>
-                    {steps[activeStep] === MeetingStep && <MeetingStep />}
+                    {steps[activeStep] === MeetingStep && (
+                      <MeetingStep acters={acters} />
+                    )}
                     {steps[activeStep] === BasicsStep && <BasicsStep />}
                     {steps[activeStep] == SettingsStep && (
                       <SettingsStep acters={acters} />
