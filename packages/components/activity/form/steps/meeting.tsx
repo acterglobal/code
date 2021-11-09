@@ -71,6 +71,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
         </Box>
 
         {selectOrganiser && <SettingsStep acters={acters} />}
+        <SettingsStep acters={acters} />
       </FormSection>
     </Box>
   )
