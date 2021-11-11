@@ -65,7 +65,7 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
             <SettingsSectionHeading>Privacy Setting</SettingsSectionHeading>
             <ActerPrivacySettings
               onSettingsChange={onSettingsChange}
-              loading={loading}
+              fetching={fetching}
             />
           </>
         )}

@@ -19,6 +19,7 @@ query ActersSearch(
         { ActerType: { is: { name: { in: $types } } } }
         { name: { contains: $searchText, mode: insensitive } }
         { deletedAt: { equals: null } }
+        { acterPrivacySetting: { equals: PUBLIC } }
         {
           ActerInterests: {
             some: {
