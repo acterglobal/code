@@ -14,6 +14,7 @@ import { Formik, Form } from 'formik'
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerPrivacyTypes } from '@acter/lib/constants'
 import { Acter, ActerPrivacySettings } from '@acter/schema'
 
 interface ActerVisibilitySettingsInitialValues {
@@ -28,15 +29,15 @@ export interface ActerVisibilitySettingsProps {
   /**
    * Whether we're in the middle of updating
    */
-  loading: boolean
+  fetching: boolean
 }
 
 export const ActerVisibilitySettings: FC<ActerVisibilitySettingsProps> = ({
   onSettingsChange,
 }) => {
-  const { acter, loading } = useActer()
+  const { acter, fetching } = useActer()
   const classes = useStyles()
-  if (loading) return <LoadingSpinner />
+  if (fetching) return <LoadingSpinner />
   if (!acter) return null
 
   const initialValues: ActerVisibilitySettingsInitialValues = {
@@ -60,13 +61,10 @@ export const ActerVisibilitySettings: FC<ActerVisibilitySettingsProps> = ({
               value={values.acterPrivacySetting}
               onChange={handleChange}
             >
-              <SettingsRadio
-                label="Public"
-                value={ActerPrivacySettings.PUBLIC}
-              />
+              <SettingsRadio label="Public" value={ActerPrivacyTypes.PUBLIC} />
               <SettingsRadio
                 label="Private"
-                value={ActerPrivacySettings.PRIVATE}
+                value={ActerPrivacyTypes.PRIVATE}
               />
             </RadioGroup>
           </FormControl>
