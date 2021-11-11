@@ -35,6 +35,7 @@ export type Colors = {
   grey: Grey
   white: Color
   red: Color
+  error: Color
   activityTypes: ActivityTypeColors
   interestTypes: InterestTypeColors
   others: OtherColors
@@ -44,6 +45,7 @@ export const paletteColors = {
   primary: {
     main: '#1EB001',
   },
+
   secondary: {
     main: '#545559',
     dark: '#2A2A2A',
@@ -59,6 +61,7 @@ export const colors: Colors = {
   black: '#000',
   white: '#fff',
   red: '#FF6754',
+  error: '#EA4335',
   grey: {
     extraLight: '#F2F2F2',
     light: '#D9D9D9',

@@ -10,7 +10,8 @@ import {
 
 import { InviteByEmail } from './invite-by-email'
 import { InviteByLink } from './invite-by-link'
-import { Form, Formik } from 'formik'
+import { validate } from 'email-validator'
+import { Form, Formik, FormikBag } from 'formik'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -24,6 +25,7 @@ import { InviteCreateManyInput } from '@acter/schema/generated/resolvers/inputs/
 
 export type InviteFormValues = {
   inviteLink: string
+  email: string
   emails: string[]
   message: string
   onActerId: string
@@ -44,22 +46,37 @@ export const InviteForm: FC = () => {
 
   const initialValues: InviteFormValues = {
     inviteLink: acterAsUrl({ acter, includeBaseUrl: true }),
+    email: '',
     emails: [],
     message: getInvitationMessage(acterName, userName),
     onActerId: acter.id,
     createdByUserId: user.id,
   }
 
-  const handleSubmit = (values: InviteFormValues, { setFieldValue }) => {
-    const { emails, message, onActerId, createdByUserId } = values
+  const handleSubmit = (
+    values: InviteFormValues,
+    {
+      setSubmitting,
+      setFieldError,
+      setFieldValue,
+    }: FormikBag<unknown, InviteFormValues>
+  ) => {
+    const { email, emails, message, onActerId, createdByUserId } = values
     const data: InviteCreateManyInput[] = []
 
-    emails.map((email) => {
+    if (emails.length <= 0 && !validate(email)) {
+      setSubmitting(false)
+      return setFieldError('email', '* Please enter a valid email address.')
+    }
+
+    data.push({ email, message, onActerId, createdByUserId })
+    emails.map((email) =>
       data.push({ email, message, onActerId, createdByUserId })
-    })
+    )
 
     createInvites(data)
 
+    setFieldValue('email', '')
     setFieldValue('emails', [])
   }
 

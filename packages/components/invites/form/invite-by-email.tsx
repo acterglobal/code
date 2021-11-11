@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  Typography,
 } from '@material-ui/core'
 
 import { validate } from 'email-validator'
@@ -18,14 +19,15 @@ import { EmailAddressChip } from '@acter/components/invites/form/email-address-c
 
 export const InviteByEmail: FC = () => {
   const classes = useStyles()
+
   const {
-    values: { emails },
+    errors,
+    values: { email, emails },
     setFieldValue,
   } = useFormikContext<InviteFormValues>()
-  const [input, setInput] = useState('')
 
   useEffect(() => {
-    setFieldValue('emailAddresses', emails)
+    setFieldValue('emails', emails)
   }, [emails])
 
   const handleDeleteEmailAddress = (emailAddress) => {
@@ -36,16 +38,15 @@ export const InviteByEmail: FC = () => {
   const handleKeyDown = (event) => {
     if (['Enter', 'Tab', ','].includes(event.key)) {
       event.preventDefault()
-      const email = input.trim()
-      const isValidEmail = validate(email) && !emails.includes(email)
+      const newEmail = email.trim()
+      const isValidEmail = validate(newEmail) && !emails.includes(newEmail)
 
       if (isValidEmail) {
-        setFieldValue('emails', [...emails, email])
-        setInput('')
+        setFieldValue('emails', [...emails, newEmail])
+        setFieldValue('email', '')
       }
     }
   }
-  const handleInputChange = (event) => setInput(event.target.value)
 
   const handlePaste = (event) => {
     event.preventDefault()
@@ -57,7 +58,7 @@ export const InviteByEmail: FC = () => {
 
     if (validEmails.length !== 0)
       setFieldValue('emails', [...emails, ...validEmails])
-    else setInput(input)
+    else setFieldValue('email', '')
   }
 
   return (
@@ -71,22 +72,22 @@ export const InviteByEmail: FC = () => {
             handleDelete={handleDeleteEmailAddress}
           />
         ))}
-        <input
-          className={classes.input}
-          type="email"
-          value={input}
+        <Field
+          className={classes.email}
+          name="email"
           onKeyDown={handleKeyDown}
-          onChange={handleInputChange}
           onPaste={handlePaste}
         />
       </Box>
+      {errors.email && (
+        <Typography className={classes.error}>{errors.email}</Typography>
+      )}
 
       <Field name="message" className={classes.message} as="textarea" />
       <Button
         className={classes.button}
         variant="outlined"
         color="inherit"
-        disabled={emails.length <= 0}
         type="submit"
       >
         Send invites
@@ -109,11 +110,10 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.secondary.light,
       minHeight: theme.spacing(4.5),
       padding: theme.spacing(1),
-      marginBottom: theme.spacing(1.5),
       display: 'flex',
       flexWrap: 'wrap',
     },
-    input: {
+    email: {
       color: theme.colors.grey.dark,
       padding: theme.spacing(0.5),
       outline: 'none',
@@ -123,7 +123,13 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'none',
       width: '100%',
     },
+    error: {
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.75rem',
+      color: theme.colors.error,
+    },
     message: {
+      marginTop: theme.spacing(1.5),
       outline: 'none',
       resize: 'none',
       color: theme.colors.grey.dark,
