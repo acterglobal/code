@@ -64,5 +64,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '.8rem',
       marginRight: theme.spacing(3),
     },
+    buttons: {
+      display: 'flex',
+      alignItems: 'center',
+    },
   })
 )

@@ -1,0 +1,7 @@
+#import "../fragments/invite.fragment.graphql"
+
+query GetInviteById($id: String!) {
+  invite(where: { id: $id }) {
+    ...InviteData
+  }
+}

@@ -1,6 +1,13 @@
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
-import { prisma } from '@acter/schema/prisma'
+import { getUrqlClient } from '@acter/lib/urql'
+import { Acter, Invite } from '@acter/schema'
+import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
+import QUERY_INVITE_BY_ID from '@acter/schema/queries/get-invite-by-id.graphql'
+
+type InviteData = { invite: Invite }
+type InviteVariables = { id: string }
+type ActerData = { acter: Acter }
+type ActerVariables = { acterId: string }
 
 export const inviteRedirect: ComposedGetServerSideProps = async ({
   params,
@@ -15,27 +22,42 @@ export const inviteRedirect: ComposedGetServerSideProps = async ({
   }
 
   try {
-    const invite = await prisma.invite.findFirst({ where: { id: params.id } })
+    const urqlClient = getUrqlClient()
 
-    if (invite.expiredAt) {
+    const {
+      data: { invite },
+      error: inviteError,
+    } = await urqlClient
+      .query<InviteData, InviteVariables>(QUERY_INVITE_BY_ID, {
+        id: params.id,
+      })
+      .toPromise()
+
+    if (inviteError) throw inviteError
+
+    if (invite?.expiredAt) {
       return {
         props: {
           ...props,
-          expiredMessage: 'Sorry, Your invitation is expired.',
+          expiredMessage:
+            'Sorry, your invitation has expired. Please reach out to the organisation admin, to receive a new invite.',
         },
       }
     }
 
-    const onActer = await prisma.acter.findFirst({
-      where: { id: invite.onActerId },
-      include: { ActerType: true },
-    })
+    const { data, error: acterError } = await urqlClient
+      .query<ActerData, ActerVariables>(QUERY_ACTER_ID, {
+        acterId: invite?.onActerId,
+      })
+      .toPromise()
 
-    const acterUrl = acterAsUrl({ acter: onActer })
+    if (acterError) throw acterError
 
     return {
-      props,
-      redirect: { destination: acterUrl },
+      props: {
+        ...props,
+        acter: data?.acter,
+      },
     }
   } catch (error) {
     console.error('Error', error)
