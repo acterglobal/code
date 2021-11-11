@@ -12,7 +12,6 @@ import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
-import { Type } from '@acter/components/search/layout/menu/type'
 import { FormSection } from '@acter/components/styled/form-section'
 import { Switch } from '@acter/components/styled/switch'
 
@@ -72,7 +71,6 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
         </Box>
 
         {selectOrganiser && <SettingsStep acters={acters} />}
-        <SettingsStep acters={acters} />
       </FormSection>
     </Box>
   )
