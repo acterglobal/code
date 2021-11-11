@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 
-import { Box } from '@material-ui/core'
+import { Box, FormLabel } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field } from 'formik'
@@ -12,19 +12,17 @@ import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
-import { Type } from '@acter/components/search/layout/menu/type'
 import { FormSection } from '@acter/components/styled/form-section'
 import { Switch } from '@acter/components/styled/switch'
-import { Size } from '@acter/lib/constants'
 
 export type MeetingStepProps = SettingsStepProps
 
 export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
   const classes = useStyles()
-  const [host, setHost] = useState(false)
+  const [selectOrganiser, setSelectOrganiser] = useState(false)
 
   const handleChange = () => {
-    setHost(!host)
+    setSelectOrganiser(!selectOrganiser)
   }
 
   return (
@@ -62,12 +60,18 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
         />
       </FormSection>
 
-      <Switch name="host" checked={false} onChange={handleChange} />
-      {host && (
-        <FormSection>
-          <SettingsStep acters={acters} />
-        </FormSection>
-      )}
+      <FormSection>
+        <FormLabel className={classes.label}>Select Host</FormLabel>
+        <Box className={classes.switch}>
+          <Switch
+            name="host"
+            checked={selectOrganiser}
+            onChange={handleChange}
+          />
+        </Box>
+
+        {selectOrganiser && <SettingsStep acters={acters} />}
+      </FormSection>
     </Box>
   )
 }
@@ -81,5 +85,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.5rem',
     marginBottom: theme.spacing(2),
     color: theme.palette.secondary.light,
+  },
+  label: {
+    color: theme.colors.grey.dark,
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  switch: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }))
