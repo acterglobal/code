@@ -117,11 +117,13 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   ) => {
     const { setSubmitting } = formikBag
     if (!isLastStep()) {
+      console.log('The current values ', values)
       setSubmitting(false)
       handleNext()
       return
     }
     // TODO: Final validation
+    console.log('The final values ', values)
     onSubmit(values)
   }
 
@@ -208,6 +210,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
         },
       } as Acter)
   const acters = getFollowers(user, checkActer)
+
+  console.log('Organiser id ', organiserActerId)
 
   return (
     <>
