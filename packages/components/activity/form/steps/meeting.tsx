@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
-import { Box } from '@material-ui/core'
+import { Box, FormLabel } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field } from 'formik'
@@ -8,10 +8,22 @@ import { TextField } from 'formik-material-ui'
 
 import { LocationVenuePicker } from '@acter/components/activity/form/fields/location-venue-picker'
 import { StartEndTimeDatePicker } from '@acter/components/activity/form/fields/start-end-date-time-picker'
+import {
+  SettingsStep,
+  SettingsStepProps,
+} from '@acter/components/activity/form/steps/settings'
 import { FormSection } from '@acter/components/styled/form-section'
+import { Switch } from '@acter/components/styled/switch'
 
-export const MeetingStep: FC = () => {
+export type MeetingStepProps = SettingsStepProps
+
+export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
   const classes = useStyles()
+  const [selectOrganiser, setSelectOrganiser] = useState(false)
+
+  const handleChange = () => {
+    setSelectOrganiser(!selectOrganiser)
+  }
 
   return (
     <Box className={classes.container}>
@@ -47,10 +59,22 @@ export const MeetingStep: FC = () => {
           rows={5}
         />
       </FormSection>
+
+      <FormSection>
+        <FormLabel className={classes.label}>Select Host</FormLabel>
+        <Box className={classes.switch}>
+          <Switch
+            name="host"
+            checked={selectOrganiser}
+            onChange={handleChange}
+          />
+        </Box>
+
+        {selectOrganiser && <SettingsStep acters={acters} />}
+      </FormSection>
     </Box>
   )
 }
-
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
@@ -61,5 +85,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.5rem',
     marginBottom: theme.spacing(2),
     color: theme.palette.secondary.light,
+  },
+  label: {
+    color: theme.colors.grey.dark,
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  switch: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }))

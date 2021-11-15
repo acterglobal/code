@@ -1,9 +1,11 @@
 import { Meta, Story } from '@storybook/react'
 
 import { withFormik } from 'storybook-formik'
+import { v4 } from 'uuid'
 
 import { BasicsStepValues } from '@acter/components/activity/form/steps/basics'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
+import { SettingsStepProps } from '@acter/components/activity/form/steps/settings'
 import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
 
 type MeetingStepValues = BasicsStepValues & {
@@ -14,7 +16,11 @@ export default {
   title: 'Organisms/Activity/Form/Steps/Meeting',
   component: MeetingStep,
   args: {
-    acters: [ExampleActer],
+    acters: [
+      { ...ExampleActer, id: v4(), name: 'Acter 1' },
+      { ...ExampleActer, id: v4(), name: 'Acter 2' },
+      { ...ExampleActer, id: v4(), name: 'Acter 3' },
+    ],
     activityTypes: ActivityTypes,
   },
   decorators: [withFormik],
@@ -36,7 +42,7 @@ export default {
   },
 } as Meta
 
-const Template: Story = (args) => (
+const Template: Story<SettingsStepProps> = (args) => (
   <div style={{ width: 600 }}>
     <MeetingStep {...args} />
   </div>
