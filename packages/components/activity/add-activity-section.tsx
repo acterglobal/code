@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import dynamic from 'next/dynamic'
 
@@ -20,7 +19,6 @@ const AddActivity = dynamic(() =>
 )
 
 export const AddActivitySection: FC = () => {
-  di(useActer, useUser)
   const [openDrawer, setOpenDrawer] = useState(false)
   const [drawerHeading, setDrawerHeading] = useState('')
 

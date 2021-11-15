@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import { Box, Divider } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -18,7 +17,6 @@ interface PostListProps {
 }
 
 export const PostList: FC<PostListProps> = ({ acterId }) => {
-  di(useActer, usePosts, useUser)
   const classes = useStyles()
 
   const { posts, fetching: postsLoading } = usePosts({ acterId })

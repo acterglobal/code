@@ -1,5 +1,4 @@
 import React, { FC, useMemo } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
@@ -14,9 +13,7 @@ import { useUser } from '@acter/lib/user/use-user'
 interface ConnectProps {
   acterId?: string
 }
-
 export const Connect: FC<ConnectProps> = ({ acterId }) => {
-  di(useActer, useUser)
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })

@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import Image from 'next/image'
 
@@ -22,7 +21,6 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 
 export const HeaderSection: FC = () => {
-  di(useActer)
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')

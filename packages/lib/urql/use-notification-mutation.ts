@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { di } from 'react-magnetic-di/macro'
 
 import { DocumentNode } from 'graphql/language/ast'
 import { useSnackbar } from 'notistack'
@@ -34,7 +33,6 @@ export const useNotificationMutation = <
   mutation: DocumentNode | TypedDocumentNode<TData, TVariables> | string,
   options?: UseMutationOptions<TData, TVariables>
 ): UseMutationResponse<TData, TVariables> => {
-  di(useSnackbar)
   const { enqueueSnackbar } = useSnackbar()
   const { getErrorMessage, getSuccessMessage, ...restOptions } = options || {}
   const [result, runMutation] = useMutation<TData, TVariables>(mutation)

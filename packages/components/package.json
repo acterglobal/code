@@ -48,6 +48,7 @@
     "@storybook/builder-webpack5": "^6.3.8",
     "@storybook/manager-webpack5": "^6.3.8",
     "@storybook/react": "^6.3.8",
+    "@urql/storybook-addon": "^1.0.7",
     "babel-loader": "^8.2.2",
     "babel-plugin-polyfill-corejs2": "^0.2.2",
     "babel-plugin-polyfill-regenerator": "^0.2.2",
