@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import {
-  Divider,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -11,7 +10,7 @@ import {
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { ConnectionState } from '@acter/components/acter/landing-page/members-section/connection-state'
+import { ConnectionUpdateOptions } from '@acter/components/acter/landing-page/members-section/connection-update-options'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter, ActerConnection, User } from '@acter/schema'
@@ -51,38 +50,30 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
   canEdit,
   isOrganisation,
 }) => {
-  const classes = useStyles()
   return (
-    <>
-      <ListItem>
-        {isOrganisation ? (
-          <Link
-            href={`${acterAsUrl({ acter: Follower })}`}
-            key={`follower-${Follower.id}`}
-          >
-            <Box style={{ display: 'flex' }}>
-              <MemberDetails follower={Follower} />
-            </Box>
-          </Link>
-        ) : (
-          <MemberDetails follower={Follower} />
-        )}
+    <ListItem>
+      {isOrganisation ? (
+        <Link
+          href={`${acterAsUrl({ acter: Follower })}`}
+          key={`follower-${Follower.id}`}
+        >
+          <Box style={{ display: 'flex' }}>
+            <MemberDetails follower={Follower} />
+          </Box>
+        </Link>
+      ) : (
+        <MemberDetails follower={Follower} />
+      )}
 
-        {showJoinState && (
-          <ListItemSecondaryAction>
-            <ConnectionState
-              connection={connection}
-              canEdit={canEdit && Follower.id !== user.Acter.id}
-            />
-          </ListItemSecondaryAction>
-        )}
-      </ListItem>
-      <Divider
-        classes={{ root: classes.divider }}
-        variant="inset"
-        component="li"
-      />
-    </>
+      {showJoinState && (
+        <ListItemSecondaryAction>
+          <ConnectionUpdateOptions
+            connection={connection}
+            canEdit={canEdit && Follower.id !== user.Acter.id}
+          />
+        </ListItemSecondaryAction>
+      )}
+    </ListItem>
   )
 }
 
@@ -97,13 +88,9 @@ const MemberDetails: FC<MemberDetailsProps> = ({ follower }) => {
         <ActerAvatar acter={follower} />
       </ListItemAvatar>
       <ListItemText
-        classes={{
-          primary: classes.name,
-          secondary: classes.acterType,
-        }}
+        classes={{ primary: classes.name }}
         className={classes.memberInfo}
         primary={follower.name}
-        secondary={follower.ActerType.name}
       />
     </>
   )
@@ -111,18 +98,12 @@ const MemberDetails: FC<MemberDetailsProps> = ({ follower }) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   memberInfo: {
-    marginLeft: 30,
-    fontWeight: theme.typography.fontWeightBold,
+    marginLeft: theme.spacing(3),
     textTransform: 'capitalize',
   },
   name: {
     fontWeight: theme.typography.fontWeightBold,
-    color: theme.colors.grey.dark,
-  },
-  acterType: {
-    color: theme.colors.grey.dark,
-  },
-  divider: {
-    marginLeft: 100,
+    fontSize: 12.5,
+    color: theme.palette.secondary.main,
   },
 }))
