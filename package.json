@@ -47,6 +47,7 @@
     "env-cmd": "^10.1.0",
     "graphql": "^15.4.0",
     "just-capitalize": "^1.0.1",
+    "md5": "^2.3.0",
     "next-urql": "^3.2.1",
     "notistack": "^1.0.10",
     "pluralize": "^8.0.0",

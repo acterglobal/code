@@ -1,3 +1,4 @@
+import md5 from 'md5'
 import {
   Authorized,
   Resolver,
@@ -6,6 +7,7 @@ import {
   Ctx,
   UseMiddleware,
 } from 'type-graphql'
+import { Context } from 'urql'
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
@@ -407,8 +409,20 @@ export class ActerResolver {
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
+    const acter = await ctx.prisma.acter.findUnique({
+      select: {
+        id: true,
+        createdByUserId: true,
+        slug: true,
+      },
+      where: { id: acterId },
+    })
+
+    const deletedSlug = md5(acter.slug)
+
     return await ctx.prisma.acter.update({
       data: {
+        slug: deletedSlug,
         deletedAt: new Date(),
         deletedByUserId: ctx.session.user.id,
       },

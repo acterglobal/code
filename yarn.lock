@@ -8128,6 +8128,7 @@ __metadata:
     jest: ^27.0.6
     jest-transform-graphql: ^2.1.0
     just-capitalize: ^1.0.1
+    md5: ^2.3.0
     netlify-cli: ^6.9.28
     next-urql: ^3.2.1
     notistack: ^1.0.10
