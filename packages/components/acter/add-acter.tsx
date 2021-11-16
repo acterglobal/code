@@ -32,13 +32,6 @@ export const AddActer: FC = () => {
     setShowActerForm(false)
   }
 
-  const handleChooseActerType = async (acterTypeName) => {
-    const acterType = acterTypes.find((type) => type.name === acterTypeName)
-    setActerType(acterType)
-    setHeading(`Create ${acterTypeName}`)
-    setShowActerForm(true)
-  }
-
   const [{ data, fetching }, createActer] = useCreateActer()
 
   useEffect(() => {
@@ -59,11 +52,7 @@ export const AddActer: FC = () => {
           open={openDrawer}
           handleClose={handleDrawerClose}
         >
-          {showActerForm ? (
-            <ActerForm acterType={acterType} onSubmit={createActer} />
-          ) : (
-            <SelectActerType onClick={handleChooseActerType} />
-          )}
+          <ActerForm onSubmit={createActer} />
         </Drawer>
       )}
     </>
