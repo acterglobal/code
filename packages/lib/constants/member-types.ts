@@ -1,4 +1,4 @@
 export enum MemberType {
-  ORGANISATIONS = 'organisations',
+  ACTERS = 'acters',
   PEOPLE = 'people',
 }

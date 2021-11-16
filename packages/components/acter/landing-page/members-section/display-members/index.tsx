@@ -1,27 +1,21 @@
 import React, { FC } from 'react'
 
-import { Box, Divider, Typography, List } from '@material-ui/core'
+import { Divider, Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-
-import pluralize from 'pluralize'
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
+const { ADMIN, MEMBER } = ActerConnectionRole
 export interface DisplayMembersProps {
   /**
    * The list of acters we are displaying
    */
   followers: ActerConnection[]
-  /**
-   * The type of connection
-   */
-  type: MemberType
   /**
    * Boolean to indicate organisation member/follower type
    */
@@ -30,7 +24,6 @@ export interface DisplayMembersProps {
 
 export const DisplayMembers: FC<DisplayMembersProps> = ({
   followers = [],
-  type,
   isOrganisation,
 }) => {
   const classes = useStyles()
@@ -40,38 +33,50 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const showJoinState = userHasRoleOnActer(
-    user,
-    ActerConnectionRole.MEMBER,
-    acter
-  )
-  const canEdit = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  const showJoinState = userHasRoleOnActer(user, MEMBER, acter)
+  const canEdit = userHasRoleOnActer(user, ADMIN, acter)
+
+  const admins = followers.filter(({ role }) => role === ADMIN)
+  const members = followers.filter(({ role }) => role === MEMBER)
 
   return (
-    <Box className={classes.container}>
-      <Typography className={classes.heading} variant="h5">
-        {followers.length} {pluralize(type)}
-      </Typography>
-      <Divider />
+    <List className={classes.list}>
+      <Typography className={classes.heading}>Admins</Typography>
+      {admins.map((connection) => {
+        const { Follower } = connection
 
-      <List className={classes.members}>
-        {followers.map((connection) => {
-          const { Follower } = connection
+        return (
+          <DisplayMemberItem
+            key={`follower-${Follower.id}`}
+            user={user}
+            Follower={Follower}
+            connection={connection}
+            showJoinState={showJoinState}
+            canEdit={canEdit}
+            isOrganisation={isOrganisation}
+          />
+        )
+      })}
 
-          return (
-            <DisplayMemberItem
-              key={`follower-${Follower.id}`}
-              user={user}
-              Follower={Follower}
-              connection={connection}
-              showJoinState={showJoinState}
-              canEdit={canEdit}
-              isOrganisation={isOrganisation}
-            />
-          )
-        })}
-      </List>
-    </Box>
+      <Divider classes={{ root: classes.divider }} />
+      <Typography className={classes.heading}>Members</Typography>
+
+      {members.map((connection) => {
+        const { Follower } = connection
+
+        return (
+          <DisplayMemberItem
+            key={`follower-${Follower.id}`}
+            user={user}
+            Follower={Follower}
+            connection={connection}
+            showJoinState={showJoinState}
+            canEdit={canEdit}
+            isOrganisation={isOrganisation}
+          />
+        )
+      })}
+    </List>
   )
 }
 
@@ -80,21 +85,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100%',
     padding: theme.spacing(3),
     backgroundColor: theme.palette.background.paper,
-    borderRadius: theme.spacing(1),
-    borderColor: theme.palette.divider,
-    borderWidth: 'thin',
-    borderStyle: 'solid',
     overflow: 'hidden',
   },
   heading: {
-    fontSize: '0.9rem',
-    fontWeight: theme.typography.fontWeightBold,
+    fontSize: '0.88rem',
+    fontWeight: theme.typography.fontWeightMedium,
     color: theme.colors.grey.dark,
-    marginBottom: 20,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
-  members: {
+  list: {
+    paddingLeft: theme.spacing(6.5),
+    paddingRight: theme.spacing(6.5),
     height: '100%',
     overflowY: 'scroll',
     width: '100%',
+  },
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.light,
+    height: '0.12rem',
   },
 }))

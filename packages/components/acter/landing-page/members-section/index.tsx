@@ -5,18 +5,13 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
+import { theme } from '@acter/components/themes/acter-theme'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 
-const { ORGANISATIONS, PEOPLE } = MemberType
-
-const useStyles = makeStyles({
-  container: {
-    minWidth: 400,
-  },
-})
+const { ACTERS, PEOPLE } = MemberType
 
 export const MembersSection: FC = () => {
   const classes = useStyles()
@@ -27,7 +22,9 @@ export const MembersSection: FC = () => {
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const followers = mapFollowersByType(acter)
+  const allFollowers = mapFollowersByType(acter)
+  const followers =
+    activeSelector === PEOPLE ? allFollowers.user : allFollowers.organisation
 
   const handleSelectorChange = (selector) => {
     setActiveSelector(selector)
@@ -36,17 +33,22 @@ export const MembersSection: FC = () => {
   return (
     <Box className={classes.container}>
       <Selectors
-        selectors={[PEOPLE, ORGANISATIONS]}
+        selectors={[PEOPLE, ACTERS]}
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
+        totalResults={followers?.length}
       />
       <DisplayMembers
-        followers={
-          activeSelector === PEOPLE ? followers.user : followers.organisation
-        }
-        type={activeSelector}
-        isOrganisation={activeSelector === ORGANISATIONS ? true : false}
+        followers={followers}
+        isOrganisation={activeSelector === ACTERS ? true : false}
       />
     </Box>
   )
 }
+
+const useStyles = makeStyles({
+  container: {
+    borderRadius: 6,
+    backgroundColor: theme.colors.white,
+  },
+})
