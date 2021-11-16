@@ -22,13 +22,12 @@ interface UseLinksResult
   links: Link[]
 }
 // TODO: DRY useActer in other hooks
-export const useLinks = (options?: LinksVariables): UseLinksResult => {
-  const { acterId } = options
+export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
   const { acter, fetching: acterFetching, error: acterError } = useActer({
-    acterId: acterId,
+    fetchParent: true,
   })
 
   const [

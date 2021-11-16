@@ -1,8 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { ActerVariables } from './use-create-acter'
 import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'

@@ -28,7 +28,7 @@ export const ActerMenu: FC = () => {
 
       <ActerMenuItems />
 
-      {(isAdmin || isMember) && <LinksList parentActerId={acter.Parent?.id} />}
+      {(isAdmin || isMember) && <LinksList />}
 
       {(isAdmin || isMember) && <GroupsSection />}
 
