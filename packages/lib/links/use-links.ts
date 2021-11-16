@@ -14,7 +14,7 @@ type LinksVariables = {
   acterId: string
 }
 
-type UseLinksOptions = UseQueryArgs<LinksVariables, LinksData>
+type UseLinksOptions = LinksVariables & UseQueryArgs<LinksVariables, LinksData>
 
 type UseLinksError = CombinedError | Error
 interface UseLinksResult
@@ -22,13 +22,13 @@ interface UseLinksResult
   links: Link[]
 }
 // TODO: DRY useActer in other hooks
-export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
-  console.log('This is links acterId ', options?.acterId)
+export const useLinks = (options?: LinksVariables): UseLinksResult => {
+  const { acterId } = options
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
   const { acter, fetching: acterFetching, error: acterError } = useActer({
-    acterId: options?.acterId,
+    acterId: acterId,
   })
 
   const [
