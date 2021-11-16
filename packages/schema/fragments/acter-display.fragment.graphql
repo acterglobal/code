@@ -10,6 +10,7 @@ fragment ActerDisplay on Acter {
   acterJoinSetting
   acterNotifySetting
   acterNotifyEmailFrequency
+  acterPrivacySetting
   ActerType {
     id
     name

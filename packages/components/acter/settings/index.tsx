@@ -6,6 +6,10 @@ import {
   ActerUsersSettings,
   ActerUsersSettingsProps,
 } from '@acter/components/acter/settings/acter-users-settings'
+import {
+  ActerVisibilitySettings as ActerPrivacySettings,
+  ActerVisibilitySettingsProps as ActerPrivacySettingsProps,
+} from '@acter/components/acter/settings/acter-visibility-settings'
 import { Links as LinkSection, LinkProps } from '@acter/components/links'
 import {
   SettingsContainer,
@@ -15,7 +19,9 @@ import {
 } from '@acter/components/util/settings-layout'
 import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
 
-export type ActerSettingsProps = ActerUsersSettingsProps & LinkProps
+export type ActerSettingsProps = ActerUsersSettingsProps &
+  LinkProps &
+  ActerPrivacySettingsProps
 
 export const ActerSettings: FC<ActerSettingsProps> = ({
   links,
@@ -36,6 +42,9 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
         <MenuItem onClick={() => handleClick(ActerSettingsMenu.LINKS)}>
           Links
         </MenuItem>
+        <MenuItem onClick={() => handleClick(ActerSettingsMenu.PRIVACY)}>
+          Privacy
+        </MenuItem>
       </SettingsMenu>
 
       <SettingsContent>
@@ -50,6 +59,15 @@ export const ActerSettings: FC<ActerSettingsProps> = ({
         )}
         {showContent === ActerSettingsMenu.LINKS && (
           <LinkSection links={links} />
+        )}
+        {showContent === ActerSettingsMenu.PRIVACY && (
+          <>
+            <SettingsSectionHeading>Privacy Setting</SettingsSectionHeading>
+            <ActerPrivacySettings
+              onSettingsChange={onSettingsChange}
+              fetching={fetching}
+            />
+          </>
         )}
       </SettingsContent>
     </SettingsContainer>
