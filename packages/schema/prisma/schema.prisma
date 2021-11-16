@@ -114,6 +114,7 @@ model Acter {
 enum ActerConnectionRole {
   PENDING
   REJECTED
+  REMOVED
   MEMBER
   ADMIN
 }
