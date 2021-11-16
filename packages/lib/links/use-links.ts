@@ -23,10 +23,13 @@ interface UseLinksResult
 }
 // TODO: DRY useActer in other hooks
 export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
+  console.log('This is links acterId ', options?.acterId)
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
-  const { acter, fetching: acterFetching, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer({
+    acterId: options?.acterId,
+  })
 
   const [
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },

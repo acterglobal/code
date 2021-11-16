@@ -7,9 +7,13 @@ import { Tooltip } from '@acter/components/util/tool-tip'
 import { useLinks } from '@acter/lib/links/use-links'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-export const LinksList: FC = () => {
+export interface LinksListProps {
+  parentActerId: string
+}
+
+export const LinksList: FC<LinksListProps> = ({ parentActerId }) => {
   const classes = useStyles()
-  const { links } = useLinks()
+  const { links } = useLinks({ acterId: parentActerId })
   if (!links || links.length === 0) return null
 
   const getUrl = (url) => {
