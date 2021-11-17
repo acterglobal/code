@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { DisplayActers } from '@acter/components/acter/landing-page/members-section/display-acters'
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { theme } from '@acter/components/themes/acter-theme'
@@ -38,10 +39,8 @@ export const MembersSection: FC = () => {
         onChange={handleSelectorChange}
         totalResults={followers?.length}
       />
-      <DisplayMembers
-        followers={followers}
-        isOrganisation={activeSelector === ACTERS ? true : false}
-      />
+      {activeSelector === PEOPLE && <DisplayMembers followers={followers} />}
+      {activeSelector === ACTERS && <DisplayActers followers={followers} />}
     </Box>
   )
 }

@@ -10,10 +10,11 @@ import {
 import { MoreHoriz as DotsIcon } from '@material-ui/icons'
 
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
-const { ADMIN, MEMBER, REJECTED } = ActerConnectionRole
+const { ADMIN, MEMBER, REMOVED } = ActerConnectionRole
 export interface ConnectionStateProps {
   connection: ActerConnection
   canEdit: boolean
@@ -24,8 +25,16 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
   canEdit,
 }) => {
   const classes = useStyles()
+  const [
+    { fetching: updatingConnection },
+    updateConnection,
+  ] = useUpdateActerConnection()
 
   if (!canEdit) return null
+
+  if (updatingConnection) return <LoadingSpinner thickness={4} />
+
+  const handleClick = (role) => updateConnection(connection, role)
 
   return (
     <DropdownMenu
@@ -35,53 +44,19 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
         </IconButton>
       }
     >
-      {connection.role === ADMIN && (
-        <>
-          <ActionItem
-            label="Remove as Admin"
-            connection={connection}
-            updateRole={MEMBER}
-          />
-          <ActionItem
-            label="Remove as Member"
-            connection={connection}
-            updateRole={REJECTED}
-          />
-        </>
-      )}
-      {connection.role === MEMBER && (
-        <>
-          <ActionItem
-            label="Make as Admin"
-            connection={connection}
-            updateRole={ADMIN}
-          />
-          <ActionItem
-            label="Remove as Member"
-            connection={connection}
-            updateRole={REJECTED}
-          />
-        </>
-      )}
+      <MenuItem
+        className={classes.menuItem}
+        onClick={() => handleClick(connection.role === ADMIN ? MEMBER : ADMIN)}
+      >
+        {connection.role === ADMIN ? 'Remove as Admin' : 'Make as Admin'}
+      </MenuItem>
+      <MenuItem
+        className={classes.menuItem}
+        onClick={() => handleClick(REMOVED)}
+      >
+        Remove as Member
+      </MenuItem>
     </DropdownMenu>
-  )
-}
-
-type ActionItemProps = {
-  label: string
-  connection: ActerConnection
-  updateRole: ActerConnectionRole
-}
-const ActionItem: FC<ActionItemProps> = ({ label, connection, updateRole }) => {
-  const classes = useStyles()
-  const [_, updateConnection] = useUpdateActerConnection()
-
-  const handleClick = () => updateConnection(connection, updateRole)
-
-  return (
-    <MenuItem className={classes.menuItem} onClick={handleClick}>
-      {label}
-    </MenuItem>
   )
 }
 
