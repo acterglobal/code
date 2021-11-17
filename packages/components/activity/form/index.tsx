@@ -176,10 +176,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     location: '',
     url: '',
     interestIds,
-    followerIds:
-      [parentActer?.id] ||
-      acter?.Followers?.map(({ Follower: { id } }) => id) ||
-      [],
+    followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [
+      parentActer?.id,
+    ],
     ...acter,
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
@@ -209,7 +208,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
         },
       } as Acter)
   const acters = getFollowers(user, checkActer)
-  // console.log('This is parentActer ', parentActer.id)
 
   return (
     <>
