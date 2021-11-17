@@ -7,13 +7,13 @@ import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 import { LocationVenuePicker } from '@acter/components/activity/form/fields/location-venue-picker'
-import { StartEndTimeDatePicker } from '@acter/components/activity/form/fields/start-end-date-time-picker'
 import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
 import { FormSection } from '@acter/components/styled/form-section'
 import { Switch } from '@acter/components/styled/switch'
+import { StartEndTimeDatePicker } from '@acter/components/util/datetime/start-end-date-time-picker'
 
 export type MeetingStepProps = SettingsStepProps
 

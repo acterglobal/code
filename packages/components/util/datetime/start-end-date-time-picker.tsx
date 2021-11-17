@@ -8,8 +8,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
-import { DatePickerField } from '@acter/components/util/pickers/date-picker-field'
-import { TimePickerField } from '@acter/components/util/pickers/time-picker-field'
+import { DatePickerField } from '@acter/components/util/datetime/date-picker-field'
+import { TimePickerField } from '@acter/components/util/datetime/time-picker-field'
 
 export interface StartEndTimeDatePickerValues {
   isAllDay: boolean

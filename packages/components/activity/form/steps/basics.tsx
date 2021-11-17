@@ -12,11 +12,11 @@ import {
   LocationVenuePickerValues,
 } from '@acter/components/activity/form/fields/location-venue-picker'
 import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
+import { FormSection } from '@acter/components/styled/form-section'
 import {
   StartEndTimeDatePicker,
   StartEndTimeDatePickerValues,
-} from '@acter/components/activity/form/fields/start-end-date-time-picker'
-import { FormSection } from '@acter/components/styled/form-section'
+} from '@acter/components/util/datetime/start-end-date-time-picker'
 
 export interface BasicsStepValues
   extends LocationVenuePickerValues,

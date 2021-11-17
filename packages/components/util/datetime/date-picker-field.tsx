@@ -5,14 +5,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { KeyboardDatePicker } from 'formik-material-ui-pickers'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    datepicker: {
-      color: theme.palette.secondary.main,
-    },
-  })
-)
-
 export interface DatePickerProps {
   label?: string
   name: string
@@ -20,9 +12,13 @@ export interface DatePickerProps {
   required?: boolean
 }
 
-export const DatePickerField: FC<DatePickerProps> = (props) => {
+export const DatePickerField: FC<DatePickerProps> = ({
+  label,
+  name,
+  placeholder,
+  required = true,
+}) => {
   const classes = useStyles()
-  const { label, name, placeholder, required = true } = props
 
   return (
     <Field
@@ -40,3 +36,11 @@ export const DatePickerField: FC<DatePickerProps> = (props) => {
     />
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    datepicker: {
+      color: theme.palette.secondary.main,
+    },
+  })
+)
