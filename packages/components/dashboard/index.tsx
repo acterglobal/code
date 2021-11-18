@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       position: 'fixed',
       zIndex: 100,
-      top: 50,
+      top: 0,
       width: '100%',
       height: 52,
       backgroundColor: theme.colors.white,

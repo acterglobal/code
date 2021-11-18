@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightLight,
     },
     heading: {
-      height: 50,
+      height: theme.spacing(6),
       padding: theme.spacing(2),
       borderBottom: '1px solid white',
       display: 'flex',

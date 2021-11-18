@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.7rem',
       fontWeight: theme.typography.fontWeightBold,
       color: theme.palette.secondary.main,
+      marginBottom: theme.spacing(0.5),
     },
     container: {
       display: 'flex',
