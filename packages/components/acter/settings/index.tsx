@@ -17,6 +17,28 @@ import { InvitesSection } from '@acter/components/invites'
 import { Links as LinkSection } from '@acter/components/links'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SettingsTabs } from '@acter/lib/constants'
+import { MenuItem } from '@material-ui/core'
+
+import {
+  ActerAccessabilitySettings,
+  ActerAccessabilitySettingsProps,
+} from '@acter/components/acter/settings/acter-accessability-settings'
+import {
+  ActerUsersSettings,
+  ActerUsersSettingsProps,
+} from '@acter/components/acter/settings/acter-users-settings'
+import { Links as LinkSection, LinkProps } from '@acter/components/links'
+import {
+  SettingsContainer,
+  SettingsContent,
+  SettingsMenu,
+  SettingsSectionHeading,
+} from '@acter/components/util/settings-layout'
+import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
+
+export type ActerSettingsProps = ActerUsersSettingsProps &
+  LinkProps &
+  ActerAccessabilitySettingsProps
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
 
@@ -44,6 +66,25 @@ export const ActerSettings: FC = () => {
               label={tab}
               id={tab}
               key={`tab-${i}`}
+      <SettingsContent>
+        {showContent === ActerSettingsMenu.MEMBERS && (
+          <>
+            <SettingsSectionHeading>Join</SettingsSectionHeading>
+            <ActerUsersSettings
+              onSettingsChange={onSettingsChange}
+              fetching={fetching}
+            />
+          </>
+        )}
+        {showContent === ActerSettingsMenu.LINKS && (
+          <LinkSection links={links} />
+        )}
+        {showContent === ActerSettingsMenu.PRIVACY && (
+          <>
+            <SettingsSectionHeading>Privacy Setting</SettingsSectionHeading>
+            <ActerAccessabilitySettings
+              onSettingsChange={onSettingsChange}
+              fetching={fetching}
             />
           ))}
         </Tabs>
