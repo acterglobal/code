@@ -8,6 +8,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  Box,
 } from '@material-ui/core'
 
 import clsx from 'clsx'
@@ -46,7 +47,7 @@ export const FollowingList: FC = () => {
   if (!user) return null
 
   return (
-    <>
+    <Box className={classes.listContainer}>
       {followingActers?.map((acter) => (
         <ListItem
           key={`following-${acter.id}`}
@@ -67,13 +68,17 @@ export const FollowingList: FC = () => {
           </Link>
         </ListItem>
       ))}
-    </>
+    </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
+    listContainer: {
+      maxHeight: '60vh',
+      overflow: 'scroll',
+    },
     currentActer: {
       backgroundColor: theme.palette.secondary.main,
     },

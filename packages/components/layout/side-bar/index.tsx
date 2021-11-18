@@ -19,6 +19,7 @@ import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
 import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/layout/side-bar/following-list'
+import { ProfileButton } from '@acter/components/layout/side-bar/profile-button'
 import { Link } from '@acter/components/util/anchor-link'
 import { useUser } from '@acter/lib/user/use-user'
 
@@ -60,6 +61,7 @@ export const Sidebar: FC = () => {
           )}
         </List>
       </Box>
+      <ProfileButton />
     </Drawer>
   )
 }
@@ -101,8 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       border: 'none',
       display: 'flex',
-      flexDirection: 'row',
-      width: theme.spacing(PRIMARY_WIDTH),
+      flexDirection: 'column',
       backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
       '& .MuiDivider-root': {
