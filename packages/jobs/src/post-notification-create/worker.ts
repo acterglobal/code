@@ -1,8 +1,9 @@
 import 'reflect-metadata'
 
 import { PostNotificationCreate } from './types'
+import slugify from 'slugify'
 
-import { POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
+import { ActerTypes, POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { createPostEmailNotification } from '@acter/lib/post/email'
 import { NotificationType, Post } from '@acter/schema'
@@ -27,6 +28,11 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
       return await prisma.acter.findFirst({
         include: {
           ActerType: true,
+          Parent: {
+            include: {
+              ActerType: true,
+            },
+          },
         },
         where: {
           id: post.acterId,
@@ -49,6 +55,9 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
       `New post on ${notification.OnActer.name} via Acter`,
     getPost: ({ post }) => post as Post,
     type: NotificationType.NEW_POST,
-    getNotificationUrlPath: (postId) => `forum/${postId}`,
+    getNotificationUrlPath: (postId, following) =>
+      following.ActerType.name === ActerTypes.ACTIVITY
+        ? `activities?activity=${slugify(following.name)}&post=${postId}`
+        : `forum/${postId}`,
   }
 )

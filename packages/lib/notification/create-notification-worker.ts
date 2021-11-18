@@ -72,7 +72,7 @@ interface CreateNotificationWorker<T> {
   /**
    * Url path for notification on
    */
-  getNotificationUrlPath: (data?: string) => string
+  getNotificationUrlPath: (data?: string, following?: Acter) => string
 }
 
 export const createNotificationWorker = <T>({
@@ -132,10 +132,15 @@ export const createNotificationWorker = <T>({
     const post = getPost?.(data)
 
     const extraPath = getNotificationUrlPath(
-      activity?.Acter.name || post?.parentId || post?.id
+      activity?.Acter.name || post?.parentId || post?.id,
+      following
     )
+
     const url = acterAsUrl({
-      acter: following,
+      acter:
+        following.ActerType.name === ActerTypes.ACTIVITY
+          ? following.Parent
+          : following,
       includeBaseUrl: true,
       extraPath,
     })
