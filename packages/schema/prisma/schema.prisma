@@ -38,6 +38,11 @@ enum ActerPrivacySettings {
   PRIVATE
 }
 
+enum ActerWhoCanJoinSettings {
+  USERS
+  ACTERS
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -63,6 +68,8 @@ model Acter {
   acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(DAILY) @map("acter_notify_email_frequency")
   //   Whether an Acter is visible in public Search
   acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
+  //   Who can join a given Acter
+  acterWhoCanJoinSetting    ActerWhoCanJoinSettings         @default(ACTERS) @map("acter_who_can_join_setting")
 
   // Associations
   // List of Interests for this Acter
@@ -270,7 +277,7 @@ model Invite {
   updatedAt  DateTime  @updatedAt @map("updated_at")
   sentAt     DateTime? @map("sent_at")
   acceptedAt DateTime? @map("accepted_at")
-  expiredAt DateTime? @map("expired_at")
+  expiredAt  DateTime? @map("expired_at")
 
   // The acter to which we're inviting someone
   OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)
