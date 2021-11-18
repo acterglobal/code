@@ -28,12 +28,14 @@ import {
   ActerUsersSettingsProps,
 } from '@acter/components/acter/settings/acter-users-settings'
 import { Links as LinkSection, LinkProps } from '@acter/components/links'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import {
   SettingsContainer,
   SettingsContent,
   SettingsMenu,
   SettingsSectionHeading,
 } from '@acter/components/util/settings-layout'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
 
 export type ActerSettingsProps = ActerUsersSettingsProps &
@@ -41,6 +43,18 @@ export type ActerSettingsProps = ActerUsersSettingsProps &
   ActerAccessabilitySettingsProps
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
+export const ActerSettings: FC<ActerSettingsProps> = ({
+  links,
+  onSettingsChange,
+}) => {
+  const [showContent, setShowContent] = useState(ActerSettingsMenu.PRIVACY)
+  const { acter, fetching } = useActer()
+  if (fetching) return <LoadingSpinner />
+  if (!acter) return null
+
+  const handleClick = (content) => {
+    setShowContent(content)
+  }
 
 export const ActerSettings: FC = () => {
   const classes = useStyles()
@@ -71,8 +85,8 @@ export const ActerSettings: FC = () => {
           <>
             <SettingsSectionHeading>Join</SettingsSectionHeading>
             <ActerUsersSettings
+              acter={acter}
               onSettingsChange={onSettingsChange}
-              fetching={fetching}
             />
           </>
         )}
@@ -81,10 +95,12 @@ export const ActerSettings: FC = () => {
         )}
         {showContent === ActerSettingsMenu.PRIVACY && (
           <>
-            <SettingsSectionHeading>Privacy Setting</SettingsSectionHeading>
+            <SettingsSectionHeading>
+              Accessability Setting
+            </SettingsSectionHeading>
             <ActerAccessabilitySettings
+              acter={acter}
               onSettingsChange={onSettingsChange}
-              fetching={fetching}
             />
           ))}
         </Tabs>

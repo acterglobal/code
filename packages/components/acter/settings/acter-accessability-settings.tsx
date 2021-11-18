@@ -1,19 +1,20 @@
 import React, { FC } from 'react'
 
 import {
+  Box,
   FormControl,
   FormLabel,
   RadioGroup,
   createStyles,
   makeStyles,
   Theme,
+  Typography,
 } from '@material-ui/core'
 
 import { Formik, Form } from 'formik'
 
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { capitalize } from '@acter/lib/string/capitalize'
 import {
   Acter,
   ActerPrivacySettings,
@@ -27,22 +28,20 @@ interface ActerAccessabilitySettingsInitialValues {
 
 export interface ActerAccessabilitySettingsProps {
   /**
+   * The acter whose accessability settings you want to manage
+   */
+  acter: Acter
+  /**
    * Callback for updating Acter privacy settings
    */
   onSettingsChange: (acter: Acter) => void
-  /**
-   * Whether we're in the middle of updating
-   */
-  fetching: boolean
 }
 
 export const ActerAccessabilitySettings: FC<ActerAccessabilitySettingsProps> = ({
+  acter,
   onSettingsChange,
 }) => {
-  const { acter, fetching } = useActer()
   const classes = useStyles()
-  if (fetching) return <LoadingSpinner />
-  if (!acter) return null
 
   const initialValues: ActerAccessabilitySettingsInitialValues = {
     acterPrivacySetting: ActerPrivacySettings[acter?.acterPrivacySetting],
@@ -58,8 +57,13 @@ export const ActerAccessabilitySettings: FC<ActerAccessabilitySettingsProps> = (
       {({ handleChange, values }) => (
         <Form>
           <FormControl component="fieldset" fullWidth>
-            <FormLabel className={classes.fieldLabel} component="legend">
-              Whether your organisation's setting is set to public or private
+            <FormLabel component="legend">
+              <Typography>
+                Who can access{' '}
+                <Typography className={classes.sectionItem} display="inline">
+                  {`${capitalize(acter.name)}`}
+                </Typography>{' '}
+              </Typography>
             </FormLabel>
             <RadioGroup
               aria-label="acter-privacy-setting"
@@ -77,28 +81,35 @@ export const ActerAccessabilitySettings: FC<ActerAccessabilitySettingsProps> = (
               />
             </RadioGroup>
           </FormControl>
-
           <FormButtons align="right" hideUnlessDirty={true} />
-          <FormControl component="fieldset" fullWidth>
-            <FormLabel className={classes.fieldLabel} component="legend">
-              Who can join Acter
-            </FormLabel>
-            <RadioGroup
-              aria-label="acter-who-can-join-setting"
-              name="acterWhoCanJoinSetting"
-              value={values.acterWhoCanJoinSetting}
-              onChange={handleChange}
-            >
-              <SettingsRadio
-                label="Acters"
-                value={ActerWhoCanJoinSettings.ACTERS}
-              />
-              <SettingsRadio
-                label="Users"
-                value={ActerWhoCanJoinSettings.USERS}
-              />
-            </RadioGroup>
-          </FormControl>
+
+          <Box className={classes.sectionContainer}>
+            <FormControl component="fieldset" fullWidth>
+              <FormLabel component="legend">
+                <Typography>
+                  Who can join{' '}
+                  <Typography className={classes.sectionItem} display="inline">
+                    {`${capitalize(acter.name)}`}
+                  </Typography>{' '}
+                </Typography>
+              </FormLabel>
+              <RadioGroup
+                aria-label="acter-who-can-join-setting"
+                name="acterWhoCanJoinSetting"
+                value={values.acterWhoCanJoinSetting}
+                onChange={handleChange}
+              >
+                <SettingsRadio
+                  label="Acters"
+                  value={ActerWhoCanJoinSettings.ACTERS}
+                />
+                <SettingsRadio
+                  label="Users"
+                  value={ActerWhoCanJoinSettings.USERS}
+                />
+              </RadioGroup>
+            </FormControl>
+          </Box>
 
           <FormButtons align="right" hideUnlessDirty={true} />
         </Form>
@@ -109,8 +120,20 @@ export const ActerAccessabilitySettings: FC<ActerAccessabilitySettingsProps> = (
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    fieldLabel: {
+    dd: {
       color: theme.palette.secondary.main,
+    },
+    fieldLabel: {
+      //fontWeight: theme.typography.fontWeightMedium,
+      //color: theme.palette.text,
+      fontSize: 14,
+    },
+    sectionContainer: {
+      marginTop: theme.spacing(3),
+    },
+    sectionItem: {
+      fontWeight: theme.typography.fontWeightBold,
+      fontSize: 14,
     },
   })
 )
