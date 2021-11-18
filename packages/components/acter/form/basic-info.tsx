@@ -11,9 +11,8 @@ import { TextEditor } from '@acter/components/util/text-editor'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { ActerType } from '@acter/schema'
 
-const { ORGANISATION, NETWORK, GROUP } = ActerTypes
+const { ORGANISATION, NETWORK } = ActerTypes
 
 export interface BasicInformationValues {
   acterTypeId: string
@@ -30,23 +29,25 @@ export const BasicInformation: FC = () => {
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   const types = acterTypes.filter(({ name }) =>
-    [ORGANISATION, NETWORK, GROUP].includes(name as ActerTypes)
+    [ORGANISATION, NETWORK].includes(name as ActerTypes)
   )
 
   return (
     <>
+      <InputLabel style={{ marginBottom: 5 }}>
+        Create an Actor to start coordinating or collaborating
+      </InputLabel>
       <Field
-        className={classes.chooseActerType}
+        className={classes.acterTypeContainer}
         component={Select}
         label="Acter Type"
         name="acterTypeId"
         placeholder="Select Acter Type"
         required={true}
-        isClearable={true}
       >
         {types.map((type) => (
           <MenuItem value={type.id} key={`type-${type.id}`}>
-            <Box className={classes.acterTypeContainer}>
+            <Box className={classes.acterTypeItem}>
               <Typography variant="body1">{capitalize(type.name)}</Typography>
             </Box>
           </MenuItem>
@@ -91,16 +92,16 @@ export const BasicInformation: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textinput: {
-      width: '90%',
+      width: '88%',
       fontSize: '0.5rem',
-      marginBottom: 20,
+      marginBottom: theme.spacing(3.5),
       color: theme.palette.secondary.light,
     },
-    chooseActerType: {
-      marginBottom: 25,
-      width: '90%',
-    },
     acterTypeContainer: {
+      marginBottom: theme.spacing(1),
+      width: '88%',
+    },
+    acterTypeItem: {
       display: 'flex',
       alignItems: 'center',
     },
