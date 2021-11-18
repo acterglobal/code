@@ -46,10 +46,11 @@ const { SETTINGS, INVITE, LINKS } = SettingsTabs
 export const ActerSettings: FC<ActerSettingsProps> = ({
   links,
   onSettingsChange,
+  fetching,
 }) => {
   const [showContent, setShowContent] = useState(ActerSettingsMenu.PRIVACY)
-  const { acter, fetching } = useActer()
-  if (fetching) return <LoadingSpinner />
+  const { acter, fetching: acterFetching } = useActer()
+  if (fetching || acterFetching) return <LoadingSpinner />
   if (!acter) return null
 
   const handleClick = (content) => {
