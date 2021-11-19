@@ -56,15 +56,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(0.6),
       border: '0.5px solid',
       borderColor: theme.palette.secondary.light,
-      color: theme.colors.grey.dark,
+      color: theme.palette.secondary.dark,
       marginBottom: theme.spacing(1.5),
       padding: theme.spacing(1),
       outline: 'none',
       fontFamily: theme.typography.fontFamily,
-      fontWeight: theme.typography.fontWeightRegular,
-      fontSize: '0.75rem',
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.8rem',
     },
-
     button: {
       borderRadius: theme.spacing(0.6),
       minWidth: theme.spacing(11),

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -19,32 +19,48 @@ import { EmailAddressChip } from '@acter/components/invites/form/email-address-c
 
 export const InviteByEmail: FC = () => {
   const classes = useStyles()
+  const [input, setInput] = useState('')
 
   const {
     errors,
-    values: { email, emails },
+    values: { emails },
     setFieldValue,
+    setFieldError,
   } = useFormikContext<InviteFormValues>()
 
   useEffect(() => {
     setFieldValue('emails', emails)
   }, [emails])
 
+  useEffect(() => {
+    if (input === '') setFieldError('emails', null)
+  }, [input])
+
+  const handleInputChange = (event) => setInput(event.target.value)
+
   const handleDeleteEmailAddress = (emailAddress) => {
     const updatedEmailList = emails.filter((email) => email !== emailAddress)
     setFieldValue('emails', updatedEmailList)
   }
 
-  const handleKeyDown = (event) => {
-    if (['Enter', 'Tab', ','].includes(event.key)) {
-      event.preventDefault()
-      const newEmail = email.trim()
-      const isValidEmail = validate(newEmail) && !emails.includes(newEmail)
+  const handleEmail = () => {
+    const email = input.trim()
+    const isValidEmail = validate(email) && !emails.includes(email)
 
-      if (isValidEmail) {
-        setFieldValue('emails', [...emails, newEmail])
-        setFieldValue('email', '')
-      }
+    if (input !== '' && !isValidEmail) {
+      setFieldError('emails', '* Please enter a valid email address.')
+    }
+
+    if (isValidEmail) {
+      setFieldValue('emails', [...emails, email])
+      setInput('')
+    }
+  }
+
+  const handleKeyDown = (event) => {
+    if (['Enter', 'Tab', ',', ' ', 'Spacebar'].includes(event.key)) {
+      event.preventDefault()
+      handleEmail()
     }
   }
 
@@ -58,7 +74,7 @@ export const InviteByEmail: FC = () => {
 
     if (validEmails.length !== 0)
       setFieldValue('emails', [...emails, ...validEmails])
-    else setFieldValue('email', '')
+    else setInput(input)
   }
 
   return (
@@ -72,15 +88,17 @@ export const InviteByEmail: FC = () => {
             handleDelete={handleDeleteEmailAddress}
           />
         ))}
-        <Field
-          className={classes.email}
-          name="email"
+        <input
+          className={classes.input}
+          value={input}
           onKeyDown={handleKeyDown}
+          onChange={handleInputChange}
           onPaste={handlePaste}
+          onBlur={handleEmail}
         />
       </Box>
-      {errors.email && (
-        <Typography className={classes.error}>{errors.email}</Typography>
+      {errors.emails && (
+        <Typography className={classes.error}>{errors.emails}</Typography>
       )}
 
       <Field name="message" className={classes.message} as="textarea" />
@@ -113,7 +131,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexWrap: 'wrap',
     },
-    email: {
+    input: {
       color: theme.colors.grey.dark,
       padding: theme.spacing(0.5),
       outline: 'none',
@@ -122,6 +140,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.8rem',
       border: 'none',
       width: '100%',
+      '&::placeholder': {
+        fontSize: '0.rem',
+        color: theme.colors.grey.main,
+        fontWeight: theme.typography.fontWeightLight,
+      },
     },
     error: {
       fontWeight: theme.typography.fontWeightLight,
@@ -132,7 +155,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1.5),
       outline: 'none',
       resize: 'none',
-      color: theme.colors.grey.dark,
+      color: theme.palette.secondary.dark,
+      // color: theme.colors.grey.dark,
+
       fontFamily: theme.typography.fontFamily,
       fontSize: '0.85rem',
       borderRadius: theme.spacing(0.6),
