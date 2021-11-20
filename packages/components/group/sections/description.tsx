@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { GroupSectionTabs } from '@acter/lib/constants'
 
 export const DescriptionSection: FC = () => {
   const classes = useStyles()
@@ -13,7 +14,12 @@ export const DescriptionSection: FC = () => {
   if (!acter) return null
 
   return (
-    <SectionContainer title="About" buttonText="Edit Description" hideAddIcon>
+    <SectionContainer
+      title="About"
+      buttonText="Edit Description"
+      sectionContent={GroupSectionTabs.ABOUT}
+      hideAddIcon
+    >
       {acter?.description.length === 0 ? (
         <ZeroMessage
           primaryText="There is currently no description written for this group."

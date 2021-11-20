@@ -4,13 +4,18 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
+import { GroupSectionTabs } from '@acter/lib/constants'
 
 export const LinksSection: FC = () => {
   const classes = useStyles()
   const links = []
 
   return (
-    <SectionContainer title="Links" buttonText="Manage Links">
+    <SectionContainer
+      title="Links"
+      buttonText="Manage Links"
+      sectionContent={GroupSectionTabs.LINKS}
+    >
       <Box className={classes.list}>
         {links?.length === 0 ? (
           <ZeroMessage
