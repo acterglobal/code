@@ -12,7 +12,7 @@ import { AddCircleOutlineOutlined } from '@material-ui/icons'
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerTypes, GroupSectionTabs } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -22,12 +22,14 @@ interface ZeroMessageProps {
   primaryText: string
   secondaryText: string
   buttonText: string
+  contentTab?: GroupSectionTabs
 }
 export const ZeroMessage: FC<ZeroMessageProps> = ({
   addItem,
   primaryText,
   secondaryText,
   buttonText,
+  contentTab,
 }) => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -60,7 +62,11 @@ export const ZeroMessage: FC<ZeroMessageProps> = ({
       {addItem === ActerTypes.ACTIVITY ? (
         <AddActivity openDrawer={openDrawer} setDrawer={setOpenDrawer} />
       ) : (
-        <ManageContent openDrawer={openDrawer} setDrawer={setOpenDrawer} />
+        <ManageContent
+          contentTab={contentTab}
+          openDrawer={openDrawer}
+          setDrawer={setOpenDrawer}
+        />
       )}
     </>
   )

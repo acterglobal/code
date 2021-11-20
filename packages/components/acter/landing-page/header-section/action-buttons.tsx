@@ -10,16 +10,13 @@ import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
-import { ActerTypes, ActionButton } from '@acter/lib/constants'
+import { ActionButton } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 const EditActer = dynamic(() =>
   import('@acter/components/acter/form').then((mod) => mod.ActerForm)
-)
-const EditGroup = dynamic(() =>
-  import('@acter/components/group/form').then((mod) => mod.GroupForm)
 )
 
 const { EDIT, DELETE } = ActionButton
@@ -78,16 +75,7 @@ export const ActionButtons: FC = () => {
         open={openDrawer}
         handleClose={handleDrawerClose}
       >
-        {action === EDIT &&
-          (acter.ActerType.name === ActerTypes.GROUP ? (
-            <EditGroup
-              acter={acter}
-              parentActer={acter.Parent}
-              onSubmit={updateActer}
-            />
-          ) : (
-            <EditActer acter={acter} onSubmit={updateActer} />
-          ))}
+        {action === EDIT && <EditActer acter={acter} onSubmit={updateActer} />}
 
         {action === DELETE && (
           <DeleteActer

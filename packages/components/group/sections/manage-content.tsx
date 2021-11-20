@@ -9,6 +9,7 @@ import {
   Tab,
 } from '@material-ui/core'
 
+import { About } from '@acter/components/group/sections/tabs/about'
 import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -21,6 +22,7 @@ interface ManageContentProps {
   setDrawer: (open: boolean) => void
   contentTab: GroupSectionTabs
 }
+
 export const ManageContent: FC<ManageContentProps> = ({
   openDrawer,
   setDrawer,
@@ -56,7 +58,11 @@ export const ManageContent: FC<ManageContentProps> = ({
             />
           ))}
         </Tabs>
-        {tabs[currentTab] === INVITE && <InvitesSection />}
+
+        <Box className={classes.tabContent}>
+          {tabs[currentTab] === INVITE && <InvitesSection />}
+          {tabs[currentTab] === ABOUT && <About />}
+        </Box>
       </Box>
     </Drawer>
   )
@@ -77,9 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
         minWidth: theme.spacing(10),
       },
     },
-    tabsSection: {
-      width: '100%',
-    },
     tabs: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
@@ -91,6 +94,10 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.colors.black,
       fontSize: '0.88rem',
       textTransform: 'capitalize',
+    },
+    tabContent: {
+      display: 'flex',
+      justifyContent: 'center',
     },
   })
 )

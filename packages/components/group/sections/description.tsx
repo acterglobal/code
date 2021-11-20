@@ -22,6 +22,7 @@ export const DescriptionSection: FC = () => {
     >
       {acter?.description.length === 0 ? (
         <ZeroMessage
+          contentTab={GroupSectionTabs.ABOUT}
           primaryText="There is currently no description written for this group."
           secondaryText="Do you want to add a description?"
           buttonText="Add Description"

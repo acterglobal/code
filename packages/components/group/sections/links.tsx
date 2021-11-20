@@ -22,6 +22,7 @@ export const LinksSection: FC = () => {
             primaryText="There are currently no links added to this group."
             secondaryText="Do you want to add a link?"
             buttonText="Add new link"
+            contentTab={GroupSectionTabs.LINKS}
           />
         ) : (
           <>activities list comes here</>

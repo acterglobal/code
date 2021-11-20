@@ -91,20 +91,22 @@ export const GroupForm: FC<GroupFormProps> = ({
               rows={5}
             />
 
-            <FormGroup>
-              <FormLabel className={classes.label}>Make private</FormLabel>
-              <Box className={classes.makePrivate}>
-                <FormHelperText className={classes.helperText}>
-                  When a group is set to private, new members need to be
-                  approved.
-                </FormHelperText>
-                <Switch
-                  name="makePrivate"
-                  checked={isActerJoinRestricted}
-                  onChange={handleSwitch}
-                />
-              </Box>
-            </FormGroup>
+            {!acter?.id && (
+              <FormGroup>
+                <FormLabel className={classes.label}>Make private</FormLabel>
+                <Box className={classes.makePrivate}>
+                  <FormHelperText className={classes.helperText}>
+                    When a group is set to private, new members need to be
+                    approved.
+                  </FormHelperText>
+                  <Switch
+                    name="makePrivate"
+                    checked={isActerJoinRestricted}
+                    onChange={handleSwitch}
+                  />
+                </Box>
+              </FormGroup>
+            )}
 
             <Box className={classes.buttonContainer}>
               <Button
