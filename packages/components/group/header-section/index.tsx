@@ -9,8 +9,8 @@ import {
 } from '@material-ui/core'
 
 import { Connect } from '@acter/components/acter/connect'
-import { ActionButtons } from '@acter/components/acter/landing-page/header-section/action-buttons'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
+import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { capitalize } from '@acter/lib/string/capitalize'
@@ -26,15 +26,14 @@ export const HeaderSection: FC = () => {
     <>
       <Box className={classes.heading}>
         <Box className={classes.titleSection}>
-          <Typography className={classes.name} variant="subtitle1">
+          <Typography className={classes.name}>
             # {capitalize(acter.name)}
           </Typography>
-
-          <ActionButtons />
         </Box>
-
-        <Box>
-          <AddInviteSection />
+        <Box className={classes.buttonContainer}>
+          <FeatureFlag>
+            <AddInviteSection />
+          </FeatureFlag>
           <Connect />
         </Box>
       </Box>
@@ -45,11 +44,12 @@ export const HeaderSection: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
-      height: theme.spacing(7),
+      height: theme.spacing(6),
       borderBottom: '1px solid white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      paddingLeft: theme.spacing(6),
     },
     titleSection: {
       display: 'flex',
@@ -57,6 +57,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       fontWeight: theme.typography.fontWeightBold,
+      fontSize: 14,
+    },
+    buttonContainer: {
+      display: 'flex',
+      fontSize: '.8rem',
+      marginRight: theme.spacing(3),
     },
   })
 )

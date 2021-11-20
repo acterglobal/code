@@ -1,22 +1,29 @@
 import React, { FC, useMemo } from 'react'
 
+import { Button, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { KeyboardArrowDown } from '@material-ui/icons'
+
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema'
 
 interface ConnectProps {
   acterId?: string
 }
 export const Connect: FC<ConnectProps> = ({ acterId }) => {
+  const classes = useStyles()
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
+
+  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   const followers = useMemo(
     () =>
@@ -25,14 +32,9 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
       ),
     [acter?.Followers]
   )
-  const joinedFollowers = useMemo(
-    () => followers.filter((follower) => getActerConnection(acter, follower)),
-    [followers]
-  )
 
-  if (!user) {
-    return <ConnectButton href={loginUrl}>Join</ConnectButton>
-  }
+  if (!user) return <ConnectButton href={loginUrl}>Join</ConnectButton>
+
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
   if (!followers.length) return null
@@ -40,9 +42,13 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   return (
     <DropdownMenu
       anchorNode={
-        <ConnectButton>
-          {joinedFollowers.length > 0 ? 'Joined' : 'Join'}
-        </ConnectButton>
+        isMember ? (
+          <Button className={classes.button}>
+            Member <KeyboardArrowDown fontSize="small" />
+          </Button>
+        ) : (
+          <ConnectButton>Join</ConnectButton>
+        )
       }
       closeOnClick={false}
       size="large"
@@ -53,3 +59,19 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
     </DropdownMenu>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      borderRadius: theme.spacing(3),
+      marginRight: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      height: theme.spacing(3.5),
+      color: theme.palette.secondary.main,
+      border: '1px solid',
+      borderColor: theme.palette.secondary.main,
+      textTransform: 'capitalize',
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  })
+)

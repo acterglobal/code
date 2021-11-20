@@ -75,8 +75,7 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainContainer: {
-      borderRadius: 7,
-      width: '80%',
+      width: '100%',
       margin: 'auto',
       display: 'flex',
       flexWrap: 'wrap',

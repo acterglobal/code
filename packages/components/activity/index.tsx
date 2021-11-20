@@ -47,6 +47,10 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ acter }) => {
           <Participates acter={acter} />
           <Organiser acter={acter?.Activity?.Organiser} />
         </Grid>
+
+        <Grid item xs={12} className={classes.posts}>
+          <PostList acterId={acter.id} />
+        </Grid>
       </Grid>
 
       <Hidden mdUp>
@@ -54,8 +58,6 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ acter }) => {
           <ActivityDescription acter={acter} />
         </Grid>
       </Hidden>
-
-      <PostList acterId={acter.id} />
     </Box>
   )
 }
@@ -88,6 +90,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   membersContainer: {
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
+    },
+  },
+  posts: {
+    '&.MuiGrid-item': {
+      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(5),
     },
   },
 }))
