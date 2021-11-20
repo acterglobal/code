@@ -57,8 +57,10 @@ export const useCreateActivity = (
     ActivityVariables
   >(CREATE_ACTIVITY, {
     ...options,
-    onCompleted: ({ createActivityCustom }) =>
-      setNewActivity(createActivityCustom),
+    onCompleted: (data) => {
+      options?.onCompleted?.(data)
+      setNewActivity(data.createActivityCustom)
+    },
     getSuccessMessage: ({ createActivityCustom }) =>
       `${createActivityCustom?.Acter?.name} created`,
   })
