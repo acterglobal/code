@@ -2,21 +2,11 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import { Links, LinkProps } from '@acter/components/links'
-import { ExampleLink, ExampleActer, ExampleUser } from '@acter/schema/fixtures'
+import { Links } from '@acter/components/links'
 
 export default {
   title: 'Atoms/Acter/Link',
   component: Links,
-  args: {
-    links: [
-      {
-        ...ExampleLink,
-      },
-    ],
-    user: { ...ExampleUser },
-    acter: { ...ExampleActer },
-  },
 } as Meta
 
-export const LinkSection: Story<LinkProps> = (args) => <Links {...args} />
+export const LinkSection: Story = () => <Links />

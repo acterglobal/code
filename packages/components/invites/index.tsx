@@ -20,7 +20,7 @@ import { ActerConnectionRole } from '@acter/schema'
 
 const { INVITE, INVITATIONS, REQUESTS } = InviteTabs
 interface InvitesSectionProps {
-  setDrawerHeading: (heading: string) => void
+  setDrawerHeading?: (heading: string) => void
 }
 
 export const InvitesSection: FC<InvitesSectionProps> = ({
@@ -32,7 +32,7 @@ export const InvitesSection: FC<InvitesSectionProps> = ({
 
   const handleChange = (_, tab) => {
     setCurrentTab(tab)
-    setDrawerHeading(tabs[tab])
+    setDrawerHeading?.(tabs[tab])
   }
 
   const { acter } = useActer()
