@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 
 import { About } from '@acter/components/group/sections/tabs/about'
+import { Settings } from '@acter/components/group/sections/tabs/settings'
 import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -34,14 +35,11 @@ export const ManageContent: FC<ManageContentProps> = ({
   const { acter } = useActer()
   if (!acter) return null
 
+  const handleClose = () => setDrawer(false)
   const handleChange = (_, tab) => setCurrentTab(tab)
 
   return (
-    <Drawer
-      heading={acter.name}
-      open={openDrawer}
-      handleClose={() => setDrawer(false)}
-    >
+    <Drawer heading={acter.name} open={openDrawer} handleClose={handleClose}>
       <Box className={classes.root}>
         <Tabs
           classes={{ root: classes.tabs }}
@@ -60,8 +58,9 @@ export const ManageContent: FC<ManageContentProps> = ({
         </Tabs>
 
         <Box className={classes.tabContent}>
-          {tabs[currentTab] === INVITE && <InvitesSection />}
           {tabs[currentTab] === ABOUT && <About />}
+          {tabs[currentTab] === INVITE && <InvitesSection />}
+          {tabs[currentTab] === SETTINGS && <Settings />}
         </Box>
       </Box>
     </Drawer>
@@ -96,6 +95,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'capitalize',
     },
     tabContent: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
       display: 'flex',
       justifyContent: 'center',
     },
