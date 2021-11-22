@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'capitalize',
       color: theme.palette.secondary.main,
       fontSize: 12,
+      width: theme.spacing(8.5),
     },
   })
 )

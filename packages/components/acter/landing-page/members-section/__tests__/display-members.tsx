@@ -2,7 +2,6 @@ import React from 'react'
 
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { MemberType } from '@acter/lib/constants'
 import { render, screen } from '@acter/lib/test-utils'
 import { useUser } from '@acter/lib/user/use-user'
 import {
@@ -14,8 +13,6 @@ import {
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/user/use-user')
 
-const { ORGANISATIONS } = MemberType
-
 describe('<DisplayMembers>', () => {
   const mockUseActer = useActer as jest.Mock
   const mockUseUser = useUser as jest.Mock
@@ -25,10 +22,7 @@ describe('<DisplayMembers>', () => {
   })
 
   it('should display when there are no acters', () => {
-    render(<DisplayMembers followers={[]} type={ORGANISATIONS} />)
-    expect(
-      screen.getByRole('heading', { name: '0 organisations' })
-    ).toBeTruthy()
+    render(<DisplayMembers followers={[]} />)
     expect(screen.queryByRole('listitem')).toBeFalsy()
   })
 
@@ -56,10 +50,7 @@ describe('<DisplayMembers>', () => {
       },
     ]
 
-    render(<DisplayMembers followers={connections} type={ORGANISATIONS} />)
-    expect(
-      screen.getByRole('heading', { name: '3 organisations' })
-    ).toBeTruthy()
+    render(<DisplayMembers followers={connections} />)
     const rows = await screen.findAllByRole('listitem')
     expect(rows).toHaveLength(3)
     expect(rows[0].textContent).toEqual('org1organisation')

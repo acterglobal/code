@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Selectors> should should highlight the selected tab 1`] = `
+exports[`<Selectors> should highlight the selected tab 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root MuiBox-root-9 makeStyles-container-6"
+    class="MuiBox-root MuiBox-root-19 makeStyles-container-15"
   >
     <div
-      class="MuiBox-root MuiBox-root-10"
+      class="MuiBox-root MuiBox-root-20"
       role="tablist"
     >
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-7 makeStyles-active-8 MuiButton-disableElevation"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-16 makeStyles-active-17 MuiButton-disableElevation"
         role="tab"
         tabindex="0"
         type="button"
@@ -20,12 +20,9 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         >
           Foo
         </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
       </button>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-7 MuiButton-disableElevation"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-16 MuiButton-disableElevation"
         role="tab"
         tabindex="0"
         type="button"
@@ -35,10 +32,17 @@ exports[`<Selectors> should should highlight the selected tab 1`] = `
         >
           Bar
         </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
       </button>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-21"
+    >
+      <p
+        class="MuiTypography-root makeStyles-results-18 MuiTypography-body1"
+        role="heading"
+      >
+        10 Foos
+      </p>
     </div>
   </div>
 </DocumentFragment>

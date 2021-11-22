@@ -42,7 +42,7 @@ export const Selectors: FC<SelectorProps> = ({
         ))}
       </Box>
       <Box>
-        <Typography className={classes.results}>
+        <Typography className={classes.results} role="heading">
           {totalResults || 0} {pluralize(activeSelector)}
         </Typography>
       </Box>

@@ -27,9 +27,7 @@ export const MembersSection: FC = () => {
   const followers =
     activeSelector === PEOPLE ? allFollowers.user : allFollowers.organisation
 
-  const handleSelectorChange = (selector) => {
-    setActiveSelector(selector)
-  }
+  const handleSelectorChange = (selector) => setActiveSelector(selector)
 
   return (
     <Box className={classes.container}>
