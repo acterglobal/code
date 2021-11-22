@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { CheckCircle } from '@material-ui/icons'
 
-import { LoadingSpinner } from '../loading-spinner'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 
 export interface SettingsRadioProps {
   label: string

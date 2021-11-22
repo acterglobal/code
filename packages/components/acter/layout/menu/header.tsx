@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
-      height: theme.spacing(6),
+      minHeight: theme.spacing(6),
       marginBottom: 10,
     },
   })

@@ -1,27 +1,26 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Divider, IconButton, Typography } from '@material-ui/core'
+import { Box, Divider, Grid, IconButton, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import CancelIcon from '@material-ui/icons/Cancel'
 
-import { LinkForm, LinkFormProps } from '@acter/components/links/form'
-import { Link as LinkType } from '@acter/schema'
+import { LinkForm } from '@acter/components/links/form'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useLinks } from '@acter/lib/links/use-links'
 
-export interface LinkProps extends LinkFormProps {
-  links: LinkType[]
-}
-
-export const Links: FC<LinkProps> = ({ links }) => {
+export const Links: FC = () => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
+  const { links, fetching: linksLoading } = useLinks()
 
-  const handleClick = () => {
-    setToggleForm(!toggleForm)
-  }
+  if (linksLoading) return <LoadingSpinner />
+  if (!links) return null
+
+  const handleClick = () => setToggleForm(!toggleForm)
 
   return (
-    <Box className={classes.root}>
+    <Grid item className={classes.root}>
       <Box className={classes.heading}>
         <Typography variant="h6">Menu</Typography>
       </Box>
@@ -55,7 +54,7 @@ export const Links: FC<LinkProps> = ({ links }) => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Grid>
   )
 }
 
