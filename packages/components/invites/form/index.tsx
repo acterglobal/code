@@ -10,7 +10,7 @@ import {
 
 import { InviteByEmail } from './invite-by-email'
 import { InviteByLink } from './invite-by-link'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikBag } from 'formik'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -50,13 +50,26 @@ export const InviteForm: FC = () => {
     createdByUserId: user.id,
   }
 
-  const handleSubmit = (values: InviteFormValues, { setFieldValue }) => {
+  const handleSubmit = (
+    values: InviteFormValues,
+    {
+      setSubmitting,
+      setFieldError,
+      setFieldValue,
+    }: FormikBag<unknown, InviteFormValues>
+  ) => {
     const { emails, message, onActerId, createdByUserId } = values
-    const data: InviteCreateManyInput[] = []
 
-    emails.map((email) => {
-      data.push({ email, message, onActerId, createdByUserId })
-    })
+    if (emails.length <= 0) {
+      setSubmitting(false)
+      return setFieldError('emails', '* Please enter a valid email address.')
+    }
+
+    const formData = { message, onActerId, createdByUserId }
+    const data: InviteCreateManyInput[] = emails.reduce(
+      (memo, email) => [...memo, { email, ...formData }],
+      []
+    )
 
     createInvites(data)
 

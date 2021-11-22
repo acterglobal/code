@@ -8,6 +8,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  Typography,
 } from '@material-ui/core'
 
 import { validate } from 'email-validator'
@@ -18,34 +19,50 @@ import { EmailAddressChip } from '@acter/components/invites/form/email-address-c
 
 export const InviteByEmail: FC = () => {
   const classes = useStyles()
-  const {
-    values: { emails },
-    setFieldValue,
-  } = useFormikContext<InviteFormValues>()
   const [input, setInput] = useState('')
 
+  const {
+    errors,
+    values: { emails },
+    setFieldValue,
+    setFieldError,
+  } = useFormikContext<InviteFormValues>()
+
   useEffect(() => {
-    setFieldValue('emailAddresses', emails)
+    setFieldValue('emails', emails)
   }, [emails])
+
+  useEffect(() => {
+    if (input === '') setFieldError('emails', null)
+  }, [input])
+
+  const handleInputChange = (event) => setInput(event.target.value)
 
   const handleDeleteEmailAddress = (emailAddress) => {
     const updatedEmailList = emails.filter((email) => email !== emailAddress)
     setFieldValue('emails', updatedEmailList)
   }
 
-  const handleKeyDown = (event) => {
-    if (['Enter', 'Tab', ','].includes(event.key)) {
-      event.preventDefault()
-      const email = input.trim()
-      const isValidEmail = validate(email) && !emails.includes(email)
+  const handleEmail = () => {
+    const email = input.trim()
+    const isValidEmail = validate(email) && !emails.includes(email)
 
-      if (isValidEmail) {
-        setFieldValue('emails', [...emails, email])
-        setInput('')
-      }
+    if (input !== '' && !isValidEmail) {
+      setFieldError('emails', '* Please enter a valid email address.')
+    }
+
+    if (isValidEmail) {
+      setFieldValue('emails', [...emails, email])
+      setInput('')
     }
   }
-  const handleInputChange = (event) => setInput(event.target.value)
+
+  const handleKeyDown = (event) => {
+    if (['Enter', 'Tab', ',', ' ', 'Spacebar'].includes(event.key)) {
+      event.preventDefault()
+      handleEmail()
+    }
+  }
 
   const handlePaste = (event) => {
     event.preventDefault()
@@ -73,20 +90,22 @@ export const InviteByEmail: FC = () => {
         ))}
         <input
           className={classes.input}
-          type="email"
           value={input}
           onKeyDown={handleKeyDown}
           onChange={handleInputChange}
           onPaste={handlePaste}
+          onBlur={handleEmail}
         />
       </Box>
+      {errors.emails && (
+        <Typography className={classes.error}>{errors.emails}</Typography>
+      )}
 
       <Field name="message" className={classes.message} as="textarea" />
       <Button
         className={classes.button}
         variant="outlined"
         color="inherit"
-        disabled={emails.length <= 0}
         type="submit"
       >
         Send invites
@@ -109,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.secondary.light,
       minHeight: theme.spacing(4.5),
       padding: theme.spacing(1),
-      marginBottom: theme.spacing(1.5),
       display: 'flex',
       flexWrap: 'wrap',
     },
@@ -122,11 +140,24 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.8rem',
       border: 'none',
       width: '100%',
+      '&::placeholder': {
+        fontSize: '0.rem',
+        color: theme.colors.grey.main,
+        fontWeight: theme.typography.fontWeightLight,
+      },
+    },
+    error: {
+      fontWeight: theme.typography.fontWeightLight,
+      fontSize: '0.75rem',
+      color: theme.colors.error,
     },
     message: {
+      marginTop: theme.spacing(1.5),
       outline: 'none',
       resize: 'none',
-      color: theme.colors.grey.dark,
+      color: theme.palette.secondary.dark,
+      // color: theme.colors.grey.dark,
+
       fontFamily: theme.typography.fontFamily,
       fontSize: '0.85rem',
       borderRadius: theme.spacing(0.6),

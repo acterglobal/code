@@ -1,8 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { ActerVariables } from './use-create-acter'
 import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
@@ -63,6 +62,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const [pause, setPause] = useState(true)
   const [variables, setVariables] = useState<UseActerVariables>()
   const router = useRouter()
+
+  useEffect(() => {
+    setActerId(options?.acterId)
+  }, [options?.acterId])
 
   const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
 
