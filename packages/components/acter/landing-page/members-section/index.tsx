@@ -11,6 +11,7 @@ import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 import { ActerConnectionRole } from '@acter/schema'
+import { ActerWhoCanJoinSettings } from '@acter/schema'
 
 const { ADMIN, MEMBER } = ActerConnectionRole
 
@@ -36,10 +37,16 @@ export const MembersSection: FC = () => {
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
+  const isOrganisationsCanJoin =
+    acter.acterWhoCanJoinSetting === ActerWhoCanJoinSettings.ACTERS
+
+  const selectors = [PEOPLE]
+  isOrganisationsCanJoin && selectors.push(ORGANISATIONS)
+
   return (
     <Box className={classes.container}>
       <Selectors
-        selectors={[PEOPLE, ACTERS]}
+        selectors={selectors}
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
         totalResults={validFollowers?.length}
