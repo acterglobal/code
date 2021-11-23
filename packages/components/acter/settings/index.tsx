@@ -17,45 +17,8 @@ import { InvitesSection } from '@acter/components/invites'
 import { Links as LinkSection } from '@acter/components/links'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SettingsTabs } from '@acter/lib/constants'
-import { MenuItem } from '@material-ui/core'
-
-import {
-  ActerAccessabilitySettings,
-  ActerAccessabilitySettingsProps,
-} from '@acter/components/acter/settings/acter-accessability-settings'
-import {
-  ActerUsersSettings,
-  ActerUsersSettingsProps,
-} from '@acter/components/acter/settings/acter-users-settings'
-import { Links as LinkSection, LinkProps } from '@acter/components/links'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import {
-  SettingsContainer,
-  SettingsContent,
-  SettingsMenu,
-  SettingsSectionHeading,
-} from '@acter/components/util/settings-layout'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerSettingsMenu } from '@acter/lib/constants/acter-settings-menu'
-
-export type ActerSettingsProps = ActerUsersSettingsProps &
-  LinkProps &
-  ActerAccessabilitySettingsProps
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
-export const ActerSettings: FC<ActerSettingsProps> = ({
-  links,
-  onSettingsChange,
-  fetching,
-}) => {
-  const [showContent, setShowContent] = useState(ActerSettingsMenu.PRIVACY)
-  const { acter, fetching: acterFetching } = useActer()
-  if (fetching || acterFetching) return <LoadingSpinner />
-  if (!acter) return null
-
-  const handleClick = (content) => {
-    setShowContent(content)
-  }
 
 export const ActerSettings: FC = () => {
   const classes = useStyles()
@@ -81,27 +44,6 @@ export const ActerSettings: FC = () => {
               label={tab}
               id={tab}
               key={`tab-${i}`}
-      <SettingsContent>
-        {showContent === ActerSettingsMenu.MEMBERS && (
-          <>
-            <SettingsSectionHeading>Join</SettingsSectionHeading>
-            <ActerUsersSettings
-              acter={acter}
-              onSettingsChange={onSettingsChange}
-            />
-          </>
-        )}
-        {showContent === ActerSettingsMenu.LINKS && (
-          <LinkSection links={links} />
-        )}
-        {showContent === ActerSettingsMenu.PRIVACY && (
-          <>
-            <SettingsSectionHeading>
-              Accessability Setting
-            </SettingsSectionHeading>
-            <ActerAccessabilitySettings
-              acter={acter}
-              onSettingsChange={onSettingsChange}
             />
           ))}
         </Tabs>
