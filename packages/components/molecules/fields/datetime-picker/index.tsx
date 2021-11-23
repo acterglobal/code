@@ -14,35 +14,31 @@ import {
   set,
 } from 'date-fns'
 import { parse } from 'date-fns'
-import { FieldAttributes } from 'formik'
+import { FieldHookConfig } from 'formik'
 import { useField } from 'formik'
 
 import { DatePicker } from '@acter/components/atoms/fields/date-picker'
 import { TimePicker } from '@acter/components/atoms/fields/time-picker'
 
-interface InnerDateTimePickerProps {
+export type DateTimePickerProps = FieldHookConfig<Date> & {
   isAllDay: boolean
   minDate?: Date
   maxDate?: Date
 }
 
-export type DateTimePickerProps = FieldAttributes<InnerDateTimePickerProps>
-
 export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
   const { placeholder, minDate, maxDate, isAllDay } = props
-  const [{ value }, { error }, { setValue, setTouched }] = useField(props.name)
+  const [{ value }, { error }, { setValue }] = useField(props)
   const isValueValid = value && isValid(value)
   const handleDateChange = (date: Date) => {
-    setValue(
-      isValueValid
-        ? set(value, {
-            year: getYear(date),
-            month: getMonth(date),
-            date: getDate(date),
-          })
-        : date
-    )
-    setTouched(true)
+    const newValue = isValueValid
+      ? set(value, {
+          year: getYear(date),
+          month: getMonth(date),
+          date: getDate(date),
+        })
+      : date
+    setValue(newValue)
   }
   const handleTimeChange = (skipValidCheck = false) => (date: Date) => {
     const dateWithTime = set(isValueValid ? value : new Date(), {
@@ -54,7 +50,6 @@ export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
     if (skipValidCheck || isValid(dateWithTime)) {
       setValue(dateWithTime)
     }
-    setTouched(true)
   }
 
   const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
@@ -89,12 +84,14 @@ export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
               />
             </Grid>
           )}
-          {error && (
+        </Grid>
+        {error && (
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <FormHelperText error={!!error}>{error}</FormHelperText>
             </Grid>
-          )}
-        </Grid>
+          </Grid>
+        )}
       </FormControl>
     </MuiPickersUtilsProvider>
   )

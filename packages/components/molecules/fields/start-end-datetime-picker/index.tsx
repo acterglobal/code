@@ -4,17 +4,12 @@ import React, { FC, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 
-// import {
-//   KeyboardDateTimePicker,
-//   MuiPickersUtilsProvider,
-// } from '@material-ui/pickers'
-import { differenceInMinutes } from 'date-fns'
+import { differenceInMinutes, parse } from 'date-fns'
 import isValid from 'date-fns/isValid'
 import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
 import { DateTimePicker } from '@acter/components/molecules/fields/datetime-picker'
-import { DATE_FORMAT, DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
 
 export interface StartEndDateTimePickerProps {
   hideIsAllDayCheckBox?: boolean
@@ -32,6 +27,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
   const {
     values: { endAt, isAllDay, startAt },
     setFieldError,
+    setFieldValue,
   } = useFormikContext<StartEndDateTimePickerValues>()
 
   useEffect(() => {
@@ -45,14 +41,12 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
       setFieldError('endAt', 'Cannot be before start')
   }, [endAt, startAt])
 
-  // const validateEndAt = (maybeEndDate: Date): string => {
-  //   debugger
-  //   if (!startAt || !isValid(startAt)) return ''
-  //   if (!isValid(maybeEndDate)) return 'Invalid date'
-  //   if (differenceInMinutes(endAt, startAt) < 0)
-  //     return 'Cannot end before start'
-  //   return ''
-  // }
+  useEffect(() => {
+    if (isAllDay === true) {
+      setFieldValue('endAt', parse('23.59', 'hh:mm', endAt))
+      setFieldValue('startAt', parse('00.00', 'hh:mm', startAt))
+    }
+  }, [isAllDay])
 
   const gridSize = isAllDay ? 6 : 12
 
@@ -68,27 +62,12 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
         />
       </Grid>
       <Grid item xs={gridSize}>
-        {/* <MuiPickersUtilsProvider utils={DateUtils}>
-          <KeyboardDateTimePicker
-            placeholder="End"
-            required={true}
-            value={endAt}
-            onChange={(val) => setFieldValue('endAt', val)}
-            autoOk
-            fullWidth
-            ampm={false}
-            inputVariant="outlined"
-            format={DATE_FORMAT}
-            InputAdornmentProps={{ position: 'start' }}
-          />
-        </MuiPickersUtilsProvider> */}
         <DateTimePicker
           placeholder="End"
           name="endAt"
           isAllDay={isAllDay}
           required={true}
           minDate={startAt && isValid(startAt) ? startAt : null}
-          // validate={validateEndAt}
         />
       </Grid>
 

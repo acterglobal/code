@@ -152,18 +152,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   if (activityTypesLoading || acterTypesLoading) return <LoadingSpinner />
   if (!activityTypes || !acterTypes || !user || !parentActer) return null
 
-  let startAt = null
-  let endAt = null
-  if (acter?.id) {
-    //@ts-ignore
-    startAt = acter.Activity.startAt
-    //@ts-ignore
-    endAt = acter.Activity.endAt
-
-    const timeZoneOffSetMinutes = startAt.getTimezoneOffset()
-    startAt = addMinutes(startAt, timeZoneOffSetMinutes)
-    endAt = addMinutes(endAt, timeZoneOffSetMinutes)
-  }
   const eventType = activityTypes.find(
     (type) => type.name === ActivityTypes.EVENT
   )
@@ -183,15 +171,11 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
     isOnline: acter?.Activity.isOnline || false,
-    startDate: startAt,
-    startTime: startAt,
-    startAt,
     isAllDay: acter?.Activity.isAllDay ? true : false,
-    endDate: endAt,
-    endTime: endAt,
-    endAt,
     acterTypeId: acterType?.id,
     acterId: acter?.id,
+    startAt: null,
+    endAt: null,
   }
 
   // Fake an acter to determine potential followers when this is a new Activity

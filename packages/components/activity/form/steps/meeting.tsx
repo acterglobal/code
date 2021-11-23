@@ -11,9 +11,9 @@ import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
+import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
 import { Switch } from '@acter/components/styled/switch'
-import { StartEndTimeDatePicker } from '@acter/components/util/datetime/start-end-date-time-picker'
 
 export type MeetingStepProps = SettingsStepProps
 
@@ -40,7 +40,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
       </FormSection>
 
       <FormSection>
-        <StartEndTimeDatePicker hideIsAllDayCheckBox />
+        <StartEndDateTimePicker hideIsAllDayCheckBox />
       </FormSection>
 
       <FormSection>

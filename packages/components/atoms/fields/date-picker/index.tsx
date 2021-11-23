@@ -5,7 +5,7 @@ import {
   KeyboardDatePickerProps,
 } from '@material-ui/pickers'
 
-import { DD_MM_YY_FORMAT } from '@acter/lib/constants'
+import { DD_MM_YYYY_FORMAT } from '@acter/lib/constants'
 
 export type DatePickerProps = KeyboardDatePickerProps
 
@@ -15,7 +15,7 @@ export const DatePicker: FC<DatePickerProps> = (args) => (
     autoOk
     fullWidth
     inputVariant="outlined"
-    format={DD_MM_YY_FORMAT}
+    format={DD_MM_YYYY_FORMAT}
     InputAdornmentProps={{ position: 'start' }}
   />
 )

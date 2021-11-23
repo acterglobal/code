@@ -29,14 +29,12 @@ export default {
     formik: {
       initialValues: {
         activityTypeId: '',
-        organiserActerId: '',
         description: '',
+        endAt: null,
         isOnline: false,
         isAllDay: false,
-        startDate: new Date(),
-        startTime: new Date(),
-        endDate: new Date(),
-        endTime: new Date(),
+        organiserActerId: '',
+        startAt: null,
       } as MeetingStepValues,
     },
   },
