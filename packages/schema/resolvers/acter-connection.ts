@@ -23,7 +23,8 @@ export class ActerConnectionResolver {
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
-    @Arg('followingActerId') followingActerId: string
+    @Arg('followingActerId') followingActerId: string,
+    @Arg('role', { nullable: true }) role: ActerConnectionRole
   ): Promise<ActerConnection> {
     const currentUser = ctx.session.user
 
@@ -42,7 +43,7 @@ export class ActerConnectionResolver {
       throw err
     }
 
-    const role =
+    const getDefaultRole = () =>
       followingActer.acterJoinSetting === ActerJoinSettings.EVERYONE
         ? ActerConnectionRole.MEMBER
         : ActerConnectionRole.PENDING
@@ -63,7 +64,7 @@ export class ActerConnectionResolver {
       create: {
         followerActerId,
         followingActerId,
-        role,
+        role: role || getDefaultRole(),
         createdByUserId,
       },
       update: {},
