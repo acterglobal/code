@@ -17,6 +17,7 @@ import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   ActerPrivacySettings,
+  ActerWhoCanJoinSettings,
   Activity,
 } from '@acter/schema'
 import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
@@ -41,6 +42,10 @@ export class ActerResolver {
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
     acterPrivacySetting: ActerPrivacySettings,
+    @Arg('acterWhoCanJoinSetting', () => ActerWhoCanJoinSettings, {
+      nullable: true,
+    })
+    acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -106,6 +111,7 @@ export class ActerResolver {
         acterJoinSetting,
         acterNotifyEmailFrequency,
         acterPrivacySetting,
+        acterWhoCanJoinSetting,
         acterTypeId,
         parentActerId,
         updatedAt: new Date(),
@@ -144,6 +150,10 @@ export class ActerResolver {
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
     acterPrivacySetting: ActerPrivacySettings,
+    @Arg('acterWhoCanJoinSetting', () => ActerWhoCanJoinSettings, {
+      nullable: true,
+    })
+    acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -216,6 +226,7 @@ export class ActerResolver {
         acterNotifySetting,
         acterNotifyEmailFrequency,
         acterPrivacySetting,
+        acterWhoCanJoinSetting,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -249,6 +260,10 @@ export class ActerResolver {
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
     acterPrivacySetting: ActerPrivacySettings,
+    @Arg('acterWhoCanJoinSetting', () => ActerWhoCanJoinSettings, {
+      nullable: true,
+    })
+    acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -270,6 +285,7 @@ export class ActerResolver {
       acterJoinSetting,
       acterNotifyEmailFrequency,
       acterPrivacySetting,
+      acterWhoCanJoinSetting,
       acterTypeId,
       organiserActerId,
       interestIds,
@@ -336,6 +352,10 @@ export class ActerResolver {
     acterNotifyEmailFrequency: ActerNotificationEmailFrequency,
     @Arg('acterPrivacySetting', () => ActerPrivacySettings, { nullable: true })
     acterPrivacySetting: ActerPrivacySettings,
+    @Arg('acterWhoCanJoinSetting', () => ActerWhoCanJoinSettings, {
+      nullable: true,
+    })
+    acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
     @Arg('bannerUrl', { nullable: true })
     bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -359,6 +379,7 @@ export class ActerResolver {
       acterNotifySetting,
       acterNotifyEmailFrequency,
       acterPrivacySetting,
+      acterWhoCanJoinSetting,
       null,
       bannerUrl,
       interestIds,
