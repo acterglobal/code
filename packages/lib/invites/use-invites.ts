@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { CombinedError, useQuery } from 'urql'
 
 import { Invite } from '@acter/schema'
@@ -19,6 +17,7 @@ type InvitesQueryVariables = {
 type UseInvitesParams = InvitesQueryVariables
 /**
  * Gives invites
+ * @arg params, object contains mandatory keys(onActerId, createdByUserId)
  * @returns invites by desc of sentAt
  */
 export const useInvites = (
@@ -26,31 +25,14 @@ export const useInvites = (
 ): UseInvitesQueryResults => {
   const { onActerId, createdByUserId } = params
 
-  const [pause, setPause] = useState(true)
-  const [variables, setVariables] = useState<InvitesQueryVariables>()
-  const [invites, setInvites] = useState<Invite[]>([])
-
   const [{ data, fetching, error, ...restQueryResult }] = useQuery<
     InvitesQueryData,
     InvitesQueryVariables
   >({
     query: GET_INVITES,
-    variables,
-    pause,
+    variables: { onActerId, createdByUserId },
+    pause: !onActerId || !createdByUserId,
   })
 
-  useEffect(() => {
-    if (onActerId && createdByUserId) {
-      setVariables({ onActerId, createdByUserId })
-      setPause(false)
-    }
-  }, [onActerId, createdByUserId])
-
-  useEffect(() => {
-    if (data) {
-      setInvites(data.invites)
-    }
-  }, [data])
-
-  return { invites, fetching, error, ...restQueryResult }
+  return { invites: data?.invites || [], fetching, error, ...restQueryResult }
 }
