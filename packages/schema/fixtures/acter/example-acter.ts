@@ -1,3 +1,5 @@
+import { ActerWhoCanJoinSettings } from '.prisma/client'
+
 import {
   Acter,
   ActerJoinSettings,
@@ -35,6 +37,7 @@ export const ExampleActer: Acter = {
   acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
   acterNotifyEmailFrequency: ActerNotificationEmailFrequency.NEVER,
   acterPrivacySetting: ActerPrivacySettings.PUBLIC,
+  acterWhoCanJoinSetting: ActerWhoCanJoinSettings.ACTERS,
 }
 
 export const ExampleUserActer: Acter = {
