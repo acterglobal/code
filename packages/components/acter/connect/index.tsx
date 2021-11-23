@@ -9,11 +9,13 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole, ActerWhoCanJoinSettings } from '@acter/schema'
 
+const { USER } = ActerTypes
 interface ConnectProps {
   acterId?: string
 }
@@ -39,6 +41,13 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   if (!acter) return null
   if (!followers.length) return null
 
+  const isOrganisationsCanJoin =
+    acter.acterWhoCanJoinSetting === ActerWhoCanJoinSettings.ACTERS
+
+  const selectedFollowers = isOrganisationsCanJoin
+    ? followers
+    : followers.filter((follower) => follower.ActerType.name === USER)
+
   return (
     <DropdownMenu
       anchorNode={
@@ -53,7 +62,7 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
       closeOnClick={false}
       size="large"
     >
-      {followers.map((follower) => (
+      {selectedFollowers.map((follower) => (
         <FollowerRow follower={follower} acterId={acterId} />
       ))}
     </DropdownMenu>
