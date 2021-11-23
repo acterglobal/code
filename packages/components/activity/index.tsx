@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 
 import Image from 'next/image'
 
-import { Box, Grid, Hidden } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Grid, Hidden, makeStyles, Theme } from '@material-ui/core'
 
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { ActivityInfo } from '@acter/components/activity/activity-info'
 import { Organiser } from '@acter/components/activity/organiser'
 import { Participates } from '@acter/components/activity/participates'
-import { PostList } from '@acter/components/posts'
+import { PostsSection } from '@acter/components/activity/posts'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
@@ -49,7 +48,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({ acter }) => {
         </Grid>
 
         <Grid item xs={12} className={classes.posts}>
-          <PostList acterId={acter.id} />
+          <PostsSection acter={acter} />
         </Grid>
       </Grid>
 

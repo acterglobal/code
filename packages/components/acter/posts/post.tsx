@@ -2,20 +2,11 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Grid,
-  makeStyles,
-  createStyles,
-  Box,
-  Typography,
-  Theme,
-} from '@material-ui/core'
-import { ArrowBackSharp as BackIcon } from '@material-ui/icons'
+import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 
 import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
-import { SinglePost } from '@acter/components/posts/single-post'
-import { Link } from '@acter/components/util/anchor-link'
+import { SinglePostSection } from '@acter/components/acter/posts/single-post-section'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -36,16 +27,8 @@ export const ActerPost: FC = () => {
 
   return (
     <LandingPageLayout>
-      <Grid className={classes.main} item xs={12} sm={12} md={8} xl={10}>
-        <Link href={acterAsUrl({ acter })}>
-          <Box className={classes.back}>
-            <BackIcon fontSize="small" color="secondary" />{' '}
-            <Typography className={classes.backLink}>Back to posts</Typography>
-          </Box>
-        </Link>
-        <Box className={classes.postContainer}>
-          {<SinglePost post={post} />}
-        </Box>
+      <Grid className={classes.post} item xs={12} sm={12} md={8} xl={10}>
+        <SinglePostSection post={post} redirectUrl={acterAsUrl({ acter })} />
       </Grid>
       <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
         <InfoSection />
@@ -56,28 +39,15 @@ export const ActerPost: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
+    post: {
       order: 1,
+      '&.MuiGrid-item': {
+        paddingRight: theme.spacing(10),
+        paddingLeft: theme.spacing(4),
+      },
     },
     info: {
       order: 2,
-    },
-    back: {
-      marginTop: theme.spacing(3),
-      marginLeft: theme.spacing(5),
-      display: 'flex',
-      width: theme.spacing(17),
-    },
-    backLink: {
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: '0.9rem',
-      color: theme.palette.secondary.main,
-      marginLeft: theme.spacing(0.5),
-    },
-    postContainer: {
-      width: '80%',
-      marginTop: theme.spacing(1.5),
-      marginLeft: theme.spacing(5),
     },
   })
 )
