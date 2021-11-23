@@ -18,7 +18,7 @@ const { ACTIVITY, GROUP, USER } = ActerTypes
 export const PartOfSection: FC = () => {
   const classes = useStyles()
 
-  const { acter } = useActer()
+  const { acter } = useActer({ fetchParent: true })
 
   const followingActers = useMemo(
     () =>

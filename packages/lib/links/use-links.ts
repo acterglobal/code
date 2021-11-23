@@ -14,7 +14,7 @@ type LinksVariables = {
   acterId: string
 }
 
-type UseLinksOptions = UseQueryArgs<LinksVariables, LinksData>
+type UseLinksOptions = LinksVariables & UseQueryArgs<LinksVariables, LinksData>
 
 type UseLinksError = CombinedError | Error
 interface UseLinksResult
@@ -26,7 +26,9 @@ export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
   const [fetching, setFetching] = useState(false)
   const [error, setError] = useState<UseLinksError>()
   const [links, setLinks] = useState<Link[]>([])
-  const { acter, fetching: acterFetching, error: acterError } = useActer()
+  const { acter, fetching: acterFetching, error: acterError } = useActer({
+    fetchParent: true,
+  })
 
   const [
     { data, fetching: queryFetching, error: queryError, ...restQueryResults },
