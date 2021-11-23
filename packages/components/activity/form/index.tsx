@@ -30,6 +30,7 @@ import { Stepper } from '@acter/components/util/stepper'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getFollowers } from '@acter/lib/acter/get-followers'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
@@ -93,6 +94,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const classes = useStyles()
   const { activityTypes, fetching: activityTypesLoading } = useActivityTypes()
   const { user } = useUser()
+  const { acter: parentActer } = useActer()
 
   const { acterTypes, fetching: acterTypesLoading } = useActerTypes()
   const acterType = getActerTypeByName(acterTypes, ActerTypes.ACTIVITY)
@@ -148,7 +150,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     handleNext()
   }
   if (activityTypesLoading || acterTypesLoading) return <LoadingSpinner />
-  if (!activityTypes || !acterTypes || !user) return null
+  if (!activityTypes || !acterTypes || !user || !parentActer) return null
 
   let startAt = null
   let endAt = null
@@ -174,7 +176,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     location: '',
     url: '',
     interestIds,
-    followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [],
+    followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [
+      parentActer?.id,
+    ],
     ...acter,
     ...acter?.Activity,
     activityTypeId: acter?.Activity.activityTypeId || eventType.id, // default activity type (Event) id
