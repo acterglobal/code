@@ -8,6 +8,7 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { Drawer } from '@acter/components/util/drawer'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
@@ -26,12 +27,14 @@ export const GroupsSection: FC = () => {
   const handleAddGroup = () => setOpenDrawer(true)
   const handleCloseDrawer = () => setOpenDrawer(false)
 
-  const { acter } = useActer({ fetchParent: true })
-  const { user } = useUser()
-  // TODO: show loading state
-  const [_, createGroup] = useCreateActer({
+  const { acter, fetching: acterLoading } = useActer({ fetchParent: true })
+  const { user, fetching: userLoading } = useUser()
+
+  const [{ fetching: creating }, createGroup] = useCreateActer({
     onCompleted: handleCloseDrawer,
   })
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
   if (!user || !acter) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
@@ -70,7 +73,11 @@ export const GroupsSection: FC = () => {
         heading="Create work group"
         handleClose={handleCloseDrawer}
       >
-        <AddGroup parentActer={acter} onSubmit={createGroup} />
+        <AddGroup
+          parentActer={acter}
+          onSubmit={createGroup}
+          saving={creating}
+        />
       </Drawer>
     </>
   )

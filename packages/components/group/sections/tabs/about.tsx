@@ -12,7 +12,7 @@ const EditGroup = dynamic(() =>
 export const About: FC = () => {
   const { acter } = useActer()
 
-  const [_, updateActer] = useUpdateActer(acter)
+  const [{ fetching: saving }, updateActer] = useUpdateActer(acter)
 
   if (!acter) return null
 
@@ -21,6 +21,7 @@ export const About: FC = () => {
       acter={acter}
       parentActer={acter.Parent}
       onSubmit={updateActer}
+      saving={saving}
     />
   )
 }
