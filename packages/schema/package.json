@@ -35,6 +35,9 @@
     "ts-node": "^10.2.1",
     "typescript": "*"
   },
+  "peerDependencies": {
+    "md5": "*"
+  },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   }
