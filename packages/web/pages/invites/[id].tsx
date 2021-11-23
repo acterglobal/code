@@ -12,7 +12,7 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, User } from '@acter/schema'
+import { Acter, ActerConnectionRole, User } from '@acter/schema'
 
 interface InvitationPageProps {
   user: User
@@ -39,7 +39,7 @@ export const InvitationPage: NextPage<InvitationPageProps> = ({
 
   useEffect(() => {
     if (acter) {
-      createConnection(acter, user.Acter)
+      createConnection(acter, user.Acter, ActerConnectionRole.MEMBER)
       router.push(acterAsUrl({ acter }))
     }
   }, [acter])
