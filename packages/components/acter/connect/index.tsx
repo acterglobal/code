@@ -7,7 +7,7 @@ import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { getIsOrganisationsCanJoin } from '@acter/lib/acter/get-can-organisations-join'
+import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
@@ -42,7 +42,7 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   if (!acter) return null
   if (!followers.length) return null
 
-  const isOrganisationsCanJoin = getIsOrganisationsCanJoin(acter)
+  const isOrganisationsCanJoin = getCanActersJoin(acter)
 
   const selectedFollowers = isOrganisationsCanJoin
     ? followers
