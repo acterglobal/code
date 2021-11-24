@@ -1,4 +1,4 @@
-import { CombinedError, useQuery } from 'urql'
+import { CombinedError, OperationContext, useQuery } from 'urql'
 
 import { Invite } from '@acter/schema'
 import GET_INVITES from '@acter/schema/queries/get-invites-by-acter-and-created-by-user.graphql'
@@ -7,6 +7,7 @@ type UseInvitesQueryResults = {
   invites: Invite[]
   fetching: boolean
   error: CombinedError
+  reexecuteQuery: (opts?: Partial<OperationContext>) => void
 }
 type InvitesQueryData = { invites: Invite[] }
 type InvitesQueryVariables = {
@@ -25,14 +26,20 @@ export const useInvites = (
 ): UseInvitesQueryResults => {
   const { onActerId, createdByUserId } = params
 
-  const [{ data, fetching, error, ...restQueryResult }] = useQuery<
-    InvitesQueryData,
-    InvitesQueryVariables
-  >({
+  const [
+    { data, fetching, error, ...restQueryResult },
+    reexecuteQuery,
+  ] = useQuery<InvitesQueryData, InvitesQueryVariables>({
     query: GET_INVITES,
     variables: { onActerId, createdByUserId },
     pause: !onActerId || !createdByUserId,
   })
 
-  return { invites: data?.invites || [], fetching, error, ...restQueryResult }
+  return {
+    invites: data?.invites || [],
+    fetching,
+    error,
+    reexecuteQuery,
+    ...restQueryResult,
+  }
 }
