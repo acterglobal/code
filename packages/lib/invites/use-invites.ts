@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-
-import { CombinedError, useQuery } from 'urql'
+import { CombinedError, OperationContext, useQuery } from 'urql'
 
 import { Invite } from '@acter/schema'
 import GET_INVITES from '@acter/schema/queries/get-invites-by-acter-and-created-by-user.graphql'
@@ -9,6 +7,7 @@ type UseInvitesQueryResults = {
   invites: Invite[]
   fetching: boolean
   error: CombinedError
+  reexecuteQuery: (opts?: Partial<OperationContext>) => void
 }
 type InvitesQueryData = { invites: Invite[] }
 type InvitesQueryVariables = {
@@ -19,6 +18,7 @@ type InvitesQueryVariables = {
 type UseInvitesParams = InvitesQueryVariables
 /**
  * Gives invites
+ * @arg params, object contains mandatory keys(onActerId, createdByUserId)
  * @returns invites by desc of sentAt
  */
 export const useInvites = (
@@ -26,31 +26,20 @@ export const useInvites = (
 ): UseInvitesQueryResults => {
   const { onActerId, createdByUserId } = params
 
-  const [pause, setPause] = useState(true)
-  const [variables, setVariables] = useState<InvitesQueryVariables>()
-  const [invites, setInvites] = useState<Invite[]>([])
-
-  const [{ data, fetching, error, ...restQueryResult }] = useQuery<
-    InvitesQueryData,
-    InvitesQueryVariables
-  >({
+  const [
+    { data, fetching, error, ...restQueryResult },
+    reexecuteQuery,
+  ] = useQuery<InvitesQueryData, InvitesQueryVariables>({
     query: GET_INVITES,
-    variables,
-    pause,
+    variables: { onActerId, createdByUserId },
+    pause: !onActerId || !createdByUserId,
   })
 
-  useEffect(() => {
-    if (onActerId && createdByUserId) {
-      setVariables({ onActerId, createdByUserId })
-      setPause(false)
-    }
-  }, [onActerId, createdByUserId])
-
-  useEffect(() => {
-    if (data) {
-      setInvites(data.invites)
-    }
-  }, [data])
-
-  return { invites, fetching, error, ...restQueryResult }
+  return {
+    invites: data?.invites || [],
+    fetching,
+    error,
+    reexecuteQuery,
+    ...restQueryResult,
+  }
 }

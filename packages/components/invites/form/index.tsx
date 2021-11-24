@@ -16,6 +16,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getInvitationMessage } from '@acter/lib/invites/get-invitation-message'
 import { useCreateInvites } from '@acter/lib/invites/use-create-invites'
+import { useInvites } from '@acter/lib/invites/use-invites'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -32,10 +33,17 @@ export type InviteFormValues = {
 
 export const InviteForm: FC = () => {
   const classes = useStyles()
-
-  const [_, createInvites] = useCreateInvites()
   const { acter } = useActer()
   const { user } = useUser()
+
+  const { reexecuteQuery: refetchInvites } = useInvites({
+    onActerId: acter?.id,
+    createdByUserId: user?.id,
+  })
+  const [_, createInvites] = useCreateInvites({
+    onCompleted: () => refetchInvites({ requestPolicy: 'network-only' }),
+  })
+
   if (!acter || !user) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
@@ -65,7 +73,7 @@ export const InviteForm: FC = () => {
       return setFieldError('emails', '* Please enter a valid email address.')
     }
 
-    const formData = { message, onActerId, createdByUserId }
+    const formData = { message, onActerId, createdByUserId, sentAt: new Date() }
     const data: InviteCreateManyInput[] = emails.reduce(
       (memo, email) => [...memo, { email, ...formData }],
       []
