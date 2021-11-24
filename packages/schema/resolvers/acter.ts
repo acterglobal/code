@@ -1,4 +1,4 @@
-import md5 from 'md5'
+import { formatISO } from 'date-fns'
 import {
   Authorized,
   Resolver,
@@ -418,12 +418,13 @@ export class ActerResolver {
       where: { id: acterId },
     })
 
-    const deletedSlug = md5(acter.slug)
+    const deletedAt = new Date()
+    const deletedSlug = `${acter.slug}-${formatISO(deletedAt)}`
 
     return await ctx.prisma.acter.update({
       data: {
         slug: deletedSlug,
-        deletedAt: new Date(),
+        deletedAt: deletedAt,
         deletedByUserId: ctx.session.user.id,
       },
       where: {
