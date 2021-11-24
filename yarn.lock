@@ -117,6 +117,7 @@ __metadata:
     axios: "*"
     bullmq: "*"
     graphql: "*"
+    md5: "*"
     next: "*"
     notistack: "*"
     pluralize: "*"
