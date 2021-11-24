@@ -50,6 +50,10 @@ interface CreateNotificationWorker<T> {
    */
   getFollowersWhere?: (data: T) => Prisma.ActerConnectionWhereInput
   /**
+   * Override logic for fetching a list of followers
+   */
+  getFollowers?: (data: T) => Promise<Acter[]>
+  /**
    * Get the html & text email text
    */
   getNotificationEmail: (props: NotificationEmailProps<T>) => CreateEmailReturn
@@ -80,6 +84,7 @@ export const createNotificationWorker = <T>({
   getJobData = async (job) => job.data,
   getFollowing,
   getFollowersWhere = () => ({}),
+  getFollowers,
   getNotificationEmail,
   getNotificationEmailSubject,
   getActivity,
@@ -91,42 +96,43 @@ export const createNotificationWorker = <T>({
     const data = await getJobData(job)
     const following = await getFollowing(data)
     const followersWhere = getFollowersWhere(data)
-    const followers = await prisma.acterConnection.findMany({
-      include: {
-        Follower: {
-          include: {
-            ActerType: true,
-            User: true,
-          },
-        },
-      },
-      where: {
-        followingActerId: following.id,
-        ...followersWhere,
-        Follower: {
-          ActerType: {
-            ...(followersWhere?.Follower
-              ?.ActerType as Prisma.ActerTypeWhereInput),
-            name: ActerTypes.USER,
-          },
-          ...(followersWhere?.Follower as Prisma.ActerWhereInput),
-          acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
-          acterNotifyEmailFrequency: {
-            not: ActerNotificationEmailFrequency.NEVER,
-          },
-        },
-      },
-    })
+    const followers =
+      typeof getFollowers === 'function'
+        ? await getFollowers(data)
+        : (
+            await prisma.acterConnection.findMany({
+              include: {
+                Follower: {
+                  include: {
+                    ActerType: true,
+                    User: true,
+                  },
+                },
+              },
+              where: {
+                followingActerId: following.id,
+                ...followersWhere,
+                Follower: {
+                  ActerType: {
+                    ...(followersWhere?.Follower
+                      ?.ActerType as Prisma.ActerTypeWhereInput),
+                    name: ActerTypes.USER,
+                  },
+                  ...(followersWhere?.Follower as Prisma.ActerWhereInput),
+                  acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
+                  acterNotifyEmailFrequency: {
+                    not: ActerNotificationEmailFrequency.NEVER,
+                  },
+                },
+              },
+            })
+          ).map(({ Follower }) => Follower)
     console.log(
       'Sending to followers',
-      followers.map(
-        ({
-          Follower: {
-            name,
-            ActerType: { name: acterTypeName },
-          },
-        }) => ({ name, acterTypeName })
-      )
+      followers.map((acter) => ({
+        name: acter.name,
+        email: acter.User?.email,
+      }))
     )
     const activity = getActivity?.(data)
     const post = getPost?.(data)
@@ -146,9 +152,9 @@ export const createNotificationWorker = <T>({
     })
 
     await Promise.all(
-      followers.map(async ({ Follower }) => {
+      followers.map(async (acter) => {
         const notification = await createNotification({
-          ToActer: Follower,
+          ToActer: acter,
           OnActer: following,
           url,
           type,
