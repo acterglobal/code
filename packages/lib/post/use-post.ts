@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { UseQueryArgs, useQuery, UseQueryState } from 'urql'
 
 import { Post } from '@acter/schema'
@@ -30,11 +28,6 @@ type UsePostResult = Omit<UseQueryState<PostData, PostVariables>, 'data'> &
  */
 export const usePost = (params: UsePostParams): UsePostResult => {
   const { postId, options } = params
-  const [pause, setPause] = useState(true)
-
-  useEffect(() => {
-    if (postId) setPause(false)
-  }, [postId])
 
   const [{ data, fetching, error, ...QueryResult }] = useQuery<
     PostData,
@@ -42,7 +35,7 @@ export const usePost = (params: UsePostParams): UsePostResult => {
   >({
     query: GET_POST,
     variables: { id: postId },
-    pause,
+    pause: !postId,
     ...options,
   })
 

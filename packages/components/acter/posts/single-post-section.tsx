@@ -28,7 +28,11 @@ export const SinglePostSection: FC<SinglePostSectionProps> = ({
     <>
       <Link href={redirectUrl}>
         <Box className={classes.back}>
-          <BackIcon fontSize="small" color="secondary" />{' '}
+          <BackIcon
+            fontSize="inherit"
+            color="inherit"
+            className={classes.icon}
+          />{' '}
           <Typography className={classes.backLink}>Back to posts</Typography>
         </Box>
       </Link>
@@ -43,6 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(3),
       display: 'flex',
       width: theme.spacing(17),
+      marginLeft: theme.spacing(5),
+    },
+    icon: {
+      color: theme.palette.secondary.main,
+      fontSize: '1.2rem',
     },
     backLink: {
       fontWeight: theme.typography.fontWeightMedium,
@@ -51,7 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(0.5),
     },
     postContainer: {
-      width: '80%',
       marginTop: theme.spacing(1.5),
       marginLeft: theme.spacing(5),
     },
