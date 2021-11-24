@@ -26,12 +26,14 @@ export interface GroupFormProps {
   acter?: Acter
   parentActer: Acter
   onSubmit: (data: Acter) => void
+  saving: boolean
 }
 
 export const GroupForm: FC<GroupFormProps> = ({
   acter,
   parentActer,
   onSubmit,
+  saving,
 }) => {
   const classes = useStyles()
   const { acterTypes, fetching } = useActerTypes()
@@ -91,20 +93,22 @@ export const GroupForm: FC<GroupFormProps> = ({
               rows={5}
             />
 
-            <FormGroup>
-              <FormLabel className={classes.label}>Make private</FormLabel>
-              <Box className={classes.makePrivate}>
-                <FormHelperText className={classes.helperText}>
-                  When a group is set to private, new members need to be
-                  approved.
-                </FormHelperText>
-                <Switch
-                  name="makePrivate"
-                  checked={isActerJoinRestricted}
-                  onChange={handleSwitch}
-                />
-              </Box>
-            </FormGroup>
+            {!acter?.id && (
+              <FormGroup>
+                <FormLabel className={classes.label}>Make private</FormLabel>
+                <Box className={classes.makePrivate}>
+                  <FormHelperText className={classes.helperText}>
+                    When a group is set to private, new members need to be
+                    approved.
+                  </FormHelperText>
+                  <Switch
+                    name="makePrivate"
+                    checked={isActerJoinRestricted}
+                    onChange={handleSwitch}
+                  />
+                </Box>
+              </FormGroup>
+            )}
 
             <Box className={classes.buttonContainer}>
               <Button
@@ -112,7 +116,7 @@ export const GroupForm: FC<GroupFormProps> = ({
                 color="primary"
                 variant="contained"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || saving}
               >
                 {acter?.id ? 'Save' : 'Create'}
               </Button>

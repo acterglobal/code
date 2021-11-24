@@ -14,7 +14,10 @@ import { AddActivity } from '@acter/components/activity/add-activity'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes } from '@acter/lib/constants'
+import {
+  ActerTypes,
+  GroupSectionTabs as GroupSectionContent,
+} from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -25,6 +28,7 @@ interface SectionContainerProps {
   title: string
   buttonText: string
   hideAddIcon?: boolean
+  sectionContent?: GroupSectionContent
 }
 export const SectionContainer: FC<SectionContainerProps> = ({
   addItem,
@@ -32,6 +36,7 @@ export const SectionContainer: FC<SectionContainerProps> = ({
   title,
   buttonText,
   hideAddIcon,
+  sectionContent,
 }) => {
   const [onHover, setOnHover] = useState(false)
   const classes = useStyles({ onHover })
@@ -85,7 +90,11 @@ export const SectionContainer: FC<SectionContainerProps> = ({
       {addItem === ActerTypes.ACTIVITY ? (
         <AddActivity openDrawer={openDrawer} setDrawer={setOpenDrawer} />
       ) : (
-        <ManageContent openDrawer={openDrawer} setDrawer={setOpenDrawer} />
+        <ManageContent
+          openDrawer={openDrawer}
+          setDrawer={setOpenDrawer}
+          contentTab={sectionContent}
+        />
       )}
     </Box>
   )
