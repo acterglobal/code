@@ -4,7 +4,7 @@ import React, { FC, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 
-import { differenceInMinutes, parse } from 'date-fns'
+import { differenceInMinutes, set } from 'date-fns'
 import isValid from 'date-fns/isValid'
 import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
@@ -26,27 +26,35 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
 }) => {
   const {
     values: { endAt, isAllDay, startAt },
-    setFieldError,
     setFieldValue,
   } = useFormikContext<StartEndDateTimePickerValues>()
 
   useEffect(() => {
-    if (
-      endAt &&
-      startAt &&
-      isValid(endAt) &&
-      isValid(startAt) &&
-      differenceInMinutes(endAt, startAt) < 0
-    )
-      setFieldError('endAt', 'Cannot be before start')
-  }, [endAt, startAt])
-
-  useEffect(() => {
     if (isAllDay === true) {
-      setFieldValue('endAt', parse('23.59', 'hh:mm', endAt))
-      setFieldValue('startAt', parse('00.00', 'hh:mm', startAt))
+      if (isValid(startAt))
+        setFieldValue(
+          'endAt',
+          set(endAt, { hours: 23, minutes: 59, seconds: 59 })
+        )
+      if (isValid(endAt))
+        setFieldValue(
+          'startAt',
+          set(startAt, { hours: 0, minutes: 0, seconds: 0 })
+        )
     }
   }, [isAllDay])
+
+  const validateStartBeforeEnd = (endAtVal: Date) => {
+    if (
+      endAtVal &&
+      startAt &&
+      isValid(endAtVal) &&
+      isValid(startAt) &&
+      differenceInMinutes(endAtVal, startAt) < 0
+    ) {
+      return 'Cannot be before start'
+    }
+  }
 
   const gridSize = isAllDay ? 6 : 12
 
@@ -68,6 +76,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           isAllDay={isAllDay}
           required={true}
           minDate={startAt && isValid(startAt) ? startAt : null}
+          validate={validateStartBeforeEnd}
         />
       </Grid>
 

@@ -29,6 +29,7 @@ export type DateTimePickerProps = FieldHookConfig<Date> & {
 export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
   const { placeholder, minDate, maxDate, isAllDay } = props
   const [{ value }, { error }, { setValue }] = useField(props)
+
   const isValueValid = value && isValid(value)
   const handleDateChange = (date: Date) => {
     const newValue = isValueValid
