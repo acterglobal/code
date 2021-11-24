@@ -7,7 +7,7 @@ import { DisplayActers } from '@acter/components/acter/landing-page/members-sect
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { getIsOrganisationsCanJoin } from '@acter/lib/acter/get-can-organisations-join'
+import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
@@ -38,10 +38,10 @@ export const MembersSection: FC = () => {
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
-  const isOrganisationCanJoin = getIsOrganisationsCanJoin(acter)
+  const isActersCanJoin = getCanActersJoin(acter)
 
   const selectors = [PEOPLE]
-  isOrganisationCanJoin && selectors.push(ORGANISATIONS)
+  isActersCanJoin && selectors.push(ORGANISATIONS)
 
   return (
     <Box className={classes.container}>
