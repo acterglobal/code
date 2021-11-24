@@ -3,7 +3,6 @@ import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
 /**
  *
  * @param acter Acter we wish to check if organisations can join
- * @param ActerWhoCanJoinSettings
  * @returns True or False if organisations can join Acter
  */
 
