@@ -23,6 +23,7 @@ fragment ActerFull on Acter {
     Follower {
       ...ActerDisplay
       createdByUser {
+        id
         Acter {
           id
           name

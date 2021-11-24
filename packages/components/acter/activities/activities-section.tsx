@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import {
@@ -12,7 +13,6 @@ import {
 
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
-import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
@@ -20,6 +20,12 @@ import {
   sortActivitiesByStartAt,
 } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
+
+const ActivityLanding = dynamic(() =>
+  import('@acter/components/activity/tile/activity-landing').then(
+    (mod) => mod.ActivityLanding
+  )
+)
 
 export const ActivitiesSection: FC = () => {
   const [showPastActivities, setShowPastActivities] = useState(true)

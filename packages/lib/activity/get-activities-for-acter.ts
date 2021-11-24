@@ -1,8 +1,6 @@
 import { differenceInMilliseconds } from 'date-fns'
-import { differenceInMilliseconds as differenceInMillisecondsFp } from 'date-fns/fp'
 import { pipe } from 'fp-ts/function'
 
-import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { Acter, Activity } from '@acter/schema'
 
 type ActivityMap = Record<string, Activity>
@@ -48,19 +46,10 @@ export const _addMissingOrganisedActivities = (acter: Acter) => (
   )
 
 export const sortActivitiesByStartAt = (activities: Activity[]): Activity[] =>
-  [...activities].sort((a, b) =>
-    differenceInMilliseconds(
-      parseDateOrString(a.startAt),
-      parseDateOrString(b.startAt)
-    )
-  )
+  [...activities].sort((a, b) => differenceInMilliseconds(a.startAt, b.startAt))
 
 export const getActivitiesAfterDate = (
   activities: Activity[],
   afterDate: Date
 ): Activity[] =>
-  activities.filter(
-    (a) =>
-      pipe(a.endAt, parseDateOrString, differenceInMillisecondsFp(afterDate)) >=
-      0
-  )
+  activities.filter((a) => differenceInMilliseconds(a.endAt, afterDate) >= 0)
