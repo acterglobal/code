@@ -3,7 +3,7 @@ import React, { FC, useState, useEffect } from 'react'
 import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import clsx from 'clsx'
-import { parseISO, addMinutes } from 'date-fns'
+import { addMinutes } from 'date-fns'
 import { Form, Formik, FormikBag } from 'formik'
 
 import {
@@ -156,9 +156,9 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   let endAt = null
   if (acter?.id) {
     //@ts-ignore
-    startAt = parseISO(acter.Activity.startAt)
+    startAt = acter.Activity.startAt
     //@ts-ignore
-    endAt = parseISO(acter.Activity.endAt)
+    endAt = acter.Activity.endAt
 
     const timeZoneOffSetMinutes = startAt.getTimezoneOffset()
     startAt = addMinutes(startAt, timeZoneOffSetMinutes)

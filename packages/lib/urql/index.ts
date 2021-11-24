@@ -1,29 +1,37 @@
 import { initUrqlClient } from 'next-urql'
 
 import { devtoolsExchange } from '@urql/devtools'
-import { cacheExchange } from '@urql/exchange-graphcache'
+import { cacheExchange, ResolverConfig } from '@urql/exchange-graphcache'
 
-import { prismaPagination } from './prisma-pagination'
 import {
   Client,
   ClientOptions,
-  createClient,
   dedupExchange,
   fetchExchange,
   ssrExchange,
 } from 'urql'
 
+import { prismaPagination } from '@acter/lib/urql/prisma-pagination'
+import { resolvers, queryResolvers } from '@acter/lib/urql/resolvers'
+import { acterActivityResolver } from '@acter/lib/urql/resolvers/activity'
 import * as updates from '@acter/lib/urql/updates'
 
 export * from './use-notification-mutation'
 export * from './use-paginated-query'
 export * from './provider'
 
+export type Resolvers = ResolverConfig & {
+  Query: ResolverConfig
+}
+
 export const getUrqlClientOptions = (): ClientOptions => {
   const cache = cacheExchange({
     resolvers: {
+      ...resolvers,
       Query: {
+        ...queryResolvers,
         acters: prismaPagination(),
+        findFirstActer: acterActivityResolver,
       },
     },
     updates: {

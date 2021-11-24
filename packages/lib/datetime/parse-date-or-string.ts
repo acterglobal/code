@@ -1,4 +1,4 @@
-import { parseISO } from 'date-fns'
+import { parseJSON } from 'date-fns'
 
 export const parseDateOrString = (dateString: Date | string): Date =>
-  typeof dateString === 'string' ? parseISO(dateString) : dateString
+  typeof dateString === 'string' ? parseJSON(dateString) : dateString
