@@ -63,7 +63,7 @@ model Acter {
   //   Who can join this Acter
   acterJoinSetting          ActerJoinSettings               @default(EVERYONE) @map("acter_join_setting")
   //   What triggers a Notification
-  acterNotifySetting        ActerNotificationSettings       @default(NONE) @map("acter_notify_setting")
+  acterNotifySetting        ActerNotificationSettings       @default(ALL_ACTIVITY) @map("acter_notify_setting")
   //   How often to send an email for Notifications
   acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(DAILY) @map("acter_notify_email_frequency")
   //   Whether an Acter is visible in public Search
