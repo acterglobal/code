@@ -41,7 +41,9 @@ export const MembersSection: FC = () => {
   const isActersCanJoin = getCanActersJoin(acter)
 
   const selectors = [PEOPLE]
-  isActersCanJoin && selectors.push(ORGANISATIONS)
+  isActersCanJoin && selectors.push(ACTERS)
+
+  console.log('This is followers ', acter)
 
   return (
     <Box className={classes.container}>
