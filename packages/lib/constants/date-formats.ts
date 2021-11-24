@@ -14,7 +14,9 @@ export const DATE_FORMAT_SHORT_TZ = `${DATE_FORMAT_SHORT} zzz`
 export const DATE_MONTH_FORMAT_SHORT = 'd MMM.'
 // 19-11-21
 export const DD_MM_YY_FORMAT = 'dd-MM-yy'
+// 19-11-2021
+export const DD_MM_YYYY_FORMAT = 'dd-MM-yyyy'
 // Mon, 19 July
 export const DAY_DATE_MONTH_FORMAT_SHORT = 'EEE, d MMM'
 // 21:45
-export const TIME_FORMAT_SHORT = 'HH:mm'
+export const TIME_FORMAT_SHORT = 'HH:mmX'

@@ -3,7 +3,6 @@ import React, { FC, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
-import { parse } from 'date-fns'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
@@ -13,20 +12,18 @@ import {
 } from '@acter/components/activity/form/fields/location-venue-picker'
 import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
 import {
-  StartEndTimeDatePicker,
-  StartEndTimeDatePickerValues,
-} from '@acter/components/activity/form/fields/start-end-date-time-picker'
+  StartEndDateTimePicker,
+  StartEndDateTimePickerValues,
+} from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
 
 export interface BasicsStepValues
   extends LocationVenuePickerValues,
-    StartEndTimeDatePickerValues {
+    StartEndDateTimePickerValues {
   id?: string
   organiserActerId: string
   activityTypeId: string
   isAllDay: boolean
-  startTime: Date
-  endTime: Date
 }
 
 export const BasicsStep: FC = () => {
@@ -37,11 +34,6 @@ export const BasicsStep: FC = () => {
   const handleSelectedType = (typeId: string) => {
     setSelectedTypeId(typeId)
     values.activityTypeId = typeId
-  }
-
-  if (values.isAllDay === true) {
-    values.endTime = parse('23.59', 'hh:mm', new Date())
-    values.startTime = parse('00.00', 'hh:mm', new Date())
   }
 
   return (
@@ -67,7 +59,7 @@ export const BasicsStep: FC = () => {
         </FormSection>
       )}
       <FormSection>
-        <StartEndTimeDatePicker />
+        <StartEndDateTimePicker />
       </FormSection>
 
       <FormSection>
