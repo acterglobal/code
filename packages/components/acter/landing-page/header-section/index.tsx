@@ -13,8 +13,9 @@ import {
 } from '@material-ui/core'
 
 import { Connect } from '@acter/components/acter/connect'
-import { ActionButtons } from '@acter/components/acter/landing-page/header-section/action-buttons'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
+import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
+import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
 import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -72,7 +73,10 @@ export const HeaderSection: FC = () => {
           </Box>
 
           <Hidden xsDown>
-            <ActionButtons />
+            <Box>
+              <EditButton />
+              <DeleteButton />
+            </Box>
           </Hidden>
         </Box>
 
