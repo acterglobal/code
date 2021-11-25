@@ -9,11 +9,11 @@ import {
   Event as CalenderIcon,
 } from '@material-ui/icons'
 
-import { format } from 'date-fns'
-
+// import { format } from 'date-fns'
 import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
@@ -32,9 +32,10 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT
 
-  const startAt = format(acter.Activity.startAt, displayFormat)
-
-  const endAt = format(acter.Activity.endAt, displayFormat)
+  // const startAt = format(acter.Activity.startAt, displayFormat)
+  // const endAt = format(acter.Activity.endAt, displayFormat)
+  const startAt = parseAndFormat(acter.Activity.startAt, displayFormat)
+  const endAt = parseAndFormat(acter.Activity.endAt, displayFormat)
 
   const getUrl = (url) => {
     if (!url) {

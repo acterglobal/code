@@ -5,6 +5,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { formatRelative } from 'date-fns'
 
+import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post } from '@acter/schema'
 
@@ -16,7 +17,10 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
   const classes = useStyles()
 
   //@ts-ignore
-  const timeStamp = formatRelative(post.updatedAt, new Date())
+  const timeStamp = formatRelative(
+    parseDateOrString(post.updatedAt),
+    new Date()
+  )
 
   return (
     <Box>
