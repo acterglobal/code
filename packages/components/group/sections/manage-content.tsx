@@ -9,8 +9,9 @@ import {
   Tab,
 } from '@material-ui/core'
 
-import { About } from '@acter/components/group/sections/tabs/about'
-import { Settings } from '@acter/components/group/sections/tabs/settings'
+import { MembersSection } from '@acter/components/acter/landing-page/members-section'
+import { About as AboutSection } from '@acter/components/group/sections/tabs/about'
+import { Settings as SettingsSection } from '@acter/components/group/sections/tabs/settings'
 import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -58,9 +59,10 @@ export const ManageContent: FC<ManageContentProps> = ({
         </Tabs>
 
         <Box className={classes.tabContent}>
-          {tabs[currentTab] === ABOUT && <About />}
+          {tabs[currentTab] === ABOUT && <AboutSection />}
+          {tabs[currentTab] === MEMBERS && <MembersSection />}
           {tabs[currentTab] === INVITE && <InvitesSection />}
-          {tabs[currentTab] === SETTINGS && <Settings />}
+          {tabs[currentTab] === SETTINGS && <SettingsSection />}
         </Box>
       </Box>
     </Drawer>
