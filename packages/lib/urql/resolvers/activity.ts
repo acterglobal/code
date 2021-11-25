@@ -26,7 +26,7 @@ const setActivityDates = (activity: ActivityInput): ActivityOutput => ({
 })
 
 export const activityListResolver: Resolver<ActivityList> = (parent) =>
-  parent?.activities?.length
+  parent?.activities && typeof parent.activities.length === 'number'
     ? parent.activities.map(setActivityDates)
     : undefined
 

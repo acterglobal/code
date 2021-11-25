@@ -1,9 +1,10 @@
 import { assert } from 'console'
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import marked from 'marked'
 import path from 'path'
 
 import { DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn, createEmailTemplate } from '@acter/lib/email'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { getArticle } from '@acter/lib/string/get-article'
@@ -49,7 +50,7 @@ export const createPostEmailNotification = ({
     content,
     notificationUrl,
     postType,
-    sentAt: format(post.createdAt, DATE_TIME_FORMAT_LONG),
+    sentAt: parseAndFormat(post.createdAt, DATE_TIME_FORMAT_LONG),
     sentBy: post.Author.name,
   })
   const { OnActer } = notification

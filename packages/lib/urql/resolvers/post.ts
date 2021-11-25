@@ -30,4 +30,6 @@ const setPostDates = (post: PostInput): PostOutput => ({
 })
 
 export const postListResolver: Resolver<PostList> = (parent) =>
-  parent?.posts?.length ? parent.posts.map(setPostDates) : undefined
+  parent?.posts && typeof parent.posts.length === 'number'
+    ? parent.posts.map(setPostDates)
+    : undefined

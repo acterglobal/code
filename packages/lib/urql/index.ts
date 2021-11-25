@@ -12,8 +12,8 @@ import {
 } from 'urql'
 
 import { prismaPagination } from '@acter/lib/urql/prisma-pagination'
-import { resolvers, queryResolvers } from '@acter/lib/urql/resolvers'
-import { acterActivityResolver } from '@acter/lib/urql/resolvers/activity'
+// import { resolvers, queryResolvers } from '@acter/lib/urql/resolvers'
+// import { acterActivityResolver } from '@acter/lib/urql/resolvers/activity'
 import * as updates from '@acter/lib/urql/updates'
 
 export * from './use-notification-mutation'
@@ -27,11 +27,11 @@ export type Resolvers = ResolverConfig & {
 export const getUrqlClientOptions = (): ClientOptions => {
   const cache = cacheExchange({
     resolvers: {
-      ...resolvers,
+      // ...resolvers,
       Query: {
-        ...queryResolvers,
+        // ...queryResolvers,
         acters: prismaPagination(),
-        findFirstActer: acterActivityResolver,
+        // findFirstActer: acterActivityResolver,
       },
     },
     updates: {
