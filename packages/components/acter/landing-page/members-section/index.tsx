@@ -11,6 +11,9 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
+import { ActerConnectionRole } from '@acter/schema'
+
+const { ADMIN, MEMBER } = ActerConnectionRole
 
 const { ACTERS, PEOPLE } = MemberType
 
@@ -24,8 +27,13 @@ export const MembersSection: FC = () => {
   if (!acter) return null
 
   const allFollowers = mapFollowersByType(acter)
+
   const followers =
     activeSelector === PEOPLE ? allFollowers.user : allFollowers.organisation
+
+  const validFollowers = followers?.filter((follower) =>
+    [ADMIN, MEMBER].includes(follower.role as ActerConnectionRole)
+  )
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
@@ -35,10 +43,14 @@ export const MembersSection: FC = () => {
         selectors={[PEOPLE, ACTERS]}
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
-        totalResults={followers?.length}
+        totalResults={validFollowers?.length}
       />
-      {activeSelector === PEOPLE && <DisplayMembers followers={followers} />}
-      {activeSelector === ACTERS && <DisplayActers followers={followers} />}
+      {activeSelector === PEOPLE && (
+        <DisplayMembers followers={validFollowers} />
+      )}
+      {activeSelector === ACTERS && (
+        <DisplayActers followers={validFollowers} />
+      )}
     </Box>
   )
 }
