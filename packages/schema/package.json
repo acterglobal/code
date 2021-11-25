@@ -35,6 +35,9 @@
     "ts-node": "^10.2.1",
     "typescript": "*"
   },
+  "peerDependencies": {
+    "date-fns": "*"
+  },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   }

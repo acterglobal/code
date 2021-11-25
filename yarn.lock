@@ -145,6 +145,8 @@ __metadata:
     typegraphql-prisma: 0.16.0
     typescript: "*"
     uuid: ^8.3.2
+  peerDependencies:
+    date-fns: "*"
   languageName: unknown
   linkType: soft
 
