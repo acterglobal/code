@@ -46,8 +46,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
-    paddingLeft: theme.spacing(6.5),
-    paddingRight: theme.spacing(6.5),
+    paddingLeft: '3%',
   },
   heading: {
     fontSize: '0.88rem',

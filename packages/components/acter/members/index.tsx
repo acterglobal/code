@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Grid, makeStyles, createStyles } from '@material-ui/core'
+import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { MembersSection } from '@acter/components/acter/landing-page/members-section'
@@ -17,11 +17,17 @@ export const ActerMembers: FC = () => {
   )
 }
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
       order: 1,
       margin: 'auto',
+      borderRadius: 6,
+      backgroundColor: theme.colors.white,
+      '&.MuiGrid-item': {
+        padding: theme.spacing(6),
+        paddingTop: theme.spacing(1),
+      },
     },
   })
 )

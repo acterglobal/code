@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { DisplayActers } from '@acter/components/acter/landing-page/members-section/display-acters'
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
-import { theme } from '@acter/components/themes/acter-theme'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -57,7 +56,6 @@ export const MembersSection: FC = () => {
 
 const useStyles = makeStyles({
   container: {
-    borderRadius: 6,
-    backgroundColor: theme.colors.white,
+    width: '100%',
   },
 })

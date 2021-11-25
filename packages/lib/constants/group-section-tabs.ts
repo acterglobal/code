@@ -1,7 +1,7 @@
 export enum GroupSectionTabs {
   ABOUT = 'about',
-  MEMBERS = 'members',
-  LINKS = 'links',
   INVITE = 'invite',
+  LINKS = 'links',
+  MEMBERS = 'members',
   SETTINGS = 'settings',
 }
