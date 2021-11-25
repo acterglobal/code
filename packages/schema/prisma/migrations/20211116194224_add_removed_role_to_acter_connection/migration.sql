@@ -1,2 +1,4 @@
 -- AlterEnum
-ALTER TYPE "ActerConnectionRole" ADD VALUE 'REMOVED';
+ALTER TYPE "ActerConnectionRole"
+ADD
+  VALUE E'REMOVED';
