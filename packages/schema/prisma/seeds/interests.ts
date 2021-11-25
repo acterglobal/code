@@ -70,7 +70,10 @@ const interestTypes: interestTypeMap[] = [
         ],
       },
     ],
-    interests: [{ name: 'Partnerships', description: '', sdgNumber: '17' }],
+    interests: [
+      { name: 'Digitalization', description: '', sdgNumber: '17' },
+      { name: 'Partnerships', description: '', sdgNumber: '17' },
+    ],
   },
   {
     name: 'Approach',
