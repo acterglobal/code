@@ -38,7 +38,7 @@ export const TopBar: FC<TopBarProps> = ({
       </Typography>
 
       <Box className={classes.buttonsSection}>
-        {acter && user && actionButtons && acter.createdByUserId === user.id ? (
+        {actionButtons && acter?.createdByUserId === user?.id && (
           <DropdownMenu anchorNode={<ThreeDots />}>
             {actionButtons.map((action, index) => (
               <MenuItem
@@ -50,8 +50,6 @@ export const TopBar: FC<TopBarProps> = ({
               </MenuItem>
             ))}
           </DropdownMenu>
-        ) : (
-          <ThreeDots />
         )}
 
         <IconButton className={classes.button} onClick={handleClose}>
