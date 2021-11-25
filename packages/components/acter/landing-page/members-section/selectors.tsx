@@ -1,51 +1,25 @@
 import React, { FC } from 'react'
 
-import { Box, Button } from '@material-ui/core'
-import { green } from '@material-ui/core/colors'
+import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import clsx from 'clsx'
+import pluralize from 'pluralize'
 
 import { capitalize } from '@acter/lib/string/capitalize'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-  },
-  button: {
-    height: 25,
-    minWidth: 120,
-    borderRadius: theme.spacing(3),
-    marginRight: theme.spacing(1),
-    color: theme.palette.secondary.main,
-    backgroundColor: 'white',
-    fontSize: '0.7rem',
-    '&:hover': {
-      backgroundColor: 'white',
-    },
-  },
-  active: {
-    backgroundColor: green[400],
-    color: 'white',
-    '&:hover': {
-      backgroundColor: green[600],
-    },
-  },
-}))
 
 export interface SelectorProps {
   selectors: string[]
   activeSelector: string
   onChange: (selector: string) => void
+  totalResults: number
 }
 
 export const Selectors: FC<SelectorProps> = ({
   selectors,
   activeSelector,
   onChange,
+  totalResults,
 }) => {
   const classes = useStyles()
 
@@ -67,6 +41,50 @@ export const Selectors: FC<SelectorProps> = ({
           </Button>
         ))}
       </Box>
+      <Box>
+        <Typography className={classes.results} role="heading">
+          {totalResults || 0} {pluralize(activeSelector)}
+        </Typography>
+      </Box>
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+    borderBottom: '1.5px solid',
+    borderBottomColor: theme.palette.secondary.light,
+  },
+  button: {
+    height: 25,
+    minWidth: 120,
+    borderRadius: theme.spacing(3),
+    marginRight: theme.spacing(1),
+    color: theme.palette.secondary.dark,
+    textTransform: 'capitalize',
+    fontWeight: theme.typography.fontWeightLight,
+    backgroundColor: 'white',
+    fontSize: '0.8rem',
+    '&:hover': {
+      backgroundColor: 'white',
+    },
+  },
+  active: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.colors.white,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.main,
+    },
+  },
+  results: {
+    fontSize: '0.88rem',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.secondary.main,
+  },
+}))

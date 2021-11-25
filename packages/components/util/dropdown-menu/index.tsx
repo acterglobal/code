@@ -55,10 +55,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     paper: {
       minWidth: ({ size }) => theme.spacing(size),
-      borderRadius: theme.spacing(0.8),
+      borderRadius: theme.spacing(0.6),
       borderStyle: 'solid',
       borderWidth: '1px',
-      borderColor: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.light,
       boxShadow: 'none',
     },
   })

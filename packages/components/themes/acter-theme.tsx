@@ -23,9 +23,9 @@ export const theme = createTheme({
   typography: typography,
 
   props: {
-    /* disable elevation for buttons  */
     MuiButton: {
       disableElevation: true,
+      disableRipple: true,
     },
   },
 })

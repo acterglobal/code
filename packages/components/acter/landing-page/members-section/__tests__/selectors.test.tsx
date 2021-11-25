@@ -13,7 +13,8 @@ describe('<Selectors>', () => {
     render(
       <Selectors
         selectors={[FOO, BAR]}
-        activeSelector={null}
+        activeSelector={FOO}
+        totalResults={0}
         onChange={onChange}
       />
     )
@@ -24,11 +25,25 @@ describe('<Selectors>', () => {
     expect(tabs[1].textContent).toBe(BAR)
   })
 
-  it('should should highlight the selected tab', () => {
+  it('should display number of results', async () => {
+    render(
+      <Selectors
+        selectors={[FOO, BAR]}
+        activeSelector={FOO}
+        totalResults={10}
+        onChange={onChange}
+      />
+    )
+
+    expect(screen.getByRole('heading', { name: '10 Foos' })).toBeTruthy()
+  })
+
+  it('should highlight the selected tab', () => {
     const { asFragment } = render(
       <Selectors
         selectors={selectors}
         activeSelector={FOO}
+        totalResults={10}
         onChange={onChange}
       />
     )
