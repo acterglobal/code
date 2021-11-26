@@ -1,6 +1,14 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { FormHelperText, Grid, TextField, Typography } from '@material-ui/core'
+import {
+  Box,
+  FormHelperText,
+  Grid,
+  Popper,
+  PopperProps,
+  TextField,
+  Typography,
+} from '@material-ui/core'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import { Autocomplete } from '@material-ui/lab'
 
@@ -78,6 +86,18 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     }
   }
 
+  const PopperWithAttribution = ({ children, ...restArgs }: PopperProps) => (
+    <Popper {...restArgs}>
+      {children}
+      <Box display="flex" justifyContent="flex-end">
+        <img
+          src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
+          alt="Powered by Google"
+        />
+      </Box>
+    </Popper>
+  )
+
   return (
     <>
       <Autocomplete
@@ -91,6 +111,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
         filterSelectedOptions
         noOptionsText="No results"
         value={data.find((x) => x.description === value)} // <-- fixed TS error
+        PopperComponent={PopperWithAttribution}
         renderInput={(params) => (
           <TextField
             {...params}
