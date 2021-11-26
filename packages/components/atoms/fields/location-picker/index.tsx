@@ -18,12 +18,14 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete'
 
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
 
 export type LocationPickerProps = {
   label?: string
   placeholder?: string
   value: string
+  types?: GooglePlacesType[]
   onSelect: (location: LocationPickerResult) => void
 }
 
@@ -38,6 +40,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   label,
   placeholder,
   value,
+  types,
   onSelect,
 }) => {
   const [error, setError] = useState<Error | ErrorEvent>()
@@ -46,15 +49,21 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     suggestions: { data },
     setValue,
     clearSuggestions,
+    clearCache,
   } = usePlacesAutocomplete({
     debounce: 300,
     initOnMount: false,
+    defaultValue: value,
+    requestOptions: types ? { types } : undefined,
   })
   const [scriptLoading, scriptLoadError] = useGooglePlacesApi()
 
   useEffect(() => {
     // Wait for the Google Places API script to load
-    if (!scriptLoading) init()
+    if (!scriptLoading) {
+      init()
+      clearCache()
+    }
   }, [scriptLoading])
 
   useEffect(() => {
@@ -67,24 +76,6 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     setValue(e.target.value)
-  }
-
-  const handleSelect = (place) => async () => {
-    try {
-      const { place_id: placeId, description } = place
-      const results = await getGeocode({ placeId })
-      const { lat, lng } = await getLatLng(results[0])
-      onSelect({
-        placeId,
-        description,
-        lat,
-        lng,
-      })
-      clearSuggestions()
-      setValue(description, false)
-    } catch (e) {
-      setError(e)
-    }
   }
 
   const PopperWithAttribution = ({ children, ...restArgs }: PopperProps) => (

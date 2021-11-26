@@ -1,0 +1,11 @@
+export type GooglePlacesType =
+  | 'address'
+  | 'establishment'
+  | 'regions'
+  | 'locality'
+  | 'sublocality'
+  | 'postal_code'
+  | 'country'
+  | 'cities'
+  | 'administrative_area_level_1'
+  | 'administrative_area_level_2'
