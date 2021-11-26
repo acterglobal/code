@@ -17,5 +17,10 @@ const Template: Story<LocationPickerProps> = (args) => (
   <LocationPicker {...args} />
 )
 
-export const Main = Template.bind({})
-Main.args = {}
+export const Empty = Template.bind({})
+Empty.args = {}
+
+export const WithValue = Template.bind({})
+WithValue.args = {
+  value: 'Klitmøller, Denmark',
+}

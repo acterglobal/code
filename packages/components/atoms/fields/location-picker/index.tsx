@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
-import { Autocomplete } from '@material-ui/lab'
+import { Autocomplete, AutocompleteChangeReason } from '@material-ui/lab'
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -23,6 +23,7 @@ import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
 export type LocationPickerProps = {
   label?: string
   placeholder?: string
+  value: string
   onSelect: (location: LocationPickerResult) => void
 }
 
@@ -36,12 +37,12 @@ export type LocationPickerResult = {
 export const LocationPicker: FC<LocationPickerProps> = ({
   label,
   placeholder,
+  value,
   onSelect,
 }) => {
   const [error, setError] = useState<Error | ErrorEvent>()
   const {
     init,
-    value,
     suggestions: { data },
     setValue,
     clearSuggestions,
@@ -98,6 +99,37 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     </Popper>
   )
 
+  const handleOnChange = async (
+    _evt,
+    place,
+    reason: AutocompleteChangeReason
+  ) => {
+    if (reason === 'clear') {
+      onSelect({
+        placeId: null,
+        description: null,
+        lat: null,
+        lng: null,
+      })
+      return
+    }
+    try {
+      const { place_id: placeId, description } = place
+      const results = await getGeocode({ placeId })
+      const { lat, lng } = await getLatLng(results[0])
+      onSelect({
+        placeId,
+        description,
+        lat,
+        lng,
+      })
+      clearSuggestions()
+      setValue(description, false)
+    } catch (e) {
+      setError(e)
+    }
+  }
+
   return (
     <>
       <Autocomplete
@@ -110,8 +142,9 @@ export const LocationPicker: FC<LocationPickerProps> = ({
         includeInputInList
         filterSelectedOptions
         noOptionsText="No results"
-        value={data.find((x) => x.description === value)} // <-- fixed TS error
         PopperComponent={PopperWithAttribution}
+        value={value}
+        onChange={handleOnChange}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -126,7 +159,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
         )}
         renderOption={(option) => {
           return (
-            <Grid container alignItems="center" onClick={handleSelect(option)}>
+            <Grid container alignItems="center">
               <Grid item>
                 <LocationOnIcon />
               </Grid>
