@@ -5,6 +5,7 @@ import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { ImageUpload } from '@acter/components/image-upload'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
@@ -17,6 +18,9 @@ export interface ProfileInfoFormValues {
   email: string
   name: string
   location: string
+  placeId: string
+  locationLat: number
+  locationLng: number
 }
 
 export const ProfileInfoForm: FC = () => {
@@ -26,10 +30,22 @@ export const ProfileInfoForm: FC = () => {
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
   if (fetching) return <>Loading...</>
-  if (!user) return null
+  if (!user) {
+    console.error('No user')
+
+    return null
+  }
 
   const { email } = user
-  const { avatarUrl, name, description, location } = user.Acter
+  const {
+    avatarUrl,
+    name,
+    description,
+    location,
+    placeId,
+    locationLat,
+    locationLng,
+  } = user.Acter
 
   const initialValues: ProfileInfoFormValues = {
     avatarUrl,
@@ -37,6 +53,9 @@ export const ProfileInfoForm: FC = () => {
     email,
     name,
     location,
+    placeId,
+    locationLat,
+    locationLng,
   }
 
   const handleSubmit = (values) => updateActer(values)
@@ -44,61 +63,73 @@ export const ProfileInfoForm: FC = () => {
   return (
     <ProfileFormLayout>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <Grid container>
-            <Grid item sm={12} md={4}>
-              <ImageUpload imageType="avatar" fileUrl={user?.Acter.avatarUrl} />
-            </Grid>
-            <Grid item sm={12} md={8}>
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="name"
-                placeholder="name"
-                variant="outlined"
-                inputProps={{
-                  style: { paddingLeft: 25, fontSize: '0.9rem' },
-                }}
-              />
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="email"
-                placeholder="you@acter.global"
-                variant="outlined"
-                disabled={true}
-                inputProps={{
-                  style: { paddingLeft: 25, fontSize: '0.9rem' },
-                }}
-              />
+        {({ setValues }) => (
+          <Form>
+            <Grid container>
+              <Grid item sm={12} md={4}>
+                <ImageUpload
+                  imageType="avatar"
+                  fileUrl={user?.Acter.avatarUrl}
+                />
+              </Grid>
+              <Grid item sm={12} md={8}>
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="name"
+                  placeholder="name"
+                  variant="outlined"
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="email"
+                  placeholder="you@acter.global"
+                  variant="outlined"
+                  disabled={true}
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
 
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="description"
-                multiline
-                rows={4}
-                placeholder="Write some thing about you"
-                variant="outlined"
-                inputProps={{
-                  style: { padding: 10, fontSize: '0.9rem' },
-                }}
-              />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="description"
+                  multiline
+                  rows={4}
+                  placeholder="Write some thing about you"
+                  variant="outlined"
+                  inputProps={{
+                    style: { padding: 10, fontSize: '0.9rem' },
+                  }}
+                />
 
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="location"
-                placeholder="location"
-                variant="outlined"
-                inputProps={{
-                  style: { paddingLeft: 25, fontSize: '0.9rem' },
-                }}
-              />
+                <LocationPicker
+                  placeholder="location"
+                  value={{
+                    placeId,
+                    description: location,
+                    lat: locationLat,
+                    lng: locationLng,
+                  }}
+                  onSelect={({ placeId, description, lat, lng }) =>
+                    setValues({
+                      placeId,
+                      locationLat: lat,
+                      locationLng: lng,
+                      location: description,
+                    })
+                  }
+                />
+              </Grid>
             </Grid>
-          </Grid>
-          <FormButtons align="right" hideUnlessDirty={true} />
-        </Form>
+            <FormButtons align="right" hideUnlessDirty={true} />
+          </Form>
+        )}
       </Formik>
     </ProfileFormLayout>
   )

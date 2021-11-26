@@ -4,6 +4,9 @@ mutation CreateActer(
   $name: String!
   $description: String
   $location: String
+  $locationLat: Float
+  $locationLng: Float
+  $placeId: String
   $url: String
   $acterTypeId: String!
   $acterJoinSetting: ActerJoinSettings
@@ -15,6 +18,9 @@ mutation CreateActer(
     name: $name
     description: $description
     location: $location
+    locationLat: $locationLat
+    locationLng: $locationLng
+    placeId: $placeId
     url: $url
     acterTypeId: $acterTypeId
     acterJoinSetting: $acterJoinSetting
