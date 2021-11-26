@@ -52,6 +52,7 @@ model Acter {
   location    String?
   locationLat Float?   @map("location_lat")
   locationLng Float?   @map("location_lng")
+  placeId     String?  @map("place_id")
   url         String?
   avatarUrl   String?  @map("avatar_url")
   bannerUrl   String?  @map("banner_url")
