@@ -63,52 +63,56 @@ export const ProfileInfoForm: FC = () => {
   return (
     <ProfileFormLayout>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <Grid container>
-            <Grid item sm={12} md={4}>
-              <ImageUpload imageType="avatar" fileUrl={user?.Acter.avatarUrl} />
-            </Grid>
-            <Grid item sm={12} md={8}>
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="name"
-                placeholder="name"
-                variant="outlined"
-                inputProps={{
-                  style: { paddingLeft: 25, fontSize: '0.9rem' },
-                }}
-              />
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="email"
-                placeholder="you@acter.global"
-                variant="outlined"
-                disabled={true}
-                inputProps={{
-                  style: { paddingLeft: 25, fontSize: '0.9rem' },
-                }}
-              />
+        {({ setValues }) => (
+          <Form>
+            <Grid container>
+              <Grid item sm={12} md={4}>
+                <ImageUpload
+                  imageType="avatar"
+                  fileUrl={user?.Acter.avatarUrl}
+                />
+              </Grid>
+              <Grid item sm={12} md={8}>
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="name"
+                  placeholder="name"
+                  variant="outlined"
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="email"
+                  placeholder="you@acter.global"
+                  variant="outlined"
+                  disabled={true}
+                  inputProps={{
+                    style: { paddingLeft: 25, fontSize: '0.9rem' },
+                  }}
+                />
 
-              <Field
-                className={classes.textinput}
-                component={TextField}
-                name="description"
-                multiline
-                rows={4}
-                placeholder="Write some thing about you"
-                variant="outlined"
-                inputProps={{
-                  style: { padding: 10, fontSize: '0.9rem' },
-                }}
-              />
+                <Field
+                  className={classes.textinput}
+                  component={TextField}
+                  name="description"
+                  multiline
+                  rows={4}
+                  placeholder="Write some thing about you"
+                  variant="outlined"
+                  inputProps={{
+                    style: { padding: 10, fontSize: '0.9rem' },
+                  }}
+                />
 
               <LocationPicker types={['(regions)']} cacheKey="regions" />
             </Grid>
-          </Grid>
-          <FormButtons align="right" hideUnlessDirty={true} />
-        </Form>
+            <FormButtons align="right" hideUnlessDirty={true} />
+          </Form>
+        )}
       </Formik>
     </ProfileFormLayout>
   )
