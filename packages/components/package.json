@@ -5,8 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "start-storybook -p 6006",
-    "storybook-build": "yarn workspace @acter/schema build && build-storybook"
+    "dev": "yarn env-cmd start-storybook -p 6006",
+    "storybook-build": "yarn workspace @acter/schema build && build-storybook",
+    "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.0.0",
@@ -18,6 +19,7 @@
     "color-string": "^1.5.5",
     "draft-js": "^0.11.7",
     "email-validator": "^2.0.4",
+    "env-cmd": "^10.1.0",
     "filepond": "^4.25.1",
     "filepond-plugin-file-validate-type": "^1.2.5",
     "filepond-plugin-image-edit": "^1.6.2",
@@ -32,8 +34,10 @@
     "react-cropper": "^2.1.8",
     "react-draft-wysiwyg": "^1.14.7",
     "react-filepond": "^7.1.1",
+    "react-google-autocomplete": "^2.6.1",
     "react-infinite-scroll-component": "^6.1.0",
     "title-case": "^3.0.3",
+    "use-places-autocomplete": "^1.10.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -48,12 +52,14 @@
     "@storybook/builder-webpack5": "^6.3.8",
     "@storybook/manager-webpack5": "^6.3.8",
     "@storybook/react": "^6.3.8",
+    "@types/googlemaps": "^3.43.3",
     "@urql/storybook-addon": "^1.0.7",
     "babel-loader": "^8.2.2",
     "babel-plugin-polyfill-corejs2": "^0.2.2",
     "babel-plugin-polyfill-regenerator": "^0.2.2",
     "next": "*",
     "sb": "^6.3.2",
+    "storybook-addon-next-auth0": "^1.0.6",
     "storybook-addon-next-router": "^3.0.8",
     "storybook-formik": "^2.1.6",
     "typescript": "*",
