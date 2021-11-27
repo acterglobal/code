@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import {
-  Box,
   createStyles,
   Grid,
   Hidden,
@@ -9,7 +8,7 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import { HeaderSection } from '@acter/components/group/header-section'
+import { LandingPageLayout } from '@acter/components/group/layout'
 import { DescriptionSection } from '@acter/components/group/sections/description'
 import { LinksSection } from '@acter/components/group/sections/links'
 import { MembersSection } from '@acter/components/group/sections/members'
@@ -27,8 +26,7 @@ export const GroupLanding: FC = () => {
   if (!acter) return null
 
   return (
-    <Box className={classes.root}>
-      <HeaderSection />
+    <LandingPageLayout>
       <Grid container spacing={0} className={classes.content}>
         <Grid item xs={12} md={8} className={classes.posts}>
           <PostList />
@@ -43,15 +41,12 @@ export const GroupLanding: FC = () => {
           </Grid>
         </Hidden>
       </Grid>
-    </Box>
+    </LandingPageLayout>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      height: '100%',
-    },
     content: {
       marginTop: theme.spacing(4),
     },
