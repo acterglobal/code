@@ -10,7 +10,7 @@ import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
 
-const { ORGANISATION, NETWORK } = ActerTypes
+const { ORGANISATION, NETWORK, GROUP } = ActerTypes
 
 export interface SelectOrganiserProps {
   /**
@@ -27,7 +27,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    [ORGANISATION, NETWORK].includes(name as ActerTypes)
+    [ORGANISATION, NETWORK, GROUP].includes(name as ActerTypes)
   )
 
   return (
@@ -36,8 +36,6 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
       fullWidth
       component={Select}
       name="organiserActerId"
-      label="Show activity in:"
-      // displayEmpty
       required={true}
     >
       {organisers.map((acter) => (

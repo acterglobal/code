@@ -1,5 +1,7 @@
 import React, { FC, ReactNode, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   Button,
@@ -13,6 +15,7 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   ActerTypes,
@@ -41,6 +44,7 @@ export const SectionContainer: FC<SectionContainerProps> = ({
   const [onHover, setOnHover] = useState(false)
   const classes = useStyles({ onHover })
   const [openDrawer, setOpenDrawer] = useState(false)
+  const router = useRouter()
 
   const { user } = useUser()
   const { acter, fetching: acterFetching } = useActer()
@@ -48,7 +52,11 @@ export const SectionContainer: FC<SectionContainerProps> = ({
   if (acterFetching) return <LoadingSpinner />
   if (!acter) return null
 
-  const handleClick = () => setOpenDrawer(true)
+  const handleAddIconClick = () => setOpenDrawer(true)
+  const handleButtonClick = () =>
+    addItem === ActerTypes.ACTIVITY
+      ? router.push(acterAsUrl({ acter, extraPath: 'activities' }))
+      : setOpenDrawer(true)
 
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
@@ -66,19 +74,12 @@ export const SectionContainer: FC<SectionContainerProps> = ({
             <AddIcon
               className={classes.addIcon}
               fontSize="inherit"
-              onClick={handleClick}
+              onClick={handleAddIconClick}
             />
           )}
 
           {isMember && (
-            <Button
-              className={classes.button}
-              onClick={() =>
-                addItem === ActerTypes.ACTIVITY
-                  ? () => null
-                  : setOpenDrawer(true)
-              }
-            >
+            <Button className={classes.button} onClick={handleButtonClick}>
               {buttonText}
             </Button>
           )}
