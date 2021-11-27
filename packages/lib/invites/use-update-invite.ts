@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { OperationResult, UseMutationState } from 'urql'
 
 import {
@@ -5,11 +7,12 @@ import {
   UseMutationOptions,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Invite } from '@acter/schema'
-import UPDATE_INVITE_EXPIRED from '@acter/schema/mutations/invite-update-expired.graphql'
+import UPDATE_INVITE from '@acter/schema/mutations/invite-update.graphql'
 
 export type UpdateInviteVariables = {
   inviteId: string
   expiredAt: Date
+  acceptedAt: Date
 }
 
 type UpdateInviteData = Invite
@@ -22,6 +25,7 @@ type UpdateInviteOptions = UseMutationOptions<
 type HandleMethodParams = {
   inviteId: string
   expiredAt?: Date
+  acceptedAt?: Date
 }
 
 type HandleMethod = (params: HandleMethodParams) => Promise<OperationResult>
@@ -35,17 +39,21 @@ type MutationResult = UseMutationState<UpdateInviteData, UpdateInviteVariables>
 export const useUpdateInvite = (
   options?: UpdateInviteOptions
 ): [MutationResult, HandleMethod] => {
+  const [message, setMessage] = useState(null)
   const [mutationResult, updateInvite] = useNotificationMutation(
-    UPDATE_INVITE_EXPIRED,
+    UPDATE_INVITE,
     {
       ...options,
-      getSuccessMessage: (invite) =>
-        `Invitation ${invite.expiredAt ? 'cancelled' : 'sent'}`,
+      getSuccessMessage: () => message,
     }
   )
 
-  const handleUpdateInvite = ({ inviteId, expiredAt = new Date() }) =>
-    updateInvite({ inviteId, expiredAt })
+  const handleUpdateInvite = ({ inviteId, expiredAt, acceptedAt }) => {
+    const status = acceptedAt ? 'accepted' : expiredAt ? 'cancelled' : 'sent'
+    setMessage(`Invitation ${status}`)
+
+    return updateInvite({ inviteId, expiredAt, acceptedAt })
+  }
 
   return [mutationResult, handleUpdateInvite]
 }
