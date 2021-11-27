@@ -57,6 +57,7 @@ export const inviteRedirect: ComposedGetServerSideProps = async ({
       props: {
         ...props,
         acter: data?.acter,
+        invite,
       },
     }
   } catch (error) {

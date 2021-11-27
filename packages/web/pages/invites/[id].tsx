@@ -12,17 +12,20 @@ import {
   composeProps,
   ComposedGetServerSideProps,
 } from '@acter/lib/compose-props'
-import { Acter, ActerConnectionRole, User } from '@acter/schema'
+import { useUpdateInvite } from '@acter/lib/invites/use-update-invite'
+import { Acter, ActerConnectionRole, Invite, User } from '@acter/schema'
 
 interface InvitationPageProps {
   user: User
   acter?: Acter
   expiredMessage?: string
+  invite?: Invite
 }
 export const InvitationPage: NextPage<InvitationPageProps> = ({
   user,
   acter,
   expiredMessage,
+  invite,
 }) => {
   const router = useRouter()
 
@@ -32,17 +35,22 @@ export const InvitationPage: NextPage<InvitationPageProps> = ({
     )
   }
 
+  const [_, updateInvite] = useUpdateInvite()
+
   const [
     { fetching: creatingConnection },
     createConnection,
-  ] = useCreateActerConnection(acter)
+  ] = useCreateActerConnection(acter, {
+    onCompleted: () =>
+      updateInvite({ inviteId: invite?.id, acceptedAt: new Date() }),
+  })
 
   useEffect(() => {
-    if (acter) {
+    if (acter && invite) {
       createConnection(acter, user.Acter, ActerConnectionRole.MEMBER)
       router.push(acterAsUrl({ acter }))
     }
-  }, [acter])
+  }, [acter, invite])
 
   if (creatingConnection) return <LoadingSpinner size={30} />
 
