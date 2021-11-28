@@ -7,12 +7,11 @@ import { DisplayActers } from '@acter/components/acter/landing-page/members-sect
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
+import { getActerJoinSelectors } from '@acter/lib/acter/get-acter-join-selectors'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 import { ActerConnectionRole } from '@acter/schema'
-import { ActerWhoCanJoinSettings } from '@acter/schema'
 
 const { ADMIN, MEMBER } = ActerConnectionRole
 
@@ -38,12 +37,7 @@ export const MembersSection: FC = () => {
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
-  const isActersCanJoin = getCanActersJoin(acter)
-
-  const selectors = [PEOPLE]
-  isActersCanJoin && selectors.push(ACTERS)
-
-  console.log('This is followers ', acter)
+  const selectors = getActerJoinSelectors(acter)
 
   return (
     <Box className={classes.container}>

@@ -15,8 +15,6 @@ jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/acter/use-update-connection')
 jest.mock('@acter/lib/user/use-user')
 
-const { ACTERS } = MemberType
-
 describe('<DisplayMembers>', () => {
   const mockUseActer = useActer as jest.Mock
   const mockUseUser = useUser as jest.Mock
