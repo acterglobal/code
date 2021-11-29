@@ -6,7 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
-import { ActerTypePicker } from '@acter/components/acter/form/acter-type-picker'
+import { ActerTypePicker } from '@acter/components/acter/form/fields/acter-type-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues {

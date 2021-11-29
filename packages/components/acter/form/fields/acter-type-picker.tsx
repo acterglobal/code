@@ -13,7 +13,7 @@ import { capitalize } from '@acter/lib/string/capitalize'
 const { ORGANISATION, NETWORK } = ActerTypes
 
 export interface ActerTypePickerValues {
-  interestIds: string[]
+  acterTypeId: string
 }
 
 export const ActerTypePicker: FC = () => {
@@ -37,6 +37,8 @@ export const ActerTypePicker: FC = () => {
         name="acterTypeId"
         placeholder="Select Acter Type"
         required={true}
+        defaultValue={values.acterTypeId || ''}
+        onChange={(event) => setFieldValue('acterTypeId', event.target.value)}
       >
         {types.map((type) => (
           <MenuItem value={type.id} key={`type-${type.id}`}>
