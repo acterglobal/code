@@ -25,7 +25,8 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
     setLoading(updating)
   }, [updating])
 
-  const handleCancel = () => updateInvite({ inviteId: invite.id })
+  const handleCancel = () =>
+    updateInvite({ inviteId: invite.id, expiredAt: new Date() })
 
   const handleResend = () =>
     updateInvite({ inviteId: invite.id, expiredAt: null })

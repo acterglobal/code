@@ -4,6 +4,7 @@ query GetInvites($onActerId: String!, $createdByUserId: String!) {
   invites(
     where: {
       sentAt: { not: { equals: null } }
+      acceptedAt: { equals: null }
       onActerId: { equals: $onActerId }
       createdByUserId: { equals: $createdByUserId }
     }
