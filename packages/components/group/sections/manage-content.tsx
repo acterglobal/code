@@ -13,6 +13,7 @@ import { MembersSection } from '@acter/components/acter/landing-page/members-sec
 import { About as AboutSection } from '@acter/components/group/sections/tabs/about'
 import { Settings as SettingsSection } from '@acter/components/group/sections/tabs/settings'
 import { InvitesSection } from '@acter/components/invites'
+import { Links as LinksSection } from '@acter/components/links'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { GroupSectionTabs } from '@acter/lib/constants'
@@ -60,6 +61,7 @@ export const ManageContent: FC<ManageContentProps> = ({
 
         <Box className={classes.tabContent}>
           {tabs[currentTab] === ABOUT && <AboutSection />}
+          {tabs[currentTab] === LINKS && <LinksSection />}
           {tabs[currentTab] === MEMBERS && <MembersSection />}
           {tabs[currentTab] === INVITE && <InvitesSection />}
           {tabs[currentTab] === SETTINGS && <SettingsSection />}
