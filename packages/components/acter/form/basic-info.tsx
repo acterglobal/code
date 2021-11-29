@@ -1,14 +1,16 @@
 import React, { FC, useState } from 'react'
 
-import { InputLabel, Box } from '@material-ui/core'
+import { Box, InputLabel } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { ActerTypePicker } from '@acter/components/acter/form/fields/acter-type-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues {
+  acterTypeId: string
   name: string
   description: string
   location: string
@@ -22,6 +24,7 @@ export const BasicInformation: FC = () => {
 
   return (
     <>
+      <ActerTypePicker />
       <Field
         className={classes.textinput}
         component={TextField}
@@ -61,9 +64,9 @@ export const BasicInformation: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textinput: {
-      width: '90%',
+      width: '88%',
       fontSize: '0.5rem',
-      marginBottom: 20,
+      marginBottom: theme.spacing(3.5),
       color: theme.palette.secondary.light,
     },
   })

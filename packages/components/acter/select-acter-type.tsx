@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerType } from '@acter/components/acter/acter-type'
+import { Switch } from '@acter/components/styled/switch'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 
 const { ORGANISATION, NETWORK } = ActerTypes
@@ -14,6 +15,11 @@ export interface SelectActerTypeProps {
 
 export const SelectActerType: FC<SelectActerTypeProps> = ({ onClick }) => {
   const classes = useStyles()
+  const [selectActerType, setSelectActerType] = useState(false)
+
+  const handleChange = () => {
+    setSelectActerType(!selectActerType)
+  }
 
   return (
     <Box className={classes.container}>
@@ -29,6 +35,11 @@ export const SelectActerType: FC<SelectActerTypeProps> = ({ onClick }) => {
       <Box className={classes.acters}>
         <ActerType acterType={ORGANISATION} onClick={onClick} />
         <ActerType acterType={NETWORK} onClick={onClick} />
+        <Switch
+          name="acterType"
+          checked={selectActerType}
+          onChange={handleChange}
+        />
       </Box>
     </Box>
   )
