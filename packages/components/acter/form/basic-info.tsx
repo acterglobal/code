@@ -1,18 +1,13 @@
 import React, { FC, useState } from 'react'
 
-import { Box, InputLabel, MenuItem, Typography } from '@material-ui/core'
+import { Box, InputLabel } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { Select } from 'formik-material-ui'
 
+import { ActerTypePicker } from '@acter/components/acter/form/acter-type-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { ActerTypes } from '@acter/lib/constants'
-import { capitalize } from '@acter/lib/string/capitalize'
-
-const { ORGANISATION, NETWORK } = ActerTypes
 
 export interface BasicInformationValues {
   acterTypeId: string
@@ -25,34 +20,11 @@ export interface BasicInformationValues {
 export const BasicInformation: FC = () => {
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
-  const { acterTypes } = useActerTypes()
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
-
-  const types = acterTypes.filter(({ name }) =>
-    [ORGANISATION, NETWORK].includes(name as ActerTypes)
-  )
 
   return (
     <>
-      <InputLabel style={{ marginBottom: 5 }}>
-        Create an Actor to start coordinating or collaborating
-      </InputLabel>
-      <Field
-        className={classes.acterTypeContainer}
-        component={Select}
-        label="Acter Type"
-        name="acterTypeId"
-        placeholder="Select Acter Type"
-        required={true}
-      >
-        {types.map((type) => (
-          <MenuItem value={type.id} key={`type-${type.id}`}>
-            <Box className={classes.acterTypeItem}>
-              <Typography variant="body1">{capitalize(type.name)}</Typography>
-            </Box>
-          </MenuItem>
-        ))}
-      </Field>
+      <ActerTypePicker />
       <Field
         className={classes.textinput}
         component={TextField}
@@ -96,14 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.5rem',
       marginBottom: theme.spacing(3.5),
       color: theme.palette.secondary.light,
-    },
-    acterTypeContainer: {
-      marginBottom: theme.spacing(1),
-      width: '88%',
-    },
-    acterTypeItem: {
-      display: 'flex',
-      alignItems: 'center',
     },
   })
 )
