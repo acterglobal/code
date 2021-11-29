@@ -66,7 +66,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           name="startAt"
           isAllDay={isAllDay}
           required={true}
-          maxDate={endAt && isValid(endAt) ? endAt : null}
+          maxDate={endAt && isValid(endAt) ? endAt : undefined}
         />
       </Grid>
       <Grid item xs={gridSize}>
@@ -75,7 +75,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           name="endAt"
           isAllDay={isAllDay}
           required={true}
-          minDate={startAt && isValid(startAt) ? startAt : null}
+          minDate={startAt && isValid(startAt) ? startAt : undefined}
           validate={validateStartBeforeEnd}
         />
       </Grid>

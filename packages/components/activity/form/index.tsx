@@ -173,8 +173,6 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     isAllDay: acter?.Activity.isAllDay ? true : false,
     acterTypeId: acterType?.id,
     acterId: acter?.id,
-    startAt: null,
-    endAt: null,
   }
 
   // Fake an acter to determine potential followers when this is a new Activity
