@@ -3,11 +3,13 @@ import React, { FC } from 'react'
 import { Box, IconButton } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Delete } from '@material-ui/icons'
+import { Cancel as CancelIcon } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 
+import clsx from 'clsx'
 import { Formik, Form, Field, FormikBag } from 'formik'
-import { TextField } from 'formik-material-ui'
 
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
@@ -22,9 +24,10 @@ export type LinkFormValues = Link & {
 
 export interface LinkFormProps {
   link?: Link
+  handleCancel?: () => void
 }
 
-export const LinkForm: FC<LinkFormProps> = ({ link }) => {
+export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
   const classes = useStyles()
   const initialValues: LinkFormValues = {
     id: link?.id || null,
@@ -35,9 +38,11 @@ export const LinkForm: FC<LinkFormProps> = ({ link }) => {
 
   const { acter } = useActer()
 
-  const [_createResult, createLink] = useCreateLink(acter)
-  const [_updateResult, updateLink] = useUpdateLink(acter)
-  const [_deleteResult, deleteLink] = useDeleteLink()
+  const [{ fetching: creating }, createLink] = useCreateLink(acter, {
+    onCompleted: handleCancel,
+  })
+  const [{ fetching: updating }, updateLink] = useUpdateLink(acter)
+  const [{ fetching: deleting }, deleteLink] = useDeleteLink()
 
   const handleSubmit = (
     values: LinkFormValues,
@@ -47,9 +52,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link }) => {
     formikbag.resetForm()
   }
 
-  const onDelete = () => {
-    deleteLink(link)
-  }
+  const onDelete = () => deleteLink(link)
 
   return (
     <Formik
@@ -60,48 +63,34 @@ export const LinkForm: FC<LinkFormProps> = ({ link }) => {
       {({ dirty }) => (
         <Form>
           <Box className={classes.root}>
-            <Box className={classes.inputContainer}>
-              <Field
-                name="name"
-                required
-                className={classes.formInput}
-                component={TextField}
-                size="small"
-                variant="outlined"
-                margin="dense"
-                placeholder="Enter your link's name"
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-              <Field
-                name="url"
-                required
-                className={classes.formInput}
-                component={TextField}
-                size="small"
-                variant="outlined"
-                margin="dense"
-                placeholder="Enter your URL"
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-            </Box>
+            <Field
+              name="name"
+              required
+              className={clsx(classes.field, classes.linkName)}
+              placeholder="Enter link's name"
+            />
+            <Field
+              name="url"
+              required
+              className={clsx(classes.field, classes.link)}
+              placeholder="Enter link URL"
+            />
 
-            <Box className={classes.iconsContainer}>
-              {dirty && (
-                <IconButton type="submit">
-                  <CheckCircleIcon />
-                </IconButton>
-              )}
-
-              {link && (
-                <IconButton onClick={onDelete}>
-                  <Delete />
-                </IconButton>
-              )}
-            </Box>
+            {creating || updating || deleting ? (
+              <LoadingSpinner thickness={5} />
+            ) : dirty ? (
+              <IconButton disableRipple disableFocusRipple type="submit">
+                <CheckCircleIcon />
+              </IconButton>
+            ) : link ? (
+              <IconButton onClick={onDelete}>
+                <Delete />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleCancel}>
+                <CancelIcon />
+              </IconButton>
+            )}
           </Box>
         </Form>
       )}
@@ -112,31 +101,32 @@ export const LinkForm: FC<LinkFormProps> = ({ link }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      width: '100%',
       display: 'flex',
-      flexWrap: 'wrap',
-      margin: 5,
-      [theme.breakpoints.down(1322)]: {
-        width: 'fit-content',
+      alignItems: 'center',
+      marginTop: theme.spacing(1),
+      '& .MuiIconButton-root': {
+        padding: 0,
       },
     },
-    inputContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      padding: 0,
-    },
-    formInput: {
-      margin: 10,
+    field: {
+      marginRight: theme.spacing(1),
       borderRadius: 4,
-      width: 300,
-    },
-    input: {
-      backgroundColor: 'white',
+      paddingLeft: theme.spacing(1.5),
+      border: 'none',
+      backgroundColor: theme.palette.background.default,
+      height: theme.spacing(4.2),
       fontSize: 12,
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
+      color: theme.palette.secondary.main,
+      outline: 'none',
     },
-    iconsContainer: {
-      display: 'flex',
-      flexDirection: 'row',
+    linkName: {
+      width: '30%',
+    },
+    link: {
+      width: '65%',
     },
   })
 )

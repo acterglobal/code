@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Divider, Grid, IconButton, Typography } from '@material-ui/core'
+import { Box, Button, Divider, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import CancelIcon from '@material-ui/icons/Cancel'
+import { AddCircleOutlineOutlined } from '@material-ui/icons'
 
 import { LinkForm } from '@acter/components/links/form'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
@@ -20,78 +19,70 @@ export const Links: FC = () => {
   const handleClick = () => setToggleForm(!toggleForm)
 
   return (
-    <Grid item className={classes.root}>
-      <Box className={classes.heading}>
-        <Typography variant="h6">Menu</Typography>
-      </Box>
-      <Box className={classes.subHeading}>
-        <Typography variant="body2" className={classes.subHeadingText}>
-          Here you can custom navigation links in your menu
-        </Typography>
-      </Box>
-      <Divider variant="middle" />
+    <Box className={classes.root}>
+      <Typography variant="body2" className={classes.heading}>
+        Here you can add custom navigation links
+      </Typography>
 
-      <Box className={classes.content}>
-        {links.map((link) => (
-          <Box key={link.id} className={classes.formContainer}>
-            <LinkForm link={link} />
-          </Box>
-        ))}
-
-        <Divider variant="middle" />
-
-        <Box className={classes.formItemsContainer}>
-          {toggleForm && (
-            <Box>
-              <LinkForm />
-            </Box>
-          )}
-
-          <Box className={classes.toggleContainer}>
-            <IconButton onClick={handleClick}>
-              {toggleForm ? <CancelIcon /> : <AddCircleIcon />}
-            </IconButton>
-          </Box>
+      {toggleForm ? (
+        <LinkForm handleCancel={handleClick} />
+      ) : (
+        <Box className={classes.addLinkSection}>
+          <Button className={classes.button} onClick={handleClick}>
+            <AddCircleOutlineOutlined
+              fontSize="small"
+              className={classes.icon}
+            />
+            Add new link
+          </Button>
         </Box>
-      </Box>
-    </Grid>
+      )}
+
+      {links.length !== 0 && (
+        <>
+          <Divider classes={{ root: classes.divider }} />
+
+          <Box className={classes.content}>
+            {links.map((link) => (
+              <LinkForm link={link} />
+            ))}
+          </Box>
+        </>
+      )}
+    </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      width: '100%',
+    },
     heading: {
-      display: 'flex',
-      justifyContent: 'center',
+      marginTop: theme.spacing(2),
+      textAlign: 'center',
       fontWeight: theme.typography.fontWeightLight,
     },
-    subHeading: {
+    addLinkSection: {
+      width: '100%',
       display: 'flex',
       justifyContent: 'center',
     },
-    subHeadingText: {
-      fontWeight: theme.typography.fontWeightLight,
+    button: {
+      color: theme.palette.secondary.main,
+      textTransform: 'capitalize',
+      fontSize: '0.88rem',
+    },
+    icon: {
+      marginRight: theme.spacing(1.5),
+    },
+    divider: {
+      marginTop: theme.spacing(2),
     },
     content: {
+      marginTop: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
-    },
-    formContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-    formItemsContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      marginTop: 3,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    toggleContainer: {
-      marginTop: 8,
-      marginRight: 8,
     },
   })
 )
