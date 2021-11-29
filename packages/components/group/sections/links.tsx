@@ -12,13 +12,17 @@ import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { GroupSectionTabs } from '@acter/lib/constants'
 import { getUrl } from '@acter/lib/links/get-url'
 import { useLinks } from '@acter/lib/links/use-links'
 
 export const LinksSection: FC = () => {
   const classes = useStyles()
-  const { links, fetching: linksLoading } = useLinks()
+  const { acter } = useActer()
+  const { links, fetching: linksLoading } = useLinks({
+    acterId: acter?.id,
+  })
 
   return (
     <SectionContainer

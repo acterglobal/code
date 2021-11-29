@@ -6,12 +6,14 @@ import { AddCircleOutlineOutlined } from '@material-ui/icons'
 
 import { LinkForm } from '@acter/components/links/form'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useLinks } from '@acter/lib/links/use-links'
 
 export const Links: FC = () => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
-  const { links, fetching: linksLoading } = useLinks()
+  const { acter } = useActer()
+  const { links, fetching: linksLoading } = useLinks({ acterId: acter?.id })
 
   if (linksLoading) return <LoadingSpinner />
   if (!links) return null

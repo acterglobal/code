@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
-import { CombinedError, useQuery, UseQueryArgs, UseQueryState } from 'urql'
-
-import { useActer } from '@acter/lib/acter/use-acter'
 import { Link } from '@acter/schema'
 import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
@@ -14,45 +11,28 @@ type LinksVariables = {
   acterId: string
 }
 
-type UseLinksOptions = LinksVariables & UseQueryArgs<LinksVariables, LinksData>
+type UseLinksOptions = UseQueryArgs<LinksVariables, LinksData>
 
-type UseLinksError = CombinedError | Error
-interface UseLinksResult
-  extends Omit<UseQueryState<LinksData, LinksVariables>, 'data'> {
-  links: Link[]
+type UseLinksParams = {
+  acterId: string
+  options?: UseLinksOptions
 }
-// TODO: DRY useActer in other hooks
-export const useLinks = (options?: UseLinksOptions): UseLinksResult => {
-  const [fetching, setFetching] = useState(false)
-  const [error, setError] = useState<UseLinksError>()
-  const [links, setLinks] = useState<Link[]>([])
-  const { acter, fetching: acterFetching, error: acterError } = useActer({
-    fetchParent: true,
-  })
 
-  const [
-    { data, fetching: queryFetching, error: queryError, ...restQueryResults },
-  ] = useQuery<LinksData, LinksVariables>({
+type UseLinksResult = Omit<UseQueryState<LinksData, LinksVariables>, 'data'> &
+  LinksData
+
+export const useLinks = (params: UseLinksParams): UseLinksResult => {
+  const { acterId, options } = params
+
+  const [{ data, fetching, error, ...restQueryResults }] = useQuery<
+    LinksData,
+    LinksVariables
+  >({
     query: QUERY_LINKS_BY_ACTER,
-    variables: {
-      acterId: acter?.id,
-    },
-    pause: !acter?.id,
+    variables: { acterId },
+    pause: !acterId,
     ...options,
   })
 
-  useEffect(() => {
-    setFetching(acterFetching || queryFetching)
-  }, [acterFetching, queryFetching])
-
-  useEffect(() => {
-    if (acterError) return setError(acterError)
-    if (queryError) return setError(queryError)
-  }, [acterError, queryError])
-
-  useEffect(() => {
-    if (data?.links) setLinks(data.links)
-  }, [data?.links])
-
-  return { links, fetching, error, ...restQueryResults } as UseLinksResult
+  return { links: data?.links || [], fetching, error, ...restQueryResults }
 }
