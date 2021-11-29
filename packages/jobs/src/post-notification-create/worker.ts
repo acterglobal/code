@@ -6,8 +6,8 @@ import slugify from 'slugify'
 import { ActerTypes, POST_NOTIFICATIONS_QUEUE } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { createPostEmailNotification } from '@acter/lib/post/email'
-import { NotificationType, Post } from '@acter/schema'
-import { prisma } from '@acter/schema/prisma'
+import { Acter, NotificationType, Post, User } from '@acter/schema'
+import { prisma, Prisma } from '@acter/schema/prisma'
 
 export const postNotificationsCreateWorker = createNotificationWorker<PostNotificationCreate>(
   {
@@ -39,13 +39,66 @@ export const postNotificationsCreateWorker = createNotificationWorker<PostNotifi
         },
       })
     },
-    getFollowersWhere: ({ post }) => ({
-      Follower: {
-        id: {
-          not: post.Author.id,
+    getFollowers: async ({ post }) => {
+      const Author: Prisma.ActerArgs = {
+        select: {
+          id: true,
+          name: true,
+          User: {
+            select: {
+              id: true,
+              email: true,
+            },
+          },
         },
-      },
-    }),
+      }
+      const Comments: Prisma.PostFindManyArgs = {
+        select: {
+          Author,
+        },
+      }
+      const thread = await prisma.post.findFirst({
+        select: {
+          id: true,
+          Author,
+          Parent: {
+            select: {
+              Author,
+              Comments,
+            },
+          },
+          Comments,
+        },
+        where: { id: post.id },
+      })
+
+      type ActerMap = Record<string, Acter>
+      type UserPartial = Partial<User>
+      type ActerPartial = Partial<Acter> & { User: UserPartial }
+      type PostPartial = Partial<Post> & {
+        Author: ActerPartial
+        Parent: PostPartial
+        Comments: PostPartial[]
+      }
+      const thisPostAuthor = post.Author
+      const flattenPostAuthors = (post: PostPartial): Acter[] => {
+        if (post.Parent) return flattenPostAuthors(post.Parent)
+
+        const commentAuthors = post.Comments.reduce<ActerMap>(
+          (memo, comment) => ({
+            ...memo,
+            [comment.Author.id]: comment.Author,
+          }),
+          { [post.Author.id]: post.Author }
+        )
+
+        return Object.values(commentAuthors).filter(
+          (author) => author.id !== thisPostAuthor.id
+        )
+      }
+
+      return flattenPostAuthors(thread as PostPartial)
+    },
     getNotificationEmail: ({ data: { post }, notification }) =>
       createPostEmailNotification({
         post,
