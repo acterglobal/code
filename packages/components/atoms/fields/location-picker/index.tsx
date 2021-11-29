@@ -134,7 +134,8 @@ export const LocationPicker: FC<LocationPickerProps> = ({
         filterSelectedOptions
         noOptionsText="No results"
         PopperComponent={PopperWithAttribution}
-        value={value}
+        defaultValue={value?.description}
+        value={data.find((x) => x.description === value?.description)}
         onChange={handleOnChange}
         renderInput={(params) => (
           <TextField

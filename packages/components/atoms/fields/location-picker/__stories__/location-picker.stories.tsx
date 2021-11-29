@@ -10,6 +10,7 @@ export default {
   component: LocationPicker,
   args: {
     label: 'Location',
+    onSelect: () => void 0,
   },
 } as Meta<LocationPickerProps>
 
@@ -27,5 +28,5 @@ WithValue.args = {
 
 export const LimitedPlaces = Template.bind({})
 LimitedPlaces.args = {
-  types: ['country'],
+  types: ['(regions)'],
 } as LocationPickerProps

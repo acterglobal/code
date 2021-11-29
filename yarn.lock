@@ -58,7 +58,7 @@ __metadata:
     storybook-formik: ^2.1.6
     title-case: ^3.0.3
     typescript: "*"
-    use-places-autocomplete: ^1.10.0
+    use-places-autocomplete: ^1.10.1
     uuid: ^8.3.2
     webpack: "*"
   peerDependencies:
@@ -28065,12 +28065,12 @@ typescript@^3.9.7:
   languageName: node
   linkType: hard
 
-"use-places-autocomplete@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "use-places-autocomplete@npm:1.10.0"
+"use-places-autocomplete@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "use-places-autocomplete@npm:1.10.1"
   peerDependencies:
     react: ">= 16.8.0"
-  checksum: 0c719dab5cd6dc61edb9a7a471f1e9bdf0c0651ebc969759127e837068bb566d34753e6b0347e9d222f8ff43652a0785dce9bac8c89cd623979dc61fdb9c47af
+  checksum: affec3388d79ef672e57495a2533c37824b3648e6abdf8b3474490ee80d6b9b91117f6dd88dd141e7427fb3714085f003ff2587a5821d13f000a41af79a5c0ea
   languageName: node
   linkType: hard
 
