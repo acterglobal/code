@@ -12,6 +12,7 @@ import {
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import { Autocomplete, AutocompleteChangeReason } from '@material-ui/lab'
 
+import { useFormikContext } from 'formik'
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -24,26 +25,26 @@ import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
 export type LocationPickerProps = {
   label?: string
   placeholder?: string
-  value: string
   types?: GooglePlacesType[]
-  onSelect: (location: LocationPickerResult) => void
 }
 
 export type LocationPickerResult = {
+  location: string
+  locationLat: number
+  locationLng: number
   placeId: string
-  description: string
-  lat: number
-  lng: number
 }
 
 export const LocationPicker: FC<LocationPickerProps> = ({
   label,
   placeholder,
-  value,
   types,
-  onSelect,
 }) => {
   const [error, setError] = useState<Error | ErrorEvent>()
+  const {
+    setValues,
+    values: { location, locationLat, locationLng, placeId },
+  } = useFormikContext<LocationPickerResult>()
   const {
     init,
     suggestions: { data },
@@ -53,7 +54,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   } = usePlacesAutocomplete({
     debounce: 300,
     initOnMount: false,
-    defaultValue: value,
+    defaultValue: location,
     requestOptions: types ? { types } : undefined,
   })
   const [scriptLoading, scriptLoadError] = useGooglePlacesApi()
@@ -69,6 +70,15 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   useEffect(() => {
     if (scriptLoadError) setError(scriptLoadError)
   }, [scriptLoadError])
+
+  useEffect(() => {
+    if (location && !(locationLat && locationLng && placeId))
+      setError(
+        new Error(
+          `Location value of ${location} is not set correctly. Please enter it again and select a place from the dropdown menu`
+        )
+      )
+  }, [location, locationLat, locationLng, placeId])
 
   if (scriptLoading) return <LoadingSpinner />
 
@@ -96,11 +106,11 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     reason: AutocompleteChangeReason
   ) => {
     if (reason === 'clear') {
-      onSelect({
+      setValues({
         placeId: null,
-        description: null,
-        lat: null,
-        lng: null,
+        location: null,
+        locationLat: null,
+        locationLng: null,
       })
       return
     }
@@ -108,11 +118,11 @@ export const LocationPicker: FC<LocationPickerProps> = ({
       const { place_id: placeId, description } = place
       const results = await getGeocode({ placeId })
       const { lat, lng } = await getLatLng(results[0])
-      onSelect({
+      setValues({
         placeId,
-        description,
-        lat,
-        lng,
+        location: description,
+        locationLat: lat,
+        locationLng: lng,
       })
       clearSuggestions()
       setValue(description, false)
@@ -134,8 +144,8 @@ export const LocationPicker: FC<LocationPickerProps> = ({
         filterSelectedOptions
         noOptionsText="No results"
         PopperComponent={PopperWithAttribution}
-        defaultValue={value?.description}
-        value={data.find((x) => x.description === value?.description)}
+        defaultValue={location}
+        value={data.find((x) => x.description === location)}
         onChange={handleOnChange}
         renderInput={(params) => (
           <TextField
