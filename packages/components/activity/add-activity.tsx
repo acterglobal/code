@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, Dispatch, SetStateAction } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -15,7 +15,7 @@ const ActivityForm = dynamic(() =>
 
 interface AddActivityProps {
   openDrawer: boolean
-  setDrawer: (open: boolean) => void
+  setDrawer: Dispatch<SetStateAction<boolean>>
 }
 
 export const AddActivity: FC<AddActivityProps> = ({
@@ -29,7 +29,7 @@ export const AddActivity: FC<AddActivityProps> = ({
   const { acter } = useActer()
   const { user } = useUser()
   const [_, createActivity] = useCreateActivity({
-    onCompleted: () => setDrawer(false),
+    onCompleted: handleClose,
   })
 
   const canCreateActivity = userHasRoleOnActer(

@@ -41,7 +41,7 @@ export const AccessabilitySettings: FC<AccessabilitySettingsProps> = ({
 
   return (
     <SettingContainer heading="Accessability">
-      <Setting title="Who access join">
+      <Setting title="Who can access ">
         <RadioGroup
           aria-label="member-join-setting"
           name="acterJoinSetting"
