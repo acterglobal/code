@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
+import { add } from 'date-fns'
 import { withFormik } from 'storybook-formik'
 
 import {
@@ -36,6 +37,18 @@ export const NoAllDayOption = Template.bind({})
 NoAllDayOption.args = {
   hideIsAllDayCheckBox: true,
 } as StartEndDateTimePickerProps
+
+const today = new Date()
+const tomorrow = add(today, { days: 1 })
+export const WithValues = Template.bind({})
+WithValues.parameters = {
+  formik: {
+    initialValues: {
+      startAt: today,
+      endAt: tomorrow,
+    },
+  },
+}
 
 export const WithError = Template.bind({})
 WithError.parameters = {

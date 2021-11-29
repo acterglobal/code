@@ -19,4 +19,4 @@ export const DD_MM_YYYY_FORMAT = 'dd-MM-yyyy'
 // Mon, 19 July
 export const DAY_DATE_MONTH_FORMAT_SHORT = 'EEE, d MMM'
 // 21:45
-export const TIME_FORMAT_SHORT = 'HH:mmX'
+export const TIME_FORMAT_SHORT = 'HH:mm'
