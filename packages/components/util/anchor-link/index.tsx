@@ -9,6 +9,7 @@ interface AnchorLinkProps {
   as?: string
   passHref?: boolean
   isExternal?: boolean
+  target?: string
   children: ReactNode
 }
 
@@ -17,6 +18,7 @@ export const Link: FC<AnchorLinkProps> = ({
   as,
   passHref = false,
   isExternal = false,
+  target,
   children,
 }) => {
   const classes = useStyles()
@@ -30,7 +32,9 @@ export const Link: FC<AnchorLinkProps> = ({
 
   return (
     <NextLink href={href} as={as} passHref={passHref}>
-      <a className={classes.link}>{children}</a>
+      <a className={classes.link} target={target}>
+        {children}
+      </a>
     </NextLink>
   )
 }
