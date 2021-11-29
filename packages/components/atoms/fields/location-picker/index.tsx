@@ -36,7 +36,7 @@ export type LocationPickerResult = {
 }
 
 export const LocationPicker: FC<LocationPickerProps> = ({
-  label,
+  label = 'Location',
   placeholder,
   types,
 }) => {
