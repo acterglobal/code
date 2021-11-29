@@ -69,7 +69,7 @@ model Acter {
   //   Whether an Acter is visible in public Search
   acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
   //   Who can join a given Acter
-  acterWhoCanJoinSetting    ActerWhoCanJoinSettings         @default(ACTERS) @map("acter_who_can_join_setting")
+  acterWhoCanJoinSettings   ActerWhoCanJoinSettings[]       @map("acter_who_can_join_settings")
 
   // Associations
   // List of Interests for this Acter
