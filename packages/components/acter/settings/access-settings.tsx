@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1.5),
     marginLeft: theme.spacing(1.8),
+    marginTop: theme.spacing(1),
   },
   label: {
     color: theme.palette.secondary.main,
