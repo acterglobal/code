@@ -2,13 +2,18 @@ import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
 
 /**
  * @param acter Acter we wish to check if other Acters can join
- * @returns True or False if other Acters can join this Acter
+ * @returns Returns enum of which Acter setting is allowed to connect
  */
 
-const { ALL, ACTERS } = ActerWhoCanJoinSettings
+const { ALL, ACTERS, PEOPLE } = ActerWhoCanJoinSettings
 
-export const getCanActersJoin = (acter: Acter): boolean => {
-  return [ALL, ACTERS].includes(
-    acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
-  )
+export const getActersCanJoin = (acter: Acter): ActerWhoCanJoinSettings => {
+  switch (acter.acterWhoCanJoinSetting) {
+    case ALL:
+      return ALL
+    case ACTERS:
+      return ACTERS
+    case PEOPLE:
+      return PEOPLE
+  }
 }
