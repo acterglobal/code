@@ -21,6 +21,9 @@ export const ExampleActer: Acter = {
   ActerType: OrganisationActerType,
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
+  locationLat: null,
+  locationLng: null,
+  placeId: null,
   slug: 'my-organisation',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
