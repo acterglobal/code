@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useMemo } from 'react'
 
 import { RadioGroup } from '@material-ui/core'
 import { Box, makeStyles, Theme } from '@material-ui/core'
@@ -70,31 +70,17 @@ export const AccessabilitySettings: FC<AccessabilitySettingsProps> = ({
     (whoCanJoinSetting === PEOPLE || whoCanJoinSetting === ALL) && true
   )
 
-  const handleChangeActersWhoCanJoin = (setting: ActerWhoCanJoinSettings) => (
-    checked: boolean
-  ) => {
-    setActerSetting(checked)
-    console.log('This is aceters value ', checked)
-    toggleSetting(ACTERS)
-    toggleUpdateActer()
+  const toggleSetting = () => {
+    if (acterSetting && peopleSetting) setWhoCanJoinSetting(ALL)
+    else if (acterSetting && !peopleSetting) setWhoCanJoinSetting(ACTERS)
+    else if (!acterSetting && peopleSetting) setWhoCanJoinSetting(PEOPLE)
+    else if (!acterSetting && !peopleSetting) setWhoCanJoinSetting(ACTERS)
+    setActerSetting(true)
+    setPeopleSetting(false)
   }
 
-  const handleChangePeopleWhoCanJoin = (value) => {
-    setPeopleSetting(value)
-    toggleSetting(PEOPLE)
-    console.log('This is aceters value 3 after toggle ', acterSetting)
-    toggleUpdateActer()
-  }
-
-  const toggleUpdateActer = () =>
-    updateActer({
-      ...acter,
-      acterWhoCanJoinSetting: whoCanJoinSetting,
-    } as ActerVariables)
-
-  const toggleSetting = (toggle) => {
+  const toggleSetting2 = (toggle) => {
     if (toggle === ACTERS) {
-      console.log('This is aceters value 2 toggle ', acterSetting)
       if (acterSetting && peopleSetting) setWhoCanJoinSetting(ALL)
       else if (acterSetting) setWhoCanJoinSetting(ACTERS)
       else if (!acterSetting && !peopleSetting) {
@@ -112,6 +98,33 @@ export const AccessabilitySettings: FC<AccessabilitySettingsProps> = ({
       } else if (!peopleSetting) setWhoCanJoinSetting(ACTERS)
     }
   }
+
+  const handleChange = (settingName: ActerWhoCanJoinSettings) => (value) => {
+    settingName === ACTERS && setActerSetting(value)
+    settingName === PEOPLE && setPeopleSetting(value)
+    console.log('People toggle should be as on screen ', peopleSetting)
+    toggleSetting2(settingName)
+    toggleUpdateActer()
+  }
+
+  const toggleUpdateActer = () =>
+    updateActer({
+      ...acter,
+      acterWhoCanJoinSetting: whoCanJoinSetting,
+    } as ActerVariables)
+
+  // if (toggle === ACTERS) {
+  //   console.log('This is aceters value 2 toggle ', acterSetting)
+
+  // } else if (toggle === PEOPLE) {
+  //   if (acterSetting && peopleSetting) setWhoCanJoinSetting(ALL)
+  //   else if (peopleSetting) setWhoCanJoinSetting(PEOPLE)
+  //   else if (!acterSetting && !peopleSetting) {
+  //     setWhoCanJoinSetting(ACTERS)
+  //     setActerSetting(true)
+  //     setPeopleSetting(false)
+  //   } else if (!peopleSetting) setWhoCanJoinSetting(ACTERS)
+  // }
 
   // useEffect(() => {
   //   toggleSetting(ACTERS)
@@ -169,7 +182,7 @@ export const AccessabilitySettings: FC<AccessabilitySettingsProps> = ({
           <Switch
             name="Acters"
             checked={acterSetting}
-            onChange={handleChangeActersWhoCanJoin(ACTERS)}
+            onChange={handleChange(ACTERS)}
             size={SMALL}
             // updating={
             //   whoCanJoinSetting === ActerWhoCanJoinSettings.ACTERS &&
@@ -184,7 +197,7 @@ export const AccessabilitySettings: FC<AccessabilitySettingsProps> = ({
           <Switch
             name="People"
             checked={peopleSetting}
-            onChange={handleChangePeopleWhoCanJoin}
+            onChange={handleChange(PEOPLE)}
             size={SMALL}
             // updating={
             //   whoCanJoinSetting === ActerWhoCanJoinSettings.PEOPLE &&
