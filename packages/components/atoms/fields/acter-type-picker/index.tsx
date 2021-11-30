@@ -1,6 +1,13 @@
 import React, { FC } from 'react'
 
-import { Box, InputLabel, MenuItem, Typography } from '@material-ui/core'
+import {
+  Box,
+  FormControl,
+  FormControlProps,
+  InputLabel,
+  MenuItem,
+  Typography,
+} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field, useFormikContext } from 'formik'
@@ -12,11 +19,13 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 const { ORGANISATION, NETWORK } = ActerTypes
 
+export type ActerTypePickerProps = FormControlProps
+
 export interface ActerTypePickerValues {
   acterTypeId: string
 }
 
-export const ActerTypePicker: FC = () => {
+export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const classes = useStyles()
   const { acterTypes } = useActerTypes()
   const { values, setFieldValue } = useFormikContext<ActerTypePickerValues>()
@@ -26,12 +35,11 @@ export const ActerTypePicker: FC = () => {
   )
 
   return (
-    <>
+    <FormControl {...props}>
       <InputLabel style={{ marginBottom: 5 }}>
         Create an Actor to start coordinating or collaborating
       </InputLabel>
       <Field
-        className={classes.acterTypeContainer}
         component={Select}
         label="Acter Type"
         name="acterTypeId"
@@ -48,21 +56,16 @@ export const ActerTypePicker: FC = () => {
           </MenuItem>
         ))}
       </Field>
-    </>
+    </FormControl>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textinput: {
-      width: '88%',
       fontSize: '0.5rem',
       marginBottom: theme.spacing(3.5),
       color: theme.palette.secondary.light,
-    },
-    acterTypeContainer: {
-      marginBottom: theme.spacing(1),
-      width: '88%',
     },
     acterTypeItem: {
       display: 'flex',
