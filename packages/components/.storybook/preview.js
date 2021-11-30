@@ -2,6 +2,8 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'
 import * as NextImage from 'next/image'
 
 import { UserContext } from '@auth0/nextjs-auth0'
+import { addDecorator } from '@storybook/react'
+import { urqlDecorator } from '@urql/storybook-addon'
 
 import { SnackbarProvider } from 'notistack'
 
@@ -34,6 +36,7 @@ export const parameters = {
   },
 }
 
+addDecorator(urqlDecorator)
 export const decorators = [
   (story) => {
     return (

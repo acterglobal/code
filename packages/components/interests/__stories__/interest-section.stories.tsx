@@ -12,7 +12,9 @@ export default {
   args: {
     columns: false,
     showTitle: true,
-    interestTypes: Interests.data.interestTypes,
+  },
+  parameters: {
+    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
   },
 } as Meta
 

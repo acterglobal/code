@@ -18,7 +18,7 @@ describe('[Interest Types]', () => {
       <InterestTypes type={types[0]} allTypes={Interests.data.interestTypes} />
     )
     const items = screen.getAllByRole('listitem')
-    expect(items).toHaveLength(31)
+    expect(items).toHaveLength(32)
     expect(items.map((item) => item.textContent)).toContain('Air')
   })
 })
