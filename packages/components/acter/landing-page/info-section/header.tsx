@@ -18,7 +18,7 @@ export const Header: FC<headerProps> = ({ title, description }) => {
         {title}
       </Typography>
       <Typography variant="body2" component="p" className={classes.description}>
-        <MarkDown>{description}</MarkDown>
+        {description && <MarkDown>{description}</MarkDown>}
       </Typography>
     </>
   )
