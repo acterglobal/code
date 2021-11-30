@@ -5,9 +5,10 @@ import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
  * @returns True or False if other Acters can join this Acter
  */
 
+const { ALL, ACTERS } = ActerWhoCanJoinSettings
+
 export const getCanActersJoin = (acter: Acter): boolean => {
-  if (acter.acterWhoCanJoinSetting === ActerWhoCanJoinSettings.ACTERS) {
-    return true
-  }
-  return false
+  return [ALL, ACTERS].includes(
+    acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
+  )
 }
