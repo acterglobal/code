@@ -38,12 +38,10 @@ export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.startSection}>
-        <Typography className={classes.day} variant="h5">
-          {startDay}
-        </Typography>
+        <Typography className={classes.day}>{startDay}</Typography>
 
         {!activity.isAllDay && (
-          <Typography variant="caption">{startTime}</Typography>
+          <Typography className={classes.time}>{startTime}</Typography>
         )}
       </Box>
 
@@ -57,7 +55,7 @@ export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
         )}
 
         {!activity.isAllDay && (
-          <Typography variant="caption">{endTime}</Typography>
+          <Typography className={classes.time}>{endTime}</Typography>
         )}
       </Box>
     </Box>
@@ -70,9 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(0.9),
-      margin: 'auto',
-      width: '90%',
       height: 12,
       color: theme.palette.secondary.main,
     },
@@ -91,6 +86,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightBold,
       marginRight: 3,
       marginLeft: 3,
+    },
+    time: {
+      fontSize: theme.spacing(1.5),
     },
   })
 )
