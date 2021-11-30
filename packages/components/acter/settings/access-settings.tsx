@@ -108,11 +108,11 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
       </Setting>
       <Setting title="Who can join">
         <Box className={classes.switchSection}>
-          <Box className={classes.label}>Acters</Box>
+          <Box className={classes.label}>People</Box>
           <Switch
-            name="Acters"
-            checked={acterCanJoinSetting}
-            onChange={handleChangeActerCanJoinSetting}
+            name="People"
+            checked={peopleCanJoinSetting}
+            onChange={handleChangePeopleCanJoinSetting}
             size={SMALL}
             updating={updatingSetting}
             value
@@ -120,11 +120,11 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
         </Box>
 
         <Box className={classes.switchSection}>
-          <Box className={classes.label}>People</Box>
+          <Box className={classes.label}>Acters</Box>
           <Switch
-            name="People"
-            checked={peopleCanJoinSetting}
-            onChange={handleChangePeopleCanJoinSetting}
+            name="Acters"
+            checked={acterCanJoinSetting}
+            onChange={handleChangeActerCanJoinSetting}
             size={SMALL}
             updating={updatingSetting}
             value
