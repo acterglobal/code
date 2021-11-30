@@ -26,15 +26,17 @@ export const Invitations: FC = () => {
 
   if (!acter || !user || !invites) return null
 
+  const activeInvites = invites.filter((invite) => invite.expiredAt === null)
+
   return (
     <>
-      {invites.length === 0 ? (
+      {activeInvites.length === 0 ? (
         <Typography className={classes.zeroMessage}>
           {`${acter.name} has no new invitations.`}
         </Typography>
       ) : (
         <List className={classes.list}>
-          {invites.map((invite, i) => (
+          {activeInvites.map((invite, i) => (
             <Invitation invite={invite} key={`invite-${i}`} />
           ))}
         </List>
