@@ -20,10 +20,10 @@ export interface InterestTypesProps {
   selectedInterests?: string[]
   selectedTypes?: InterestTypeName[]
   disabled?: boolean
+  showDivider?: boolean
   showTitle?: boolean
   showSubTypeTitles?: boolean
   columns?: boolean
-  divider?: boolean
   chipSize?: Size
   onSelectedInterestsChange?: (interest: string, type: string) => void
 }
@@ -35,10 +35,10 @@ export const InterestTypes: FC<InterestTypesProps> = ({
   selectedInterests,
   selectedTypes,
   disabled,
+  showDivider = false,
   showTitle = false,
   showSubTypeTitles = true,
   columns = false,
-  divider: divider = false,
   chipSize,
 }) => {
   const typeName: string = type.name
@@ -48,60 +48,32 @@ export const InterestTypes: FC<InterestTypesProps> = ({
     (subtype) => type.id === subtype.parentInterestTypeId
   )
 
-  if (subTypes.length > 0) {
-    return (
-      <>
-        {subTypes.map((subType) => (
-          <InterestTypes
-            key={subType.id}
-            type={subType}
-            allTypes={subTypes}
-            onSelectedInterestsChange={onSelectedInterestsChange}
-            selectedInterests={selectedInterests}
-            selectedTypes={selectedTypes}
-            showTitle={true && showSubTypeTitles}
-            disabled={
-              selectedTypes &&
-              selectedTypes.filter((selectedType) =>
-                [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(selectedType)
-              ).length >= 5
-            }
-            chipSize={chipSize}
-            columns={columns}
-          />
-        ))}
-        {type.name === FOCUS && (
-          <>
-            {divider && (
-              <Divider variant="middle" className={classes.divider} />
-            )}
-            <Box ml={chipSize ? 0 : 3}>
-              <Interest
-                interest={type.Interests[0]}
-                type={type.name}
-                chipSize={chipSize}
-                onSelectedInterestsChange={onSelectedInterestsChange}
-                selected={
-                  selectedInterests &&
-                  selectedInterests.includes(type.Interests[0].id)
-                }
-                disabled={
-                  disabled ||
-                  (selectedTypes &&
-                    selectedTypes.filter((selectedType) =>
-                      [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(
-                        selectedType
-                      )
-                    ).length >= 5)
-                }
-              />
-            </Box>
-          </>
-        )}
-      </>
-    )
-  } else {
-    return (
+  return (
+    <>
+      {subTypes.length > 0 && (
+        <>
+          {subTypes.map((subType) => (
+            <InterestTypes
+              key={subType.id}
+              type={subType}
+              allTypes={subTypes}
+              onSelectedInterestsChange={onSelectedInterestsChange}
+              selectedInterests={selectedInterests}
+              selectedTypes={selectedTypes}
+              showTitle={true && showSubTypeTitles}
+              disabled={
+                selectedTypes &&
+                selectedTypes.filter((selectedType) =>
+                  [FOCUS, ENVIRONMENT, SOCIAL, ECONOMY].includes(selectedType)
+                ).length >= 5
+              }
+              chipSize={chipSize}
+              columns={columns}
+            />
+          ))}
+          {showDivider && <Divider className={classes.divider} />}
+        </>
+      )}
       <Box ml={columns ? 0 : 3} role="list">
         {showTitle && (
           <Typography className={classes.title}>{type.name}</Typography>
@@ -143,8 +115,8 @@ export const InterestTypes: FC<InterestTypesProps> = ({
           })}
         </Box>
       </Box>
-    )
-  }
+    </>
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>

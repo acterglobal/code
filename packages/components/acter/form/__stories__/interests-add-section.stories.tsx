@@ -9,11 +9,13 @@ export default {
   title: 'Organisms/Interests/InterestsAdd',
   component: InterestsAddSection,
   args: {
-    interestTypes: Interests.data.interestTypes,
     setFieldValue: () => console.log('test'),
     initialValues: [],
   },
   decorators: [withFormik],
+  parameters: {
+    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
+  },
 } as Meta
 
 export const InterestsAdd: Story = (args) => <InterestsAddSection {...args} />

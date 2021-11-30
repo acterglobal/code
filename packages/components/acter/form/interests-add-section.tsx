@@ -26,6 +26,7 @@ export const InterestsAddSection: FC = () => {
 
   return (
     <InterestsPicker
+      showDivider={true}
       interestTypes={interestTypes}
       selectedInterests={selectedInterests}
       setSelectedInterests={setSelectedInterests}

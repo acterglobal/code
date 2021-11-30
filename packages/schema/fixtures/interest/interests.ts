@@ -66,6 +66,11 @@ export const Interests = {
             name: 'Partnerships',
             sdgNumber: '17',
           },
+          {
+            id: '71cfe8e1-51b7-48ba-b1f5-ee8b5cd1abc8',
+            name: 'Digitization',
+            sdgNumber: '',
+          },
         ],
       },
       {
