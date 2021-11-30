@@ -79,7 +79,6 @@ export const useUpdateActer = (
     }
 
     const dataWithPics = (await _updatePictures(variables)) as ActerVariables
-    console.log('This is USE update ACTER ', dataWithPics)
     return updateActer({
       ...dataWithPics,
       followerIds: setFollowerIds(updatedActer, acter),
