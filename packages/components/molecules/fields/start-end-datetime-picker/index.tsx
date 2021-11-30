@@ -44,14 +44,14 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
     }
   }, [isAllDay])
 
-  const validateStartBeforeEnd = (endAtVal: Date) => {
-    if (
-      endAtVal &&
-      startAt &&
-      isValid(endAtVal) &&
-      isValid(startAt) &&
-      differenceInMinutes(endAtVal, startAt) < 0
-    ) {
+  const validateDateTime = (val: Date) => {
+    if (!val) return 'Required'
+    if (!isValid(val)) return 'Invaild date'
+  }
+  const validateEndTime = (val: Date) => {
+    const basicValidation = validateDateTime(val)
+    if (basicValidation) return basicValidation
+    if (startAt && isValid(startAt) && differenceInMinutes(val, startAt) < 0) {
       return 'Cannot be before start'
     }
   }
@@ -67,6 +67,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           isAllDay={isAllDay}
           required={true}
           maxDate={endAt && isValid(endAt) ? endAt : undefined}
+          validate={validateDateTime}
         />
       </Grid>
       <Grid item xs={gridSize}>
@@ -76,7 +77,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           isAllDay={isAllDay}
           required={true}
           minDate={startAt && isValid(startAt) ? startAt : undefined}
-          validate={validateStartBeforeEnd}
+          validate={validateEndTime}
         />
       </Grid>
 
