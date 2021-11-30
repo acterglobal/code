@@ -34,7 +34,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
       </Typography>
       <Box className={classes.description}>
         <Typography variant="caption">
-          <Markdown>{acter.description}</Markdown>
+          {acter.description && <Markdown>{acter.description}</Markdown>}
         </Typography>
       </Box>
     </>

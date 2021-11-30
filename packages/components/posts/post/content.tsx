@@ -17,7 +17,7 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
 
       <Box>
         <Typography variant="caption" className={classes.description}>
-          <Markdown>{post.content}</Markdown>
+          {post.content && <Markdown>{post.content}</Markdown>}
         </Typography>
       </Box>
     </Box>
