@@ -10,15 +10,11 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole, ActerWhoCanJoinSettings } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 
-const { USER } = ActerTypes
-
-const { ALL, PEOPLE, ACTERS } = ActerWhoCanJoinSettings
 interface ConnectProps {
   acterId?: string
 }

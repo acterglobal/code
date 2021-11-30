@@ -1,4 +1,4 @@
-import { getActersCanJoin } from '@acter/lib/acter/get-can-acters-join'
+import { getActersCanJoin } from '@acter/lib/acter/get-acters-can-join'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
 
