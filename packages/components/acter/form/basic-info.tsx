@@ -6,7 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
-import { ActerTypePicker } from '@acter/components/acter/form/fields/acter-type-picker'
+import { ActerTypePicker } from '@acter/components/atoms/fields/acter-type-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues {
@@ -24,7 +24,8 @@ export const BasicInformation: FC = () => {
 
   return (
     <>
-      <ActerTypePicker />
+      <ActerTypePicker className={classes.textinput} />
+
       <Field
         className={classes.textinput}
         component={TextField}
