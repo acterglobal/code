@@ -19,7 +19,9 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
 
   return (
     <Box className={classes.root}>
-      <DateTimeInfo activity={activity} />
+      <Box className={classes.dateInfo}>
+        <DateTimeInfo activity={activity} />
+      </Box>
       <Divider className={classes.divider} />
 
       <Box className={classes.info}>
@@ -49,12 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
       color: theme.palette.secondary.main,
     },
+    dateInfo: {
+      marginLeft: 10,
+    },
     info: {
-      marginTop: 5,
       marginLeft: 13,
       maxWidth: '85%',
     },
     divider: {
+      marginTop: 5,
+      marginBottom: 5,
       backgroundColor: theme.palette.secondary.light,
     },
     activityName: {
