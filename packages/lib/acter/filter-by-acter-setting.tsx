@@ -1,4 +1,5 @@
 import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { Acter } from '@acter/schema'
 
 export const filterConnectionsByActerSetting = (
@@ -9,9 +10,8 @@ export const filterConnectionsByActerSetting = (
 
   if (!isActersCanJoin) {
     const filteredConnections = connections.filter(
-      (acter) => acter.ActerType.name === 'user'
+      (acter) => acter.ActerType.name === ActerTypes.USER
     )
-    console.log('This is filtered ', connections)
     return filteredConnections
   }
   return connections

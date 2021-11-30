@@ -7,6 +7,7 @@ import { AvatarGroup } from '@acter/components/acter/avatar-group'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { capitalize } from '@acter/lib/string/capitalize'
 import {
   Acter,
@@ -41,11 +42,7 @@ export interface FollowersAvatarsProps {
 }
 
 const getActerTypeTitle = (acterType: ActerType) => {
-  if (acterType.name === 'user') {
-    return `${capitalize(PEOPLE)}`
-  }
-
-  return `${capitalize(ACTERS)}`
+  return capitalize(acterType.name === ActerTypes.USER ? PEOPLE : ACTERS)
 }
 
 export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
