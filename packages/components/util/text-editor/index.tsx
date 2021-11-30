@@ -16,7 +16,7 @@ const Editor = dynamic(
 )
 interface widthHeightType {
   width?: number
-  height: number
+  height?: number
 }
 interface borderStylesType {
   radius?: number
