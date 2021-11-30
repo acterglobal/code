@@ -32,20 +32,7 @@ export interface AccessSettingsProps {
 export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
   const classes = useStyles()
 
-  const [acterJoinSetting, setActerJoinSetting] = useState<ActerJoinSettings>(
-    ActerJoinSettings[acter.acterJoinSetting]
-  )
-
-  const [{ fetching: updatingSetting }, updateActer] = useUpdateActer(acter, {
-    onCompleted: (data) => {
-      setActerJoinSetting(
-        ActerJoinSettings[data.updateActerCustom.acterJoinSetting]
-      )
-      setWhoCanJoinSetting(
-        ActerWhoCanJoinSettings[data.updateActerCustom.acterWhoCanJoinSetting]
-      )
-    },
-  })
+  const [{ fetching: updatingSetting }, updateActer] = useUpdateActer(acter)
 
   const handleChangeJoinSetting = (event) => {
     updateActer({
@@ -54,23 +41,20 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
     } as ActerVariables)
   }
 
-  const [
-    whoCanJoinSetting,
-    setWhoCanJoinSetting,
-  ] = useState<ActerWhoCanJoinSettings>(
-    ActerWhoCanJoinSettings[acter.acterWhoCanJoinSetting]
-  )
-
   const [acterCanJoinSetting, setActerCanJoinSetting] = useState(
-    (whoCanJoinSetting === ACTERS || whoCanJoinSetting === ALL) && true
+    [ALL, ACTERS].includes(
+      acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
+    ) && true
   )
   const [peopleCanJoinSetting, setPeopleCanJoinSetting] = useState(
-    (whoCanJoinSetting === PEOPLE || whoCanJoinSetting === ALL) && true
+    [ALL, PEOPLE].includes(
+      acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
+    ) && true
   )
 
   const handleChangeActerCanJoinSetting = (checked: boolean): void => {
     setActerCanJoinSetting(checked)
-    if (!peopleCanJoinSetting && !checked) setPeopleCanJoinSetting(true)
+    if (!checked && !peopleCanJoinSetting) setPeopleCanJoinSetting(true)
   }
 
   const handleChangePeopleCanJoinSetting = (checked: boolean): void => {
@@ -100,14 +84,14 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
         <RadioGroup
           aria-label="member-join-setting"
           name="acterJoinSetting"
-          value={acterJoinSetting}
+          value={acter.acterJoinSetting}
           onChange={handleChangeJoinSetting}
         >
           <SettingsRadio
             label="Everyone"
             value={ActerJoinSettings.EVERYONE}
             updating={
-              acterJoinSetting === ActerJoinSettings.RESTRICTED &&
+              acter.acterJoinSetting === ActerJoinSettings.RESTRICTED &&
               updatingSetting
             }
           />
@@ -116,7 +100,8 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
             subText="(Needs approval)"
             value={ActerJoinSettings.RESTRICTED}
             updating={
-              acterJoinSetting === ActerJoinSettings.EVERYONE && updatingSetting
+              acter.acterJoinSetting === ActerJoinSettings.EVERYONE &&
+              updatingSetting
             }
           />
         </RadioGroup>
