@@ -44,7 +44,7 @@ describe('<DisplayMembers>', () => {
         Follower: {
           ...ExampleActer,
           id: '9a64149c-5641-4841-96b1-1b2ec85f88ab',
-          name: 'org2',
+          name: 'acter2',
         },
       },
       {
@@ -52,7 +52,7 @@ describe('<DisplayMembers>', () => {
         Follower: {
           ...ExampleActer,
           id: '9a64149c-5641-4841-96b1-1b2ec85f88ac',
-          name: 'org3',
+          name: 'acter3',
         },
       },
     ]

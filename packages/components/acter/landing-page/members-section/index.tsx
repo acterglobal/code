@@ -7,6 +7,7 @@ import { DisplayActers } from '@acter/components/acter/landing-page/members-sect
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { getActerJoinSelectors } from '@acter/lib/acter/get-acter-join-selectors'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
@@ -36,10 +37,12 @@ export const MembersSection: FC = () => {
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
+  const selectors = getActerJoinSelectors(acter)
+
   return (
     <Box className={classes.container}>
       <Selectors
-        selectors={[PEOPLE, ACTERS]}
+        selectors={selectors}
         activeSelector={activeSelector}
         onChange={handleSelectorChange}
         totalResults={validFollowers?.length}
