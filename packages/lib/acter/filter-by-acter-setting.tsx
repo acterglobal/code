@@ -1,16 +1,31 @@
-import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
+import { getActersCanJoin } from '@acter/lib/acter/get-acters-can-join'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
-import { Acter } from '@acter/schema'
+import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
+
+const { ALL, ACTERS } = ActerWhoCanJoinSettings
 
 export const filterConnectionsByActerSetting = (
   acter: Acter,
   connections: Acter[]
 ): Acter[] => {
-  const isActersCanJoin = getCanActersJoin(acter)
+  const actersCanJoin = getActersCanJoin(acter)
 
-  if (!isActersCanJoin) {
-    const filteredConnections = connections.filter(
-      (acter) => acter.ActerType.name === ActerTypes.USER
+  const getFilteredConnections = (
+    connections: Acter[],
+    type: ActerWhoCanJoinSettings
+  ) => {
+    const filteredActers = connections.filter((acter) =>
+      type === ACTERS
+        ? acter.ActerType.name !== ActerTypes.USER
+        : acter.ActerType.name === ActerTypes.USER
+    )
+    return filteredActers
+  }
+
+  if (actersCanJoin !== ALL) {
+    const filteredConnections = getFilteredConnections(
+      connections,
+      actersCanJoin
     )
     return filteredConnections
   }

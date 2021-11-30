@@ -1,6 +1,6 @@
-import { getCanActersJoin } from '@acter/lib/acter/get-can-acters-join'
+import { getActersCanJoin } from '@acter/lib/acter/get-acters-can-join'
 import { MemberType } from '@acter/lib/constants'
-import { Acter } from '@acter/schema'
+import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
 
 const { ACTERS, PEOPLE } = MemberType
 
@@ -10,10 +10,14 @@ const { ACTERS, PEOPLE } = MemberType
  */
 
 export const getActerJoinSelectors = (acter: Acter): MemberType[] => {
-  const isActersCanJoin = getCanActersJoin(acter)
-  const selectors = [PEOPLE]
+  const actersCanJoin = getActersCanJoin(acter)
+  const selectors = [ACTERS]
 
-  isActersCanJoin && selectors.push(ACTERS)
-
+  if (actersCanJoin !== ActerWhoCanJoinSettings.ALL) {
+    actersCanJoin == ActerWhoCanJoinSettings.PEOPLE &&
+      (selectors.shift(), selectors.push(PEOPLE))
+    return selectors
+  }
+  selectors.unshift(PEOPLE)
   return selectors
 }
