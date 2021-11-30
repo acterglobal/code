@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { AccessabilitySettings } from '@acter/components/acter/settings/accessability-settings'
+import { AccessSettings } from '@acter/components/acter/settings/access-settings'
 import { VisibilitySettings } from '@acter/components/acter/settings/visibility-settings'
 import { useActer } from '@acter/lib/acter/use-acter'
 
@@ -14,7 +14,7 @@ export const Settings: FC = () => {
 
   return (
     <Box className={classes.container}>
-      <AccessabilitySettings acter={acter} />
+      <AccessSettings acter={acter} />
       <VisibilitySettings acter={acter} />
     </Box>
   )

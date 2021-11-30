@@ -7,6 +7,7 @@ import {
   Theme,
 } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { Size } from '@acter/lib/constants'
 
 const { SMALL, MEDIUM } = Size
@@ -16,6 +17,8 @@ export interface SwitchProps {
   checked: boolean
   onChange: (switchStatus: boolean) => void
   size?: Size
+  updating?: boolean
+  value?: boolean
 }
 
 export const Switch: FC<SwitchProps> = ({
@@ -23,10 +26,21 @@ export const Switch: FC<SwitchProps> = ({
   checked = false,
   onChange,
   size = MEDIUM,
+  updating = false,
+  value,
 }) => {
   const handleChange = () => onChange(!checked)
   const StyledSwitch = getSwitch(size)
-  return <StyledSwitch checked={checked} onChange={handleChange} name={name} />
+  return updating ? (
+    <LoadingSpinner size={18} thickness={4} />
+  ) : (
+    <StyledSwitch
+      checked={checked}
+      onChange={handleChange}
+      name={name}
+      value={value}
+    />
+  )
 }
 
 const getSwitch = (size) => {

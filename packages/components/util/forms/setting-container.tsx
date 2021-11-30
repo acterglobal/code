@@ -40,11 +40,13 @@ export const Setting: FC<SettingProps> = ({ title, children }) => {
 
   return (
     <FormControl component="fieldset" fullWidth>
-      <Typography className={classes.title}>
-        {title}
-        <Typography className={classes.acterName}>{acter.name}</Typography>?
-      </Typography>
-      {children}
+      <Box className={classes.settingContent}>
+        <Typography className={classes.title}>
+          {title}
+          <Typography className={classes.acterName}>{acter.name}</Typography>?
+        </Typography>
+        {children}
+      </Box>
     </FormControl>
   )
 }
@@ -53,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       marginBottom: theme.spacing(2.5),
+    },
+    settingContent: {
+      marginBottom: theme.spacing(4),
     },
     heading: {
       fontSize: '1.12rem',

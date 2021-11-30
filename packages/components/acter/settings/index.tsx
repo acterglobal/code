@@ -10,7 +10,7 @@ import {
   Grid,
 } from '@material-ui/core'
 
-import { AccessabilitySettings } from '@acter/components/acter/settings/accessability-settings'
+import { AccessSettings } from '@acter/components/acter/settings/access-settings'
 import { TopBar } from '@acter/components/acter/settings/top-bar'
 import { VisibilitySettings } from '@acter/components/acter/settings/visibility-settings'
 import { InvitesSection } from '@acter/components/invites'
@@ -64,7 +64,7 @@ const SettingsSection: FC = () => {
 
   return (
     <Grid item xs={12} md={6}>
-      <AccessabilitySettings acter={acter} />
+      <AccessSettings acter={acter} />
       <VisibilitySettings acter={acter} />
     </Grid>
   )

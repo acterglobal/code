@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     radioLabel: {
       justifyContent: 'space-between',
-      color: theme.palette.secondary.main,
+      color: theme.colors.black,
     },
     radio: {
       padding: 5,

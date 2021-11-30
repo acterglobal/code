@@ -39,7 +39,8 @@ enum ActerPrivacySettings {
 }
 
 enum ActerWhoCanJoinSettings {
-  USERS
+  ALL
+  PEOPLE
   ACTERS
 }
 
