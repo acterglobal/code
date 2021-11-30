@@ -44,12 +44,12 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
   const [acterCanJoinSetting, setActerCanJoinSetting] = useState(
     [ALL, ACTERS].includes(
       acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
-    ) && true
+    )
   )
   const [peopleCanJoinSetting, setPeopleCanJoinSetting] = useState(
     [ALL, PEOPLE].includes(
       acter.acterWhoCanJoinSetting as ActerWhoCanJoinSettings
-    ) && true
+    )
   )
 
   const handleChangeActerCanJoinSetting = (checked: boolean): void => {
