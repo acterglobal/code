@@ -42,9 +42,9 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   if (!acter) return null
   if (!followers.length) return null
 
-  const isOrganisationsCanJoin = getCanActersJoin(acter)
+  const isActersCanJoin = getCanActersJoin(acter)
 
-  const selectedFollowers = isOrganisationsCanJoin
+  const selectedFollowers = isActersCanJoin
     ? followers
     : followers.filter((follower) => follower.ActerType.name === USER)
 
