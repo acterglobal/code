@@ -13,7 +13,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole, ActerWhoCanJoinSettings } from '@acter/schema'
 
 interface ConnectProps {
   acterId?: string
