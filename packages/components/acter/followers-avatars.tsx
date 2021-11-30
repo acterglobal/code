@@ -3,13 +3,20 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { titleCase } from 'title-case'
-
 import { AvatarGroup } from '@acter/components/acter/avatar-group'
+import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { Acter, ActerConnectionRole, ActerType } from '@acter/schema'
+import {
+  Acter,
+  ActerConnectionRole,
+  ActerType,
+  ActerWhoCanJoinSettings,
+} from '@acter/schema'
+
+const { ACTERS, PEOPLE } = ActerWhoCanJoinSettings
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,11 +42,7 @@ export interface FollowersAvatarsProps {
 }
 
 const getActerTypeTitle = (acterType: ActerType) => {
-  if (acterType.name === 'user') {
-    return 'People'
-  }
-
-  return `${titleCase(acterType.name)}s`
+  return capitalize(acterType.name === ActerTypes.USER ? PEOPLE : ACTERS)
 }
 
 export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
@@ -55,10 +58,16 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
       {Object.keys(followerTypeMap).map((type) => {
         const connections = followerTypeMap[type]
 
-        const acters = filterConnectionsByAtLeastRole(
+        const filteredConnections = filterConnectionsByAtLeastRole(
           connections,
           ActerConnectionRole.MEMBER
         ).map(({ Follower }) => Follower)
+
+        const acters = filterConnectionsByActerSetting(
+          acter,
+          filteredConnections
+        )
+
         if (!acters?.length) {
           return null
         }
