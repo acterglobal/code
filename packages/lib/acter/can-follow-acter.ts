@@ -1,16 +1,14 @@
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
 
-const { ACTIVITY, GROUP, NETWORK, ORGANISATION, USER } = ActerTypes
+const { ACTIVITY, GROUP, USER } = ActerTypes
 
 /**
  * A curry function for determining if Acter `follower` can follow Acter `acter`
  * @param acter Acter we will try to follow
  * @returns a function that takes a second `follower` Acter for which we determine if following is allowed
  */
-export const filterFollowers = (acter: Acter) => (
-  following: Acter
-): boolean => {
+export const canFollowActer = (acter: Acter) => (following: Acter): boolean => {
   // Return if acter is not set
   if (!acter) return false
 
@@ -26,20 +24,15 @@ export const filterFollowers = (acter: Acter) => (
   }
 
   switch (following.ActerType.name.toLowerCase()) {
-    // Activities cannot connect to other types
+    // Activities and (sub)groups cannot join anything
     case ACTIVITY:
-      return false
-    // Networks or Groups can connect to activities
-    case NETWORK:
     case GROUP:
-      return acter.ActerType.name === ACTIVITY
-    // Orgs can only connect to Networks or Activities
-    case ORGANISATION:
-      return [ACTIVITY, NETWORK].includes(acter.ActerType.name as ActerTypes)
+      return false
     // Users can connect to anything
     case USER:
       return true
+    // Anything else should be able to connect to everything but Users
     default:
-      return false
+      return ![USER].includes(acter.ActerType.name as ActerTypes)
   }
 }

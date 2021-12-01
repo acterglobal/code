@@ -1,4 +1,4 @@
-import { filterFollowers } from '@acter/lib/acter/filter-followers'
+import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { Acter, User } from '@acter/schema'
 
 /**
@@ -14,7 +14,7 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
 
   const followers = user.Acter.Following.map(
     ({ Following }) => Following
-  ).filter(filterFollowers(acter))
+  ).filter(canFollowActer(acter))
 
   // Only include the User's UserActer if this Acter was not created by the User
   if (acter.createdByUserId !== user.id) {
