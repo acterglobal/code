@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -56,24 +56,63 @@ type UseActerProps = {
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const { fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
-  const [acterId, setActerId] = useState(options?.acterId)
+  const [acterId, setActerId] = useState<string>(options?.acterId)
   const [fetching, setFetching] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
-  const [pause, setPause] = useState(true)
-  const [variables, setVariables] = useState<UseActerVariables>()
   const router = useRouter()
-
-  useEffect(() => {
-    setActerId(options?.acterId)
-  }, [options?.acterId])
-
-  const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
-
   const {
     acterTypes,
     fetching: acterTypesFetching,
     error: acterTypesError,
   } = useActerTypes()
+
+  useEffect(() => {
+    setActerId(options?.acterId)
+  }, [options?.acterId])
+
+  const acterTypeName = useMemo(
+    () => options?.acterTypeName || router.asPath.split('/')[1],
+    [options?.acterTypeName, router.asPath]
+  )
+
+  const acterTypeId = useMemo(() => {
+    if (acterTypes?.length > 0 && acterTypeName) {
+      const result = acterTypes.find(
+        (type) => acterTypeAsUrl(type) === acterTypeName
+      )
+      if (!result?.id) {
+        setErrors(Error('Not valid acter type'))
+      }
+      return result.id
+    }
+  }, [acterTypes?.length, acterTypeName])
+
+  const slug = useMemo(() => options?.slug || (router.query?.slug as string), [
+    options?.slug,
+    router.query?.slug,
+  ])
+
+  const variables = useMemo<UseActerVariables>(() => {
+    if (acterId) {
+      return {
+        acterId,
+      } as UseActerVariablesById
+    }
+
+    if (acterTypeId && slug) {
+      return {
+        acterTypeId,
+        slug,
+      } as UseActerVariablesByTypeAndSlug
+    }
+
+    return {} as UseActerVariables
+  }, [acterId, acterTypeId, slug])
+
+  const pause = useMemo(
+    () => !variables || Object.keys(variables).length === 0,
+    [JSON.stringify(variables)]
+  )
 
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
@@ -84,46 +123,6 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     variables,
     pause,
   })
-
-  useEffect(() => {
-    if (!dataFetching) {
-      if (acterId) {
-        setPause(false)
-        setVariables({
-          acterId,
-          acterTypeId: undefined,
-          slug: undefined,
-        })
-        return
-      }
-
-      if (acterTypes) {
-        const slug = options?.slug || router.query?.slug
-        const result = acterTypes.find(
-          (type) => acterTypeAsUrl(type) === acterTypeName
-        )
-        if (!result?.id) {
-          setErrors(Error('Not valid acter type'))
-        }
-        setPause(!(!!result?.id && !!slug))
-        setVariables({
-          acterId: undefined,
-          acterTypeId: result?.id,
-          slug: slug as string,
-        })
-        return
-      }
-
-      setPause(true)
-      setVariables(undefined)
-    }
-  }, [
-    acterTypes?.length,
-    acterTypeName,
-    acterId,
-    options?.slug,
-    router.query?.slug,
-  ])
 
   useEffect(() => {
     if (data) {
