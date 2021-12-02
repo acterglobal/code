@@ -7,7 +7,7 @@ import {
   BasicsStep,
   BasicsStepValues,
 } from '@acter/components/activity/form/steps/basics'
-import { EventActivityType, ExampleActer } from '@acter/schema/fixtures'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
   title: 'Organisms/Activity/Form/Steps/Basics',
