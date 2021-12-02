@@ -6,11 +6,11 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
 import {
   LocationVenuePicker,
   LocationVenuePickerValues,
-} from '@acter/components/activity/form/fields/location-venue-picker'
-import { SelectActivityType } from '@acter/components/activity/form/fields/select-activity-type'
+} from '@acter/components/molecules/fields/location-venue-picker'
 import {
   StartEndDateTimePicker,
   StartEndDateTimePickerValues,

@@ -13,8 +13,14 @@ import {
 import { Field, useFormikContext } from 'formik'
 import { TextField, RadioGroup } from 'formik-material-ui'
 
-export interface LocationVenuePickerValues {
+import {
+  LocationPicker,
+  LocationPickerResult,
+} from '@acter/components/atoms/fields/location-picker'
+
+export interface LocationVenuePickerValues extends LocationPickerResult {
   isOnline: boolean
+  url: string
 }
 
 export const LocationVenuePicker: FC = () => {
@@ -50,17 +56,7 @@ export const LocationVenuePicker: FC = () => {
           required={true}
         />
       )}
-      {!values.isOnline && (
-        <Field
-          className={classes.textinput}
-          component={TextField}
-          variant="outlined"
-          name="location"
-          title="address"
-          placeholder="Type address"
-          required={true}
-        />
-      )}
+      {!values.isOnline && <LocationPicker />}
     </Box>
   )
 }

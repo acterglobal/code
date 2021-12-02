@@ -1,6 +1,8 @@
 **/__mocks__/*
 **/__stories__/*
+*.stories.*
 **/__tests__/*
+*.test.*
 
 packages/schema/generated/*.d.ts
 **/*.md
