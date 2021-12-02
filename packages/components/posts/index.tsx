@@ -6,11 +6,11 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { SinglePost } from '@acter/components/posts/single-post'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { usePosts } from '@acter/lib/post/use-posts'
 import { useUser } from '@acter/lib/user/use-user'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
+import { ActerJoinSettings } from '@acter/schema'
 
 interface PostListProps {
   acterId?: string
@@ -34,7 +34,7 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
 
   if (!isActerPublic && (!user || !isUserActerFollower)) return null
 
-  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+  const isMember = checkMemberAccess(user, acter)
 
   return (
     <Box className={classes.mainContainer}>
