@@ -25,6 +25,7 @@ __metadata:
     "@storybook/builder-webpack5": ^6.3.8
     "@storybook/manager-webpack5": ^6.3.8
     "@storybook/react": ^6.3.8
+    "@types/googlemaps": ^3.43.3
     "@urql/storybook-addon": ^1.0.7
     babel-loader: ^8.2.2
     babel-plugin-polyfill-corejs2: ^0.2.2
@@ -33,6 +34,7 @@ __metadata:
     color-string: ^1.5.5
     draft-js: ^0.11.7
     email-validator: ^2.0.4
+    env-cmd: ^10.1.0
     filepond: ^4.25.1
     filepond-plugin-file-validate-type: ^1.2.5
     filepond-plugin-image-edit: ^1.6.2
@@ -48,12 +50,15 @@ __metadata:
     react-cropper: ^2.1.8
     react-draft-wysiwyg: ^1.14.7
     react-filepond: ^7.1.1
+    react-google-autocomplete: ^2.6.1
     react-infinite-scroll-component: ^6.1.0
     sb: ^6.3.2
+    storybook-addon-next-auth0: ^1.0.6
     storybook-addon-next-router: ^3.0.8
     storybook-formik: ^2.1.6
     title-case: ^3.0.3
     typescript: "*"
+    use-places-autocomplete: ^1.11.0
     uuid: ^8.3.2
     webpack: "*"
   peerDependencies:
@@ -111,6 +116,7 @@ __metadata:
     mime: ^2.5.2
     nodemailer: ^6.6.2
     ramda: ^0.27.1
+    react-script-hook: ^1.5.0
     slugify: ^1.4.6
     urql: ^2.0.5
   peerDependencies:
@@ -6805,6 +6811,13 @@ __metadata:
     "@types/minimatch": "*"
     "@types/node": "*"
   checksum: 6911a956448f5eddea1e4371f814bf92072e8ceedba83de6ce2a6745938a6f0327376e1c0072fa0d7b3b73d84e255aafda53c1dff148225cfe542a8cc5d54b02
+  languageName: node
+  linkType: hard
+
+"@types/googlemaps@npm:^3.43.3":
+  version: 3.43.3
+  resolution: "@types/googlemaps@npm:3.43.3"
+  checksum: e08a1fd0c591812359be79f1f5952758a45e2967e117a444c5494eacb03588231cbfeebec0e349063cb2c1dba99226a26378578a6d7a5ea4dab08169e11be77d
   languageName: node
   linkType: hard
 
@@ -23079,7 +23092,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.5.0, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -23688,6 +23701,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-google-autocomplete@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "react-google-autocomplete@npm:2.6.1"
+  dependencies:
+    lodash.debounce: ^4.0.8
+    prop-types: ^15.5.0
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: cf880447393c82db3eca7bff93e423ef8b7997c78c4338d9cc30bf0cd913c1fd55d9410adabef13f8d390afb919499c07bbddec64661ade7c55272e68e93b9f1
+  languageName: node
+  linkType: hard
+
 "react-helmet-async@npm:^1.0.7":
   version: 1.0.9
   resolution: "react-helmet-async@npm:1.0.9"
@@ -23809,6 +23834,16 @@ fsevents@^1.2.7:
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
   checksum: 3cffe5a9cbac1c5d59bf74bf9fff43c987d87ef32098b9092ea94b6637377d86c08565b9374d9397f446b3fbcd95de986ec77220a16f979687cb39b7b89e2f91
+  languageName: node
+  linkType: hard
+
+"react-script-hook@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "react-script-hook@npm:1.5.0"
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.0
+    react-dom: ^16.8.6 || ^17.0.0
+  checksum: f8b451dd11441298a4a46ad27a4993300542cef8c0624c3d11c5d9a5426314e884069f2192a18943af4009a96b861fb1765ada8ca623fb38883f9431563a7146
   languageName: node
   linkType: hard
 
@@ -25813,6 +25848,29 @@ fsevents@^1.2.7:
   version: 2.12.0
   resolution: "store2@npm:2.12.0"
   checksum: dd4184a677b11e5efc304b910d08f43e2b0ea018930a4e5ac407cb3472f08a6d42004c43b5f249c7299ba9cfd05cbe1eed998ea3f3388d2ca0f0650a6efb5dc4
+  languageName: node
+  linkType: hard
+
+"storybook-addon-next-auth0@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "storybook-addon-next-auth0@npm:1.0.6"
+  peerDependencies:
+    "@auth0/nextjs-auth0": ^1.5.0
+    "@storybook/addons": ^6.3.6
+    "@storybook/api": ^6.3.6
+    "@storybook/components": ^6.3.6
+    "@storybook/core-events": ^6.3.6
+    "@storybook/theming": ^6.3.6
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    "@auth0/nextjs-auth0":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 43b068eb0980056bf69542c39e463303494af517ed4ed69eed52edf854b7b546db519cf04f567a0a7a86d0ac6b8a329fdd77265d0816835dafc3bd170ad83f94
   languageName: node
   linkType: hard
 
@@ -28004,6 +28062,15 @@ typescript@^3.9.7:
     "@types/react":
       optional: true
   checksum: f0cb3a49119e14ed46db8a946b1aa17b838b8834c8a652bde314877ede6057c55b50654a97ee802597a5839c070180195e58ea3a756b7c33db7f540642f0ddea
+  languageName: node
+  linkType: hard
+
+"use-places-autocomplete@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "use-places-autocomplete@npm:1.11.0"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: f4c0a61f35ade4ff60b4221beb641f7b869750132eadd975123809df6b8bc47a30e997069596db3a2090a1a1942dd4ad65dbc519aa7dcb4d3ac40c92f56a15fa
   languageName: node
   linkType: hard
 
