@@ -5,6 +5,9 @@ mutation ActivityCreate(
   $name: String!
   $description: String
   $location: String
+  $locationLat: Float
+  $locationLng: Float
+  $placeId: String
   $url: String
   $acterTypeId: String!
   $interestIds: [String!]!
@@ -23,6 +26,9 @@ mutation ActivityCreate(
     name: $name
     description: $description
     location: $location
+    locationLat: $locationLat
+    locationLng: $locationLng
+    placeId: $placeId
     url: $url
     acterTypeId: $acterTypeId
     interestIds: $interestIds
