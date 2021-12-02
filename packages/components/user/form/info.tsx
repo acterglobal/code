@@ -104,7 +104,7 @@ export const ProfileInfoForm: FC = () => {
                 }}
               />
 
-              <LocationPicker />
+              <LocationPicker types={['(regions)']} cacheKey="regions" />
             </Grid>
           </Grid>
           <FormButtons align="right" hideUnlessDirty={true} />
