@@ -22,6 +22,7 @@
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "no-console": "warn"
   }
 }
