@@ -53,4 +53,5 @@ WithLegacyValue.parameters = {
 export const LimitedPlaces = Template.bind({})
 LimitedPlaces.args = {
   types: ['(regions)'],
+  cacheKey: 'regions',
 } as LocationPickerProps

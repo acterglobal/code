@@ -26,6 +26,7 @@ export type LocationPickerProps = {
   label?: string
   placeholder?: string
   types?: GooglePlacesType[]
+  cacheKey?: string
 }
 
 export type LocationPickerResult = {
@@ -39,6 +40,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   label = 'Location',
   placeholder,
   types,
+  cacheKey,
 }) => {
   const [error, setError] = useState<Error | ErrorEvent>()
   const { setValues, values } = useFormikContext<LocationPickerResult>()
@@ -48,21 +50,18 @@ export const LocationPicker: FC<LocationPickerProps> = ({
     suggestions: { data },
     setValue,
     clearSuggestions,
-    clearCache,
   } = usePlacesAutocomplete({
     debounce: 300,
     initOnMount: false,
     defaultValue: location,
     requestOptions: types ? { types } : undefined,
+    cacheKey,
   })
   const [scriptLoading, scriptLoadError] = useGooglePlacesApi()
 
   useEffect(() => {
     // Wait for the Google Places API script to load
-    if (!scriptLoading) {
-      init()
-      clearCache()
-    }
+    if (!scriptLoading) init()
   }, [scriptLoading])
 
   useEffect(() => {
