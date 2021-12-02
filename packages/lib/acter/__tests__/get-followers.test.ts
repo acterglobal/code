@@ -1,4 +1,4 @@
-import { filterFollowers } from '@acter/lib/acter/filter-followers'
+import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { Acter } from '@acter/schema'
 import {
@@ -8,11 +8,11 @@ import {
   ExampleActerConnection,
 } from '@acter/schema/fixtures'
 
-jest.mock('@acter/lib/acter/filter-followers')
+jest.mock('@acter/lib/acter/can-follow-acter')
 
 describe('getFollowers', () => {
   beforeAll(() => {
-    const mockFilterFollowers = filterFollowers as jest.Mock
+    const mockFilterFollowers = canFollowActer as jest.Mock
     mockFilterFollowers.mockImplementation(
       (acters: Acter[]) => (_acter: Acter) => acters
     )
