@@ -41,10 +41,8 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   types,
 }) => {
   const [error, setError] = useState<Error | ErrorEvent>()
-  const {
-    setValues,
-    values: { location, locationLat, locationLng, placeId },
-  } = useFormikContext<LocationPickerResult>()
+  const { setValues, values } = useFormikContext<LocationPickerResult>()
+  const { location, locationLat, locationLng, placeId } = values
   const {
     init,
     suggestions: { data },
@@ -107,6 +105,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   ) => {
     if (reason === 'clear') {
       setValues({
+        ...values,
         placeId: null,
         location: null,
         locationLat: null,
@@ -119,6 +118,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
       const results = await getGeocode({ placeId })
       const { lat, lng } = await getLatLng(results[0])
       setValues({
+        ...values,
         placeId,
         location: description,
         locationLat: lat,
