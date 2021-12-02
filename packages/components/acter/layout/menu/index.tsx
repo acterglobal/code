@@ -7,6 +7,7 @@ import { LinksList } from '@acter/components/acter/layout/menu/links'
 import { PartOfSection } from '@acter/components/acter/layout/menu/part-of'
 import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -20,7 +21,7 @@ export const ActerMenu: FC = () => {
   if (!acter) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+  const isMember = checkMemberAccess(user, acter)
 
   return (
     <SecondaryMenu>
