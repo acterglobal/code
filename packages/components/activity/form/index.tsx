@@ -110,15 +110,16 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const handleNext = () => setActiveStep(Math.min(activeStep + 1, totalSteps))
   const handleSelectStep = (selectedStep: number) => setActiveStep(selectedStep)
 
-  const onStepSubmit = (
+  const onStepSubmit = async (
     values: ActivityFormValues,
     formikBag: FormikBag<ActivityFormProps, ActivityFormValues>
   ) => {
-    const { setSubmitting } = formikBag
+    const { setSubmitting, validateForm } = formikBag
     if (!isLastStep()) {
       setSubmitting(false)
+      const errors = await validateForm()
+      if (typeof errors === 'object' && Object.keys(errors).length > 0) return
       handleNext()
-      return
     }
     // TODO: Final validation
     onSubmit(values)
@@ -160,7 +161,10 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     organiserActerId: organiserActerId || acter?.Activity?.Organiser?.id || '',
     name: '',
     description: '',
-    location: '',
+    location: null,
+    locationLat: null,
+    locationLng: null,
+    placeId: null,
     url: '',
     interestIds,
     followerIds: acter?.Followers?.map(({ Follower: { id } }) => id) || [

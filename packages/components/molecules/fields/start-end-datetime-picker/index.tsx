@@ -6,7 +6,7 @@ import { grey } from '@material-ui/core/colors'
 
 import { differenceInMinutes, set } from 'date-fns'
 import isValid from 'date-fns/isValid'
-import { Field, useFormikContext } from 'formik'
+import { Field, FormikTouched, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
 import { DateTimePicker } from '@acter/components/molecules/fields/datetime-picker'
@@ -26,6 +26,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
 }) => {
   const {
     values: { endAt, isAllDay, startAt },
+    touched: { endAt: endAtTouched, startAt: startAtTouched },
     setFieldValue,
   } = useFormikContext<StartEndDateTimePickerValues>()
 
@@ -44,12 +45,13 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
     }
   }, [isAllDay])
 
-  const validateDateTime = (val: Date) => {
+  const validateDateTime = (touched: FormikTouched<Date>) => (val: Date) => {
+    if (!touched) return
     if (!val) return 'Required'
     if (!isValid(val)) return 'Invaild date'
   }
   const validateEndTime = (val: Date) => {
-    const basicValidation = validateDateTime(val)
+    const basicValidation = validateDateTime(endAtTouched)(val)
     if (basicValidation) return basicValidation
     if (startAt && isValid(startAt) && differenceInMinutes(val, startAt) < 0) {
       return 'Cannot be before start'
@@ -67,7 +69,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           isAllDay={isAllDay}
           required={true}
           maxDate={endAt && isValid(endAt) ? endAt : undefined}
-          validate={validateDateTime}
+          validate={validateDateTime(startAtTouched)}
         />
       </Grid>
       <Grid item xs={gridSize}>
