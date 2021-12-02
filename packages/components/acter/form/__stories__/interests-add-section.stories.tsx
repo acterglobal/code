@@ -9,7 +9,7 @@ export default {
   title: 'Organisms/Interests/InterestsAdd',
   component: InterestsAddSection,
   args: {
-    setFieldValue: () => console.log('test'),
+    setFieldValue: () => void 0,
     initialValues: [],
   },
   decorators: [withFormik],

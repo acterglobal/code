@@ -127,7 +127,7 @@ export const createNotificationWorker = <T>({
               },
             })
           ).map(({ Follower }) => Follower)
-    console.log(
+    console.debug(
       'Sending to followers',
       followers.map((acter) => ({
         name: acter.name,

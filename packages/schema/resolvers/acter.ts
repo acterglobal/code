@@ -7,7 +7,6 @@ import {
   Ctx,
   UseMiddleware,
 } from 'type-graphql'
-import { Context } from 'urql'
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'

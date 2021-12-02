@@ -15,7 +15,7 @@ export default {
   args: {
     searchType: '',
     acters: [],
-    handleSearch: (text) => console.log(text),
+    handleSearch: () => void 0,
   },
 } as Meta
 

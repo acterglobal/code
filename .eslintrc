@@ -23,6 +23,6 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "no-console": "warn"
+    "no-console": ["warn", { "allow": ["debug", "error"] }]
   }
 }

@@ -96,10 +96,10 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     },
   })
 
-  const handleImageCrop = (cropData, imagefile) => {
-    pond.current.addFile(imagefile)
-    setImage(imagefile)
-    setFiles([imagefile])
+  const handleImageCrop = (cropData, imageFile) => {
+    pond.current.addFile(imageFile)
+    setImage(imageFile)
+    setFiles([imageFile])
     setShowEditor(false)
 
     // const { center } = cropData
