@@ -5,6 +5,7 @@ clsx
 datetime
 filepond
 Formik
+Geocode
 graphcache
 Mockuse
 ORGANISATIONS

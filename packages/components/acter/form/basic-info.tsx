@@ -7,6 +7,7 @@ import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 import { ActerTypePicker } from '@acter/components/atoms/fields/acter-type-picker'
+import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues {
@@ -23,20 +24,19 @@ export const BasicInformation: FC = () => {
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   return (
-    <>
-      <ActerTypePicker className={classes.textinput} />
-
+    <Box className={classes.wrapper}>
+      <ActerTypePicker className={classes.textInput} />
       <Field
-        className={classes.textinput}
+        fullWidth
+        className={classes.textInput}
         component={TextField}
         label="Name"
         name="name"
         required={true}
       />
-      <Box mb={1} onClick={() => editor.focus()}>
+      <Box mb={1} className={classes.textEditor} onClick={() => editor.focus()}>
         <InputLabel style={{ marginBottom: 5 }}>Description</InputLabel>
         <TextEditor
-          width={535}
           height={150}
           initialValue={values.description}
           // @ts-ignore
@@ -45,29 +45,34 @@ export const BasicInformation: FC = () => {
         />
       </Box>
 
-      <Field
-        className={classes.textinput}
-        component={TextField}
-        label="Location"
-        name="location"
-        required={true}
+      <LocationPicker
+        className={classes.textInput}
+        fullWidth
+        TextFieldProps={{ variant: 'standard' }}
       />
+
       <Field
-        className={classes.textinput}
+        fullWidth
+        className={classes.textInput}
         component={TextField}
         label="Website link"
         name="url"
       />
-    </>
+    </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    textinput: {
-      width: '88%',
+    wrapper: {
+      width: '90%',
+    },
+    textEditor: {
+      width: '99%',
+    },
+    textInput: {
       fontSize: '0.5rem',
-      marginBottom: theme.spacing(3.5),
+      marginBottom: theme.spacing(3),
       color: theme.palette.secondary.light,
     },
   })

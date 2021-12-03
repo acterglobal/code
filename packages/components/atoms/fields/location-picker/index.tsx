@@ -7,10 +7,15 @@ import {
   Popper,
   PopperProps,
   TextField,
+  TextFieldProps,
   Typography,
 } from '@material-ui/core'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
-import { Autocomplete, AutocompleteChangeReason } from '@material-ui/lab'
+import {
+  Autocomplete,
+  AutocompleteChangeReason,
+  AutocompleteProps,
+} from '@material-ui/lab'
 
 import { useFormikContext } from 'formik'
 import usePlacesAutocomplete, {
@@ -22,11 +27,14 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
 
-export type LocationPickerProps = {
+export type LocationPickerProps = Partial<
+  AutocompleteProps<LocationPickerResult, false, false, false>
+> & {
   label?: string
   placeholder?: string
   types?: GooglePlacesType[]
   cacheKey?: string
+  TextFieldProps?: TextFieldProps
 }
 
 export type LocationPickerResult = {
@@ -36,12 +44,15 @@ export type LocationPickerResult = {
   placeId: string
 }
 
-export const LocationPicker: FC<LocationPickerProps> = ({
-  label = 'Location',
-  placeholder,
-  types,
-  cacheKey,
-}) => {
+export const LocationPicker: FC<LocationPickerProps> = (props) => {
+  const {
+    label = 'Location',
+    placeholder,
+    types,
+    cacheKey,
+    TextFieldProps,
+    ...autocompleteProps
+  } = props
   const [error, setError] = useState<Error | ErrorEvent>()
   const { setValues, values } = useFormikContext<LocationPickerResult>()
   const { location, locationLat, locationLng, placeId } = values
@@ -133,7 +144,7 @@ export const LocationPicker: FC<LocationPickerProps> = ({
   return (
     <>
       <Autocomplete
-        style={{ width: 300 }}
+        {...autocompleteProps}
         getOptionLabel={(option) =>
           typeof option === 'string' ? option : option.description
         }
