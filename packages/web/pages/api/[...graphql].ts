@@ -38,7 +38,7 @@ const graphqlHandler = async (
     })
     await server.start()
   } else {
-    console.log('Apollo server already exists')
+    console.debug('Apollo server already exists')
   }
 
   const handler = server.createHandler({ path: '/api/graphql' })

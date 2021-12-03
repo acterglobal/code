@@ -1,3 +1,5 @@
+/* eslint-disable */
+// This file was copy-pasta from an example and I don't feel like adding types for it now
 import cookie from 'cookie'
 import { JWT } from 'jose'
 import { Issuer, generators } from 'openid-client'

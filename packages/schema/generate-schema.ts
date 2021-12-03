@@ -37,7 +37,7 @@ export const generateSchema = async (
 
   const generatedPath = path.join(__dirname, 'generated')
   const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
-  console.log('in generateSchema with writeSchema', writeSchema)
+  console.debug('in generateSchema with writeSchema', writeSchema)
 
   const schema = await buildSchema({
     authChecker,

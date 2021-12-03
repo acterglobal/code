@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { GetServerSidePropsResult } from 'next'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'

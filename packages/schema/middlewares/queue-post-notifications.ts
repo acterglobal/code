@@ -13,6 +13,7 @@ export const QueuePostNotifications = (
     return
   }
 
+  /* eslint-disable-next-line no-console */
   console.log('Adding to notification queue', type, result)
 
   postNotificationCreateQueue.add(type, { [type]: result })

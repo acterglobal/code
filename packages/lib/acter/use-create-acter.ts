@@ -58,12 +58,7 @@ export const useCreateActer = (
   const router = useRouter()
 
   const [
-    {
-      data: updateData,
-      fetching: updateFetching,
-      error: updateError,
-      ...updateRestState
-    },
+    { fetching: updateFetching, error: updateError, ...updateRestState },
     updateActer,
   ] = useUpdateActer({} as Acter, {
     getSuccessMessage: (data) =>

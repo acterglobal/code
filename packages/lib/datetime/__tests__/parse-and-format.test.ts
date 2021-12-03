@@ -18,12 +18,12 @@ describe('parseAndFormat', () => {
   })
 
   it('should call parseDateOrString', () => {
-    const d = parseAndFormat('2021-11-02T14:00:00', DATE_FORMAT_SHORT_TZ)
+    parseAndFormat('2021-11-02T14:00:00', DATE_FORMAT_SHORT_TZ)
     expect(parseDateOrStringMock).toBeCalledTimes(1)
   })
 
   it('should call format', () => {
-    const d = parseAndFormat('2021-11-02T14:00:00', DATE_FORMAT_SHORT_TZ)
+    parseAndFormat('2021-11-02T14:00:00', DATE_FORMAT_SHORT_TZ)
     expect(format).toBeCalledTimes(1)
   })
 })

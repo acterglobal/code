@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'reflect-metadata'
 
 import { dailyDigestQueue } from '../daily-digest/queue'
