@@ -8,6 +8,7 @@ module.exports = {
     'storybook-formik/register',
     'storybook-addon-next-router',
     '@urql/storybook-addon',
+    'storybook-addon-next-auth0',
   ],
   core: {
     builder: 'webpack5',

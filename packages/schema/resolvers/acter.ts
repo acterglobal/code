@@ -7,7 +7,6 @@ import {
   Ctx,
   UseMiddleware,
 } from 'type-graphql'
-import { Context } from 'urql'
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
@@ -35,6 +34,9 @@ export class ActerResolver {
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
+    @Arg('locationLat', { nullable: true }) locationLat: number,
+    @Arg('locationLng', { nullable: true }) locationLng: number,
+    @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
@@ -109,6 +111,9 @@ export class ActerResolver {
         description,
         slug,
         location,
+        locationLat,
+        locationLng,
+        placeId,
         url,
         acterJoinSetting,
         acterNotifyEmailFrequency,
@@ -139,6 +144,9 @@ export class ActerResolver {
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
+    @Arg('locationLat', { nullable: true }) locationLat: number,
+    @Arg('locationLng', { nullable: true }) locationLng: number,
+    @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
@@ -223,6 +231,9 @@ export class ActerResolver {
         name,
         description,
         location,
+        locationLat,
+        locationLng,
+        placeId,
         url,
         acterJoinSetting,
         acterNotifySetting,
@@ -253,6 +264,9 @@ export class ActerResolver {
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
+    @Arg('locationLat', { nullable: true }) locationLat: number,
+    @Arg('locationLng', { nullable: true }) locationLng: number,
+    @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
@@ -283,6 +297,9 @@ export class ActerResolver {
       name,
       description,
       location,
+      locationLat,
+      locationLng,
+      placeId,
       url,
       acterJoinSetting,
       acterNotifyEmailFrequency,
@@ -341,6 +358,9 @@ export class ActerResolver {
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
     @Arg('location', { nullable: true }) location: string,
+    @Arg('locationLat', { nullable: true }) locationLat: number,
+    @Arg('locationLng', { nullable: true }) locationLng: number,
+    @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
@@ -376,6 +396,9 @@ export class ActerResolver {
       name,
       description,
       location,
+      locationLat,
+      locationLng,
+      placeId,
       url,
       acterJoinSetting,
       acterNotifySetting,

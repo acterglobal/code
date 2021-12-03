@@ -22,3 +22,10 @@ export default {
 const Template: Story = () => <ProfileInfoForm />
 
 export const Main = Template.bind({})
+Main.parameters = {
+  initialUser: {
+    isLoading: false,
+    user: ExampleUser,
+  },
+  urql: () => ({ data: { user: { ...ExampleUser, Acter: ExampleUserActer } } }),
+}

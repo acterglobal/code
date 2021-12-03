@@ -5,6 +5,9 @@ mutation ActerUpdate(
   $name: String!
   $description: String
   $location: String
+  $locationLat: Float
+  $locationLng: Float
+  $placeId: String
   $url: String
   $acterJoinSetting: ActerJoinSettings
   $acterNotifySetting: ActerNotificationSettings
@@ -21,6 +24,9 @@ mutation ActerUpdate(
     name: $name
     description: $description
     location: $location
+    locationLat: $locationLat
+    locationLng: $locationLng
+    placeId: $placeId
     url: $url
     acterJoinSetting: $acterJoinSetting
     acterNotifySetting: $acterNotifySetting

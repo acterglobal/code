@@ -5,6 +5,9 @@ fragment ActerDisplay on Acter {
   slug
   url
   location
+  locationLat
+  locationLng
+  placeId
   avatarUrl
   bannerUrl
   acterJoinSetting
