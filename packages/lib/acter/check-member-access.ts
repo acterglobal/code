@@ -13,15 +13,16 @@ import { Acter, ActerConnectionRole, User } from '@acter/schema'
 export const checkMemberAccess = (user: User, acter: Acter): boolean => {
   if (!user || !acter) return false
 
+  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+
+  if (isMember) return true
+
   const followers = getFollowers(user, acter)
   const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
 
   const atLeastOneFollowerMemberOnActer = selectedFollowers.find((follower) =>
     followerHasRoleOnActer(follower, ActerConnectionRole.MEMBER, acter)
   )
-  const memberAccess =
-    userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter) ||
-    !!atLeastOneFollowerMemberOnActer
 
-  return memberAccess
+  return !!atLeastOneFollowerMemberOnActer
 }
