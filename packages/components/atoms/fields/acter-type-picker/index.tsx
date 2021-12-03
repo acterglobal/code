@@ -47,7 +47,6 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
     ].includes(name as ActerTypes)
   )
 
-  console.log('HERE ', acterTypes)
   return (
     <FormControl {...props}>
       <InputLabel>Select Acter Type</InputLabel>
