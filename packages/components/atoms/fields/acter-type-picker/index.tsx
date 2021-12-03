@@ -15,7 +15,15 @@ import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const { ORGANISATION, NETWORK } = ActerTypes
+const {
+  ORGANISATION,
+  NETWORK,
+  COMMUNITY,
+  NGO,
+  COMPANY,
+  PUBLIC_ORGANISATION,
+  UNIVERSITY,
+} = ActerTypes
 
 export type ActerTypePickerProps = FormControlProps
 
@@ -28,9 +36,18 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
-    [ORGANISATION, NETWORK].includes(name as ActerTypes)
+    [
+      ORGANISATION,
+      NETWORK,
+      COMMUNITY,
+      NGO,
+      COMPANY,
+      PUBLIC_ORGANISATION,
+      UNIVERSITY,
+    ].includes(name as ActerTypes)
   )
 
+  console.log('HERE ', acterTypes)
   return (
     <FormControl {...props}>
       <InputLabel>Select Acter Type</InputLabel>

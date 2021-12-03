@@ -5,4 +5,9 @@ export enum ActerTypes {
   NETWORK = 'network',
   ORGANISATION = 'organisation',
   USER = 'user',
+  COMMUNITY = 'community',
+  NGO = 'NGO',
+  COMPANY = 'company',
+  PUBLIC_ORGANISATION = 'public_organisation',
+  UNIVERSITY = 'university',
 }
