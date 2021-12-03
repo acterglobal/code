@@ -3,11 +3,9 @@ import React, { FC, useMemo } from 'react'
 import { Box, Hidden, Typography } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import {
-  Computer,
-  LocationOnOutlined,
-  Event as CalenderIcon,
-} from '@material-ui/icons'
+import { Computer, Event as CalenderIcon } from '@material-ui/icons'
+
+import { ActerLocation } from '../atoms/acter/acter-location'
 
 // import { format } from 'date-fns'
 import { Connect } from '@acter/components/acter/connect'
@@ -85,12 +83,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
           </>
         )}
         {!acter.Activity.isOnline && acter.location && (
-          <>
-            <LocationOnOutlined className={classes.locationIcon} />
-            <Typography className={classes.location} variant="body2">
-              {capitalize(acter.location)}
-            </Typography>
-          </>
+          <ActerLocation acter={acter} />
         )}
       </Box>
       <Hidden smUp>
@@ -154,10 +147,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '1.3rem',
     marginRight: 5,
     color: green[500],
-  },
-  locationIcon: {
-    fontSize: '1.3rem',
-    marginRight: 5,
   },
   locationContainer: {
     display: 'flex',

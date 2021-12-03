@@ -6,11 +6,11 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
-import { LocationVenuePicker } from '@acter/components/activity/form/fields/location-venue-picker'
 import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
+import { LocationVenuePicker } from '@acter/components/molecules/fields/location-venue-picker'
 import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
 import { Switch } from '@acter/components/styled/switch'

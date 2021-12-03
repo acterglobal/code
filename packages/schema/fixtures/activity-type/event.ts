@@ -2,6 +2,6 @@ import { ActivityTypes } from '@acter/lib/constants'
 import { ActivityType } from '@acter/schema'
 
 export const EventActivityType: ActivityType = {
-  id: 'f3a32089-5648-4839-9450-06f5320bb052',
+  id: 'ad718436-f1ee-4832-8759-ad5110446be6',
   name: ActivityTypes.EVENT,
 }

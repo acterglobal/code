@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
+import pluralize from 'pluralize'
 import { withFormik } from 'storybook-formik'
 
 import {
@@ -7,10 +8,20 @@ import {
   ActivityFormProps,
   ActivityFormValues,
 } from '@acter/components/activity/form'
-import { ExampleActivityActer, ExampleActivity } from '@acter/schema/fixtures'
+import {
+  ExampleActivityActer,
+  ExampleActivity,
+  OrganisationActerType,
+  NetworkActerType,
+  EventActivityType,
+  ProjectActivityType,
+  ExampleActer,
+  ExampleUser,
+} from '@acter/schema/fixtures'
 
 const args: ActivityFormProps = {
   onSubmit: () => null,
+  setDrawerHeading: () => null,
 }
 
 export default {
@@ -29,10 +40,34 @@ export default {
         followerIds: [],
         isOnline: false,
         isAllDay: false,
+        location: '',
+        locationLat: null,
+        locationLng: null,
         organiserActerId: '',
+        placeId: '',
         startAt: null,
-      } as ActivityFormValues,
+      } as Partial<ActivityFormValues>,
     },
+    initialUser: {
+      isLoading: false,
+      user: {
+        email: ExampleUser.email,
+      },
+    },
+    nextRouter: {
+      asPath: `/${pluralize(OrganisationActerType.name)}/`,
+      query: {
+        slug: ExampleActer.slug,
+      },
+    },
+    urql: () => ({
+      data: {
+        acterTypes: [OrganisationActerType, NetworkActerType],
+        activityTypes: [EventActivityType, ProjectActivityType],
+        findFirstActer: ExampleActer,
+        user: ExampleUser,
+      },
+    }),
   },
 } as Meta
 
