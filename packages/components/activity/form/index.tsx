@@ -33,6 +33,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
+import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter } from '@acter/schema'
@@ -177,8 +178,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
     isAllDay: acter?.Activity.isAllDay ? true : false,
     acterTypeId: acterType?.id,
     acterId: acter?.id,
-    startAt: acter?.Activity?.startAt || null,
-    endAt: acter?.Activity?.endAt || null,
+    startAt: parseDateOrString(acter?.Activity?.startAt) || null,
+    endAt: parseDateOrString(acter?.Activity?.endAt) || null,
   }
 
   // Fake an acter to determine potential followers when this is a new Activity
