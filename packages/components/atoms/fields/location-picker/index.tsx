@@ -81,11 +81,12 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
 
   useEffect(() => {
     if (location && !(locationLat && locationLng && placeId))
-      setError(
+      return setError(
         new Error(
           `Location value of ${location} is not set correctly. Please enter it again and select a place from the dropdown menu`
         )
       )
+    return setError(null)
   }, [location, locationLat, locationLng, placeId])
 
   if (scriptLoading) return <LoadingSpinner />
