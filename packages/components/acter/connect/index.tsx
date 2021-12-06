@@ -7,13 +7,12 @@ import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
 
 interface ConnectProps {
   acterId?: string
@@ -23,8 +22,6 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
-
-  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   const followers = useMemo(
     () =>
@@ -41,6 +38,8 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
   if (!followers.length) return null
 
   const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
+
+  const isMember = checkMemberAccess(user, acter)
 
   return (
     <DropdownMenu

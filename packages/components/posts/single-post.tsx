@@ -5,10 +5,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { Post } from '@acter/components/posts/post/index'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole, Post as PostType } from '@acter/schema'
+import { Post as PostType } from '@acter/schema'
 
 interface SinglePostProps {
   post: PostType
@@ -22,13 +22,14 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
 
   if (!acter || !user) return null
 
-  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
+  const isMember = checkMemberAccess(user, acter)
 
   return (
     <Box className={classes.contentContainer}>
       <Post post={post} user={user} />
       <Box className={classes.commentSection}>
-        <Divider className={classes.divider} />
+        {post.Comments.length !== 0 && <Divider className={classes.divider} />}
+
         {post.Comments?.map((comment) => (
           <Post
             key={`post-${post.id}-comment-${comment.id}`}
