@@ -45,7 +45,6 @@ export const paletteColors = {
   primary: {
     main: '#1EB001',
   },
-
   secondary: {
     main: '#545559',
     dark: '#2A2A2A',

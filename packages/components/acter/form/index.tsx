@@ -146,7 +146,8 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       width: 650,
       minHeight: 600,
-      padding: 20,
+      paddingLeft: 30,
+      paddingRight: 30,
       paddingBottom: 0,
       [theme.breakpoints.down('xs')]: {
         width: 300,
