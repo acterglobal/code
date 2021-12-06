@@ -82,6 +82,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
       )
       if (!result?.id) {
         setErrors(Error('Not valid acter type'))
+        return
       }
       return result.id
     }
