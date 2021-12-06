@@ -18,16 +18,11 @@ export const PostsSection: FC<PostsSectionProps> = ({ acter }) => {
   const postId = router?.query?.post as string
   const { post } = usePost({ postId })
 
-  const parentUrl = acterAsUrl({ acter: acter.Parent })
-  const url = `${parentUrl}/activities?activity=${slugify(acter.name)}`
+  if (postId && post && acter.Parent) {
+    const parentUrl = acterAsUrl({ acter: acter.Parent })
+    const url = `${parentUrl}/activities?activity=${slugify(acter.name)}`
+    return <SinglePostSection post={post} redirectUrl={url} />
+  }
 
-  return (
-    <>
-      {postId && post ? (
-        <SinglePostSection post={post} redirectUrl={url} />
-      ) : (
-        <PostList acterId={acter.id} />
-      )}
-    </>
-  )
+  return <PostList acterId={acter.id} />
 }
