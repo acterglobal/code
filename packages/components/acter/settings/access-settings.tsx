@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { RadioGroup } from '@material-ui/core'
-import { Box, makeStyles, Theme } from '@material-ui/core'
+import { Box, makeStyles, RadioGroup, Theme } from '@material-ui/core'
 
 import { Switch } from '@acter/components/styled/switch'
 import { SettingsRadio } from '@acter/components/util/forms'
