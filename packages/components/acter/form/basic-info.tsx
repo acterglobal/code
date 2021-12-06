@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 
-import { Box, InputLabel } from '@material-ui/core'
+import { Box, InputLabel, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field, useFormikContext } from 'formik'
@@ -25,16 +25,28 @@ export const BasicInformation: FC = () => {
 
   return (
     <Box className={classes.wrapper}>
-      <ActerTypePicker className={classes.textInput} />
-      <Field
+      <Typography className={classes.heading}>
+        Create an Actor to start coordinating or collaborating
+      </Typography>
+
+      <ActerTypePicker
+        size="small"
+        variant="outlined"
         fullWidth
-        className={classes.textInput}
+        className={classes.field}
+      />
+
+      <Field
+        className={classes.field}
         component={TextField}
+        variant="outlined"
+        size="small"
+        fullWidth
         label="Name"
         name="name"
         required={true}
       />
-      <Box mb={1} className={classes.textEditor} onClick={() => editor.focus()}>
+      <Box mb={2} className={classes.textEditor} onClick={() => editor.focus()}>
         <InputLabel style={{ marginBottom: 5 }}>Description</InputLabel>
         <TextEditor
           height={150}
@@ -46,15 +58,17 @@ export const BasicInformation: FC = () => {
       </Box>
 
       <LocationPicker
-        className={classes.textInput}
+        className={classes.field}
         fullWidth
         TextFieldProps={{ variant: 'standard' }}
       />
 
       <Field
-        fullWidth
-        className={classes.textInput}
+        className={classes.field}
         component={TextField}
+        variant="outlined"
+        size="small"
+        fullWidth
         label="Website link"
         name="url"
       />
@@ -67,12 +81,18 @@ const useStyles = makeStyles((theme: Theme) =>
     wrapper: {
       width: '90%',
     },
+    heading: {
+      textAlign: 'center',
+      marginBottom: theme.spacing(2),
+      color: theme.colors.grey.dark,
+      fontWeight: theme.typography.fontWeightLight,
+    },
     textEditor: {
       width: '99%',
     },
-    textInput: {
+    field: {
       fontSize: '0.5rem',
-      marginBottom: theme.spacing(3),
+      marginBottom: theme.spacing(2),
       color: theme.palette.secondary.light,
     },
   })
