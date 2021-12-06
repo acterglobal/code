@@ -119,7 +119,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
       setSubmitting(false)
       const errors = await validateForm()
       if (typeof errors === 'object' && Object.keys(errors).length > 0) return
-      handleNext()
+      return handleNext()
     }
     // TODO: Final validation
     onSubmit(values)
