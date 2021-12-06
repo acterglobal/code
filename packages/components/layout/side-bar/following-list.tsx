@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
     listContainer: {
       maxHeight: '60vh',
       overflow: 'hidden',
+      overflowY: 'scroll',
     },
     currentActer: {
       backgroundColor: theme.palette.secondary.main,
