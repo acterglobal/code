@@ -25,14 +25,4 @@ export const createActerCustom: UpdateResolver<ActerData> = (
       item: connection,
     })
   })
-
-  if (result.createActerCustom.Parent) {
-    const Parent = result.createActerCustom.Parent as WithTypeName<Acter>
-    addItemToFieldList({
-      cache,
-      target: Parent,
-      field: 'Children',
-      item: result.createActerCustom,
-    })
-  }
 }
