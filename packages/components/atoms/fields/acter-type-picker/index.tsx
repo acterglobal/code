@@ -21,7 +21,6 @@ const {
   COMMUNITY,
   NGO,
   COMPANY,
-  PUBLIC_ORGANISATION,
   UNIVERSITY,
 } = ActerTypes
 
@@ -36,15 +35,9 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
-    [
-      ORGANISATION,
-      NETWORK,
-      COMMUNITY,
-      NGO,
-      COMPANY,
-      PUBLIC_ORGANISATION,
-      UNIVERSITY,
-    ].includes(name as ActerTypes)
+    [NETWORK, COMMUNITY, NGO, COMPANY, ORGANISATION, UNIVERSITY].includes(
+      name as ActerTypes
+    )
   )
 
   return (
@@ -62,7 +55,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
             key={`type-${type.id}`}
             className={classes.acterTypeItem}
           >
-            {capitalize(type.name)}
+            {type.name === NGO ? type.name : capitalize(type.name)}
           </MenuItem>
         ))}
       </Field>
