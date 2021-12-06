@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
 
-import { Button, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Button, makeStyles, createStyles, Theme, Box } from '@material-ui/core'
 import { KeyboardArrowDown } from '@material-ui/icons'
 
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
@@ -41,6 +41,10 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
 
   const isMember = checkMemberAccess(user, acter)
 
+  if (isMember && selectedFollowers.length === 0) {
+    return <Box className={classes.memberLabel}>Member</Box>
+  }
+
   return (
     <DropdownMenu
       anchorNode={
@@ -74,6 +78,17 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.secondary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
+    },
+    memberLabel: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      height: theme.spacing(3.5),
+      borderRadius: theme.spacing(3),
+      color: theme.palette.secondary.main,
+      border: '1px solid',
+      borderColor: theme.palette.secondary.main,
+      display: 'flex',
+      alignItems: 'center',
     },
   })
 )
