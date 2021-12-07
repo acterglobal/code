@@ -1,3 +1,5 @@
+import { ActerTypes } from '../constants'
+
 import { Acter, ActerConnection } from '@acter/schema'
 
 export const mapFollowersByType = (
@@ -7,9 +9,17 @@ export const mapFollowersByType = (
     acter.Followers?.reduce((map, connection) => {
       const type = connection.Follower.ActerType?.name
       const currentMap = map[type] || []
+
+      if (type === ActerTypes.USER) {
+        return {
+          ...map,
+          ['user']: [...currentMap, connection],
+        }
+      }
+
       return {
         ...map,
-        [type]: [...currentMap, connection],
+        ['acters']: [...currentMap, connection],
       }
     }, {}) || {}
   )
