@@ -11,7 +11,15 @@ export enum ResultKey {
   ACTIVITIES = 'searchActivities',
 }
 
-export const ActerSearchTypes = [ActerTypes.ORGANISATION, ActerTypes.NETWORK]
+export const ActerSearchTypes = [
+  ActerTypes.ORGANISATION,
+  ActerTypes.NETWORK,
+  ActerTypes.PUBLIC_ORGANISATION,
+  ActerTypes.COMMUNITY,
+  ActerTypes.NGO,
+  ActerTypes.COMPANY,
+  ActerTypes.UNIVERSITY,
+]
 export const ActivitySearchTypes = [
   ActivityTypes.EVENT,
   ActivityTypes.IDEA,
