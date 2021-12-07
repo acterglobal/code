@@ -8,18 +8,18 @@ export const mapFollowersByType = (
   return (
     acter.Followers?.reduce((map, connection) => {
       const type = connection.Follower.ActerType?.name
-      const currentMap = map[type] || []
+      const currentMap = map[type] || map['acters'] || []
 
       if (type === ActerTypes.USER) {
         return {
           ...map,
           ['user']: [...currentMap, connection],
         }
-      }
-
-      return {
-        ...map,
-        ['acters']: [...currentMap, connection],
+      } else if (type !== ActerTypes.USER) {
+        return {
+          ...map,
+          ['acters']: [...currentMap, connection],
+        }
       }
     }, {}) || {}
   )
