@@ -25,7 +25,7 @@ export const MembersSection: FC = () => {
   const allFollowers = mapFollowersByType(acter)
 
   const followers =
-    activeSelector === PEOPLE ? allFollowers.user : allFollowers.network
+    activeSelector === PEOPLE ? allFollowers.user : allFollowers.acters
 
   const validFollowers = followers?.filter((follower) =>
     [ADMIN, MEMBER].includes(follower.role as ActerConnectionRole)
@@ -33,7 +33,6 @@ export const MembersSection: FC = () => {
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
-  // const selectors = getActerJoinSelectors(acter)
   const selectors = [PEOPLE, ACTERS]
 
   return (
