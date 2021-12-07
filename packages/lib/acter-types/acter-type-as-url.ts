@@ -7,4 +7,4 @@ import { ActerType } from '@acter/schema'
  * @param acterType The ActerType
  */
 export const acterTypeAsUrl = (acterType: ActerType): string =>
-  pluralize(acterType.name.toLowerCase())
+  pluralize(acterType.name.replace(/\s+/g, '-').toLowerCase())

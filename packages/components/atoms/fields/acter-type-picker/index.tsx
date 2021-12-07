@@ -22,6 +22,7 @@ const {
   NGO,
   COMPANY,
   UNIVERSITY,
+  PUBLIC_ORGANISATION,
 } = ActerTypes
 
 export type ActerTypePickerProps = FormControlProps
@@ -35,9 +36,15 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
-    [NETWORK, COMMUNITY, NGO, COMPANY, ORGANISATION, UNIVERSITY].includes(
-      name as ActerTypes
-    )
+    [
+      ORGANISATION,
+      NETWORK,
+      COMMUNITY,
+      NGO,
+      COMPANY,
+      UNIVERSITY,
+      PUBLIC_ORGANISATION,
+    ].includes(name as ActerTypes)
   )
 
   return (

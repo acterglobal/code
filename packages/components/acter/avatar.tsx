@@ -38,6 +38,26 @@ const useStyles = makeStyles((theme: Theme) => {
       color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
+    community: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
+    },
+    ngo: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
+    },
+    company: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
+    },
+    university: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
+    },
+    'public-organisation': {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.colors.white,
+    },
   })
 })
 
@@ -63,7 +83,9 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
       className={clsx(
         acter.avatarUrl
           ? null
-          : classes[acter.ActerType.name.toLocaleLowerCase()]
+          : classes[
+              acter.ActerType.name.replace(/\s+/g, '-').toLocaleLowerCase()
+            ]
       )}
       alt={`${acter.ActerType.name} ${acter.name}`}
       src={avatarUrl}

@@ -24,7 +24,7 @@ describe('ActerListByType', () => {
     typeLists.map((list, i) => {
       const links = within(list).queryAllByRole('link')
       const acterType = acterTypes[i]
-      const acterTypeLower = acterType.toLocaleLowerCase()
+      const acterTypeLower = acterType.replace(/\s+/g, '-').toLocaleLowerCase()
       // Kind of a re-test of the acterAsUrl lib, but we're testing the order of components here too
       expect(links[0].getAttribute('href')).toMatch(
         `/${acterTypeLower}s/${acterTypeLower}-1`

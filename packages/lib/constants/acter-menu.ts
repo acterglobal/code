@@ -5,5 +5,6 @@ export enum ActerMenu {
   SETTINGS = 'settings',
   PEOPLE = 'people',
   ORGANISATIONS = 'organisations',
+  PUBLIC_ORGANISATIONS = 'public organisations',
   GROUPS = 'groups',
 }
