@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
+import { AddPostReactions } from '@acter/components/posts/post/add-post-reactions'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
@@ -56,9 +57,12 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostContent post={post} />
 
-        {user?.Acter?.id === post.Author.id && (
-          <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
-        )}
+        <Box className={classes.options}>
+          <AddPostReactions postId={post.id} />
+          {user?.Acter?.id === post.Author.id && (
+            <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
+          )}
+        </Box>
       </Box>
     )
   }
@@ -79,6 +83,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       display: 'flex',
       alignItems: 'flex-start',
+    },
+    options: {
+      display: 'flex',
     },
   })
 )
