@@ -1,6 +1,17 @@
 import { ActerTypes } from './acter-types'
 import { ActivityTypes } from './activity-types'
 
+const { EVENT, IDEA, PROJECT, MEETING } = ActivityTypes
+const {
+  ORGANISATION,
+  NETWORK,
+  PUBLIC_ORGANISATION,
+  COMMUNITY,
+  NGO,
+  COMPANY,
+  UNIVERSITY,
+} = ActerTypes
+
 export enum SearchType {
   ACTERS = 'acters',
   ACTIVITIES = 'activities',
@@ -12,16 +23,12 @@ export enum ResultKey {
 }
 
 export const ActerSearchTypes = [
-  ActerTypes.ORGANISATION,
-  ActerTypes.NETWORK,
-  ActerTypes.PUBLIC_ORGANISATION,
-  ActerTypes.COMMUNITY,
-  ActerTypes.NGO,
-  ActerTypes.COMPANY,
-  ActerTypes.UNIVERSITY,
+  ORGANISATION,
+  NETWORK,
+  PUBLIC_ORGANISATION,
+  COMMUNITY,
+  NGO,
+  COMPANY,
+  UNIVERSITY,
 ]
-export const ActivitySearchTypes = [
-  ActivityTypes.EVENT,
-  ActivityTypes.IDEA,
-  ActivityTypes.PROJECT,
-]
+export const ActivitySearchTypes = [EVENT, IDEA, PROJECT, MEETING]
