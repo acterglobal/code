@@ -1,3 +1,4 @@
+import { prisma } from '.prisma/client'
 import { formatISO } from 'date-fns'
 import {
   Authorized,
@@ -22,6 +23,7 @@ import {
   Activity,
 } from '@acter/schema'
 import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
+import { Prisma } from '@acter/schema/prisma'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -432,27 +434,40 @@ export class ActerResolver {
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {
+    const acterSelect: Prisma.ActerSelect = {
+      id: true,
+      slug: true,
+    }
+
     const acter = await ctx.prisma.acter.findUnique({
       select: {
-        id: true,
-        createdByUserId: true,
-        slug: true,
+        ...acterSelect,
+        Children: {
+          select: acterSelect,
+        },
       },
       where: { id: acterId },
     })
 
-    const deletedAt = new Date()
-    const deletedSlug = `${acter.slug}-${formatISO(deletedAt)}`
+    // Flatten the parent/child and update slugs and deletedAt for all
+    const updates = [acter, ...acter.Children].map((child: Partial<Acter>) => {
+      const deletedAt = new Date()
+      const deletedSlug = `deleted-${child.slug}-${formatISO(deletedAt)}`
 
-    return await ctx.prisma.acter.update({
-      data: {
-        slug: deletedSlug,
-        deletedAt: deletedAt,
-        deletedByUserId: ctx.session.user.id,
-      },
-      where: {
-        id: acterId,
-      },
+      return ctx.prisma.acter.update({
+        data: {
+          slug: deletedSlug,
+          deletedAt: deletedAt,
+          deletedByUserId: ctx.session.user.id,
+        },
+        where: {
+          id: child.id,
+        },
+      })
     })
+
+    const res = await ctx.prisma.$transaction(updates)
+
+    return res[0]
   }
 }
