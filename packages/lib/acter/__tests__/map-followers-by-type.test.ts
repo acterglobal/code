@@ -17,7 +17,7 @@ describe('mapFollowersByType', () => {
     expect(mapped).toStrictEqual({})
   })
 
-  it('should return a map of acters by type', () => {
+  it('should return a map of acters without users by type', () => {
     const acter = {
       ...ExampleActer,
       Followers: [
@@ -51,8 +51,7 @@ describe('mapFollowersByType', () => {
     }
 
     const mapped = mapFollowersByType(acter)
-    expect(mapped.organisation).toHaveLength(2)
-    expect(mapped.network).toHaveLength(1)
+    expect(mapped.acters).toHaveLength(3)
     expect(mapped.foo).toBeFalsy()
   })
 })
