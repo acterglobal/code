@@ -244,7 +244,7 @@ model PostReaction{
   createdByUserId   String @map("createdByUserId")
 
   @@unique(name: "oneTypeOfReactionOnOnePostByOneMember", fields: [emojiUnicode, postId, acterId])
-  @@index(name: "reactionForPost", fields: [emojiUnicode, postId, acterId])
+  @@index(name: "onPost", fields: [postId])
 }
 
 model Link {

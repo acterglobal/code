@@ -11,7 +11,7 @@ CREATE TABLE "PostReaction" (
 );
 
 -- CreateIndex
-CREATE INDEX "reactionForPost" ON "PostReaction"("emojiUnicode", "postId", "acterId");
+CREATE INDEX "onPost" ON "PostReaction"("postId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PostReaction_emojiUnicode_postId_acterId_key" ON "PostReaction"("emojiUnicode", "postId", "acterId");
