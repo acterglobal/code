@@ -6,7 +6,7 @@ import clsx from 'clsx'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
-import { AddPostReactions } from '@acter/components/posts/post/add-post-reactions'
+import { AddPostReactions } from '@acter/components/posts/post/add-reactions'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
@@ -58,7 +58,12 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
         <PostContent post={post} />
 
         <Box className={classes.options}>
-          <AddPostReactions postId={post.id} />
+          {post.PostReactions.length === 0 && (
+            <AddPostReactions
+              postId={post.id}
+              isComment={Boolean(post.parentId)}
+            />
+          )}
           {user?.Acter?.id === post.Author.id && (
             <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
           )}

@@ -6,8 +6,8 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  IconButton,
   Popover,
+  Box,
 } from '@material-ui/core'
 
 import { AddEmojiIcon } from '@acter/components/icons/add-emoji-icon'
@@ -21,14 +21,20 @@ import { useUser } from '@acter/lib/user/use-user'
 
 const Picker = dynamic(() => import('emoji-picker-react'), {
   ssr: false,
+  loading: () => <Loading />,
 })
 
 interface AddPostReactionsProps {
   postId: string
+  isComment?: boolean
 }
-export const AddPostReactions: FC<AddPostReactionsProps> = ({ postId }) => {
-  const classes = useStyles()
+export const AddPostReactions: FC<AddPostReactionsProps> = ({
+  postId,
+  isComment,
+}) => {
+  const classes = useStyles({ isComment })
   const [anchorEl, setAnchorEl] = React.useState(null)
+
   const [
     { fetching: addingReaction },
     createPostReaction,
@@ -48,7 +54,6 @@ export const AddPostReactions: FC<AddPostReactionsProps> = ({ postId }) => {
     }
 
     createPostReaction(data)
-
     handleClose()
   }
 
@@ -60,13 +65,9 @@ export const AddPostReactions: FC<AddPostReactionsProps> = ({ postId }) => {
 
   return (
     <>
-      <IconButton
-        disableRipple
-        classes={{ root: classes.icon }}
-        onClick={handleClick}
-      >
+      <Box className={classes.icon} onClick={handleClick}>
         <AddEmojiIcon />
-      </IconButton>
+      </Box>
 
       <Popover
         open={open}
@@ -86,15 +87,33 @@ export const AddPostReactions: FC<AddPostReactionsProps> = ({ postId }) => {
   )
 }
 
+const Loading: FC = () => {
+  const classes = useStyles({})
+  return (
+    <Box className={classes.loading}>
+      <LoadingSpinner size={20} thickness={7} />
+    </Box>
+  )
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     icon: {
-      padding: 0,
-      paddingTop: theme.spacing(0.5),
-      height: theme.spacing(3.5),
-      '&:hover': {
-        background: 'none',
-      },
+      width: theme.spacing(4.5),
+      cursor: 'pointer',
+      display: 'flex',
+      justifyContent: 'center',
+      paddingLeft: theme.spacing(0.2),
+      paddingRight: theme.spacing(0.1),
+      height: theme.spacing(3),
+      borderRadius: 30,
+      backgroundColor: ({ isComment }: { isComment?: boolean }) =>
+        isComment ? theme.colors.white : theme.colors.grey.extraLight,
+    },
+    loading: {
+      width: 280,
+      display: 'flex',
+      justifyContent: 'center',
     },
   })
 )
