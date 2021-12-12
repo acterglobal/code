@@ -9,13 +9,12 @@ import {
 } from '@material-ui/core/'
 
 import { AddPostReactions } from '@acter/components/posts/post/add-reactions'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreatePostReaction } from '@acter/lib/post/use-create-post-reaction'
 import { useDeletePostReaction } from '@acter/lib/post/use-delete-post-reaction'
 import { getPostReactionsGroupByEmoji } from '@acter/lib/reactions/get-reactions-group-by-emoji'
-import {
-  EmojiData,
-  handleReaction as handleEmojiClick,
-} from '@acter/lib/reactions/handle-reaction'
+import { EmojiData, handleReaction } from '@acter/lib/reactions/handle-reaction'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post } from '@acter/schema'
 
@@ -29,16 +28,21 @@ export const PostReactions: FC<PostReactionsProps> = ({ post }) => {
   const [_deleteResult, deleteReaction] = useDeletePostReaction()
   const [_createResult, createReaction] = useCreatePostReaction()
   const { user } = useUser()
+  const { acter } = useActer()
 
   const reactions = getPostReactionsGroupByEmoji(post.PostReactions)
   if (!reactions) return null
 
+  const isMember = checkMemberAccess(user, acter)
+
   const handleClick = (emoji) => {
+    if (!isMember) return null
+
     const emojiData: EmojiData = {
       emoji,
       emojiUnicode: reactions[emoji][0].emojiUnicode,
     }
-    handleEmojiClick({ emojiData, post, user, createReaction, deleteReaction })
+    handleReaction({ emojiData, post, user, createReaction, deleteReaction })
   }
 
   return (
@@ -54,7 +58,7 @@ export const PostReactions: FC<PostReactionsProps> = ({ post }) => {
         </Typography>
       ))}
 
-      <AddPostReactions postId={post.id} isComment={isComment} />
+      {isMember && <AddPostReactions postId={post.id} isComment={isComment} />}
     </Box>
   )
 }

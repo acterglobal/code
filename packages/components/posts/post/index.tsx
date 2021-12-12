@@ -10,6 +10,8 @@ import { AddPostReactions } from '@acter/components/posts/post/add-reactions'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { Post as PostType, User } from '@acter/schema'
@@ -23,6 +25,7 @@ export interface PostsProps {
 export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
+  const { acter } = useActer()
 
   const [{ fetching: updateFetching }, updatePost] = useUpdatePost()
   const [{ fetching: deleteFetching }, deletePost] = useDeletePost()
@@ -38,6 +41,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const handleDelete = () => deletePost(post)
 
   if (updateFetching || deleteFetching) return <LoadingSpinner />
+
+  const isMember = checkMemberAccess(user, acter)
 
   if (toggleForm) {
     return (
@@ -58,7 +63,7 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
         <PostContent post={post} />
 
         <Box className={classes.options}>
-          {post.PostReactions.length === 0 && (
+          {post.PostReactions.length === 0 && isMember && (
             <AddPostReactions
               postId={post.id}
               isComment={Boolean(post.parentId)}
