@@ -8,10 +8,14 @@ import {
   Typography,
 } from '@material-ui/core/'
 
-import { AddPostReactions } from '@acter/components/posts/post/add-post-reactions'
-import { getPostReactionsGroupByEmoji } from '@acter/lib/post/get-reactions-group-by-emoji'
+import { AddPostReactions } from '@acter/components/posts/post/add-reactions'
 import { useCreatePostReaction } from '@acter/lib/post/use-create-post-reaction'
 import { useDeletePostReaction } from '@acter/lib/post/use-delete-post-reaction'
+import { getPostReactionsGroupByEmoji } from '@acter/lib/reactions/get-reactions-group-by-emoji'
+import {
+  EmojiData,
+  handleReaction as handleEmojiClick,
+} from '@acter/lib/reactions/handle-reaction'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post } from '@acter/schema'
 
@@ -19,54 +23,38 @@ interface PostReactionsProps {
   post: Post
 }
 export const PostReactions: FC<PostReactionsProps> = ({ post }) => {
-  const classes = useStyles({ isComment: Boolean(post.parentId) })
+  const isComment = Boolean(post.parentId)
+  const classes = useStyles({ isComment })
 
-  const [_deleteResult, deletePostReaction] = useDeletePostReaction()
-  const [_createResult, createPostReaction] = useCreatePostReaction()
+  const [_deleteResult, deleteReaction] = useDeletePostReaction()
+  const [_createResult, createReaction] = useCreatePostReaction()
   const { user } = useUser()
 
-  const memberReactions = post.PostReactions.filter(
-    (reaction) => reaction.acterId === user?.Acter.id
-  )
-
   const reactions = getPostReactionsGroupByEmoji(post.PostReactions)
-  if (Object.keys(reactions).length === 0) return null
+  if (!reactions) return null
 
   const handleClick = (emoji) => {
-    if (!user) return null
-
-    const reaction = memberReactions.find(
-      (reaction) => reaction.emoji === emoji
-    )
-
-    if (reaction?.id) {
-      return deletePostReaction({ id: reaction.id })
-    }
-
-    createPostReaction({
-      postId: post.id,
-      acterId: user.Acter.id,
-      createdByUserId: user.id,
-      emojiUnicode: reactions[emoji][0].emojiUnicode,
+    const emojiData: EmojiData = {
       emoji,
-    })
+      emojiUnicode: reactions[emoji][0].emojiUnicode,
+    }
+    handleEmojiClick({ emojiData, post, user, createReaction, deleteReaction })
   }
 
   return (
     <Box className={classes.postReactions}>
-      {Object.keys(reactions).map((emoji) => (
+      {Object.keys(reactions).map((emoji, i) => (
         <Typography
           className={classes.emoji}
           onClick={() => handleClick(emoji)}
+          key={`emoji-${i}`}
         >
           {emoji}&nbsp;
           {reactions[emoji].length}
         </Typography>
       ))}
 
-      <Box className={classes.icon}>
-        <AddPostReactions postId={post.id} />
-      </Box>
+      <AddPostReactions postId={post.id} isComment={isComment} />
     </Box>
   )
 }
@@ -87,11 +75,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(0.5),
       fontWeight: theme.typography.fontWeightLight,
       cursor: 'pointer',
-    },
-    icon: {
-      paddingLeft: theme.spacing(1),
-      backgroundColor: theme.colors.grey.extraLight,
-      borderRadius: 30,
     },
   })
 )

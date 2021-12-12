@@ -24,19 +24,18 @@ type CreatePostReactionOptions = UseMutationOptions<
   CreatePostReactionData,
   CreatePostReactionVariables
 >
-
-export type HandleMethod = (
-  values: CreatePostReactionVariables
-) => Promise<
+export type HandleMethodReturnType = Promise<
   OperationResult<CreatePostReactionData, CreatePostReactionVariables>
 >
+export type HandleMethod = (
+  values: CreatePostReactionVariables
+) => HandleMethodReturnType
 
 /**
  * Custom hook that create post reaction
  * @param options - mutation options e.g. data or variables
  * @returns handleMethod to create post reaction and the mutation results
  */
-
 export const useCreatePostReaction = (
   options?: CreatePostReactionOptions
 ): [

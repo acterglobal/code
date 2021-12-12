@@ -19,12 +19,18 @@ type DeletePostReactionOptions = UseMutationOptions<
   DeletePostReactionVariables
 >
 
-export type HandleMethod = (
-  values: DeletePostReactionVariables
-) => Promise<
+export type HandleMethodReturnType = Promise<
   OperationResult<DeletePostReactionData, DeletePostReactionVariables>
 >
+export type HandleMethod = (
+  values: DeletePostReactionVariables
+) => HandleMethodReturnType
 
+/**
+ * Custom hook that delete post reaction
+ * @param options - mutation options e.g. data or variables
+ * @returns handleMethod to delete post reaction and the mutation results
+ */
 export const useDeletePostReaction = (
   options?: DeletePostReactionOptions
 ): [
