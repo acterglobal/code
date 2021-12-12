@@ -9,8 +9,11 @@ export type PostReactionsData = Record<string, Array<PostReaction>>
  */
 export const getPostReactionsGroupByEmoji = (
   reactions: PostReaction[] = []
-): PostReactionsData =>
-  reactions.reduce((result, reaction) => {
+): PostReactionsData => {
+  const groupedReactions = reactions.reduce((result, reaction) => {
     result[reaction.emoji] = [...(result[reaction.emoji] || []), reaction]
     return result
   }, {})
+
+  return Object.keys(groupedReactions).length !== 0 ? groupedReactions : null
+}
