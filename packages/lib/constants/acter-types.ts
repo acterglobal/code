@@ -11,3 +11,25 @@ export enum ActerTypes {
   COMPANY = 'company',
   UNIVERSITY = 'university',
 }
+
+const {
+  ACTERS,
+  NETWORK,
+  ORGANISATION,
+  PUBLIC_ORGANISATION,
+  COMMUNITY,
+  NGO,
+  COMPANY,
+  UNIVERSITY,
+} = ActerTypes
+
+export const MainActerTypes = [
+  ACTERS,
+  NETWORK,
+  ORGANISATION,
+  PUBLIC_ORGANISATION,
+  COMMUNITY,
+  NGO,
+  COMPANY,
+  UNIVERSITY,
+]

@@ -12,10 +12,10 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { ActerTypes } from '@acter/lib/constants'
+import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const {
+const [
   ORGANISATION,
   NETWORK,
   COMMUNITY,
@@ -23,7 +23,7 @@ const {
   COMPANY,
   UNIVERSITY,
   PUBLIC_ORGANISATION,
-} = ActerTypes
+] = MainActerTypes
 
 export type ActerTypePickerProps = FormControlProps
 
