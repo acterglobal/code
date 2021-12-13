@@ -23,12 +23,13 @@ export enum ResultKey {
 }
 
 export const ActerSearchTypes = [
-  ORGANISATION,
   NETWORK,
+  ORGANISATION,
   PUBLIC_ORGANISATION,
   COMMUNITY,
   NGO,
   COMPANY,
   UNIVERSITY,
 ]
+
 export const ActivitySearchTypes = [EVENT, IDEA, PROJECT, MEETING]

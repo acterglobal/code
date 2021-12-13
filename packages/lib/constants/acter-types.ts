@@ -1,5 +1,4 @@
 export enum ActerTypes {
-  ACTERS = 'acters',
   ACTIVITY = 'activity',
   GROUP = 'group',
   NETWORK = 'network',
@@ -13,7 +12,6 @@ export enum ActerTypes {
 }
 
 const {
-  ACTERS,
   NETWORK,
   ORGANISATION,
   PUBLIC_ORGANISATION,
@@ -24,7 +22,6 @@ const {
 } = ActerTypes
 
 export const MainActerTypes = [
-  ACTERS,
   NETWORK,
   ORGANISATION,
   PUBLIC_ORGANISATION,
