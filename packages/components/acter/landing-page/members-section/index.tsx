@@ -7,7 +7,7 @@ import { DisplayActers } from '@acter/components/acter/landing-page/members-sect
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
+import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { MemberType } from '@acter/lib/constants'
 
@@ -22,14 +22,7 @@ export const MembersSection: FC = () => {
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const allFollowers = mapFollowersByType(acter)
-
-  const followers =
-    activeSelector === PEOPLE ? allFollowers.user : allFollowers.acters
-
-  const validFollowers = followers?.filter((follower) =>
-    [ADMIN, MEMBER].includes(follower.role as ActerConnectionRole)
-  )
+  const validFollowers = getFollowersByType(acter, activeSelector)
 
   const handleSelectorChange = (selector) => setActiveSelector(selector)
 
