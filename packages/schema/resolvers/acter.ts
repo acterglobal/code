@@ -1,4 +1,3 @@
-import { prisma } from '.prisma/client'
 import { formatISO } from 'date-fns'
 import {
   Authorized,
