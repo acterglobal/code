@@ -20,6 +20,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import {
   ActerTypes,
   GroupSectionTabs as GroupSectionContent,
+  GroupSectionTabs,
 } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -44,6 +45,7 @@ export const SectionContainer: FC<SectionContainerProps> = ({
   const [onHover, setOnHover] = useState(false)
   const classes = useStyles({ onHover })
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [contentTab, setContentTab] = useState(sectionContent)
   const router = useRouter()
 
   const { user } = useUser()
@@ -52,11 +54,20 @@ export const SectionContainer: FC<SectionContainerProps> = ({
   if (acterFetching) return <LoadingSpinner />
   if (!acter) return null
 
-  const handleAddIconClick = () => setOpenDrawer(true)
-  const handleButtonClick = () =>
-    addItem === ActerTypes.ACTIVITY
-      ? router.push(acterAsUrl({ acter, extraPath: 'activities' }))
-      : setOpenDrawer(true)
+  const handleAddIconClick = () => {
+    if (sectionContent === GroupSectionTabs.MEMBERS) {
+      setContentTab(GroupSectionTabs.INVITE)
+    }
+    setOpenDrawer(true)
+  }
+  const handleButtonClick = () => {
+    if (addItem === ActerTypes.ACTIVITY) {
+      return router.push(acterAsUrl({ acter, extraPath: 'activities' }))
+    }
+
+    setContentTab(sectionContent)
+    setOpenDrawer(true)
+  }
 
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
@@ -91,11 +102,13 @@ export const SectionContainer: FC<SectionContainerProps> = ({
       {addItem === ActerTypes.ACTIVITY ? (
         <AddActivity openDrawer={openDrawer} setDrawer={setOpenDrawer} />
       ) : (
-        <ManageContent
-          openDrawer={openDrawer}
-          setDrawer={setOpenDrawer}
-          contentTab={sectionContent}
-        />
+        openDrawer && (
+          <ManageContent
+            openDrawer={openDrawer}
+            setDrawer={setOpenDrawer}
+            contentTab={contentTab}
+          />
+        )
       )}
     </Box>
   )
