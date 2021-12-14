@@ -15,15 +15,7 @@ import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const [
-  ORGANISATION,
-  NETWORK,
-  COMMUNITY,
-  NGO,
-  COMPANY,
-  UNIVERSITY,
-  PUBLIC_ORGANISATION,
-] = MainActerTypes
+const [NGO] = MainActerTypes
 
 export type ActerTypePickerProps = FormControlProps
 
@@ -36,15 +28,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
-    [
-      ORGANISATION,
-      NETWORK,
-      COMMUNITY,
-      NGO,
-      COMPANY,
-      UNIVERSITY,
-      PUBLIC_ORGANISATION,
-    ].includes(name as ActerTypes)
+    MainActerTypes.includes(name as ActerTypes)
   )
 
   return (
