@@ -90,7 +90,7 @@ model Acter {
   ActerType ActerType @relation(fields: [acterTypeId], references: [id])
 
   // Create a parent/child relationship. Mostly for Organisation -> Group
-  Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id])
+  Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id], onDelete: Cascade)
   Children      Acter[] @relation("acter_parent")
   parentActerId String? @map("parent_acter_id")
 
