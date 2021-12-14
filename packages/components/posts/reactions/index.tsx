@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core/'
 
-import { AddPostReactions } from '@acter/components/posts/post/add-reactions'
+import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreatePostReaction } from '@acter/lib/post/use-create-post-reaction'
@@ -58,7 +58,7 @@ export const PostReactions: FC<PostReactionsProps> = ({ post }) => {
         </Typography>
       ))}
 
-      {isMember && <AddPostReactions postId={post.id} isComment={isComment} />}
+      {isMember && <AddPostReaction postId={post.id} isComment={isComment} />}
     </Box>
   )
 }

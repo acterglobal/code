@@ -28,7 +28,7 @@ interface AddPostReactionsProps {
   postId: string
   isComment?: boolean
 }
-export const AddPostReactions: FC<AddPostReactionsProps> = ({
+export const AddPostReaction: FC<AddPostReactionsProps> = ({
   postId,
   isComment,
 }) => {

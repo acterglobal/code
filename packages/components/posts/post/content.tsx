@@ -6,7 +6,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Markdown from 'markdown-to-jsx'
 
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
-import { PostReactions } from '@acter/components/posts/post/reactions'
+import { PostReactions } from '@acter/components/posts/reactions'
 
 type PostContentProps = PostInfoProps
 
@@ -38,11 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 12,
       hyphens: 'auto',
       overflow: 'hidden',
-    },
-    postReactions: {
-      height: 30,
-      width: 100,
-      backgroundColor: 'red',
     },
   })
 )
