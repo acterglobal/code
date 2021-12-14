@@ -1,0 +1,5 @@
+mutation DeletePostReaction($id: String!) {
+  deletePostReaction(where: { id: $id }) {
+    id
+  }
+}

@@ -8,7 +8,10 @@ import { ActerAvatar } from '@acter/components/acter/avatar'
 import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
+import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { Post as PostType, User } from '@acter/schema'
@@ -22,6 +25,7 @@ export interface PostsProps {
 export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
+  const { acter } = useActer()
 
   const [{ fetching: updateFetching }, updatePost] = useUpdatePost()
   const [{ fetching: deleteFetching }, deletePost] = useDeletePost()
@@ -37,6 +41,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const handleDelete = () => deletePost(post)
 
   if (updateFetching || deleteFetching) return <LoadingSpinner />
+
+  const isMember = checkMemberAccess(user, acter)
 
   if (toggleForm) {
     return (
@@ -56,9 +62,17 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
         <PostContent post={post} />
 
-        {user?.Acter?.id === post.Author.id && (
-          <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
-        )}
+        <Box className={classes.options}>
+          {post.PostReactions.length === 0 && isMember && (
+            <AddPostReaction
+              postId={post.id}
+              isComment={Boolean(post.parentId)}
+            />
+          )}
+          {user?.Acter?.id === post.Author.id && (
+            <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
+          )}
+        </Box>
       </Box>
     )
   }
@@ -79,6 +93,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       display: 'flex',
       alignItems: 'flex-start',
+    },
+    options: {
+      display: 'flex',
     },
   })
 )

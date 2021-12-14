@@ -34,6 +34,7 @@ __metadata:
     color-string: ^1.5.5
     draft-js: ^0.11.7
     email-validator: ^2.0.4
+    emoji-picker-react: ^3.4.8
     env-cmd: ^10.1.0
     filepond: ^4.25.1
     filepond-plugin-file-validate-type: ^1.2.5
@@ -13031,6 +13032,13 @@ __metadata:
   version: 0.8.1
   resolution: "emittery@npm:0.8.1"
   checksum: 2457e8c7b0688bb006126f2c025b2655abe682f66b184954122a8a065b5277f9813d49d627896a10b076b81c513ec5f491fd9c14fbd42c04b95ca3c9f3c365ee
+  languageName: node
+  linkType: hard
+
+"emoji-picker-react@npm:^3.4.8":
+  version: 3.4.8
+  resolution: "emoji-picker-react@npm:3.4.8"
+  checksum: 026a56160defd90d7561fb5763b7cd2615e799706d82e2af71c8fec4266fa10b67bf733853d737669ec3071fcb366e26b72cef4ea71ed81b5c8446fa2ddb4ef8
   languageName: node
   linkType: hard
 

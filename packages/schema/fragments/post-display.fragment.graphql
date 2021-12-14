@@ -1,4 +1,5 @@
 #import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/post-reaction.fragment.graphql"
 
 fragment PostDisplay on Post {
   id
@@ -14,5 +15,8 @@ fragment PostDisplay on Post {
   }
   Author {
     ...ActerDisplay
+  }
+  PostReactions {
+    ...PostReactionData
   }
 }

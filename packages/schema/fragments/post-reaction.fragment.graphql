@@ -1,0 +1,6 @@
+fragment PostReactionData on PostReaction {
+  id
+  emoji
+  emojiUnicode
+  acterId
+}

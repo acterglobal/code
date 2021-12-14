@@ -1,0 +1,22 @@
+#import "../fragments/post-reaction.fragment.graphql"
+
+mutation CreatePostReaction(
+  $emoji: String!
+  $emojiUnicode: String!
+  $postId: String!
+  $acterId: String!
+  $createdByUserId: String!
+) {
+  createPostReaction(
+    data: {
+      emoji: $emoji
+      emojiUnicode: $emojiUnicode
+      Acter: { connect: { id: $acterId } }
+      Post: { connect: { id: $postId } }
+      createdByUser: { connect: { id: $createdByUserId } }
+    }
+  ) {
+    ...PostReactionData
+    postId
+  }
+}

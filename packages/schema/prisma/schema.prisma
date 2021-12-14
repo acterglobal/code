@@ -117,7 +117,7 @@ model Acter {
   Invite Invite[] @relation("inviteToActer")
 
   PostReactions PostReaction[] @relation("acter_reaction_on_post")
-
+  
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
