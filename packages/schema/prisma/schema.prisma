@@ -116,6 +116,8 @@ model Acter {
 
   Invite Invite[] @relation("inviteToActer")
 
+  PostReactions PostReaction[] @relation("acter_reaction_on_post")
+  
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -220,6 +222,8 @@ model Post {
 
   Author   Acter  @relation("authored", fields: [authorId], references: [id])
   authorId String @map("author_id")
+
+  PostReactions PostReaction[] @relation("reaction_on_post")
 
   Notification Notification[]
   @@map("posts")
@@ -377,6 +381,8 @@ model User {
   ActersDeleted Acter[] @relation("acter_deleted_by_user")
 
   Invite Invite[] @relation("invite_created_by_user")
+
+  PostReactions PostReaction[] @relation("post_reaction_by_user")
 
   @@map("users")
 }
