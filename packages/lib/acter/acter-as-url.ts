@@ -34,7 +34,7 @@ export const acterAsUrl = ({
     throw 'ActerType must be provided'
   }
 
-  const baseURL = includeBaseUrl ? process.env.BASE_URL : ''
+  const baseURL = includeBaseUrl ? process.env.NEXT_PUBLIC_BASE_URL : ''
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const acterSlugLower = acter.slug.toLowerCase()
   const url = [

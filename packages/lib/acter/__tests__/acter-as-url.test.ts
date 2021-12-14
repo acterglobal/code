@@ -29,7 +29,7 @@ describe('acterTypeAsUrl', () => {
   })
 
   it('should include the Base URL if requested', () => {
-    process.env.BASE_URL = 'http://example.com'
+    process.env.NEXT_PUBLIC_BASE_URL = 'http://example.com'
     expect(acterAsUrl({ acter: ExampleActer, includeBaseUrl: true })).toBe(
       'http://example.com/organisations/my-organisation'
     )
