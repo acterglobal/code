@@ -7,19 +7,10 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { ActerTypes } from '@acter/lib/constants'
+import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
 
-const {
-  ORGANISATION,
-  NETWORK,
-  GROUP,
-  PUBLIC_ORGANISATION,
-  COMMUNITY,
-  NGO,
-  COMPANY,
-  UNIVERSITY,
-} = ActerTypes
+const { GROUP } = ActerTypes
 
 export interface SelectOrganiserProps {
   /**
@@ -36,16 +27,7 @@ export const SelectOrganiser: FC<SelectOrganiserProps> = ({ acters }) => {
   const classes = useStyles()
   // TODO:  Refactor this to use rule set
   const organisers = acters.filter(({ ActerType: { name } }) =>
-    [
-      ORGANISATION,
-      NETWORK,
-      GROUP,
-      PUBLIC_ORGANISATION,
-      COMMUNITY,
-      NGO,
-      COMPANY,
-      UNIVERSITY,
-    ].includes(name as ActerTypes)
+    [...MainActerTypes, GROUP].includes(name as ActerTypes)
   )
 
   return (
