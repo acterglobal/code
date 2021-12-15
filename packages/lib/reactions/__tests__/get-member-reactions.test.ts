@@ -6,29 +6,62 @@ import {
   ExampleUserActer,
 } from '@acter/schema/fixtures'
 
+const user1 = {
+  ...ExampleUser,
+  Acter: { ...ExampleUserActer, id: '64f7720c-fe48-446c-b427-3ecf1912b48p' },
+}
+const user2 = {
+  ...ExampleUser,
+  Acter: { ...ExampleUserActer, id: '42f7720c-fe48-446c-b427-3ecf1912b48k' },
+}
+const user3 = {
+  ...ExampleUser,
+  Acter: { ...ExampleUserActer, id: '12f7720c-fe48-446c-b427-3ecf1912b48s' },
+}
+
+const reaction1 = {
+  emoji: '😀',
+  emojiUnicode: '1f600',
+  acterId: user1.Acter.id,
+}
+const reaction2 = {
+  emoji: '😍',
+  emojiUnicode: '1f60d',
+  acterId: user1.Acter.id,
+}
+const reaction3 = {
+  emoji: '🤖',
+  emojiUnicode: '1f916',
+  acterId: user1.Acter.id,
+}
+const reaction4 = {
+  emoji: '😀',
+  emojiUnicode: '1f600',
+  acterId: user2.Acter.id,
+}
+const reaction5 = {
+  emoji: '😜',
+  emojiUnicode: '1f61c',
+  acterId: user1.Acter.id,
+}
+const reaction6 = {
+  emoji: '😍',
+  emojiUnicode: '1f60d',
+  acterId: user2.Acter.id,
+}
+const post = {
+  ...ExamplePost,
+  PostReactions: [
+    reaction1,
+    reaction2,
+    reaction3,
+    reaction4,
+    reaction5,
+    reaction6,
+  ] as PostReaction[],
+}
+
 describe('getMemberReactions', () => {
-  const user = {
-    ...ExampleUser,
-    Acter: { ...ExampleUserActer },
-  }
-  const reaction1 = {
-    emoji: '😀',
-    emojiUnicode: '1f600',
-    acterId: user.Acter.id,
-    postId: '64f7720c-fe48-446c-b427-3ecf1912b48p',
-  }
-  const reaction2 = {
-    emoji: '😍',
-    emojiUnicode: '1f60d',
-    acterId: '9b6d7090-827a-4723-b601-14872de00ec2',
-    postId: '64f7720c-fe48-446c-b427-3ecf1912b48a',
-  }
-
-  const post = {
-    ...ExamplePost,
-    PostReactions: [{ ...reaction1 }, { ...reaction2 }] as PostReaction[],
-  }
-
   it('should return null if no post or user passed', () => {
     expect(getMemberReactions(undefined, null)).toBe(undefined)
   })
@@ -37,9 +70,23 @@ describe('getMemberReactions', () => {
     expect(getMemberReactions(post, null)).toEqual([])
   })
 
-  it('should return list of reactions member reacted', () => {
-    expect(getMemberReactions(post, user)).toHaveLength(1)
+  it('should return list of reactions reacted by USER1', () => {
+    expect(getMemberReactions(post, user1)).toHaveLength(4)
 
-    expect(getMemberReactions(post, user)).toEqual([reaction1])
+    const user1Reactions = [reaction1, reaction2, reaction3, reaction5]
+    expect(getMemberReactions(post, user1)).toEqual(user1Reactions)
+  })
+
+  it('should return list of reactions reacted by USER2', () => {
+    expect(getMemberReactions(post, user2)).toHaveLength(2)
+
+    const user2Reactions = [reaction4, reaction6]
+    expect(getMemberReactions(post, user2)).toEqual(user2Reactions)
+  })
+
+  it('should return empty list of reactions for USER3', () => {
+    expect(getMemberReactions(post, user3)).toHaveLength(0)
+
+    expect(getMemberReactions(post, user3)).toEqual([])
   })
 })
