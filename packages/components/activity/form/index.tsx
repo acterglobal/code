@@ -195,8 +195,8 @@ export const ActivityForm: FC<ActivityFormProps> = ({
           organiserId: '',
         },
       } as Acter)
-  const acters = getFollowers(user, checkActer)
-  parentActer && acters.unshift(parentActer)
+  const acterFollowers = getFollowers(user, checkActer)
+  const acters = [parentActer && parentActer, ...acterFollowers]
 
   return (
     <>
