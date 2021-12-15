@@ -15,8 +15,6 @@ import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const [NGO] = MainActerTypes
-
 export type ActerTypePickerProps = FormControlProps
 
 export interface ActerTypePickerValues {

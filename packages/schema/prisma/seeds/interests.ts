@@ -138,6 +138,7 @@ const interestTypes: interestTypeMap[] = [
       { name: 'SCM', description: '', sdgNumber: '' },
       { name: 'Stopbalticpipeline', description: '', sdgNumber: '' },
       { name: 'UniteTheWorld', description: '', sdgNumber: '' },
+      { name: 'GrønneNaboFælleskaber', description: '', sdgNumber: '' },
     ],
   },
 ]
