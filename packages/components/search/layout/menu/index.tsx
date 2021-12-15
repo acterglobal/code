@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 
 import { SearchIcon } from '@acter/components/icons/search-icon'
-import { SecondaryMenu } from '@acter/components/layout/side-bar/secondary-menu'
+import { SecondaryMenu } from '@acter/components/molecules/secondary-menu'
 import { SearchTabs } from '@acter/components/search/layout/menu/tabs'
 import { SearchTypesPicker } from '@acter/components/search/layout/menu/types-picker'
 import { useSearchType } from '@acter/lib/search/use-search-type'
