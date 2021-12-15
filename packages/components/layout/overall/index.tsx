@@ -10,7 +10,10 @@ export type LayoutProps = {
   secondarySidebar?: () => ReactNode
 }
 
-export const Layout: FC<LayoutProps> = ({ children, secondarySidebar }) => {
+export const OverallLayout: FC<LayoutProps> = ({
+  children,
+  secondarySidebar,
+}) => {
   const classes = useStyles()
 
   const { boot } = useIntercom()

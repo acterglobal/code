@@ -11,7 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { SnackbarProvider } from 'notistack'
 
-import { Layout } from '@acter/components/layout'
+import { OverallLayout } from '@acter/components/layout/overall'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
 import { UrqlProvider } from '@acter/lib/urql'
 
@@ -28,7 +28,8 @@ type ActerAppProps = AppProps & {
 const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
 
-  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
+  const getLayout =
+    Component.getLayout ?? ((page) => <OverallLayout>{page}</OverallLayout>)
 
   return (
     <IntercomProvider appId={INTERCOM_APP_ID}>

@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
 
 import { SearchVariablesProvider } from '@acter/components/contexts/search-variables'
-import { Layout } from '@acter/components/layout'
+import { OverallLayout } from '@acter/components/layout/overall'
 import { SearchMenu } from '@acter/components/search/layout/menu'
 
 export const SearchLayout: FC = ({ children }) => (
   <SearchVariablesProvider>
-    <Layout secondarySidebar={() => <SearchMenu />}>{children}</Layout>
+    <OverallLayout secondarySidebar={() => <SearchMenu />}>
+      {children}
+    </OverallLayout>
   </SearchVariablesProvider>
 )
