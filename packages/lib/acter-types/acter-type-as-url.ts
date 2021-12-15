@@ -1,5 +1,6 @@
 import pluralize from 'pluralize'
 
+import { parseActerTypeName } from '@acter/lib/acter-types/parse-acter-type-name'
 import { ActerType } from '@acter/schema'
 
 /**
@@ -7,4 +8,4 @@ import { ActerType } from '@acter/schema'
  * @param acterType The ActerType
  */
 export const acterTypeAsUrl = (acterType: ActerType): string =>
-  pluralize(acterType.name.toLowerCase())
+  pluralize(parseActerTypeName(acterType.name))

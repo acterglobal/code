@@ -32,14 +32,18 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
 
       <Divider classes={{ root: classes.divider }} />
 
-      <Typography className={classes.heading}>Members</Typography>
-      {members.map((connection) => (
-        <DisplayMemberItem
-          key={`follower-${connection.Follower.id}`}
-          Follower={connection.Follower}
-          connection={connection}
-        />
-      ))}
+      {members && (
+        <>
+          <Typography className={classes.heading}>Members</Typography>
+          {members.map((connection) => (
+            <DisplayMemberItem
+              key={`follower-${connection.Follower.id}`}
+              Follower={connection.Follower}
+              connection={connection}
+            />
+          ))}
+        </>
+      )}
     </List>
   )
 }

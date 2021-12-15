@@ -12,10 +12,10 @@ import { Field } from 'formik'
 import { Select } from 'formik-material-ui'
 
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { ActerTypes } from '@acter/lib/constants'
+import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const { ORGANISATION, NETWORK } = ActerTypes
+const [NGO] = MainActerTypes
 
 export type ActerTypePickerProps = FormControlProps
 
@@ -28,7 +28,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
-    [ORGANISATION, NETWORK].includes(name as ActerTypes)
+    MainActerTypes.includes(name as ActerTypes)
   )
 
   return (
@@ -46,7 +46,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
             key={`type-${type.id}`}
             className={classes.acterTypeItem}
           >
-            {capitalize(type.name)}
+            {type.name === NGO ? type.name : capitalize(type.name)}
           </MenuItem>
         ))}
       </Field>

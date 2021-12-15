@@ -8,8 +8,6 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import clsx from 'clsx'
-
 import { getInitials } from '@acter/lib/get-initials'
 import { Acter } from '@acter/schema'
 
@@ -19,22 +17,8 @@ const useStyles = makeStyles((theme: Theme) => {
       width: ({ size }: { size: number }) => theme.spacing(size),
       height: ({ size }: { size: number }) => theme.spacing(size),
       fontSize: '100%',
-      backgroundColor: theme.colors.white,
-      color: theme.palette.secondary.dark,
     },
-    user: {
-      color: theme.palette.secondary.dark,
-      backgroundColor: theme.colors.white,
-    },
-    group: {
-      color: theme.palette.secondary.dark,
-      backgroundColor: theme.colors.white,
-    },
-    organisation: {
-      color: theme.palette.secondary.dark,
-      backgroundColor: theme.colors.white,
-    },
-    network: {
+    acterAvatar: {
       color: theme.palette.secondary.dark,
       backgroundColor: theme.colors.white,
     },
@@ -60,11 +44,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   return (
     <Avatar
       size={size}
-      className={clsx(
-        acter.avatarUrl
-          ? null
-          : classes[acter.ActerType.name.toLocaleLowerCase()]
-      )}
+      className={acter.avatarUrl ? null : classes.acterAvatar}
       alt={`${acter.ActerType.name} ${acter.name}`}
       src={avatarUrl}
     >

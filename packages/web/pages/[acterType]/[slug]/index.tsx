@@ -5,18 +5,17 @@ import { withUrqlClient } from 'next-urql'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { UrlActerTypes } from '@acter/lib/constants'
+import { getUrlActerTypes } from '@acter/lib/acter-types/get-url-acter-types'
+import { ActerTypes } from '@acter/lib/constants'
 import { getUrqlClientOptions } from '@acter/lib/urql'
 
-const { NETWORKS, ORGANISATIONS } = UrlActerTypes
+const UrlActerTypes = getUrlActerTypes()
 
 export const ActerLandingPage: NextPageWithLayout = () => <></>
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { acterType, slug } = params
-  const destination = [NETWORKS, ORGANISATIONS].includes(
-    acterType as UrlActerTypes
-  )
+  const destination = UrlActerTypes.includes(acterType as ActerTypes)
     ? `/${acterType}/${slug}/forum`
     : '/404'
   return {

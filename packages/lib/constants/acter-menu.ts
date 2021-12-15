@@ -3,7 +3,5 @@ export enum ActerMenu {
   FORUM = 'forum',
   MEMBERS = 'members',
   SETTINGS = 'settings',
-  PEOPLE = 'people',
-  ORGANISATIONS = 'organisations',
   GROUPS = 'groups',
 }

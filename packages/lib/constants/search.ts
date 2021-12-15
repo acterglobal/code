@@ -1,5 +1,7 @@
-import { ActerTypes } from './acter-types'
+import { MainActerTypes } from './acter-types'
 import { ActivityTypes } from './activity-types'
+
+const { EVENT, IDEA, PROJECT, MEETING } = ActivityTypes
 
 export enum SearchType {
   ACTERS = 'acters',
@@ -11,9 +13,6 @@ export enum ResultKey {
   ACTIVITIES = 'searchActivities',
 }
 
-export const ActerSearchTypes = [ActerTypes.ORGANISATION, ActerTypes.NETWORK]
-export const ActivitySearchTypes = [
-  ActivityTypes.EVENT,
-  ActivityTypes.IDEA,
-  ActivityTypes.PROJECT,
-]
+export const ActerSearchTypes = [...MainActerTypes]
+
+export const ActivitySearchTypes = [EVENT, IDEA, PROJECT, MEETING]
