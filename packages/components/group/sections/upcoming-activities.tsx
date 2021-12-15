@@ -33,7 +33,10 @@ export const UpcomingActivities: FC = () => {
   if (!activities || !acter) return null
 
   const allActivities = sortActivitiesByStartAt(activities)
-  const upcomingActivities = getActivitiesAfterDate(allActivities, new Date())
+  const upcomingActivities = getActivitiesAfterDate(
+    allActivities.slice(0, 2),
+    new Date()
+  )
 
   const handleClick = (activity: Activity) => {
     setActivitySlug(activity.Acter.slug)
@@ -51,49 +54,43 @@ export const UpcomingActivities: FC = () => {
       buttonText="See All Activities"
       addItem={ActerTypes.ACTIVITY}
     >
-      <Box className={classes.list}>
-        {activitiesFetching ? (
-          <LoadingSpinner />
-        ) : upcomingActivities?.length === 0 ? (
-          <ZeroMessage
-            addItem={ActerTypes.ACTIVITY}
-            primaryText="There are currently no activities planned for this group."
-            secondaryText="Do you want to plan an activity?"
-            buttonText="Create Activity"
-          />
-        ) : (
-          <>
-            {upcomingActivities.map((activity) => (
-              <Box className={classes.activity}>
-                <Box>
-                  <DateTimeInfo activity={activity} />
+      {activitiesFetching ? (
+        <LoadingSpinner />
+      ) : upcomingActivities?.length === 0 ? (
+        <ZeroMessage
+          addItem={ActerTypes.ACTIVITY}
+          primaryText="There are currently no activities planned for this group."
+          secondaryText="Do you want to plan an activity?"
+          buttonText="Create Activity"
+        />
+      ) : (
+        <>
+          {upcomingActivities.map((activity) => (
+            <Box className={classes.activity}>
+              <Box>
+                <DateTimeInfo activity={activity} />
 
-                  <Typography className={classes.name} variant="h6">
-                    {activity.Acter?.name}
-                  </Typography>
+                <Typography className={classes.name} variant="h6">
+                  {activity.Acter?.name}
+                </Typography>
 
-                  <Typography
-                    className={classes.location}
-                    noWrap
-                    variant="body2"
-                  >
-                    {activity.isOnline ? 'Online' : activity.Acter?.location}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Button
-                    variant="contained"
-                    className={classes.button}
-                    onClick={() => handleClick(activity)}
-                  >
-                    View
-                  </Button>
-                </Box>
+                <Typography className={classes.location} noWrap variant="body2">
+                  {activity.isOnline ? 'Online' : activity.Acter?.location}
+                </Typography>
               </Box>
-            ))}
-          </>
-        )}
-      </Box>
+              <Box>
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  onClick={() => handleClick(activity)}
+                >
+                  View
+                </Button>
+              </Box>
+            </Box>
+          ))}
+        </>
+      )}
 
       {showActivity && (
         <ActivityLanding
@@ -108,16 +105,13 @@ export const UpcomingActivities: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    list: {
-      height: theme.spacing(14),
-    },
     activity: {
       display: 'flex',
       paddingLeft: theme.spacing(0.5),
       paddingRight: theme.spacing(0.5),
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(1),
     },
 
     name: {
