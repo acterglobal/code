@@ -4,9 +4,9 @@ import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import clsx from 'clsx'
-import pluralize from 'pluralize'
 
 import { capitalize } from '@acter/lib/string/capitalize'
+import { pluralize } from '@acter/lib/string/pluralize'
 
 export interface SelectorProps {
   selectors: string[]

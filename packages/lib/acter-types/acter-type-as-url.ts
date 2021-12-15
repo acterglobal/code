@@ -1,6 +1,5 @@
-import pluralize from 'pluralize'
-
 import { parseActerTypeName } from '@acter/lib/acter-types/parse-acter-type-name'
+import { pluralize } from '@acter/lib/string/pluralize'
 import { ActerType } from '@acter/schema'
 
 /**

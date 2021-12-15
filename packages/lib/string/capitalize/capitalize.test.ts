@@ -10,4 +10,8 @@ describe('capitalize', () => {
   it('should capitalize a passed string', () => {
     expect(capitalize('foo bar')).toBe('Foo bar')
   })
+
+  it('should handle special capitalizations', () => {
+    expect(capitalize('ngo')).toBe('NGO')
+  })
 })
