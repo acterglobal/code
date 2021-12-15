@@ -11,6 +11,7 @@ import {
 import { Switch } from '@acter/components/styled/switch'
 import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { pluralize } from '@acter/lib/string/pluralize'
 
 export interface SearchTypeProps {
   subTypeName: string
@@ -33,7 +34,7 @@ export const Type: FC<SearchTypeProps> = ({
       <Box className={classes.type}>
         {useTypeColorDot && <Box className={classes.icon}></Box>}
         <Typography className={classes.typeName} variant="body2">
-          {capitalize(subTypeName)}s
+          {pluralize(capitalize(subTypeName))}
         </Typography>
       </Box>
       <Switch

@@ -1,5 +1,17 @@
 import justCapitalize from 'just-capitalize'
 
+const specialCapitalizationMap = {
+  ngo: 'NGO',
+}
+
 export const capitalize = (textString: string | unknown): string => {
-  return textString ? justCapitalize(textString) : ''
+  if (!textString) {
+    return ''
+  }
+
+  const specialCapitalization =
+    specialCapitalizationMap[(textString as string).toLocaleLowerCase()]
+  return specialCapitalization
+    ? specialCapitalization
+    : justCapitalize(textString)
 }

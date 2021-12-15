@@ -1,7 +1,6 @@
-import pluralize from 'pluralize'
-
 import { parseActerTypeName } from '@acter/lib/acter-types/parse-acter-type-name'
 import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
+import { pluralize } from '@acter/lib/string/pluralize'
 
 /**
  * Parses acter type names to be used for urls

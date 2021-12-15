@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/react'
 
-import pluralize from 'pluralize'
 import { withFormik } from 'storybook-formik'
 
 import {
@@ -8,6 +7,7 @@ import {
   ActivityFormProps,
   ActivityFormValues,
 } from '@acter/components/activity/form'
+import { pluralize } from '@acter/lib/string/pluralize'
 import {
   ExampleActivityActer,
   ExampleActivity,
