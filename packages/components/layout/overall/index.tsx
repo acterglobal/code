@@ -2,12 +2,15 @@ import React, { FC, ReactNode, useEffect } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import {
+  Box,
   Container,
   createStyles,
   Drawer,
   makeStyles,
   Theme,
 } from '@material-ui/core'
+
+import clsx from 'clsx'
 
 import { CookieBar } from '@acter/components/molecules/cookie-bar'
 import { Sidebar } from '@acter/components/organisms/side-bar'
@@ -28,16 +31,26 @@ export const OverallLayout: FC<LayoutProps> = ({
     boot()
   }, [])
 
+  const secondSidebar = secondarySidebar?.()
+  const drawerWidthClassName = secondSidebar
+    ? classes.drawerWide
+    : classes.drawerNarrow
+
   return (
     <div className={classes.root}>
       <Drawer
         variant="permanent"
         anchor="left"
         open={true}
-        className={classes.drawer}
+        classes={{
+          root: clsx(classes.drawer, drawerWidthClassName),
+          paper: drawerWidthClassName,
+        }}
       >
-        <Sidebar />
-        {secondarySidebar?.()}
+        <Box className={classes.sidebarContainer}>
+          <Sidebar />
+          {secondSidebar}
+        </Box>
       </Drawer>
       <Container maxWidth="xl" className={classes.container}>
         {children}
@@ -54,8 +67,20 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'row',
     },
     drawer: {
-      width: theme.spacing(theme.mixins.sidebar.primaryWidth),
       flexShrink: 0,
+    },
+    drawerNarrow: {
+      width: theme.spacing(theme.mixins.sidebar.primaryWidth),
+    },
+    drawerWide: {
+      width: theme.spacing(
+        theme.mixins.sidebar.primaryWidth + theme.mixins.sidebar.secondaryWidth
+      ),
+    },
+    sidebarContainer: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'row',
     },
     container: {
       flexGrow: 1,

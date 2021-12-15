@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { ActerLayout } from '@acter/components/acter/layout'
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Head } from '@acter/components/atoms/head'
+import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'

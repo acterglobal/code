@@ -26,6 +26,8 @@ export interface GroupsList {
 export const GroupsList: FC<GroupsList> = ({ acters }) => {
   const classes = useStyles()
 
+  if (!acters?.length) return null
+
   return (
     <Box className={classes.container}>
       {acters.map((acter) => (

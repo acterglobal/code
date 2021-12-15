@@ -1,38 +1,21 @@
 import React, { FC } from 'react'
 
-import { Drawer, makeStyles, Theme, createStyles } from '@material-ui/core'
+import { makeStyles, Theme, createStyles, Box } from '@material-ui/core'
 
-import { PRIMARY_WIDTH } from '@acter/components/organisms/side-bar'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
-
-const SECONDARY_WIDTH = 22
 
 export const SecondaryMenu: FC = ({ children }) => {
   const classes = useStyles()
-  return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      open={true}
-      classes={{ root: classes.root, paper: classes.paper }}
-    >
-      {children}
-    </Drawer>
-  )
+  return <Box className={classes.root}>{children}</Box>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
     root: {
-      width: theme.spacing(SECONDARY_WIDTH),
-    },
-    paper: {
-      width: theme.spacing(SECONDARY_WIDTH),
-      left: theme.spacing(PRIMARY_WIDTH),
-      backgroundColor: theme.palette.secondary.main,
-      border: 'none',
       height: '100%',
+      width: theme.spacing(theme.mixins.sidebar.secondaryWidth),
+      backgroundColor: theme.palette.secondary.main,
       color: theme.palette.secondary.contrastText,
       '& .MuiListItem-root': {
         paddingTop: 0,
