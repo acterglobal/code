@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 import { Box, Link } from '@acter/components/styled'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 

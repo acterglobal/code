@@ -2,7 +2,7 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerLayout } from '@acter/components/acter/layout'
 import { ActerPost } from '@acter/components/acter/posts/post'
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 import { useActerTitle } from '@acter/lib/acter/use-title'
 
 export const PostPage: NextPageWithLayout = () => {

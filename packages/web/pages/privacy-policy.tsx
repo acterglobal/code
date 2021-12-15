@@ -5,7 +5,7 @@ import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 
 const GDPR: NextPageWithLayout = () => {
   return (

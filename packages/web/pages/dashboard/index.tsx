@@ -2,8 +2,8 @@ import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
+import { Head } from '@acter/components/atoms/head'
 import { Dashboard } from '@acter/components/dashboard'
-import { Head } from '@acter/components/layout/head'
 
 const DashboardPage: NextPageWithLayout = () => {
   return (

@@ -2,7 +2,7 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerLayout } from '@acter/components/acter/layout'
 import { ActerMembers } from '@acter/components/acter/members'
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 import { useActerTitle } from '@acter/lib/acter/use-title'
 
 export const ActerMembersPage: NextPageWithLayout = () => {

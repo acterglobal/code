@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 import { Search } from '@acter/components/search'
 import { SearchLayout } from '@acter/components/search/layout'
 

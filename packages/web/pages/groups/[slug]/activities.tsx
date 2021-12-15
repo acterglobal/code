@@ -2,9 +2,9 @@ import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
+import { Head } from '@acter/components/atoms/head'
 import { GroupActivities } from '@acter/components/group/activities'
 import { GroupLayout } from '@acter/components/group/layout/overall'
-import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 export const ActerActivitiesPage: NextPageWithLayout = () => {
