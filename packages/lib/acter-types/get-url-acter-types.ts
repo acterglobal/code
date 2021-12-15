@@ -9,6 +9,6 @@ import { pluralize } from '@acter/lib/string/pluralize'
 
 export const getUrlActerTypes = (): ActerTypes[] => {
   return MainActerTypes.map((type) => {
-    return pluralize(parseActerTypeName(type))
+    return pluralize(parseActerTypeName(type)) as ActerTypes
   })
 }
