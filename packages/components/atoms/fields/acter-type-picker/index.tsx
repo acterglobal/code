@@ -15,8 +15,6 @@ import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 
-const [NGO] = MainActerTypes
-
 export type ActerTypePickerProps = FormControlProps
 
 export interface ActerTypePickerValues {
@@ -46,7 +44,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
             key={`type-${type.id}`}
             className={classes.acterTypeItem}
           >
-            {type.name === NGO ? type.name : capitalize(type.name)}
+            {capitalize(type.name)}
           </MenuItem>
         ))}
       </Field>
