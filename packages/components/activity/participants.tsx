@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export type ParticipatesProps = {
+export type ParticipantsProps = {
   acter: Acter
 }
 
-export const Participates: FC<ParticipatesProps> = ({ acter }) => {
+export const Participants: FC<ParticipantsProps> = ({ acter }) => {
   const classes = useStyles()
   const router = useRouter()
   const handleOnAvatarClick = () =>
@@ -33,7 +33,7 @@ export const Participates: FC<ParticipatesProps> = ({ acter }) => {
   return (
     <Box className={classes.container}>
       <Typography className={classes.heading} variant="h6">
-        Participates
+        Participants
       </Typography>
       <FollowersAvatars acter={acter} onAvatarClick={handleOnAvatarClick} />
     </Box>
