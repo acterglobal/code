@@ -7,7 +7,7 @@ query GetPosts($acterId: String) {
     orderBy: { createdAt: desc }
   ) {
     ...PostDisplay
-    Comments {
+    Comments(orderBy: { createdAt: desc }) {
       ...PostDisplay
     }
     Parent {
