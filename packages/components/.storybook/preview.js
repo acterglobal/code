@@ -34,6 +34,7 @@ export const parameters = {
       order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
     },
   },
+  layout: 'fullscreen',
 }
 
 addDecorator(urqlDecorator)
