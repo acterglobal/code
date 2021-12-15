@@ -61,7 +61,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
       </FormSection>
 
       <FormSection>
-        <FormLabel className={classes.label}>Select Host</FormLabel>
+        <FormLabel className={classes.label}>Share Activity</FormLabel>
         <Box className={classes.switch}>
           <Switch
             name="host"
