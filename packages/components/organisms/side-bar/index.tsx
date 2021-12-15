@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 
 import {
   Box,
-  Drawer,
   Divider,
   List,
   ListItem,
@@ -23,19 +22,12 @@ import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { useUser } from '@acter/lib/user/use-user'
 
-export const PRIMARY_WIDTH = 8
-
 export const Sidebar: FC = () => {
   const classes = useStyles()
   const router = useRouter()
   const { user } = useUser()
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      open={true}
-      classes={{ root: classes.drawer, paper: classes.drawerPaper }}
-    >
+    <Box className={classes.root}>
       <Box className={classes.menu}>
         <List className={classes.list}>
           <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
@@ -62,7 +54,7 @@ export const Sidebar: FC = () => {
         </List>
       </Box>
       <ProfileButton />
-    </Drawer>
+    </Box>
   )
 }
 
@@ -97,15 +89,13 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
-    drawer: {
-      width: theme.spacing(PRIMARY_WIDTH),
-    },
-    drawerPaper: {
-      border: 'none',
-      display: 'flex',
-      flexDirection: 'column',
+    root: {
+      height: '100%',
+      width: theme.spacing(theme.mixins.sidebar.primaryWidth),
       backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
+      display: 'flex',
+      flexDirection: 'column',
       '& .MuiDivider-root': {
         backgroundColor: theme.palette.secondary.light,
         marginLeft: theme.spacing(2),

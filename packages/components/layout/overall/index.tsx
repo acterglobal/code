@@ -1,7 +1,13 @@
 import React, { FC, ReactNode, useEffect } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
-import { Container, createStyles, makeStyles } from '@material-ui/core'
+import {
+  Container,
+  createStyles,
+  Drawer,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
 
 import { CookieBar } from '@acter/components/molecules/cookie-bar'
 import { Sidebar } from '@acter/components/organisms/side-bar'
@@ -24,8 +30,15 @@ export const OverallLayout: FC<LayoutProps> = ({
 
   return (
     <div className={classes.root}>
-      <Sidebar />
-      {secondarySidebar?.()}
+      <Drawer
+        variant="permanent"
+        anchor="left"
+        open={true}
+        className={classes.drawer}
+      >
+        <Sidebar />
+        {secondarySidebar?.()}
+      </Drawer>
       <Container maxWidth="xl" className={classes.container}>
         {children}
         <CookieBar />
@@ -34,11 +47,15 @@ export const OverallLayout: FC<LayoutProps> = ({
   )
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
       flexDirection: 'row',
+    },
+    drawer: {
+      width: theme.spacing(theme.mixins.sidebar.primaryWidth),
+      flexShrink: 0,
     },
     container: {
       flexGrow: 1,
