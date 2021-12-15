@@ -46,7 +46,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
             key={`type-${type.id}`}
             className={classes.acterTypeItem}
           >
-            {type.name === NGO ? type.name : capitalize(type.name)}
+            {capitalize(type.name)}
           </MenuItem>
         ))}
       </Field>
