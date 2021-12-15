@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { SessionIndicator } from '@acter/components/layout/session-indicator'
+import { SessionIndicator } from '@acter/components/molecules/session-indicator'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

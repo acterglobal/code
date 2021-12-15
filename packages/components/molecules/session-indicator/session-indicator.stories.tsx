@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
 
-import { SessionIndicator } from '@acter/components/layout/session-indicator'
+import { SessionIndicator } from '@acter/components/molecules/session-indicator'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
 export default {
