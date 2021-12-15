@@ -17,9 +17,9 @@ import { SvgIconComponent } from '@material-ui/icons'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
-import { commonStyles } from '@acter/components/layout/side-bar/common'
 import { FollowingList } from '@acter/components/molecules/following-list'
 import { ProfileButton } from '@acter/components/molecules/profile-button'
+import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { useUser } from '@acter/lib/user/use-user'
 

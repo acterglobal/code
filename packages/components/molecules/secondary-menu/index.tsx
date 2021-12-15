@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 
 import { Drawer, makeStyles, Theme, createStyles } from '@material-ui/core'
 
-import { PRIMARY_WIDTH } from '@acter/components/layout/side-bar'
-import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { PRIMARY_WIDTH } from '@acter/components/organisms/side-bar'
+import { commonStyles } from '@acter/components/organisms/side-bar/common'
 
 const SECONDARY_WIDTH = 22
 

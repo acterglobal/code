@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
-import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 export const ActerMenuHeader: FC = () => {

@@ -16,7 +16,7 @@ import { SvgIconComponent } from '@material-ui/icons'
 
 import clsx from 'clsx'
 
-import { commonStyles } from '@acter/components/layout/side-bar/common'
+import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
