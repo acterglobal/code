@@ -16,7 +16,6 @@ import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
-import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -81,9 +80,7 @@ export const HeaderSection: FC = () => {
         </Box>
 
         <Box className={classes.buttonContainer}>
-          <FeatureFlag>
-            <AddInviteSection />
-          </FeatureFlag>
+          <AddInviteSection />
           <Connect />
         </Box>
       </Box>

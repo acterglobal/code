@@ -15,7 +15,6 @@ import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { Link } from '@acter/components/util/anchor-link'
-import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -61,9 +60,7 @@ export const HeaderSection: FC = () => {
       </Box>
 
       <Box className={classes.buttonContainer}>
-        <FeatureFlag>
-          <AddInviteSection />
-        </FeatureFlag>
+        <AddInviteSection />
         <Connect />
       </Box>
     </Box>
