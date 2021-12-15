@@ -1,4 +1,4 @@
-#import "../fragments/post-display.fragment.graphql"
+#import "../fragments/post-full.graphql"
 #import "../fragments/acter-display.fragment.graphql"
 
 mutation CreatePost(
@@ -15,12 +15,6 @@ mutation CreatePost(
       Parent: { connect: { id: $parentId } }
     }
   ) {
-    ...PostDisplay
-    Comments {
-      ...PostDisplay
-    }
-    Parent {
-      id
-    }
+    ...PostFull
   }
 }

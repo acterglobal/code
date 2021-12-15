@@ -1,13 +1,7 @@
-#import "../fragments/post-display.fragment.graphql"
+#import "../fragments/post-full.graphql"
 
 query GetPost($id: String!) {
   post(where: { id: $id }) {
-    ...PostDisplay
-    Comments {
-      ...PostDisplay
-    }
-    Parent {
-      id
-    }
+    ...PostFull
   }
 }

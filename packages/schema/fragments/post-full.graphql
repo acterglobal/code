@@ -2,7 +2,7 @@
 
 fragment PostFull on Post {
   ...PostDisplay
-  Comments {
+  Comments(orderBy: { createdAt: asc }) {
     ...PostDisplay
   }
   Parent {

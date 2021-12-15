@@ -1,4 +1,4 @@
-#import "../fragments/post-display.fragment.graphql"
+#import "../fragments/post-full.graphql"
 #import "../fragments/acter-display.fragment.graphql"
 
 query GetPosts($acterId: String) {
@@ -6,12 +6,6 @@ query GetPosts($acterId: String) {
     where: { acterId: { equals: $acterId }, parentId: null }
     orderBy: { createdAt: desc }
   ) {
-    ...PostDisplay
-    Comments(orderBy: { createdAt: desc }) {
-      ...PostDisplay
-    }
-    Parent {
-      id
-    }
+    ...PostFull
   }
 }
