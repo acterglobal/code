@@ -1,7 +1,7 @@
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
 
-const { ACTIVITY, USER } = ActerTypes
+const { ACTIVITY, GROUP, USER } = ActerTypes
 
 /**
  * A curry function for determining if Acter `follower` can follow Acter `acter`
@@ -26,6 +26,7 @@ export const canFollowActer = (acter: Acter) => (following: Acter): boolean => {
   switch (following.ActerType.name.toLowerCase()) {
     // Activities and (sub)groups cannot join anything
     case ACTIVITY:
+    case GROUP:
       return false
     // Users can connect to anything
     case USER:

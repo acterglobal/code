@@ -196,6 +196,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
         },
       } as Acter)
   const acters = getFollowers(user, checkActer)
+  parentActer && acters.unshift(parentActer)
 
   return (
     <>
