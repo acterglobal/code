@@ -3,8 +3,8 @@ import { useIntercom } from 'react-use-intercom'
 
 import { Container, createStyles, makeStyles } from '@material-ui/core'
 
-import { CookieBar } from '@acter/components/layout/cookie-bar'
 import { Sidebar } from '@acter/components/layout/side-bar'
+import { CookieBar } from '@acter/components/molecules/cookie-bar'
 
 export type LayoutProps = {
   secondarySidebar?: () => ReactNode
