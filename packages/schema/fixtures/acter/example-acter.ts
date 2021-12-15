@@ -24,7 +24,7 @@ export const ExampleActer: Acter = {
   locationLat: null,
   locationLng: null,
   placeId: null,
-  slug: 'my-organisation',
+  slug: 'my-example-acter',
   description: `Lorem ipsum dolor sit amet consectetur adipisicing
   elit. Quam laudantium quas voluptates assumenda deserunt, sequi
   alias veritatis vitae eum culpa amet delectus eveniet tempore
