@@ -1,6 +1,4 @@
-import React, { FC, useState } from 'react'
-
-import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 import {
   Button,
@@ -11,30 +9,19 @@ import {
 } from '@material-ui/core'
 
 import { SettingContainer } from '@acter/components/util/forms/setting-container'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
-export const GroupDelete: FC = () => {
+interface GroupDeleteProps {
+  handleClick: () => void
+}
+export const GroupDelete: FC<GroupDeleteProps> = ({ handleClick }) => {
   const classes = useStyles()
-  const router = useRouter()
-  const [redirectUrl, setRedirectUrl] = useState(null)
 
   const { user } = useUser()
   const { acter } = useActer()
-
-  const [{ fetching: deleting }, deleteActer] = useDeleteActer({
-    onCompleted: () => router.push(redirectUrl),
-  })
-
-  const handleClick = () => {
-    setRedirectUrl(acterAsUrl({ acter: acter?.Parent }))
-    deleteActer(acter?.id)
-  }
 
   if (!acter || !user) return null
 
@@ -43,13 +30,8 @@ export const GroupDelete: FC = () => {
 
   return (
     <SettingContainer heading="Group Termination">
-      <Button
-        className={classes.button}
-        onClick={handleClick}
-        disabled={deleting}
-      >
-        <Typography className={classes.text}>Delete group </Typography>
-        {deleting && <LoadingSpinner thickness={6} size={13} />}
+      <Button className={classes.button} onClick={handleClick}>
+        <Typography className={classes.text}>Delete group</Typography>
       </Button>
     </SettingContainer>
   )
@@ -66,7 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
     },
     text: {
-      marginRight: theme.spacing(1),
       textTransform: 'capitalize',
       fontSize: 14,
       fontWeight: theme.typography.fontWeightMedium,
