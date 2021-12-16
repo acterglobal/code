@@ -53,7 +53,11 @@ export const Sidebar: FC = () => {
           )}
         </List>
       </Box>
-      <ProfileButton />
+
+      <Divider />
+      <Box className={classes.profileItem}>
+        <ProfileButton />
+      </Box>
     </Box>
   )
 }
@@ -115,6 +119,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       paddingBottom: 0,
+    },
+    profileItem: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
   })
 )
