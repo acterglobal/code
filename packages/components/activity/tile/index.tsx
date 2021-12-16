@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
-import { ActivityLanding } from './activity-landing'
-
+import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
 import { ActivityType } from '@acter/components/activity/tile/activity-type'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
 import { InfoSection } from '@acter/components/activity/tile/info-section'
@@ -17,9 +18,21 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   if (!activity) return null
 
   const classes = useStyles()
+  const router = useRouter()
+  const [url, _] = useState(router.asPath)
   const [showActivity, setShowActivity] = useState<boolean>(false)
-  const handleClick = () => setShowActivity(true)
-  const handleClose = () => setShowActivity(false)
+
+  const handleClick = () => {
+    router.push(`${url}?activity=${activity.Acter.slug}`, undefined, {
+      shallow: true,
+    })
+    setShowActivity(true)
+  }
+
+  const handleClose = () => {
+    router.push(`${url}`, undefined, { shallow: true })
+    setShowActivity(false)
+  }
 
   return (
     <>

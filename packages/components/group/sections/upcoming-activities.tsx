@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   Button,
@@ -25,6 +27,8 @@ import { Activity } from '@acter/schema'
 
 export const UpcomingActivities: FC = () => {
   const classes = useStyles()
+  const router = useRouter()
+  const [url, _] = useState(router.asPath)
   const [showActivity, setShowActivity] = useState(false)
   const [activitySlug, setActivitySlug] = useState(null)
 
@@ -39,11 +43,15 @@ export const UpcomingActivities: FC = () => {
   )
 
   const handleClick = (activity: Activity) => {
+    router.push(`${url}?activity=${activity.Acter.slug}`, undefined, {
+      shallow: true,
+    })
     setActivitySlug(activity.Acter.slug)
     setShowActivity(true)
   }
 
   const handleClose = () => {
+    router.push(`${url}`, undefined, { shallow: true })
     setShowActivity(false)
     setActivitySlug(null)
   }
