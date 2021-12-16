@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -26,9 +28,13 @@ interface InvitesSectionProps {
 export const InvitesSection: FC<InvitesSectionProps> = ({
   setDrawerHeading,
 }) => {
-  const [currentTab, setCurrentTab] = useState(0)
-  const tabs = [INVITE, REQUESTS, INVITATIONS]
   const classes = useStyles()
+  const { query } = useRouter()
+
+  const tabs = [INVITE, REQUESTS, INVITATIONS]
+  const [currentTab, setCurrentTab] = useState(
+    query?.inviteTab === InviteTabs.REQUESTS ? tabs.indexOf(REQUESTS) : 0
+  )
 
   const handleChange = (_, tab) => {
     setCurrentTab(tab)

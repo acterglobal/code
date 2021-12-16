@@ -2,9 +2,11 @@
 import { GetServerSidePropsResult } from 'next'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { getNotificationRedirectUrl } from '@acter/lib/notification/get-notification-redirect-url'
 import { getUrqlClient } from '@acter/lib/urql'
-import { Notification } from '@acter/schema'
+import { Acter, Notification } from '@acter/schema'
 import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
+import GET_ACTER_BY_ID from '@acter/schema/queries/acter-by-id.graphql'
 import GET_NOTIFICATION from '@acter/schema/queries/notification-get.graphql'
 
 const redirectOnMissingData: GetServerSidePropsResult<Record<string, never>> = {
@@ -61,6 +63,14 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   // TODO: this should be moved to a background job
   try {
     const {
+      data: { acter },
+    } = await urqlClient
+      .query<{ acter: Acter }>(GET_ACTER_BY_ID, {
+        acterId: notification.onActerId,
+      })
+      .toPromise()
+
+    const {
       data: { updateNotification },
     } = await urqlClient
       .mutation<{ updateNotification: Notification }>(
@@ -75,7 +85,7 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     return {
       props: {},
       redirect: {
-        destination: updateNotification.url,
+        destination: getNotificationRedirectUrl(updateNotification, acter),
       },
     }
   } catch (err) {
