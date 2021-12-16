@@ -7,7 +7,7 @@ import { GroupLayout } from '@acter/components/group/layout/overall'
 import { Head } from '@acter/components/layout/head'
 import { useActer } from '@acter/lib/acter/use-acter'
 
-export const ActerActivitiesPage: NextPageWithLayout = () => {
+export const GroupActivitiesPage: NextPageWithLayout = () => {
   const { acter } = useActer()
   return (
     <>
@@ -17,6 +17,6 @@ export const ActerActivitiesPage: NextPageWithLayout = () => {
   )
 }
 
-ActerActivitiesPage.getLayout = (page) => <GroupLayout>{page}</GroupLayout>
+GroupActivitiesPage.getLayout = (page) => <GroupLayout>{page}</GroupLayout>
 
-export default ActerActivitiesPage
+export default GroupActivitiesPage
