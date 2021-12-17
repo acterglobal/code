@@ -19,18 +19,19 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
 
   const classes = useStyles()
   const router = useRouter()
-  const [url, _] = useState(router.asPath)
-  const [showActivity, setShowActivity] = useState<boolean>(false)
+  const [showActivity, setShowActivity] = useState(
+    Boolean(router.query.activity === activity.Acter.slug)
+  )
 
   const handleClick = () => {
-    router.push(`${url}?activity=${activity.Acter.slug}`, undefined, {
-      shallow: true,
-    })
+    const query = { ...router.query, activity: activity.Acter.slug }
+    router.push({ query }, undefined, { shallow: true })
     setShowActivity(true)
   }
 
   const handleClose = () => {
-    router.push(`${url}`, undefined, { shallow: true })
+    delete router.query.activity
+    router.push({ query: router.query }, undefined, { shallow: true })
     setShowActivity(false)
   }
 

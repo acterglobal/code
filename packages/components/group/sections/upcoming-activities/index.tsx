@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -7,7 +7,6 @@ import { SectionContainer } from '@acter/components/group/sections/container'
 import { UpcomingActivity } from '@acter/components/group/sections/upcoming-activities/upcoming-activity'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   getActivitiesAfterDate,
@@ -19,7 +18,6 @@ import { Activity } from '@acter/schema'
 
 export const UpcomingActivities: FC = () => {
   const router = useRouter()
-  const [url, setUrl] = useState(router.asPath)
   const [activitySlug, setActivitySlug] = useState(
     router.query?.activity as string
   )
@@ -30,12 +28,6 @@ export const UpcomingActivities: FC = () => {
   const { acter } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
 
-  useEffect(() => {
-    if (acter) {
-      setUrl(acterAsUrl({ acter }))
-    }
-  }, [acter])
-
   if (!activities || !acter) return null
 
   const allActivities = sortActivitiesByStartAt(activities)
@@ -45,15 +37,15 @@ export const UpcomingActivities: FC = () => {
   )
 
   const handleClick = (activity: Activity) => {
-    router.push(`${url}?activity=${activity.Acter.slug}`, undefined, {
-      shallow: true,
-    })
+    const query = { ...router.query, activity: activity.Acter.slug }
+    router.push({ query }, undefined, { shallow: true })
     setActivitySlug(activity.Acter.slug)
     setShowActivity(true)
   }
 
   const handleClose = () => {
-    router.push(`${url}`, undefined, { shallow: true })
+    delete router.query.activity
+    router.push({ query: router.query }, undefined, { shallow: true })
     setShowActivity(false)
     setActivitySlug(null)
   }
