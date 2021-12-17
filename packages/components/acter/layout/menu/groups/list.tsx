@@ -61,7 +61,7 @@ const GroupName: FC<GroupNameProps> = ({ acter }) => {
       variant="body2"
       noWrap={acter.name.length > 15}
     >
-      # {capitalize(acter.name)}
+      # {acter.name}
     </Typography>
   )
 }
