@@ -1,4 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+
+import { useRouter } from 'next/router'
 
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
@@ -6,10 +8,13 @@ import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerTypes, InviteTabs } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const AddInviteSection: FC = () => {
   const classes = useStyles()
+  const { query } = useRouter()
+
   const [openDrawer, setOpenDrawer] = useState(false)
   const [drawerHeading, setDrawerHeading] = useState('Invite people')
 
@@ -18,6 +23,15 @@ export const AddInviteSection: FC = () => {
 
   const { user } = useUser()
   const { acter } = useActer()
+
+  useEffect(() => {
+    if (
+      acter?.ActerType.name === ActerTypes.GROUP &&
+      query?.inviteTab === InviteTabs.REQUESTS
+    ) {
+      setOpenDrawer(true)
+    }
+  }, [acter, query])
 
   const isMember = checkMemberAccess(user, acter)
 

@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   makeStyles,
   Theme,
@@ -16,15 +18,19 @@ import { VisibilitySettings } from '@acter/components/acter/settings/visibility-
 import { InvitesSection } from '@acter/components/invites'
 import { Links as LinkSection } from '@acter/components/links'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { SettingsTabs } from '@acter/lib/constants'
+import { InviteTabs, SettingsTabs } from '@acter/lib/constants'
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
 
 export const ActerSettings: FC = () => {
   const classes = useStyles()
+  const { query } = useRouter()
 
-  const [currentTab, setCurrentTab] = useState(0)
   const tabs = [SETTINGS, LINKS, INVITE]
+
+  const [currentTab, setCurrentTab] = useState(
+    query?.inviteTab === InviteTabs.REQUESTS ? tabs.indexOf(INVITE) : 0
+  )
 
   const handleChange = (_, tab) => setCurrentTab(tab)
 
