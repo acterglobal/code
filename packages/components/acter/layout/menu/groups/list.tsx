@@ -16,7 +16,6 @@ import clsx from 'clsx'
 import { Link } from '@acter/components/util/anchor-link'
 import { Tooltip } from '@acter/components/util/tool-tip'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
 export interface GroupsList {
