@@ -11,6 +11,7 @@ import {
   makeStyles,
   Theme,
   useTheme,
+  Hidden,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 
@@ -54,10 +55,12 @@ export const Sidebar: FC = () => {
         </List>
       </Box>
 
-      <Divider />
-      <Box className={classes.profileItem}>
-        <ProfileButton />
-      </Box>
+      <Hidden smDown>
+        <Divider />
+        <Box className={classes.profileItem}>
+          <ProfileButton />
+        </Box>
+      </Hidden>
     </Box>
   )
 }

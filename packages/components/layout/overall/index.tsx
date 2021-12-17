@@ -1,4 +1,10 @@
-import React, { FC, ReactNode, useEffect } from 'react'
+import React, {
+  FC,
+  ReactNode,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import {
@@ -6,13 +12,17 @@ import {
   Container,
   createStyles,
   Drawer,
+  DrawerProps,
+  Hidden,
   makeStyles,
   Theme,
+  useMediaQuery,
 } from '@material-ui/core'
 
 import clsx from 'clsx'
 
 import { CookieBar } from '@acter/components/molecules/cookie-bar'
+import { BottomBar } from '@acter/components/organisms/bottom-bar'
 import { Sidebar } from '@acter/components/organisms/side-bar'
 
 export type LayoutProps = {
@@ -24,6 +34,18 @@ export const OverallLayout: FC<LayoutProps> = ({
   secondarySidebar,
 }) => {
   const classes = useStyles()
+  const [isMenuOpen, setMenuOpen] = useState(true)
+  const [menuVariant, setMenuVariant] = useState<DrawerProps['variant']>(
+    'permanent'
+  )
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('xs')
+  )
+
+  useEffect(() => {
+    setMenuOpen(!isSmallScreen)
+    setMenuVariant(isSmallScreen ? 'temporary' : 'permanent')
+  }, [isSmallScreen])
 
   const { boot } = useIntercom()
 
@@ -36,12 +58,18 @@ export const OverallLayout: FC<LayoutProps> = ({
     ? classes.drawerWide
     : classes.drawerNarrow
 
+  const handleDrawerClick = (evt: SyntheticEvent) => {
+    if ((evt.target as HTMLElement).closest('a')) setMenuOpen(false)
+  }
+
   return (
     <div className={classes.root}>
       <Drawer
-        variant="permanent"
+        variant={menuVariant}
         anchor="left"
-        open={true}
+        open={isMenuOpen}
+        onClose={() => setMenuOpen(false)}
+        onClick={handleDrawerClick}
         classes={{
           root: clsx(classes.drawer, drawerWidthClassName),
           paper: drawerWidthClassName,
@@ -56,6 +84,11 @@ export const OverallLayout: FC<LayoutProps> = ({
         {children}
         <CookieBar />
       </Container>
+      <Hidden smUp>
+        <div className={classes.bottomBar}>
+          <BottomBar onOpen={() => setMenuOpen(!isMenuOpen)} />
+        </div>
+      </Hidden>
     </div>
   )
 }
@@ -76,6 +109,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: theme.spacing(
         theme.mixins.sidebar.primaryWidth + theme.mixins.sidebar.secondaryWidth
       ),
+    },
+    bottomBar: {
+      zIndex: theme.zIndex.drawer,
     },
     sidebarContainer: {
       height: '100%',
