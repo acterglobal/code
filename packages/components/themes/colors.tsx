@@ -80,9 +80,9 @@ export const colors: Colors = {
     },
   },
   interestTypes: {
-    Economy: '#F8BA00',
-    Environment: '#1DB100',
-    Social: '#FF644E',
+    Economy: '#FFC53B',
+    Environment: '#69B656',
+    Social: '#F29C40',
     Approach: '#545559',
     Focus: '#000',
     Tags: '#000',
