@@ -46,8 +46,8 @@ export const paletteColors = {
     main: '#1EB001',
   },
   secondary: {
-    main: '#545559',
-    dark: '#2A2A2A',
+    main: '#1B2941',
+    dark: '#071528',
     light: '#D5D5D5',
     contrastText: '#D5D5D5',
   },
