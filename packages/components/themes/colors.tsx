@@ -62,7 +62,7 @@ export const colors: Colors = {
   red: '#FF6754',
   error: '#EA4335',
   grey: {
-    extraLight: '#F2F2F2',
+    extraLight: '#E3E8F2',
     light: '#D9D9D9',
     main: '#929292',
     dark: '#5E5E5E',
