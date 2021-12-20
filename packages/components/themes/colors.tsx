@@ -52,7 +52,7 @@ export const paletteColors = {
     contrastText: '#D5D5D5',
   },
   background: {
-    default: '#EEEDF0',
+    default: '#ECEFF4',
   },
 }
 
