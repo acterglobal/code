@@ -67,7 +67,7 @@ model Acter {
   //   What triggers a Notification
   acterNotifySetting        ActerNotificationSettings       @default(ALL_ACTIVITY) @map("acter_notify_setting")
   //   How often to send an email for Notifications
-  acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(DAILY) @map("acter_notify_email_frequency")
+  acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(INSTANT) @map("acter_notify_email_frequency")
   //   Whether an Acter is visible in public Search
   acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
   //   Who can join a given Acter
@@ -117,7 +117,7 @@ model Acter {
   Invite Invite[] @relation("inviteToActer")
 
   PostReactions PostReaction[] @relation("acter_reaction_on_post")
-  
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -229,19 +229,19 @@ model Post {
   @@map("posts")
 }
 
-model PostReaction{
-  id                String   @id @default(uuid())
-  emoji             String
-  emojiUnicode      String
+model PostReaction {
+  id           String @id @default(uuid())
+  emoji        String
+  emojiUnicode String
 
-  Post              Post    @relation("reaction_on_post", fields: [postId], references: [id], onDelete: Cascade)
-  postId            String  @map("postId")
+  Post   Post   @relation("reaction_on_post", fields: [postId], references: [id], onDelete: Cascade)
+  postId String @map("postId")
 
-  Acter             Acter  @relation("acter_reaction_on_post", fields: [acterId], references: [id])
-  acterId           String @map("acterId")
+  Acter   Acter  @relation("acter_reaction_on_post", fields: [acterId], references: [id])
+  acterId String @map("acterId")
 
-  createdByUser     User   @relation("post_reaction_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId   String @map("createdByUserId")
+  createdByUser   User   @relation("post_reaction_by_user", fields: [createdByUserId], references: [id])
+  createdByUserId String @map("createdByUserId")
 
   @@unique(name: "oneTypeOfReactionOnOnePostByOneMember", fields: [emojiUnicode, postId, acterId])
   @@index(name: "onPost", fields: [postId])
