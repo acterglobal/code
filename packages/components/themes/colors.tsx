@@ -30,6 +30,11 @@ type OtherColors = {
   notificationBadge: Color
 }
 
+type ContentColours = {
+  title: Color
+  description?: Color
+}
+
 export type Colors = {
   black: Color
   grey: Grey
@@ -39,6 +44,7 @@ export type Colors = {
   activityTypes: ActivityTypeColors
   interestTypes: InterestTypeColors
   others: OtherColors
+  content: ContentColours
 }
 
 export const paletteColors = {
@@ -90,5 +96,8 @@ export const colors: Colors = {
   others: {
     searchTab: 'rgba(196, 196, 196, 0.18)',
     notificationBadge: '#E15877',
+  },
+  content: {
+    title: '#171717',
   },
 }
