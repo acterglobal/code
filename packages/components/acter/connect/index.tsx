@@ -83,13 +83,15 @@ const useStyles = makeStyles((theme: Theme) =>
     memberLabel: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      height: theme.spacing(3.5),
+      minWidth: theme.spacing(14),
+      height: theme.spacing(4.5),
       borderRadius: theme.spacing(3),
       color: theme.palette.secondary.main,
       border: '1px solid',
       borderColor: theme.palette.secondary.main,
       display: 'flex',
       alignItems: 'center',
+      fontSize: '1.3rem',
     },
   })
 )

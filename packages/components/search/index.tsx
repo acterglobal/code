@@ -60,7 +60,9 @@ export const Search: FC = () => {
               variant="contained"
               onClick={handleSearch}
             >
-              <Typography variant="caption">Search</Typography>
+              <Typography className={classes.searchText} variant="caption">
+                Search
+              </Typography>
             </Button>
           </Grid>
 
@@ -108,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 8,
     },
     searchButton: {
-      height: theme.spacing(3.5),
+      height: theme.spacing(4.5),
       minWidth: theme.spacing(15),
       borderRadius: theme.spacing(3),
       marginLeft: theme.spacing(1),
@@ -121,6 +123,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         minWidth: theme.spacing(10),
       },
+    },
+    searchText: {
+      fontSize: '1.3rem',
     },
   })
 )

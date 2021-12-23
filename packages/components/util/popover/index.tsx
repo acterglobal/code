@@ -43,7 +43,9 @@ export const Popover: FC<PopoverProps> = ({
         variant="contained"
         onClick={handleClick}
       >
-        <Typography variant="caption">{tabLabel}</Typography>
+        <Typography className={classes.tabLable} variant="caption">
+          {tabLabel}
+        </Typography>
       </Button>
 
       <MUIPopover
@@ -70,7 +72,7 @@ export const Popover: FC<PopoverProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
-      height: theme.spacing(3.5),
+      height: theme.spacing(4.5),
       minWidth: theme.spacing(18),
       borderRadius: theme.spacing(3),
       marginRight: theme.spacing(1),
@@ -87,6 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     popover: {
       maxWidth: theme.spacing(80),
+    },
+    tabLable: {
+      fontSize: '1.3rem',
     },
   })
 )

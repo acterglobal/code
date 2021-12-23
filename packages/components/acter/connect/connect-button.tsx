@@ -6,8 +6,8 @@ export const ConnectButton = withStyles((theme: Theme) =>
       borderRadius: theme.spacing(3),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      minWidth: theme.spacing(13),
-      height: theme.spacing(3.5),
+      minWidth: theme.spacing(14),
+      height: theme.spacing(4.5),
       backgroundColor: theme.palette.primary.main,
       color: 'white',
       textTransform: 'capitalize',
@@ -15,6 +15,7 @@ export const ConnectButton = withStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: theme.palette.primary.main,
       },
+      fontSize: '1.3rem',
     },
   })
 )(Button)
