@@ -19,6 +19,7 @@ import { EditButton } from '@acter/components/acter/landing-page/header-section/
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
@@ -62,13 +63,22 @@ export const HeaderSection: FC = () => {
             >
               {acter.name}
             </Typography>
-            <Typography
-              role="acter-location"
-              variant="subtitle2"
-              className={classes.location}
-            >
-              {acter.location}
-            </Typography>
+            <Box className={classes.infoDescription}>
+              <Typography
+                role="acter-location"
+                variant="subtitle2"
+                className={classes.location}
+              >
+                {acter.location}
+              </Typography>
+              <Typography
+                role="acter-type"
+                variant="subtitle2"
+                className={classes.location}
+              >
+                {capitalize(acter.ActerType.name)}
+              </Typography>
+            </Box>
           </Box>
 
           <Hidden xsDown>
@@ -98,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       height: '80px',
       alignItems: 'flex-end',
-      paddingBottom: theme.spacing(3),
+      paddingBottom: theme.spacing(1),
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
@@ -134,11 +144,16 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '0.9rem',
       },
     },
+    infoDescription: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
     location: {
       color: theme.palette.secondary.dark,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.7rem',
       },
+      marginRight: theme.spacing(3),
     },
     buttonContainer: {
       display: 'flex',
