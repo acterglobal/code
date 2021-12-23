@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 2,
-      wordBreak: 'break-all',
+      wordBreak: 'keep-all',
       overflow: 'hidden',
       marginRight: theme.spacing(0.5),
     },

@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 2,
-      wordBreak: 'break-all',
+      wordBreak: 'keep-all',
       overflow: 'hidden',
     },
     acter: {
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 1,
-      wordBreak: 'break-all',
+      wordBreak: 'keep-all',
       overflow: 'hidden',
     },
     zeroMessage: {
