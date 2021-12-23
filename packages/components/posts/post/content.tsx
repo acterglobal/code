@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     description: {
       color: theme.palette.secondary.dark,
-      fontSize: 12,
+      fontSize: '1rem',
       hyphens: 'auto',
       overflow: 'hidden',
     },

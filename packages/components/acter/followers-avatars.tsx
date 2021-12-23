@@ -21,7 +21,7 @@ const { ACTERS, PEOPLE } = ActerWhoCanJoinSettings
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     section: {
-      fontSize: '0.7rem',
+      fontSize: '1rem',
       fontWeight: theme.typography.fontWeightBold,
       color: theme.palette.secondary.main,
       marginBottom: theme.spacing(0.5),
