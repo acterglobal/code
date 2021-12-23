@@ -65,18 +65,19 @@ export const HeaderSection: FC = () => {
             </Typography>
             <Box className={classes.infoDescription}>
               <Typography
+                role="acter-type"
+                variant="subtitle2"
+                className={classes.acterType}
+              >
+                {capitalize(acter.ActerType.name)}
+              </Typography>
+              {'-'}
+              <Typography
                 role="acter-location"
                 variant="subtitle2"
                 className={classes.location}
               >
                 {acter.location}
-              </Typography>
-              <Typography
-                role="acter-type"
-                variant="subtitle2"
-                className={classes.location}
-              >
-                {capitalize(acter.ActerType.name)}
               </Typography>
             </Box>
           </Box>
@@ -108,7 +109,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       height: '80px',
       alignItems: 'flex-end',
-      paddingBottom: theme.spacing(1),
+      paddingBottom: theme.spacing(2.2),
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
@@ -146,14 +147,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoDescription: {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
+    },
+    acterType: {
+      color: theme.palette.secondary.dark,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '0.7rem',
+      },
+      marginRight: theme.spacing(0.5),
     },
     location: {
       color: theme.palette.secondary.dark,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.7rem',
       },
-      marginRight: theme.spacing(3),
+      marginLeft: theme.spacing(0.5),
     },
     buttonContainer: {
       display: 'flex',
