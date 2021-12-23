@@ -59,13 +59,14 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       borderRadius: theme.spacing(3),
       marginRight: theme.spacing(1),
-      minWidth: theme.spacing(13),
-      height: theme.spacing(3.5),
+      minWidth: theme.spacing(14),
+      height: theme.spacing(4.5),
       color: theme.palette.primary.main,
       border: '1px solid',
       borderColor: theme.palette.primary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
+      fontSize: '1.3rem',
     },
   })
 )
