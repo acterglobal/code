@@ -72,7 +72,7 @@ export const HeaderSection: FC = () => {
                 {acter.location}
               </Typography>
               <Typography
-                role="acter-location"
+                role="acter-type"
                 variant="subtitle2"
                 className={classes.location}
               >
