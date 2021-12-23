@@ -32,13 +32,6 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
           {timeStamp}
         </Typography>
       </Box>
-      <Typography
-        className={classes.acterTypeName}
-        variant="body2"
-        gutterBottom
-      >
-        {capitalize(post.Acter.name)}
-      </Typography>
     </Box>
   )
 }
@@ -59,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     topSection: {
       display: 'flex',
       alignItems: 'center',
+      marginBottom: theme.spacing(1),
     },
     timeStamp: {
       fontSize: 9,
