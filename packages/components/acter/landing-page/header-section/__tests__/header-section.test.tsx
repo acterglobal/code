@@ -43,9 +43,9 @@ describe('[Header Section]', () => {
     expect(screen.getByRole('acter-name')).toHaveTextContent(
       'Greenlight Aarhus'
     )
+    expect(screen.getByRole('acter-type')).toHaveTextContent('Organisation')
     expect(screen.getByRole('acter-location')).toHaveTextContent(
       'Aarhus Denmark'
     )
-    expect(screen.getByRole('acter-type')).toHaveTextContent('Organisation')
   })
 })
