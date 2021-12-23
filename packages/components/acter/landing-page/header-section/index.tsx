@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       height: '80px',
       alignItems: 'flex-end',
-      paddingBottom: theme.spacing(3),
+      paddingBottom: theme.spacing(2.2),
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
