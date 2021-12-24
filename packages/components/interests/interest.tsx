@@ -105,8 +105,8 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     chip: ({ size, type }: StyleProps) => ({
       margin: theme.spacing(0.2),
-      width: theme.spacing(size === Size.SMALL ? 12.5 : 23),
-      height: theme.spacing(size === Size.SMALL ? 2.3 : 3),
+      width: theme.spacing(size === Size.MEDIUM ? 20 : 23),
+      height: theme.spacing(size === Size.MEDIUM ? 3 : 3),
       border: type === TAGS ? 'none' : '1px solid',
       borderRadius: theme.spacing(3),
       display: 'flex',
@@ -132,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     name: ({ size }: StyleProps) => ({
       marginLeft: theme.spacing(1),
-      fontSize: size === Size.SMALL ? '0.55rem' : '0.7',
+      fontSize: size === Size.MEDIUM ? '0.8rem' : '0.7',
     }),
     rightSideBox: {
       display: 'flex',

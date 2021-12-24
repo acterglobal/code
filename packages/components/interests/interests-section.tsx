@@ -38,14 +38,13 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
         <Box key={type.id} role="list">
           <Typography
             id="interest-type-name"
-            variant="body2"
             style={{ marginLeft: 4, fontWeight: 600 }}
           >
             {capitalize(type.name)}
           </Typography>
           <InterestTypes
             type={type}
-            chipSize={Size.SMALL}
+            chipSize={Size.MEDIUM}
             allTypes={typesWithSelectedInterests}
             onSelectedInterestsChange={() => null}
             columns={true}
