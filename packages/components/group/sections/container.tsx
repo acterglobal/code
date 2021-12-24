@@ -137,6 +137,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       fontWeight: theme.typography.fontWeightMedium,
       fontSize: 14,
+      color: theme.colors.blue.dark,
     },
     buttons: {
       display: 'flex',

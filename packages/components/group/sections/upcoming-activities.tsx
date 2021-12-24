@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       marginBottom: theme.spacing(0.5),
       marginLeft: theme.spacing(0.5),
-      color: theme.palette.secondary.dark,
+      color: theme.palette.secondary.main,
     },
     location: {
       fontSize: theme.spacing(1.3),
