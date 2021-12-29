@@ -1,0 +1,11 @@
+{
+  "locales": ["en", "dk"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["common"],
+    "/dashboard": ["common", "dashboard"],
+    "/search": ["common", "search"],
+    "/search/activities": ["common", "search"]
+  }
+}
