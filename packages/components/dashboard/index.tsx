@@ -11,6 +11,7 @@ import {
 
 import { DashboardContent } from '@acter/components/dashboard/content'
 import { HomeIcon } from '@acter/components/icons/home-icon'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const Dashboard: FC = () => {
   const classes = useStyles()
@@ -26,6 +27,7 @@ export const Dashboard: FC = () => {
 const TopSection: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('dashboard')
 
   return (
     <Box className={classes.topSection}>
@@ -38,7 +40,7 @@ const TopSection: FC = () => {
         }}
       />
       <Typography variant="h6" className={classes.heading}>
-        Dashboard
+        {t('dashboard')}
       </Typography>
     </Box>
   )
