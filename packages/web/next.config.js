@@ -14,12 +14,14 @@ const withTM = transpileModules([
   '@acter/schema',
 ])
 
+const withNextTranslate = require('next-translate')
+
 const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
   ? false
   : true
 
 module.exports = withPlugins(
-  [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM],
+  [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM, withNextTranslate],
   {
     images: {
       loader: 'imgix',

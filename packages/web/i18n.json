@@ -1,0 +1,9 @@
+{
+  "locales": ["en", "dk"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["common"],
+    "/dashboard": ["common", "dashboard"]
+  }
+}
