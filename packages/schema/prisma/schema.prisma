@@ -44,6 +44,11 @@ enum ActerWhoCanJoinSettings {
   ACTERS
 }
 
+enum ActerLanguageSettings {
+  EN
+  DK
+}
+
 model Acter {
   id          String   @id @default(uuid())
   acterTypeId String   @map("acter_type_id")
@@ -72,6 +77,8 @@ model Acter {
   acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
   //   Who can join a given Acter
   acterWhoCanJoinSetting    ActerWhoCanJoinSettings         @default(PEOPLE) @map("acter_who_can_join_setting")
+  //   User Acter language settings
+  acterLanguageSetting      ActerLanguageSettings           @default(EN) @map("acter_language_setting")
 
   // Associations
   // List of Interests for this Acter

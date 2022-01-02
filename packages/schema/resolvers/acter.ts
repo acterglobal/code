@@ -19,6 +19,7 @@ import {
   ActerNotificationSettings,
   ActerPrivacySettings,
   ActerWhoCanJoinSettings,
+  ActerLanguageSettings,
   Activity,
 } from '@acter/schema'
 import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
@@ -51,6 +52,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterLanguageSetting', () => ActerLanguageSettings, {
+      nullable: true,
+    })
+    acterLanguageSetting: ActerLanguageSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -120,6 +125,7 @@ export class ActerResolver {
         acterNotifyEmailFrequency,
         acterPrivacySetting,
         acterWhoCanJoinSetting,
+        acterLanguageSetting,
         acterTypeId,
         parentActerId,
         updatedAt: new Date(),
@@ -165,6 +171,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterLanguageSetting', () => ActerLanguageSettings, {
+      nullable: true,
+    })
+    acterLanguageSetting: ActerLanguageSettings,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -241,6 +251,7 @@ export class ActerResolver {
         acterNotifyEmailFrequency,
         acterPrivacySetting,
         acterWhoCanJoinSetting,
+        acterLanguageSetting,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -281,6 +292,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterLanguageSetting', () => ActerLanguageSettings, {
+      nullable: true,
+    })
+    acterLanguageSetting: ActerLanguageSettings,
     @Arg('acterTypeId') acterTypeId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('startAt') startAt: Date,
@@ -306,6 +321,7 @@ export class ActerResolver {
       acterNotifyEmailFrequency,
       acterPrivacySetting,
       acterWhoCanJoinSetting,
+      acterLanguageSetting,
       acterTypeId,
       organiserActerId,
       interestIds,
@@ -379,6 +395,10 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterLanguageSetting', () => ActerLanguageSettings, {
+      nullable: true,
+    })
+    acterLanguageSetting: ActerLanguageSettings,
     @Arg('bannerUrl', { nullable: true })
     bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -406,6 +426,7 @@ export class ActerResolver {
       acterNotifyEmailFrequency,
       acterPrivacySetting,
       acterWhoCanJoinSetting,
+      acterLanguageSetting,
       null,
       bannerUrl,
       interestIds,
