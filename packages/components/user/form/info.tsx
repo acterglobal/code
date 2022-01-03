@@ -5,6 +5,7 @@ import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { LanguagePicker } from '@acter/components/atoms/fields/language-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { ImageUpload } from '@acter/components/image-upload'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
@@ -17,6 +18,7 @@ export interface ProfileInfoFormValues {
   description: string
   email: string
   name: string
+  acterLanguageSetting: string
   location: string
   placeId: string
   locationLat: number
@@ -41,17 +43,21 @@ export const ProfileInfoForm: FC = () => {
     avatarUrl,
     name,
     description,
+    acterLanguageSetting,
     location,
     placeId,
     locationLat,
     locationLng,
   } = user.Acter
 
+  console.log('This is user...', user.Acter)
+
   const initialValues: ProfileInfoFormValues = {
     avatarUrl,
     description,
     email,
     name,
+    acterLanguageSetting,
     location,
     placeId,
     locationLat,
@@ -104,6 +110,13 @@ export const ProfileInfoForm: FC = () => {
                 }}
               />
 
+              <LanguagePicker
+                size="small"
+                variant="outlined"
+                fullWidth
+                className={classes.field}
+              />
+
               <LocationPicker types={['(regions)']} cacheKey="regions" />
             </Grid>
           </Grid>
@@ -131,6 +144,12 @@ const useStyles = makeStyles((theme: Theme) =>
     fieldsContainer: {
       minHeight: 300,
       overflowY: 'scroll',
+    },
+    field: {
+      fontSize: '0.5rem',
+      marginBottom: theme.spacing(2),
+      color: theme.palette.secondary.light,
+      textTransform: 'uppercase',
     },
     textinput: {
       width: '100%',

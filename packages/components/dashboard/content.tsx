@@ -15,12 +15,14 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
 const { ACTIVITY, GROUP } = ActerTypes
 
 export const DashboardContent: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('dashboard')
   const { user, fetching: userLoading } = useUser()
 
   const { activities, fetching: activitiesLoading } = useActivities(
@@ -36,7 +38,7 @@ export const DashboardContent: FC = () => {
   return (
     <Box className={classes.container}>
       <Box className={classes.groups}>
-        <Heading title="My Groups" />
+        <Heading title={t('myGroups')} />
         <Box className={classes.content}>
           {groups.length === 0 ? (
             <ZeroMessage messageFor={GROUP} />
@@ -47,7 +49,7 @@ export const DashboardContent: FC = () => {
       </Box>
 
       <Box className={classes.activities}>
-        <Heading title="My Activities" />
+        <Heading title={t('myActivities')} />
         <Box className={classes.content}>
           {activities ? (
             <>
