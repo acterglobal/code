@@ -12,7 +12,7 @@ import {
 const { PEOPLE, ACTERS } = MemberType
 
 describe('getSelectors', () => {
-  it('should return a group of acters without users by type', () => {
+  it('should return PEOPLE & ACTERS selectors because acter has both user & acter type followers', () => {
     const acter = {
       ...ExampleActer,
       Followers: [
@@ -59,7 +59,7 @@ describe('getSelectors', () => {
     expect(selectors).toStrictEqual([PEOPLE, ACTERS])
   })
 
-  it('should return a group of user type acters', () => {
+  it('should return only the selector PEOPLE because has only user type followers', () => {
     const acter = {
       ...ExampleActer,
       Followers: [
