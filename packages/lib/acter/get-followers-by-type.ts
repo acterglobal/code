@@ -5,6 +5,13 @@ import { Acter, ActerConnection, ActerConnectionRole } from '@acter/schema'
 const { PEOPLE, ACTERS } = MemberType
 const { ADMIN, MEMBER } = ActerConnectionRole
 
+/**
+ *
+ * @param acter current acter
+ * @param activeSelector currently selected member section
+ * @returns array of all valid followers of the selected acter
+ */
+
 export const getFollowersByType = (
   acter: Acter,
   activeSelector: MemberType
