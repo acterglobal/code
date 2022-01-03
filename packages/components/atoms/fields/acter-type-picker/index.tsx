@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { Field } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { Select } from 'formik-material-ui'
 
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
@@ -23,11 +23,19 @@ export interface ActerTypePickerValues {
 
 export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const classes = useStyles()
+  const {
+    values: { acterTypeId },
+    setFieldValue,
+  } = useFormikContext<ActerTypePickerValues>()
   const { acterTypes } = useActerTypes()
 
   const types = acterTypes.filter(({ name }) =>
     MainActerTypes.includes(name as ActerTypes)
   )
+
+  const handleChange = (acterTypeId: string) => {
+    setFieldValue('acterTypeId', acterTypeId)
+  }
 
   return (
     <FormControl {...props}>
@@ -37,6 +45,10 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
         label="Select Acter Type"
         name="acterTypeId"
         required={true}
+        initialValue={acterTypeId}
+        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange(evt.target.value)
+        }
       >
         {types.map((type) => (
           <MenuItem

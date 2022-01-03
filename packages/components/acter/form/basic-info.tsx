@@ -6,12 +6,14 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
-import { ActerTypePicker } from '@acter/components/atoms/fields/acter-type-picker'
+import {
+  ActerTypePicker,
+  ActerTypePickerValues,
+} from '@acter/components/atoms/fields/acter-type-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
 
-export interface BasicInformationValues {
-  acterTypeId: string
+export interface BasicInformationValues extends ActerTypePickerValues {
   name: string
   description: string
   location: string

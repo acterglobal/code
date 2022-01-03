@@ -149,6 +149,7 @@ export class ActerResolver {
     @Arg('locationLng', { nullable: true }) locationLng: number,
     @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
+    @Arg('acterTypeId') acterTypeId: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -236,6 +237,7 @@ export class ActerResolver {
         locationLng,
         placeId,
         url,
+        acterTypeId,
         acterJoinSetting,
         acterNotifySetting,
         acterNotifyEmailFrequency,
@@ -363,6 +365,7 @@ export class ActerResolver {
     @Arg('locationLng', { nullable: true }) locationLng: number,
     @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
+    @Arg('acterTypeId') acterTypeId: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -401,6 +404,7 @@ export class ActerResolver {
       locationLng,
       placeId,
       url,
+      acterTypeId,
       acterJoinSetting,
       acterNotifySetting,
       acterNotifyEmailFrequency,
