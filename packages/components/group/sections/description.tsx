@@ -39,12 +39,10 @@ export const DescriptionSection: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     description: {
-      height: theme.spacing(6.5),
       wordBreak: 'keep-all',
       overflow: 'hidden',
       display: '-webkit-box',
       boxOrient: 'vertical',
-      lineClamp: 3,
     },
     text: {
       fontWeight: theme.typography.fontWeightLight,
