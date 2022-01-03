@@ -50,7 +50,6 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
     placeholder,
     types,
     cacheKey,
-    TextFieldProps,
     ...autocompleteProps
   } = props
   const [error, setError] = useState<Error | ErrorEvent>()
