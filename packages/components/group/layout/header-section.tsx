@@ -52,9 +52,7 @@ export const HeaderSection: FC = () => {
           </Breadcrumbs>
         ) : (
           <Link href={acterAsUrl({ acter })}>
-            <Typography className={classes.name}>
-              # {capitalize(acter.name)}
-            </Typography>
+            <Typography className={classes.name}># {acter.name}</Typography>
           </Link>
         )}
       </Box>
