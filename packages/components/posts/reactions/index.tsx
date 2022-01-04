@@ -18,7 +18,7 @@ import { EmojiData, handleReaction } from '@acter/lib/reactions/handle-reaction'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post } from '@acter/schema'
 
-interface PostReactionsProps {
+export interface PostReactionsProps {
   post: Post
 }
 export const PostReactions: FC<PostReactionsProps> = ({ post }) => {
