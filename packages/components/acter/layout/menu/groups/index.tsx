@@ -43,11 +43,11 @@ export const GroupsSection: FC = () => {
     acter
   )
 
-  const groups = acter.Children.filter(
+  const groups = acter.Children?.filter(
     (child) => child.ActerType.name === ActerTypes.GROUP
   )
 
-  const activeGroups = groups.filter((group) => group.deletedAt === null)
+  const activeGroups = groups?.filter((group) => group.deletedAt === null)
 
   return (
     <>

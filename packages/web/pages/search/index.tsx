@@ -2,9 +2,9 @@ import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
+import { SearchLayout } from '@acter/components/layout/search'
 import { Search } from '@acter/components/search'
-import { SearchLayout } from '@acter/components/search/layout'
 
 const SearchPage: NextPageWithLayout = () => {
   return (

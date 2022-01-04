@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 
 import {
   Box,
-  Drawer,
   Divider,
   List,
   ListItem,
@@ -12,30 +11,24 @@ import {
   makeStyles,
   Theme,
   useTheme,
+  Hidden,
 } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
-import { commonStyles } from '@acter/components/layout/side-bar/common'
-import { FollowingList } from '@acter/components/layout/side-bar/following-list'
-import { ProfileButton } from '@acter/components/layout/side-bar/profile-button'
+import { FollowingList } from '@acter/components/molecules/following-list'
+import { ProfileButton } from '@acter/components/molecules/profile-button'
+import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { useUser } from '@acter/lib/user/use-user'
-
-export const PRIMARY_WIDTH = 8
 
 export const Sidebar: FC = () => {
   const classes = useStyles()
   const router = useRouter()
   const { user } = useUser()
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      open={true}
-      classes={{ root: classes.drawer, paper: classes.drawerPaper }}
-    >
+    <Box className={classes.root}>
       <Box className={classes.menu}>
         <List className={classes.list}>
           <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
@@ -61,8 +54,14 @@ export const Sidebar: FC = () => {
           )}
         </List>
       </Box>
-      <ProfileButton />
-    </Drawer>
+
+      <Hidden smDown>
+        <Divider />
+        <Box className={classes.profileItem}>
+          <ProfileButton />
+        </Box>
+      </Hidden>
+    </Box>
   )
 }
 
@@ -97,15 +96,13 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
-    drawer: {
-      width: theme.spacing(PRIMARY_WIDTH),
-    },
-    drawerPaper: {
-      border: 'none',
-      display: 'flex',
-      flexDirection: 'column',
+    root: {
+      height: '100%',
+      width: theme.spacing(theme.mixins.sidebar.primaryWidth),
       backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
+      display: 'flex',
+      flexDirection: 'column',
       '& .MuiDivider-root': {
         backgroundColor: theme.palette.secondary.light,
         marginLeft: theme.spacing(2),
@@ -125,6 +122,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       paddingBottom: 0,
+    },
+    profileItem: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
   })
 )

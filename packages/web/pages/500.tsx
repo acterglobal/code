@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 import { Box } from '@acter/components/styled'
 
 const Custom500: NextPageWithLayout = () => {

@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 
 import { NextPageWithLayout } from 'pages/_app'
 
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
 
 const ErrorPage: NextPageWithLayout = () => {
   return (

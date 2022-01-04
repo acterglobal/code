@@ -117,6 +117,7 @@ const SmallSwitch = withStyles((theme: Theme) =>
       boxShadow: 'none',
     },
     track: {
+      height: 14,
       border: `1px solid ${theme.colors.grey.dark}`,
       borderRadius: 16 / 2,
       opacity: 1,

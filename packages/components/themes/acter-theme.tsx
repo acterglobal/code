@@ -15,6 +15,16 @@ declare module '@material-ui/core/styles/createTheme' {
   }
 }
 
+declare module '@material-ui/core/styles/createMixins' {
+  interface SidebarMixin {
+    primaryWidth: number
+    secondaryWidth: number
+  }
+  interface Mixins {
+    sidebar: SidebarMixin
+  }
+}
+
 export const theme = createTheme({
   palette: paletteColors,
 
@@ -26,6 +36,13 @@ export const theme = createTheme({
     MuiButton: {
       disableElevation: true,
       disableRipple: true,
+    },
+  },
+
+  mixins: {
+    sidebar: {
+      primaryWidth: 8,
+      secondaryWidth: 22,
     },
   },
 })

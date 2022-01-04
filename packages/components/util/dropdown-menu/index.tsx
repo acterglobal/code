@@ -1,6 +1,12 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
 
-import { Menu, createStyles, makeStyles, Theme } from '@material-ui/core'
+import {
+  Menu,
+  createStyles,
+  makeStyles,
+  Theme,
+  PopoverOrigin,
+} from '@material-ui/core'
 
 const REGULAR_WIDTH = 20
 const LARGE_WIDTH = 30
@@ -12,11 +18,15 @@ interface DropdownMenuProps {
   closeOnClick?: boolean
   size?: Size
   children: ReactNode
+  anchorOrigin?: PopoverOrigin
+  transformOrigin?: PopoverOrigin
 }
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   anchorNode,
   closeOnClick = true,
   size = 'regular',
+  anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
+  transformOrigin = { vertical: 'top', horizontal: 'right' },
   children,
 }) => {
   const classes = useStyles({
@@ -32,8 +42,8 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
     <div>
       <div onClick={openMenu}>{anchorNode}</div>
       <Menu
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
         getContentAnchorEl={null}
         anchorEl={menuAnchorEl}
         open={Boolean(menuAnchorEl)}

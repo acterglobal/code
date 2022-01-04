@@ -3,8 +3,8 @@ import React from 'react'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerActivities } from '@acter/components/acter/activities'
-import { ActerLayout } from '@acter/components/acter/layout'
-import { Head } from '@acter/components/layout/head'
+import { Head } from '@acter/components/atoms/head'
+import { ActerLayout } from '@acter/components/layout/acter'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 export const ActerActivitiesPage: NextPageWithLayout = () => {
