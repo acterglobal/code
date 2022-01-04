@@ -41,7 +41,7 @@ const InfoSectionContainer = withStyles((theme: Theme) =>
   createStyles({
     root: {
       //TODO: make this reusable
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.colors.white,
       borderColor: theme.palette.divider,
       borderWidth: 'thin',
       borderStyle: 'solid',

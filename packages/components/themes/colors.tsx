@@ -11,6 +11,10 @@ type Grey = {
   dark: Color
 }
 
+type Blue = {
+  dark: Color
+}
+
 type ActivityTypeColor = {
   [key in ActivityTypes]: Color
 }
@@ -30,8 +34,14 @@ type OtherColors = {
   notificationBadge: Color
 }
 
+type ContentColours = {
+  title: Color
+  description?: Color
+}
+
 export type Colors = {
   black: Color
+  blue: Blue
   grey: Grey
   white: Color
   red: Color
@@ -39,6 +49,7 @@ export type Colors = {
   activityTypes: ActivityTypeColors
   interestTypes: InterestTypeColors
   others: OtherColors
+  content: ContentColours
 }
 
 export const paletteColors = {
@@ -46,13 +57,13 @@ export const paletteColors = {
     main: '#1EB001',
   },
   secondary: {
-    main: '#545559',
-    dark: '#2A2A2A',
+    main: '#1B2941',
+    dark: '#071528',
     light: '#D5D5D5',
     contrastText: '#D5D5D5',
   },
   background: {
-    default: '#EEEDF0',
+    default: '#ECEFF4',
   },
 }
 
@@ -61,8 +72,11 @@ export const colors: Colors = {
   white: '#fff',
   red: '#FF6754',
   error: '#EA4335',
+  blue: {
+    dark: '#243141',
+  },
   grey: {
-    extraLight: '#F2F2F2',
+    extraLight: '#E3E8F2',
     light: '#D9D9D9',
     main: '#929292',
     dark: '#5E5E5E',
@@ -80,9 +94,9 @@ export const colors: Colors = {
     },
   },
   interestTypes: {
-    Economy: '#F8BA00',
-    Environment: '#1DB100',
-    Social: '#FF644E',
+    Economy: '#FFC53B',
+    Environment: '#69B656',
+    Social: '#F29C40',
     Approach: '#545559',
     Focus: '#000',
     Tags: '#000',
@@ -90,5 +104,8 @@ export const colors: Colors = {
   others: {
     searchTab: 'rgba(196, 196, 196, 0.18)',
     notificationBadge: '#E15877',
+  },
+  content: {
+    title: '#171717',
   },
 }
