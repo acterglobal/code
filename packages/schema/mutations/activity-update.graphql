@@ -10,6 +10,7 @@ mutation ActivityUpdate(
   $locationLng: Float
   $placeId: String
   $url: String
+  $acterTypeId: String!
   $bannerUrl: String
   $interestIds: [String!]!
   $followerIds: [String!]!
@@ -32,6 +33,7 @@ mutation ActivityUpdate(
     locationLng: $locationLng
     placeId: $placeId
     url: $url
+    acterTypeId: $acterTypeId
     bannerUrl: $bannerUrl
     interestIds: $interestIds
     followerIds: $followerIds
