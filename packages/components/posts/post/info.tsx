@@ -3,10 +3,7 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { formatRelative, format, differenceInDays } from 'date-fns'
-
-import { DD_MMM_YYYY_FORMAT } from '@acter/lib/constants'
-import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
+import { getPostTimeStamp } from '@acter/lib/post/get-post-timestamp'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post } from '@acter/schema'
 
@@ -16,13 +13,6 @@ export interface PostInfoProps {
 
 export const PostInfo: FC<PostInfoProps> = ({ post }) => {
   const classes = useStyles()
-
-  //@ts-ignore
-  const timeStamp =
-    differenceInDays(parseDateOrString(post.updatedAt), new Date()) <= -7
-      ? format(parseDateOrString(post.updatedAt), DD_MMM_YYYY_FORMAT)
-      : formatRelative(parseDateOrString(post.updatedAt), new Date())
-
   return (
     <Box>
       <Box className={classes.topSection}>
@@ -30,7 +20,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
           {capitalize(post.Author.name)}
         </Typography>
         <Typography variant="body2" className={classes.timeStamp}>
-          {timeStamp}
+          {getPostTimeStamp(post.updatedAt)}
         </Typography>
       </Box>
     </Box>
