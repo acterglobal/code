@@ -1,24 +1,16 @@
 import React, { FC } from 'react'
 
-import { Typography } from '@material-ui/core'
+import { NotAuthorizedMessage } from '@acter/components/errors/not-authorized'
+import { NotLoggedInMessage } from '@acter/components/errors/not-logged'
+import { User } from '@acter/schema'
 
-import { Link } from '@acter/components/util/anchor-link'
-import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
+interface Custom401Props {
+  user?: User
+  isPrivate?: boolean
+}
 
-export const Custom401: FC = () => {
-  const { loginUrl, signupUrl } = useAuthRedirect()
+export const Custom401: FC<Custom401Props> = ({ user, isPrivate }) => {
+  if (!user) return <NotLoggedInMessage />
 
-  return (
-    <Typography variant="body2" style={{ textAlign: 'center', paddingTop: 40 }}>
-      You are not authorized to view this page. Please{' '}
-      <Link href={loginUrl} isExternal>
-        login
-      </Link>{' '}
-      /{' '}
-      <Link href={signupUrl} isExternal>
-        signup
-      </Link>{' '}
-      and try again.
-    </Typography>
-  )
+  if (isPrivate) return <NotAuthorizedMessage />
 }
