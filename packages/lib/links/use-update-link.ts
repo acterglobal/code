@@ -1,12 +1,12 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import UPDATE_LINK from '@acter/lib/graphql/mutations/link-update.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter, Link as LinkType } from '@acter/schema'
-import UPDATE_LINK from '@acter/schema/mutations/link-update.graphql'
 
 export type LinkVariables = LinkType & {
   linkId: string

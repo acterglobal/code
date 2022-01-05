@@ -1,12 +1,12 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import CREATE_LINK from '@acter/lib/graphql/mutations/link-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter, Link as LinkType } from '@acter/schema'
-import CREATE_LINK from '@acter/schema/mutations/link-create.graphql'
 
 export type LinkVariables = LinkType & {
   acterId: string

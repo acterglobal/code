@@ -1,8 +1,8 @@
 import { useNotifications } from './use-notifications'
 import { useMutation, UseMutationState } from 'urql'
 
+import UPDATE_NOTIFICATION_VIEWED from '@acter/lib/graphql/mutations/notifications-update-viewed.graphql'
 import { Notification } from '@acter/schema'
-import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notifications-update-viewed.graphql'
 
 type UseUpdateNotificationData = {
   updateNotification: Notification

@@ -1,11 +1,11 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import CREATE_INVITES from '@acter/lib/graphql/mutations/invites-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { InviteCreateManyInput } from '@acter/schema/generated/resolvers/inputs/InviteCreateManyInput'
-import CREATE_INVITES from '@acter/schema/mutations/invites-create.graphql'
 
 export type CreateInvitesVariables = { data: InviteCreateManyInput[] }
 

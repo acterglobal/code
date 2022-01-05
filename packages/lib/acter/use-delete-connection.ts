@@ -1,12 +1,12 @@
 import { OperationResult, UseMutationState } from 'urql'
 
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
+import DELETE_ACTER_CONNECTION from '@acter/lib/graphql/mutations/acter-connection-delete.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerConnection } from '@acter/schema'
-import DELETE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-delete.graphql'
 
 type DeleteConnectionData = {
   deleteActerConnection: ActerConnection

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { CombinedError, useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
+import GET_POSTS from '@acter/lib/graphql/queries/posts-by-acter.graphql'
 import { Post } from '@acter/schema'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 
 type PostsData = {
   posts: Post[]

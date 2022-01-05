@@ -1,11 +1,11 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import CREATE_ACTER_CONNECTION from '@acter/lib/graphql/mutations/acter-connection-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerConnection, ActerConnectionRole } from '@acter/schema'
-import CREATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-create.graphql'
 
 export type ConnectionVariables = {
   followerActerId: string

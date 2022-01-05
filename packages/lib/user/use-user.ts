@@ -4,8 +4,8 @@ import { useUser as getUser } from '@auth0/nextjs-auth0'
 
 import { CombinedError, useQuery, UseQueryState } from 'urql'
 
+import GET_USER from '@acter/lib/graphql/queries/user-by-email.graphql'
 import { User } from '@acter/schema'
-import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 
 type UseUserData = { user: User }
 

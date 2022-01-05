@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { OperationContext, useQuery, UseQueryState } from 'urql'
 
+import GET_NOTIFICATIONS from '@acter/lib/graphql/queries/get-new-notifications-by-user.graphql'
 import {
   getNotificationsGroupByActer,
   NotificationsData,
 } from '@acter/lib/notification/get-notifications-group-by-acter'
 import { useUser } from '@acter/lib/user/use-user'
-import GET_NOTIFICATIONS from '@acter/schema/queries/get-new-notifications-by-user.graphql'
 
 type ReexecuteQuery = (opts?: Partial<OperationContext>) => void
 type UseNotificationsQueryResults = UseQueryState & {

@@ -1,10 +1,10 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import DELETE_POST_REACTION from '@acter/lib/graphql/mutations/delete-post-reaction.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
-import DELETE_POST_REACTION from '@acter/schema/mutations/delete-post-reaction.graphql'
 
 export type DeletePostReactionVariables = {
   id: string

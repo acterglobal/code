@@ -2,9 +2,9 @@
 import { getSession } from '@auth0/nextjs-auth0'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import GET_USER from '@acter/lib/graphql/queries/user-by-email.graphql'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
-import GET_USER from '@acter/schema/queries/user-by-email.graphql'
 
 export const getUserProfile = (
   requireUser = true

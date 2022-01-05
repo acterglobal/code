@@ -1,7 +1,7 @@
 import { UseQueryArgs, useQuery, UseQueryState } from 'urql'
 
+import GET_POST from '@acter/lib/graphql/queries/post-by-id.graphql'
 import { Post } from '@acter/schema'
-import GET_POST from '@acter/schema/queries/post-by-id.graphql'
 
 type PostData = {
   post: Post

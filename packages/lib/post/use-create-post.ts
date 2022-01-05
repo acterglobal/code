@@ -1,12 +1,12 @@
 import { UseMutationState, OperationResult } from 'urql'
 
+import CREATE_POST from '@acter/lib/graphql/mutations/post-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType, Acter } from '@acter/schema'
-import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
 
 export type PostVariables = PostType & {
   acterId: string

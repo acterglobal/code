@@ -1,7 +1,7 @@
 import { useQuery, UseQueryState } from 'urql'
 
+import QUERY_ACTER_TYPES from '@acter/lib/graphql/queries/query-acter-types.graphql'
 import { ActerType } from '@acter/schema'
-import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
 
 type UseActerTypesData = {
   acterTypes: ActerType[]

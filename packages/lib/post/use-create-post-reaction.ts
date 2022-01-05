@@ -1,10 +1,10 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import CREATE_POST_REACTION from '@acter/lib/graphql/mutations/post-reaction-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
-import CREATE_POST_REACTION from '@acter/schema/mutations/post-reaction-create.graphql'
 
 export type CreatePostReactionVariables = {
   emoji: string
