@@ -13,7 +13,7 @@ const Custom401: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head title="404 - Acter" />
+      <Head title="401 - Acter" />
       <Box mt={20}>
         <Typography variant="body1">
           You are not authorized to view this page. Please{' '}

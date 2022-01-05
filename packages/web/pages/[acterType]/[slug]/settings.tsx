@@ -26,10 +26,12 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
 
   if (userLoading || acterLoading) return <LoadingSpinner />
 
-  if (!acter || !user) return null
+  // if (!acter || !user) return null
+
+  //if (!user && !userLoading) router.push('/401')
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  !isAdmin && router.push('/401')
+  // !isAdmin && router.push('/401')
 
   return (
     <>
