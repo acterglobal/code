@@ -16,6 +16,8 @@ export const DATE_MONTH_FORMAT_SHORT = 'd MMM.'
 export const DD_MM_YY_FORMAT = 'dd-MM-yy'
 // 19-11-2021
 export const DD_MM_YYYY_FORMAT = 'dd-MM-yyyy'
+// 19 Nov 2021
+export const DD_MMM_YYYY_FORMAT = 'dd MMM yyyy'
 // Mon, 19 July
 export const DAY_DATE_MONTH_FORMAT_SHORT = 'EEE, d MMM'
 // 21:45

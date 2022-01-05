@@ -3,8 +3,9 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { formatRelative } from 'date-fns'
+import { formatRelative, format, differenceInDays } from 'date-fns'
 
+import { DD_MMM_YYYY_FORMAT } from '@acter/lib/constants'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post } from '@acter/schema'
@@ -17,10 +18,10 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
   const classes = useStyles()
 
   //@ts-ignore
-  const timeStamp = formatRelative(
-    parseDateOrString(post.updatedAt),
-    new Date()
-  )
+  const timeStamp =
+    differenceInDays(parseDateOrString(post.updatedAt), new Date()) <= -7
+      ? format(parseDateOrString(post.updatedAt), DD_MMM_YYYY_FORMAT)
+      : formatRelative(parseDateOrString(post.updatedAt), new Date())
 
   return (
     <Box>
