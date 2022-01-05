@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Head } from '@acter/components/atoms/head'
+import { Custom401 } from '@acter/components/errors'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -14,7 +13,6 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const ActerSettingsPage: NextPageWithLayout = () => {
-  const router = useRouter()
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
   const { user, fetching: userLoading } = useUser()
@@ -26,12 +24,11 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
 
   if (userLoading || acterLoading) return <LoadingSpinner />
 
-  // if (!acter || !user) return null
-
-  //if (!user && !userLoading) router.push('/401')
-
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  // !isAdmin && router.push('/401')
+
+  if (!user) return <Custom401 />
+
+  if (user && !isAdmin) return <Custom401 user={user} isPrivate />
 
   return (
     <>
