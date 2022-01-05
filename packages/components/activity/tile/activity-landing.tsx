@@ -26,6 +26,8 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
   openDrawer,
   handleCloseDrawer,
 }) => {
+  if (!activitySlug || !openDrawer) return null
+
   const [drawerHeading, setDrawerHeading] = useState<string>('')
   const [action, setAction] = useState<ActionButton>(null)
 
