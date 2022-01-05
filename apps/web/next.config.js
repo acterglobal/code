@@ -9,6 +9,7 @@ const transpileModules = require('next-transpile-modules')
 
 const withTM = transpileModules([
   '@acter/components',
+  '@acter/backend-service',
   '@acter/jobs',
   '@acter/lib',
   '@acter/schema',

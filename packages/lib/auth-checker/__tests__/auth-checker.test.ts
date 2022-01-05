@@ -1,8 +1,8 @@
 import { ResolverData } from 'type-graphql'
 
+import { authChecker } from '@acter/lib/auth-checker'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
-import { authChecker } from '@acter/schema/auth-checker'
 import {
   ExampleActer,
   ExampleActerConnection,

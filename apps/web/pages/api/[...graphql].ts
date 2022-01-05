@@ -7,8 +7,8 @@ import { withSentry } from '@sentry/nextjs'
 
 import { ApolloServer } from 'apollo-server-micro'
 
+import { generateSchema } from '@acter/backend-service/generate-schema'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
-import { generateSchema } from '@acter/schema/generate-schema'
 import { prisma } from '@acter/schema/prisma'
 
 export const config = {

@@ -1,10 +1,14 @@
 import 'reflect-metadata'
 
-import { authChecker } from './auth-checker'
 import { GraphQLSchema } from 'graphql/type'
-import path from 'path'
 import { buildSchema, UseMiddleware } from 'type-graphql'
 
+import { QueueInviteEmail } from '@acter/backend-service/middlewares/queue-invite-email'
+import { QueuePostNotifications } from '@acter/backend-service/middlewares/queue-post-notifications'
+import { ActerResolver } from '@acter/backend-service/resolvers/acter'
+import { ActerConnectionResolver } from '@acter/backend-service/resolvers/acter-connection'
+import { SearchResolver } from '@acter/backend-service/resolvers/search'
+import { authChecker } from '@acter/lib/auth-checker'
 import { NotificationQueueType } from '@acter/lib/constants'
 import {
   ResolversEnhanceMap,
@@ -12,15 +16,8 @@ import {
   crudResolvers,
   relationResolvers,
 } from '@acter/schema/generated'
-import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
-import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
-import { ActerResolver } from '@acter/schema/resolvers/acter'
-import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
-import { SearchResolver } from '@acter/schema/resolvers/search'
 
-export const generateSchema = async (
-  writeSchema = false
-): Promise<GraphQLSchema> => {
+export const generateSchema = async (): Promise<GraphQLSchema> => {
   const resolversEnhanceMap: ResolversEnhanceMap = {
     Invite: {
       createManyInvite: [UseMiddleware(QueueInviteEmail)],
@@ -35,10 +32,6 @@ export const generateSchema = async (
 
   applyResolversEnhanceMap(resolversEnhanceMap)
 
-  const generatedPath = path.join(__dirname, 'generated')
-  const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
-  console.debug('in generateSchema with writeSchema', writeSchema)
-
   const schema = await buildSchema({
     authChecker,
     resolvers: [
@@ -50,8 +43,6 @@ export const generateSchema = async (
     ],
     validate: false,
     dateScalarMode: 'isoDate',
-    // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
-    emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
   })
 
   return schema

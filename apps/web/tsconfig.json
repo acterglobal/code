@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@acter/*": ["../*"]
+      "@acter/*": [
+        "../*"
+      ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

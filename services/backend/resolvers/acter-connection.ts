@@ -7,13 +7,13 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
+import { QueueNewMemberJoinNotification } from '@acter/backend-service/middlewares/queue-member-join-notification'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
-import { QueueNewMemberJoinNotification } from '@acter/schema/middlewares/queue-member-join-notification'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {

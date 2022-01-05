@@ -8,6 +8,7 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
+import { QueueNewActivityNotification } from '@acter/backend-service/middlewares/queue-activity-notifications'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
@@ -21,7 +22,6 @@ import {
   ActerWhoCanJoinSettings,
   Activity,
 } from '@acter/schema'
-import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
 import { Prisma } from '@acter/schema/prisma'
 
 const { ACTIVITY, GROUP } = ActerTypes
