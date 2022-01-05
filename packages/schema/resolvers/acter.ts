@@ -149,7 +149,6 @@ export class ActerResolver {
     @Arg('locationLng', { nullable: true }) locationLng: number,
     @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('acterTypeId') acterTypeId: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -166,6 +165,7 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterTypeId') acterTypeId: string,
     @Arg('avatarUrl', { nullable: true }) avatarUrl: string,
     @Arg('bannerUrl', { nullable: true }) bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -237,12 +237,12 @@ export class ActerResolver {
         locationLng,
         placeId,
         url,
-        acterTypeId,
         acterJoinSetting,
         acterNotifySetting,
         acterNotifyEmailFrequency,
         acterPrivacySetting,
         acterWhoCanJoinSetting,
+        acterTypeId,
         avatarUrl,
         bannerUrl,
         updatedAt: new Date(),
@@ -365,7 +365,6 @@ export class ActerResolver {
     @Arg('locationLng', { nullable: true }) locationLng: number,
     @Arg('placeId', { nullable: true }) placeId: string,
     @Arg('url', { nullable: true }) url: string,
-    @Arg('acterTypeId') acterTypeId: string,
     @Arg('acterJoinSetting', () => ActerJoinSettings, { nullable: true })
     acterJoinSetting: ActerJoinSettings,
     @Arg('acterNotifySetting', () => ActerNotificationSettings, {
@@ -382,6 +381,7 @@ export class ActerResolver {
       nullable: true,
     })
     acterWhoCanJoinSetting: ActerWhoCanJoinSettings,
+    @Arg('acterTypeId') acterTypeId: string,
     @Arg('bannerUrl', { nullable: true })
     bannerUrl: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
@@ -404,12 +404,12 @@ export class ActerResolver {
       locationLng,
       placeId,
       url,
-      acterTypeId,
       acterJoinSetting,
       acterNotifySetting,
       acterNotifyEmailFrequency,
       acterPrivacySetting,
       acterWhoCanJoinSetting,
+      acterTypeId,
       null,
       bannerUrl,
       interestIds,
