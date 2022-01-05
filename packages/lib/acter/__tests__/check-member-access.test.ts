@@ -2,13 +2,13 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
 import { getFollowers } from '@acter/lib/acter/get-followers'
-import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { User } from '@acter/schema'
 import {
   ExampleActer,
   ExampleUser,
   ExampleUserActer,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { User } from '@acter/schema'
 
 jest.mock('@acter/lib/user/user-has-role-on-acter')
 jest.mock('@acter/lib/acter/get-followers')

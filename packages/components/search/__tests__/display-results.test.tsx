@@ -8,14 +8,14 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
 import { SearchType } from '@acter/lib/constants'
-import { useActerSearch } from '@acter/lib/search/use-acter-search'
-import { useSearchType } from '@acter/lib/search/use-search-type'
-import { render, screen, within } from '@acter/lib/test-utils'
 import {
   ExampleActer,
   ExampleActerList,
   ExampleActivity,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { useActerSearch } from '@acter/lib/search/use-acter-search'
+import { useSearchType } from '@acter/lib/search/use-search-type'
+import { render, screen, within } from '@acter/lib/test-utils'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/search/use-acter-search')

@@ -6,13 +6,13 @@ import {
   ActivityDetails as Activity,
   ActivityDetailsProps,
 } from '@acter/components/activity'
-import { Acter } from '@acter/schema'
 import {
   ExampleActer,
   ExampleActivityActer,
   ExampleActerConnection,
   ExampleActivity,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Acter } from '@acter/schema'
 
 const acter: Acter = {
   ...ExampleActivityActer,

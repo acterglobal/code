@@ -6,7 +6,7 @@ import {
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 describe('setActerType', () => {
   const acterTypes = [GroupActerType, NetworkActerType, OrganisationActerType]

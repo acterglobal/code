@@ -4,7 +4,7 @@ import {
   PostReactions,
   PostReactionsProps,
 } from '@acter/components/posts/reactions'
-import { ExampleActer, ExamplePost, ExampleUser } from '@acter/schema/fixtures'
+import { ExampleActer, ExamplePost, ExampleUser } from '@acter/lib/fixtures'
 
 const reaction1 = {
   emoji: '😀',

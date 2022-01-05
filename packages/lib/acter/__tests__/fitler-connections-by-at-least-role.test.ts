@@ -1,8 +1,8 @@
 import { v4 } from 'uuid'
 
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
+import { ExampleActerConnection } from '@acter/lib/fixtures'
 import { ActerConnectionRole } from '@acter/schema'
-import { ExampleActerConnection } from '@acter/schema/fixtures'
 
 describe('filterConnectionsByRole', () => {
   it('should split a list of connections into buckets for each role', () => {

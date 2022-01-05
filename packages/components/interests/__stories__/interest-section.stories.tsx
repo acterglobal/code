@@ -4,7 +4,7 @@ import {
   InterestsSection,
   InterestsSectionProps,
 } from '@acter/components/interests/interests-section'
-import { Interests } from '@acter/schema/fixtures'
+import { Interests } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Interests/Section',

@@ -4,7 +4,7 @@ import {
   OrganisationActerType,
   ExampleActivity,
   ExampleActer,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 describe('getCreateFunction', () => {
   let createActivity

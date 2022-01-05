@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 
 import { ProfileInfoForm } from '@acter/components/user/form/info'
-import { ExampleUser, ExampleUserActer } from '@acter/schema/fixtures'
+import { ExampleUser, ExampleUserActer } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/User/Form/Info',

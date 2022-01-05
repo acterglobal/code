@@ -6,7 +6,7 @@ import { v4 } from 'uuid'
 import { BasicsStepValues } from '@acter/components/activity/form/steps/basics'
 import { MeetingStep } from '@acter/components/activity/form/steps/meeting'
 import { SettingsStepProps } from '@acter/components/activity/form/steps/settings'
-import { ExampleActer, ActivityTypes } from '@acter/schema/fixtures'
+import { ExampleActer, ActivityTypes } from '@acter/lib/fixtures'
 
 type MeetingStepValues = BasicsStepValues & {
   description: string

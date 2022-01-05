@@ -7,7 +7,6 @@ import {
   ActivityFormProps,
   ActivityFormValues,
 } from '@acter/components/activity/form'
-import { pluralize } from '@acter/lib/string/pluralize'
 import {
   ExampleActivityActer,
   ExampleActivity,
@@ -17,7 +16,8 @@ import {
   ProjectActivityType,
   ExampleActer,
   ExampleUser,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { pluralize } from '@acter/lib/string/pluralize'
 
 const args: ActivityFormProps = {
   onSubmit: () => null,

@@ -7,13 +7,13 @@ import {
 } from '../get-activities-for-acter'
 import { add, sub } from 'date-fns'
 
-import { Acter, ActerConnection, Activity } from '@acter/schema'
 import {
   ExampleActer,
   ExampleActerConnection,
   ExampleActivity,
   ExampleActivityActer,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Acter, ActerConnection, Activity } from '@acter/schema'
 
 describe('getActivitiesForActer', () => {
   const now = new Date()

@@ -3,13 +3,13 @@ import React from 'react'
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
-import { render, screen } from '@acter/lib/test-utils'
-import { useUser } from '@acter/lib/user/use-user'
 import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUser,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { render, screen } from '@acter/lib/test-utils'
+import { useUser } from '@acter/lib/user/use-user'
 
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/acter/use-update-connection')

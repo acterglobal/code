@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react'
 import { withFormik } from 'storybook-formik'
 
 import { InterestsAddSection } from '@acter/components/acter/form/interests-add-section'
-import { Interests } from '@acter/schema/fixtures'
+import { Interests } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Interests/InterestsAdd',

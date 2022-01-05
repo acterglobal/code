@@ -1,8 +1,8 @@
 import { injectable } from 'react-magnetic-di/macro'
 
 import { ActerQueryResult, useActer } from '@acter/lib/acter/use-acter'
+import { ExampleActer } from '@acter/lib/fixtures'
 import { Acter } from '@acter/schema'
-import { ExampleActer } from '@acter/schema/fixtures'
 
 export const acterDefault: Acter = {
   ...ExampleActer,

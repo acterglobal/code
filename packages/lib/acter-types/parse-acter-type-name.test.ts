@@ -1,5 +1,5 @@
 import { parseActerTypeName } from '@acter/lib/acter-types/parse-acter-type-name'
-import { OrganisationActerType } from '@acter/schema/fixtures'
+import { OrganisationActerType } from '@acter/lib/fixtures'
 
 describe('acterTypeAsUrl', () => {
   it('should parse an ActerType name to lowercase with no spaces', () => {

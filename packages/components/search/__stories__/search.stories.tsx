@@ -7,7 +7,7 @@ import {
   ExampleActivityActer,
   ExampleActivity,
   ExampleActer,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 export default {
   title: 'Pages/Search',

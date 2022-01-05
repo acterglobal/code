@@ -1,12 +1,12 @@
 import { v4 } from 'uuid'
 
-import { Acter } from '@acter/schema'
 import {
   ExampleActer,
   GroupActerType,
   NetworkActerType,
   OrganisationActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Acter } from '@acter/schema'
 
 export const ExampleActerList: Acter[] = [
   {

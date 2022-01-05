@@ -6,12 +6,12 @@ import {
   ActivityTile,
   ActivityTileProps,
 } from '@acter/components/activity/tile'
-import { ExampleActer } from '@acter/schema/fixtures'
+import { ExampleActer } from '@acter/lib/fixtures'
 import {
   ExampleActivity,
   IdeaTypeActivity,
   ProjectTypeActivity,
-} from '@acter/schema/fixtures/activity/example-activity'
+} from '@acter/lib/fixtures/activity/example-activity'
 
 export default {
   title: 'Organisms/Activity/ActivityTile',

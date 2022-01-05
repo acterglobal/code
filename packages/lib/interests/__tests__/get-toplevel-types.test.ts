@@ -1,5 +1,5 @@
+import { Interests } from '@acter/lib/fixtures/interest/interests'
 import { getTopLevelTypes } from '@acter/lib/interests/get-toplevel-types'
-import { Interests } from '@acter/schema/fixtures/interest/interests'
 
 describe('getTopLevelTypes', () => {
   it('should return empty array if no interests are provided', () => {

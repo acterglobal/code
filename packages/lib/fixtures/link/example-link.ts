@@ -1,5 +1,5 @@
+import { ExampleUser, ExampleActer } from '@acter/lib/fixtures'
 import { Link } from '@acter/schema'
-import { ExampleUser, ExampleActer } from '@acter/schema/fixtures'
 
 export const ExampleLink: Link[] = [
   {

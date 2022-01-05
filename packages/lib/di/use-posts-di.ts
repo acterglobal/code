@@ -2,7 +2,7 @@ import { injectable } from 'react-magnetic-di/macro'
 
 import { usePosts, UsePostsResult } from '../post/use-posts'
 
-import { ExamplePost, ExampleSubPost } from '@acter/schema/fixtures'
+import { ExamplePost, ExampleSubPost } from '@acter/lib/fixtures'
 
 const postsDefault = [
   {

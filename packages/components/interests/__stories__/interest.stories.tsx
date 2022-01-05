@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { Interest, InterestProps } from '@acter/components/interests/interest'
 import { InterestTypes } from '@acter/lib/constants'
-import { ExampleInterest } from '@acter/schema/fixtures'
+import { ExampleInterest } from '@acter/lib/fixtures'
 
 const { APPROACH, TAGS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypes
 

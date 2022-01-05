@@ -1,8 +1,8 @@
 import { getActer } from '../get-acter'
 
 import { ComposedGetServerSidePropsContext } from '@acter/lib/compose-props'
+import { OrganisationActerType, ExampleActer } from '@acter/lib/fixtures'
 import { getUrqlClient } from '@acter/lib/urql'
-import { OrganisationActerType, ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('@acter/lib/urql')
 

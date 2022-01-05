@@ -6,7 +6,7 @@ import {
   ExampleNetworkActer,
   ExampleOrganisationActer,
   ExampleUserActer,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 describe('canFollowActer', () => {
   it('should not allow an Acter to follow itself', () => {

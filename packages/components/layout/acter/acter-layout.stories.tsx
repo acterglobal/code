@@ -3,9 +3,9 @@ import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 
 import { ActerLayout } from '@acter/components/layout/acter'
+import { ExampleActer, OrganisationActerType } from '@acter/lib/fixtures'
 import { loggedInParameters } from '@acter/lib/storybook-helpers'
 import { pluralize } from '@acter/lib/string/pluralize'
-import { ExampleActer, OrganisationActerType } from '@acter/schema/fixtures'
 
 const Content: FC = () => <main>Main content</main>
 
