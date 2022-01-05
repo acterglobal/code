@@ -10,7 +10,7 @@ import {
 } from '@acter/schema/fixtures'
 
 describe('auth-checker', () => {
-  const options = ({
+  const options = {
     args: {},
     context: {
       session: {},
@@ -20,7 +20,7 @@ describe('auth-checker', () => {
         },
       },
     },
-  } as unknown) as ResolverData<ActerGraphQLContext>
+  } as unknown as ResolverData<ActerGraphQLContext>
 
   it('should return false if no session user is available', async () => {
     const result = await authChecker(options, [])
