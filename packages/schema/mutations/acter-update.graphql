@@ -9,12 +9,12 @@ mutation ActerUpdate(
   $locationLng: Float
   $placeId: String
   $url: String
-  $acterTypeId: String!
   $acterJoinSetting: ActerJoinSettings
   $acterNotifySetting: ActerNotificationSettings
   $acterNotifyEmailFrequency: ActerNotificationEmailFrequency
   $acterPrivacySetting: ActerPrivacySettings
   $acterWhoCanJoinSetting: ActerWhoCanJoinSettings
+  $acterTypeId: String!
   $avatarUrl: String
   $bannerUrl: String
   $interestIds: [String!]!
@@ -29,12 +29,12 @@ mutation ActerUpdate(
     locationLng: $locationLng
     placeId: $placeId
     url: $url
-    acterTypeId: $acterTypeId
     acterJoinSetting: $acterJoinSetting
     acterNotifySetting: $acterNotifySetting
     acterNotifyEmailFrequency: $acterNotifyEmailFrequency
     acterPrivacySetting: $acterPrivacySetting
     acterWhoCanJoinSetting: $acterWhoCanJoinSetting
+    acterTypeId: $acterTypeId
     avatarUrl: $avatarUrl
     bannerUrl: $bannerUrl
     interestIds: $interestIds
