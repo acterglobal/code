@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     searchText: {
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
   })
 )

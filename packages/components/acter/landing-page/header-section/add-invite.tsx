@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.primary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
   })
 )

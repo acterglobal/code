@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'capitalize',
     fontWeight: theme.typography.fontWeightLight,
     backgroundColor: 'white',
-    fontSize: '1.3rem',
+    fontSize: '1rem',
     '&:hover': {
       backgroundColor: 'white',
     },

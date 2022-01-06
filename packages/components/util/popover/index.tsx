@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: theme.spacing(80),
     },
     tabLable: {
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
   })
 )

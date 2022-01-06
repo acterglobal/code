@@ -15,7 +15,7 @@ export const ConnectButton = withStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: theme.palette.primary.main,
       },
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
   })
 )(Button)
