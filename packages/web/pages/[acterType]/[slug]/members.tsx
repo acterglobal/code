@@ -1,8 +1,11 @@
+import { useEffect } from 'react'
+
+import { useRouter } from 'next/router'
+
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerMembers } from '@acter/components/acter/members'
 import { Head } from '@acter/components/atoms/head'
-import { Custom401 } from '@acter/components/errors'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
@@ -12,20 +15,29 @@ import { useActerTitle } from '@acter/lib/acter/use-title'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const ActerMembersPage: NextPageWithLayout = () => {
+  const router = useRouter()
   const { title } = useActerTitle('members')
 
-  const { acter } = useActer()
-  const { user, fetching } = useUser()
-
-  if (fetching) return <LoadingSpinner />
+  const { user, fetching: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer()
 
   const isPrivate = getPrivacySettings(acter)
 
   const isMember = checkMemberAccess(user, acter)
 
-  if (!user) return <Custom401 />
+  useEffect(() => {
+    if (!acterLoading && !userLoading) {
+      if (!user && isPrivate) router.push('/401')
+      if (!acter) router.push('/404')
 
-  if (user && isPrivate && !isMember) return <Custom401 user={user} isPrivate />
+      if (user && acter) {
+        if (isPrivate && !isMember) router.push('/403')
+      }
+    }
+  }, [acterLoading, acter, userLoading, user])
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
+
   return (
     <>
       <Head title={title} />

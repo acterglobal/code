@@ -1,4 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+
+import { useRouter } from 'next/router'
 
 import {
   createStyles,
@@ -8,7 +10,6 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import { Custom401 } from '@acter/components/errors'
 import { LandingPageLayout } from '@acter/components/group/layout'
 import { DescriptionSection } from '@acter/components/group/sections/description'
 import { LinksSection } from '@acter/components/group/sections/links'
@@ -23,20 +24,27 @@ import { useUser } from '@acter/lib/user/use-user'
 
 export const GroupLanding: FC = () => {
   const classes = useStyles()
-
+  const router = useRouter()
   const { acter, fetching: acterLoading } = useActer()
 
   const { user, fetching: userLoading } = useUser()
-
-  if (acterLoading || userLoading) return <LoadingSpinner />
 
   const isPrivate = getPrivacySettings(acter)
 
   const isMember = checkMemberAccess(user, acter)
 
-  if (!user) return <Custom401 />
+  useEffect(() => {
+    if (!acterLoading && !userLoading) {
+      if (!user && isPrivate) router.push('/401')
+      if (!acter) router.push('/404')
 
-  if (user && isPrivate && !isMember) return <Custom401 user={user} isPrivate />
+      if (user && acter) {
+        if (isPrivate && !isMember) router.push('/403')
+      }
+    }
+  }, [acterLoading, acter, userLoading, user])
+
+  if (acterLoading || userLoading) return <LoadingSpinner />
 
   return (
     <LandingPageLayout>

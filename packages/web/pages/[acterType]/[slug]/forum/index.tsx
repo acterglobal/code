@@ -1,8 +1,11 @@
+import { useEffect } from 'react'
+
+import { useRouter } from 'next/router'
+
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerPosts } from '@acter/components/acter/posts'
 import { Head } from '@acter/components/atoms/head'
-import { Custom401 } from '@acter/components/errors'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
@@ -12,19 +15,33 @@ import { useActerTitle } from '@acter/lib/acter/use-title'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const ActerPostsPage: NextPageWithLayout = () => {
+  const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { acter } = useActer()
-  const { user, fetching } = useUser()
-
-  if (fetching) return <LoadingSpinner />
+  const { user, fetching: userLoading } = useUser()
+  const { acter, fetching: acterLoading } = useActer()
 
   const isPrivate = getPrivacySettings(acter)
 
   const isMember = checkMemberAccess(user, acter)
+  // Look at invites table email onActerId,
+  // Invitation page
+  // const isPendingMember = userHasRoleOnActer(
+  //   user,
+  //   ActerConnectionRole.PENDING,
+  //   acter
+  // )
 
-  if (!user) return <Custom401 />
+  useEffect(() => {
+    if (!acterLoading && !userLoading) {
+      if (user && acter) {
+        if (isPrivate && !isMember) router.push('/403')
+      }
+      // if (!user && isPrivate) router.push('/401')
+      if (!acter) router.push('/404')
+    }
+  }, [acterLoading, acter, userLoading, user])
 
-  if (user && isPrivate && !isMember) return <Custom401 user={user} isPrivate />
+  if (acterLoading || userLoading) return <LoadingSpinner />
 
   return (
     <>
