@@ -62,10 +62,11 @@ const StyledButton = withStyles((theme: Theme) =>
       paddingRight: theme.spacing(3),
       marginRight: theme.spacing(3),
       minWidth: '100px',
-      height: theme.spacing(3.5),
+      height: theme.spacing(4.5),
       backgroundColor: theme.palette.secondary.main,
       color: theme.colors.white,
       fontWeight: theme.typography.fontWeightRegular,
+      fontSize: '1rem',
       textTransform: 'capitalize',
       '&:hover': {
         backgroundColor: theme.colors.grey.dark,

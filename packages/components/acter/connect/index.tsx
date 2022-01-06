@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.secondary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
     memberLabel: {
       paddingLeft: theme.spacing(2),
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: theme.palette.secondary.main,
       display: 'flex',
       alignItems: 'center',
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
   })
 )
