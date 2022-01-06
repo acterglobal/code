@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -10,28 +12,24 @@ import {
 } from '@material-ui/core'
 
 import { DashboardContent } from '@acter/components/dashboard/content'
-import { NotLoggedInMessage } from '@acter/components/errors'
 import { HomeIcon } from '@acter/components/icons/home-icon'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Dashboard: FC = () => {
+  const router = useRouter()
   const classes = useStyles()
 
-  const { user, fetching } = useUser()
+  const { user, fetching: userLoading } = useUser()
 
-  if (fetching) return <LoadingSpinner />
+  if (userLoading) return <LoadingSpinner />
+
+  if (!user && !userLoading) router.push('/401')
 
   return (
     <Box className={classes.container}>
-      {!user ? (
-        <NotLoggedInMessage />
-      ) : (
-        <>
-          <TopSection />
-          <DashboardContent />
-        </>
-      )}
+      <TopSection />
+      <DashboardContent />
     </Box>
   )
 }
