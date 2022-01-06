@@ -44,7 +44,7 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
           </Typography>
           <InterestTypes
             type={type}
-            chipSize={Size.MEDIUM}
+            chipSize={Size.SMALL}
             allTypes={typesWithSelectedInterests}
             onSelectedInterestsChange={() => null}
             columns={true}
