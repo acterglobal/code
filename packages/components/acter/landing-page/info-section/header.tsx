@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.colors.content.title,
     },
     description: {
-      fontSize: 12,
+      fontSize: '0.813rem',
       lineHeight: 1.8,
       marginBottom: theme.spacing(2),
     },

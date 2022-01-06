@@ -11,10 +11,10 @@ export const ActerPosts: FC = () => {
 
   return (
     <LandingPageLayout>
-      <Grid className={classes.posts} item xs={12} sm={12} md={8} xl={10}>
+      <Grid className={classes.posts} item xs={12} sm={12} md={8} xl={9}>
         <PostList />
       </Grid>
-      <Grid className={classes.info} item xs={12} sm={12} md={4} xl={2}>
+      <Grid className={classes.info} item xs={12} sm={12} md={4} xl={3}>
         <InfoSection />
       </Grid>
     </LandingPageLayout>
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     posts: {
       '&.MuiGrid-item': {
-        paddingRight: theme.spacing(10),
+        paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),
       },
       order: 1,

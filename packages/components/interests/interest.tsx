@@ -132,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     name: ({ size }: StyleProps) => ({
       marginLeft: theme.spacing(1),
-      fontSize: size === Size.SMALL ? '0.55rem' : '0.7',
+      fontSize: size === Size.SMALL ? '0.7' : '1',
     }),
     rightSideBox: {
       display: 'flex',

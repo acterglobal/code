@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderBottomColor: theme.palette.secondary.light,
   },
   button: {
-    height: 25,
+    height: theme.spacing(4.5),
     minWidth: 120,
     borderRadius: theme.spacing(3),
     marginRight: theme.spacing(1),
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'capitalize',
     fontWeight: theme.typography.fontWeightLight,
     backgroundColor: 'white',
-    fontSize: '0.8rem',
+    fontSize: '1rem',
     '&:hover': {
       backgroundColor: 'white',
     },
