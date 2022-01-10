@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 
 import { DescriptionSection } from '@acter/components/group/sections/description'
-import { ExampleActer, GroupActerType } from '@acter/schema/fixtures'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
   title: 'Organisms/Group/sections',
@@ -10,7 +10,6 @@ export default {
     urql: () => ({
       data: {
         findFirstActer: ExampleActer,
-        acterType: GroupActerType,
       },
     }),
   },
