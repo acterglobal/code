@@ -4,14 +4,16 @@ import { DescriptionSection } from '@acter/components/group/sections/description
 import { ExampleActer, GroupActerType } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Atoms/Group/Sections',
+  title: 'Organisms/Group/sections',
   component: DescriptionSection,
-  args: {
-    acter: {
-      ...ExampleActer,
-      acterType: GroupActerType,
-    },
+  parameters: {
+    urql: () => ({
+      data: {
+        findFirstActer: ExampleActer,
+        acterType: GroupActerType,
+      },
+    }),
   },
 } as Meta
 
-export const Description: Story = (args) => <DescriptionSection {...args} />
+export const Description: Story = () => <DescriptionSection />
