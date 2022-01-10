@@ -8,10 +8,7 @@ import { UpcomingActivity } from '@acter/components/group/sections/upcoming-acti
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import {
-  getActivitiesAfterDate,
-  sortActivitiesByStartAt,
-} from '@acter/lib/activity/get-activities-for-acter'
+import { getUpcomingActivities } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
 import { Activity } from '@acter/schema'
@@ -30,11 +27,7 @@ export const UpcomingActivities: FC = () => {
 
   if (!activities || !acter) return null
 
-  const allActivities = sortActivitiesByStartAt(activities)
-  const upcomingActivities = getActivitiesAfterDate(
-    allActivities.slice(0, 2),
-    new Date()
-  )
+  const upcomingActivities = getUpcomingActivities(activities, 2)
 
   const handleClick = (activity: Activity) => {
     const query = { ...router.query, activity: activity.Acter.slug }

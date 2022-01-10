@@ -48,7 +48,10 @@ export const _addMissingOrganisedActivities = (acter: Acter) => (
 
 export const sortActivitiesByStartAt = (activities: Activity[]): Activity[] =>
   [...activities].sort((a, b) =>
-    differenceInMilliseconds(parseDateOrString(a.startAt), b.startAt)
+    differenceInMilliseconds(
+      parseDateOrString(a.startAt),
+      parseDateOrString(b.startAt)
+    )
   )
 
 export const getActivitiesAfterDate = (
@@ -58,3 +61,23 @@ export const getActivitiesAfterDate = (
   activities.filter(
     (a) => differenceInMilliseconds(parseDateOrString(a.endAt), afterDate) >= 0
   )
+
+/**
+ * Gives upcoming activities based on given number if specified
+ * @param activities
+ * @param numberOfActivities(optional) number of activities to return
+ * @returns upcoming activities
+ */
+export const getUpcomingActivities = (
+  activities: Activity[],
+  numberOfActivities = null
+): Activity[] => {
+  const sortedActivities = sortActivitiesByStartAt(activities)
+  const upcomingActivities = getActivitiesAfterDate(
+    sortedActivities,
+    new Date()
+  )
+  return numberOfActivities
+    ? upcomingActivities.slice(0, numberOfActivities)
+    : upcomingActivities
+}

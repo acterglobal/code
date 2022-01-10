@@ -1,12 +1,13 @@
+import { add, sub } from 'date-fns'
+
 import {
   _getFollowedActivitiesMap,
   _addMissingOrganisedActivities,
   sortActivitiesByStartAt,
   getActivitiesAfterDate,
   getActivitiesForActerByStartAt,
-} from '../get-activities-for-acter'
-import { add, sub } from 'date-fns'
-
+  getUpcomingActivities,
+} from '@acter/lib/activity/get-activities-for-acter'
 import { Acter, ActerConnection, Activity } from '@acter/schema'
 import {
   ExampleActer,
@@ -135,6 +136,21 @@ describe('getActivitiesForActer', () => {
           add(activity1.startAt, { seconds: 1 })
         )
       ).toEqual([activity2, activity3])
+    })
+  })
+
+  describe('getUpcomingActivities', () => {
+    it('should return a list of all upcoming activities if numberOfActivities is not specified', () => {
+      expect(getUpcomingActivities([activity1, activity2, activity3])).toEqual([
+        activity2,
+        activity3,
+      ])
+    })
+
+    it('should return a list of specified number of upcoming activities if numberOfActivities is given', () => {
+      expect(
+        getUpcomingActivities([activity1, activity2, activity3], 1)
+      ).toEqual([activity2])
     })
   })
 })
