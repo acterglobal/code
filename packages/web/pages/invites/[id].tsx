@@ -47,7 +47,9 @@ export const InvitationPage: NextPage<InvitationPageProps> = ({
 
   useEffect(() => {
     if (acter && invite) {
-      createConnection(acter, user.Acter, ActerConnectionRole.MEMBER)
+      if (invite.email === user.email) {
+        createConnection(acter, user.Acter, ActerConnectionRole.MEMBER)
+      }
       router.push(acterAsUrl({ acter }))
     }
   }, [acter, invite])
