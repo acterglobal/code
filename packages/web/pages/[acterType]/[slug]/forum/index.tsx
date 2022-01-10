@@ -12,17 +12,37 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { getPrivacySettings } from '@acter/lib/acter/get-privacy-settings'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useActerTitle } from '@acter/lib/acter/use-title'
+import {
+  ComposedGetServerSideProps,
+  composeProps,
+} from '@acter/lib/compose-props'
 import { useUser } from '@acter/lib/user/use-user'
+import { Acter, User, ActerConnectionRole } from '@acter/schema'
+import {
+  checkRole,
+  getActer,
+  getActerTypes,
+  getUserProfile,
+  setActerType,
+} from '@acter/web/props'
 
-export const ActerPostsPage: NextPageWithLayout = () => {
+interface ActerPostsPageProps {
+  acter: Acter
+  user: User
+}
+
+export const ActerPostsPage: NextPageWithLayout<ActerPostsPageProps> = ({
+  acter,
+  user,
+}) => {
   const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { user, fetching: userLoading } = useUser()
-  const { acter, fetching: acterLoading } = useActer()
+  // const { user, fetching: userLoading } = useUser()
+  // const { acter, fetching: acterLoading } = useActer()
 
   const isPrivate = getPrivacySettings(acter)
 
-  const isMember = checkMemberAccess(user, acter)
+  // const isMember = checkMemberAccess(user, acter)
   // Look at invites table email onActerId,
   // Invitation page
   // const isPendingMember = userHasRoleOnActer(
@@ -31,17 +51,17 @@ export const ActerPostsPage: NextPageWithLayout = () => {
   //   acter
   // )
 
-  useEffect(() => {
-    if (!acterLoading && !userLoading) {
-      if (user && acter) {
-        if (isPrivate && !isMember) router.push('/403')
-      }
-      // if (!user && isPrivate) router.push('/401')
-      if (!acter) router.push('/404')
-    }
-  }, [acterLoading, acter, userLoading, user])
+  // useEffect(() => {
+  //   if (!acterLoading && !userLoading) {
+  //     if (user && acter) {
+  //       if (isPrivate && !isMember) router.push('/403')
+  //     }
+  //     // if (!user && isPrivate) router.push('/401')
+  //     if (!acter) router.push('/404')
+  //   }
+  // }, [acterLoading, acter, userLoading, user])
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
+  // if (acterLoading || userLoading) return <LoadingSpinner />
 
   return (
     <>
@@ -52,5 +72,15 @@ export const ActerPostsPage: NextPageWithLayout = () => {
 }
 
 ActerPostsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
+
+export const getServerSideProps: ComposedGetServerSideProps = (ctx) =>
+  composeProps(
+    ctx,
+    getActerTypes,
+    setActerType,
+    getActer,
+    getUserProfile(false),
+    checkRole(ActerConnectionRole.MEMBER)
+  )
 
 export default ActerPostsPage

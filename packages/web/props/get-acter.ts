@@ -2,6 +2,7 @@ import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
 import QUERY_ACTER from '@acter/schema/queries/acter-by-slug.graphql'
+import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
 
 /**
  *
@@ -13,14 +14,16 @@ export const getActer: ComposedGetServerSideProps = async ({
   params,
   props,
 }) => {
+  const { user } = props
   if (!props?.acterType?.id || !params?.slug) {
     return {
       props: {},
       notFound: true,
     }
   }
+  const urqlClient = getUrqlClient()
 
-  const { data, error } = await getUrqlClient()
+  const { data, error } = await urqlClient
     .query(QUERY_ACTER, {
       acterTypeId: props.acterType.id,
       slug: params.slug,
@@ -39,8 +42,8 @@ export const getActer: ComposedGetServerSideProps = async ({
 
   if (!acter) {
     return {
-      props: {},
-      notFound: true,
+      props: { user },
+      redirect: '/404',
     }
   }
 
