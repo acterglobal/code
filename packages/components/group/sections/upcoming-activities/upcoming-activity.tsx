@@ -24,14 +24,14 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({
 
   return (
     <Box className={classes.activity}>
-      <Box>
+      <Box className={classes.details}>
         <DateTimeInfo activity={activity} />
 
         <Typography className={classes.name} variant="h6">
           {activity.Acter?.name}
         </Typography>
 
-        <Typography className={classes.location} noWrap variant="body2">
+        <Typography className={classes.location} variant="body2">
           {activity.isOnline ? 'Online' : activity.Acter?.location}
         </Typography>
       </Box>
@@ -51,6 +51,7 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     activity: {
+      width: '100%',
       display: 'flex',
       paddingLeft: theme.spacing(0.5),
       paddingRight: theme.spacing(0.5),
@@ -58,16 +59,13 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginBottom: theme.spacing(1),
     },
+    details: {
+      width: '75%',
+    },
 
     name: {
       fontSize: theme.spacing(1.5),
       fontWeight: theme.typography.fontWeightBold,
-      lineHeight: 1.3,
-      display: '-webkit-box',
-      boxOrient: 'vertical',
-      lineClamp: 2,
-      wordBreak: 'break-all',
-      overflow: 'hidden',
       marginBottom: theme.spacing(0.5),
       marginLeft: theme.spacing(0.5),
       color: theme.palette.secondary.dark,
@@ -79,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(0.5),
     },
     button: {
+      marginLeft: theme.spacing(0.5),
       textTransform: 'capitalize',
       fontSize: '0.75rem',
       borderRadius: 16,
