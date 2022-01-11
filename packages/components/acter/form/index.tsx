@@ -162,12 +162,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       overflowY: 'scroll',
-      'ms-overflow-style': 'none',
-      scrollbarWidth: 'none',
-      '&::-webkit-scrollbar': {
-        display: 'none',
-        overflowY: 'hidden',
-      },
     },
     stepBars: {
       width: '90%',

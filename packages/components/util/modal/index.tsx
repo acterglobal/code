@@ -64,14 +64,8 @@ const useStyles = makeStyles(
     },
     content: {
       height: '100%',
-      paddingBottom: 30,
       overflow: 'scroll',
-      'ms-overflow-style': 'none',
-      scrollbarWidth: 'none',
-      '&::-webkit-scrollbar': {
-        display: 'none',
-        overflowY: 'hidden',
-      },
+      paddingBottom: 30,
     },
   })
 )
