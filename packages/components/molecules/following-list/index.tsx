@@ -77,8 +77,13 @@ const useStyles = makeStyles((theme: Theme) =>
     ...commonStyles(theme),
     listContainer: {
       maxHeight: '60vh',
-      overflow: 'hidden',
-      overflowY: 'scroll',
+      overflow: 'scroll',
+      'ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'hidden',
+      },
     },
     currentActer: {
       backgroundColor: theme.palette.secondary.main,

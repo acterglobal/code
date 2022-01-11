@@ -63,6 +63,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       overflow: 'scroll',
+      'ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'hidden',
+      },
     },
     textinput: {
       fontSize: '0.5rem',

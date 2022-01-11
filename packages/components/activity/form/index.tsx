@@ -288,8 +288,14 @@ const useStyles = makeStyles((theme: Theme) => {
     fields: {
       flexGrow: 1,
       justifyContent: 'center',
-      overflow: 'scroll',
       zIndex: 1,
+      overflow: 'scroll',
+      'ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'scroll',
+      },
     },
     footer: {
       flexGrow: 0,
