@@ -10,6 +10,7 @@ import {
 
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
 type GroupListProps = {
@@ -30,10 +31,10 @@ export const GroupsList: FC<GroupListProps> = ({ groups }) => {
             </Box>
             <Box className={classes.info}>
               <Typography variant="body1" className={classes.title}>
-                {group.name}
+                {capitalize(group.name)}
               </Typography>
               <Typography variant="caption" className={classes.acter}>
-                {group.Parent.name}
+                {capitalize(group.Parent.name)}
               </Typography>
             </Box>
           </Box>
