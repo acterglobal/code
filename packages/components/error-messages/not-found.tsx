@@ -4,26 +4,31 @@ import { useRouter } from 'next/router'
 
 import { Typography } from '@material-ui/core'
 
+import { LoadingSpinner } from '../util/loading-spinner'
+
 import { Link } from '@acter/components/util/anchor-link'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
-import { User } from '@acter/schema'
+import { useUser } from '@acter/lib/user/use-user'
 
+type Redirect = () => void
 interface NotFoundProps {
-  user?: User
   isPrivate?: boolean
 }
 
-export const NotFoundMessage: FC<NotFoundProps> = ({ user }) => {
+export const NotFoundMessage: FC<NotFoundProps> = () => {
   const router = useRouter()
-  const handleRedirectBack = () => router.back()
+  const handleRedirectBack: string | Redirect = () => router.back()
   const { loginUrl, signupUrl } = useAuthRedirect()
+  const { user, fetching: userLoading } = useUser()
+
+  if (userLoading) return <LoadingSpinner />
 
   return (
     <Typography variant="body2" style={{ textAlign: 'center', paddingTop: 40 }}>
       We're sorry, but we can't find that Acter. Please{' '}
       {user ? (
         <>
-          <Link onClick={handleRedirectBack}>click here</Link>{' '}
+          <Link href={handleRedirectBack}>click here</Link>{' '}
         </>
       ) : (
         <>
