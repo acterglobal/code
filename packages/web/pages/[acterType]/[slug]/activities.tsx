@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -15,6 +15,7 @@ import { useUser } from '@acter/lib/user/use-user'
 
 export const ActerActivitiesPage: NextPageWithLayout = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
   const { acter, fetching: acterLoading } = useActer()
   const { user, fetching: userLoading } = useUser()
 
@@ -22,16 +23,35 @@ export const ActerActivitiesPage: NextPageWithLayout = () => {
 
   const isMember = checkMemberAccess(user, acter)
 
-  useEffect(() => {
-    if (!acterLoading && !userLoading) {
-      if (!user && isPrivate) router.push('/401')
-      if (!acter) router.push('/404')
+  // useEffect(() => {
+  //   if (!acterLoading && !userLoading) {
+  //     if (!user && isPrivate) router.push('/401')
+  //     if (!acter) router.push('/404')
 
-      if (user && acter) {
-        if (isPrivate && !isMember) router.push('/403')
-      }
+  //     if (user && acter) {
+  //       if (isPrivate && !isMember) router.push('/403')
+  //     }
+  //   }
+  // }, [acterLoading, acter, userLoading, user])
+
+  useEffect(() => {
+    // if (!acterLoading && loading) {
+    //   setLoading(acterLoading)
+    // }
+    // if (acterLoading && !loading) {
+    //   setLoading(acterLoading)
+    // }
+    // if (!acterLoading && loading) {
+    //   setLoading(acterLoading)
+    // }
+    setLoading(acterLoading)
+  }, [acterLoading])
+
+  useEffect(() => {
+    if (!loading) {
+      if (!acter) router.push('/404')
     }
-  }, [acterLoading, acter, userLoading, user])
+  }, [acter, user, acterLoading])
 
   if (acterLoading || userLoading) return <LoadingSpinner />
 
