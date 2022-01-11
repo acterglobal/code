@@ -130,7 +130,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     fieldsContainer: {
       minHeight: 300,
-      overflowY: 'scroll',
+      overflow: 'scroll',
+      'ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'hidden',
+      },
     },
     textinput: {
       width: '100%',

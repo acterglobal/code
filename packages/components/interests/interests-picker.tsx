@@ -112,6 +112,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     interests: {
       overflowY: 'scroll',
+      'ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'hidden',
+      },
     },
   })
 )
