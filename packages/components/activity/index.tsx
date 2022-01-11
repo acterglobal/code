@@ -72,8 +72,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('xs')]: {
       maxWidth: 310,
     },
-    overflowY: 'scroll',
     marginBottom: 10,
+    overflowY: 'scroll',
+    'ms-overflow-style': 'none',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+      overflowY: 'hidden',
+    },
   },
   imageContainer: {
     backgroundColor: 'white',
