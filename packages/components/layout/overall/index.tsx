@@ -59,7 +59,7 @@ export const OverallLayout: FC<LayoutProps> = ({
     : classes.drawerNarrow
 
   const handleDrawerClick = (evt: SyntheticEvent) => {
-    if ((evt.target as HTMLElement).closest('a')) setMenuOpen(false)
+    if ((evt.target as HTMLElement).closest?.('a')) setMenuOpen(false)
   }
 
   return (
