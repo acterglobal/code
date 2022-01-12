@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     chip: ({ size, type }: StyleProps) => ({
       margin: theme.spacing(0.2),
-      width: theme.spacing(size === Size.SMALL ? 12.5 : 23),
+      width: theme.spacing(size === Size.SMALL ? 14 : 23),
       height: theme.spacing(size === Size.SMALL ? 2.3 : 3),
       border: type === TAGS ? 'none' : '1px solid',
       borderRadius: theme.spacing(3),
