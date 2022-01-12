@@ -170,7 +170,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
       }
     },
   }
-
+  const label = imageType === 'avatar' ? 'logo' : 'banner image'
   return (
     <div className={classes.container}>
       <FilePond
@@ -181,9 +181,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
         className={classes.uploadContainer}
         instantUpload={false}
         allowMultiple={false}
-        labelIdle={`<span class="filepond--label-action"> Browse</span>  image file for ${
-          imageType.charAt(0).toUpperCase() + imageType.slice(1)
-        }`}
+        labelIdle={`<span class="filepond--label-action"> Upload</span> ${label}`}
         imageEditEditor={editor}
         acceptedFileTypes={validFileTypes}
         //@ts-ignore
