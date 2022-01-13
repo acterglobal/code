@@ -107,6 +107,11 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     initialSearch.current = false
   }, [JSON.stringify(variables)])
 
+  useEffect(() => {
+    console.log('variables', variables)
+    console.log('pagination', pagination)
+  }, [JSON.stringify(variables), JSON.stringify(pagination)])
+
   const loadMore = _getLoadMore({
     data,
     resultKey,
@@ -140,21 +145,25 @@ interface GetResultsProps<TType> {
  * Exported function for testing. Do not use.
  * @param param0 variables passed from main function
  */
-export const _getResults = <TType, TData>({
-  pagination,
-  resultKey,
-  results,
-  setHasMore,
-  setResults,
-}: GetResultsProps<TType>) => (data: TData): void => {
-  if (data && data[resultKey]) {
-    const nextResults = data[resultKey]
-    const nextHasMore = nextResults.length > results.length + pagination.take
-    setHasMore(nextHasMore)
-    const sliceEnd = nextHasMore ? -1 : undefined
-    setResults([...nextResults.slice(0, sliceEnd)])
+export const _getResults =
+  <TType, TData>({
+    pagination,
+    resultKey,
+    results,
+    setHasMore,
+    setResults,
+  }: GetResultsProps<TType>) =>
+  (data: TData): void => {
+    if (data && data[resultKey]) {
+      const nextResultsPage = data[resultKey]
+      const nextHasMore =
+        nextResultsPage.length > results.length + pagination.take
+      setHasMore(nextHasMore)
+      const sliceEnd = nextHasMore ? -1 : undefined
+      const nextResults = [...results, ...nextResultsPage.slice(0, sliceEnd)]
+      setResults(nextResults)
+    }
   }
-}
 
 export interface GetLoadMoreProps<TData = any> {
   /**
@@ -184,15 +193,11 @@ export interface GetLoadMoreProps<TData = any> {
  * @param GetLoadMoreProps
  * @returns void
  */
-export const _getLoadMore = ({
-  data,
-  resultKey,
-  hasMore,
-  pagination,
-  setPagination,
-}: GetLoadMoreProps) => (): void =>
-  hasMore &&
-  setPagination({
-    ...pagination,
-    cursor: { id: data[resultKey][data[resultKey].length - 1].id },
-  })
+export const _getLoadMore =
+  ({ data, resultKey, hasMore, pagination, setPagination }: GetLoadMoreProps) =>
+  (): void =>
+    hasMore &&
+    setPagination({
+      ...pagination,
+      cursor: { id: data[resultKey][data[resultKey].length - 1].id },
+    })

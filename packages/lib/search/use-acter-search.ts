@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useSearchType } from './use-search-type'
 import { UseQueryArgs } from 'urql'
 
