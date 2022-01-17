@@ -1,5 +1,5 @@
 import { HasActer, WithTypeName, WithWhereActerId } from "@acter/lib/urql/types"
-import { Cache, NullArray, Variables } from "@urql/exchange-graphcache"
+import { Cache, Data, NullArray, Variables } from "@urql/exchange-graphcache"
 
 interface MatchArgs<Data> {
   result: HasActer<Data>
@@ -55,6 +55,17 @@ type ItemFn = <Data>(args: ItemFnArgs<Data>) => Fn
 
 export const prependItemFn: ItemFn = ({cache, result}) => ({ fieldKey, items }) => {
   cache.link('Query', fieldKey, [result, ...items] as NullArray<string>)
+}
+
+export const updateItemFn: ItemFn = ({cache, result}) => ({fieldKey, items}) => {
+  const resultKey = cache.keyOfEntity(result as WithTypeName)
+  const newItems = items.map((itemKey) => {
+    if (itemKey === resultKey) {
+      return result
+    }
+    return itemKey
+  })
+  cache.link('Query', fieldKey, newItems as NullArray<string | Data>)
 }
 
 export const removeItemFn: ItemFn = ({cache, result}) => <TType>({fieldKey, items}) => {
