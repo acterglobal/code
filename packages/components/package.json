@@ -37,6 +37,7 @@
     "react-filepond": "^7.1.1",
     "react-google-autocomplete": "^2.6.1",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-is-visible": "^1.1.2",
     "title-case": "^3.0.3",
     "use-places-autocomplete": "^1.11.0",
     "uuid": "^8.3.2"

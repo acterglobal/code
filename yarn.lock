@@ -53,6 +53,7 @@ __metadata:
     react-filepond: ^7.1.1
     react-google-autocomplete: ^2.6.1
     react-infinite-scroll-component: ^6.1.0
+    react-is-visible: ^1.1.2
     sb: ^6.3.2
     storybook-addon-next-auth0: ^1.0.6
     storybook-addon-next-router: ^3.0.8
@@ -16109,7 +16110,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:3.3.2, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -23771,6 +23772,19 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^16.8.4 || ^17.0.0
   checksum: ca9e4c1fedb94e4e956dd3142838c5a25a9d61375aee5e8a74dd623bae09a263098a93f220e8d84c7fd39e569e1fa4297d363ddbc91b15bca91baeb7281d7f4f
+  languageName: node
+  linkType: hard
+
+"react-is-visible@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "react-is-visible@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    hoist-non-react-statics: 3.3.2
+  peerDependencies:
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: 8ba3211cc840fdeb22955de119f78a837f8303f616ff4cd44d45d88ef96a5100706bbe0119a65160e6aae67cb4587115018b3bb83e2f7e28448cff090281bb66
   languageName: node
   linkType: hard
 
