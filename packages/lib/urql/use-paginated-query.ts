@@ -107,11 +107,6 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     initialSearch.current = false
   }, [JSON.stringify(variables)])
 
-  useEffect(() => {
-    console.log('variables', variables)
-    console.log('pagination', pagination)
-  }, [JSON.stringify(variables), JSON.stringify(pagination)])
-
   const loadMore = _getLoadMore({
     data,
     resultKey,
