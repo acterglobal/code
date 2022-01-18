@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop: theme.spacing(5),
+      width: '65%',
     },
     activities: {
       display: 'flex',
