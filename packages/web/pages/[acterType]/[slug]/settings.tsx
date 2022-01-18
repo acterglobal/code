@@ -48,7 +48,6 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
   }, [acterError])
 
   useEffect(() => {
-    console.log('Is admin...', isAdmin)
     if (isPrivate && !isAdmin) {
       router.push('/403')
     }
