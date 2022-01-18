@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import {
   Box,
   createStyles,
@@ -13,18 +11,9 @@ import {
 
 import { DashboardContent } from '@acter/components/dashboard/content'
 import { HomeIcon } from '@acter/components/icons/home-icon'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useUser } from '@acter/lib/user/use-user'
 
 export const Dashboard: FC = () => {
-  const router = useRouter()
   const classes = useStyles()
-
-  const { user, fetching: userLoading } = useUser()
-
-  if (userLoading) return <LoadingSpinner />
-
-  if (!user && !userLoading) router.push('/401')
 
   return (
     <Box className={classes.container}>

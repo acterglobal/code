@@ -1,5 +1,4 @@
 import { ActerConnectionRole } from '.prisma/client'
-import { equals } from 'fp-ts/lib/Ord'
 import { MiddlewareFn } from 'type-graphql'
 
 import {
