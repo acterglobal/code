@@ -1,7 +1,8 @@
 import { isEqual } from 'date-fns'
 import { format } from 'date-fns-tz/fp'
 import Handlebars from 'handlebars'
-import marked from 'marked'
+//@ts-ignore
+import { marked } from 'marked'
 import path from 'path'
 
 import { NotificationByActer } from '@acter/jobs/src/daily-digest/types'

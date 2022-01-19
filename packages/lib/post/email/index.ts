@@ -1,6 +1,6 @@
 import { assert } from 'console'
-// import { format } from 'date-fns'
-import marked from 'marked'
+//@ts-ignore
+import { marked } from 'marked'
 import path from 'path'
 
 import { DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
