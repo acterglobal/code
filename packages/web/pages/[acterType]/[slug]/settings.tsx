@@ -35,6 +35,7 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (acterError) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { graphQLErrors }: GraphQLError[] | any = acterError
       graphQLErrors.forEach((err) => {
         if (err.message === NotAuthorizedError.message) {
