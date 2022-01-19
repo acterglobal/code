@@ -1,6 +1,4 @@
-import React, { FC, useEffect } from 'react'
-
-import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 import {
   createStyles,
@@ -10,38 +8,15 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import { GraphQLError } from 'graphql'
-
 import { LandingPageLayout } from '@acter/components/group/layout'
 import { DescriptionSection } from '@acter/components/group/sections/description'
 import { LinksSection } from '@acter/components/group/sections/links'
 import { MembersSection } from '@acter/components/group/sections/members'
 import { UpcomingActivities } from '@acter/components/group/sections/upcoming-activities'
 import { PostList } from '@acter/components/posts'
-import { useActer } from '@acter/lib/acter/use-acter'
-import {
-  NotAuthorizedError,
-  NotLoggedError,
-} from '@acter/lib/errors/graphql-errors'
 
 export const GroupLanding: FC = () => {
   const classes = useStyles()
-  const router = useRouter()
-  const { error: acterError } = useActer()
-
-  useEffect(() => {
-    if (acterError) {
-      const { graphQLErrors }: GraphQLError[] | any = acterError
-      graphQLErrors.forEach((err) => {
-        if (err.message === NotAuthorizedError.message) {
-          router.push('/403')
-        }
-        if (err.message === NotLoggedError.message) {
-          router.push('/401')
-        }
-      })
-    }
-  }, [acterError])
 
   return (
     <LandingPageLayout>
