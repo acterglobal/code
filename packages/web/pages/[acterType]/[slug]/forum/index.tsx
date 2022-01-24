@@ -2,45 +2,35 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { GraphQLError } from 'graphql'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerPosts } from '@acter/components/acter/posts'
 import { Head } from '@acter/components/atoms/head'
 import { ActerLayout } from '@acter/components/layout/acter'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActerTitle } from '@acter/lib/acter/use-title'
-import {
-  NotAuthorizedError,
-  NotLoggedError,
-} from '@acter/lib/errors/graphql-errors'
+import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerPostsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { error: acterError } = useActer()
+  const { isAuthenticated, loading, redirect } = useAuthentication()
 
   useEffect(() => {
-    if (acterError) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { graphQLErrors }: GraphQLError[] | any = acterError
-      graphQLErrors.forEach((err) => {
-        if (err.message === NotAuthorizedError.message) {
-          router.push('/403')
-        }
-        if (err.message === NotLoggedError.message) {
-          router.push('/401')
-        }
-      })
+    if (redirect) {
+      router.push(redirect)
     }
-  }, [acterError])
+  }, [redirect])
 
-  return (
-    <>
-      <Head title={title} />
-      <ActerPosts />
-    </>
-  )
+  if (loading) return <LoadingSpinner />
+
+  if (isAuthenticated)
+    return (
+      <>
+        <Head title={title} />
+        <ActerPosts />
+      </>
+    )
 }
 
 ActerPostsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
