@@ -12,5 +12,3 @@ export const NotAuthorizedMessage: FC = () => {
     </Typography>
   )
 }
-
-// Next 403 page

@@ -11,10 +11,12 @@ type UseAuthRedirectResponse = {
 /**
  * Can be used to redirect to login/signup
  */
-export const useAuthRedirect = (): UseAuthRedirectResponse => {
+export const useAuthRedirect = (
+  previousPath: string
+): UseAuthRedirectResponse => {
   const router = useRouter()
   const authPath = '/api/auth'
-  const query = router?.asPath ? `?returnTo=${router.asPath}` : null
+  const query = previousPath ? `?returnTo=${previousPath}` : null
 
   const loginUrl = router?.route.includes('/search')
     ? `${authPath}/login?returnTo=/dashboard`

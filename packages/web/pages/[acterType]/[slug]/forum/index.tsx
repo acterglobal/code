@@ -17,9 +17,11 @@ export const ActerPostsPage: NextPageWithLayout = () => {
   const { fetching: acterLoading, redirect } = useAuthentication()
 
   useEffect(() => {
-    // to do fix redirect after login
     if (redirect) {
-      router.push(redirect)
+      router.push({
+        pathname: redirect,
+        query: router.asPath,
+      })
     }
   }, [redirect])
 

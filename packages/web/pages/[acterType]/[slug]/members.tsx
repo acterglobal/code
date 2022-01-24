@@ -17,7 +17,6 @@ export const ActerMembersPage: NextPageWithLayout = () => {
   const { fetching: acterLoading, redirect } = useAuthentication()
 
   useEffect(() => {
-    // to do fix redirect after login
     if (redirect) {
       router.push(redirect)
     }

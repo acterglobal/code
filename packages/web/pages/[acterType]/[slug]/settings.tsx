@@ -14,6 +14,7 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
+
   const { route: currentRoute } = router
   const { acter, fetching: acterLoading, redirect } = useAuthentication(
     currentRoute
@@ -24,7 +25,6 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
   }, [acter])
 
   useEffect(() => {
-    // to do fix redirect after login
     if (redirect) {
       router.push(redirect)
     }

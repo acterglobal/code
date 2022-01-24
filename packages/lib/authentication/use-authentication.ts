@@ -42,8 +42,6 @@ export const useAuthentication = (route?: string): AuthenticationResult => {
     }
   }, [acterError])
 
-  // Check if settings page, check params
-
   useEffect(() => {
     if (route === '/[acterType]/[slug]/settings') {
       if (user && isPrivate && !isAdmin) {

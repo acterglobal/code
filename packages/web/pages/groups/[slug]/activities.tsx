@@ -15,7 +15,6 @@ export const GroupActivitiesPage: NextPageWithLayout = () => {
   const { acter, fetching: acterLoading, redirect } = useAuthentication()
 
   useEffect(() => {
-    // to do fix redirect after login
     if (redirect) {
       router.push(redirect)
     }
