@@ -14,7 +14,7 @@ import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 export const ActerPostsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { loading, redirect } = useAuthentication()
+  const { fetching: acterLoading, redirect } = useAuthentication()
 
   useEffect(() => {
     // to do fix redirect after login
@@ -23,7 +23,7 @@ export const ActerPostsPage: NextPageWithLayout = () => {
     }
   }, [redirect])
 
-  if (loading) return <LoadingSpinner />
+  if (acterLoading) return <LoadingSpinner />
 
   return (
     <>
