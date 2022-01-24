@@ -14,9 +14,10 @@ import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 export const ActerPostsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { isAuthenticated, loading, redirect } = useAuthentication()
+  const { loading, redirect } = useAuthentication()
 
   useEffect(() => {
+    // to do fix redirect after login
     if (redirect) {
       router.push(redirect)
     }
@@ -24,13 +25,12 @@ export const ActerPostsPage: NextPageWithLayout = () => {
 
   if (loading) return <LoadingSpinner />
 
-  if (isAuthenticated)
-    return (
-      <>
-        <Head title={title} />
-        <ActerPosts />
-      </>
-    )
+  return (
+    <>
+      <Head title={title} />
+      <ActerPosts />
+    </>
+  )
 }
 
 ActerPostsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
