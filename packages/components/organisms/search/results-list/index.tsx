@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop: theme.spacing(5),
-      width: '72%',
       height: '100%',
       [theme.breakpoints.down('xs')]: {
         marginTop: 0,

@@ -98,6 +98,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       flexDirection: 'row',
+      height: '100vh',
       overflow: 'scroll',
       scrollbarWidth: 'none',
       '&::-webkit-scrollbar': {
