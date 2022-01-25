@@ -18,7 +18,10 @@ export const ActerMembersPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (redirect) {
-      router.push(redirect)
+      router.push({
+        pathname: redirect,
+        query: router.asPath,
+      })
     }
   }, [redirect])
 

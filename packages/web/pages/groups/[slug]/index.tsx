@@ -18,7 +18,10 @@ export const GroupLandingPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (redirect) {
-      router.push(redirect)
+      router.push({
+        pathname: redirect,
+        query: router.asPath,
+      })
     }
   }, [redirect])
 
