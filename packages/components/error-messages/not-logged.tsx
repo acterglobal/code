@@ -6,13 +6,13 @@ import { Link } from '@acter/components/util/anchor-link'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 
 type NotLoggedInMessageProps = {
-  previousPath: string
+  loginRedirectPath: string
 }
 
 export const NotLoggedInMessage: FC<NotLoggedInMessageProps> = ({
-  previousPath,
+  loginRedirectPath,
 }) => {
-  const { loginUrl, signupUrl } = useAuthRedirect(previousPath)
+  const { loginUrl, signupUrl } = useAuthRedirect(loginRedirectPath)
 
   return (
     <Typography variant="body2" style={{ textAlign: 'center', paddingTop: 40 }}>

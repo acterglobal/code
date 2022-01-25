@@ -9,9 +9,9 @@ import { NotLoggedInMessage } from '@acter/components/error-messages/not-logged'
 const Custom401: NextPageWithLayout = () => {
   const router = useRouter()
   const { query } = router
-  const prevPath = Object.keys(query).toString()
+  const loginRedirectPath = Object.keys(query).toString()
 
-  return <NotLoggedInMessage previousPath={prevPath} />
+  return <NotLoggedInMessage loginRedirectPath={loginRedirectPath} />
 }
 
 export default Custom401

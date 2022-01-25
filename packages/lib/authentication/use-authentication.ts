@@ -22,7 +22,6 @@ export const useAuthentication = (
 ): AuthenticationResult => {
   const [fetching, setFetching] = useState<boolean>(true)
   const [redirect, setRedirect] = useState<string>('')
-  const [admin, setAdmin] = useState<boolean>(null)
   const { acter, fetching: acterLoading, error: acterError } = useActer()
   const { user, fetching: userLoading } = useUser()
 
@@ -44,16 +43,12 @@ export const useAuthentication = (
   }, [acterError])
 
   useEffect(() => {
-    setAdmin(isAdmin)
-  }, [isAdmin])
-
-  useEffect(() => {
     if (settingsRoute === '/[acterType]/[slug]/settings') {
-      if (acter && user && !admin) {
+      if (acter && user && !isAdmin) {
         setRedirect('/403')
       }
     }
-  }, [acter, user, admin, settingsRoute])
+  }, [acter, user, isAdmin, settingsRoute])
 
   useEffect(() => {
     setFetching(acterLoading || userLoading)

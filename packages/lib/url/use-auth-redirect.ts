@@ -8,8 +8,8 @@ type UseAuthRedirectResponse = {
   signupRedirect: Redirect
 }
 
-const getQuery = (previousPath: string, router: NextRouter) => {
-  if (previousPath) return `?returnTo=${previousPath}`
+const getQuery = (loginRedirectPath: string, router: NextRouter) => {
+  if (loginRedirectPath) return `?returnTo=${loginRedirectPath}`
   if (router?.asPath) return `?returnTo=${router.asPath}`
   return null
 }
@@ -18,11 +18,11 @@ const getQuery = (previousPath: string, router: NextRouter) => {
  * Can be used to redirect to login/signup
  */
 export const useAuthRedirect = (
-  previousPath?: string
+  loginRedirectPath?: string
 ): UseAuthRedirectResponse => {
   const router = useRouter()
   const authPath = '/api/auth'
-  const query = getQuery(previousPath, router)
+  const query = getQuery(loginRedirectPath, router)
 
   const loginUrl = router?.route.includes('/search')
     ? `${authPath}/login?returnTo=/dashboard`
