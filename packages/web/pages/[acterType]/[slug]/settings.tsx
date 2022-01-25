@@ -15,9 +15,9 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
 
-  const { route: currentRoute } = router
+  const { route: settingsRoute } = router
   const { acter, fetching: acterLoading, redirect } = useAuthentication(
-    currentRoute
+    settingsRoute
   )
 
   useEffect(() => {

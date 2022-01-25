@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { GraphQLError } from 'graphql'
 
-import { getPrivacySettings } from '@acter/lib/acter/get-privacy-settings'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   NotAuthorizedError,
@@ -18,13 +17,15 @@ export type AuthenticationResult = {
   redirect: string
 }
 
-export const useAuthentication = (route?: string): AuthenticationResult => {
+export const useAuthentication = (
+  settingsRoute?: string
+): AuthenticationResult => {
   const [fetching, setFetching] = useState<boolean>(true)
   const [redirect, setRedirect] = useState<string>('')
+  const [admin, setAdmin] = useState<boolean>(null)
   const { acter, fetching: acterLoading, error: acterError } = useActer()
   const { user, fetching: userLoading } = useUser()
 
-  const isPrivate = getPrivacySettings(acter)
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
   useEffect(() => {
@@ -43,12 +44,16 @@ export const useAuthentication = (route?: string): AuthenticationResult => {
   }, [acterError])
 
   useEffect(() => {
-    if (route === '/[acterType]/[slug]/settings') {
-      if (user && isPrivate && !isAdmin) {
+    setAdmin(isAdmin)
+  }, [isAdmin])
+
+  useEffect(() => {
+    if (settingsRoute === '/[acterType]/[slug]/settings') {
+      if (acter && user && !admin) {
         setRedirect('/403')
       }
     }
-  }, [route, isAdmin, user, isPrivate])
+  }, [acter, user, admin, settingsRoute])
 
   useEffect(() => {
     setFetching(acterLoading || userLoading)
