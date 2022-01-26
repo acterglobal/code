@@ -1,11 +1,16 @@
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
-import { Acter } from '@acter/schema'
+import { pluralize } from '@acter/lib/string/pluralize'
+import { Acter, Activity } from '@acter/schema'
 
 interface ActerAsUrlProps {
   /**
    * The Acter for which we are create a URL
    */
   acter: Acter
+  /**
+   * The Acter for which we are create a URL
+   */
+  activity?: Activity
   /**
    * Extra path items for URL
    */
@@ -26,21 +31,26 @@ interface ActerAsUrlProps {
  */
 export const acterAsUrl = ({
   acter,
+  activity,
   extraPath = [],
   query = {},
   includeBaseUrl = false,
 }: ActerAsUrlProps): string => {
-  if (!acter.ActerType?.name) {
+  if (!acter?.ActerType?.name) {
     throw 'ActerType must be provided'
   }
 
   const baseURL = includeBaseUrl ? process.env.NEXT_PUBLIC_BASE_URL : ''
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
+  const activityTypeUrl = pluralize(activity?.Acter.ActerType.name)
   const acterSlugLower = acter.slug.toLowerCase()
+  const activitySlugLower = activity?.Acter.name
   const url = [
     baseURL,
     acterTypeUrl,
     acterSlugLower,
+    activity && activityTypeUrl,
+    activity && activitySlugLower,
     ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
   ].join('/')
 

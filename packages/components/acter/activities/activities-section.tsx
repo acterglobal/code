@@ -36,7 +36,7 @@ export const ActivitiesSection: FC = () => {
   const [showActivity, setShowActivity] = useState<boolean>(false)
 
   useEffect(() => {
-    if (query?.activity) setShowActivity(true)
+    if (query?.activity) setShowActivity(false)
   }, [query?.activity])
 
   if (acterFetching || activitiesFetching) return <LoadingSpinner />
@@ -68,7 +68,7 @@ export const ActivitiesSection: FC = () => {
         </FormControlsContainer>
       </TopSection>
 
-      <ActivitiesList activities={displayActivities} />
+      <ActivitiesList activities={displayActivities} acter={acter} />
 
       {showActivity && (
         <ActivityLanding
