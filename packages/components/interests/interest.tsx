@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import Image from 'next/image'
-
 import { Box, Typography } from '@material-ui/core'
 import {
   createStyles,
@@ -12,6 +10,7 @@ import {
 
 import clsx from 'clsx'
 
+import { Image } from '@acter/components/util/image'
 import { Tooltip } from '@acter/components/util/tool-tip'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 import { Interest as InterestType } from '@acter/schema'
@@ -62,7 +61,12 @@ export const Interest: FC<InterestProps> = ({
 
       {interest.sdgNumber && (
         <Box className={clsx(classes.rightSideBox)}>
-          <Image src="/assets/SDG-logo.png" alt="SDG" width={15} height={15} />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/assets/SDG-logo.png`}
+            alt="SDG"
+            width={10}
+            height={10}
+          />
           <Typography className={classes.number} variant="caption">
             {interest.sdgNumber}
           </Typography>

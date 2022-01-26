@@ -1,14 +1,11 @@
 import React, { FC } from 'react'
 
-import Image from 'next/image'
-
 import {
   Box,
   Hidden,
   Typography,
   createStyles,
   makeStyles,
-  useMediaQuery,
   Theme,
 } from '@material-ui/core'
 
@@ -16,6 +13,7 @@ import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
+import { Image } from '@acter/components/util/image'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -23,11 +21,6 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
-  const smallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('xs')
-  )
-
-  const avatarDims = smallScreen ? 65 : 140
 
   const { acter, fetching: acterLoading } = useActer()
 
@@ -39,18 +32,13 @@ export const HeaderSection: FC = () => {
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        layout="intrinsic"
-        height={400}
-        width={1920}
+        height={250}
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
             src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
-            layout="intrinsic"
-            height={avatarDims}
-            width={avatarDims}
           />
         </Box>
 
@@ -104,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
     bannerSection: {
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
+      width: '100%',
     },
     infoSection: {
       display: 'flex',
