@@ -55,7 +55,6 @@ export const createDailyDigestEmail = ({
   Handlebars.registerHelper('avatarUrl', function (acter: Acter) {
     return getImageUrl(acter.avatarUrl, 'avatar', {
       suffix: '?w=64&h=64&crop=entropy',
-      includeBaseUrl: true,
     })
   })
 

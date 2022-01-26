@@ -4,4 +4,4 @@
  */
 
 export const getActerTypeIcon = (acterType: string): string =>
-  `/assets/${acterType}-icon.png`
+  `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/assets/${acterType}-icon.png`
