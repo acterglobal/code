@@ -1,7 +1,3 @@
-import { useEffect } from 'react'
-
-import { useRouter } from 'next/router'
-
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerPosts } from '@acter/components/acter/posts'
@@ -12,18 +8,8 @@ import { useActerTitle } from '@acter/lib/acter/use-title'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerPostsPage: NextPageWithLayout = () => {
-  const router = useRouter()
   const { title } = useActerTitle('forum')
-  const { fetching: acterLoading, redirect } = useAuthentication()
-
-  useEffect(() => {
-    if (redirect) {
-      router.push({
-        pathname: redirect,
-        query: router.asPath,
-      })
-    }
-  }, [redirect])
+  const { fetching: acterLoading } = useAuthentication()
 
   if (acterLoading) return <LoadingSpinner />
 

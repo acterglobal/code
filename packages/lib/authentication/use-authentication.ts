@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import { GraphQLError } from 'graphql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -15,14 +17,11 @@ import { Acter, ActerConnectionRole } from '@acter/schema'
 export type AuthenticationResult = {
   acter: Acter
   fetching: boolean
-  redirect: string
 }
 
-export const useAuthentication = (
-  settingsRoute?: string
-): AuthenticationResult => {
+export const useAuthentication = (): AuthenticationResult => {
+  const router = useRouter()
   const [fetching, setFetching] = useState<boolean>(true)
-  const [redirect, setRedirect] = useState<string>(undefined)
   const { acter, fetching: acterLoading, error: acterError } = useActer()
   const { user, fetching: userLoading } = useUser()
 
@@ -34,29 +33,41 @@ export const useAuthentication = (
       const { graphQLErrors }: GraphQLError[] | any = acterError
       graphQLErrors?.forEach((err) => {
         if (err.message === NotFoundError.message) {
-          setRedirect('/404')
+          router.push({
+            pathname: '/404',
+            query: router.asPath,
+          })
         }
         if (err.message === NotAuthorizedError.message) {
-          setRedirect('/403')
+          router.push({
+            pathname: '/403',
+            query: router.asPath,
+          })
         }
         if (err.message === NotLoggedError.message) {
-          setRedirect('/401')
+          router.push({
+            pathname: '/401',
+            query: router.asPath,
+          })
         }
       })
     }
   }, [acterError])
 
   useEffect(() => {
-    if (settingsRoute === '/[acterType]/[slug]/settings') {
+    if (router.route === '/[acterType]/[slug]/settings') {
       if (acter && user && !isAdmin) {
-        setRedirect('/403')
+        router.push({
+          pathname: '/403',
+          query: router.asPath,
+        })
       }
     }
-  }, [acter, user, isAdmin, settingsRoute])
+  }, [acter, user, isAdmin, router.route])
 
   useEffect(() => {
     setFetching(acterLoading || userLoading)
   }, [acterLoading, userLoading])
 
-  return { acter, fetching, redirect }
+  return { acter, fetching }
 }

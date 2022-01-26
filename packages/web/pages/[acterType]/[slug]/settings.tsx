@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerSettings } from '@acter/components/acter/settings'
@@ -11,27 +9,14 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerSettingsPage: NextPageWithLayout = () => {
-  const router = useRouter()
   const baseTitle = 'Settings - Acter'
   const [title, setTitle] = useState(baseTitle)
 
-  const { route: settingsRoute } = router
-  const { acter, fetching: acterLoading, redirect } = useAuthentication(
-    settingsRoute
-  )
+  const { acter, fetching: acterLoading } = useAuthentication()
 
   useEffect(() => {
     if (acter?.name) setTitle(`${acter.name} - ${baseTitle}`)
   }, [acter])
-
-  useEffect(() => {
-    if (redirect) {
-      router.push({
-        pathname: redirect,
-        query: router.asPath,
-      })
-    }
-  }, [redirect])
 
   if (acterLoading) return <LoadingSpinner />
 

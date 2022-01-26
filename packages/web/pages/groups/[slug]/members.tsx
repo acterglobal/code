@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-
-import { useRouter } from 'next/router'
+import React from 'react'
 
 import { NextPageWithLayout } from 'pages/_app'
 
@@ -11,17 +9,7 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const GroupMembersPage: NextPageWithLayout = () => {
-  const router = useRouter()
-  const { acter, fetching: acterLoading, redirect } = useAuthentication()
-
-  useEffect(() => {
-    if (redirect) {
-      router.push({
-        pathname: redirect,
-        query: router.asPath,
-      })
-    }
-  }, [redirect])
+  const { acter, fetching: acterLoading } = useAuthentication()
 
   if (acterLoading) return <LoadingSpinner />
 
