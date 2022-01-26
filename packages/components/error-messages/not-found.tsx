@@ -8,12 +8,8 @@ import { Link } from '@acter/components/util/anchor-link'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
-interface NotFoundProps {
-  isPrivate?: boolean
-}
-
-export const NotFoundMessage: FC<NotFoundProps> = () => {
-  const { loginUrl, signupUrl } = useAuthRedirect()
+export const NotFoundMessage: FC = () => {
+  const { loginUrl, signupUrl } = useAuthRedirect('/dashboard')
   const { user, fetching: userLoading } = useUser()
 
   if (userLoading) return <LoadingSpinner />
