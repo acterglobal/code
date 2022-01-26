@@ -82,8 +82,8 @@ export const DisplayResults: FC = () => {
         ))}
       </InfiniteScroll>
       {hasMore && !fetching && (
-        <HasMore onVisible={loadMore}>
-          <Button onClick={() => loadMore()}>Load more</Button>
+        <HasMore onVisible={() => loadMore(true)}>
+          <Button onClick={() => loadMore(true)}>Load more</Button>
         </HasMore>
       )}
     </div>
