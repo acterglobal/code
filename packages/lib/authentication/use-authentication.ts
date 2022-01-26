@@ -4,6 +4,7 @@ import { GraphQLError } from 'graphql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
+  NotFoundError,
   NotAuthorizedError,
   NotLoggedError,
 } from '@acter/lib/errors/graphql-errors'
@@ -21,7 +22,7 @@ export const useAuthentication = (
   settingsRoute?: string
 ): AuthenticationResult => {
   const [fetching, setFetching] = useState<boolean>(true)
-  const [redirect, setRedirect] = useState<string>('')
+  const [redirect, setRedirect] = useState<string>(undefined)
   const { acter, fetching: acterLoading, error: acterError } = useActer()
   const { user, fetching: userLoading } = useUser()
 
@@ -31,7 +32,10 @@ export const useAuthentication = (
     if (acterError) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { graphQLErrors }: GraphQLError[] | any = acterError
-      graphQLErrors.forEach((err) => {
+      graphQLErrors?.forEach((err) => {
+        if (err.message === NotFoundError.message) {
+          setRedirect('/404')
+        }
         if (err.message === NotAuthorizedError.message) {
           setRedirect('/403')
         }
