@@ -1,6 +1,6 @@
 module.exports = {
   // preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
 
   // A set of global variables that need to be available in all test environments
   globals: {

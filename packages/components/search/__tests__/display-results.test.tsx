@@ -8,6 +8,7 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
 import { SearchType } from '@acter/lib/constants'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { render, screen, within } from '@acter/lib/test-utils'
@@ -23,6 +24,7 @@ jest.mock('@acter/lib/search/use-search-type')
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/activity/use-update-activity')
 jest.mock('@acter/lib/acter/use-delete-acter')
+jest.mock('@acter/lib/images/get-image-url')
 
 describe('Display search results', () => {
   const mockUseRouter = useRouter as jest.Mock
@@ -31,10 +33,15 @@ describe('Display search results', () => {
   const mockUseActer = useActer as jest.Mock
   const mockUseUpdateActivity = useUpdateActivity as jest.Mock
   const mockUseDeleteActivity = useDeleteActer as jest.Mock
+  const mockGetImageUrl = getImageUrl as jest.Mock
 
   it('should display search results with a list of Acters', async () => {
     mockUseSearchType.mockReturnValue(SearchType.ACTERS)
     mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
+    mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
+    mockGetImageUrl.mockReturnValue(
+      'https://acter-dev.imgix.net/acter/95300d51e738ec0c16846561d6e10a27/d60c35e5bd3716efa64c892cffb628bf.png'
+    )
 
     render(<DisplayResults />)
     const items = screen.queryAllByRole('listitem')

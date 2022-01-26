@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import Imgix from 'react-imgix'
 
 import { getImageExtension } from '@acter/lib/images/get-image-extension'
