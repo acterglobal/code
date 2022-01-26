@@ -96,13 +96,14 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
 
   useEffect(() => {
     _getResults({
+      data,
       pagination,
       resultKey,
       results,
       shouldAppend,
       setHasMore,
       setResults,
-    })(data)
+    })
     setShouldAppend(false)
   }, [data])
 
@@ -136,7 +137,8 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   ]
 }
 
-interface GetResultsProps<TType> {
+interface GetResultsProps<TType, TData> {
+  data: TData
   pagination: Pagination
   resultKey: string
   results: TType[]
@@ -150,13 +152,14 @@ interface GetResultsProps<TType> {
  * @param param0 variables passed from main function
  */
 export const _getResults = <TType, TData>({
+  data,
   pagination,
   resultKey,
   results,
   shouldAppend = false,
   setHasMore,
   setResults,
-}: GetResultsProps<TType>) => (data: TData): void => {
+}: GetResultsProps<TType, TData>): void => {
   if (data && data[resultKey]) {
     const nextResultsPage = data[resultKey]
     const nextHasMore =
