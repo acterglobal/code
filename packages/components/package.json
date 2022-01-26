@@ -36,6 +36,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-filepond": "^7.1.1",
     "react-google-autocomplete": "^2.6.1",
+    "react-imgix": "^9.3.0",
     "react-infinite-scroll-component": "^6.1.0",
     "title-case": "^3.0.3",
     "use-places-autocomplete": "^1.11.0",

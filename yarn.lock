@@ -52,6 +52,7 @@ __metadata:
     react-draft-wysiwyg: ^1.14.7
     react-filepond: ^7.1.1
     react-google-autocomplete: ^2.6.1
+    react-imgix: ^9.3.0
     react-infinite-scroll-component: ^6.1.0
     sb: ^6.3.2
     storybook-addon-next-auth0: ^1.0.6
@@ -1790,6 +1791,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.2.0":
+  version: 7.16.7
+  resolution: "@babel/runtime@npm:7.16.7"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 47912f0aaacd1cab2e2552aaf3e6eaffbcaf2d5ac9b07a89a12ac0d42029cb92c070b0d16f825e4277c4a34677c54d8ffe85e1f7c6feb57de58f700eec67ce2f
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.12.13, @babel/template@npm:^7.12.7, @babel/template@npm:^7.15.4, @babel/template@npm:^7.3.3":
   version: 7.15.4
   resolution: "@babel/template@npm:7.15.4"
@@ -2655,6 +2665,16 @@ __metadata:
   version: 2.2.5
   resolution: "@iarna/toml@npm:2.2.5"
   checksum: b63b2b2c4fd67969a6291543ada0303d45593801ee744b60f5390f183c03d9192bc67a217abb24be945158f1935f02840d9ffff40c0142aa171b5d3b6b6a3ea5
+  languageName: node
+  linkType: hard
+
+"@imgix/js-core@npm:^3.1.3":
+  version: 3.4.0
+  resolution: "@imgix/js-core@npm:3.4.0"
+  dependencies:
+    js-base64: ~3.7.0
+    md5: ^2.2.1
+  checksum: 6858f75b856340f3314e41323dcb3b9bafe9b3af7c740522e67b4b6f838879a10c24ae71456a4d76263fa3402698378855313cdf00b0e1b7b69fbac809ce265e
   languageName: node
   linkType: hard
 
@@ -15170,6 +15190,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"get-node-dimensions@npm:^1.2.1":
+  version: 1.2.2
+  resolution: "get-node-dimensions@npm:1.2.2"
+  checksum: 1018db4004ead28c92c02cf5471c3b13572be67cc4dff763c0c7714b8edc370d8020806d3db0400aad87e7e9d3e99635e8582e81636b735a6013051c8e3a4b13
+  languageName: node
+  linkType: hard
+
 "get-orientation@npm:1.1.2":
   version: 1.1.2
   resolution: "get-orientation@npm:1.1.2"
@@ -18463,6 +18490,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"js-base64@npm:~3.7.0":
+  version: 3.7.2
+  resolution: "js-base64@npm:3.7.2"
+  checksum: 573f28e9a27c3df60096d4d3f551bcb4fcb6d49161cf83396e9bad9b76f94736a70bb70b8808fe834dff2a388f76604ba09d6e153bbf181646e407720139fa5b
+  languageName: node
+  linkType: hard
+
 "js-cookie@npm:^2.2.1":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
@@ -20016,7 +20050,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"md5@npm:^2.3.0":
+"md5@npm:^2.2.1, md5@npm:^2.3.0":
   version: 2.3.0
   resolution: "md5@npm:2.3.0"
   dependencies:
@@ -23750,6 +23784,22 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-imgix@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "react-imgix@npm:9.3.0"
+  dependencies:
+    "@imgix/js-core": ^3.1.3
+    react-measure: ^2.3.0
+    shallowequal: ^1.1.0
+    warning: ^4.0.1
+  peerDependencies:
+    prop-types: ">=15.5.6"
+    react: 15.x || 16.x || 17.x
+    react-dom: 15.x || 16.x || 17.x
+  checksum: 44caf0e6ffdadb24c9dc443f360a1c740b740c63e736159e1fe622d6d525dcc1a7aa2eec647c57b1c69a2e66a0df6a923f83e4bc2e04b9ff0286f86c55cdabe7
+  languageName: node
+  linkType: hard
+
 "react-infinite-scroll-component@npm:^6.1.0":
   version: 6.1.0
   resolution: "react-infinite-scroll-component@npm:6.1.0"
@@ -23821,6 +23871,21 @@ fsevents@^1.2.7:
     eslint:
       optional: true
   checksum: 01bf392a3ad116c77b1b1184c6d8fde2a94bcbcc4b8eb94e7631662bf7ab708805a222cb4695af0c81f6e2ab0de541c66c2ce8b1d023af05532a8992a90508fe
+  languageName: node
+  linkType: hard
+
+"react-measure@npm:^2.3.0":
+  version: 2.5.2
+  resolution: "react-measure@npm:2.5.2"
+  dependencies:
+    "@babel/runtime": ^7.2.0
+    get-node-dimensions: ^1.2.1
+    prop-types: ^15.6.2
+    resize-observer-polyfill: ^1.5.0
+  peerDependencies:
+    react: ">0.13.0"
+    react-dom: ">0.13.0"
+  checksum: 75bd3cd74d96f3e83f0a42b8f59e8764e6a5eec994492e077c49a4fea0d0b27775a5154502aff2eee3f6af40650ce2e58ed18ac927a64013b14c9942cc9c4872
   languageName: node
   linkType: hard
 
@@ -24559,6 +24624,13 @@ fsevents@^1.2.7:
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
   checksum: eee0e303adffb69be55d1a214e415cf42b7441ae858c76dfc5353148644f6fd6e698926fc4643f510d5c126d12a705e7c8ed7e38061113bdf37547ab356797ff
+  languageName: node
+  linkType: hard
+
+"resize-observer-polyfill@npm:^1.5.0":
+  version: 1.5.1
+  resolution: "resize-observer-polyfill@npm:1.5.1"
+  checksum: 57e7f79489867b00ba43c9c051524a5c8f162a61d5547e99333549afc23e15c44fd43f2f318ea0261ea98c0eb3158cca261e6f48d66e1ed1cd1f340a43977094
   languageName: node
   linkType: hard
 
@@ -28417,7 +28489,7 @@ typescript@^3.9.7:
   languageName: node
   linkType: hard
 
-"warning@npm:^4.0.2, warning@npm:^4.0.3":
+"warning@npm:^4.0.1, warning@npm:^4.0.2, warning@npm:^4.0.3":
   version: 4.0.3
   resolution: "warning@npm:4.0.3"
   dependencies:
