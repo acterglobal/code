@@ -23,7 +23,7 @@ export interface UsePaginatedState<TType = any, TData = any, TVariables = any>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
-  loadMore: () => void
+  loadMore: (append?: boolean) => void
 }
 
 export type refetch<TVariables = any> = (
@@ -71,6 +71,7 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   } = options
   const [results, setResults] = useState<TType[]>([])
   const [hasMore, setHasMore] = useState(true)
+  const [shouldAppend, setShouldAppend] = useState(false)
   const initialSearch = useRef(true)
 
   const paginationDefaults: Pagination = {
@@ -94,9 +95,16 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   })
 
   useEffect(() => {
-    _getResults({ pagination, resultKey, results, setHasMore, setResults })(
-      data
-    )
+    _getResults({
+      data,
+      pagination,
+      resultKey,
+      results,
+      shouldAppend,
+      setHasMore,
+      setResults,
+    })
+    setShouldAppend(false)
   }, [data])
 
   // Reset the search if one of our variables have changed
@@ -113,6 +121,7 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     hasMore,
     pagination,
     setPagination,
+    setShouldAppend,
   })
 
   return [
@@ -128,10 +137,12 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   ]
 }
 
-interface GetResultsProps<TType> {
+interface GetResultsProps<TType, TData> {
+  data: TData
   pagination: Pagination
   resultKey: string
   results: TType[]
+  shouldAppend?: boolean
   setHasMore: (boolean) => void
   setResults: (results: TType[]) => void
 }
@@ -140,25 +151,28 @@ interface GetResultsProps<TType> {
  * Exported function for testing. Do not use.
  * @param param0 variables passed from main function
  */
-export const _getResults =
-  <TType, TData>({
-    pagination,
-    resultKey,
-    results,
-    setHasMore,
-    setResults,
-  }: GetResultsProps<TType>) =>
-  (data: TData): void => {
-    if (data && data[resultKey]) {
-      const nextResultsPage = data[resultKey]
-      const nextHasMore =
-        nextResultsPage.length > results.length + pagination.take
-      setHasMore(nextHasMore)
-      const sliceEnd = nextHasMore ? -1 : undefined
-      const nextResults = [...results, ...nextResultsPage.slice(0, sliceEnd)]
-      setResults(nextResults)
-    }
+export const _getResults = <TType, TData>({
+  data,
+  pagination,
+  resultKey,
+  results,
+  shouldAppend = false,
+  setHasMore,
+  setResults,
+}: GetResultsProps<TType, TData>): void => {
+  if (data && data[resultKey]) {
+    const nextResultsPage = data[resultKey]
+    const nextHasMore =
+      nextResultsPage.length > results.length + pagination.take
+    setHasMore(nextHasMore)
+    const sliceEnd = nextHasMore ? -1 : undefined
+    const nextResults = [
+      ...(shouldAppend ? results : []),
+      ...nextResultsPage.slice(0, sliceEnd),
+    ]
+    setResults(nextResults)
   }
+}
 
 export interface GetLoadMoreProps<TData = any> {
   /**
@@ -181,6 +195,10 @@ export interface GetLoadMoreProps<TData = any> {
    * setPagination useState function
    */
   setPagination: (Pagination) => void
+  /**
+   * setAppend useState function
+   */
+  setShouldAppend?: (shouldAppend: boolean) => void
 }
 
 /**
@@ -188,11 +206,19 @@ export interface GetLoadMoreProps<TData = any> {
  * @param GetLoadMoreProps
  * @returns void
  */
-export const _getLoadMore =
-  ({ data, resultKey, hasMore, pagination, setPagination }: GetLoadMoreProps) =>
-  (): void =>
-    hasMore &&
+export const _getLoadMore = ({
+  data,
+  resultKey,
+  hasMore,
+  pagination,
+  setPagination,
+  setShouldAppend,
+}: GetLoadMoreProps) => (shouldAppend = false): void => {
+  if (hasMore) {
+    setShouldAppend?.(shouldAppend)
     setPagination({
       ...pagination,
       cursor: { id: data[resultKey][data[resultKey].length - 1].id },
     })
+  }
+}

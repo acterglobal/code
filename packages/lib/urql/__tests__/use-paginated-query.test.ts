@@ -59,6 +59,7 @@ describe('usePaginatedQuery', () => {
   describe('onComplete', () => {
     const results = []
     const getResultsParams = {
+      data: {},
       pagination,
       resultKey,
       results,
@@ -67,19 +68,19 @@ describe('usePaginatedQuery', () => {
     }
 
     it('should skip pagination if there are no results', () => {
-      _getResults(getResultsParams)({})
+      _getResults(getResultsParams)
       expect(setPagination).not.toHaveBeenCalled()
       expect(setHasMore).not.toHaveBeenCalled()
     })
 
     it('should set hasMore when there appear to be more results', () => {
-      _getResults(getResultsParams)(data)
+      _getResults({ ...getResultsParams, data })
       expect(setHasMore).toHaveBeenCalledTimes(1)
       expect(setHasMore).toHaveBeenCalledWith(true)
     })
 
     it('should set results', () => {
-      _getResults(getResultsParams)(data)
+      _getResults({ ...getResultsParams, data })
       expect(setResults).toHaveBeenCalledTimes(1)
     })
   })
