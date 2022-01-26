@@ -15,11 +15,9 @@ export const ActerActivitiesPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <>
-        <Head title={`${acter?.name} Activities - Acter`} />
+      <Head title={`${acter?.name} Activities - Acter`} />
 
-        <ActerActivities />
-      </>
+      <ActerActivities />
     </>
   )
 }
