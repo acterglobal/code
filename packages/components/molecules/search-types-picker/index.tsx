@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { Type } from '@acter/components/atoms/search-type'
+import { Type } from '@acter/components/atoms/search/type'
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
