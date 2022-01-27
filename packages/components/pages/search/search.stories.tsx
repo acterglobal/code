@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import { Search as SearchComponent } from '@acter/components/search'
+import { Search as SearchComponent } from '@acter/components/pages/search'
 import {
   ExampleActivityActer,
   ExampleActivity,

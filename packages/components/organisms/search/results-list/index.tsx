@@ -5,16 +5,15 @@ import { useIsVisible } from 'react-is-visible'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { LoadingSpinner } from '../../../atoms/loading/spinner'
 import clsx from 'clsx'
 
 import { ActerTile } from '@acter/components/acter/tile'
 import { ActivityTile } from '@acter/components/activity/tile'
+import { LoadingBar } from '@acter/components/atoms/loading/bar'
 import { Button } from '@acter/components/styled'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
-import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { Acter } from '@acter/schema'
 
@@ -37,7 +36,7 @@ export interface SearchResultsListProps {
   acters: Acter[]
   fetching: boolean
   hasMore: boolean
-  loadMore: () => void
+  loadMore: (append?: boolean) => void
 }
 
 export const SearchResultsList: FC<SearchResultsListProps> = ({
@@ -49,7 +48,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
   const classes = useStyles()
   const searchType = useSearchType()
 
-  if (acters.length === 0)
+  if (acters.length === 0) {
     return (
       <Box className={classes.root}>
         <Typography variant="body2" aria-label="zero-acters">
@@ -58,6 +57,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
         </Typography>
       </Box>
     )
+  }
 
   return (
     <div className={classes.root}>
