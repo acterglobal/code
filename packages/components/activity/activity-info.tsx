@@ -7,7 +7,6 @@ import { Computer, Event as CalenderIcon } from '@material-ui/icons'
 
 import { ActerLocation } from '../atoms/acter/acter-location'
 
-// import { format } from 'date-fns'
 import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
@@ -19,21 +18,19 @@ interface ActivityInfoProps {
   acter: Acter
 }
 export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
-  if (!acter) return null
-
   const activityTypeName = useMemo(() => acter?.Activity?.ActivityType?.name, [
     acter,
   ])
   const classes = useStyles({ activityTypeName })
 
-  const displayFormat = acter.Activity.isAllDay
+  const displayFormat = acter?.Activity?.isAllDay
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT
 
   // const startAt = format(acter.Activity.startAt, displayFormat)
   // const endAt = format(acter.Activity.endAt, displayFormat)
-  const startAt = parseAndFormat(acter.Activity.startAt, displayFormat)
-  const endAt = parseAndFormat(acter.Activity.endAt, displayFormat)
+  const startAt = parseAndFormat(acter.Activity?.startAt, displayFormat)
+  const endAt = parseAndFormat(acter.Activity?.endAt, displayFormat)
 
   const getUrl = (url) => {
     if (!url) {

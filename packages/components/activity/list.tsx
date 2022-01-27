@@ -12,6 +12,7 @@ import {
 import { ActivityTile } from '@acter/components/activity/tile'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole, Activity, Acter } from '@acter/schema'
@@ -21,11 +22,9 @@ export interface ActivityListProps {
   acter: Acter
 }
 
-export const ActivitiesList: FC<ActivityListProps> = ({
-  activities,
-  acter,
-}) => {
+export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
   const classes = useStyles()
+  const { acter } = useActer()
   const { user } = useUser()
 
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
@@ -41,6 +40,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({
           </Typography>
         </Box>
       ) : (
+        acter &&
         activities?.map((activity) => (
           <Link href={acterAsUrl({ acter, activity })} passHref>
             <StyledActivityBox key={activity.id}>

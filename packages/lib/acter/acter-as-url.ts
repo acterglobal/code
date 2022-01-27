@@ -1,5 +1,4 @@
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
-import { pluralize } from '@acter/lib/string/pluralize'
 import { Acter, Activity } from '@acter/schema'
 
 interface ActerAsUrlProps {
@@ -42,17 +41,32 @@ export const acterAsUrl = ({
 
   const baseURL = includeBaseUrl ? process.env.NEXT_PUBLIC_BASE_URL : ''
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
-  const activityTypeUrl = pluralize(activity?.Acter.ActerType.name)
+  const activityTypeUrl = activity?.Acter.ActerType.name
   const acterSlugLower = acter.slug.toLowerCase()
-  const activitySlugLower = activity?.Acter.name
-  const url = [
-    baseURL,
-    acterTypeUrl,
-    acterSlugLower,
-    activity && activityTypeUrl,
-    activity && activitySlugLower,
-    ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
-  ].join('/')
+  const activitySlugLower = activity?.Acter.slug.toLocaleLowerCase()
+
+  const getUrl = (activity) => {
+    if (activity) {
+      const url = [
+        baseURL,
+        acterTypeUrl,
+        acterSlugLower,
+        activityTypeUrl,
+        activitySlugLower,
+        ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
+      ].join('/')
+      return url
+    }
+    const url = [
+      baseURL,
+      acterTypeUrl,
+      acterSlugLower,
+      ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
+    ].join('/')
+    return url
+  }
+
+  const url = getUrl(activity)
 
   if (Object.keys(query).length > 0) {
     const queryString = Object.keys(query)

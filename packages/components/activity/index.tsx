@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 
 import { Box, Grid, Hidden, makeStyles, Theme } from '@material-ui/core'
 
+import { LoadingSpinner } from '../util/loading-spinner'
+
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { ActivityInfo } from '@acter/components/activity/activity-info'
 import { Organiser } from '@acter/components/activity/organiser'
@@ -13,18 +15,22 @@ import { Acter } from '@acter/schema'
 
 export interface ActivityDetailsProps {
   acter: Acter
+  acterLoading: boolean
 }
 
-export const ActivityDetails: FC<ActivityDetailsProps> = ({ acter }) => {
+export const ActivityDetails: FC<ActivityDetailsProps> = ({
+  acter,
+  acterLoading,
+}) => {
   const classes = useStyles()
 
-  if (!acter) return null
+  if (acterLoading || !acter) return <LoadingSpinner />
 
   return (
     <Box className={classes.container}>
       <Box className={classes.imageContainer}>
         <Image
-          src={getImageUrl(acter.bannerUrl, 'banner')}
+          src={getImageUrl(acter?.bannerUrl, 'banner')}
           alt="Picture of activity"
         />
       </Box>

@@ -73,7 +73,7 @@ export const ActivitiesSection: FC = () => {
       {showActivity && (
         <ActivityLanding
           activitySlug={`${query.slug}-${query.activity}`}
-          openDrawer={showActivity}
+          // openDrawer={showActivity}
           handleCloseDrawer={() => setShowActivity(false)}
         />
       )}

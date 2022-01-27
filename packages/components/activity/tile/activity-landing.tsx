@@ -18,15 +18,15 @@ const EditActivity = dynamic(() =>
 
 interface ActivityLandingProps {
   activitySlug: string
-  openDrawer: boolean
+  // openDrawer: boolean
   handleCloseDrawer: () => void
 }
 export const ActivityLanding: FC<ActivityLandingProps> = ({
   activitySlug,
-  openDrawer,
+  // openDrawer,
   handleCloseDrawer,
 }) => {
-  if (!activitySlug || !openDrawer) return null
+  if (!activitySlug) return null
 
   const [drawerHeading, setDrawerHeading] = useState<string>('')
   const [action, setAction] = useState<ActionButton>(null)
@@ -52,7 +52,7 @@ export const ActivityLanding: FC<ActivityLandingProps> = ({
     <Drawer
       acter={acter}
       heading={drawerHeading}
-      open={openDrawer}
+      open={false}
       handleClose={handleClose}
       actionButtons={[EDIT, DELETE]}
       setAction={setAction}
