@@ -4,11 +4,11 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
 
-export interface SearchBarProps {
+export interface SearchInputProps {
   handleInputChange: (data: string) => void
 }
 
-export const SearchBar: FC<SearchBarProps> = ({ handleInputChange }) => {
+export const SearchInput: FC<SearchInputProps> = ({ handleInputChange }) => {
   const classes = useStyles()
 
   return (
@@ -28,7 +28,7 @@ export const SearchBar: FC<SearchBarProps> = ({ handleInputChange }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     searchField: {
-      height: theme.spacing(3.5),
+      height: theme.spacing(4.5),
       display: 'flex',
       alignItems: 'center',
       backgroundColor: 'white',

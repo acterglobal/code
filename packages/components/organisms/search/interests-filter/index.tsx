@@ -10,11 +10,11 @@ import { Popover } from '@acter/components/util/popover'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
-export type FilterInterestsProps = {
+export type InterestsFilterProps = {
   applyFilters: (filterInterests?: string[]) => void
 }
 
-export const FilterInterests: FC<FilterInterestsProps> = ({ applyFilters }) => {
+export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
   const classes = useStyles()
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
   const [selectedInterestIds, setSelectedInterestIds] = useState([])
