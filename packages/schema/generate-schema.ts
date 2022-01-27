@@ -12,6 +12,8 @@ import {
   crudResolvers,
   relationResolvers,
 } from '@acter/schema/generated'
+import { CheckActerExists } from '@acter/schema/middlewares/check-acter-exists'
+import { CheckUserAccess } from '@acter/schema/middlewares/check-user-access'
 import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
 import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
 import { ActerResolver } from '@acter/schema/resolvers/acter'
@@ -22,6 +24,9 @@ export const generateSchema = async (
   writeSchema = false
 ): Promise<GraphQLSchema> => {
   const resolversEnhanceMap: ResolversEnhanceMap = {
+    Acter: {
+      findFirstActer: [UseMiddleware(CheckActerExists, CheckUserAccess)],
+    },
     Invite: {
       createManyInvite: [UseMiddleware(QueueInviteEmail)],
       updateInvite: [UseMiddleware(QueueInviteEmail)],

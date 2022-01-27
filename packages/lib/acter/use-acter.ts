@@ -31,7 +31,7 @@ type UseActerVariablesByTypeAndSlug = {
 
 type UseActerVariables = UseActerVariablesById | UseActerVariablesByTypeAndSlug
 
-type UseActerError = CombinedError | Error
+export type UseActerError = CombinedError | Error
 
 export type ActerQueryResult = Omit<
   UseQueryState<UseActerData, UseActerVariables>,

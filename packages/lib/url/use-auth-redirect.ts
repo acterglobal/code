@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 
 type Redirect = () => void
 type UseAuthRedirectResponse = {
@@ -8,13 +8,21 @@ type UseAuthRedirectResponse = {
   signupRedirect: Redirect
 }
 
+const getQuery = (loginRedirectPath: string, router: NextRouter) => {
+  if (loginRedirectPath) return `?returnTo=${loginRedirectPath}`
+  if (router?.asPath) return `?returnTo=${router.asPath}`
+  return null
+}
+
 /**
  * Can be used to redirect to login/signup
  */
-export const useAuthRedirect = (): UseAuthRedirectResponse => {
+export const useAuthRedirect = (
+  loginRedirectPath?: string
+): UseAuthRedirectResponse => {
   const router = useRouter()
   const authPath = '/api/auth'
-  const query = router?.asPath ? `?returnTo=${router.asPath}` : null
+  const query = getQuery(loginRedirectPath, router)
 
   const loginUrl = router?.route.includes('/search')
     ? `${authPath}/login?returnTo=/dashboard`

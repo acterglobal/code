@@ -5,10 +5,14 @@ import { NextPageWithLayout } from 'pages/_app'
 import { Head } from '@acter/components/atoms/head'
 import { GroupActivities } from '@acter/components/group/activities'
 import { GroupLayout } from '@acter/components/group/layout/overall'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const GroupActivitiesPage: NextPageWithLayout = () => {
-  const { acter } = useActer()
+  const { acter, fetching: acterLoading } = useAuthentication()
+
+  if (acterLoading) return <LoadingSpinner />
+
   return (
     <>
       <Head title={`${acter?.name} Activities - Acter`} />

@@ -3,10 +3,16 @@ import { NextPageWithLayout } from 'pages/_app'
 import { ActerMembers } from '@acter/components/acter/members'
 import { Head } from '@acter/components/atoms/head'
 import { ActerLayout } from '@acter/components/layout/acter'
+import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActerTitle } from '@acter/lib/acter/use-title'
+import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerMembersPage: NextPageWithLayout = () => {
   const { title } = useActerTitle('members')
+  const { fetching: acterLoading } = useAuthentication()
+
+  if (acterLoading) return <LoadingSpinner />
+
   return (
     <>
       <Head title={title} />
