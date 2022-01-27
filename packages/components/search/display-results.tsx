@@ -95,6 +95,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop: theme.spacing(5),
       width: '72%',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: 0,
+      },
     },
     activities: {
       display: 'flex',
