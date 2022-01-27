@@ -30,11 +30,10 @@ export const ActerImage: FC<ActerTileImageProps> = ({ acter }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     image: {
+      display: 'flex',
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(3),
       border: '2px solid black',
-      width: 100,
-      height: 100,
       borderRadius: '50%',
       overflow: 'hidden',
     },
