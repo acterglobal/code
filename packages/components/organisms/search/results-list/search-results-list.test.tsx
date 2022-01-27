@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { DisplayResults } from '@acter/components/search/display-results'
+import { SearchResultsList } from '@acter/components/organisms/search/results-list'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
@@ -37,7 +37,7 @@ describe('Display search results', () => {
     mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
     mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
 
-    render(<DisplayResults />)
+    render(<SearchResultsList />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -71,7 +71,7 @@ describe('Display search results', () => {
     mockUseUpdateActivity.mockReturnValue([() => null])
     mockUseDeleteActivity.mockReturnValue([() => null])
 
-    render(<DisplayResults />)
+    render(<SearchResultsList />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -85,7 +85,7 @@ describe('Display search results', () => {
   it('should display a message with no search results', async () => {
     mockUseActerSearch.mockReturnValue({ acters: [] })
 
-    render(<DisplayResults />)
+    render(<SearchResultsList />)
     const items = screen.queryAllByRole('listitem')
     const message = screen.queryByLabelText('zero-acters').textContent
 

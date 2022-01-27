@@ -5,7 +5,7 @@ import { useIsVisible } from 'react-is-visible'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { LoadingSpinner } from '../util/loading-spinner'
+import { LoadingSpinner } from '../../../atoms/loading/spinner'
 import clsx from 'clsx'
 
 import { ActerTile } from '@acter/components/acter/tile'
@@ -16,17 +16,9 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
+import { Acter } from '@acter/schema'
 
 const { ACTIVITIES, ACTERS } = SearchType
-
-const LoadingBar = () => {
-  const classes = useStyles()
-  return (
-    <Box className={classes.fetching}>
-      <LoadingSpinner />
-    </Box>
-  )
-}
 
 interface HasMoreProps {
   onVisible: () => void
@@ -41,13 +33,21 @@ const HasMore: FC<HasMoreProps> = ({ onVisible, children }) => {
   return <div ref={nodeRef}>{children}</div>
 }
 
-export const DisplayResults: FC = () => {
+export interface SearchResultsListProps {
+  acters: Acter[]
+  fetching: boolean
+  hasMore: boolean
+  loadMore: () => void
+}
+
+export const SearchResultsList: FC<SearchResultsListProps> = ({
+  acters,
+  fetching,
+  hasMore,
+  loadMore,
+}) => {
   const classes = useStyles()
   const searchType = useSearchType()
-
-  const { acters, fetching, loadMore, hasMore } = useActerSearch()
-
-  if (fetching && acters.length === 0) return <LoadingBar />
 
   if (acters.length === 0)
     return (

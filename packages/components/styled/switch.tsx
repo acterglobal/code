@@ -7,7 +7,7 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Size } from '@acter/lib/constants'
 
 const { SMALL, MEDIUM } = Size

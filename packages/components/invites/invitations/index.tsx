@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Invitation } from '@acter/components/invites/invitations/invitation'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useInvites } from '@acter/lib/invites/use-invites'
 import { useUser } from '@acter/lib/user/use-user'

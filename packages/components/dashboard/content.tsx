@@ -10,8 +10,8 @@ import {
 } from '@material-ui/core'
 
 import { ActivitiesList } from '@acter/components/activity/list'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'

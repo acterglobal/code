@@ -4,8 +4,8 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Head } from '@acter/components/atoms/head'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ActerLayout } from '@acter/components/layout/acter'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerSettingsPage: NextPageWithLayout = () => {

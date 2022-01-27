@@ -4,8 +4,8 @@ import { Box, Button, Divider, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { AddCircleOutlineOutlined } from '@material-ui/icons'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { LinkForm } from '@acter/components/links/form'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useLinks } from '@acter/lib/links/use-links'
 

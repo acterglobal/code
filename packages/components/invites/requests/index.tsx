@@ -9,8 +9,8 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Request } from '@acter/components/invites/requests/request'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerConnectionRole } from '@acter/schema'
 

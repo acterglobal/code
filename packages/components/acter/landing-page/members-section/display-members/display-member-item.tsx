@@ -4,7 +4,7 @@ import { ListItem, ListItemSecondaryAction } from '@material-ui/core'
 
 import { ConnectionUpdateOptions } from '@acter/components/acter/landing-page/members-section/display-members/connection-update-options'
 import { MemberDetails } from '@acter/components/acter/landing-page/members-section/display-members/member-details'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'

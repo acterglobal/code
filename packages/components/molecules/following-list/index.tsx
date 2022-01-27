@@ -14,9 +14,9 @@ import {
 import clsx from 'clsx'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'

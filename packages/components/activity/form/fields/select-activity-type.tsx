@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 // TODO: refactor below import after update to mui-5
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { ActivityTypes } from '@acter/lib/constants'
 
