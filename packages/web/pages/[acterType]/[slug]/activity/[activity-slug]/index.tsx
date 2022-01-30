@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import _ from 'lodash'
 import { NextPageWithLayout } from 'pages/_app'
 
-import { ActivityDetails } from '@acter/components/activity'
+import { Activity } from '@acter/components/activity'
 import { Head } from '@acter/components/atoms/head'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
@@ -27,9 +27,9 @@ export const ActerActivityPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head title={`${acter?.name} Activities - Acter`} />
+      <Head title={`${acter?.name}`} />
 
-      <ActivityDetails acter={acter} acterLoading={acterLoading} />
+      <Activity acter={acter} acterLoading={acterLoading} />
     </>
   )
 }

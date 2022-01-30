@@ -11,12 +11,21 @@ import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
-export const DeleteButton: FC = () => {
+export interface DeleteButtonProps {
+  activitySlug?: string | string[]
+}
+
+export const DeleteButton: FC<DeleteButtonProps> = ({ activitySlug }) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
 
   const { user } = useUser()
-  const { acter } = useActer()
+  const { acter } = useActer(
+    activitySlug && {
+      acterTypeName: 'activities',
+      slug: activitySlug,
+    }
+  )
 
   const handleDelete = () => {
     setHeading(`Delete ${acter.name}`)
@@ -28,7 +37,7 @@ export const DeleteButton: FC = () => {
     setHeading('')
   }
 
-  const [_deleteResult, deleteActer] = useDeleteActer({
+  const [_deleteResult, deleteActivity] = useDeleteActer({
     onCompleted: handleDrawerClose,
   })
 
@@ -51,7 +60,7 @@ export const DeleteButton: FC = () => {
         <DeleteActer
           acter={acter}
           onCancel={handleDrawerClose}
-          onSubmit={() => deleteActer(acter.id)}
+          onSubmit={() => deleteActivity(acter.id)}
         />
       </Drawer>
     </>

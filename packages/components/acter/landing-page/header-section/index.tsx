@@ -9,6 +9,8 @@ import {
   Theme,
 } from '@material-ui/core'
 
+import _ from 'lodash'
+
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
@@ -16,13 +18,26 @@ import { EditButton } from '@acter/components/acter/landing-page/header-section/
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Image } from '@acter/components/util/image'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
+  const smallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('xs')
+  )
 
-  const { acter, fetching: acterLoading } = useActer()
+  const activitySlug = getActivitySlug()
+
+  const avatarDims = smallScreen ? 65 : 140
+
+  const { acter, fetching: acterLoading } = useActer(
+    activitySlug && {
+      acterTypeName: 'activities',
+      slug: activitySlug,
+    }
+  )
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
@@ -73,8 +88,8 @@ export const HeaderSection: FC = () => {
 
           <Hidden xsDown>
             <Box>
-              <EditButton />
-              <DeleteButton />
+              <EditButton activitySlug={activitySlug} />
+              <DeleteButton activitySlug={activitySlug} />
             </Box>
           </Hidden>
         </Box>
