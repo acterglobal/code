@@ -6,8 +6,6 @@ import { LoadingSpinner } from '../util/loading-spinner'
 import _ from 'lodash'
 
 import { ActivityDescription } from '@acter/components/activity/activity-description'
-import { ActivityInfo } from '@acter/components/activity/activity-info'
-import { Organiser } from '@acter/components/activity/organiser'
 import { Participants } from '@acter/components/activity/participants'
 import { PostsSection } from '@acter/components/activity/posts'
 import { Acter } from '@acter/schema'
@@ -27,18 +25,19 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 
   return (
     <Box className={classes.container}>
-      <ActivityInfo acter={acter} />
-
       <Grid container spacing={2} className={classes.content}>
         <Hidden smDown>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={6}>
             <ActivityDescription acter={acter} />
           </Grid>
         </Hidden>
 
+        <Hidden mdUp>
+          <Grid item sm={2} />
+        </Hidden>
+
         <Grid item xs={12} sm={4}>
           <Participants acter={acter} />
-          <Organiser acter={acter?.Activity?.Organiser} />
         </Grid>
 
         <Grid item xs={12} className={classes.posts}>
@@ -58,8 +57,10 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     backgroundColor: theme.colors.grey.extraLight,
-    width: 800,
-    height: '100%',
+    columnGap: '120px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: 700,
     },
@@ -75,20 +76,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       overflowY: 'hidden',
     },
   },
-  imageContainer: {
-    backgroundColor: 'white',
-    overflow: 'hidden',
-    objectFit: 'contain',
-  },
   content: {
-    padding: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
-    },
-  },
-  membersContainer: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'flex',
     },
   },
   posts: {

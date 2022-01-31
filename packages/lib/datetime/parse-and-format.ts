@@ -7,5 +7,6 @@ export const parseAndFormat = (
   dateString: Date | string,
   formatString: string
 ): string => {
-  return pipe(dateString, parseDateOrString, format(formatString))
+  if (dateString)
+    return pipe(dateString, parseDateOrString, format(formatString))
 }

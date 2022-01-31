@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import _ from 'lodash'
 
 export const getActivitySlug = (): string | string[] => {
-  const [activity, setActivity] = useState<string | string[]>('undefined')
+  const [activity, setActivity] = useState<string | string[]>(null)
   const router = useRouter()
   const { query } = router
 

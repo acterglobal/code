@@ -1,28 +1,35 @@
 import React, { FC } from 'react'
 
+import Image from 'next/image'
+
 import {
   Box,
   Hidden,
   Typography,
   createStyles,
   makeStyles,
+  useMediaQuery,
   Theme,
 } from '@material-ui/core'
 
 import _ from 'lodash'
 
-import { Connect } from '@acter/components/acter/connect'
-import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
-import { HeaderSection as ActivityHeaderSection } from '@acter/components/activity/landing-page/header-section'
+import { ActivityLocationIcon } from '@acter/components/icons'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
+import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
-export const HeaderSection: FC = () => {
+interface HeaderSectionProps {
+  acter: Acter
+}
+
+export const HeaderSection: FC<HeaderSectionProps> = () => {
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
@@ -39,29 +46,41 @@ export const HeaderSection: FC = () => {
     }
   )
 
+  const displayFormat = acter?.Activity?.isAllDay
+    ? DATE_FORMAT_NO_TIME
+    : DATE_FORMAT
+
+  const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
+  const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
+
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
-
-  if (activitySlug && acter) return <ActivityHeaderSection acter={acter} />
 
   return (
     <Box className={classes.bannerSection}>
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        height={250}
+        layout="intrinsic"
+        height={400}
+        width={1920}
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
             src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
-            height={126}
+            layout="intrinsic"
+            height={avatarDims}
+            width={avatarDims}
           />
         </Box>
 
         <Box className={classes.info}>
           <Box>
+            <Typography className={classes.date} variant="subtitle1">
+              {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
+            </Typography>
             <Typography
               role="acter-name"
               variant="h5"
@@ -70,14 +89,7 @@ export const HeaderSection: FC = () => {
               {acter.name}
             </Typography>
             <Box className={classes.infoDescription}>
-              <Typography
-                role="acter-type"
-                variant="subtitle2"
-                className={classes.acterType}
-              >
-                {capitalize(acter.ActerType.name)}
-              </Typography>
-              {'-'}
+              <ActivityLocationIcon />
               <Typography
                 role="acter-location"
                 variant="subtitle2"
@@ -95,11 +107,6 @@ export const HeaderSection: FC = () => {
             </Box>
           </Hidden>
         </Box>
-
-        <Box className={classes.buttonContainer}>
-          <AddInviteSection />
-          <Connect />
-        </Box>
       </Box>
     </Box>
   )
@@ -110,13 +117,12 @@ const useStyles = makeStyles((theme: Theme) =>
     bannerSection: {
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
-      width: '100%',
     },
     infoSection: {
       display: 'flex',
-      height: '80px',
+      height: '90px',
       alignItems: 'flex-end',
-      paddingBottom: theme.spacing(2.2),
+      paddingBottom: theme.spacing(1.0),
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
@@ -146,7 +152,11 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: theme.spacing(1),
       },
     },
+    date: {
+      color: theme.colors.blue.light,
+    },
     title: {
+      color: theme.palette.secondary.main,
       fontWeight: theme.typography.fontWeightBold,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
@@ -164,9 +174,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(0.5),
     },
     location: {
-      color: theme.palette.secondary.dark,
+      color: theme.colors.blue.light,
       [theme.breakpoints.down('xs')]: {
-        fontSize: '0.7rem',
+        fontSize: '0.9rem',
       },
       marginLeft: theme.spacing(0.5),
     },

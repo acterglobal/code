@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     content: {
+      justifyContent: 'center',
       marginLeft: theme.spacing(0.5),
       marginRight: theme.spacing(0.5),
     },
