@@ -11,8 +11,6 @@ interface ImageProps extends ImgixProviderProps {
 export const Image: FC<ImageProps> = (props) => {
   const { alt, src, sizes = '100vw', ...restProps } = props
 
-  console.log('In Image, src is: ', src)
-
   return (
     <Imgix
       {...restProps}
