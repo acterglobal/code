@@ -76,7 +76,15 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
               </Link>
             )}
             {searchType === ACTIVITIES && (
-              <ActivityTile activity={acter.Activity} />
+              <Link
+                href={acterAsUrl({
+                  acter: acter.Parent,
+                  activity: acter.Activity,
+                })}
+                passHref
+              >
+                <ActivityTile activity={acter.Activity} />
+              </Link>
             )}
           </Box>
         ))}
