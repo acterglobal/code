@@ -10,7 +10,7 @@ export const getActivitySlug = (): string | string[] => {
   const { query } = router
 
   useEffect(() => {
-    if (router.asPath.includes('activity')) {
+    if (router?.asPath?.includes('activity')) {
       const camelCaseQuery = _.mapKeys(query, (value, key) => _.camelCase(key))
       const { activitySlug } = camelCaseQuery
       setActivity(activitySlug)
