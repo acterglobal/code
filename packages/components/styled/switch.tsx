@@ -57,16 +57,16 @@ const getSwitch = (size) => {
 const MediumSwitch = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: 48,
+      width: 40,
       height: 22,
       padding: 0,
       display: 'flex',
     },
     switchBase: {
-      padding: 2.5,
+      padding: 3,
       color: theme.colors.grey.main,
       '&$checked': {
-        transform: 'translateX(24px)',
+        transform: 'translateX(18px)',
         color: theme.palette.common.white,
         '& + $track': {
           opacity: 1,
@@ -76,8 +76,8 @@ const MediumSwitch = withStyles((theme: Theme) =>
       },
     },
     thumb: {
-      width: 18,
-      height: 18,
+      width: 16,
+      height: 16,
       boxShadow: 'none',
     },
     track: {
@@ -93,8 +93,8 @@ const MediumSwitch = withStyles((theme: Theme) =>
 const SmallSwitch = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: 28,
-      height: 16,
+      width: 20,
+      height: 12,
       padding: 0,
       display: 'flex',
     },
@@ -102,7 +102,7 @@ const SmallSwitch = withStyles((theme: Theme) =>
       padding: 2,
       color: theme.colors.grey.dark,
       '&$checked': {
-        transform: 'translateX(12px)',
+        transform: 'translateX(8px)',
         color: theme.palette.common.white,
         '& + $track': {
           opacity: 1,
@@ -112,12 +112,11 @@ const SmallSwitch = withStyles((theme: Theme) =>
       },
     },
     thumb: {
-      width: 12,
-      height: 12,
+      width: 8,
+      height: 8,
       boxShadow: 'none',
     },
     track: {
-      height: 14,
       border: `1px solid ${theme.colors.grey.dark}`,
       borderRadius: 16 / 2,
       opacity: 1,
