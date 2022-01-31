@@ -21,7 +21,6 @@ module.exports = {
   moduleNameMapper: {
     // ...pathsToModuleNameMapper(compilerOptions.paths),
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^react(.*)$': '<rootDir>/node_modules/react$1',
   },
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
