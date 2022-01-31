@@ -55,6 +55,7 @@
     "@storybook/manager-webpack5": "^6.3.8",
     "@storybook/react": "^6.3.8",
     "@types/googlemaps": "^3.43.3",
+    "@types/react-imgix": "^9.3.1",
     "@urql/storybook-addon": "^1.0.7",
     "babel-loader": "^8.2.2",
     "babel-plugin-polyfill-corejs2": "^0.2.2",

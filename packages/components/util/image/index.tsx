@@ -1,28 +1,26 @@
 import React, { FC } from 'react'
-import Imgix from 'react-imgix'
+import Imgix, { ImgixProviderProps } from 'react-imgix'
 
 import { getImageExtension } from '@acter/lib/images/get-image-extension'
 
-interface ImageProps {
-  src: string
+interface ImageProps extends ImgixProviderProps {
   alt: string
-  height?: number | string
-  width?: number | string
 }
-export const Image: FC<ImageProps> = ({
-  src,
-  alt,
-  height = '100%',
-  width = '100%',
-}) => {
+
+// TODO: monitor https://github.com/imgix/react-imgix/issues/356 for the addition of types to library so we can remove @types/react-imgix
+export const Image: FC<ImageProps> = (props) => {
+  const { alt, src, sizes = '100vw', ...restProps } = props
+
   return (
     <Imgix
+      {...restProps}
       src={src}
-      alt={alt}
-      width={width}
-      height={height}
+      sizes={sizes}
       imgixParams={{
         fm: getImageExtension(src),
+      }}
+      htmlAttributes={{
+        alt,
       }}
     />
   )

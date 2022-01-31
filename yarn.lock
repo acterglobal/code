@@ -26,6 +26,7 @@ __metadata:
     "@storybook/manager-webpack5": ^6.3.8
     "@storybook/react": ^6.3.8
     "@types/googlemaps": ^3.43.3
+    "@types/react-imgix": ^9.3.1
     "@urql/storybook-addon": ^1.0.7
     babel-loader: ^8.2.2
     babel-plugin-polyfill-corejs2: ^0.2.2
@@ -7199,6 +7200,15 @@ __metadata:
     "@types/draft-js": "*"
     "@types/react": "*"
   checksum: 17a0df643048470b478ccdc6c0d17ae259b54b94838e5086b36ff87f353141ba9b9bdb14db292b7b1d35aa5332932828ec08e1901ee2ed373cd1d9a5c7239df4
+  languageName: node
+  linkType: hard
+
+"@types/react-imgix@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "@types/react-imgix@npm:9.3.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: 19587357f775956b70cd30253e05170674690bb06c45d49b64aa2e7eeb8743e24def74c5c33d18b0997b21a7b22335389ca3e6da521918d6933c72110090470a
   languageName: node
   linkType: hard
 
