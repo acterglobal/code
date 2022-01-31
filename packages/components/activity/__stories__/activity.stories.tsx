@@ -2,10 +2,7 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import {
-  ActivityDetails,
-  ActivityDetailsProps,
-} from '@acter/components/activity/activity-details'
+import { Activity, ActivityProps } from '@acter/components/activity'
 import { Acter } from '@acter/schema'
 import {
   ExampleActer,
@@ -27,13 +24,11 @@ const acter: Acter = {
 }
 
 export default {
-  title: 'Pages/Activity/ActivityDetails',
-  component: ActivityDetails,
+  title: 'Pages/Activity',
+  component: Activity,
   args: {
     acter: acter,
   },
 } as Meta
 
-export const Main: Story<ActivityDetailsProps> = (args) => (
-  <ActivityDetails {...args} />
-)
+export const Main: Story<ActivityProps> = (args) => <Activity {...args} />
