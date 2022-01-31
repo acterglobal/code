@@ -16,7 +16,9 @@ export const getImageUrl = (
   options?: ImageUrlOptions
 ): string => {
   const { suffix = '' } = options || {}
-  const baseURL = process.env.NEXT_PUBLIC_IMAGE_LOADER_URL
+  const baseURL =
+    process.env.NEXT_PUBLIC_IMAGE_LOADER_URL ||
+    process.env.STORYBOOK_IMAGE_LOADER_URL
   const imageSuffix = process.env.NEXT_PUBLIC_DEFAULT_IMAGE_SUFFIX || ''
   const imagePath = imageName
     ? `/${imageName}`
