@@ -1,6 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import {
+  createStyles,
+  Hidden,
+  IconButton,
+  makeStyles,
+  Theme,
+  useMediaQuery,
+} from '@material-ui/core'
+import { FilterList } from '@material-ui/icons'
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchBar } from '@acter/components/organisms/search/bar'
@@ -13,8 +21,15 @@ import { useSearchType } from '@acter/lib/search/use-search-type'
 export const SearchTopBar: FC = () => {
   const classes = useStyles()
   const searchType = useSearchType()
-
+  const [showOtherControls, setShowOtherControls] = useState(true)
   const [searchVariables, setSearchVariables] = useSearchVariables()
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('xs')
+  )
+
+  useEffect(() => {
+    setShowOtherControls(!isSmallScreen)
+  }, [isSmallScreen])
 
   const handleFilterInterests = (interests: string[]) => {
     setSearchVariables({
@@ -39,15 +54,28 @@ export const SearchTopBar: FC = () => {
 
   return (
     <div className={classes.root}>
-      <SearchBar onClick={handleSearch} />
+      <div className={classes.main}>
+        <SearchBar onClick={handleSearch} />
 
-      <div className={classes.otherControls}>
-        <InterestsFilter applyFilters={handleFilterInterests} />
-
-        {searchType === SearchType.ACTIVITIES && (
-          <SortBy sortBy={searchVariables.orderBy} applySortBy={handleSortBy} />
-        )}
+        <Hidden smUp>
+          <IconButton onClick={() => setShowOtherControls(!showOtherControls)}>
+            <FilterList />
+          </IconButton>
+        </Hidden>
       </div>
+
+      {showOtherControls && (
+        <div className={classes.otherControls}>
+          <InterestsFilter applyFilters={handleFilterInterests} />
+
+          {searchType === SearchType.ACTIVITIES && (
+            <SortBy
+              sortBy={searchVariables.orderBy}
+              applySortBy={handleSortBy}
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -63,13 +91,20 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+    main: {
+      display: 'flex',
+      flexGrow: 1,
+    },
     otherControls: {
       display: 'inline',
       [theme.breakpoints.down('xs')]: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'space-evenly',
         '& > *': {
           flexGrow: 1,
+          marginBottom: theme.spacing(1),
+          marginRight: theme.spacing(-0.5),
         },
       },
     },

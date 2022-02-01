@@ -5,7 +5,10 @@ import {
   ExampleActivityActer,
   ExampleActivity,
   ExampleActer,
+  Interests,
 } from '@acter/schema/fixtures'
+
+const interestTypes = Interests.data.interestTypes
 
 export default {
   title: 'Pages/Search',
@@ -16,7 +19,9 @@ export default {
     handleSearch: () => void 0,
   },
   parameters: {
-    urql: () => ({ data: { acters: [] } }),
+    urql: () => ({
+      data: { acters: [], interestTypes },
+    }),
     backgrounds: {
       default: 'background',
     },
@@ -36,12 +41,12 @@ Activities.parameters = {
   nextRouter: {
     pathname: 'search/activities',
   },
-  urql: () => ({ data: { searchActivities: activities } }),
+  urql: () => ({ data: { searchActivities: activities, interestTypes } }),
 }
 
 export const Acters = Template.bind({})
 Acters.parameters = {
-  urql: () => ({ data: { acters } }),
+  urql: () => ({ data: { acters, interestTypes } }),
 }
 
 export const ZeroActers = Template.bind({})

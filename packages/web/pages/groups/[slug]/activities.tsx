@@ -3,9 +3,9 @@ import React from 'react'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GroupActivities } from '@acter/components/group/activities'
 import { GroupLayout } from '@acter/components/group/layout/overall'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const GroupActivitiesPage: NextPageWithLayout = () => {
