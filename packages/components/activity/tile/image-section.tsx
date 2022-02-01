@@ -16,6 +16,7 @@ export const ImageSection: FC<ImageSectionProps> = ({ activity }) => {
       <Image
         src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
         alt={activity.Acter?.name}
+        height={85}
       />
     </Box>
   )

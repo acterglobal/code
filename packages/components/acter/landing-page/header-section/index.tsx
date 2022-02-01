@@ -39,6 +39,7 @@ export const HeaderSection: FC = () => {
           <Image
             src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
+            height={126}
           />
         </Box>
 

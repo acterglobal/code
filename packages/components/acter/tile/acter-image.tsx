@@ -17,7 +17,11 @@ export const ActerImage: FC<ActerTileImageProps> = ({ acter }) => {
   return (
     <Hidden smDown>
       <Box className={classes.image}>
-        <Image src={getImageUrl(acter.avatarUrl, 'avatar')} alt={acter.name} />
+        <Image
+          src={getImageUrl(acter.avatarUrl, 'avatar')}
+          alt={acter.name}
+          height={96}
+        />
       </Box>
     </Hidden>
   )
