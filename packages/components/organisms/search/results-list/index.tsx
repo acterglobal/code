@@ -7,9 +7,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import clsx from 'clsx'
 
-import { ActerTile } from '@acter/components/acter/tile'
 import { ActivityTile } from '@acter/components/activity/tile'
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
+import { ActerTile } from '@acter/components/organisms/acter/tile'
 import { Button } from '@acter/components/styled'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

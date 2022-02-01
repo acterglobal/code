@@ -1,29 +1,27 @@
 import React, { FC } from 'react'
 
-import { Box, Hidden } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { Image } from '@acter/components/util/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
-export interface ActerTileImageProps {
+export interface ActerProfileImageProps {
   acter: Acter
 }
 
-export const ActerImage: FC<ActerTileImageProps> = ({ acter }) => {
+export const ActerProfileImage: FC<ActerProfileImageProps> = ({ acter }) => {
   const classes = useStyles()
 
   return (
-    <Hidden smDown>
-      <Box className={classes.image}>
-        <Image
-          src={getImageUrl(acter.avatarUrl, 'avatar')}
-          alt={acter.name}
-          height={96}
-        />
-      </Box>
-    </Hidden>
+    <Box className={classes.image}>
+      <Image
+        src={getImageUrl(acter.avatarUrl, 'avatar')}
+        alt={acter.name}
+        height={96}
+      />
+    </Box>
   )
 }
 
