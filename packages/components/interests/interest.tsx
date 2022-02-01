@@ -13,6 +13,7 @@ import clsx from 'clsx'
 import { Image } from '@acter/components/util/image'
 import { Tooltip } from '@acter/components/util/tool-tip'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
+import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Interest as InterestType } from '@acter/schema'
 
 const { TAGS } = InterestTypeName
@@ -62,7 +63,7 @@ export const Interest: FC<InterestProps> = ({
       {interest.sdgNumber && (
         <Box className={clsx(classes.rightSideBox)}>
           <Image
-            src={`${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/assets/SDG-logo.png`}
+            src={getImageUrl(undefined, 'SDG')}
             alt="SDG"
             width={10}
             height={10}
