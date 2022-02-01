@@ -35,6 +35,7 @@ describe('Display search results', () => {
   it('should display search results with a list of Acters', async () => {
     mockUseSearchType.mockReturnValue(SearchType.ACTERS)
     mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
+    mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
 
     render(<DisplayResults />)
     const items = screen.queryAllByRole('listitem')

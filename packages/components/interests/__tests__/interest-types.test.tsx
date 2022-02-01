@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { render, screen } from '@acter/lib/test-utils'

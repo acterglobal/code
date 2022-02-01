@@ -1,12 +1,11 @@
 import React, { FC, useMemo } from 'react'
 
-import Image from 'next/image'
-
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Link } from '@acter/components/util/anchor-link'
+import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'

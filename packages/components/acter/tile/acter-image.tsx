@@ -1,10 +1,9 @@
 import React, { FC } from 'react'
 
-import Image from 'next/image'
-
 import { Box, Hidden } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
+import { Image } from '@acter/components/util/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
@@ -21,9 +20,7 @@ export const ActerImage: FC<ActerTileImageProps> = ({ acter }) => {
         <Image
           src={getImageUrl(acter.avatarUrl, 'avatar')}
           alt={acter.name}
-          layout="intrinsic"
-          width="100"
-          height="100"
+          height={96}
         />
       </Box>
     </Hidden>
