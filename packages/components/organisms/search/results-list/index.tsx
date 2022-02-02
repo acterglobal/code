@@ -16,13 +16,9 @@ const { ACTIVITIES, ACTERS } = SearchType
 
 export interface SearchResultsListProps {
   acters: Acter[]
-  // profileImageSizes?: ProfileImageSizes
 }
 
-export const SearchResultsList: FC<SearchResultsListProps> = ({
-  acters,
-  // profileImageSizes,
-}) => {
+export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
   const classes = useStyles()
   const { t } = useTranslation('search')
   const searchType = useSearchType()
@@ -39,7 +35,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
 
   return (
     <>
-      {acters?.map((acter, index) => (
+      {acters.map((acter, index) => (
         <Box className={classes.singleItem} key={index} role="listitem">
           {searchType === ACTERS && (
             <Link href={acterAsUrl({ acter })} passHref>

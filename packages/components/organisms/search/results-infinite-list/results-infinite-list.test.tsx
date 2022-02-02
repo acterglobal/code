@@ -45,6 +45,7 @@ describe('Display search results', () => {
     mockUseActerSearch.mockReturnValue({ acters: ExampleActerList })
 
     render(<SearchResultsInfiniteList />)
+
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
