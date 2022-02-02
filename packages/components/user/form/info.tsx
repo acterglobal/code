@@ -5,6 +5,7 @@ import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { LanguagePicker } from '@acter/components/atoms/fields/language-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { ImageUpload } from '@acter/components/image-upload'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
@@ -105,6 +106,13 @@ export const ProfileInfoForm: FC = () => {
               />
 
               <LocationPicker types={['(regions)']} cacheKey="regions" />
+
+              <LanguagePicker
+                size="small"
+                variant="outlined"
+                fullWidth
+                className={classes.languagePicker}
+              />
             </Grid>
           </Grid>
           <FormButtons align="right" hideUnlessDirty={true} />
@@ -152,6 +160,9 @@ const useStyles = makeStyles((theme: Theme) =>
     submitButtonContainer: {
       marginRight: theme.spacing(1),
       width: '100%',
+    },
+    languagePicker: {
+      marginTop: theme.spacing(2),
     },
   })
 )
