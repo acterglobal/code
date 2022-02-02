@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { getFileExtension as getImageExtension } from '@acter/lib/files/get-file-extension'
 
-interface ImageProps extends ImgixProviderProps {
+export interface ImageProps extends ImgixProviderProps {
   alt: string
   banner?: boolean
 }
