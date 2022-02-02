@@ -10,10 +10,10 @@ import {
   SettingsStep,
   SettingsStepProps,
 } from '@acter/components/activity/form/steps/settings'
+import { Switch } from '@acter/components/atoms/fields/switch'
 import { LocationVenuePicker } from '@acter/components/molecules/fields/location-venue-picker'
 import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
-import { Switch } from '@acter/components/styled/switch'
 
 export type MeetingStepProps = SettingsStepProps
 

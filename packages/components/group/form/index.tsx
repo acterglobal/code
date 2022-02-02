@@ -15,8 +15,8 @@ import {
 import { Form, Formik, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { Switch } from '@acter/components/atoms/fields/switch'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
-import { Switch } from '@acter/components/styled/switch'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
