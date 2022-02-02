@@ -8,19 +8,19 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { Switch } from '@acter/components/styled/switch'
+import { Switch } from '@acter/components/atoms/fields/switch'
 import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { pluralize } from '@acter/lib/string/pluralize'
 
-export interface SearchTypeProps {
+export interface SubtypeSelectProps {
   subTypeName: string
   checked: boolean
   showTypeIcon?: boolean
   onChange: (checked: boolean) => void
 }
 
-export const Type: FC<SearchTypeProps> = ({
+export const SubtypeSelect: FC<SubtypeSelectProps> = ({
   subTypeName,
   checked,
   showTypeIcon: useTypeColorDot = false,

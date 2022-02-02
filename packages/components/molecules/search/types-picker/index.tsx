@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { Type } from '@acter/components/atoms/search/type'
+import { SubtypeSelect } from '@acter/components/atoms/search/subtype-select'
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
@@ -32,7 +32,7 @@ export const SearchTypesPicker: FC = () => {
   return (
     <Box className={classes.root}>
       {types?.map((type) => (
-        <Type
+        <SubtypeSelect
           key={`sub-type-${type}`}
           subTypeName={type}
           checked={search.types?.includes(type)}
