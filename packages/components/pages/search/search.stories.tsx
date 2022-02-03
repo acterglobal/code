@@ -5,14 +5,14 @@ import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-exa
 import {
   ExampleActivityActer,
   ExampleActivity,
-  ExampleActer,
   Interests,
+  ExampleActerLocationList,
 } from '@acter/schema/fixtures'
 
 const interestTypes = Interests.data.interestTypes
 
 export default {
-  title: 'Pages/Search',
+  title: 'Pages/Search/List',
   component: SearchComponent,
   args: {
     searchType: '',
@@ -33,7 +33,7 @@ const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
 
 const activities = [...Array(8)].map(() => acter)
 
-const acters = [...Array(4)].map(() => ExampleActer)
+const acters = ExampleActerLocationList
 
 const Template: Story = (args) => <SearchComponent {...args} />
 

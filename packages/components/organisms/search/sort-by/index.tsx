@@ -11,16 +11,16 @@ import { capitalize } from '@acter/lib/string/capitalize'
 
 export type SortByProps = {
   sortBy: SearchActivitiesSortBy
-  applySortBy: (sortBy: SearchActivitiesSortBy) => void
+  onChange: (sortBy: SearchActivitiesSortBy) => void
 }
 
-export const SortBy: FC<SortByProps> = ({ sortBy, applySortBy }) => {
+export const SortBy: FC<SortByProps> = ({ sortBy, onChange }) => {
   const { t } = useTranslation('search')
   const classes = useStyles()
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
 
   const handleSelect = (sortBy: SearchActivitiesSortBy) => {
-    applySortBy(sortBy)
+    onChange(sortBy)
     setClosePopover(!closePopover)
   }
 
