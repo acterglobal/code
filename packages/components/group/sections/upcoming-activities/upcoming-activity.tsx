@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   Button,
@@ -10,17 +12,19 @@ import {
 } from '@material-ui/core'
 
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
-import { Activity } from '@acter/schema'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { Acter, Activity } from '@acter/schema'
 
 interface UpcomingActivityProps {
   activity: Activity
-  handleClick: (activity: Activity) => void
+  acter: Acter
 }
 export const UpcomingActivity: FC<UpcomingActivityProps> = ({
   activity,
-  handleClick,
+  acter,
 }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   return (
     <Box className={classes.activity}>
@@ -39,7 +43,7 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({
         <Button
           variant="contained"
           className={classes.button}
-          onClick={() => handleClick(activity)}
+          onClick={() => router.push(acterAsUrl({ acter, activity }))}
         >
           View
         </Button>

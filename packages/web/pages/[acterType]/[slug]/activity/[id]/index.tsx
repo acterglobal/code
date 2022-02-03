@@ -10,26 +10,24 @@ import { Head } from '@acter/components/atoms/head'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActerActivityPage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { query } = router
 
-  const camelCaseQuery = _.mapKeys(query, (value, key) => _.camelCase(key))
-  const { activitySlug } = camelCaseQuery
+  const { fetching: acterLoading } = useAuthentication()
 
-  const { acter, fetching: acterLoading } = useActer({
-    acterTypeName: 'activities',
-    slug: activitySlug,
+  const { acter: activity, fetching: activityloading } = useActer({
+    acterId: router.query.id as string,
   })
 
-  if (acterLoading) return <LoadingSpinner />
+  if (acterLoading || activityloading) return <LoadingSpinner />
 
   return (
     <>
-      <Head title={`${acter?.name}`} />
+      <Head title={`${activity?.name}`} />
 
-      <Activity acter={acter} acterLoading={acterLoading} />
+      <Activity acter={activity} acterLoading={acterLoading} />
     </>
   )
 }

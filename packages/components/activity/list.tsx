@@ -42,7 +42,13 @@ export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
       ) : (
         acter &&
         activities?.map((activity) => (
-          <Link href={acterAsUrl({ acter, activity })} passHref>
+          <Link
+            href={acterAsUrl({
+              acter: activity.Organiser,
+              activity,
+            })}
+            passHref
+          >
             <StyledActivityBox key={activity.id}>
               <ActivityTile activity={activity} />
             </StyledActivityBox>

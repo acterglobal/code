@@ -1,5 +1,8 @@
 import React, { FC } from 'react'
 
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+
 import {
   Box,
   Hidden,
@@ -23,26 +26,25 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
+  const router = useRouter()
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
   )
 
-  const activitySlug = getActivitySlug()
-
   const avatarDims = smallScreen ? 65 : 140
 
-  const { acter, fetching: acterLoading } = useActer(
-    activitySlug && {
-      acterTypeName: 'activities',
-      slug: activitySlug,
-    }
-  )
+  const activitySlug = getActivitySlug()
+
+  const { acter, fetching: acterLoading } = useActer({
+    acterId: router.query.id as string,
+  })
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  if (activitySlug && acter) return <ActivityHeaderSection acter={acter} />
+  if (acter?.ActerType.name === 'activities')
+    return <ActivityHeaderSection acter={acter} />
 
   return (
     <Box className={classes.bannerSection}>

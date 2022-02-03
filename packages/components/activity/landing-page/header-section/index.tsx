@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import {
   Box,
@@ -30,6 +31,7 @@ interface HeaderSectionProps {
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = () => {
+  const router = useRouter()
   const classes = useStyles()
   const smallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
@@ -39,12 +41,9 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
 
   const avatarDims = smallScreen ? 65 : 140
 
-  const { acter, fetching: acterLoading } = useActer(
-    activitySlug && {
-      acterTypeName: 'activities',
-      slug: activitySlug,
-    }
-  )
+  const { acter, fetching: acterLoading } = useActer({
+    acterId: router.query.id as string,
+  })
 
   const displayFormat = acter?.Activity?.isAllDay
     ? DATE_FORMAT_NO_TIME

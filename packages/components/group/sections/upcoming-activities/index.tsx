@@ -1,9 +1,5 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
-import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
-import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { UpcomingActivity } from '@acter/components/group/sections/upcoming-activities/upcoming-activity'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
@@ -11,37 +7,14 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { getUpcomingActivities } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
-import { Activity } from '@acter/schema'
 
 export const UpcomingActivities: FC = () => {
-  const router = useRouter()
-  const [activitySlug, setActivitySlug] = useState(
-    router.query?.activity as string
-  )
-  const [showActivity, setShowActivity] = useState(
-    Boolean(router.query?.activity)
-  )
-
   const { acter } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
 
   if (!activities || !acter) return null
 
   const upcomingActivities = getUpcomingActivities(activities, 2)
-
-  const handleClick = (activity: Activity) => {
-    const query = { ...router.query, activity: activity.Acter.slug }
-    router.push({ query }, undefined, { shallow: true })
-    setActivitySlug(activity.Acter.slug)
-    setShowActivity(true)
-  }
-
-  const handleClose = () => {
-    delete router.query.activity
-    router.push({ query: router.query }, undefined, { shallow: true })
-    setShowActivity(false)
-    setActivitySlug(null)
-  }
 
   return (
     <SectionContainer
@@ -61,17 +34,9 @@ export const UpcomingActivities: FC = () => {
       ) : (
         <>
           {upcomingActivities.map((activity) => (
-            <UpcomingActivity activity={activity} handleClick={handleClick} />
+            <UpcomingActivity activity={activity} acter={acter} />
           ))}
         </>
-      )}
-
-      {showActivity && (
-        <ActivityLanding
-          activitySlug={activitySlug}
-          openDrawer={showActivity}
-          handleCloseDrawer={handleClose}
-        />
       )}
     </SectionContainer>
   )

@@ -7,7 +7,7 @@ interface ActerAsUrlProps {
    */
   acter: Acter
   /**
-   * The Acter for which we are create a URL
+   * The Activity for which we are create a URL
    */
   activity?: Activity
   /**
@@ -43,7 +43,7 @@ export const acterAsUrl = ({
   const acterTypeUrl = acterTypeAsUrl(acter.ActerType)
   const activityTypeUrl = activity?.Acter.ActerType.name
   const acterSlugLower = acter.slug.toLowerCase()
-  const activitySlugLower = activity?.Acter.slug.toLocaleLowerCase()
+  const activityId = activity?.Acter.id
 
   const getUrl = (activity) => {
     if (activity) {
@@ -52,7 +52,7 @@ export const acterAsUrl = ({
         acterTypeUrl,
         acterSlugLower,
         activityTypeUrl,
-        activitySlugLower,
+        activityId,
         ...(Array.isArray(extraPath) ? extraPath : [extraPath]),
       ].join('/')
       return url
