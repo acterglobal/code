@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { Locales } from '@acter/lib/constants/locales'
+import { Language as Locale } from '@acter/schema'
 
 interface AnchorLinkProps {
   href: string
@@ -13,7 +13,7 @@ interface AnchorLinkProps {
   isExternal?: boolean
   target?: string
   children: ReactNode
-  locale?: Locales
+  locale?: Locale
 }
 
 export const Link: FC<AnchorLinkProps> = ({

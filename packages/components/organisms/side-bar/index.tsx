@@ -56,10 +56,11 @@ export const Sidebar: FC = () => {
         </List>
       </Box>
 
+      <Locales />
+
       <Hidden smDown>
         <Divider />
         <Box className={classes.profileItem}>
-          <Locales />
           <ProfileButton />
         </Box>
       </Hidden>

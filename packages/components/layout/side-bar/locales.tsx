@@ -13,7 +13,7 @@ import {
 import clsx from 'clsx'
 
 import { Link } from '@acter/components/util/anchor-link'
-import { Locales as ActerLocales } from '@acter/lib/constants'
+import { Language as ActerLocales } from '@acter/schema'
 
 const { EN, DK } = ActerLocales
 
@@ -30,7 +30,7 @@ export const Locales: FC = () => {
             router.locale === EN && classes.active
           )}
         >
-          EN
+          {EN}
         </Typography>
       </Link>
       /
@@ -41,7 +41,7 @@ export const Locales: FC = () => {
             router.locale === DK && classes.active
           )}
         >
-          DK
+          {DK}
         </Typography>
       </Link>
     </Box>
