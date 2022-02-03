@@ -1,4 +1,4 @@
-import { TranslationQuery, Translate } from 'next-translate'
+import { TranslationQuery } from 'next-translate'
 import useI18nTranslation from 'next-translate/useTranslation'
 
 type HandleTranslationMethod = (
@@ -10,8 +10,6 @@ type HandleTranslationMethod = (
     default?: string
   }
 ) => string
-
-// type HandleTranslationMethod = Translate
 
 type UseTranslationReturn = {
   t: HandleTranslationMethod
@@ -36,7 +34,7 @@ export const useTranslation = (
       ...options,
       fallback: 'translation missing',
     })
-    // TODO: handle if translation is missing
+
     return translationText
   }
 
