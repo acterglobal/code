@@ -354,12 +354,18 @@ model Notification {
   @@map("notifications")
 }
 
+enum Language {
+  EN
+  DK
+}
+
 model User {
   id            String    @id @default(uuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  language      Language  @default(EN)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @default(now()) @map("updated_at")
 
