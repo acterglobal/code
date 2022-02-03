@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import {
@@ -12,13 +11,12 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import _ from 'lodash'
-
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
 import { HeaderSection as ActivityHeaderSection } from '@acter/components/activity/landing-page/header-section'
+import { Image } from '@acter/components/util/image'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
@@ -28,11 +26,6 @@ import { capitalize } from '@acter/lib/string/capitalize'
 export const HeaderSection: FC = () => {
   const router = useRouter()
   const classes = useStyles()
-  const smallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('xs')
-  )
-
-  const avatarDims = smallScreen ? 65 : 140
 
   const activitySlug = getActivitySlug()
 
@@ -51,7 +44,7 @@ export const HeaderSection: FC = () => {
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        height={250}
+        height={300}
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>

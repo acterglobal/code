@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import {
@@ -9,7 +8,6 @@ import {
   Typography,
   createStyles,
   makeStyles,
-  useMediaQuery,
   Theme,
 } from '@material-ui/core'
 
@@ -18,6 +16,7 @@ import _ from 'lodash'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
 import { ActivityLocationIcon } from '@acter/components/icons'
+import { Image } from '@acter/components/util/image'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
@@ -33,13 +32,8 @@ interface HeaderSectionProps {
 export const HeaderSection: FC<HeaderSectionProps> = () => {
   const router = useRouter()
   const classes = useStyles()
-  const smallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('xs')
-  )
 
   const activitySlug = getActivitySlug()
-
-  const avatarDims = smallScreen ? 65 : 140
 
   const { acter, fetching: acterLoading } = useActer({
     acterId: router.query.id as string,
@@ -60,18 +54,14 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        layout="intrinsic"
-        height={400}
-        width={1920}
+        height={250}
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
             src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
-            layout="intrinsic"
-            height={avatarDims}
-            width={avatarDims}
+            height={126}
           />
         </Box>
 
