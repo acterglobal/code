@@ -21,7 +21,10 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const router = useRouter()
 
   const handleOnActivityClick = () => {
-    router.push(acterAsUrl({ acter: activity?.Acter }))
+    router.push({
+      pathname: acterAsUrl({ acter: activity?.Acter }),
+      query: { localRoute: true },
+    })
   }
 
   return (
