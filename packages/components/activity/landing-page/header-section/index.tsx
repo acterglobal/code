@@ -57,7 +57,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        height={250}
+        height={300}
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
@@ -100,6 +100,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bannerSection: {
+      width: '100%',
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
     },

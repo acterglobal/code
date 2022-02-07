@@ -38,7 +38,6 @@ const useStyles = makeStyles(
       marginTop: 6,
     },
     menuItem: {
-      backgroundColor: 'red',
       fontSize: '0.8rem',
       display: 'flex',
       justifyContent: 'center',
