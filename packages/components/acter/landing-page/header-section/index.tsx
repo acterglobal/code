@@ -40,6 +40,7 @@ export const HeaderSection: FC = () => {
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
         height={300}
+        banner
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>

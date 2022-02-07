@@ -9,7 +9,10 @@ export const LandingPageLayout: FC = ({ children }) => {
 
   return (
     <Grid className={classes.header} container>
-      <HeaderSection />
+      <Grid container spacing={2} className={classes.headerContent}>
+        <HeaderSection />
+      </Grid>
+
       <Grid container spacing={2} className={classes.content}>
         {children}
       </Grid>
@@ -22,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       width: '100%',
       marginBottom: theme.spacing(2),
+    },
+    headerContent: {
+      justifyContent: 'center',
     },
     content: {
       justifyContent: 'center',

@@ -25,13 +25,13 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
       <Box>
         <Breadcrumbs
           separator={
-            <NavigateNextIcon fontSize="small" className={classes.icon} />
+            <NavigateNextIcon fontSize="small" className={classes.root} />
           }
           aria-label="breadcrumb"
         >
           <Link href={`${acterAsUrl({ acter: acter?.Parent })}`}>
             <Typography className={classes.name}>
-              # {capitalize(acter?.Parent.name)}
+              {capitalize(acter?.Parent.name)}
             </Typography>
           </Link>
 
@@ -41,7 +41,7 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
 
           <Link href={acter && acterAsUrl({ acter })}>
             <Typography className={classes.activity}>
-              # {capitalize(acter.name)}
+              {capitalize(acter.name)}
             </Typography>
           </Link>
         </Breadcrumbs>
@@ -49,7 +49,7 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
     )
   return (
     <Breadcrumbs
-      separator={<NavigateNextIcon fontSize="small" className={classes.icon} />}
+      separator={<NavigateNextIcon fontSize="small" className={classes.root} />}
       aria-label="breadcrumb"
     >
       {/** TO DO use nextjs router  */}
@@ -59,7 +59,7 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
 
       <Link href={acter && acterAsUrl({ acter })}>
         <Typography className={classes.activity}>
-          # {capitalize(acter.name)}
+          {capitalize(acter.name)}
         </Typography>
       </Link>
     </Breadcrumbs>
@@ -69,16 +69,9 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.palette.secondary.main,
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    icon: {
       color: theme.palette.secondary.contrastText,
     },
     name: {
-      marginLeft: '10px',
       fontWeight: theme.typography.fontWeightLight,
       fontSize: '0.9rem',
       color: theme.palette.secondary.contrastText,

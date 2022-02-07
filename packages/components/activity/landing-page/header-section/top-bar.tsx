@@ -100,16 +100,16 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
   } else
     return (
       <Box className={classes.root}>
-        <Box className={classes.buttonsContainer}>
+        <Box className={classes.breadCrumbsContainer}>
           <ActivityBreadCrumbs acter={acter} localRoute={localRoute} />
         </Box>
-        <Box className={classes.buttonsContainer}>
-          <Box className={classes.actionButtonsSection}>
+        <Box className={classes.actionsContainer}>
+          <Box className={classes.actionsSection}>
             {acter?.createdByUserId === user?.id && (
               <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
             )}
 
-            <IconButton className={classes.button} onClick={onClose}>
+            <IconButton className={classes.icon} onClick={onClose}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -127,25 +127,35 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       width: '100%',
     },
-    buttonsContainer: {
-      height: theme.spacing(6.2),
+    breadCrumbsContainer: {
+      marginLeft: theme.spacing(7),
+      height: theme.spacing(7),
       padding: 5,
+      paddingBottom: 0,
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       color: theme.palette.secondary.contrastText,
     },
-    actionButtonsSection: {
+    actionsContainer: {
+      height: theme.spacing(7),
+      padding: 5,
+      paddingBottom: 0,
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      color: theme.palette.secondary.contrastText,
+    },
+    actionsSection: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     },
-    button: {
+    icon: {
       textTransform: 'none',
       height: 30,
       fontSize: '0.8rem',
       color: theme.palette.secondary.contrastText,
-      borderColor: theme.palette.secondary.contrastText,
     },
   })
 )

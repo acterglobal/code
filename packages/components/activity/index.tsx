@@ -40,7 +40,6 @@ export const Activity: FC<ActivityProps> = ({ acter, acterLoading }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     activity: {
-      backgroundColor: theme.colors.grey.extraLight,
       '&.MuiGrid-item': {
         paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),
@@ -51,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(4),
     },
     organiserContainer: {
+      marginTop: theme.spacing(1),
       borderRadius: 5,
       borderBottom: '30px',
       height: '50px',

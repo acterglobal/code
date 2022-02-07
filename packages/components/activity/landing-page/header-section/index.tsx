@@ -57,7 +57,8 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        height={300}
+        height={407}
+        banner
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
@@ -76,7 +77,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
             <Typography
               role="acter-name"
               variant="h5"
-              className={classes.title}
+              className={classes.acterName}
             >
               {acter.name}
             </Typography>
@@ -140,9 +141,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     date: {
       color: theme.colors.blue.light,
+      fontSize: '1.5rem',
     },
-    title: {
+    acterName: {
       color: theme.palette.secondary.main,
+      fontSize: '1.3rem',
       fontWeight: theme.typography.fontWeightBold,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
@@ -158,6 +161,7 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '0.9rem',
       },
       marginLeft: theme.spacing(0.5),
+      marginTop: 3,
     },
   })
 )

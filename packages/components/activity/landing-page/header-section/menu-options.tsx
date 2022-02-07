@@ -35,12 +35,16 @@ const useStyles = makeStyles(
       color: theme.palette.secondary.contrastText,
       cursor: 'pointer',
       justifyContent: 'center',
-      marginTop: 6,
+      marginTop: 5,
     },
     menuItem: {
       fontSize: '0.8rem',
       display: 'flex',
       justifyContent: 'center',
+      color: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.contrastText,
+      },
     },
   })
 )
