@@ -9,9 +9,12 @@ import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
+import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
+
+const { ACTIVITY } = ActerTypes
 
 const EditActer = dynamic(() =>
   import('@acter/components/acter/form').then((mod) => mod.ActerForm)
@@ -20,21 +23,12 @@ const EditActivity = dynamic(() =>
   import('@acter/components/activity/form').then((mod) => mod.ActivityForm)
 )
 
-export interface EditButtonProps {
-  activitySlug?: string | string[]
-}
-
-export const EditButton: FC<EditButtonProps> = ({ activitySlug }) => {
+export const EditButton: FC = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
 
   const { user } = useUser()
-  const { acter } = useActer(
-    activitySlug && {
-      acterTypeName: 'activities',
-      slug: activitySlug,
-    }
-  )
+  const { acter } = useActer()
 
   const handleEdit = () => {
     setHeading(`Edit ${acter.name}`)
@@ -62,7 +56,11 @@ export const EditButton: FC<EditButtonProps> = ({ activitySlug }) => {
   return (
     <>
       <IconButton onClick={handleEdit}>
-        <EditIcon />
+        <EditIcon
+          style={
+            acter.ActerType.name === ACTIVITY ? { color: '#D5D5D5' } : null
+          }
+        />
       </IconButton>
 
       <Drawer
@@ -70,7 +68,7 @@ export const EditButton: FC<EditButtonProps> = ({ activitySlug }) => {
         open={openDrawer}
         handleClose={handleDrawerClose}
       >
-        {activitySlug ? (
+        {acter.ActerType.name === ACTIVITY ? (
           <EditActivity
             acter={acter}
             onSubmit={updateActivity}

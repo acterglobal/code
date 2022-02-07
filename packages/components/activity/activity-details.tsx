@@ -27,29 +27,19 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
     <Box className={classes.container}>
       <Grid container spacing={2} className={classes.content}>
         <Hidden smDown>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={7}>
             <ActivityDescription acter={acter} />
           </Grid>
         </Hidden>
 
-        <Hidden mdUp>
-          <Grid item sm={2} />
-        </Hidden>
-
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={5}>
           <Participants acter={acter} />
         </Grid>
 
-        <Grid item xs={12} className={classes.posts}>
+        <Grid item className={classes.posts} xs={12} sm={7}>
           <PostsSection acter={acter} />
         </Grid>
       </Grid>
-
-      <Hidden mdUp>
-        <Grid item xs={12} sm={8}>
-          <ActivityDescription acter={acter} />
-        </Grid>
-      </Hidden>
     </Box>
   )
 }
@@ -77,14 +67,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   content: {
+    borderRadius: 5,
+    justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
     },
   },
   posts: {
     '&.MuiGrid-item': {
-      paddingRight: theme.spacing(5),
-      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
     },
   },
 }))

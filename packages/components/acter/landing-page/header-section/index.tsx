@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import {
   Box,
   Hidden,
@@ -19,24 +17,21 @@ import { HeaderSection as ActivityHeaderSection } from '@acter/components/activi
 import { Image } from '@acter/components/util/image'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
+import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 
+const { ACTIVITY } = ActerTypes
+
 export const HeaderSection: FC = () => {
-  const router = useRouter()
   const classes = useStyles()
 
-  const activitySlug = getActivitySlug()
-
-  const { acter, fetching: acterLoading } = useActer({
-    acterId: router.query.id as string,
-  })
+  const { acter, fetching: acterLoading } = useActer()
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  if (acter?.ActerType.name === 'activities')
+  if (acter?.ActerType.name === ACTIVITY)
     return <ActivityHeaderSection acter={acter} />
 
   return (
@@ -85,8 +80,8 @@ export const HeaderSection: FC = () => {
 
           <Hidden xsDown>
             <Box>
-              <EditButton activitySlug={activitySlug} />
-              <DeleteButton activitySlug={activitySlug} />
+              <EditButton />
+              <DeleteButton />
             </Box>
           </Hidden>
         </Box>

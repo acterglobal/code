@@ -20,6 +20,7 @@ export const LandingPageLayout: FC = ({ children }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
+      width: '100%',
       marginBottom: theme.spacing(2),
     },
     content: {

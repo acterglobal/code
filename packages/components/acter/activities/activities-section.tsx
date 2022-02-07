@@ -52,7 +52,7 @@ export const ActivitiesSection: FC = () => {
         </FormControlsContainer>
       </TopSection>
 
-      <ActivitiesList activities={displayActivities} acter={acter} />
+      <ActivitiesList activities={displayActivities} />
     </>
   )
 }

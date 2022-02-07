@@ -27,8 +27,6 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
     ? DATE_FORMAT_NO_TIME
     : DATE_FORMAT
 
-  // const startAt = format(acter.Activity.startAt, displayFormat)
-  // const endAt = format(acter.Activity.endAt, displayFormat)
   const startAt = parseAndFormat(acter.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter.Activity?.endAt, displayFormat)
 

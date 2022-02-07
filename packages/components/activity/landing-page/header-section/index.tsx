@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 
 import {
   Box,
-  Hidden,
   Typography,
   createStyles,
   makeStyles,
@@ -13,17 +12,21 @@ import {
 
 import _ from 'lodash'
 
-import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
-import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
+import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
 import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { getActivitySlug } from '@acter/lib/activity/check-activity-slug'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { ActionButton } from '@acter/lib/constants'
+import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
+
+const { DELETE, EDIT } = ActionButton
+const { ACTIVITIES } = ActerMenu
 
 interface HeaderSectionProps {
   acter: Acter
@@ -33,11 +36,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
   const router = useRouter()
   const classes = useStyles()
 
-  const activitySlug = getActivitySlug()
-
-  const { acter, fetching: acterLoading } = useActer({
-    acterId: router.query.id as string,
-  })
+  const { acter, fetching: acterLoading } = useActer()
 
   const displayFormat = acter?.Activity?.isAllDay
     ? DATE_FORMAT_NO_TIME
@@ -46,15 +45,26 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
 
+  const handleClose = () => {
+    acter &&
+      router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
+  }
+
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
   return (
     <Box className={classes.bannerSection}>
+      <TopBar
+        acter={acter}
+        actionButtons={[EDIT, DELETE]}
+        handleClose={handleClose}
+      />
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
         height={250}
+        background
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
@@ -88,13 +98,6 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
               </Typography>
             </Box>
           </Box>
-
-          <Hidden xsDown>
-            <Box>
-              <EditButton activitySlug={activitySlug} />
-              <DeleteButton activitySlug={activitySlug} />
-            </Box>
-          </Hidden>
         </Box>
       </Box>
     </Box>
@@ -104,6 +107,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bannerSection: {
+      //width: '100%',
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
     },
@@ -173,6 +177,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       fontSize: '.8rem',
       marginRight: theme.spacing(3),
+    },
+    imageBackground: {
+      width: '100vw',
     },
   })
 )
