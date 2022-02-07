@@ -1,103 +1,121 @@
 import React, { FC, useState } from 'react'
 
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import { Box, IconButton } from '@material-ui/core'
-import { Breadcrumbs, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Close as CloseIcon } from '@material-ui/icons'
-import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 
-import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
-import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
-import { Link } from '@acter/components/util/anchor-link'
+import { ActerDeleteConfirmDialog as DeleteActivity } from '@acter/components/acter/delete-confirm-dialog'
+import { ActivityBreadCrumbs } from '@acter/components/activity/landing-page/header-section/bread-crumbs'
+import { MenuOptions } from '@acter/components/activity/landing-page/header-section/menu-options'
+import { Drawer } from '@acter/components/util/drawer'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { ActionButton } from '@acter/lib/constants'
-import { capitalize } from '@acter/lib/string/capitalize'
+import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
+import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
+import { ActerMenu, ActionButton } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter } from '@acter/schema'
 
+const { ACTIVITIES } = ActerMenu
+const { EDIT, DELETE } = ActionButton
+
+const EditActivity = dynamic(() =>
+  import('@acter/components/activity/form').then((mod) => mod.ActivityForm)
+)
+
 export interface TopBarProps {
-  actionButtons?: ActionButton[]
   acter?: Acter
   handleClose?: () => void
 }
 
-export const TopBar: FC<TopBarProps> = ({
-  actionButtons,
-  acter,
-  handleClose,
-}) => {
+export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
   const classes = useStyles()
   const router = useRouter()
   const { user } = useUser()
+  const [toggleForm, setToggleForm] = useState(false)
+  const [action, setAction] = useState<ActionButton>(null)
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
+  const [heading, setHeading] = useState('')
   const [localRoute] = useState(router.query.localRoute)
 
   const onClose = () => {
     handleClose()
   }
 
-  return (
-    <Box className={classes.root}>
-      <Box className={classes.buttonsContainer}>
-        {localRoute ? (
-          <Breadcrumbs
-            separator={
-              <NavigateNextIcon fontSize="small" className={classes.icon} />
-            }
-            aria-label="breadcrumb"
-          >
-            <Link href={`${acterAsUrl({ acter: acter?.Parent })}`}>
-              <Typography className={classes.name}>
-                # {capitalize(acter?.Parent.name)}
-              </Typography>
-            </Link>
+  const handleEdit = () => {
+    setToggleForm(!toggleForm)
+    setAction(EDIT)
+    setHeading(`Edit ${acter.name}`)
+    setOpenDrawer(true)
+  }
 
-            <Link href={`${acterAsUrl({ acter: acter?.Parent })}/activities`}>
-              <Typography className={classes.activities}>Activities</Typography>
-            </Link>
+  const handleDelete = () => {
+    setToggleForm(!toggleForm)
+    setAction(DELETE)
+    setHeading(`Delete ${acter.name}`)
+    setOpenDrawer(true)
+  }
 
-            <Link href={acter && acterAsUrl({ acter })}>
-              <Typography className={classes.name}>
-                # {capitalize(acter.name)}
-              </Typography>
-            </Link>
-          </Breadcrumbs>
+  const handleDrawerClose = () => {
+    setOpenDrawer(false)
+    setHeading('')
+    setToggleForm(!toggleForm)
+  }
+
+  const [_updateActivityResult, updateActivity] = useUpdateActivity({
+    onCompleted: handleDrawerClose,
+  })
+
+  const [_deleteActivityResult, deleteActivity] = useDeleteActer({
+    onCompleted: () =>
+      router.push(
+        acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] })
+      ),
+  })
+
+  if (toggleForm) {
+    return (
+      <Drawer
+        heading={heading}
+        open={openDrawer}
+        handleClose={handleDrawerClose}
+      >
+        {action === EDIT ? (
+          <EditActivity
+            acter={acter}
+            onSubmit={updateActivity}
+            setDrawerHeading={setHeading}
+          />
         ) : (
-          <Breadcrumbs
-            separator={
-              <NavigateNextIcon fontSize="small" className={classes.icon} />
-            }
-            aria-label="breadcrumb"
-          >
-            <Link href="javascript:history.go(-1)">
-              <Typography className={classes.name}># {'back'}</Typography>
-            </Link>
-
-            <Link href={acter && acterAsUrl({ acter })}>
-              <Typography className={classes.name}>
-                # {capitalize(acter.name)}
-              </Typography>
-            </Link>
-          </Breadcrumbs>
+          <DeleteActivity
+            acter={acter}
+            onCancel={handleClose}
+            onSubmit={() => deleteActivity(acter.id)}
+          />
         )}
-      </Box>
-      <Box className={classes.buttonsContainer}>
-        <Box className={classes.actionButtonsSection}>
-          {actionButtons && acter?.createdByUserId === user?.id && (
-            <>
-              <EditButton />
-              <DeleteButton />
-            </>
-          )}
+      </Drawer>
+    )
+  } else
+    return (
+      <Box className={classes.root}>
+        <Box className={classes.buttonsContainer}>
+          <ActivityBreadCrumbs acter={acter} localRoute={localRoute} />
+        </Box>
+        <Box className={classes.buttonsContainer}>
+          <Box className={classes.actionButtonsSection}>
+            {acter?.createdByUserId === user?.id && (
+              <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
+            )}
 
-          <IconButton className={classes.button} onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
+            <IconButton className={classes.button} onClick={onClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
-    </Box>
-  )
+    )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -106,6 +124,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.secondary.main,
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
       width: '100%',
     },
     buttonsContainer: {
@@ -119,20 +138,7 @@ const useStyles = makeStyles((theme: Theme) =>
     actionButtonsSection: {
       display: 'flex',
       alignItems: 'center',
-    },
-    icon: {
-      color: theme.palette.secondary.contrastText,
-    },
-    name: {
-      marginLeft: '10px',
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: 14,
-      color: theme.palette.secondary.contrastText,
-    },
-    activities: {
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: 14,
-      color: theme.palette.secondary.contrastText,
+      justifyContent: 'center',
     },
     button: {
       textTransform: 'none',

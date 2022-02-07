@@ -19,13 +19,11 @@ import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
-import { ActionButton } from '@acter/lib/constants'
 import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
-const { DELETE, EDIT } = ActionButton
 const { ACTIVITIES } = ActerMenu
 
 interface HeaderSectionProps {
@@ -55,11 +53,7 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
 
   return (
     <Box className={classes.bannerSection}>
-      <TopBar
-        acter={acter}
-        actionButtons={[EDIT, DELETE]}
-        handleClose={handleClose}
-      />
+      <TopBar acter={acter} handleClose={handleClose} />
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
@@ -106,7 +100,6 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bannerSection: {
-      //width: '100%',
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
     },
@@ -158,27 +151,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
     },
-    acterType: {
-      color: theme.palette.secondary.dark,
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '0.7rem',
-      },
-      marginRight: theme.spacing(0.5),
-    },
     location: {
       color: theme.colors.blue.light,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
       },
       marginLeft: theme.spacing(0.5),
-    },
-    buttonContainer: {
-      display: 'flex',
-      fontSize: '.8rem',
-      marginRight: theme.spacing(3),
-    },
-    imageBackground: {
-      width: '100vw',
     },
   })
 )

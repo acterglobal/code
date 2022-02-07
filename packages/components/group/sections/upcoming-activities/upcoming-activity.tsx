@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
     details: {
       width: '75%',
     },
-
     name: {
       fontSize: theme.spacing(1.5),
       fontWeight: theme.typography.fontWeightBold,

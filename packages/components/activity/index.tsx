@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       order: 1,
     },
-    info: {
-      order: 2,
-    },
     connectButtonContainer: {
       marginRight: theme.spacing(4),
     },
