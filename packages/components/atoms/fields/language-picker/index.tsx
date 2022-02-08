@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import {
   FormControl,
@@ -8,27 +8,47 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { Field } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { Select } from 'formik-material-ui'
 
+import { useUpdateUserLanguage } from '@acter/lib/acter/use-update-user-language'
 import { LanguageNames } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { useUser } from '@acter/lib/user/use-user'
+import { Language } from '@acter/schema'
 
 export type LanguagePickerProps = FormControlProps
 
-export interface ActerTypePickerValues {
-  acterTypeId: string
-}
-
 export const LanguagePicker: FC<LanguagePickerProps> = (props) => {
   const classes = useStyles()
+  const { setFieldValue } = useFormikContext()
+  const { user } = useUser()
+  const [_, updateLanguage] = useUpdateUserLanguage()
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    updateLanguage({
+      email: user.email,
+      language: evt.target.value as Language,
+    })
+
+    setFieldValue('language', evt.target.value)
+  }
+
+  useEffect(() => {
+    setFieldValue('language', user?.language)
+  }, [user?.language])
 
   return (
     <FormControl {...props}>
       <InputLabel>Language</InputLabel>
-      <Field component={Select} label="Language" name="language">
+      <Field
+        component={Select}
+        label="Language"
+        name="language"
+        onChange={handleChange}
+      >
         {Object.entries(LanguageNames).map(([language, languageName]) => (
-          <MenuItem value={language} className={classes.item}>
+          <MenuItem value={language as Language} className={classes.item}>
             {capitalize(languageName)}
           </MenuItem>
         ))}

@@ -12,6 +12,7 @@ import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useUser } from '@acter/lib/user/use-user'
+import { Language } from '@acter/schema'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string
@@ -22,6 +23,7 @@ export interface ProfileInfoFormValues {
   placeId: string
   locationLat: number
   locationLng: number
+  language: Language
 }
 
 export const ProfileInfoForm: FC = () => {
@@ -37,7 +39,7 @@ export const ProfileInfoForm: FC = () => {
     return null
   }
 
-  const { email } = user
+  const { email, language } = user
   const {
     avatarUrl,
     name,
@@ -57,6 +59,7 @@ export const ProfileInfoForm: FC = () => {
     placeId,
     locationLat,
     locationLng,
+    language: language as Language,
   }
 
   const handleSubmit = (values) => updateActer(values)
