@@ -1,12 +1,7 @@
-#import "../fragments/acter-full.fragment.graphql"
+#import "../fragments/user-full.fragment.graphql"
 
 query UserByEmail($email: String!) {
   user(where: { email: $email }) {
-    id
-    name
-    email
-    Acter {
-      ...ActerFull
-    }
+    ...UserFull
   }
 }
