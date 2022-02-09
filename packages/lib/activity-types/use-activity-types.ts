@@ -1,7 +1,7 @@
 import { useQuery, UseQueryState } from 'urql'
 
+import QUERY_ACTIVITY_TYPES from '@acter/lib/graphql/queries/query-activity-types.graphql'
 import { ActivityType } from '@acter/schema'
-import QUERY_ACTIVITY_TYPES from '@acter/schema/queries/query-activity-types.graphql'
 
 type UseActivityTypesData = {
   activityTypes: ActivityType[]

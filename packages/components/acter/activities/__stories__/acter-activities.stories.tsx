@@ -3,7 +3,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
 import { ActerActivities } from '@acter/components/acter/activities'
-import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
+import { ExampleActer, ExampleUser } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Acter/Activities',

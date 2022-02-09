@@ -1,6 +1,6 @@
 import { getActersCanJoin } from '@acter/lib/acter/get-acters-can-join'
+import { ExampleActer } from '@acter/lib/fixtures'
 import { Acter, ActerWhoCanJoinSettings } from '@acter/schema'
-import { ExampleActer } from '@acter/schema/fixtures'
 
 const { ALL, ACTERS, PEOPLE } = ActerWhoCanJoinSettings
 

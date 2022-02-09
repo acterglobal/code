@@ -1,13 +1,13 @@
 import { getNotificationRedirectUrl } from '../get-notification-redirect-url'
 
 import { ActerTypes } from '@acter/lib/constants'
+import { ExampleActer } from '@acter/lib/fixtures'
 import {
   Acter,
   ActerJoinSettings,
   Notification,
   NotificationType,
 } from '@acter/schema'
-import { ExampleActer } from '@acter/schema/fixtures'
 
 const { NEW_ACTIVITY, NEW_MEMBER } = NotificationType
 const { RESTRICTED, EVERYONE } = ActerJoinSettings

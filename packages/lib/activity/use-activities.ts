@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { useQuery, UseQueryState } from 'urql'
 
+import QUERY_ACTIVITIES from '@acter/lib/graphql/queries/activities-followed-by-acter.graphql'
 import { Activity } from '@acter/schema'
-import QUERY_ACTIVITIES from '@acter/schema/queries/activities-followed-by-acter.graphql'
 
 type UseActivitiesData = {
   activities: Activity[]

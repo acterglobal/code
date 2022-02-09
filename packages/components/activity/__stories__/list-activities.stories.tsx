@@ -8,12 +8,8 @@ import {
   ActivitiesList,
   ActivityListProps,
 } from '@acter/components/activity/list'
+import { ExampleActer, ExampleActivity, ExampleUser } from '@acter/lib/fixtures'
 import { Acter } from '@acter/schema'
-import {
-  ExampleActer,
-  ExampleActivity,
-  ExampleUser,
-} from '@acter/schema/fixtures'
 
 const acter = ({
   ...ExampleActer,

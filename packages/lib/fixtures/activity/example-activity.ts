@@ -1,13 +1,13 @@
 import { ExampleActer } from '../acter/example-acter'
 
-import { Activity } from '@acter/schema'
 import {
   ExampleUser,
   ExampleActivityActer,
   EventActivityType,
   IdeaActivityType,
   ProjectActivityType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Activity } from '@acter/schema'
 
 export const ExampleActivity: Activity = {
   id: '18869756-4979-4adb-b967-5cf7ca70b01a',

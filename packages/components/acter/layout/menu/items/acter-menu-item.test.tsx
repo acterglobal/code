@@ -8,10 +8,10 @@ import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { ActerMenu } from '@acter/lib/constants'
+import { ExampleActer } from '@acter/lib/fixtures'
 import { useNotifications } from '@acter/lib/notification/use-notifications'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 import { render, screen } from '@acter/lib/test-utils'
-import { ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/acter/get-landing-page-tab')

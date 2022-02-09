@@ -5,12 +5,12 @@ import {
   prepareActivityValues,
 } from '@acter/lib/acter/prepare-activity-values'
 import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
+import UPDATE_ACTIVITY from '@acter/lib/graphql/mutations/activity-update.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
-import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
 export type ActivityVariables = ActivityFormData
 

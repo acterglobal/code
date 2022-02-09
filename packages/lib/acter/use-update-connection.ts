@@ -1,8 +1,8 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import UPDATE_ACTER_CONNECTION from '@acter/lib/graphql/mutations/acter-connection-update.graphql'
 import { useNotificationMutation } from '@acter/lib/urql/use-notification-mutation'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
-import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
 
 type UpdateActerConnectionData = {
   updateActerConnectionCustom: ActerConnection

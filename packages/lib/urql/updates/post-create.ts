@@ -7,8 +7,8 @@ import {
   prependItemFn,
 } from '../util/query-fields-for-each'
 
+import POST_FRAGMENT from '@acter/lib/graphql/fragments/post-full.graphql'
 import { Post } from '@acter/schema'
-import POST_FRAGMENT from '@acter/schema/fragments/post-full.graphql'
 
 type PostWithType = WithTypeName<Post>
 

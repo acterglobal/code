@@ -2,7 +2,7 @@ import {
   ExampleActer,
   ExampleOrganisationActer,
   ExampleUser,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 const user = {
   ...ExampleUser,

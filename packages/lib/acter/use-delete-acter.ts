@@ -3,12 +3,12 @@ import { useRouter } from 'next/router'
 import { OperationResult, UseMutationState } from 'urql'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import DELETE_ACTER from '@acter/lib/graphql/mutations/acter-delete.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter } from '@acter/schema'
-import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
 
 type ActerVariables = { acterId: string }
 type DeleteActerData = { deleteActerCustom: Acter }

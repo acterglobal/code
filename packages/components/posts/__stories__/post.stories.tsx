@@ -4,10 +4,7 @@ import { Meta, Story } from '@storybook/react'
 
 import { PostList } from '@acter/components/posts'
 import { useActerDi, acterDefault } from '@acter/lib/di'
-import {
-  ExampleActerConnection,
-  ExampleUserActer,
-} from '@acter/schema/fixtures'
+import { ExampleActerConnection, ExampleUserActer } from '@acter/lib/fixtures'
 
 const useActer = useActerDi({
   ...acterDefault,

@@ -1,11 +1,7 @@
 import { handleReaction } from '../handle-reaction'
 
+import { ExamplePost, ExampleUser, ExampleUserActer } from '@acter/lib/fixtures'
 import { PostReaction } from '@acter/schema'
-import {
-  ExamplePost,
-  ExampleUser,
-  ExampleUserActer,
-} from '@acter/schema/fixtures'
 
 describe('handleReaction', () => {
   const user = {

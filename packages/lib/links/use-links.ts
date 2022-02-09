@@ -1,7 +1,7 @@
 import { useQuery, UseQueryArgs, UseQueryState } from 'urql'
 
+import QUERY_LINKS_BY_ACTER from '@acter/lib/graphql/queries/links-by-acter.graphql'
 import { Link } from '@acter/schema'
-import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
 type LinksData = {
   links: Link[]

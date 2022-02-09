@@ -6,10 +6,10 @@ import {
   useSearchVariables,
 } from '@acter/components/contexts/search-variables'
 import { SearchType, ResultKey } from '@acter/lib/constants'
+import SEARCH_ACTERS from '@acter/lib/graphql/queries/acters-search.graphql'
+import SEARCH_ACTIVITIES from '@acter/lib/graphql/queries/activities-search.graphql'
 import { usePaginatedQuery, UsePaginatedState } from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
-import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
-import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 
 type ActerSearchData = {
   acters: Acter[]

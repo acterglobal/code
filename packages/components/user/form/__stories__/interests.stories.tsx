@@ -1,11 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 
 import { ProfileInterestsForm } from '@acter/components/user/form/interests'
-import {
-  ExampleUser,
-  ExampleUserActer,
-  Interests,
-} from '@acter/schema/fixtures'
+import { ExampleUser, ExampleUserActer, Interests } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/User/Form/Interests',

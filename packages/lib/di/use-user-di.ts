@@ -1,7 +1,7 @@
 import { injectable } from 'react-magnetic-di/macro'
 
+import { ExampleUser, ExampleUserActer } from '@acter/lib/fixtures'
 import { UseUserQueryResult, useUser } from '@acter/lib/user/use-user'
-import { ExampleUser, ExampleUserActer } from '@acter/schema/fixtures'
 
 const defaultUser = {
   ...ExampleUser,

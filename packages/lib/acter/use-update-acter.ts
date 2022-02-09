@@ -6,12 +6,12 @@ import {
   _updatePictures,
 } from '@acter/lib/acter/update-acter-with-pictures'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
+import UPDATE_ACTER from '@acter/lib/graphql/mutations/acter-update.graphql'
 import {
   useNotificationMutation,
   UseMutationOptions,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter } from '@acter/schema'
-import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 
 export type UpdateActerData = {
   updateActerCustom: Acter

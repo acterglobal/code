@@ -10,12 +10,12 @@ import {
   useUpdateActer,
 } from '@acter/lib/acter/use-update-acter'
 import { ActerTypes } from '@acter/lib/constants'
+import ACTER_CREATE from '@acter/lib/graphql/mutations/acter-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
-import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
 
 export interface ActerVariables extends Acter {
   acterId?: string

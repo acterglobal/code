@@ -1,7 +1,7 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
 import { ActerTypes } from '@acter/lib/constants'
+import QUERY_LINKS_BY_ACTER from '@acter/lib/graphql/queries/links-by-acter.graphql'
 import { getUrqlClient } from '@acter/lib/urql'
-import QUERY_LINKS_BY_ACTER from '@acter/schema/queries/links-by-acter.graphql'
 
 /**
  *

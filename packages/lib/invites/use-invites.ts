@@ -1,7 +1,7 @@
 import { CombinedError, OperationContext, useQuery } from 'urql'
 
+import GET_INVITES from '@acter/lib/graphql/queries/get-invites-by-acter-and-created-by-user.graphql'
 import { Invite } from '@acter/schema'
-import GET_INVITES from '@acter/schema/queries/get-invites-by-acter-and-created-by-user.graphql'
 
 type UseInvitesQueryResults = {
   invites: Invite[]

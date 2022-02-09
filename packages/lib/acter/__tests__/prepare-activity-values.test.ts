@@ -5,7 +5,7 @@ import {
   ActivityFormData,
 } from '@acter/lib/acter/prepare-activity-values'
 import { ActerTypes } from '@acter/lib/constants'
-import { ExampleActivity } from '@acter/schema/fixtures'
+import { ExampleActivity } from '@acter/lib/fixtures'
 
 describe('prepareActivityValues', () => {
   let formData: ActivityFormData

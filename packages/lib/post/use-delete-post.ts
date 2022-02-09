@@ -1,11 +1,11 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import DELETE_POST from '@acter/lib/graphql/mutations/delete-post.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Post as PostType } from '@acter/schema'
-import DELETE_POST from '@acter/schema/mutations/delete-post.graphql'
 
 export type PostVariables = {
   postId: string

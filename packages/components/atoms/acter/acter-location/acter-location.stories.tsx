@@ -4,7 +4,7 @@ import {
   ActerLocation,
   ActerLocationProps,
 } from '@acter/components/atoms/acter/acter-location'
-import { ExampleActer } from '@acter/schema/fixtures'
+import { ExampleActer } from '@acter/lib/fixtures'
 
 export default {
   title: 'Atoms/Acter/ActerLocation',

@@ -1,11 +1,11 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import UPDATE_POST from '@acter/lib/graphql/mutations/post-update.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Post as PostType } from '@acter/schema'
-import UPDATE_POST from '@acter/schema/mutations/post-update.graphql'
 
 export type PostVariables = PostType & {
   postId: string

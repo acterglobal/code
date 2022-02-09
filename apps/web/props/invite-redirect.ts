@@ -1,8 +1,8 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import QUERY_ACTER_ID from '@acter/lib/graphql/queries/acter-by-id.graphql'
+import QUERY_INVITE_BY_ID from '@acter/lib/graphql/queries/get-invite-by-id.graphql'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter, Invite } from '@acter/schema'
-import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
-import QUERY_INVITE_BY_ID from '@acter/schema/queries/get-invite-by-id.graphql'
 
 type InviteData = { invite: Invite }
 type InviteVariables = { id: string }

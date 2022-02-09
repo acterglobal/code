@@ -1,7 +1,7 @@
 import { useQuery, UseQueryState } from 'urql'
 
+import QUERY_ALL_INTERESTS from '@acter/lib/graphql/queries/query-all-interests-by-type.graphql'
 import { InterestType } from '@acter/schema'
-import QUERY_ALL_INTERESTS from '@acter/schema/queries/query-all-interests-by-type.graphql'
 
 type UseInterestTypesData = {
   interestTypes: InterestType[]

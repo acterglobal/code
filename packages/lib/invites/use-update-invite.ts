@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import { OperationResult, UseMutationState } from 'urql'
 
+import UPDATE_INVITE from '@acter/lib/graphql/mutations/invite-update.graphql'
 import {
   useNotificationMutation,
   UseMutationOptions,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Invite } from '@acter/schema'
-import UPDATE_INVITE from '@acter/schema/mutations/invite-update.graphql'
 
 export type UpdateInviteVariables = {
   inviteId: string

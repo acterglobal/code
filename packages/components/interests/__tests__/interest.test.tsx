@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Interest } from '@acter/components/interests/interest'
+import { ExampleInterest } from '@acter/lib/fixtures/interest/example-interests'
 import { render } from '@acter/lib/test-utils'
-import { ExampleInterest } from '@acter/schema/fixtures/interest/example-interests'
 
 describe('[Interest]', () => {
   it('should render Tag interest with correct info and styles', () => {

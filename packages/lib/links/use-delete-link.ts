@@ -1,11 +1,11 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import DELETE_LINK from '@acter/lib/graphql/mutations/delete-link.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Link as LinkType } from '@acter/schema'
-import DELETE_LINK from '@acter/schema/mutations/delete-link.graphql'
 
 export type LinkVariables = LinkType & {
   linkId: string

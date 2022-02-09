@@ -1,12 +1,12 @@
 import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from '@acter/components/acter/form'
-import { ExampleActer, Interests } from '@acter/schema/fixtures'
+import { ExampleActer, Interests } from '@acter/lib/fixtures'
 import {
   GroupActerType,
   NetworkActerType,
   UserActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Acter/Form',

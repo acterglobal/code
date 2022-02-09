@@ -1,10 +1,6 @@
+import { ExamplePost, ExampleUser, ExampleUserActer } from '@acter/lib/fixtures'
 import { getMemberReactions } from '@acter/lib/reactions/get-member-reactions'
 import { PostReaction } from '@acter/schema'
-import {
-  ExamplePost,
-  ExampleUser,
-  ExampleUserActer,
-} from '@acter/schema/fixtures'
 
 const user1 = {
   ...ExampleUser,

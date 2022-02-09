@@ -6,9 +6,9 @@ import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
+import QUERY_ACTER_ID from '@acter/lib/graphql/queries/acter-by-id.graphql'
+import QUERY_ACTER_SLUG from '@acter/lib/graphql/queries/acter-by-slug.graphql'
 import { Acter } from '@acter/schema'
-import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
-import QUERY_ACTER_SLUG from '@acter/schema/queries/acter-by-slug.graphql'
 
 type FindFirstActerData = {
   findFirstActer: Acter

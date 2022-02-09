@@ -7,7 +7,7 @@ import {
   UserActerType,
   OrganisationActerType,
   NetworkActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
 
 const { PEOPLE, ACTERS } = MemberType
 

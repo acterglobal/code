@@ -1,14 +1,14 @@
 import { Story, Meta } from '@storybook/react'
 
 import { ActerAvatar, ActerAvatarProps } from '@acter/components/acter/avatar'
-import { Acter } from '@acter/schema'
 import {
   ExampleActer,
   UserActerType,
   GroupActerType,
   OrganisationActerType,
   NetworkActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Acter } from '@acter/schema'
 
 export default {
   title: 'Atoms/Acter/Avatar',

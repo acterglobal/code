@@ -1,13 +1,13 @@
 import { ResolverData } from 'type-graphql'
 
 import { authChecker } from '@acter/lib/auth-checker'
-import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
-import { ActerConnectionRole } from '@acter/schema'
 import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUser,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import { ActerConnectionRole } from '@acter/schema'
 
 describe('auth-checker', () => {
   const options = ({

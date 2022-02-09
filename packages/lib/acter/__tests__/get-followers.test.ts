@@ -1,12 +1,12 @@
 import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { getFollowers } from '@acter/lib/acter/get-followers'
-import { Acter } from '@acter/schema'
 import {
   ExampleActer,
   ExampleUser,
   ExampleUserActer,
   ExampleActerConnection,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import { Acter } from '@acter/schema'
 
 jest.mock('@acter/lib/acter/can-follow-acter')
 

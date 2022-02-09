@@ -2,12 +2,12 @@
 import { GetServerSidePropsResult } from 'next'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import UPDATE_NOTIFICATION_VIEWED from '@acter/lib/graphql/mutations/notification-update-viewed.graphql'
+import GET_ACTER_BY_ID from '@acter/lib/graphql/queries/acter-by-id.graphql'
+import GET_NOTIFICATION from '@acter/lib/graphql/queries/notification-get.graphql'
 import { getNotificationRedirectUrl } from '@acter/lib/notification/get-notification-redirect-url'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter, Notification } from '@acter/schema'
-import UPDATE_NOTIFICATION_VIEWED from '@acter/schema/mutations/notification-update-viewed.graphql'
-import GET_ACTER_BY_ID from '@acter/schema/queries/acter-by-id.graphql'
-import GET_NOTIFICATION from '@acter/schema/queries/notification-get.graphql'
 
 const redirectOnMissingData: GetServerSidePropsResult<Record<string, never>> = {
   props: {},

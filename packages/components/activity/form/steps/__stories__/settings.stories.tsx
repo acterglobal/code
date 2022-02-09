@@ -8,7 +8,7 @@ import {
   SettingsStepProps,
   SettingsStepValues,
 } from '@acter/components/activity/form/steps/settings'
-import { ExampleActer } from '@acter/schema/fixtures'
+import { ExampleActer } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Activity/Form/Steps/Settings',

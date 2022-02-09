@@ -1,19 +1,18 @@
-import { ActerWhoCanJoinSettings } from '.prisma/client'
-
-import {
-  Acter,
-  ActerJoinSettings,
-  ActerNotificationEmailFrequency,
-  ActerNotificationSettings,
-  ActerPrivacySettings,
-} from '@acter/schema'
 import {
   ExampleUser,
   OrganisationActerType,
   NetworkActerType,
   UserActerType,
   ActivityActerType,
-} from '@acter/schema/fixtures'
+} from '@acter/lib/fixtures'
+import {
+  Acter,
+  ActerJoinSettings,
+  ActerNotificationEmailFrequency,
+  ActerNotificationSettings,
+  ActerPrivacySettings,
+  ActerWhoCanJoinSettings,
+} from '@acter/schema'
 
 export const ExampleActer: Acter = {
   id: '9a64149c-5641-4841-96b1-1b2ec85f88aa',

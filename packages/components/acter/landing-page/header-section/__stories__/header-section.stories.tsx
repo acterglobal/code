@@ -3,7 +3,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
 import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
-import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
+import { ExampleActer, ExampleUser } from '@acter/lib/fixtures'
 
 export default {
   title: 'Organisms/Acter/Header',

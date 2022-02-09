@@ -7,12 +7,12 @@ import {
   ActivityFormData,
   prepareActivityValues,
 } from '@acter/lib/acter/prepare-activity-values'
+import CREATE_ACTIVITY from '@acter/lib/graphql/mutations/activity-create.graphql'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
-import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
 export type ActivityVariables = ActivityFormData
 
