@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
 
 import { makeStyles, createStyles } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
@@ -6,6 +6,7 @@ import { GoogleMap, OverlayView, useLoadScript } from '@react-google-maps/api'
 
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
+import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { Acter } from '@acter/schema'
 
 export interface SearchResultsMapProps {
@@ -26,7 +27,24 @@ const googleMapsApiKey =
 
 export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
   const classes = useStyles()
+  const [searchVariables, setSearchVariables] = useSearchVariables()
+  const mapRef = useRef<google.maps.Map>()
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
+
+  const handleMapLoad = (map: google.maps.Map): void => {
+    mapRef.current = map
+  }
+
+  const handleBoundsChanged = () => {
+    const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
+    setSearchVariables({
+      ...searchVariables,
+      north,
+      east,
+      south,
+      west,
+    })
+  }
 
   if (!isLoaded) return <LoadingBar />
 
@@ -37,6 +55,8 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
       mapContainerClassName={classes.root}
       center={defaultCenter}
       zoom={9}
+      onLoad={handleMapLoad}
+      onBoundsChanged={handleBoundsChanged}
     >
       {acters?.map(
         (acter) =>
@@ -62,7 +82,7 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      height: '100vh',
+      height: '100%',
     },
   })
 )

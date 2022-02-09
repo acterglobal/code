@@ -42,6 +42,7 @@ export const parameters = {
       { name: 'background', value: '#ECEFF4' },
     ],
   },
+  urql: () => ({ data: {} }),
 }
 
 addDecorator(urqlDecorator)

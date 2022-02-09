@@ -8,14 +8,20 @@ import { ResultsMapList } from '@acter/components/organisms/search/results-map-l
 import { SearchTopBar } from '@acter/components/organisms/search/top-bar'
 import { ResultDisplayType } from '@acter/lib/constants'
 
-export const SearchPage: FC = () => {
+export interface SearchPageProps {
+  initialResultDisplayType?: ResultDisplayType
+}
+
+export const SearchPage: FC<SearchPageProps> = ({
+  initialResultDisplayType = ResultDisplayType.LIST,
+}) => {
   const classes = useStyles()
   const [resultDisplayType, setResultDisplayType] = useState<ResultDisplayType>(
-    ResultDisplayType.LIST
+    initialResultDisplayType
   )
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.searchPage}>
       <Box className={classes.controls}>
         <SearchTopBar
           resultDisplayType={resultDisplayType}
@@ -32,11 +38,12 @@ export const SearchPage: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    searchPage: {
       margin: '0 5%',
+      height: '100%',
     },
     controls: {
-      marginTop: theme.spacing(4),
+      paddingTop: theme.spacing(4),
     },
   })
 )

@@ -1,6 +1,10 @@
 import { Meta, Story } from '@storybook/react'
 
-import { Search as SearchComponent } from '@acter/components/pages/search'
+import {
+  SearchPage,
+  SearchPageProps,
+} from '@acter/components/pages/search/acter'
+import { ResultDisplayType } from '@acter/lib/constants'
 import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 import {
   ExampleActivityActer,
@@ -13,7 +17,7 @@ const interestTypes = Interests.data.interestTypes
 
 export default {
   title: 'Pages/Search/List',
-  component: SearchComponent,
+  component: SearchPage,
   args: {
     searchType: '',
     acters: [],
@@ -27,7 +31,7 @@ export default {
       default: 'background',
     },
   },
-} as Meta
+} as Meta<SearchPageProps>
 
 const acter = { ...ExampleActivityActer, Activity: ExampleActivity }
 
@@ -35,7 +39,7 @@ const activities = [...Array(8)].map(() => acter)
 
 const acters = ExampleActerLocationList
 
-const Template: Story = (args) => <SearchComponent {...args} />
+const Template: Story<SearchPageProps> = (args) => <SearchPage {...args} />
 
 export const Activities = Template.bind({})
 Activities.parameters = {
@@ -52,6 +56,14 @@ Activities.parameters = {
 
 export const Acters = Template.bind({})
 Acters.parameters = {
+  urql: () => ({ data: { acters, interestTypes } }),
+}
+
+export const ActersMap = Template.bind({})
+ActersMap.args = {
+  initialResultDisplayType: ResultDisplayType.MAP,
+}
+ActersMap.parameters = {
   urql: () => ({ data: { acters, interestTypes } }),
 }
 

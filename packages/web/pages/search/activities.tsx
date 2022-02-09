@@ -7,7 +7,7 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
 import { SearchLayout } from '@acter/components/layout/search'
-import { SearchPage as SearchPageComponent } from '@acter/components/pages/search'
+import { SearchPage as SearchPageComponent } from '@acter/components/pages/search/acter'
 
 const SearchActivitiesPage: NextPageWithLayout = () => {
   return (
