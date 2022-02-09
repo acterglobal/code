@@ -163,6 +163,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@acter/web@workspace:apps/web"
   dependencies:
+    "@acter/components": "workspace:packages/components"
+    "@acter/jobs": "workspace:packages/jobs"
+    "@acter/lib": "workspace:packages/lib"
+    "@acter/schema": "workspace:packages/schema"
     "@next/bundle-analyzer": ^11.0.1
     "@sentry/cli": ^1.68.0
     "@sentry/nextjs": ^6.11.0
