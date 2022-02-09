@@ -10,13 +10,11 @@ describe('useTranslation()', () => {
   const mockUseI18nTranslation = useI18nTranslation as jest.Mock
 
   it('show return translated text', () => {
-    // mockUseI18nTranslation.mockImplementation(() => ({}))
+    mockUseI18nTranslation.mockImplementation(() => ({
+      t: () => 'translated text',
+    }))
 
     const { result } = renderHook(() => useTranslation('dashboard'))
-
-    // act(() => {
-    //   result.current.t('myGroups')
-    // })
 
     expect(result.current.t('myGroups')).toEqual('mine grupper')
   })
