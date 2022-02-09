@@ -9,7 +9,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import clsx from 'clsx'
 import { Formik, Form, Field, FormikBag } from 'formik'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'

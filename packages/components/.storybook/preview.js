@@ -35,6 +35,13 @@ export const parameters = {
     },
   },
   layout: 'fullscreen',
+  backgrounds: {
+    default: 'white',
+    values: [
+      { name: 'white', value: '#FFFFFF' },
+      { name: 'background', value: '#ECEFF4' },
+    ],
+  },
 }
 
 addDecorator(urqlDecorator)

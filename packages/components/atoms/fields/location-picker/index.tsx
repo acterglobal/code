@@ -23,7 +23,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
 

@@ -1,9 +1,9 @@
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GroupLanding } from '@acter/components/group'
 import { GroupLayout } from '@acter/components/group/layout/overall'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActerTitle } from '@acter/lib/acter/use-title'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 

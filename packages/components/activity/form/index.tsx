@@ -24,7 +24,7 @@ import {
   ActivityTypeStepProps,
   ActivityTypeStepValues,
 } from '@acter/components/activity/form/steps/type'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Stepper } from '@acter/components/util/stepper'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'

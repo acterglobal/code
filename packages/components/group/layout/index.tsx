@@ -2,8 +2,8 @@ import React, { FC, ReactNode } from 'react'
 
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { HeaderSection } from '@acter/components/group/layout/header-section'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 interface LandingPageLayoutProps {

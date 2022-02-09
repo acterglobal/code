@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react'
 
 import { Box, makeStyles, RadioGroup, Theme } from '@material-ui/core'
 
-import { Switch } from '@acter/components/styled/switch'
+import { Switch } from '@acter/components/atoms/fields/switch'
 import { SettingsRadio } from '@acter/components/util/forms'
 import {
   Setting,

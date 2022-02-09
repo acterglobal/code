@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import { getUserProfile, inviteRedirect } from 'props'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import {

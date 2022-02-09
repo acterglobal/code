@@ -2,8 +2,8 @@ import React, { FC, useState, useEffect } from 'react'
 
 import { useFormikContext } from 'formik'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export interface InterestAddSectionValues {

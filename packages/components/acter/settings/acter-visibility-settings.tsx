@@ -11,8 +11,8 @@ import {
 
 import { Formik, Form } from 'formik'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { FormButtons, SettingsRadio } from '@acter/components/util/forms'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Acter, ActerPrivacySettings } from '@acter/schema'
 

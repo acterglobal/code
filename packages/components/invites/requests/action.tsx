@@ -4,7 +4,7 @@ import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import clsx from 'clsx'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { InviteActions } from '@acter/lib/constants'
 import {

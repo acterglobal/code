@@ -13,7 +13,7 @@ import {
 
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   getActivitiesAfterDate,

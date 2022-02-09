@@ -9,8 +9,8 @@ import {
 } from '@material-ui/core'
 import { MoreHoriz as DotsIcon } from '@material-ui/icons'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 

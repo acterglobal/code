@@ -8,10 +8,10 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { GroupSectionTabs } from '@acter/lib/constants'
 import { getUrl } from '@acter/lib/links/get-url'

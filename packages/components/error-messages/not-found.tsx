@@ -2,8 +2,7 @@ import React, { FC } from 'react'
 
 import { Typography } from '@material-ui/core'
 
-import { LoadingSpinner } from '../util/loading-spinner'
-
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Link } from '@acter/components/util/anchor-link'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'

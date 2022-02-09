@@ -6,10 +6,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useFormikContext } from 'formik'
 
 import { InterestsAddSection } from '@acter/components/acter/form/interests-add-section'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 

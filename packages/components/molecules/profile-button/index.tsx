@@ -11,11 +11,11 @@ import {
 } from '@material-ui/core'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { LoginIcon } from '@acter/components/icons'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { DropdownMenu as MenuPopUp } from '@acter/components/util/dropdown-menu'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 

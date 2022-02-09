@@ -13,8 +13,8 @@ import {
 import { AddRounded as AddIcon } from '@material-ui/icons'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {

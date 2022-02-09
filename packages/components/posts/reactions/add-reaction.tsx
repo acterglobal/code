@@ -10,8 +10,8 @@ import {
   Box,
 } from '@material-ui/core'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { AddEmojiIcon } from '@acter/components/icons/add-emoji-icon'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   useCreatePostReaction,

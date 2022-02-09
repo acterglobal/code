@@ -6,8 +6,8 @@ import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Header } from '@acter/components/acter/landing-page/info-section/header'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 
