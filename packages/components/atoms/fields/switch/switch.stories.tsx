@@ -8,6 +8,9 @@ export default {
   args: {
     color: 'primary',
   },
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta<SwitchProps>
 
 const Template: Story<SwitchProps> = (args) => <Switch {...args} />
