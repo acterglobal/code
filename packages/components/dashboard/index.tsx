@@ -11,7 +11,6 @@ import {
 
 import { DashboardContent } from '@acter/components/dashboard/content'
 import { HomeIcon } from '@acter/components/icons/home-icon'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const Dashboard: FC = () => {
   const classes = useStyles()
