@@ -4,8 +4,8 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { Activity as ActivityLanding } from '@acter/components/activity'
 import { Head } from '@acter/components/atoms/head'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ActerLayout } from '@acter/components/layout/acter'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { useAuthentication } from '@acter/lib/authentication/use-authentication'
 
 export const ActivityLandingPage: NextPageWithLayout = () => {

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { UpcomingActivity } from '@acter/components/group/sections/upcoming-activities/upcoming-activity'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getUpcomingActivities } from '@acter/lib/activity/get-activities-for-acter'
@@ -43,7 +43,10 @@ export const UpcomingActivities: FC = () => {
                 query: { localRoute: true },
               })}
             >
-              <UpcomingActivity activity={activity} />
+              <UpcomingActivity
+                key={`activity-${activity.id}`}
+                activity={activity}
+              />
             </Link>
           ))}
         </>

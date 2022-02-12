@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
 

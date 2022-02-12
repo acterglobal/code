@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 
 import { Box, Grid, Hidden, makeStyles, Theme } from '@material-ui/core'
 
-import { LoadingSpinner } from '../util/loading-spinner'
 import _ from 'lodash'
 
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { Participants } from '@acter/components/activity/participants'
 import { PostsSection } from '@acter/components/activity/posts'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Acter } from '@acter/schema'
 
 export interface ActivityDetailsProps {

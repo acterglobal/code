@@ -1,9 +1,12 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import { Box, Breadcrumbs, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 
+import { Button } from '@acter/components/styled'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { capitalize } from '@acter/lib/string/capitalize'
@@ -19,6 +22,7 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
   localRoute,
 }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   if (acter && localRoute)
     return (
@@ -60,10 +64,9 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
       }
       aria-label="breadcrumb"
     >
-      {/** TO DO use nextjs router  */}
-      <Link href="javascript:history.go(-1)">
-        <Typography className={classes.name}># {'back'}</Typography>
-      </Link>
+      <Button onClick={() => router.back()}>
+        <Typography className={classes.name}># back</Typography>
+      </Button>
 
       <Link href={acter && acterAsUrl({ acter })}>
         <Typography className={classes.activity}>
