@@ -5,10 +5,9 @@ import { green } from '@material-ui/core/colors'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Computer, Event as CalenderIcon } from '@material-ui/icons'
 
-import { ActerLocation } from '../atoms/acter/acter-location'
-
 import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
+import { ActerLocation } from '@acter/components/atoms/acter/acter-location'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { capitalize } from '@acter/lib/string/capitalize'

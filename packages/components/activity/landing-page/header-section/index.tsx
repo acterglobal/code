@@ -15,9 +15,7 @@ import _ from 'lodash'
 import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
 import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
@@ -30,11 +28,9 @@ interface HeaderSectionProps {
   acter: Acter
 }
 
-export const HeaderSection: FC<HeaderSectionProps> = () => {
+export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const router = useRouter()
   const classes = useStyles()
-
-  const { acter, fetching: acterLoading } = useActer()
 
   const displayFormat = acter?.Activity?.isAllDay
     ? DATE_FORMAT_NO_TIME
@@ -47,9 +43,6 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
     acter &&
       router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
   }
-
-  if (acterLoading) return <LoadingSpinner />
-  if (!acter) return null
 
   return (
     <Box className={classes.bannerSection}>

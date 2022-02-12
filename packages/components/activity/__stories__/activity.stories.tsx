@@ -27,7 +27,7 @@ export default {
   title: 'Pages/Activity',
   component: Activity,
   args: {
-    acter: acter,
+    acter,
   },
 } as Meta
 

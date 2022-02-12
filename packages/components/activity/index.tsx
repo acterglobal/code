@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import { Grid, makeStyles, createStyles, Theme, Box } from '@material-ui/core'
 
 import { Connect } from '../acter/connect'
-import { LoadingSpinner } from '../util/loading-spinner'
 import { Organiser } from './organiser'
 
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
@@ -12,13 +11,10 @@ import { Acter } from '@acter/schema'
 
 export interface ActivityProps {
   acter: Acter
-  acterLoading?: boolean
 }
 
-export const Activity: FC<ActivityProps> = ({ acter, acterLoading }) => {
+export const Activity: FC<ActivityProps> = ({ acter }) => {
   const classes = useStyles()
-
-  if (acterLoading || !acter) return <LoadingSpinner />
 
   return (
     <LandingPageLayout>

@@ -8,7 +8,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Close as CloseIcon } from '@material-ui/icons'
 
 import { ActerDeleteConfirmDialog as DeleteActivity } from '@acter/components/acter/delete-confirm-dialog'
-import { ActivityBreadCrumbs } from '@acter/components/activity/landing-page/header-section/bread-crumbs'
+import { ActivityBreadcrumbs } from '@acter/components/activity/landing-page/header-section/breadcrumbs'
 import { MenuOptions } from '@acter/components/activity/landing-page/header-section/menu-options'
 import { Drawer } from '@acter/components/util/drawer'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -45,23 +45,24 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
   }
 
   const handleEdit = () => {
-    setToggleForm(!toggleForm)
+    setOpenDrawer(true)
     setAction(EDIT)
+    setToggleForm(!toggleForm)
     setHeading(`Edit ${acter.name}`)
     setOpenDrawer(true)
   }
 
   const handleDelete = () => {
-    setToggleForm(!toggleForm)
-    setAction(DELETE)
-    setHeading(`Delete ${acter.name}`)
     setOpenDrawer(true)
+    setAction(DELETE)
+    setToggleForm(!toggleForm)
+    setHeading(`Delete ${acter.name}`)
   }
 
   const handleDrawerClose = () => {
+    setToggleForm(!toggleForm)
     setOpenDrawer(false)
     setHeading('')
-    setToggleForm(!toggleForm)
   }
 
   const [_updateActivityResult, updateActivity] = useUpdateActivity({
@@ -97,30 +98,30 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
         )}
       </Drawer>
     )
-  } else
-    return (
-      <Box className={classes.root}>
-        <Box className={classes.breadCrumbsContainer}>
-          <ActivityBreadCrumbs acter={acter} localRoute={localRoute} />
-        </Box>
-        <Box className={classes.actionsContainer}>
-          <Box className={classes.actionsSection}>
-            {acter?.createdByUserId === user?.id && (
-              <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
-            )}
+  }
+  return (
+    <Box className={classes.topBar}>
+      <Box className={classes.breadCrumbsContainer}>
+        <ActivityBreadcrumbs acter={acter} localRoute={localRoute} />
+      </Box>
+      <Box className={classes.actionsContainer}>
+        <Box className={classes.actionsSection}>
+          {acter?.createdByUserId === user?.id && (
+            <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
+          )}
 
-            <IconButton className={classes.icon} onClick={onClose}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
+          <IconButton className={classes.icon} onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
         </Box>
       </Box>
-    )
+    </Box>
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    topBar: {
       backgroundColor: theme.palette.secondary.main,
       display: 'flex',
       justifyContent: 'space-between',

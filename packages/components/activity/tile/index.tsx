@@ -1,12 +1,11 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
 import { ActivityType } from '@acter/components/activity/tile/activity-type'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
 import { InfoSection } from '@acter/components/activity/tile/info-section'
+import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Activity } from '@acter/schema'
 
@@ -15,34 +14,29 @@ export interface ActivityTileProps {
 }
 
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
-  if (!activity) return null
-
   const classes = useStyles()
-  const router = useRouter()
 
-  const handleOnActivityClick = () => {
-    router.push({
-      pathname: acterAsUrl({ acter: activity?.Acter }),
-      query: { localRoute: true },
-    })
-  }
+  const redirectUrl = acterAsUrl({
+    acter: activity?.Acter,
+    query: { localRoute: true },
+  })
 
   return (
-    <>
-      <Box className={classes.root} onClick={handleOnActivityClick}>
+    <Link href={redirectUrl}>
+      <Box className={classes.ActivityTile}>
         <ImageSection activity={activity} />
 
         <InfoSection activity={activity} />
 
         <ActivityType activity={activity} />
       </Box>
-    </>
+    </Link>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    ActivityTile: {
       backgroundColor: 'white',
       borderRadius: theme.spacing(2),
       overflow: 'hidden',

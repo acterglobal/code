@@ -24,7 +24,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   if (acterLoading || !acter) return <LoadingSpinner />
 
   return (
-    <Box className={classes.container}>
+    <Box className={classes.activityDetails}>
       <Grid container spacing={2} className={classes.content}>
         <Hidden smDown>
           <Grid item xs={12} sm={7}>
@@ -45,7 +45,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
+  activityDetails: {
     backgroundColor: theme.colors.grey.extraLight,
     columnGap: '120px',
     alignItems: 'center',

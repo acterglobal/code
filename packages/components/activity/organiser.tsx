@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import router from 'next/router'
+import { useRouter } from 'next/router'
 
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
@@ -15,6 +15,8 @@ interface OrganiserProps {
 
 export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   const classes = useStyles()
+  const router = useRouter()
+
   if (!acter) return null
 
   return (

@@ -13,26 +13,17 @@ import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
-import { HeaderSection as ActivityHeaderSection } from '@acter/components/activity/landing-page/header-section'
 import { Image } from '@acter/components/util/image'
-import { LoadingSpinner } from '@acter/components/util/loading-spinner'
-import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
-const { ACTIVITY } = ActerTypes
+interface HeaderSectionProps {
+  acter: Acter
+}
 
-export const HeaderSection: FC = () => {
+export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const classes = useStyles()
-
-  const { acter, fetching: acterLoading } = useActer()
-
-  if (acterLoading) return <LoadingSpinner />
-  if (!acter) return null
-
-  if (acter?.ActerType.name === ACTIVITY)
-    return <ActivityHeaderSection acter={acter} />
 
   return (
     <Box className={classes.bannerSection}>

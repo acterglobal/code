@@ -9,12 +9,12 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
-interface ActivityBreadCrumbsProps {
+interface ActivityBreadcrumbsProps {
   acter: Acter
   localRoute: string | string[]
 }
 
-export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
+export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
   acter,
   localRoute,
 }) => {
@@ -25,7 +25,10 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
       <Box>
         <Breadcrumbs
           separator={
-            <NavigateNextIcon fontSize="small" className={classes.root} />
+            <NavigateNextIcon
+              fontSize="small"
+              className={classes.activityBreadcrumbs}
+            />
           }
           aria-label="breadcrumb"
         >
@@ -49,7 +52,12 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
     )
   return (
     <Breadcrumbs
-      separator={<NavigateNextIcon fontSize="small" className={classes.root} />}
+      separator={
+        <NavigateNextIcon
+          fontSize="small"
+          className={classes.activityBreadcrumbs}
+        />
+      }
       aria-label="breadcrumb"
     >
       {/** TO DO use nextjs router  */}
@@ -68,7 +76,7 @@ export const ActivityBreadCrumbs: FC<ActivityBreadCrumbsProps> = ({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    activityBreadcrumbs: {
       color: theme.palette.secondary.contrastText,
     },
     name: {
