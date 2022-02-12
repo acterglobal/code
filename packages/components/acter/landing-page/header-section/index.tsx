@@ -28,7 +28,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   return (
     <Box className={classes.bannerSection}>
       <Image
-        src={getImageUrl(acter.bannerUrl, 'banner')}
+        src={getImageUrl(acter?.bannerUrl, 'banner')}
         alt="Acter Logo"
         height={300}
         banner
@@ -36,7 +36,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
-            src={getImageUrl(acter.avatarUrl, 'avatar')}
+            src={getImageUrl(acter?.avatarUrl, 'avatar')}
             alt="Acter Logo"
             height={126}
           />
@@ -49,7 +49,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
               variant="h5"
               className={classes.title}
             >
-              {acter.name}
+              {acter?.name}
             </Typography>
             <Box className={classes.infoDescription}>
               <Typography
@@ -57,7 +57,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
                 variant="subtitle2"
                 className={classes.acterType}
               >
-                {capitalize(acter.ActerType.name)}
+                {capitalize(acter?.ActerType.name)}
               </Typography>
               {'-'}
               <Typography
@@ -65,7 +65,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
                 variant="subtitle2"
                 className={classes.location}
               >
-                {acter.location}
+                {acter?.location}
               </Typography>
             </Box>
           </Box>
