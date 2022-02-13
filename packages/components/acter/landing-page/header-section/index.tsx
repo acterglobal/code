@@ -18,7 +18,7 @@ import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
-interface HeaderSectionProps {
+export interface HeaderSectionProps {
   acter: Acter
 }
 

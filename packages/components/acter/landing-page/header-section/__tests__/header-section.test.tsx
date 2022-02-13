@@ -16,11 +16,12 @@ jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/user/use-user')
 jest.mock('@acter/lib/acter/use-create-connection')
 jest.mock('@acter/lib/acter/use-delete-connection')
-
 const user = {
   ...ExampleUser,
 }
-
+const acter = {
+  ...ExampleActer,
+}
 describe('[Header Section]', () => {
   const mockUseActer = useActer as jest.Mock
   const mockUseRouter = useRouter as jest.Mock
@@ -33,11 +34,10 @@ describe('[Header Section]', () => {
       route: '',
     })
   })
-
   it('should render the header section component with correct content', () => {
     render(
       <MuiThemeProvider theme={theme}>
-        <HeaderSection />
+        <HeaderSection acter={acter} />
       </MuiThemeProvider>
     )
     expect(screen.getByRole('acter-name')).toHaveTextContent(
