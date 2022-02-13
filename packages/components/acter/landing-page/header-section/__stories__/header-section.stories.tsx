@@ -19,6 +19,7 @@ export default {
     onLeave: { action: 'Leave' },
   },
 } as Meta
+
 export const Header: Story<HeaderSectionProps> = (args) => (
   <HeaderSection {...args} />
 )
