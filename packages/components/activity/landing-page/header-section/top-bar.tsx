@@ -16,7 +16,8 @@ import { useDeleteActer } from '@acter/lib/acter/use-delete-acter'
 import { useUpdateActivity } from '@acter/lib/activity/use-update-activity'
 import { ActerMenu, ActionButton } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
-import { Acter } from '@acter/schema'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 
 const { ACTIVITIES } = ActerMenu
 const { EDIT, DELETE } = ActionButton
@@ -101,7 +102,7 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
       </Box>
       <Box className={classes.actionsContainer}>
         <Box className={classes.actionsSection}>
-          {acter?.createdByUserId === user?.id && (
+          {isAdmin && (
             <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
           )}
 

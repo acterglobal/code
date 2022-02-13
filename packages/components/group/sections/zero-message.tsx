@@ -12,7 +12,10 @@ import { AddCircleOutlineOutlined } from '@material-ui/icons'
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { ActerTypes, GroupSectionTabs } from '@acter/lib/constants'
+import {
+  ActerTypes,
+  SectionTabs as GroupSectionTabs,
+} from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'

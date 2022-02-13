@@ -12,12 +12,10 @@ import {
   Grid,
 } from '@material-ui/core'
 
-import { AccessSettings } from '@acter/components/acter/settings/access-settings'
+import { SettingsSection } from '@acter/components/acter/settings/settings-section'
 import { TopBar } from '@acter/components/acter/settings/top-bar'
-import { VisibilitySettings } from '@acter/components/acter/settings/visibility-settings'
 import { InvitesSection } from '@acter/components/invites'
 import { Links as LinkSection } from '@acter/components/links'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { InviteTabs, SettingsTabs } from '@acter/lib/constants'
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
@@ -31,13 +29,12 @@ export const ActerSettings: FC = () => {
   const [currentTab, setCurrentTab] = useState(
     query?.inviteTab === InviteTabs.REQUESTS ? tabs.indexOf(INVITE) : 0
   )
-
   const handleChange = (_, tab) => setCurrentTab(tab)
 
   return (
     <>
       <TopBar />
-      <Box className={classes.container}>
+      <Box className={classes.acterSettings}>
         <Tabs
           classes={{ root: classes.tabs, indicator: classes.indicator }}
           value={currentTab}
@@ -64,21 +61,9 @@ export const ActerSettings: FC = () => {
   )
 }
 
-const SettingsSection: FC = () => {
-  const { acter } = useActer()
-  if (!acter) return null
-
-  return (
-    <Grid item xs={12} md={6}>
-      <AccessSettings acter={acter} />
-      <VisibilitySettings acter={acter} />
-    </Grid>
-  )
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
+    acterSettings: {
       margin: 'auto',
       minHeight: '94vh',
       backgroundColor: theme.colors.white,

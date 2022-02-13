@@ -1,12 +1,20 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
-import { Grid, makeStyles, createStyles, Theme, Box } from '@material-ui/core'
+import {
+  Grid,
+  makeStyles,
+  createStyles,
+  Theme,
+  Box,
+  Button,
+} from '@material-ui/core'
 
 import { Connect } from '../acter/connect'
 import { Organiser } from './organiser'
 
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'
+import { ManageContent } from '@acter/components/activity/sections/manage-content'
 import { Acter } from '@acter/schema'
 
 export interface ActivityProps {
@@ -15,6 +23,9 @@ export interface ActivityProps {
 
 export const Activity: FC<ActivityProps> = ({ acter }) => {
   const classes = useStyles()
+  const [openDrawer, setOpenDrawer] = useState(false)
+
+  const handleOnClick = () => setOpenDrawer(true)
 
   return (
     <LandingPageLayout>
@@ -22,13 +33,19 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
         <Box className={classes.organiserContainer}>
           <Organiser acter={acter?.Activity?.Organiser} />
           <Box className={classes.connectButtonContainer}>
+            <Button className={classes.button} onClick={handleOnClick}>
+              Invite
+            </Button>
             <Connect acterId={acter.id} />
           </Box>
         </Box>
       </Grid>
       <Grid className={classes.activity} item xs={12} sm={12}>
-        <ActivityDetails acter={acter} />
+        <ActivityDetails acter={acter} handleOnClick={handleOnClick} />
       </Grid>
+      {openDrawer && (
+        <ManageContent openDrawer={openDrawer} setDrawer={setOpenDrawer} />
+      )}
     </LandingPageLayout>
   )
 }
@@ -43,9 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       order: 1,
     },
-    connectButtonContainer: {
-      marginRight: theme.spacing(4),
-    },
     organiserContainer: {
       marginTop: theme.spacing(1),
       borderRadius: 5,
@@ -55,6 +69,22 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+    },
+    connectButtonContainer: {
+      display: 'flex',
+      marginRight: theme.spacing(4),
+    },
+    button: {
+      borderRadius: theme.spacing(3),
+      marginRight: theme.spacing(1),
+      minWidth: theme.spacing(14),
+      height: theme.spacing(4.5),
+      color: theme.palette.primary.main,
+      border: '1px solid',
+      borderColor: theme.palette.primary.main,
+      textTransform: 'capitalize',
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: '1rem',
     },
   })
 )

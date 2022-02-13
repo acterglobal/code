@@ -19,8 +19,8 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   ActerTypes,
-  GroupSectionTabs as GroupSectionContent,
-  GroupSectionTabs,
+  SectionTabs as GroupSectionContent,
+  SectionTabs as GroupSectionTabs,
 } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'

@@ -10,31 +10,36 @@ import {
 } from '@material-ui/core'
 
 import { MembersSection } from '@acter/components/acter/landing-page/members-section'
-import { About as AboutSection } from '@acter/components/group/sections/tabs/about'
-import { Settings as SettingsSection } from '@acter/components/group/sections/tabs/settings'
+import { SettingsSection } from '@acter/components/acter/settings/settings-section'
 import { InvitesSection } from '@acter/components/invites'
-import { Links as LinksSection } from '@acter/components/links'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
+import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
+import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema'
 
-const { ABOUT, LINKS, MEMBERS, INVITE, SETTINGS } = GroupSectionTabs
-const tabs = [ABOUT, LINKS, MEMBERS, INVITE, SETTINGS]
+const { MEMBERS, INVITE, SETTINGS } = ActivitySectionTabs
+
 interface ManageContentProps {
   openDrawer: boolean
   setDrawer: (open: boolean) => void
-  contentTab: GroupSectionTabs
 }
 
 export const ManageContent: FC<ManageContentProps> = ({
   openDrawer,
   setDrawer,
-  contentTab,
 }) => {
-  const [currentTab, setCurrentTab] = useState(tabs.indexOf(contentTab))
   const classes = useStyles()
 
   const { acter } = useActer()
+  const { user } = useUser()
+
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  const tabs = [MEMBERS, INVITE, isAdmin && SETTINGS]
+
+  const [currentTab, setCurrentTab] = useState(tabs.indexOf(MEMBERS))
+
   if (!acter) return null
 
   const handleClose = () => setDrawer(false)
@@ -60,11 +65,10 @@ export const ManageContent: FC<ManageContentProps> = ({
         </Tabs>
 
         <Box className={classes.tabContent}>
-          {tabs[currentTab] === ABOUT && <AboutSection />}
-          {tabs[currentTab] === LINKS && <LinksSection />}
+          {/* TODO - ADD ABOUT SECTION WHEN EDIT ACTIVITIES SECTION DESIGN IS READY */}
           {tabs[currentTab] === MEMBERS && <MembersSection />}
           {tabs[currentTab] === INVITE && <InvitesSection />}
-          {tabs[currentTab] === SETTINGS && <SettingsSection />}
+          {isAdmin && tabs[currentTab] === SETTINGS && <SettingsSection />}
         </Box>
       </Box>
     </Drawer>

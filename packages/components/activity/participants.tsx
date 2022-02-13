@@ -8,9 +8,13 @@ import { Acter } from '@acter/schema'
 
 export type ParticipantsProps = {
   acter: Acter
+  handleOnClick: () => void
 }
 
-export const Participants: FC<ParticipantsProps> = ({ acter }) => {
+export const Participants: FC<ParticipantsProps> = ({
+  acter,
+  handleOnClick,
+}) => {
   const classes = useStyles()
 
   return (
@@ -19,7 +23,9 @@ export const Participants: FC<ParticipantsProps> = ({ acter }) => {
         <Typography className={classes.heading} variant="h6">
           Participants
         </Typography>
-        <Button className={classes.button}>See All Participants</Button>
+        <Button className={classes.button} onClick={handleOnClick}>
+          See All Participants
+        </Button>
       </Box>
 
       <FollowersAvatars acter={acter} />
