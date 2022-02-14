@@ -39,14 +39,14 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
 
-  const handleClose = () => {
+  const handleCloseActivity = () => {
     acter &&
       router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
   }
 
   return (
     <Box className={classes.bannerSection}>
-      <TopBar acter={acter} handleClose={handleClose} />
+      <TopBar acter={acter} handleCloseActivity={handleCloseActivity} />
       <Image
         src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"

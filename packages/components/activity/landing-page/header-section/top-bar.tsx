@@ -27,10 +27,10 @@ const EditActivity = dynamic(() =>
 
 export interface TopBarProps {
   acter?: Acter
-  handleClose?: () => void
+  handleCloseActivity?: () => void
 }
 
-export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
+export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
   const classes = useStyles()
   const router = useRouter()
   const { user } = useUser()
@@ -39,10 +39,6 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
   const [localRoute] = useState(router.query.localRoute)
-
-  const onClose = () => {
-    handleClose()
-  }
 
   const handleEdit = () => {
     setOpenDrawer(true)
@@ -92,7 +88,7 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
         ) : (
           <DeleteActivity
             acter={acter}
-            onCancel={handleClose}
+            onCancel={handleCloseActivity}
             onSubmit={() => deleteActivity(acter.id)}
           />
         )}
@@ -110,7 +106,7 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleClose }) => {
             <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
           )}
 
-          <IconButton className={classes.icon} onClick={onClose}>
+          <IconButton className={classes.icon} onClick={handleCloseActivity}>
             <CloseIcon />
           </IconButton>
         </Box>

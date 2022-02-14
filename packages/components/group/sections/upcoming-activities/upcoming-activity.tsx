@@ -39,7 +39,14 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
         <Button
           variant="contained"
           className={classes.button}
-          onClick={() => router.push(acterAsUrl({ acter: activity?.Acter }))}
+          onClick={() =>
+            router.push(
+              acterAsUrl({
+                acter: activity?.Acter,
+                query: { localRoute: true },
+              })
+            )
+          }
         >
           View
         </Button>
