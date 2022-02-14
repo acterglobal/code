@@ -45,6 +45,7 @@
     "react-is-visible": "1.1.2",
     "title-case": "3.0.3",
     "use-places-autocomplete": "1.11.0",
+    "use-position": "1.0.0",
     "uuid": "8.3.2"
   },
   "devDependencies": {

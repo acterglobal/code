@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { createStyles, Grid, makeStyles } from '@material-ui/core'
 
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
+import { ZeroResultsMessage } from '@acter/components/atoms/search/zero-results-message'
 import { ProfileImageSizes } from '@acter/components/organisms/acter/tile'
 import { SearchResultsList } from '@acter/components/organisms/search/results-list'
 import { SearchResultsMap } from '@acter/components/organisms/search/results-map'
@@ -25,6 +26,7 @@ export const ResultsMapList: FC = () => {
           acters={acters}
           profileImageSizes={profileImageSizes}
         />
+        {acters?.length === 0 && !fetching && <ZeroResultsMessage />}
         {fetching && <LoadingBar />}
       </Grid>
       <Grid item xs={12} sm={6}>

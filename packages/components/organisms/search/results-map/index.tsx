@@ -1,10 +1,11 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
 import { makeStyles, createStyles } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { GoogleMap, OverlayView, useLoadScript } from '@react-google-maps/api'
 
 import debounce from 'just-debounce'
+import { usePosition } from 'use-position'
 
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
@@ -33,6 +34,14 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
   const mapRef = useRef<google.maps.Map>()
   const initialRender = useRef(true)
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
+  const {
+    latitude = defaultCenter.lat,
+    longitude = defaultCenter.lng,
+  } = usePosition()
+  const [mapCenter, setMapCenter] = useState<google.maps.LatLngLiteral>({
+    lat: latitude,
+    lng: longitude,
+  })
 
   const handleMapLoad = (map: google.maps.Map): void => {
     mapRef.current = map
@@ -58,6 +67,7 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
 
   const handleBoundsChanged = debounce(() => {
     const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
+    setMapCenter(mapRef.current?.getCenter?.().toJSON())
     if (
       initialRender.current === false &&
       (north !== searchVariables.north ||
@@ -86,8 +96,8 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
   return (
     <GoogleMap
       mapContainerClassName={classes.root}
-      center={defaultCenter}
-      zoom={9}
+      center={mapCenter}
+      zoom={12}
       onLoad={handleMapLoad}
       onBoundsChanged={handleBoundsChanged}
     >

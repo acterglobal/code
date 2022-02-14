@@ -67,6 +67,7 @@ __metadata:
     title-case: 3.0.3
     typescript: "*"
     use-places-autocomplete: 1.11.0
+    use-position: 1.0.0
     uuid: 8.3.2
     webpack: "*"
   peerDependencies:
@@ -28801,6 +28802,15 @@ typescript@^3.9.7:
   peerDependencies:
     react: ">= 16.8.0"
   checksum: f4c0a61f35ade4ff60b4221beb641f7b869750132eadd975123809df6b8bc47a30e997069596db3a2090a1a1942dd4ad65dbc519aa7dcb4d3ac40c92f56a15fa
+  languageName: node
+  linkType: hard
+
+"use-position@npm:1.0.0":
+  version: 1.0.0
+  resolution: "use-position@npm:1.0.0"
+  peerDependencies:
+    react: ^16.8.0
+  checksum: e2d54149dd789945c0f28af56c62b887d9fe2ca92b6d6a11d48ff78b5dfb0bd92c2436f841ea55c5977ab7be71151a9f7a788daffbba987f5f3f6d88866c1e5e
   languageName: node
   linkType: hard
 
