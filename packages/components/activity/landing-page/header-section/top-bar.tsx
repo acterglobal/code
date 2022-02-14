@@ -40,6 +40,8 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
 
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+
   const handleEdit = () => {
     setOpenDrawer(true)
     setAction(EDIT)
