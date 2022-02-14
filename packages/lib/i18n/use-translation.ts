@@ -1,42 +1,26 @@
-import { TranslationQuery } from 'next-translate'
-import useI18nTranslation from 'next-translate/useTranslation'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  UseTranslationResponse,
+  UseTranslationOptions,
+  TFunction,
+} from 'react-i18next'
 
-import { getTranslationKey } from '@acter/lib/i18n/getTranslationKeys'
+import { useTranslation as useI18nTranslation } from 'next-i18next'
 
-type HandleTranslationMethod = (
-  i18nKey: string | TemplateStringsArray,
-  query?: TranslationQuery | null,
-  options?: {
-    returnObjects?: boolean
-    fallback?: string | string[]
-    default?: string
-  }
-) => string
-
-type UseTranslationReturn = {
-  t: HandleTranslationMethod
-  lang: string
-}
+import { getTranslationKey } from '@acter/lib/i18n/get-translation-keys'
 
 export const useTranslation = (
-  defaultNameSpace?: string
-): UseTranslationReturn => {
-  const { t, lang } = useI18nTranslation(defaultNameSpace)
+  ns?: string | string[],
+  options?: UseTranslationOptions<any>
+): UseTranslationResponse<string | string[], any> => {
+  const { t, ...rest } = useI18nTranslation(ns, options)
 
-  const handleTranslation = (
-    i18nKey: string | TemplateStringsArray,
-    query?: TranslationQuery | null,
-    options?: {
-      returnObjects?: boolean
-      fallback?: string | string[]
-      default?: string
-    }
-  ): string => {
+  const handleTranslation: TFunction = (i18nKey, options): string => {
     const key = getTranslationKey(i18nKey as string)
-    const translationText = t(key, query, { ...options })
+    const translationText = t(key, options)
 
     return translationText
   }
 
-  return { t: handleTranslation, lang }
+  return { t: handleTranslation, ...rest }
 }
