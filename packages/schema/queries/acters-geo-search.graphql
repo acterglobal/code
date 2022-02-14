@@ -1,0 +1,43 @@
+#import "../fragments/acter-search-results.fragment.graphql"
+
+query ActersGeoSearch(
+  $searchText: String
+  $types: [String!]
+  $interests: [String!]
+  $north: Float
+  $east: Float
+  $south: Float
+  $west: Float
+  $take: Int
+  $skip: Int
+  $cursor: ActerWhereUniqueInput
+) {
+  acters(
+    take: $take
+    skip: $skip
+    cursor: $cursor
+    orderBy: { name: asc }
+    where: {
+      AND: [
+        { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
+        { ActerType: { is: { name: { in: $types } } } }
+        { name: { contains: $searchText, mode: insensitive } }
+        { deletedAt: { equals: null } }
+        { acterPrivacySetting: { equals: PUBLIC } }
+        {
+          ActerInterests: {
+            some: {
+              Interest: { is: { name: { in: $interests, mode: insensitive } } }
+            }
+          }
+        }
+        { locationLat: { lte: $north } }
+        { locationLat: { gte: $south } }
+        { locationLng: { gte: $west } }
+        { locationLng: { lte: $east } }
+      ]
+    }
+  ) {
+    ...ActerSearchResults
+  }
+}

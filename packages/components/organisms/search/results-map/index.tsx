@@ -1,8 +1,10 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
 import { makeStyles, createStyles } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { GoogleMap, OverlayView, useLoadScript } from '@react-google-maps/api'
+
+import debounce from 'just-debounce'
 
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
@@ -29,22 +31,53 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
   const classes = useStyles()
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const mapRef = useRef<google.maps.Map>()
+  const initialRender = useRef(true)
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
 
   const handleMapLoad = (map: google.maps.Map): void => {
     mapRef.current = map
   }
 
-  const handleBoundsChanged = () => {
-    const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
-    setSearchVariables({
-      ...searchVariables,
-      north,
-      east,
-      south,
-      west,
-    })
+  const setMapSearchVariables = () => {
+    if (mapRef.current) {
+      const {
+        north,
+        east,
+        south,
+        west,
+      } = mapRef.current?.getBounds?.().toJSON()
+      setSearchVariables({
+        ...searchVariables,
+        north,
+        east,
+        south,
+        west,
+      })
+    }
   }
+
+  const handleBoundsChanged = debounce(() => {
+    const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
+    if (
+      initialRender.current === false &&
+      (north !== searchVariables.north ||
+        east !== searchVariables.east ||
+        south !== searchVariables.south ||
+        west !== searchVariables.west)
+    ) {
+      setMapSearchVariables()
+    }
+  }, 300)
+
+  useEffect(() => {
+    if (
+      initialRender.current &&
+      typeof mapRef.current?.getBounds === 'function'
+    ) {
+      setMapSearchVariables()
+      initialRender.current = false
+    }
+  }, [initialRender.current, mapRef.current])
 
   if (!isLoaded) return <LoadingBar />
 

@@ -63,7 +63,7 @@ export const OverallLayout: FC<LayoutProps> = ({
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.overallLayout}>
       <Drawer
         variant={menuVariant}
         anchor="left"
@@ -95,7 +95,7 @@ export const OverallLayout: FC<LayoutProps> = ({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    overallLayout: {
       display: 'flex',
       flexDirection: 'row',
       height: '100vh',
@@ -132,9 +132,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     container: {
-      flexGrow: 1,
+      flex: 1,
       margin: '0 auto',
       padding: 0,
+      '& > main': {
+        height: '100vh',
+      },
     },
   })
 )

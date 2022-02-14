@@ -6,7 +6,7 @@ import { LoadingBar } from '@acter/components/atoms/loading/bar'
 import { ProfileImageSizes } from '@acter/components/organisms/acter/tile'
 import { SearchResultsList } from '@acter/components/organisms/search/results-list'
 import { SearchResultsMap } from '@acter/components/organisms/search/results-map'
-import { useActerSearch } from '@acter/lib/search/use-acter-search'
+import { useActerGeoSearch } from '@acter/lib/search/use-acter-geo-search'
 
 const profileImageSizes: ProfileImageSizes = {
   sm: 24,
@@ -16,9 +16,7 @@ const profileImageSizes: ProfileImageSizes = {
 
 export const ResultsMapList: FC = () => {
   const classes = useStyles()
-  const { acters, fetching } = useActerSearch()
-
-  if (fetching) return <LoadingBar />
+  const { acters, fetching } = useActerGeoSearch()
 
   return (
     <Grid container className={classes.resultsMapList}>
@@ -27,6 +25,7 @@ export const ResultsMapList: FC = () => {
           acters={acters}
           profileImageSizes={profileImageSizes}
         />
+        {fetching && <LoadingBar />}
       </Grid>
       <Grid item xs={12} sm={6}>
         <SearchResultsMap acters={acters} />

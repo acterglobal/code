@@ -1,0 +1,34 @@
+#import "../fragments/acter-display.fragment.graphql"
+
+fragment ActerSearchResults on Acter {
+  ...ActerDisplay
+  ActerInterests {
+    id
+    Interest {
+      id
+      name
+      InterestType {
+        id
+        name
+        parentInterestTypeId
+      }
+    }
+  }
+  Following(
+    where: {
+      Following: { is: { ActerType: { is: { name: { in: ["network"] } } } } }
+    }
+  ) {
+    id
+    Following {
+      id
+      name
+      slug
+      avatarUrl
+      ActerType {
+        id
+        name
+      }
+    }
+  }
+}

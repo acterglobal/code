@@ -28,10 +28,12 @@ export const SearchPage: FC<SearchPageProps> = ({
           onResultDisplayTypeChange={setResultDisplayType}
         />
       </Box>
-      {resultDisplayType === ResultDisplayType.LIST && (
-        <SearchResultsInfiniteList />
-      )}
-      {resultDisplayType === ResultDisplayType.MAP && <ResultsMapList />}
+      <Box className={classes.results}>
+        {resultDisplayType === ResultDisplayType.LIST && (
+          <SearchResultsInfiniteList />
+        )}
+        {resultDisplayType === ResultDisplayType.MAP && <ResultsMapList />}
+      </Box>
     </Box>
   )
 }
@@ -41,9 +43,16 @@ const useStyles = makeStyles((theme: Theme) =>
     searchPage: {
       margin: '0 5%',
       height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     controls: {
       paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(2),
+      flex: '0 1 auto',
+    },
+    results: {
+      flex: '1 1 auto',
     },
   })
 )

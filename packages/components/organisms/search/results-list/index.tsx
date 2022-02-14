@@ -35,7 +35,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
 
   return (
     <>
-      {acters.map((acter, index) => (
+      {acters?.map((acter, index) => (
         <Box className={classes.singleItem} key={index} role="listitem">
           {searchType === ACTERS && (
             <Link href={acterAsUrl({ acter })} passHref>

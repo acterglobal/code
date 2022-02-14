@@ -45,6 +45,7 @@ __metadata:
     formik: 2.2.9
     formik-material-ui: 3.0.1
     formik-material-ui-pickers: 0.0.12
+    just-debounce: 1.1.0
     markdown-draft-js: 2.3.0
     markdown-to-jsx: 7.1.3
     next: "*"
@@ -19643,6 +19644,13 @@ fsevents@^1.2.7:
   version: 1.0.1
   resolution: "just-capitalize@npm:1.0.1"
   checksum: c8af71306724fc9e426fe9cf660ed29a39b3091c81c3ad9332e4989d8eeba5492b4f508964152bcc94b74e369bb3955484ef974683d5b79fb232118b901b42c6
+  languageName: node
+  linkType: hard
+
+"just-debounce@npm:1.1.0":
+  version: 1.1.0
+  resolution: "just-debounce@npm:1.1.0"
+  checksum: 6f43d4d9b25ad45d8c2970f839d378b4d161f6da7e5fecfa3bab478d2567ea07d8992ca957009820704dc1accd211f816ffb15ace7e3a0a7254f1830b4914265
   languageName: node
   linkType: hard
 
