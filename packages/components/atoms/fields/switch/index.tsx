@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
       '& $track': {
+        height: 12,
         borderRadius: 16 / 2,
       },
     },
