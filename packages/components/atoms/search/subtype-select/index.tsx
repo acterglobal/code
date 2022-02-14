@@ -41,6 +41,7 @@ export const SubtypeSelect: FC<SubtypeSelectProps> = ({
         name={subTypeName}
         size={Size.SMALL}
         checked={checked}
+        color="primary"
         onChange={onChange}
       />
     </Box>
