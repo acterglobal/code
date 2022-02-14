@@ -1,5 +1,33 @@
 {
   "acters": "acters",
+  "acterTypes": {
+    "university": "university",
+    "activity": "activity",
+    "group": "group",
+    "network": "network",
+    "organisation": "organisation",
+    "publicOrganisation": "public organisation",
+    "community": "community",
+    "NGO": "NGO",
+    "company": "company",
+    "user": "user"
+  },
   "login": "Login",
-  "signup": "Signup"
+  "signup": "Signup",
+  "signOut": "Sign Out",
+  "editProfile": "Edit Profile",
+  "acterForm": {
+    "heading": "Create an Actor to start coordinating or collaborating",
+    "selectActerType": "Select Acter type",
+    "name": "Name",
+    "description": "Description",
+    "location": "Location",
+    "websiteLink": "Website link",
+    "logo": "logo",
+    "banner": "banner image",
+    "back": "Back",
+    "submit": "Submit",
+    "continue": "Continue",
+    "create": "Create"
+  }
 }

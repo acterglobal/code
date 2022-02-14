@@ -1,5 +1,33 @@
 {
   "acters": "acters",
+  "acterTypes": {
+    "university": "universitet",
+    "activity": "aktivitet",
+    "group": "gruppe",
+    "network": "netværk",
+    "organisation": "organisation",
+    "publicOrganisation": "offentlig organisation",
+    "community": "fællesskab",
+    "NGO": "NGO",
+    "company": "selskab",
+    "user": "bruger"
+  },
   "login": "Log på",
-  "signup": "Tilmelde"
+  "signup": "Tilmelde",
+  "signOut": "Log ud",
+  "editProfile": "Rediger Profil",
+  "acterForm": {
+    "heading": "Opret en acter for at begynde at koordinere eller samarbejde",
+    "selectActerType": "Vælg Acter type",
+    "name": "Navn",
+    "description": "Beskrivelse",
+    "location": "Beliggenhed",
+    "websiteLink": "Webstedslink",
+    "logo": "logo",
+    "banner": "banner billede",
+    "back": "Tilbage",
+    "submit": "Indsend",
+    "continue": "Fortsætte",
+    "create": "Skab"
+  }
 }

@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
 import { FilePond, registerPlugin } from 'react-filepond'
 
+import useTranslate from 'next-translate/useTranslation'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import axios from 'axios'
@@ -19,28 +21,6 @@ registerPlugin(
   FilePondPluginFileValidateType,
   FilePondPluginImageEdit
 )
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'relative',
-      margin: theme.spacing(1.2),
-    },
-    uploadContainer: {
-      minWidth: 230,
-      fontSize: '0.85rem',
-      fontFamily: 'Montserrat',
-    },
-    button: {
-      color: 'white',
-      margin: 5,
-      height: 30,
-    },
-  })
-)
-
 export interface ImageUploadProps {
   imageType: string
   aspectRatio?: number
@@ -53,6 +33,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   fileUrl,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslate('common')
   const { setFieldValue } = useFormikContext()
   const pond: RefObject<FilePond> = createRef()
 
@@ -170,7 +151,10 @@ export const ImageUpload: FC<ImageUploadProps> = ({
       }
     },
   }
-  const label = imageType === 'avatar' ? 'logo' : 'banner image'
+  const label = t(
+    imageType === 'avatar' ? 'acterForm.logo' : 'acterForm.banner'
+  )
+
   return (
     <div className={classes.container}>
       <FilePond
@@ -200,3 +184,24 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     </div>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      margin: theme.spacing(1.2),
+    },
+    uploadContainer: {
+      minWidth: 230,
+      fontSize: '0.85rem',
+      fontFamily: 'Montserrat',
+    },
+    button: {
+      color: 'white',
+      margin: 5,
+      height: 30,
+    },
+  })
+)
