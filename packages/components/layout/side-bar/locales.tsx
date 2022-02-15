@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -13,13 +13,29 @@ import {
 import clsx from 'clsx'
 
 import { Link } from '@acter/components/util/anchor-link'
-import { Language as ActerLocales } from '@acter/schema'
+import { useUpdateUserLanguage } from '@acter/lib/acter/use-update-user-language'
+import { useUser } from '@acter/lib/user/use-user'
+import { Language as ActerLocales, Language } from '@acter/schema'
 
 const { EN, DK } = ActerLocales
 
 export const Locales: FC = () => {
   const router = useRouter()
   const classes = useStyles({ locale: router.locale })
+  const { user } = useUser()
+  const [_, updateLanguage] = useUpdateUserLanguage()
+
+  useEffect(() => {
+    if (user?.language !== router.locale) {
+      router.push(router.asPath, router.asPath, { locale: user?.language })
+    }
+  }, [user])
+
+  const handleClick = (language: Language) => {
+    if (!user) return null
+
+    updateLanguage({ email: user.email, language })
+  }
 
   return (
     <Box className={classes.locales}>
@@ -29,6 +45,7 @@ export const Locales: FC = () => {
             classes.locale,
             router.locale === EN && classes.active
           )}
+          onClick={() => handleClick(EN)}
         >
           {EN}
         </Typography>
@@ -40,6 +57,7 @@ export const Locales: FC = () => {
             classes.locale,
             router.locale === DK && classes.active
           )}
+          onClick={() => handleClick(DK)}
         >
           {DK}
         </Typography>

@@ -1,0 +1,7 @@
+#import "../fragments/user-full.fragment.graphql"
+
+mutation UpdateUserLanguage($email: String, $language: Language) {
+  updateUser(where: { email: $email }, data: { language: { set: $language } }) {
+    ...UserFull
+  }
+}

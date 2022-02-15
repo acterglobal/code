@@ -1,0 +1,11 @@
+#import "./acter-full.fragment.graphql"
+
+fragment UserFull on User {
+  id
+  name
+  email
+  language
+  Acter {
+    ...ActerFull
+  }
+}

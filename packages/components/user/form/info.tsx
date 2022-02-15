@@ -5,12 +5,15 @@ import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
+import { LanguagePicker } from '@acter/components/atoms/fields/language-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { ImageUpload } from '@acter/components/image-upload'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
+import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useUser } from '@acter/lib/user/use-user'
+import { Language } from '@acter/schema'
 
 export interface ProfileInfoFormValues {
   avatarUrl: string
@@ -21,6 +24,7 @@ export interface ProfileInfoFormValues {
   placeId: string
   locationLat: number
   locationLng: number
+  language: Language
 }
 
 export const ProfileInfoForm: FC = () => {
@@ -36,7 +40,7 @@ export const ProfileInfoForm: FC = () => {
     return null
   }
 
-  const { email } = user
+  const { email, language } = user
   const {
     avatarUrl,
     name,
@@ -56,6 +60,7 @@ export const ProfileInfoForm: FC = () => {
     placeId,
     locationLat,
     locationLng,
+    language: language as Language,
   }
 
   const handleSubmit = (values) => updateActer(values)
@@ -105,6 +110,15 @@ export const ProfileInfoForm: FC = () => {
               />
 
               <LocationPicker types={['(regions)']} cacheKey="regions" />
+
+              <FeatureFlag>
+                <LanguagePicker
+                  size="small"
+                  variant="outlined"
+                  fullWidth
+                  className={classes.languagePicker}
+                />
+              </FeatureFlag>
             </Grid>
           </Grid>
           <FormButtons align="right" hideUnlessDirty={true} />
@@ -152,6 +166,9 @@ const useStyles = makeStyles((theme: Theme) =>
     submitButtonContainer: {
       marginRight: theme.spacing(1),
       width: '100%',
+    },
+    languagePicker: {
+      marginTop: theme.spacing(2),
     },
   })
 )
