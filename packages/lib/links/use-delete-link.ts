@@ -1,5 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -32,14 +33,15 @@ export const useDeleteLink = (
   UseMutationState<DeleteLinkData, LinkVariables>,
   HandleMethod<DeleteLinkData>
 ] => {
+  const { t } = useTranslation('success-messages')
+
   const [mutationResult, deleteLink] = useNotificationMutation<
     DeleteLinkData,
     LinkVariables
   >(DELETE_LINK, {
     ...options,
-    getSuccessMessage: (data) => {
-      return `Link "${data.deleteLink.name}" deleted`
-    },
+    getSuccessMessage: (data) =>
+      t('link.deleted', { linkName: data.deleteLink.name }),
   })
 
   const handleDeleteLink = async (values: LinkVariables) =>

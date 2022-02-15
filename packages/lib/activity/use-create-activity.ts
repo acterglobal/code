@@ -9,6 +9,7 @@ import {
 import { Activity } from '@acter/schema'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
+import { useTranslation } from '../i18n/use-translation'
 import { UpdateActivityData, useUpdateActivity } from './use-update-activity'
 
 export interface ActivityVariables extends Activity {
@@ -53,6 +54,7 @@ export const useCreateActivity = (
   CreateActivityUseMutationState,
   HandleMethod<CreateActivityData, ActivityVariables>
 ] => {
+  const { t } = useTranslation('success_messages')
   const [fetching, setFetching] = useState(false)
   const [resultData, setResultData] = useState<ActivityData>(null)
   const [error, setError] = useState<CombinedError>()
@@ -73,9 +75,10 @@ export const useCreateActivity = (
     CREATE_ACTIVITY,
     {
       ...options,
-      getSuccessMessage: (data: CreateActivityData) => {
-        return `${data.createActivityCustom?.Acter?.name} Activity created`
-      },
+      getSuccessMessage: ({ createActivityCustom }) =>
+        t('activityCreated', {
+          activityName: createActivityCustom?.Acter?.name,
+        }),
     }
   )
 

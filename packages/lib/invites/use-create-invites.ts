@@ -1,3 +1,4 @@
+import { useTranslation } from '../i18n/use-translation'
 import { OperationResult, UseMutationState } from 'urql'
 
 import {
@@ -32,11 +33,12 @@ export const useCreateInvites = (
   UseMutationState<CreateInvitesData, CreateInvitesVariables>,
   HandleMethod
 ] => {
+  const { t } = useTranslation('success-messages')
   const [mutationResult, createManyInvite] = useNotificationMutation(
     CREATE_INVITES,
     {
       ...options,
-      getSuccessMessage: () => 'Invitations sent.',
+      getSuccessMessage: () => t('invitationsSent'),
     }
   )
 
