@@ -82,14 +82,11 @@ const Heading: FC<HeadingProps> = ({ title }) => {
 
 const ZeroMessage = ({ messageFor }) => {
   const classes = useStyles()
+  const { t } = useTranslation('dashboard')
   return (
     <Typography variant="body2" className={classes.zeroMessage}>
-      {messageFor === GROUP &&
-        `You are currently not part of any groups. As you join new groups they will
-      show here.`}
-      {messageFor === ACTIVITY &&
-        `You are currently not participating in any activities. As you join new
-        activities, they will show here.`}
+      {messageFor === GROUP && t('zeroMessage.groups')}
+      {messageFor === ACTIVITY && t('zeroMessage.activities')}
     </Typography>
   )
 }
