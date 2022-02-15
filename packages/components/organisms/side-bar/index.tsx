@@ -22,6 +22,7 @@ import { FollowingList } from '@acter/components/molecules/following-list'
 import { ProfileButton } from '@acter/components/molecules/profile-button'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
+import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Sidebar: FC = () => {
@@ -56,7 +57,9 @@ export const Sidebar: FC = () => {
         </List>
       </Box>
 
-      <Locales />
+      <FeatureFlag>
+        <Locales />
+      </FeatureFlag>
 
       <Hidden smDown>
         <Divider />
