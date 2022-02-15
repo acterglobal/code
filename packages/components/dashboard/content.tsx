@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import useTranslation from 'next-translate/useTranslation'
+
 import {
   Box,
   createStyles,
@@ -21,6 +23,8 @@ const { ACTIVITY, GROUP } = ActerTypes
 
 export const DashboardContent: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('dashboard')
+
   const { user, fetching: userLoading } = useUser()
 
   const { activities, fetching: activitiesLoading } = useActivities(
@@ -36,7 +40,7 @@ export const DashboardContent: FC = () => {
   return (
     <Box className={classes.container}>
       <Box className={classes.groups}>
-        <Heading title="My Groups" />
+        <Heading title={t('myGroups')} />
         <Box className={classes.content}>
           {groups.length === 0 ? (
             <ZeroMessage messageFor={GROUP} />
@@ -47,7 +51,7 @@ export const DashboardContent: FC = () => {
       </Box>
 
       <Box className={classes.activities}>
-        <Heading title="My Activities" />
+        <Heading title={t('myActivities')} />
         <Box className={classes.content}>
           {activities ? (
             <>
@@ -111,6 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.colors.white,
       position: 'fixed',
       zIndex: 99,
+      textTransform: 'capitalize',
     },
     heading: {
       fontSize: theme.spacing(2),

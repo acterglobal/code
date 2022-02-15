@@ -17,6 +17,7 @@ import { SvgIconComponent } from '@material-ui/icons'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
+import { Locales } from '@acter/components/layout/side-bar/locales'
 import { FollowingList } from '@acter/components/molecules/following-list'
 import { ProfileButton } from '@acter/components/molecules/profile-button'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
@@ -54,6 +55,8 @@ export const Sidebar: FC = () => {
           )}
         </List>
       </Box>
+
+      <Locales />
 
       <Hidden smDown>
         <Divider />
@@ -128,6 +131,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(2),
+      locales: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        fontSize: 12,
+        color: theme.colors.white,
+        marginBottom: theme.spacing(1),
+        paddingRight: 8,
+        paddingLeft: 8,
+      },
     },
   })
 )

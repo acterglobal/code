@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import useTranslation from 'next-translate/useTranslation'
+
 import {
   Box,
   createStyles,
@@ -26,6 +28,7 @@ export const Dashboard: FC = () => {
 const TopSection: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('dashboard')
 
   return (
     <Box className={classes.topSection}>
@@ -38,7 +41,7 @@ const TopSection: FC = () => {
         }}
       />
       <Typography variant="h6" className={classes.heading}>
-        Dashboard
+        {t('dashboard')}
       </Typography>
     </Box>
   )
