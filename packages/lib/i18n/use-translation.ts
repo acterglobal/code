@@ -1,7 +1,7 @@
 import { TranslationQuery } from 'next-translate'
 import useI18nTranslation from 'next-translate/useTranslation'
 
-import { getTranslationKey } from '@acter/lib/i18n/getTranslationKeys'
+import { getTranslationKey } from '@acter/lib/i18n/get-translation-keys'
 
 type HandleTranslationMethod = (
   i18nKey: string | TemplateStringsArray,
