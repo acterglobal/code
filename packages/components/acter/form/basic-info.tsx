@@ -46,7 +46,7 @@ export const BasicInformation: FC = () => {
         variant="outlined"
         size="small"
         fullWidth
-        label={t('acterForm.name')}
+        label={t('name')}
         name="name"
         required={true}
       />

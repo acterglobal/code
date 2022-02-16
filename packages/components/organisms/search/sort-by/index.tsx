@@ -6,6 +6,7 @@ import { DoneRounded as SelectedIcon } from '@material-ui/icons'
 
 import { Popover } from '@acter/components/util/popover'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export type SortByProps = {
   sortBy: SearchActivitiesSortBy
@@ -13,6 +14,7 @@ export type SortByProps = {
 }
 
 export const SortBy: FC<SortByProps> = ({ sortBy, applySortBy }) => {
+  const { t } = useTranslation('search')
   const classes = useStyles()
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
 
@@ -22,13 +24,13 @@ export const SortBy: FC<SortByProps> = ({ sortBy, applySortBy }) => {
   }
 
   return (
-    <Popover tabLabel="Sort by" closePopover={closePopover}>
+    <Popover tabLabel={t('sortByTabLabel')} closePopover={closePopover}>
       <Box className={classes.popover}>
         <Box
           className={classes.item}
           onClick={() => handleSelect(SearchActivitiesSortBy.DATE)}
         >
-          <Typography variant="caption">Date</Typography>
+          <Typography variant="caption">{t('common:date')}</Typography>
           {sortBy === SearchActivitiesSortBy.DATE && (
             <SelectedIcon className={classes.icon} />
           )}
@@ -37,7 +39,7 @@ export const SortBy: FC<SortByProps> = ({ sortBy, applySortBy }) => {
           className={classes.item}
           onClick={() => handleSelect(SearchActivitiesSortBy.NAME)}
         >
-          <Typography variant="caption">Name</Typography>
+          <Typography variant="caption">{t('common:name')}</Typography>
           {sortBy === SearchActivitiesSortBy.NAME && (
             <SelectedIcon className={classes.icon} />
           )}
