@@ -24,7 +24,9 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
   const classes = useStyles()
   const router = useRouter()
 
-  if (acter && localRoute)
+  if (!acter) return null
+
+  if (acter && localRoute) {
     return (
       <Box>
         <Breadcrumbs
@@ -36,7 +38,7 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
           }
           aria-label="breadcrumb"
         >
-          <Link href={`${acterAsUrl({ acter: acter?.Parent })}`}>
+          <Link href={`${acterAsUrl({ acter: acter.Parent })}`}>
             <Typography className={classes.name}>
               {capitalize(acter?.Parent.name)}
             </Typography>
@@ -54,6 +56,8 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
         </Breadcrumbs>
       </Box>
     )
+  }
+
   return (
     <Breadcrumbs
       separator={

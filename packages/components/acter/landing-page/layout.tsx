@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
-import dynamic from 'next/dynamic'
-
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
+import { HeaderSection as ActerHeaderSection } from '@acter/components/acter/landing-page/header-section'
+import { HeaderSection as ActivityHeaderSection } from '@acter/components/activity/landing-page/header-section'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
@@ -18,15 +18,10 @@ export const LandingPageLayout: FC = ({ children }) => {
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
 
-  const HeaderSection = dynamic(() =>
+  const HeaderSection =
     acter?.ActerType.name === ACTIVITY
-      ? import('@acter/components/activity/landing-page/header-section').then(
-          (mod) => mod.HeaderSection
-        )
-      : import('@acter/components/acter/landing-page/header-section').then(
-          (mod) => mod.HeaderSection
-        )
-  )
+      ? ActivityHeaderSection
+      : ActerHeaderSection
 
   return (
     <Grid className={classes.header} container>

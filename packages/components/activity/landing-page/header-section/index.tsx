@@ -16,7 +16,7 @@ import { TopBar } from '@acter/components/activity/landing-page/header-section/t
 import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { getActivityDateFormat } from '@acter/lib/activity/get-activity-date-format'
 import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -32,9 +32,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const router = useRouter()
   const classes = useStyles()
 
-  const displayFormat = acter?.Activity?.isAllDay
-    ? DATE_FORMAT_NO_TIME
-    : DATE_FORMAT
+  const displayFormat = getActivityDateFormat(acter.Activity)
 
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)

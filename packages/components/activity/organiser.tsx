@@ -1,11 +1,10 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter } from '@acter/schema'
 
@@ -15,27 +14,25 @@ interface OrganiserProps {
 
 export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   const classes = useStyles()
-  const router = useRouter()
 
   if (!acter) return null
 
   return (
-    <Box className={classes.container}>
+    <Box className={classes.organiser}>
       <ActerAvatar acter={acter} size={4} />
       <Typography className={classes.heading}>Hosted by</Typography>
       <Typography className={classes.heading}> </Typography>
-      <Box
-        className={classes.organiserContainer}
-        onClick={() => router.push(acterAsUrl({ acter }))}
-      >
-        <Typography className={classes.name}>{acter.name}</Typography>
+      <Box className={classes.organiserContainer}>
+        <Link href={acterAsUrl({ acter })}>
+          <Typography className={classes.name}>{acter.name}</Typography>
+        </Link>
       </Box>
     </Box>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
+  organiser: {
     alignItems: 'center',
     height: '100%',
     padding: theme.spacing(2),

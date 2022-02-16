@@ -8,7 +8,7 @@ import { Computer, Event as CalenderIcon } from '@material-ui/icons'
 import { Connect } from '@acter/components/acter/connect'
 import { About } from '@acter/components/activity/about'
 import { ActerLocation } from '@acter/components/atoms/acter/acter-location'
-import { DATE_FORMAT, DATE_FORMAT_NO_TIME } from '@acter/lib/constants'
+import { getActivityDateFormat } from '@acter/lib/activity/get-activity-date-format'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
@@ -22,9 +22,7 @@ export const ActivityInfo: FC<ActivityInfoProps> = ({ acter }) => {
   ])
   const classes = useStyles({ activityTypeName })
 
-  const displayFormat = acter?.Activity?.isAllDay
-    ? DATE_FORMAT_NO_TIME
-    : DATE_FORMAT
+  const displayFormat = getActivityDateFormat(acter.Activity)
 
   const startAt = parseAndFormat(acter.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter.Activity?.endAt, displayFormat)
