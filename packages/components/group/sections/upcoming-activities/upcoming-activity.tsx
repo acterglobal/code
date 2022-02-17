@@ -1,7 +1,5 @@
 import { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import {
   Box,
   Button,
@@ -20,7 +18,6 @@ interface UpcomingActivityProps {
 }
 export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
   const classes = useStyles()
-  const router = useRouter()
 
   return (
     <Box className={classes.activity}>
@@ -39,14 +36,10 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
         <Button
           variant="contained"
           className={classes.button}
-          onClick={() =>
-            router.push(
-              acterAsUrl({
-                acter: activity?.Acter,
-                query: { localRoute: true },
-              })
-            )
-          }
+          href={acterAsUrl({
+            acter: activity?.Acter,
+            query: { localRoute: true },
+          })}
         >
           View
         </Button>
