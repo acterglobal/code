@@ -1,22 +1,26 @@
 import { Meta, Story } from '@storybook/react'
 
+import { ResultDisplayType } from '@acter/lib/constants'
 import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 
-import { SearchTopBar } from './index'
+import { SearchTopBar, SearchTopBarProps } from './index'
 
 export default {
   title: 'Organisms/Search/Top Bar',
   component: SearchTopBar,
-  args: {},
+  args: {
+    resultDisplayType: ResultDisplayType.LIST,
+    onResultDisplayTypeChange: () => null,
+  },
   parameters: {
     ...withExampleInterestParams,
     backgrounds: {
       default: 'background',
     },
   },
-} as Meta
+} as Meta<SearchTopBarProps>
 
-const Template: Story = (args) => <SearchTopBar {...args} />
+const Template: Story<SearchTopBarProps> = (args) => <SearchTopBar {...args} />
 
 export const Acters = Template.bind({})
 Acters.args = {}

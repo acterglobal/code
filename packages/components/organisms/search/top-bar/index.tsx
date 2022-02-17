@@ -22,7 +22,7 @@ import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 
-interface SearchTopBarProps
+export interface SearchTopBarProps
   extends Pick<ShowMapSwitchProps, 'resultDisplayType'> {
   onResultDisplayTypeChange: ShowMapSwitchProps['onChange']
 }
