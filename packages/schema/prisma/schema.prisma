@@ -210,6 +210,7 @@ model ActivityType {
 model Post {
   id        String   @id @default(uuid())
   content   String
+  image     String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
