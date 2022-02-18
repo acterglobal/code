@@ -16,10 +16,7 @@ export interface ActivityTileProps {
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const classes = useStyles()
 
-  const redirectUrl = acterAsUrl({
-    acter: activity?.Acter,
-    query: { localRoute: true },
-  })
+  const redirectUrl = acterAsUrl({ acter: activity?.Acter })
 
   return (
     <Link href={redirectUrl}>

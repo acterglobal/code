@@ -38,7 +38,6 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
           className={classes.button}
           href={acterAsUrl({
             acter: activity?.Acter,
-            query: { localRoute: true },
           })}
         >
           View

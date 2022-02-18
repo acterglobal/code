@@ -38,7 +38,6 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
   const [action, setAction] = useState<ActionButton>(null)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
-  const [localRoute] = useState(router.query.localRoute)
 
   const handleEdit = () => {
     setOpenDrawer(true)
@@ -98,7 +97,7 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
   return (
     <Box className={classes.topBar}>
       <Box className={classes.breadCrumbsContainer}>
-        <ActivityBreadcrumbs acter={acter} localRoute={localRoute} />
+        <ActivityBreadcrumbs acter={acter} />
       </Box>
       <Box className={classes.actionsContainer}>
         <Box className={classes.actionsSection}>

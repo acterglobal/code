@@ -39,10 +39,7 @@ export const UpcomingActivities: FC = () => {
           {upcomingActivities.map((activity) => (
             <Link
               key={`activity-${activity.id}`}
-              href={acterAsUrl({
-                acter: activity?.Acter,
-                query: { localRoute: true },
-              })}
+              href={acterAsUrl({ acter: activity?.Acter })}
             >
               <UpcomingActivity
                 key={`activity-${activity.id}`}

@@ -45,7 +45,7 @@ type UseActerProps = {
   acterId?: string
   fetchParent?: boolean
   acterTypeName?: string
-  slug?: string | string[]
+  slug?: string
 }
 
 /**

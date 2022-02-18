@@ -16,7 +16,7 @@ import { TopBar } from '@acter/components/activity/landing-page/header-section/t
 import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { getActivityDateFormat } from '@acter/lib/activity/get-activity-date-format'
+import { getActerDateFormat } from '@acter/lib/acter/get-acter-date-format'
 import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -32,7 +32,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const router = useRouter()
   const classes = useStyles()
 
-  const displayFormat = getActivityDateFormat(acter.Activity)
+  const displayFormat = getActerDateFormat(acter)
 
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
