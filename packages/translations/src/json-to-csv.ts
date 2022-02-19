@@ -59,7 +59,15 @@ const jsonToCsv = async () => {
       [namespace]: keysData,
     }
   }, {})
-  console.log(' DATA', data)
+
+  await Object.keys(data).map(async (namespace) => {
+    const json2csvParser = new Parser()
+    const csvData = json2csvParser.parse(data[namespace])
+
+    const folder = path.join(__dirname, '..', 'csv')
+    const fileName = `Translations - ${namespace}.csv`
+    await fs.writeFile(path.join(folder, fileName), csvData)
+  })
 }
 
 ;(async () => jsonToCsv())()
