@@ -24,7 +24,8 @@ type UpdateActivityOptions = UseMutationOptions<
 >
 
 export type HandleMethod = (
-  activity: ActivityVariables
+  activity: ActivityVariables,
+  options?: UpdateActivityOptions
 ) => Promise<OperationResult<UpdateActivityData, ActivityVariables>>
 
 /**
@@ -34,6 +35,7 @@ export type HandleMethod = (
  * @returns mutation results
  */
 export const useUpdateActivity = (
+  activity: Activity,
   options?: UpdateActivityOptions
 ): [UseMutationState<UpdateActivityData, ActivityVariables>, HandleMethod] => {
   const [mutationResult, updateActivity] = useNotificationMutation<
@@ -41,12 +43,26 @@ export const useUpdateActivity = (
     ActivityVariables
   >(UPDATE_ACTIVITY, {
     ...options,
-    getSuccessMessage: () => `Activity updated`,
+    getSuccessMessage: (data: UpdateActivityData) =>
+      `${data.updateActivityCustom.Acter.name} Activity updated`,
+    ...options,
   })
 
-  const handleCreateActivity = async (formData: ActivityVariables) => {
-    const data = prepareActivityValues(formData)
-    const dataWithPic = await _updatePictures(data)
+  const handleCreateActivity = async (
+    updatedActivity: ActivityVariables
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> => {
+    const acterId = activity?.Acter?.id
+      ? activity.Acter.id
+      : updatedActivity.Acter.id
+    const variables = {
+      ...activity,
+      ...updatedActivity,
+      acterId,
+    }
+
+    const data = prepareActivityValues(variables)
+    const dataWithPic = (await _updatePictures(data)) as ActivityVariables
 
     return updateActivity({
       ...dataWithPic,

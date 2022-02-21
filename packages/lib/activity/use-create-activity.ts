@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { useUpdateActivity } from './use-update-activity'
-import { OperationResult, UseMutationState } from 'urql'
+import { UpdateActivityData, useUpdateActivity } from './use-update-activity'
+import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
-import {
-  ActivityFormData,
-  prepareActivityValues,
-} from '@acter/lib/acter/prepare-activity-values'
+import { ActivityFormData } from '@acter/lib/acter/prepare-activity-values'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -20,14 +17,26 @@ export type CreateActivityData = {
   createActivityCustom: Activity
 }
 
+type ActivityData = CreateActivityData | UpdateActivityData
+
 type CreateActivityOptions = UseMutationOptions<
   CreateActivityData,
   ActivityVariables
 >
 
-export type HandleMethod = (
+export type HandleMethod<TData> = (
   activity: ActivityVariables
-) => Promise<OperationResult<CreateActivityData, ActivityVariables>>
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => Promise<OperationResult<TData, Record<string, any>>>
+
+type CreateActivityUseMutationState = UseMutationState<
+  ActivityData,
+  ActivityVariables
+>
+type CreateActivityUseMutationRestState = Omit<
+  CreateActivityUseMutationState,
+  'data' | 'fetching' | 'error>'
+>
 
 /**
  * Custom hook that creates new activity
@@ -37,38 +46,71 @@ export type HandleMethod = (
  */
 export const useCreateActivity = (
   options?: CreateActivityOptions
-): [UseMutationState<CreateActivityData, ActivityVariables>, HandleMethod] => {
-  const [formData, setFormData] = useState(null)
-  const [newActivity, setNewActivity] = useState(null)
-  const [_, updateActivity] = useUpdateActivity()
+): [CreateActivityUseMutationState, HandleMethod<ActivityData>] => {
+  const [fetching, setFetching] = useState(false)
+  const [resultData, setResultData] = useState<ActivityData>(null)
+  const [error, setError] = useState<CombinedError>()
+  const [
+    restState,
+    setRestState,
+  ] = useState<CreateActivityUseMutationRestState>()
 
-  useEffect(() => {
-    if (newActivity && formData) {
-      updateActivity({
-        ...newActivity,
-        ...formData,
-        acterId: newActivity.Acter.id,
-      })
-    }
-  }, [newActivity])
-
-  const [mutationResult, createActivity] = useNotificationMutation<
-    CreateActivityData,
-    ActivityVariables
-  >(CREATE_ACTIVITY, {
-    ...options,
-    onCompleted: (data) => {
-      options?.onCompleted?.(data)
-      setNewActivity(data.createActivityCustom)
-    },
-    getSuccessMessage: ({ createActivityCustom }) =>
-      `${createActivityCustom?.Acter?.name} created`,
+  const [
+    { fetching: updateFetching, error: updateError, ...updateRestState },
+    updateActivity,
+  ] = useUpdateActivity({} as Activity, {
+    getSuccessMessage: (data) =>
+      `Images uploaded for ${data.updateActivityCustom.Acter.name}`,
   })
 
-  const handleCreateActivity = (data: ActivityVariables) => {
-    setFormData(data)
-    return createActivity({ ...prepareActivityValues(data) })
+  const [
+    { fetching: createFetching, error: createError, ...createRestState },
+    createActivity,
+  ] = useNotificationMutation<CreateActivityData, ActivityVariables>(
+    CREATE_ACTIVITY,
+    {
+      ...options,
+      getSuccessMessage: (data: CreateActivityData) => {
+        return `${data.createActivityCustom?.Acter?.name} Activity created`
+      },
+    }
+  )
+
+  useEffect(() => {
+    setFetching(createFetching || updateFetching)
+  }, [createFetching, updateFetching])
+
+  useEffect(() => {
+    setError(createError || updateError)
+  }, [createError, updateError])
+
+  useEffect(() => {
+    setRestState({
+      ...createRestState,
+      ...updateRestState,
+    })
+  }, [JSON.stringify(createRestState), JSON.stringify(updateRestState)])
+
+  const handleCreateActivity: HandleMethod<UpdateActivityData> = async (
+    activity
+  ) => {
+    setFetching(true)
+    const { data } = await createActivity({
+      ...activity,
+    })
+
+    const updateResult = await updateActivity({
+      ...activity,
+      ...data.createActivityCustom,
+    })
+
+    setResultData(updateResult.data)
+
+    return updateResult
   }
 
-  return [mutationResult, handleCreateActivity]
+  return [
+    { data: resultData, fetching, error, ...restState },
+    handleCreateActivity,
+  ]
 }
