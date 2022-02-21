@@ -1,7 +1,14 @@
 import { camelize } from '@acter/lib/string/camelize'
 
+const specialKeys = {
+  ngo: 'NGO',
+  ngos: 'NGOs',
+}
+
 export const getTranslationKey = (keyString: string): string => {
-  if (keyString === 'NGO' || keyString === 'NGOs') {
+  const isSpecialKey = (key) => specialKeys[(key as string).toLocaleLowerCase()]
+
+  if (isSpecialKey(keyString)) {
     return keyString
   }
 
@@ -10,11 +17,9 @@ export const getTranslationKey = (keyString: string): string => {
     const nestedKeys = keyString.substring(0, separator)
     const lastKey = keyString.slice(separator)
 
-    if (lastKey === 'NGO' || lastKey === 'NGOs') {
-      return nestedKeys.concat(lastKey)
-    }
-
-    return nestedKeys.concat(camelize(lastKey))
+    return nestedKeys.concat(
+      isSpecialKey(lastKey) ? lastKey : camelize(lastKey)
+    )
   }
 
   if (keyString.includes(':')) {
