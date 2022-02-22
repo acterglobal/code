@@ -2,12 +2,11 @@ import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
 
 import { uploadFile } from '@acter/lib/files/upload-file'
-import { uploadImage } from '@acter/lib/images/upload-image'
 import { Acter } from '@acter/schema'
 
 export type ActerPictureType = 'avatar' | 'banner'
 
-interface ActerPictureData {
+export interface ActerPictureData {
   id: string
   avatarUrl?: string
   bannerUrl?: string
