@@ -1,4 +1,4 @@
-export enum GroupSectionTabs {
+export enum SectionTabs {
   ABOUT = 'about',
   INVITE = 'invite',
   LINKS = 'links',

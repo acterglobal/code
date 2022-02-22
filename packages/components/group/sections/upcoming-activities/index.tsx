@@ -41,10 +41,7 @@ export const UpcomingActivities: FC = () => {
               key={`activity-${activity.id}`}
               href={acterAsUrl({ acter: activity?.Acter })}
             >
-              <UpcomingActivity
-                key={`activity-${activity.id}`}
-                activity={activity}
-              />
+              <UpcomingActivity activity={activity} />
             </Link>
           ))}
         </>

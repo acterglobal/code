@@ -11,11 +11,13 @@ import { Acter } from '@acter/schema'
 export interface ActivityDetailsProps {
   acter: Acter
   acterLoading?: boolean
+  handleOnClick: () => void
 }
 
 export const ActivityDetails: FC<ActivityDetailsProps> = ({
   acter,
   acterLoading,
+  handleOnClick,
 }) => {
   const classes = useStyles()
 
@@ -31,7 +33,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         </Hidden>
 
         <Grid item xs={12} sm={5}>
-          <Participants acter={acter} />
+          <Participants acter={acter} handleOnClick={handleOnClick} />
         </Grid>
 
         <Grid item className={classes.posts} xs={12} sm={7}>
