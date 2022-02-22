@@ -14,7 +14,11 @@ describe('[Interest Types]', () => {
   const mockUseTranslation = useTranslation as jest.Mock
 
   it('should show interests for a type', () => {
-    mockUseTranslation.mockReturnValue({ t: () => null })
+    mockUseTranslation.mockReturnValue({
+      t: (text) => {
+        if (text === 'Air') return 'air'
+      },
+    })
 
     const rootType = Interests.data.interestTypes.find(
       (type) => type.name === 'root'
