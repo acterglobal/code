@@ -10,8 +10,6 @@ import {
   Theme,
 } from '@material-ui/core'
 
-import _ from 'lodash'
-
 import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
