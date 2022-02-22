@@ -15,14 +15,11 @@ import { ActerConnectionRole } from '@acter/schema'
 const EditActer = dynamic(() =>
   import('@acter/components/acter/form').then((mod) => mod.ActerForm)
 )
-
 export const EditButton: FC = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const [heading, setHeading] = useState('')
-
   const { user } = useUser()
   const { acter } = useActer()
-
   const handleEdit = () => {
     setHeading(`Edit ${acter.name}`)
     setOpenDrawer(true)
@@ -40,6 +37,7 @@ export const EditButton: FC = () => {
   if (!acter || !user) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+
   if (!isAdmin) return null
 
   return (
@@ -47,7 +45,6 @@ export const EditButton: FC = () => {
       <IconButton onClick={handleEdit}>
         <EditIcon />
       </IconButton>
-
       <Drawer
         heading={heading}
         open={openDrawer}

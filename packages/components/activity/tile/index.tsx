@@ -1,13 +1,12 @@
-import React, { FC, useState } from 'react'
-
-import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
-import { ActivityLanding } from '@acter/components/activity/tile/activity-landing'
 import { ActivityType } from '@acter/components/activity/tile/activity-type'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
 import { InfoSection } from '@acter/components/activity/tile/info-section'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Activity } from '@acter/schema'
 
 export interface ActivityTileProps {
@@ -15,50 +14,26 @@ export interface ActivityTileProps {
 }
 
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
-  if (!activity) return null
-
   const classes = useStyles()
-  const router = useRouter()
-  const [showActivity, setShowActivity] = useState(
-    Boolean(router.query.activity === activity.Acter.slug)
-  )
 
-  const handleClick = () => {
-    const query = { ...router.query, activity: activity.Acter.slug }
-    router.push({ query }, undefined, { shallow: true })
-    setShowActivity(true)
-  }
-
-  const handleClose = () => {
-    delete router.query.activity
-    router.push({ query: router.query }, undefined, { shallow: true })
-    setShowActivity(false)
-  }
+  const redirectUrl = acterAsUrl({ acter: activity?.Acter })
 
   return (
-    <>
-      <Box className={classes.root} onClick={handleClick}>
+    <Link href={redirectUrl}>
+      <Box className={classes.ActivityTile}>
         <ImageSection activity={activity} />
 
         <InfoSection activity={activity} />
 
         <ActivityType activity={activity} />
       </Box>
-
-      {showActivity && (
-        <ActivityLanding
-          activitySlug={activity.Acter.slug}
-          openDrawer={showActivity}
-          handleCloseDrawer={handleClose}
-        />
-      )}
-    </>
+    </Link>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    ActivityTile: {
       backgroundColor: 'white',
       borderRadius: theme.spacing(2),
       overflow: 'hidden',

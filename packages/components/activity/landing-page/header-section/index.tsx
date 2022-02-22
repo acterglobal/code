@@ -1,42 +1,58 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
-  Hidden,
   Typography,
   createStyles,
   makeStyles,
   Theme,
 } from '@material-ui/core'
 
-import { Connect } from '@acter/components/acter/connect'
-import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
-import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
-import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
+import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
+import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { getActerDateFormat } from '@acter/lib/acter/get-acter-date-format'
+import { ActerMenu } from '@acter/lib/constants'
+import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
-export interface HeaderSectionProps {
+const { ACTIVITIES } = ActerMenu
+
+interface HeaderSectionProps {
   acter: Acter
 }
 
 export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
+  const router = useRouter()
   const classes = useStyles()
+
+  const displayFormat = getActerDateFormat(acter)
+
+  const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
+  const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
+
+  const handleCloseActivity = () => {
+    acter &&
+      router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
+  }
 
   return (
     <Box className={classes.bannerSection}>
+      <TopBar acter={acter} handleCloseActivity={handleCloseActivity} />
       <Image
-        src={getImageUrl(acter?.bannerUrl, 'banner')}
+        src={getImageUrl(acter.bannerUrl, 'banner')}
         alt="Acter Logo"
-        height={300}
+        height={407}
         banner
       />
       <Box className={classes.infoSection}>
         <Box className={classes.avatarImage} border={2}>
           <Image
-            src={getImageUrl(acter?.avatarUrl, 'avatar')}
+            src={getImageUrl(acter.avatarUrl, 'avatar')}
             alt="Acter Logo"
             height={126}
           />
@@ -44,43 +60,27 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
 
         <Box className={classes.info}>
           <Box>
+            <Typography className={classes.date} variant="subtitle1">
+              {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
+            </Typography>
             <Typography
               role="acter-name"
               variant="h5"
-              className={classes.title}
+              className={classes.acterName}
             >
-              {acter?.name}
+              {acter.name}
             </Typography>
             <Box className={classes.infoDescription}>
-              <Typography
-                role="acter-type"
-                variant="subtitle2"
-                className={classes.acterType}
-              >
-                {capitalize(acter?.ActerType.name)}
-              </Typography>
-              {'-'}
+              <ActivityLocationIcon />
               <Typography
                 role="acter-location"
                 variant="subtitle2"
                 className={classes.location}
               >
-                {acter?.location}
+                {acter.location}
               </Typography>
             </Box>
           </Box>
-
-          <Hidden xsDown>
-            <Box>
-              <EditButton />
-              <DeleteButton />
-            </Box>
-          </Hidden>
-        </Box>
-
-        <Box className={classes.buttonContainer}>
-          <AddInviteSection />
-          <Connect />
         </Box>
       </Box>
     </Box>
@@ -90,15 +90,15 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bannerSection: {
+      width: '100%',
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(2),
-      width: '100%',
     },
     infoSection: {
       display: 'flex',
-      height: '80px',
+      height: '90px',
       alignItems: 'flex-end',
-      paddingBottom: theme.spacing(2.2),
+      paddingBottom: theme.spacing(1.0),
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
@@ -128,7 +128,13 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: theme.spacing(1),
       },
     },
-    title: {
+    date: {
+      color: theme.colors.blue.light,
+      fontSize: '1.5rem',
+    },
+    acterName: {
+      color: theme.palette.secondary.main,
+      fontSize: '1.3rem',
       fontWeight: theme.typography.fontWeightBold,
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
@@ -138,24 +144,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
     },
-    acterType: {
-      color: theme.palette.secondary.dark,
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '0.7rem',
-      },
-      marginRight: theme.spacing(0.5),
-    },
     location: {
-      color: theme.palette.secondary.dark,
+      color: theme.colors.blue.light,
       [theme.breakpoints.down('xs')]: {
-        fontSize: '0.7rem',
+        fontSize: '0.9rem',
       },
       marginLeft: theme.spacing(0.5),
-    },
-    buttonContainer: {
-      display: 'flex',
-      fontSize: '.8rem',
-      marginRight: theme.spacing(3),
+      marginTop: 3,
     },
   })
 )

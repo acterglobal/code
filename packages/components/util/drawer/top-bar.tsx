@@ -18,7 +18,7 @@ export interface TopBarProps {
   actionButtons?: ActionButton[]
   setAction?: React.Dispatch<React.SetStateAction<ActionButton>>
   acter?: Acter
-  handleClose: () => void
+  handleClose?: () => void
 }
 
 export const TopBar: FC<TopBarProps> = ({

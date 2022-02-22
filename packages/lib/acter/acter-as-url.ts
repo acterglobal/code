@@ -13,7 +13,7 @@ interface ActerAsUrlProps {
   /**
    * Query string to add
    */
-  query?: { [key: string]: string }
+  query?: { [key: string]: string | boolean }
   /**
    * Whether to include the base URL
    */

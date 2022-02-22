@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
+import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
 
 export const MembersSection: FC = () => {
   const classes = useStyles()
@@ -13,9 +13,9 @@ export const MembersSection: FC = () => {
 
   return (
     <SectionContainer
-      title="Members"
-      buttonText="See All Members"
-      sectionContent={GroupSectionTabs.MEMBERS}
+      title="Participants"
+      buttonText="See All Participants"
+      sectionContent={ActivitySectionTabs.MEMBERS}
     >
       <div className={classes.list}>
         <FollowersAvatars acter={acter} />

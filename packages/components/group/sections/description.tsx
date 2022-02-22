@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { GroupSectionTabs } from '@acter/lib/constants'
+import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 
 export const DescriptionSection: FC = () => {
   const classes = useStyles()
@@ -28,7 +28,7 @@ export const DescriptionSection: FC = () => {
           buttonText="Add Description"
         />
       ) : (
-        <div className={classes.description}>
+        <div className={classes.descriptionSection}>
           <Typography className={classes.text}>{acter.description}</Typography>
         </div>
       )}
@@ -38,7 +38,7 @@ export const DescriptionSection: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    description: {
+    descriptionSection: {
       wordBreak: 'keep-all',
       overflow: 'hidden',
       display: '-webkit-box',

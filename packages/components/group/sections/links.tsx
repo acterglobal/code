@@ -13,7 +13,7 @@ import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { GroupSectionTabs } from '@acter/lib/constants'
+import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 import { getUrl } from '@acter/lib/links/get-url'
 import { useLinks } from '@acter/lib/links/use-links'
 

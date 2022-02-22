@@ -1,44 +1,12 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter } from '@acter/schema'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    padding: theme.spacing(2),
-    backgroundColor: 'white',
-    borderRadius: theme.spacing(1),
-    marginTop: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(1),
-    },
-  },
-  heading: {
-    fontWeight: 'bolder',
-    fontSize: '0.9rem',
-  },
-  organiserContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-  },
-  organiser: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-  },
-  name: {
-    color: theme.palette.secondary.main,
-    fontSize: '0.7rem',
-    fontWeight: theme.typography.fontWeightBold,
-    marginLeft: 10,
-  },
-}))
 
 interface OrganiserProps {
   acter: Acter
@@ -46,23 +14,48 @@ interface OrganiserProps {
 
 export const Organiser: FC<OrganiserProps> = ({ acter }) => {
   const classes = useStyles()
-  const router = useRouter()
+
   if (!acter) return null
 
   return (
-    <Box className={classes.container}>
-      <Typography className={classes.heading} variant="h6">
-        Host:
-      </Typography>
-      <Box
-        className={classes.organiserContainer}
-        onClick={() => router.push(acterAsUrl({ acter }))}
-      >
-        <ActerAvatar acter={acter} size={4} />
-        <Typography className={classes.name} variant="body1">
-          {acter.name}
-        </Typography>
+    <Box className={classes.organiser}>
+      <ActerAvatar acter={acter} size={4} />
+      <Typography className={classes.heading}>Hosted by</Typography>
+      <Typography className={classes.heading}> </Typography>
+      <Box className={classes.organiserContainer}>
+        <Link href={acterAsUrl({ acter })}>
+          <Typography className={classes.name}>{acter.name}</Typography>
+        </Link>
       </Box>
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  organiser: {
+    alignItems: 'center',
+    height: '100%',
+    padding: theme.spacing(2),
+    backgroundColor: 'white',
+    borderRadius: theme.spacing(1),
+    display: 'flex',
+    [theme.breakpoints.down('xs')]: {},
+  },
+  heading: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: 10,
+    color: theme.palette.secondary.main,
+    fontSize: '0.9rem',
+  },
+  organiserContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+  name: {
+    color: theme.palette.secondary.main,
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}))

@@ -10,16 +10,13 @@ import {
 } from '@material-ui/core'
 
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Activity } from '@acter/schema'
 
 interface UpcomingActivityProps {
   activity: Activity
-  handleClick: (activity: Activity) => void
 }
-export const UpcomingActivity: FC<UpcomingActivityProps> = ({
-  activity,
-  handleClick,
-}) => {
+export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
   const classes = useStyles()
 
   return (
@@ -39,7 +36,9 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({
         <Button
           variant="contained"
           className={classes.button}
-          onClick={() => handleClick(activity)}
+          href={acterAsUrl({
+            acter: activity?.Acter,
+          })}
         >
           View
         </Button>
@@ -62,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
     details: {
       width: '75%',
     },
-
     name: {
       fontSize: theme.spacing(1.5),
       fontWeight: theme.typography.fontWeightBold,

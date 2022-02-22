@@ -13,6 +13,7 @@ type Grey = {
 
 type Blue = {
   dark: Color
+  light: Color
 }
 
 type ActivityTypeColor = {
@@ -74,6 +75,7 @@ export const colors: Colors = {
   error: '#EA4335',
   blue: {
     dark: '#243141',
+    light: '#3A527D',
   },
   grey: {
     extraLight: '#E3E8F2',

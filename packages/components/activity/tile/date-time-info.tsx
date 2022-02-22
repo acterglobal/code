@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@material-ui/core'
 
-// import { format } from 'date-fns'
 import { ActivityTileProps } from '@acter/components/activity/tile'
 import {
   DAY_DATE_MONTH_FORMAT_SHORT,
@@ -26,10 +25,6 @@ export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
     ? DAY_DATE_MONTH_FORMAT_SHORT
     : DATE_MONTH_FORMAT_SHORT
 
-  // const startDay = format(activity.startAt, displayDayFormat)
-  // const endDay = format(activity.endAt, displayDayFormat)
-  // const startTime = format(activity.startAt, TIME_FORMAT_SHORT)
-  // const endTime = format(activity.endAt, TIME_FORMAT_SHORT)
   const startDay = parseAndFormat(activity.startAt, displayDayFormat)
   const endDay = parseAndFormat(activity.endAt, displayDayFormat)
   const startTime = parseAndFormat(activity.startAt, TIME_FORMAT_SHORT)
