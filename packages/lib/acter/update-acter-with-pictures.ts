@@ -1,6 +1,7 @@
 import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
 
+import { uploadFile } from '@acter/lib/files/upload-file'
 import { uploadImage } from '@acter/lib/images/upload-image'
 import { Acter } from '@acter/schema'
 
@@ -114,7 +115,7 @@ export const _updatePicture = (folder: string) => async (
     }
   }
 
-  const img = await uploadImage(folder, file)
+  const img = await uploadFile(folder, file)
   if (!img) {
     throw new Error(`Could not update ${type} image`)
   }
