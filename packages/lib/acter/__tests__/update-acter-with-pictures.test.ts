@@ -1,12 +1,13 @@
 import {
   _updatePicture,
   _updatePictures,
-  ActerFormData,
+  ActerPictureData,
 } from '@acter/lib/acter/update-acter-with-pictures'
-import * as UploadImage from '@acter/lib/images/upload-image'
+import { ActerVariables } from '@acter/lib/acter/use-create-acter'
+import * as UploadFile from '@acter/lib/files/upload-file'
 
-jest.mock('@acter/lib/images/upload-image')
-const uploadImage = UploadImage.uploadImage as jest.Mock
+jest.mock('@acter/lib/files/upload-file')
+const uploadImage = UploadFile.uploadFile as jest.Mock
 
 describe('upsertActerWithPictures', () => {
   describe('_updatePictures', () => {
@@ -23,7 +24,7 @@ describe('upsertActerWithPictures', () => {
           name: 'baz',
         },
         bannerUrl: '',
-      } as ActerFormData
+      } as ActerPictureData
       const data = await _updatePictures(variables)
       expect(data.avatarUrl).toEqual('ok')
       expect(data.bannerUrl).toEqual('ok')
@@ -40,7 +41,7 @@ describe('upsertActerWithPictures', () => {
         },
         avatarUrl: '',
         bannerUrl: '',
-      } as ActerFormData
+      } as ActerPictureData
       const data = await _updatePictures(variables)
       expect(data.avatarUrl).toEqual('ok')
       expect(data.bannerUrl).toEqual('')
@@ -50,7 +51,7 @@ describe('upsertActerWithPictures', () => {
 
   describe('_updatePicture', () => {
     it('should should return the same ActerData if no file is present', async () => {
-      const variables = {} as ActerFormData
+      const variables = ({} as unknown) as ActerVariables
       const acter = await _updatePicture('foo')(
         Promise.resolve(variables),
         'avatar'
@@ -61,12 +62,12 @@ describe('upsertActerWithPictures', () => {
     it('should use the existing image URL and not upload it if the name matches', async () => {
       const uploadFn = jest.fn()
       uploadImage.mockImplementation(uploadFn)
-      const variables = {
+      const variables = ({
         avatar: {
           name: 'bar',
         },
         avatarUrl: 'foo/bar',
-      } as ActerFormData
+      } as unknown) as ActerPictureData
       const acter = await _updatePicture('foo')(
         Promise.resolve(variables),
         'avatar'
@@ -80,12 +81,12 @@ describe('upsertActerWithPictures', () => {
       uploadImage.mockImplementation(() => {
         throw err
       })
-      const variables = {
+      const variables = ({
         avatar: {
           name: 'bar',
         },
         avatarUrl: '',
-      } as ActerFormData
+      } as unknown) as ActerPictureData
       await expect(
         _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).rejects.toEqual(err)
@@ -93,12 +94,12 @@ describe('upsertActerWithPictures', () => {
 
     it('should throw an error if no image path was returned', async () => {
       uploadImage.mockImplementation(() => false)
-      const variables = {
+      const variables = ({
         avatar: {
           name: 'bar',
         },
         avatarUrl: '',
-      } as ActerFormData
+      } as unknown) as ActerPictureData
       await expect(
         _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).rejects.toEqual(new Error('Could not update avatar image'))
@@ -107,12 +108,12 @@ describe('upsertActerWithPictures', () => {
     it('should return the path of the new image on success', async () => {
       const uploadFn = jest.fn().mockReturnValue('foo/bar')
       uploadImage.mockImplementation(uploadFn)
-      const variables = {
+      const variables = ({
         avatar: {
           name: 'bar',
         },
         avatarUrl: undefined,
-      } as ActerFormData
+      } as unknown) as ActerPictureData
       await expect(
         _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).resolves.toHaveProperty('avatarUrl', 'foo/bar')

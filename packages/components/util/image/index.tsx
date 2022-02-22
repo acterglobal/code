@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Imgix, { ImgixProviderProps } from 'react-imgix'
 
-import { getImageExtension } from '@acter/lib/images/get-image-extension'
+import { getFileExtension as getImageExtension } from '@acter/lib/files/get-file-extension'
 
 interface ImageProps extends ImgixProviderProps {
   alt: string

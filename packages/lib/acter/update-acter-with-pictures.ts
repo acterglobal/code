@@ -1,12 +1,12 @@
 import md5 from 'md5'
 import { pipe, andThen } from 'ramda'
 
-import { uploadImage } from '@acter/lib/images/upload-image'
+import { uploadFile } from '@acter/lib/files/upload-file'
 import { Acter } from '@acter/schema'
 
 export type ActerPictureType = 'avatar' | 'banner'
 
-interface ActerPictureData {
+export interface ActerPictureData {
   id: string
   avatarUrl?: string
   bannerUrl?: string
@@ -114,7 +114,7 @@ export const _updatePicture = (folder: string) => async (
     }
   }
 
-  const img = await uploadImage(folder, file)
+  const img = await uploadFile(folder, file)
   if (!img) {
     throw new Error(`Could not update ${type} image`)
   }

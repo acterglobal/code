@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { uploadImage, FileDescription } from '@acter/lib/images/upload-image'
+import { uploadFile, FileDescription } from '@acter/lib/files/upload-file'
 
 jest.mock('axios')
 
-describe('uploadImage', () => {
+describe('uploadFile', () => {
   it('should use the fetched signed URL to send the file', async () => {
     const data = 'http://example.com'
     const axiosGetMock = axios.get as jest.Mock
@@ -15,7 +15,7 @@ describe('uploadImage', () => {
       expect(options.headers['x-amz-acl']).toBe('public-read')
     })
     expect(async () =>
-      uploadImage('fobar', {
+      uploadFile('fobar', {
         name: 'Foo',
         type: 'image/jpeg',
       } as FileDescription)

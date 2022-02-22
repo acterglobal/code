@@ -15,7 +15,7 @@ export interface FileDescription {
  * @param file File upload
  * @returns Path and file name of uploaded file
  */
-export const uploadImage = async (
+export const uploadFile = async (
   folder: string,
   file: FileDescription
 ): Promise<string> => {
