@@ -1,0 +1,14 @@
+fragment ActerInterestsDisplay on Acter {
+  ActerInterests {
+    id
+    Interest {
+      id
+      name
+      InterestType {
+        id
+        name
+        parentInterestTypeId
+      }
+    }
+  }
+}

@@ -48,6 +48,13 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
   const classes = useStyles()
   const searchType = useSearchType()
 
+  const handleLoadMore = (append = false) => () => {
+    console.log('loadMore called', { acters, fetching, hasMore })
+    loadMore(append)
+  }
+
+  if (fetching && (!acters || acters.length === 0)) return <LoadingBar />
+
   if (acters.length === 0) {
     return (
       <Box className={classes.root}>
@@ -64,7 +71,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
       <InfiniteScroll
         className={clsx(classes[searchType])}
         dataLength={acters.length}
-        next={loadMore}
+        next={handleLoadMore()}
         hasMore={hasMore}
         loader={<LoadingBar />}
       >
@@ -82,8 +89,8 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
         ))}
       </InfiniteScroll>
       {hasMore && !fetching && (
-        <HasMore onVisible={() => loadMore(true)}>
-          <Button onClick={() => loadMore(true)}>Load more</Button>
+        <HasMore onVisible={handleLoadMore(true)}>
+          <Button onClick={handleLoadMore(true)}>Load more</Button>
         </HasMore>
       )}
     </div>

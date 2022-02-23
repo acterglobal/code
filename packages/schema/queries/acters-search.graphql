@@ -1,48 +1,38 @@
 #import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/acter-interests-display.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
 
 query ActersSearch(
   $searchText: String
-  $types: [String!]
   $interests: [String!]
+  $types: [String!]
+  $activityTypes: [String!]
+  $endsBefore: DateTime
+  $north: Float
+  $east: Float
+  $south: Float
+  $west: Float
+  $orderBy: SearchActivitiesSortBy
   $take: Int
   $skip: Int
   $cursor: ActerWhereUniqueInput
 ) {
-  acters(
+  searchActers(
+    searchText: $searchText
+    endsBefore: $endsBefore
+    interests: $interests
+    types: $types
+    activityTypes: $activityTypes
+    north: $north
+    east: $east
+    south: $south
+    west: $west
+    orderBy: $orderBy
     take: $take
     skip: $skip
     cursor: $cursor
-    orderBy: { name: asc }
-    where: {
-      AND: [
-        { ActerType: { isNot: { name: { in: ["user", "activity"] } } } }
-        { ActerType: { is: { name: { in: $types } } } }
-        { name: { contains: $searchText, mode: insensitive } }
-        { deletedAt: { equals: null } }
-        { acterPrivacySetting: { equals: PUBLIC } }
-        {
-          ActerInterests: {
-            some: {
-              Interest: { is: { name: { in: $interests, mode: insensitive } } }
-            }
-          }
-        }
-      ]
-    }
   ) {
     ...ActerDisplay
-    ActerInterests {
-      id
-      Interest {
-        id
-        name
-        InterestType {
-          id
-          name
-          parentInterestTypeId
-        }
-      }
-    }
     Following(
       where: {
         Following: { is: { ActerType: { is: { name: { in: ["network"] } } } } }
@@ -58,6 +48,16 @@ query ActersSearch(
           id
           name
         }
+      }
+    }
+    ...ActerInterestsDisplay
+    Activity {
+      ...ActivityDisplay
+      Acter {
+        ...ActerDisplay
+      }
+      Organiser {
+        ...ActerDisplay
       }
     }
   }

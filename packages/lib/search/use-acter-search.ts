@@ -1,15 +1,14 @@
-import { useSearchType } from './use-search-type'
+import { useEffect, useState } from 'react'
+
 import { UseQueryArgs } from 'urql'
 
 import {
   SearchVariables,
   useSearchVariables,
 } from '@acter/components/contexts/search-variables'
-import { SearchType, ResultKey } from '@acter/lib/constants'
 import { usePaginatedQuery, UsePaginatedState } from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
-import SEARCH_ACTIVITIES from '@acter/schema/queries/activities-search.graphql'
 
 type ActerSearchData = {
   acters: Acter[]
@@ -20,23 +19,34 @@ export interface UseActerSearchQueryResults
   acters: Acter[]
 }
 
+interface UseActerSearchOptions
+  extends UseQueryArgs<ActerSearchData, SearchVariables> {
+  isMapSearch?: boolean
+}
+
 /**
  * Gives acter/activities list for the search parameters
  * @param searchType to use the search query for acter or activities
  * @returns acter/activities list, fetching status, error, rest of the query results
  */
 export const useActerSearch = (
-  options?: UseQueryArgs<ActerSearchData, SearchVariables>
+  options?: UseActerSearchOptions
 ): UseActerSearchQueryResults => {
-  const searchType = useSearchType()
-  const [searchVariables] = useSearchVariables()
+  const [variables] = useSearchVariables()
+  const [acters, setActers] = useState<Acter[]>([])
+  const [pause, setPause] = useState(true)
 
-  const queries = {
-    [SearchType.ACTIVITIES]: SEARCH_ACTIVITIES,
-    [SearchType.ACTERS]: SEARCH_ACTERS,
-  }
+  useEffect(() => {
+    // If we don't have any types set, don't bother searching
+    if (variables.types?.length < 1) {
+      setActers([])
+      setPause(true)
+      return
+    }
 
-  const resultKey = ResultKey[searchType.toUpperCase()]
+    // Otherwise, go ahead and search
+    setPause(false)
+  }, [JSON.stringify(variables)])
 
   const [{ results, ...restQueryResult }] = usePaginatedQuery<
     Acter,
@@ -44,11 +54,18 @@ export const useActerSearch = (
     SearchVariables
   >({
     ...options,
-    query: queries[searchType],
-    resultKey,
-    variables: searchVariables,
-    pageSize: searchType === SearchType.ACTIVITIES ? 20 : 10,
+    query: SEARCH_ACTERS,
+    resultKey: 'searchActers',
+    variables,
+    pause,
   })
 
-  return { acters: results, ...restQueryResult }
+  useEffect(() => {
+    if (results) {
+      console.log('Got (more) results', { results, restQueryResult })
+      setActers(results)
+    }
+  }, [results.reduce((key, r) => `${key},${r.id}`, '')])
+
+  return { acters, ...restQueryResult }
 }

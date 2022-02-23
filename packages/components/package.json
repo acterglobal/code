@@ -66,6 +66,7 @@
     "storybook-addon-next-auth0": "^1.0.6",
     "storybook-addon-next-router": "^3.0.8",
     "storybook-formik": "^2.1.6",
+    "stringify-object": "^4.0.1",
     "typescript": "*",
     "webpack": "*"
   },

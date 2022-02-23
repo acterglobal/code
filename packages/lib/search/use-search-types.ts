@@ -9,9 +9,9 @@ import {
 } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 
-export type SearchTypes = ActivityTypes | ActerTypes
+export type CombinedSearchTypes = ActivityTypes | ActerTypes
 
-export const useSearchTypes = (): SearchTypes[] => {
+export const useSearchTypes = (): CombinedSearchTypes[] => {
   const searchType = useSearchType()
   return useMemo(
     () =>
