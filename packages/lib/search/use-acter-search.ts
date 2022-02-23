@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 
-import { UseQueryArgs } from 'urql'
-
 import {
   SearchVariables,
   useSearchVariables,
 } from '@acter/components/contexts/search-variables'
-import { usePaginatedQuery, UsePaginatedState } from '@acter/lib/urql'
+import {
+  usePaginatedQuery,
+  UsePaginatedState,
+  UsePaginationQueryOptions,
+} from '@acter/lib/urql'
 import { Acter } from '@acter/schema'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 
@@ -19,10 +21,10 @@ export interface UseActerSearchQueryResults
   acters: Acter[]
 }
 
-interface UseActerSearchOptions
-  extends UseQueryArgs<ActerSearchData, SearchVariables> {
-  isMapSearch?: boolean
-}
+type UseActerSearchOptions = UsePaginationQueryOptions<
+  ActerSearchData,
+  SearchVariables
+>
 
 /**
  * Gives acter/activities list for the search parameters
@@ -33,19 +35,13 @@ export const useActerSearch = (
   options?: UseActerSearchOptions
 ): UseActerSearchQueryResults => {
   const [variables] = useSearchVariables()
-  const [acters, setActers] = useState<Acter[]>([])
   const [pause, setPause] = useState(true)
+  const [acters, setActers] = useState<Acter[]>([])
 
   useEffect(() => {
     // If we don't have any types set, don't bother searching
-    if (variables.types?.length < 1) {
-      setActers([])
-      setPause(true)
-      return
-    }
-
-    // Otherwise, go ahead and search
-    setPause(false)
+    setPause(variables.types?.length < 1)
+    setActers([])
   }, [JSON.stringify(variables)])
 
   const [{ results, ...restQueryResult }] = usePaginatedQuery<
@@ -60,12 +56,9 @@ export const useActerSearch = (
     pause,
   })
 
-  useEffect(() => {
-    if (results) {
-      console.log('Got (more) results', { results, restQueryResult })
-      setActers(results)
-    }
-  }, [results.reduce((key, r) => `${key},${r.id}`, '')])
+  useEffect(() => setActers(results), [
+    results.reduce((key, r) => `${key},${r.id}`, ''),
+  ])
 
   return { acters, ...restQueryResult }
 }

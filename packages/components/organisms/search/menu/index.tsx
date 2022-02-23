@@ -44,16 +44,15 @@ export const SearchMenu: FC = () => {
           setSubTypes(ActerSearchTypes)
           setSelectedSubTypes(ActerSearchTypes)
           setSearchVariables({
-            ...searchVariables,
             types: ActerSearchTypes,
             activityTypes: undefined,
+            orderBy: SearchActivitiesSortBy.NAME,
           })
           break
         case SearchType.ACTIVITIES:
           setSubTypes(ActivitySearchTypes)
           setSelectedSubTypes(ActivitySearchTypes)
           setSearchVariables({
-            ...searchVariables,
             types: [ActerTypes.ACTIVITY],
             activityTypes: ActivitySearchTypes,
             orderBy: SearchActivitiesSortBy.DATE,

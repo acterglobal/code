@@ -1,16 +1,12 @@
-import React, { FC, useEffect, useRef } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { useIsVisible } from 'react-is-visible'
+import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import clsx from 'clsx'
-
 import { ActivityTile } from '@acter/components/activity/tile'
-import { LoadingBar } from '@acter/components/atoms/loading/bar'
-import { ActerTile } from '@acter/components/organisms/acter/tile'
-import { Button } from '@acter/components/styled'
+import {
+  ActerTile, // ProfileImageSizes,
+} from '@acter/components/organisms/acter/tile'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
@@ -19,81 +15,34 @@ import { Acter } from '@acter/schema'
 
 const { ACTIVITIES, ACTERS } = SearchType
 
-interface HasMoreProps {
-  onVisible: () => void
-}
-
-const HasMore: FC<HasMoreProps> = ({ onVisible, children }) => {
-  const nodeRef = useRef()
-  const isVisible = useIsVisible(nodeRef)
-  useEffect(() => {
-    if (isVisible) onVisible()
-  }, [isVisible])
-  return <div ref={nodeRef}>{children}</div>
-}
-
 export interface SearchResultsListProps {
   acters: Acter[]
-  fetching: boolean
-  hasMore: boolean
-  loadMore: (append?: boolean) => void
+  // profileImageSizes?: ProfileImageSizes
 }
 
 export const SearchResultsList: FC<SearchResultsListProps> = ({
   acters,
-  fetching,
-  hasMore,
-  loadMore,
+  // profileImageSizes,
 }) => {
   const classes = useStyles()
   const searchType = useSearchType()
 
-  const handleLoadMore = (append = false) => () => {
-    console.log('loadMore called', { acters, fetching, hasMore })
-    loadMore(append)
-  }
-
-  if (fetching && (!acters || acters.length === 0)) return <LoadingBar />
-
-  if (acters.length === 0) {
-    return (
-      <Box className={classes.root}>
-        <Typography variant="body2" aria-label="zero-acters">
-          Your search did not return any results. Try removing search terms
-          and/or filters to see more.
-        </Typography>
-      </Box>
-    )
-  }
-
   return (
-    <div className={classes.root}>
-      <InfiniteScroll
-        className={clsx(classes[searchType])}
-        dataLength={acters.length}
-        next={handleLoadMore()}
-        hasMore={hasMore}
-        loader={<LoadingBar />}
-      >
-        {acters.map((acter, index) => (
-          <Box className={classes.singleItem} key={index} role="listitem">
-            {searchType === ACTERS && (
-              <Link href={acterAsUrl({ acter })} passHref>
-                <ActerTile acter={acter} />
-              </Link>
-            )}
-            {searchType === ACTIVITIES && (
-              <ActivityTile activity={acter.Activity} />
-            )}
-          </Box>
-        ))}
-      </InfiniteScroll>
-      {hasMore && !fetching && (
-        <HasMore onVisible={handleLoadMore(true)}>
-          <Button onClick={handleLoadMore(true)}>Load more</Button>
-        </HasMore>
-      )}
-    </div>
+    <>
+      {acters?.map((acter, index) => (
+        <Box className={classes.singleItem} key={index} role="listitem">
+          {searchType === ACTERS && (
+            <Link href={acterAsUrl({ acter })} passHref>
+              {/* <ActerTile acter={acter} profileImageSizes={profileImageSizes} /> */}
+              <ActerTile acter={acter} />
+            </Link>
+          )}
+          {searchType === ACTIVITIES && (
+            <ActivityTile activity={acter.Activity} />
+          )}
+        </Box>
+      ))}
+    </>
   )
 }
 
@@ -102,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop: theme.spacing(5),
       width: '72%',
+      height: '100%',
       [theme.breakpoints.down('xs')]: {
         marginTop: 0,
       },
@@ -117,12 +67,6 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecoration: 'none',
         color: theme.palette.text.primary,
       },
-    },
-    fetching: {
-      margin: theme.spacing(5),
-      display: 'flex',
-      justifyContent: 'center',
-      color: theme.palette.primary.main,
     },
   })
 )

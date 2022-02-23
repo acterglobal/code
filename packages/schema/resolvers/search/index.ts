@@ -1,4 +1,3 @@
-import pretty from 'stringify-object'
 import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
 
 import {
@@ -64,8 +63,6 @@ export class SearchResolver {
       skip,
       ...(cursor ? { cursor } : {}),
     }
-
-    console.log(pretty(options, { indent: '  ' }))
 
     return await ctx.prisma.acter.findMany(options)
   }
