@@ -37,7 +37,7 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
         }
         aria-label="breadcrumb"
       >
-        <Link href={`${acterAsUrl({ acter: acter.Parent })}`}>
+        <Link href={acterAsUrl({ acter: acter?.Parent })}>
           <Typography className={classes.name}>
             {capitalize(acter?.Parent.name)}
           </Typography>
@@ -47,9 +47,9 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
           <Typography className={classes.name}>Activities</Typography>
         </Link>
 
-        <Link href={acter && acterAsUrl({ acter })}>
+        <Link href={acterAsUrl({ acter })}>
           <Typography className={classes.activity}>
-            {capitalize(acter.name)}
+            {capitalize(acter?.name)}
           </Typography>
         </Link>
       </Breadcrumbs>
