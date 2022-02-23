@@ -73,7 +73,8 @@ const useStyles = makeStyles((theme: Theme) =>
         height: 10,
       },
       '& $switchBase': {
-        padding: 2,
+        paddingTop: 1,
+        paddingLeft: 2,
         '&$checked': {
           transform: 'translateX(6px)',
         },
