@@ -24,7 +24,7 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
 }) => {
   const classes = useStyles()
 
-  if (!acter) return null
+  if (!acter || !acter.Parent) return null
 
   return (
     <Box>
