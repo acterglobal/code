@@ -7,7 +7,7 @@ import { ZeroResultsMessage } from '@acter/components/atoms/search/zero-results-
 import { ProfileImageSizes } from '@acter/components/organisms/acter/tile'
 import { SearchResultsList } from '@acter/components/organisms/search/results-list'
 import { SearchResultsMap } from '@acter/components/organisms/search/results-map'
-import { useActerGeoSearch } from '@acter/lib/search/use-acter-geo-search'
+import { useActerSearch } from '@acter/lib/search/use-acter-search'
 
 const profileImageSizes: ProfileImageSizes = {
   sm: 24,
@@ -17,7 +17,7 @@ const profileImageSizes: ProfileImageSizes = {
 
 export const ResultsMapList: FC = () => {
   const classes = useStyles()
-  const { acters, fetching } = useActerGeoSearch()
+  const { acters, fetching } = useActerSearch()
 
   return (
     <Grid container className={classes.resultsMapList}>
