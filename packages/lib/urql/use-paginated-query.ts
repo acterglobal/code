@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { DocumentNode } from 'graphql/language/ast'
 import { useQuery, TypedDocumentNode, UseQueryArgs, UseQueryState } from 'urql'
 
+import { getObjectArrayMemoString } from '@acter/lib/object/get-object-array-memo-string'
+
 interface RefetchQuery<TVariables> {
   variables?: TVariables
   resetPagination?: boolean
@@ -104,15 +106,7 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
       setHasMore,
       setResults,
     })
-  }, [data])
-
-  // Reset the search if one of our variables have changed
-  useEffect(() => {
-    if (!initialSearch.current) {
-      setPagination(paginationDefaults)
-    }
-    initialSearch.current = false
-  }, [JSON.stringify(variables)])
+  }, [getObjectArrayMemoString(data?.[resultKey])])
 
   const loadMore = _getLoadMore({
     data,
