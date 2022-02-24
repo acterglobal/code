@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     switchBase: {
-      padding: 2,
+      paddingTop: 1,
+      paddingLeft: 2,
       color: theme.palette.grey[500],
       '&$checked': {
         transform: 'translateX(12px)',
