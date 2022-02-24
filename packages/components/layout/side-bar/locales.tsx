@@ -14,11 +14,10 @@ import clsx from 'clsx'
 
 import { Link } from '@acter/components/util/anchor-link'
 import { useUpdateUserLanguage } from '@acter/lib/acter/use-update-user-language'
-import { getLocale } from '@acter/lib/i18n/get-locale'
 import { useUser } from '@acter/lib/user/use-user'
 import { Language as ActerLocales, Language } from '@acter/schema'
 
-const { en_UK, da_DK } = ActerLocales
+const { EN, DK } = ActerLocales
 
 export const Locales: FC = () => {
   const router = useRouter()
@@ -27,10 +26,8 @@ export const Locales: FC = () => {
   const [_, updateLanguage] = useUpdateUserLanguage()
 
   useEffect(() => {
-    if (getLocale(user?.language) !== router.locale) {
-      router.push(router.asPath, router.asPath, {
-        locale: getLocale(user?.language),
-      })
+    if (user?.language !== router.locale) {
+      router.push(router.asPath, router.asPath, { locale: user?.language })
     }
   }, [user])
 
@@ -42,27 +39,27 @@ export const Locales: FC = () => {
 
   return (
     <Box className={classes.locales}>
-      <Link href={router.asPath} locale={getLocale(en_UK)}>
+      <Link href={router.asPath} locale={EN}>
         <Typography
           className={clsx(
             classes.locale,
-            router.locale === getLocale(en_UK) && classes.active
+            router.locale === EN && classes.active
           )}
-          onClick={() => handleClick(en_UK)}
+          onClick={() => handleClick(EN)}
         >
-          EN
+          {EN}
         </Typography>
       </Link>
       /
-      <Link href={router.asPath} locale={getLocale(da_DK)}>
+      <Link href={router.asPath} locale={DK}>
         <Typography
           className={clsx(
             classes.locale,
-            router.locale === getLocale(da_DK) && classes.active
+            router.locale === DK && classes.active
           )}
-          onClick={() => handleClick(da_DK)}
+          onClick={() => handleClick(DK)}
         >
-          DA
+          {DK}
         </Typography>
       </Link>
     </Box>
