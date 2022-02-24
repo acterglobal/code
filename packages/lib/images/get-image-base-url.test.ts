@@ -1,4 +1,4 @@
-import { getImageBaseUrl, NoBaseUrlError } from '../get-image-base-url'
+import { getImageBaseUrl, NoBaseUrlError } from './get-image-base-url'
 
 describe('getImageBaseUrl', () => {
   const OLD_ENV = process.env
