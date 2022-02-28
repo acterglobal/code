@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
@@ -16,3 +19,12 @@ const DashboardPage: NextPageWithLayout = () => {
 }
 
 export default DashboardPage
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
+      // Will be passed to the page component as props
+    },
+  }
+}
