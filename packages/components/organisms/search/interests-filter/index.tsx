@@ -35,7 +35,7 @@ export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
   }
 
   const handleClear = () => {
-    applyFilters()
+    applyFilters([])
     setSelectedInterestIds([])
     setClosePopover(!closePopover)
   }

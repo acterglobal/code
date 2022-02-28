@@ -1,4 +1,5 @@
 #import "./acter-display.fragment.graphql"
+#import "./acter-interests-display.fragment.graphql"
 
 fragment ActerFull on Acter {
   ...ActerDisplay
@@ -31,18 +32,7 @@ fragment ActerFull on Acter {
       }
     }
   }
-  ActerInterests {
-    id
-    Interest {
-      id
-      name
-      InterestType {
-        id
-        name
-        parentInterestTypeId
-      }
-    }
-  }
+  ...ActerInterestsDisplay
   Children {
     ...ActerDisplay
   }

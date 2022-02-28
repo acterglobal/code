@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { DocumentNode } from 'graphql/language/ast'
 import { useQuery, TypedDocumentNode, UseQueryArgs, UseQueryState } from 'urql'
 
+import { getObjectArrayMemoString } from '@acter/lib/object/get-object-array-memo-string'
+
 interface RefetchQuery<TVariables> {
   variables?: TVariables
   resetPagination?: boolean
@@ -23,7 +25,7 @@ export interface UsePaginatedState<TType = any, TData = any, TVariables = any>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
-  loadMore: (append?: boolean) => void
+  loadMore: () => void
 }
 
 export type refetch<TVariables = any> = (
@@ -35,7 +37,7 @@ export type UsePaginatedResponse<TType = any, TData = any, TVariables = any> = [
   refetch
 ]
 
-interface UsePaginationQueryOptions<TData, TVariables>
+export interface UsePaginationQueryOptions<TData, TVariables>
   extends UseQueryArgs<TVariables, TData> {
   /**
    * The GraphQL query
@@ -66,12 +68,11 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     query,
     resultKey,
     variables,
-    pageSize = 10,
+    pageSize = 20,
     pagination: paginationParams,
   } = options
   const [results, setResults] = useState<TType[]>([])
   const [hasMore, setHasMore] = useState(true)
-  const [shouldAppend, setShouldAppend] = useState(false)
   const initialSearch = useRef(true)
 
   const paginationDefaults: Pagination = {
@@ -81,6 +82,8 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     ...paginationParams,
   }
   const [pagination, setPagination] = useState<Pagination>(paginationDefaults)
+
+  useEffect(() => setResults([]), [JSON.stringify(variables)])
 
   const [{ data, ...restQueryResult }, refetch] = useQuery<
     TData,
@@ -100,20 +103,10 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
       pagination,
       resultKey,
       results,
-      shouldAppend,
       setHasMore,
       setResults,
     })
-    setShouldAppend(false)
-  }, [data])
-
-  // Reset the search if one of our variables have changed
-  useEffect(() => {
-    if (!initialSearch.current) {
-      setPagination(paginationDefaults)
-    }
-    initialSearch.current = false
-  }, [JSON.stringify(variables)])
+  }, [getObjectArrayMemoString(data?.[resultKey])])
 
   const loadMore = _getLoadMore({
     data,
@@ -121,7 +114,6 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     hasMore,
     pagination,
     setPagination,
-    setShouldAppend,
   })
 
   return [
@@ -142,7 +134,6 @@ interface GetResultsProps<TType, TData> {
   pagination: Pagination
   resultKey: string
   results: TType[]
-  shouldAppend?: boolean
   setHasMore: (boolean) => void
   setResults: (results: TType[]) => void
 }
@@ -155,21 +146,16 @@ export const _getResults = <TType, TData>({
   data,
   pagination,
   resultKey,
-  results,
-  shouldAppend = false,
+  results = [],
   setHasMore,
   setResults,
 }: GetResultsProps<TType, TData>): void => {
   if (data && data[resultKey]) {
     const nextResultsPage = data[resultKey]
-    const nextHasMore =
-      nextResultsPage.length > results.length + pagination.take
+    const nextHasMore = nextResultsPage.length > pagination.take
     setHasMore(nextHasMore)
     const sliceEnd = nextHasMore ? -1 : undefined
-    const nextResults = [
-      ...(shouldAppend ? results : []),
-      ...nextResultsPage.slice(0, sliceEnd),
-    ]
+    const nextResults = [...results, ...nextResultsPage.slice(0, sliceEnd)]
     setResults(nextResults)
   }
 }
@@ -195,10 +181,6 @@ export interface GetLoadMoreProps<TData = any> {
    * setPagination useState function
    */
   setPagination: (Pagination) => void
-  /**
-   * setAppend useState function
-   */
-  setShouldAppend?: (shouldAppend: boolean) => void
 }
 
 /**
@@ -212,10 +194,8 @@ export const _getLoadMore = ({
   hasMore,
   pagination,
   setPagination,
-  setShouldAppend,
-}: GetLoadMoreProps) => (shouldAppend = false): void => {
+}: GetLoadMoreProps) => (): void => {
   if (hasMore) {
-    setShouldAppend?.(shouldAppend)
     setPagination({
       ...pagination,
       cursor: { id: data[resultKey][data[resultKey].length - 1].id },

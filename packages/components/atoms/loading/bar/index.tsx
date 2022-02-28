@@ -16,6 +16,7 @@ export const LoadingBar: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     loadingBar: {
+      width: '100%',
       margin: theme.spacing(5),
       display: 'flex',
       justifyContent: 'center',

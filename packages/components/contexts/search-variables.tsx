@@ -1,19 +1,18 @@
-import React, {
-  createContext,
-  FC,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { createContext, FC, useContext, useState } from 'react'
 
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
-import { SearchTypes, useSearchTypes } from '@acter/lib/search/use-search-types'
+import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 export interface SearchVariables {
   searchText?: string
   interests?: string[]
   orderBy?: SearchActivitiesSortBy
-  types?: SearchTypes[]
+  types?: ActerTypes[]
+  activityTypes?: ActivityTypes[]
+  north?: number
+  east?: number
+  south?: number
+  west?: number
 }
 
 const searchVariableDefaults: SearchVariables = {
@@ -31,17 +30,9 @@ export const SearchVariablesContext = createContext<TSearchVariablesContext>([
 ])
 
 export const SearchVariablesProvider: FC = (props) => {
-  const types = useSearchTypes()
   const [variables, setVariables] = useState<SearchVariables>(
     searchVariableDefaults
   )
-
-  useEffect(() => {
-    setVariables({
-      ...searchVariableDefaults,
-      types,
-    })
-  }, [JSON.stringify(types)])
 
   return (
     <SearchVariablesContext.Provider value={[variables, setVariables]}>
