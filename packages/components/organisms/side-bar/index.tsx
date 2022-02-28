@@ -17,12 +17,12 @@ import { SvgIconComponent } from '@material-ui/icons'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
-import { Locales } from '@acter/components/layout/side-bar/locales'
+// import { Locales } from '@acter/components/layout/side-bar/locales'
 import { FollowingList } from '@acter/components/molecules/following-list'
 import { ProfileButton } from '@acter/components/molecules/profile-button'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
-import { FeatureFlag } from '@acter/components/util/feature-flag'
+// import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Sidebar: FC = () => {
@@ -57,9 +57,9 @@ export const Sidebar: FC = () => {
         </List>
       </Box>
 
-      <FeatureFlag>
+      {/* <FeatureFlag>
         <Locales />
-      </FeatureFlag>
+      </FeatureFlag> */}
 
       <Hidden smDown>
         <Divider />
