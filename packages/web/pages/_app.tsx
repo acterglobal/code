@@ -4,6 +4,7 @@ import React, { FC, ReactElement, ReactNode } from 'react'
 import { IntercomProvider } from 'react-use-intercom'
 
 import { NextPage } from 'next'
+import { appWithTranslation } from 'next-i18next'
 import { AppProps } from 'next/app'
 
 import { UserProvider } from '@auth0/nextjs-auth0'
@@ -49,4 +50,4 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   )
 }
 
-export default ActerApp
+export default appWithTranslation(ActerApp)

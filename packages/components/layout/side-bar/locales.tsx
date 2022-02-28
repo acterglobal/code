@@ -59,7 +59,7 @@ export const Locales: FC = () => {
           )}
           onClick={() => handleClick(da_DK)}
         >
-          DK
+          DA
         </Typography>
       </Link>
     </Box>

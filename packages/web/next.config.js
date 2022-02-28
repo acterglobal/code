@@ -13,21 +13,16 @@ const withTM = transpileModules([
   '@acter/lib',
   '@acter/schema',
 ])
-const withNextTranslate = require('next-translate')
+const { i18n } = require('./next-i18next.config')
 
 const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
   ? false
   : true
 
 module.exports = withPlugins(
-  [
-    [withBundleAnalyzer],
-    withSentryConfig,
-    withGraphql,
-    withTM,
-    withNextTranslate,
-  ],
+  [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM],
   {
+    i18n,
     images: {
       loader: 'imgix',
       path: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
