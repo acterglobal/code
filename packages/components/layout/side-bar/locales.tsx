@@ -17,7 +17,7 @@ import { useUpdateUserLanguage } from '@acter/lib/acter/use-update-user-language
 import { useUser } from '@acter/lib/user/use-user'
 import { Language as ActerLocales, Language } from '@acter/schema'
 
-const { EN, DK } = ActerLocales
+const { en_UK, da_DK } = ActerLocales
 
 export const Locales: FC = () => {
   const router = useRouter()
@@ -39,27 +39,27 @@ export const Locales: FC = () => {
 
   return (
     <Box className={classes.locales}>
-      <Link href={router.asPath} locale={EN}>
+      <Link href={router.asPath} locale={en_UK}>
         <Typography
           className={clsx(
             classes.locale,
-            router.locale === EN && classes.active
+            router.locale === en_UK && classes.active
           )}
-          onClick={() => handleClick(EN)}
+          onClick={() => handleClick(en_UK)}
         >
-          {EN}
+          EN
         </Typography>
       </Link>
       /
-      <Link href={router.asPath} locale={DK}>
+      <Link href={router.asPath} locale={da_DK}>
         <Typography
           className={clsx(
             classes.locale,
-            router.locale === DK && classes.active
+            router.locale === da_DK && classes.active
           )}
-          onClick={() => handleClick(DK)}
+          onClick={() => handleClick(da_DK)}
         >
-          {DK}
+          DK
         </Typography>
       </Link>
     </Box>
