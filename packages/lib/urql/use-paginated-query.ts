@@ -73,7 +73,7 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   } = options
   const [results, setResults] = useState<TType[]>([])
   const [hasMore, setHasMore] = useState(true)
-  const initialSearch = useRef(true)
+  const lastResultsMemo = useRef('')
 
   const paginationDefaults: Pagination = {
     skip: 0,
@@ -83,7 +83,10 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   }
   const [pagination, setPagination] = useState<Pagination>(paginationDefaults)
 
-  useEffect(() => setResults([]), [JSON.stringify(variables)])
+  useEffect(() => {
+    lastResultsMemo.current = ''
+    setResults([])
+  }, [JSON.stringify(variables)])
 
   const [{ data, ...restQueryResult }, refetch] = useQuery<
     TData,
@@ -98,15 +101,19 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
   })
 
   useEffect(() => {
-    _getResults({
-      data,
-      pagination,
-      resultKey,
-      results,
-      setHasMore,
-      setResults,
-    })
-  }, [getObjectArrayMemoString(data?.[resultKey])])
+    const currentResultsMemo = getObjectArrayMemoString(data?.[resultKey])
+    if (currentResultsMemo !== lastResultsMemo.current) {
+      _getResults({
+        data,
+        pagination,
+        resultKey,
+        results,
+        setHasMore,
+        setResults,
+      })
+    }
+    lastResultsMemo.current = currentResultsMemo
+  }, [data?.[resultKey]])
 
   const loadMore = _getLoadMore({
     data,
