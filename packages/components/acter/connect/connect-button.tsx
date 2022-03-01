@@ -6,17 +6,23 @@ import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import clsx from 'clsx'
 
+import { Size } from '@acter/lib/constants'
+
+const { SMALL } = Size
+
 export interface ConnectButtonProps {
   buttonText: string
   redirectUrl?: string
   isActivity?: boolean
+  size?: Size
 }
 export const ConnectButton: FC<ConnectButtonProps> = ({
   buttonText,
   redirectUrl,
   isActivity,
+  size,
 }) => {
-  const classes = useStyles()
+  const classes = useStyles({ size })
   const router = useRouter()
 
   const handleButtonClick = () => {
@@ -34,14 +40,19 @@ export const ConnectButton: FC<ConnectButtonProps> = ({
     </Button>
   )
 }
+
+type StyleProps = {
+  size: Size
+}
+
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    button: {
+    button: ({ size }: StyleProps) => ({
       borderRadius: theme.spacing(3),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      minWidth: theme.spacing(14),
-      height: theme.spacing(4.5),
+      minWidth: theme.spacing(size === SMALL ? 11 : 14),
+      height: theme.spacing(size === SMALL ? 4 : 4.5),
       border: '1px solid',
       color: 'white',
       textTransform: 'capitalize',
@@ -50,8 +61,8 @@ const useStyles = makeStyles((theme: Theme) => {
         backgroundColor: 'white',
         color: theme.palette.secondary.main,
       },
-      fontSize: '1rem',
-    },
+      fontSize: size === SMALL ? '0.8rem' : '1rem',
+    }),
     acterButton: {
       borderColor: theme.palette.primary.main,
       backgroundColor: theme.palette.primary.main,

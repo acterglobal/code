@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 28,
       textAlign: 'center',
       paddingTop: theme.spacing(0.5),
+      color: 'white',
       backgroundColor: ({ type }: { type: string }) =>
         theme.colors.activityTypes[type],
     },

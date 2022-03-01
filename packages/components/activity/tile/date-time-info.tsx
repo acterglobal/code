@@ -44,7 +44,7 @@ export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
 
       <Box className={classes.endSection}>
         {startDay !== endDay && (
-          <Typography className={classes.day} variant="h5">
+          <Typography className={classes.day} variant="subtitle1">
             {endDay}
           </Typography>
         )}
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(1),
       height: 12,
-      color: theme.palette.secondary.main,
+      color: theme.colors.blue.light,
     },
     startSection: {
       display: 'flex',
@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     day: {
       fontSize: theme.spacing(1.5),
-      fontWeight: theme.typography.fontWeightBold,
       marginRight: 3,
       marginLeft: 3,
     },
