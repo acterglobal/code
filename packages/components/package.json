@@ -62,6 +62,7 @@
     "babel-plugin-polyfill-corejs2": "^0.2.2",
     "babel-plugin-polyfill-regenerator": "^0.2.2",
     "next": "*",
+    "prismjs": "^1.27.0",
     "sb": "^6.3.2",
     "storybook-addon-next-auth0": "^1.0.6",
     "storybook-addon-next-router": "^3.0.8",
