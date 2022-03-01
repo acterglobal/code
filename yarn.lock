@@ -8252,6 +8252,7 @@ __metadata:
     just-capitalize: ^1.0.1
     netlify-cli: ^6.9.28
     next-urql: ^3.2.1
+    node-fetch: ^2.6.7
     notistack: ^1.0.10
     pluralize: ^8.0.0
     pm2: ^5.1.0
@@ -21418,7 +21419,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
