@@ -5,9 +5,10 @@ import path from 'path'
 type Language = Record<string, string>
 type LanguageMap = Record<string, Language>
 
+// TODO :create languageMap with typegraphql generated Language enum keys
 const languageMap: LanguageMap = {
-  'en-US': {},
-  'da-DK': {},
+  en_UK: {},
+  da_DK: {},
 }
 
 export const csvToJson = async (): Promise<void> => {
@@ -28,7 +29,7 @@ export const csvToJson = async (): Promise<void> => {
           [locale]: file.reduce(
             (ts, t) => ({
               ...ts,
-              [t['Translation Key']]: t[locale],
+              [t['Translation key']]: t[locale],
             }),
             {}
           ),
