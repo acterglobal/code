@@ -1,8 +1,6 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
 import { FilePond, registerPlugin } from 'react-filepond'
 
-import useTranslate from 'next-translate/useTranslation'
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import axios from 'axios'
@@ -15,6 +13,7 @@ import 'filepond/dist/filepond.min.css'
 import { useFormikContext } from 'formik'
 
 import { ImageCropper } from '@acter/components/image-upload/cropper-editor'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 registerPlugin(
   FilePondPluginImagePreview,
@@ -33,7 +32,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   fileUrl,
 }) => {
   const classes = useStyles()
-  const { t } = useTranslate('common')
+  const { t } = useTranslation('common')
   const { setFieldValue } = useFormikContext()
   const pond: RefObject<FilePond> = createRef()
 

@@ -9,7 +9,7 @@ exports[`[Interest] should render Tag interest with correct info and styles 1`] 
     <span
       class="MuiTypography-root makeStyles-name-5 makeStyles-name-17 MuiTypography-caption"
     >
-      interests:exampleInterest
+      exampleInterest
     </span>
   </div>
 </div>
