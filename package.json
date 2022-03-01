@@ -59,7 +59,8 @@
     "react-magnetic-di": "^2.2.6",
     "reflect-metadata": "^0.1.13",
     "tar": "^6.1.8",
-    "urql": "^2.0.5"
+    "urql": "^2.0.5",
+    "vm2": "^3.9.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.14.5",
