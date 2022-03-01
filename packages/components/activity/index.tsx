@@ -9,14 +9,14 @@ import {
   Button,
 } from '@material-ui/core'
 
-import { Connect } from '../acter/connect'
-import { Organiser } from './organiser'
-
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'
 import { ManageContent } from '@acter/components/activity/sections/manage-content'
 import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
+
+import { Connect } from '../acter/connect'
+import { Organiser } from './organiser'
 
 const { MEMBERS, INVITE } = ActivitySectionTabs
 
@@ -98,12 +98,16 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       minWidth: theme.spacing(14),
       height: theme.spacing(4.5),
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       border: '1px solid',
-      borderColor: theme.palette.primary.main,
+      borderColor: theme.palette.secondary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: '1rem',
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+        color: 'white',
+      },
     },
   })
 )

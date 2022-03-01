@@ -11,9 +11,11 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
+const { ACTIVITY } = ActerTypes
 interface ConnectProps {
   acterId?: string
 }
@@ -31,10 +33,22 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
     [acter?.Followers]
   )
 
-  if (!user) return <ConnectButton href={loginUrl}>Join</ConnectButton>
-
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
+
+  const isActivity = acter?.ActerType.name === ACTIVITY ? true : false
+
+  if (!user)
+    return (
+      <ConnectButton
+        buttonText="Join"
+        redirectUrl={loginUrl}
+        isActivity={isActivity}
+      >
+        Join
+      </ConnectButton>
+    )
+
   if (!followers.length) return null
 
   const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
@@ -53,7 +67,11 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
             Member <KeyboardArrowDown fontSize="small" />
           </Button>
         ) : (
-          <ConnectButton>Join</ConnectButton>
+          <ConnectButton
+            buttonText="Join"
+            redirectUrl={loginUrl}
+            isActivity={isActivity}
+          />
         )
       }
       closeOnClick={false}
