@@ -1,5 +1,4 @@
-// import path from 'path'
-// eslint-disable-next-line
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 
 module.exports = {
@@ -7,5 +6,5 @@ module.exports = {
     defaultLocale: 'en_UK',
     locales: ['en_UK', 'da_DK'], // import these locales from DB Languages
   },
-  localPath: path.resolve(`../translations/json`),
+  localePath: path.resolve(`../translations/json`),
 }
