@@ -90,6 +90,7 @@
     "jest": "^27.0.6",
     "jest-transform-graphql": "^2.1.0",
     "netlify-cli": "^6.9.28",
+    "shelljs": "^0.8.5",
     "syncpack": "^5.7.11",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.0.0",
