@@ -4,20 +4,29 @@ import { useRouter } from 'next/router'
 
 import { SearchResultsInfiniteList } from '@acter/components/organisms/search/results-infinite-list'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { SearchType } from '@acter/lib/constants'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { render, screen, within } from '@acter/lib/test-utils'
+import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
+import { useUser } from '@acter/lib/user/use-user'
 import { ExampleActerList, ExampleActivity } from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/search/use-search-type')
 jest.mock('@acter/lib/search/use-acter-search')
+jest.mock('@acter/lib/url/use-auth-redirect')
+jest.mock('@acter/lib/acter/use-acter')
+jest.mock('@acter/lib/user/use-user')
 
 describe('Display search results', () => {
   const mockUseRouter = useRouter as jest.Mock
   const mockUseSearchType = useSearchType as jest.Mock
   const mockUseActerSearch = useActerSearch as jest.Mock
+  const mockUseAuthDirect = useAuthRedirect as jest.Mock
+  const mockUseActer = useActer as jest.Mock
+  const mockUseUser = useUser as jest.Mock
 
   beforeEach(() => {
     jest.resetAllMocks()
@@ -49,6 +58,9 @@ describe('Display search results', () => {
       asPath: '',
       pathname: '/search/activities',
     })
+    mockUseAuthDirect.mockReturnValue({})
+    mockUseActer.mockReturnValue({})
+    mockUseUser.mockReturnValue({})
 
     const activities = ExampleActerList.map((acter) => ({
       ...acter,
