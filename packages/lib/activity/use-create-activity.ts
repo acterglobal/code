@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 
-import { UpdateActivityData, useUpdateActivity } from './use-update-activity'
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
-import { ActivityFormData } from '@acter/lib/acter/prepare-activity-values'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
-import { Activity } from '@acter/schema'
+import { ActerConnection, ActerInterest, Activity } from '@acter/schema'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
-export type ActivityVariables = ActivityFormData
+import { UpdateActivityData, useUpdateActivity } from './use-update-activity'
+
+export interface ActivityVariables extends Activity {
+  interestIds: ActerInterest[] | string[]
+  followerIds: ActerConnection[] | string[]
+}
 
 export type CreateActivityData = {
   createActivityCustom: Activity
@@ -50,10 +53,8 @@ export const useCreateActivity = (
   const [fetching, setFetching] = useState(false)
   const [resultData, setResultData] = useState<ActivityData>(null)
   const [error, setError] = useState<CombinedError>()
-  const [
-    restState,
-    setRestState,
-  ] = useState<CreateActivityUseMutationRestState>()
+  const [restState, setRestState] =
+    useState<CreateActivityUseMutationRestState>()
 
   const [
     { fetching: updateFetching, error: updateError, ...updateRestState },
@@ -101,7 +102,7 @@ export const useCreateActivity = (
 
     const updateResult = await updateActivity({
       ...activity,
-      ...data.createActivityCustom,
+      ...data?.createActivityCustom,
     })
 
     setResultData(updateResult.data)

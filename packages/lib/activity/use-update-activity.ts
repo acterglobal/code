@@ -1,18 +1,17 @@
-import { OperationResult, UseMutationState } from 'urql'
+import { UseMutationState } from 'urql'
 
-import {
-  ActivityFormData,
-  prepareActivityValues,
-} from '@acter/lib/acter/prepare-activity-values'
+import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
 import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
+import {
+  ActivityVariables,
+  HandleMethod,
+} from '@acter/lib/activity/use-create-activity'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { Activity } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
-
-export type ActivityVariables = ActivityFormData
 
 export type UpdateActivityData = {
   updateActivityCustom: Activity
@@ -23,11 +22,6 @@ type UpdateActivityOptions = UseMutationOptions<
   ActivityVariables
 >
 
-export type HandleMethod = (
-  activity: ActivityVariables,
-  options?: UpdateActivityOptions
-) => Promise<OperationResult<UpdateActivityData, ActivityVariables>>
-
 /**
  * Custom hook that updates new activity
  * @param options
@@ -37,24 +31,26 @@ export type HandleMethod = (
 export const useUpdateActivity = (
   activity: Activity,
   options?: UpdateActivityOptions
-): [UseMutationState<UpdateActivityData, ActivityVariables>, HandleMethod] => {
+): [
+  UseMutationState<UpdateActivityData, ActivityVariables>,
+  HandleMethod<UpdateActivityData>
+] => {
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
   >(UPDATE_ACTIVITY, {
-    ...options,
     getSuccessMessage: (data: UpdateActivityData) =>
       `${data.updateActivityCustom.Acter.name} Activity updated`,
     ...options,
   })
 
-  const handleCreateActivity = async (
+  const handleUpdateActivity = async (
     updatedActivity: ActivityVariables
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
     const acterId = activity?.Acter?.id
-      ? activity.Acter.id
-      : updatedActivity.Acter.id
+      ? activity?.Acter?.id
+      : updatedActivity?.Acter?.id
     const variables = {
       ...activity,
       ...updatedActivity,
@@ -69,5 +65,5 @@ export const useUpdateActivity = (
     })
   }
 
-  return [mutationResult, handleCreateActivity]
+  return [mutationResult, handleUpdateActivity]
 }
