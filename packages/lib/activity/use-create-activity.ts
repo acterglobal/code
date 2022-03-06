@@ -56,13 +56,12 @@ export const useCreateActivity = (
   const [restState, setRestState] =
     useState<CreateActivityUseMutationRestState>()
 
+  const isNewActivity = true
+
   const [
     { fetching: updateFetching, error: updateError, ...updateRestState },
     updateActivity,
-  ] = useUpdateActivity({} as Activity, {
-    getSuccessMessage: (data) =>
-      `Images uploaded for ${data.updateActivityCustom.Acter.name}`,
-  })
+  ] = useUpdateActivity({} as Activity, {}, isNewActivity)
 
   const [
     { fetching: createFetching, error: createError, ...createRestState },

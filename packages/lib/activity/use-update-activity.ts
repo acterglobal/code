@@ -30,7 +30,8 @@ type UpdateActivityOptions = UseMutationOptions<
  */
 export const useUpdateActivity = (
   activity: Activity,
-  options?: UpdateActivityOptions
+  options?: UpdateActivityOptions,
+  isNewActivity?: boolean
 ): [
   UseMutationState<UpdateActivityData, ActivityVariables>,
   HandleMethod<UpdateActivityData>
@@ -41,6 +42,7 @@ export const useUpdateActivity = (
   >(UPDATE_ACTIVITY, {
     getSuccessMessage: (data: UpdateActivityData) =>
       `${data.updateActivityCustom.Acter.name} Activity updated`,
+    isNew: isNewActivity,
     ...options,
   })
 
