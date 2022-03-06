@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import {
   Box,
   createStyles,
-  Divider,
   makeStyles,
   Theme,
   Typography,
@@ -25,7 +24,6 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
       <Box className={classes.dateInfo}>
         <DateTimeInfo activity={activity} />
       </Box>
-      <Divider className={classes.divider} />
 
       <Box className={classes.info}>
         <Typography className={classes.name} variant="h5">
@@ -54,18 +52,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dateInfo: {
       marginLeft: 10,
+      marginBottom: 5,
     },
     info: {
       marginLeft: 13,
       maxWidth: '85%',
-    },
-    divider: {
-      marginTop: 5,
-      marginBottom: 5,
-      backgroundColor: theme.palette.secondary.light,
-    },
-    activityName: {
-      height: 20,
     },
     name: {
       fontSize: '0.9rem',
@@ -82,11 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
     location: {
       fontSize: '0.8rem',
       color: theme.colors.blue.light,
-    },
-    organiser: {
-      fontSize: theme.spacing(1.1),
-      color: theme.colors.grey.main,
-      fontWeight: theme.typography.fontWeightBold,
     },
   })
 )
