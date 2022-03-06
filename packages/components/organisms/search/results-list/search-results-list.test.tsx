@@ -63,9 +63,12 @@ describe('Display search results', () => {
 
     expect(items.length).toBe(9)
 
-    items.map((item) => {
-      const type = within(item).queryByLabelText('activity-type')
-      expect(type.textContent).toContain('Event')
+    items.map((item, i) => {
+      const links = within(item).queryAllByRole('link')
+      const exampleActivity = activities[i]
+      expect(links[0].getAttribute('href')).toMatch(
+        acterAsUrl({ acter: exampleActivity.Activity.Acter })
+      )
     })
   })
 })
