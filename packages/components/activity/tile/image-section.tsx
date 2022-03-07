@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 
 import { ActivityTileProps } from '@acter/components/activity/tile'
-import { ActivityAvatar } from '@acter/components/activity/tile/activity-avatar'
+import { ActivityAvatar } from '@acter/components/activity/tile/avatar'
 import { Image } from '@acter/components/util/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 

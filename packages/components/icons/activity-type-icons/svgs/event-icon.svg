@@ -1,14 +1,4 @@
-import React, { FC } from 'react'
-
-import { SvgIcon, SvgIconProps, useTheme } from '@material-ui/core'
-
-export const EventActivityIcon: FC<SvgIconProps> = (props) => {
-  const theme = useTheme()
-  const iconColor = props.style?.color || theme.colors.activityTypes.event
-
-  return (
-    <SvgIcon {...props}>
-      <svg
+<svg
         width="28"
         height="28"
         viewBox="0 0 30 30"
@@ -26,6 +16,3 @@ export const EventActivityIcon: FC<SvgIconProps> = (props) => {
           stroke={iconColor}
         />
       </svg>
-    </SvgIcon>
-  )
-}

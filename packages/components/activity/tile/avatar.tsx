@@ -8,17 +8,9 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import {
-  EventActivityIcon,
-  IdeaActivityIcon,
-  MeetingActivityIcon,
-  ProjectActivityIcon,
-} from '@acter/components/icons/activity-type-icons'
-import { ActivityTypes } from '@acter/lib/constants'
+import { ActivityTypeIcon } from '@acter/components/icons/activity-type-icons'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Activity } from '@acter/schema'
-
-const { EVENT, PROJECT, MEETING, IDEA } = ActivityTypes
 
 interface ActivityAvatarProps {
   activity: Activity
@@ -27,19 +19,6 @@ interface ActivityAvatarProps {
 export const ActivityAvatar: FC<ActivityAvatarProps> = ({ activity }) => {
   const type: string = activity.ActivityType.name
   const classes = useStyles({ type })
-
-  const ActivityTypeIcon = ({ activity }) => {
-    switch (activity.ActivityType.name) {
-      case EVENT:
-        return <EventActivityIcon />
-      case PROJECT:
-        return <ProjectActivityIcon />
-      case MEETING:
-        return <MeetingActivityIcon />
-      case IDEA:
-        return <IdeaActivityIcon />
-    }
-  }
 
   return (
     <Box className={classes.activityAvatar}>

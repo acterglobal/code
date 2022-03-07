@@ -82,7 +82,11 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       size="large"
     >
       {selectedFollowers.map((follower) => (
-        <FollowerRow follower={follower} acterId={acterId} />
+        <FollowerRow
+          follower={follower}
+          acterId={acterId}
+          key={`follower-${follower.id}`}
+        />
       ))}
     </DropdownMenu>
   )

@@ -24,8 +24,10 @@ export const Organiser: FC<OrganiserProps> = ({ acter, size }) => {
   return (
     <Box className={classes.organiser}>
       <ActerAvatar acter={acter} size={size === SMALL ? 2 : 4} />
+
       <Typography className={classes.heading}>Hosted by</Typography>
       <Typography className={classes.heading}> </Typography>
+
       <Box className={classes.organiserContainer}>
         <Link href={acterAsUrl({ acter })}>
           <Typography className={classes.name}>{acter.name}</Typography>
