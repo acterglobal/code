@@ -25,7 +25,7 @@ describe('usePaginatedQuery', () => {
     take: 10,
   }
   const pagination = paginationDefaults
-  const resultKey = 'foo'
+  const dataKey = 'foo'
   const data = {
     foo: [...Array(11)].map((_, id) => ({ id })),
   }
@@ -49,8 +49,8 @@ describe('usePaginatedQuery', () => {
 
     renderHook(() =>
       usePaginatedQuery({
-        query: (`` as unknown) as DocumentNode,
-        resultKey: '',
+        query: `` as unknown as DocumentNode,
+        dataKey: '',
         variables: {},
       })
     )
@@ -61,7 +61,7 @@ describe('usePaginatedQuery', () => {
     const getResultsParams = {
       data: {},
       pagination,
-      resultKey,
+      dataKey,
       results,
       setHasMore,
       setResults,
@@ -88,7 +88,7 @@ describe('usePaginatedQuery', () => {
   describe('_getLoadMore', () => {
     const getLoadMoreParams: GetLoadMoreProps = {
       data,
-      resultKey,
+      dataKey: dataKey,
       hasMore: true,
       pagination,
       setPagination,

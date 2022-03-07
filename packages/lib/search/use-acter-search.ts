@@ -52,7 +52,7 @@ export const useActerSearch = (
   >({
     ...options,
     query: SEARCH_ACTERS,
-    resultKey: 'searchActers',
+    dataKey: 'searchActers',
     variables,
     pause,
   })
