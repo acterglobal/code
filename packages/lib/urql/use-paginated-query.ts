@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { DocumentNode } from 'graphql/language/ast'
 import { useQuery, TypedDocumentNode, UseQueryArgs, UseQueryState } from 'urql'
@@ -81,29 +81,57 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
     ...paginationParams,
   }
   const [pagination, setPagination] = useState<Pagination>(paginationDefaults)
+  const [currentVariables, setCurrentVariables] =
+    useState<TVariables>(variables)
+  const [fetching, setFetching] = useState(false)
+  const variablesMemo = useMemo(() => JSON.stringify(variables), [variables])
+  const paginationMemo = useMemo(() => JSON.stringify(pagination), [pagination])
+  const [dataMemo, setDataMemo] = useState('')
 
-  const [{ data, ...restQueryResult }, refetch] = useQuery<
-    TData,
-    VariablesWithPagination<TVariables>
-  >({
-    ...options,
-    query,
-    variables: {
-      ...variables,
-      ...{ ...pagination, take: pagination.take + 1 },
-    },
-  })
+  // If we've changed the variables, the search results are no longer valid.
+  useEffect(() => {
+    setPagination(paginationDefaults)
+    setResults([])
+    setCurrentVariables(variables)
+  }, [variablesMemo])
+
+  useEffect(() => setFetching(true), [variablesMemo, paginationMemo])
+
+  const [{ data, fetching: dataFetching, ...restQueryResult }, refetch] =
+    useQuery<TData, VariablesWithPagination<TVariables>>({
+      ...options,
+      query,
+      variables: {
+        ...currentVariables,
+        ...{ ...pagination, take: pagination.take + 1 },
+      },
+    })
 
   useEffect(() => {
-    _getResults({
-      data,
-      pagination,
-      dataKey: dataKey,
-      results,
-      setHasMore,
-      setResults,
-    })
-  }, [data?.[dataKey]])
+    if (dataFetching) setFetching(true)
+  }, [dataFetching])
+
+  // This ensures we only set results when we have a new result set for a given set of search variables
+  useEffect(
+    () =>
+      setDataMemo(
+        `${variablesMemo}${getObjectArrayMemoString(data?.[dataKey])}`
+      ),
+    [data?.[dataKey]]
+  )
+
+  useEffect(() => {
+    setResults(
+      _getResults({
+        data,
+        pagination,
+        dataKey: dataKey,
+        results,
+        setHasMore,
+      })
+    )
+    setFetching(false)
+  }, [dataMemo])
 
   const loadMore = _getLoadMore({
     data,
@@ -118,6 +146,7 @@ export const usePaginatedQuery = <TType = any, TData = any, TVariables = any>(
       ...restQueryResult,
       data,
       results,
+      fetching,
       hasMore,
       pagination,
       loadMore,
@@ -132,7 +161,6 @@ interface GetResultsProps<TType, TData> {
   dataKey: string
   results: TType[]
   setHasMore: (boolean) => void
-  setResults: (results: TType[]) => void
 }
 
 /**
@@ -145,15 +173,13 @@ export const _getResults = <TType, TData>({
   dataKey,
   results = [],
   setHasMore,
-  setResults,
-}: GetResultsProps<TType, TData>): void => {
+}: GetResultsProps<TType, TData>): TType[] => {
   if (data && data[dataKey]) {
     const nextResultsPage = data[dataKey]
     const nextHasMore = nextResultsPage.length > pagination.take
     setHasMore(nextHasMore)
     const sliceEnd = nextHasMore ? -1 : undefined
-    const nextResults = [...results, ...nextResultsPage.slice(0, sliceEnd)]
-    setResults(nextResults)
+    return [...results, ...nextResultsPage.slice(0, sliceEnd)]
   }
 }
 
@@ -188,7 +214,7 @@ export interface GetLoadMoreProps<TData = any> {
 export const _getLoadMore =
   ({ data, dataKey, hasMore, pagination, setPagination }: GetLoadMoreProps) =>
   (): void => {
-    if (hasMore) {
+    if (data?.[dataKey] && hasMore) {
       setPagination({
         ...pagination,
         cursor: { id: data[dataKey][data[dataKey].length - 1].id },

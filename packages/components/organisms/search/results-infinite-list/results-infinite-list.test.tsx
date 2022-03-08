@@ -71,7 +71,6 @@ describe('Display search results', () => {
   it('should display a message with no search results', async () => {
     render(<SearchResultsInfiniteList />)
     const items = screen.queryAllByRole('listitem')
-    screen.debug()
     const message = screen.queryByLabelText('zero-acters').textContent
 
     expect(items.length).toBe(0)

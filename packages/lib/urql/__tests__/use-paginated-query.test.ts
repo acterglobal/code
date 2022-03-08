@@ -64,7 +64,6 @@ describe('usePaginatedQuery', () => {
       dataKey,
       results,
       setHasMore,
-      setResults,
     }
 
     it('should skip pagination if there are no results', () => {
@@ -79,9 +78,9 @@ describe('usePaginatedQuery', () => {
       expect(setHasMore).toHaveBeenCalledWith(true)
     })
 
-    it('should set results', () => {
-      _getResults({ ...getResultsParams, data })
-      expect(setResults).toHaveBeenCalledTimes(1)
+    it('should return the results', () => {
+      const results = _getResults({ ...getResultsParams, data })
+      expect(results).toStrictEqual(data.foo.slice(0, -1))
     })
   })
 

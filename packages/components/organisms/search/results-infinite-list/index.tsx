@@ -34,7 +34,7 @@ export const SearchResultsInfiniteList: FC = () => {
 
   const { acters, fetching, loadMore, hasMore } = useActerSearch()
 
-  if (acters.length === 0) {
+  if (acters?.length === 0) {
     if (fetching) return <LoadingBar />
     return (
       <Box className={classes.searchResultsInfiniteList}>
@@ -47,14 +47,14 @@ export const SearchResultsInfiniteList: FC = () => {
     <div className={classes.searchResultsInfiniteList}>
       <InfiniteScroll
         className={clsx(classes[searchType])}
-        dataLength={acters.length}
+        dataLength={acters?.length || 0}
         next={loadMore}
         hasMore={hasMore}
         loader={<LoadingBar />}
       >
         <SearchResultsList acters={acters} />
       </InfiniteScroll>
-      {hasMore && !fetching && (
+      {acters && hasMore && !fetching && (
         <HasMore onVisible={loadMore}>
           <Button onClick={loadMore}>Load more</Button>
         </HasMore>
