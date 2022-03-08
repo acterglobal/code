@@ -29,6 +29,5 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
-    '\\.[jt]sx?$': 'babel-jest',
   },
 }

@@ -11,6 +11,5 @@
     "^@acter/(.*)$",
     "^[./]"
   ],
-  "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList": ["jsx", "typescript"]
+  "importOrderSeparation": true
 }
