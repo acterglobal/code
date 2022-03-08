@@ -10,7 +10,7 @@ import {
   useUpdateActer,
 } from '@acter/lib/acter/use-update-acter'
 import { ActerTypes } from '@acter/lib/constants'
-import { getTranslationKey } from '@acter/lib/i18n/getTranslationKeys'
+import { getTranslationKey } from '@acter/lib/i18n/get-translation-keys'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
