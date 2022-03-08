@@ -42,7 +42,6 @@ export const useActerSearch = (
   useEffect(() => {
     // If we don't have any types set, don't bother searching
     setPause(variables.types?.length < 1)
-    setActers([])
   }, [JSON.stringify(variables)])
 
   const [{ results, ...restQueryResult }] = usePaginatedQuery<
@@ -52,7 +51,7 @@ export const useActerSearch = (
   >({
     ...options,
     query: SEARCH_ACTERS,
-    resultKey: 'searchActers',
+    dataKey: 'searchActers',
     variables,
     pause,
   })
