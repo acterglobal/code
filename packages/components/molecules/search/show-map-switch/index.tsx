@@ -39,6 +39,8 @@ const useStyles = makeStyles(() =>
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    label: {},
+    label: {
+      paddingRight: '.5em',
+    },
   })
 )
