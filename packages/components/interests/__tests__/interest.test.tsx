@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react'
 
 import { Interest } from '@acter/components/interests/interest'
