@@ -9,7 +9,7 @@
     "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {
-    "@swc/core": "1.2.76",
+    "@swc/core": "1.2.151",
     "auth0": "2.40.0",
     "env-cmd": "10.1.0",
     "handlebars": "4.7.7",
