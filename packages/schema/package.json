@@ -20,7 +20,7 @@
     "@prisma/client": "3.7.0",
     "bull": "3.28.1",
     "env-cmd": "10.1.0",
-    "fp-ts": "2.11.1",
+    "fp-ts": "2.11.8",
     "graphql-fields": "2.0.3",
     "prisma": "3.7.0",
     "type-graphql": "1.1.1",

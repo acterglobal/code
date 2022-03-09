@@ -147,7 +147,7 @@ __metadata:
     "@types/node": 16.9.1
     bull: 3.28.1
     env-cmd: 10.1.0
-    fp-ts: 2.11.1
+    fp-ts: 2.11.8
     graphql-fields: 2.0.3
     prisma: 3.7.0
     ts-node: 10.2.1
@@ -15457,10 +15457,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fp-ts@npm:2.11.1":
-  version: 2.11.1
-  resolution: "fp-ts@npm:2.11.1"
-  checksum: 3c13ef05919de51466039ad01d1002093adb38a239c3d096271aad1433f0d7b3ba753b27eafdbd0d1139971f48f1d4044d99ec2b6c452b8d2b17916b9faf98a2
+"fp-ts@npm:2.11.8":
+  version: 2.11.8
+  resolution: "fp-ts@npm:2.11.8"
+  checksum: 481b824797ba59f3f5549810e8f6688b27554790d11a470ccdf4fc086a1cb4993ffb9060131b054abccca703f2776993e12f649865143e178e9b7c9e5b295ea7
   languageName: node
   linkType: hard
 
