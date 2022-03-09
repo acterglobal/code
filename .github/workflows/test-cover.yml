@@ -42,7 +42,7 @@ jobs:
           yarn workspace @acter/schema build
 
       - name: zip
-        run: tar --exclude='./.git' --exclude='./.yarn/cache' --use-compress-program zstd -zcf /tmp/workspace.tzst .
+        run: tar --exclude='./.git' --exclude='./.yarn/cache' --use-compress-program zstd -cf /tmp/workspace.tzst .
 
       - name: upload artifact
         uses: actions/upload-artifact@v2
