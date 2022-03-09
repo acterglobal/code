@@ -19,9 +19,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          cache: 'yarn'
+        
+      - name: Yarn cache
+        uses: uses: c-hive/gha-yarn-cache@v2
 
-      - name: Set up Next.js build cache
+      - name: Next.js build cache
         uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/packages/web/.next/cache
