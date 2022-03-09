@@ -7746,7 +7746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.16, @types/react@npm:>=16.9.0":
+"@types/react@npm:*, @types/react@npm:>=16.9.0":
   version: 17.0.16
   resolution: "@types/react@npm:17.0.16"
   dependencies:
@@ -7754,6 +7754,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: cba60aeb284d4024feaca1364557fda72011e984b6b08f6e06a7cdc65e267eabc42d59c541ddbbb81720ab195b6df95a3535540abadd5c0e2cce26b16759dbaa
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:17.0.39":
+  version: 17.0.39
+  resolution: "@types/react@npm:17.0.39"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: bf04d3c2894559012710d595553e12b422d3b91cd8f4f7e122d8cb044ba9c2ba17f6e8a4e09581359cc5509ddc59cd8c8fabd6774f3505a40a45393f074d6e6e
   languageName: node
   linkType: hard
 
@@ -8620,7 +8631,7 @@ __metadata:
     "@types/jest": 26.0.24
     "@types/markdown-draft-js": 2.2.4
     "@types/node": 14.17.20
-    "@types/react": 17.0.16
+    "@types/react": 17.0.39
     "@types/react-draft-wysiwyg": 1.13.4
     "@typescript-eslint/eslint-plugin": 4.29.0
     "@typescript-eslint/parser": 4.29.0
