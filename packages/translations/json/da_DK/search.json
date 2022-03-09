@@ -1,0 +1,10 @@
+{
+  "heading": "Offentlig søgning",
+  "searchInputPlaceholder": "Søg",
+  "searchButtonText": "Søg",
+  "interestsTabLabel": "Interesser",
+  "clearButtonText": "Ryd",
+  "applyButtonText": "Anvend",
+  "sortByTabLabel": "Sorter efter",
+  "zeroResults": "Din søgning gav ingen resultater. Prøv at fjerne søgetermer og/eller filtre for at se mere."
+}

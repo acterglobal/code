@@ -4,6 +4,7 @@ import { Tabs, Tab, Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { InterestTypes } from '@acter/components/interests/interest-types'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'
 import { getTopLevelTypes } from '@acter/lib/interests/get-toplevel-types'
 import { InterestType } from '@acter/schema'
@@ -23,6 +24,8 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
     showDivider = true,
   } = props
   const classes = useStyles()
+  const { t } = useTranslation('interests')
+
   const [currentTab, setCurrentTab] = useState(0)
 
   const topLevelTypes = getTopLevelTypes(interestTypes)
@@ -48,7 +51,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
         )
       )
       const deleteIndex = newSelectedTypes.indexOf(
-        newSelectedTypes.find((newtype) => newtype === type)
+        newSelectedTypes.find((newType) => newType === type)
       )
       newSelectedTypes.splice(deleteIndex, 1)
       setSelectedTypes([...newSelectedTypes])
@@ -70,7 +73,7 @@ export const InterestsPicker: FC<InterestsPickerProps> = (props) => {
         className={classes.tabs}
       >
         {topLevelTypes.map((type) => (
-          <Tab className={classes.tab} label={type.name} key={type.id} />
+          <Tab className={classes.tab} label={t(type.name)} key={type.id} />
         ))}
       </Tabs>
 

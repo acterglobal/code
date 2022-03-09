@@ -12,6 +12,7 @@ import {
 } from '@acter/components/atoms/fields/acter-type-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { TextEditor } from '@acter/components/util/text-editor'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export interface BasicInformationValues extends ActerTypePickerValues {
   name: string
@@ -22,13 +23,14 @@ export interface BasicInformationValues extends ActerTypePickerValues {
 
 export const BasicInformation: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
   const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   return (
     <Box className={classes.wrapper}>
       <Typography className={classes.heading}>
-        Create an Actor to start coordinating or collaborating
+        {t('acterForm.heading')}
       </Typography>
 
       <ActerTypePicker
@@ -44,12 +46,14 @@ export const BasicInformation: FC = () => {
         variant="outlined"
         size="small"
         fullWidth
-        label="Name"
+        label={t('acterForm.name')}
         name="name"
         required={true}
       />
       <Box mb={2} className={classes.textEditor} onClick={() => editor.focus()}>
-        <InputLabel style={{ marginBottom: 5 }}>Description</InputLabel>
+        <InputLabel style={{ marginBottom: 5 }}>
+          {t('acterForm.description')}
+        </InputLabel>
         <TextEditor
           height={150}
           initialValue={values.description}
@@ -71,7 +75,7 @@ export const BasicInformation: FC = () => {
         variant="outlined"
         size="small"
         fullWidth
-        label="Website link"
+        label={t('acterForm.websiteLink')}
         name="url"
       />
     </Box>
