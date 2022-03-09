@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-        
+
       - name: Yarn cache
-        uses: uses: c-hive/gha-yarn-cache@v2
+        uses: c-hive/gha-yarn-cache@v2
 
       - name: Next.js build cache
         uses: actions/cache@v2
