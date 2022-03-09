@@ -9,7 +9,7 @@ env:
   NEXT_PUBLIC_IMAGE_LOADER_URL: https://acter-dev.imgix.net
 
 jobs:
-  lint-cover-build:
+  checkout-install-schema:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,17 +35,53 @@ jobs:
         run: |
           yarn
 
-      - name: lint
-        run: |
-          yarn lint
-
       - name: generate schema
         run: |
           yarn workspace @acter/schema build
 
+      - name: zip
+        run: tar -zcf /tmp/${{GITHUB_REF}}
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: workspace-${{GITHUB_REF}}
+          path: /tmp/${{GITHUB_REF}}
+
+  lint:
+    needs: checkout-install-schema
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace-${{GITHUB_REF}}
+          path: /tmp
+
+      - name: lint
+        run: |
+          yarn lint
+
+  test-cover:
+    needs: checkout-install-schema
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace-${{GITHUB_REF}}
+          path: /tmp
+
       - name: coverage tests
         run: |
           yarn cover
+
+  build-web:
+    needs: checkout-install-schema
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace-${{GITHUB_REF}}
+          path: /tmp
 
       - name: build web
         run: |
