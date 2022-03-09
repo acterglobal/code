@@ -25,7 +25,7 @@
     "urql": "2.0.5"
   },
   "devDependencies": {
-    "@types/intercom-client": "2.11.11",
+    "@types/intercom-client": "2.11.13",
     "@types/mime": "2.0.3"
   },
   "peerDependencies": {

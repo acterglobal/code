@@ -104,7 +104,7 @@ __metadata:
   resolution: "@acter/lib@workspace:packages/lib"
   dependencies:
     "@sendgrid/mail": 7.4.5
-    "@types/intercom-client": 2.11.11
+    "@types/intercom-client": 2.11.13
     "@types/mime": 2.0.3
     "@urql/core": 2.3.4
     "@urql/devtools": 2.0.3
@@ -7381,13 +7381,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/intercom-client@npm:2.11.11":
-  version: 2.11.11
-  resolution: "@types/intercom-client@npm:2.11.11"
+"@types/intercom-client@npm:2.11.13":
+  version: 2.11.13
+  resolution: "@types/intercom-client@npm:2.11.13"
   dependencies:
     "@types/node": "*"
     "@types/request": "*"
-  checksum: 30b48b76b80d7a508a4bf43664ff069efa0716838d942a0f88a68cd2c2a72bfde4ae219dfecf252bd4ec00347c200debcdc6dcab4a00ab95ba2a791846644e9b
+  checksum: 952d80dc88d79854c570b2f99e28c32c12641e2d5b08f26df1271c0b424bd30472a96fc15ba60572bcd7f743938f1fcf07c63fb9316f5380850bcc39952b37ab
   languageName: node
   linkType: hard
 
