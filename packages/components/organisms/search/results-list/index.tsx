@@ -29,7 +29,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
   const { t } = useTranslation('search')
   const searchType = useSearchType()
 
-  if (acters.length === 0) {
+  if (acters?.length === 0) {
     return (
       <Box className={classes.root}>
         <Typography variant="body2" aria-label="zero-acters">
