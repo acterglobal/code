@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
@@ -16,4 +19,9 @@ export const UserProfileInfoPage: NextPageWithLayout = () => {
   )
 }
 
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common', 'interests'])),
+  },
+})
 export default UserProfileInfoPage
