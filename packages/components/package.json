@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "yarn env-cmd start-storybook -p 6006",
-    "storybook-build": "yarn workspace @acter/schema build && build-storybook",
+    "build": "yarn workspace @acter/schema build && build-storybook",
+    "build-storybook": "yarn env-cmd build-storybook",
+    "chromatic": "yarn env-cmd chromatic --build-script-name build",
     "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {

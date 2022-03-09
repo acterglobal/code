@@ -3,29 +3,42 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
 import { PostList } from '@acter/components/posts'
-import { useActerDi, acterDefault } from '@acter/lib/di'
 import {
+  withExampleActerParams,
+  withExampleUserParams,
+} from '@acter/lib/storybook-helpers'
+import {
+  ExampleActer,
   ExampleActerConnection,
+  ExamplePost,
+  ExampleUser,
   ExampleUserActer,
 } from '@acter/schema/fixtures'
 
-const useActer = useActerDi({
-  ...acterDefault,
+const acter = {
+  ...ExampleActer,
   Followers: [
     {
       ...ExampleActerConnection,
       Follower: ExampleUserActer,
     },
   ],
-})
+}
 
 export default {
   title: 'Pages/Posts',
   component: PostList,
   parameters: {
-    di: {
-      useActer,
-    },
+    ...withExampleActerParams(acter),
+    ...withExampleUserParams(),
+    urql: () => ({
+      data: {
+        ...withExampleActerParams(acter).urql().data,
+        ...withExampleUserParams().urql().data,
+        posts: [ExamplePost],
+        user: ExampleUser,
+      },
+    }),
   },
 } as Meta
 

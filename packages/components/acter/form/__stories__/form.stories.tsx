@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 
 import { ActerForm, ActerFormProps } from '@acter/components/acter/form'
+import { withExampleActerTypeParams } from '@acter/lib/storybook-helpers'
 import { ExampleActer, Interests } from '@acter/schema/fixtures'
 import {
   GroupActerType,
@@ -18,6 +19,7 @@ export default {
     acter: ExampleActer,
     interestTypes: Interests.data.interestTypes,
   },
+  parameters: withExampleActerTypeParams,
 } as Meta
 
 const Template: Story<ActerFormProps> = (args) => <ActerForm {...args} />

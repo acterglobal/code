@@ -4,7 +4,7 @@ import {
   InterestsSection,
   InterestsSectionProps,
 } from '@acter/components/interests/interests-section'
-import { Interests } from '@acter/schema/fixtures'
+import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 
 export default {
   title: 'Organisms/Interests/Section',
@@ -13,9 +13,7 @@ export default {
     columns: false,
     showTitle: true,
   },
-  parameters: {
-    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
-  },
+  parameters: withExampleInterestParams,
 } as Meta
 
 const Template: Story<InterestsSectionProps> = (args) => (

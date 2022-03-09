@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 
 import { Search as SearchComponent } from '@acter/components/pages/search'
+import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 import {
   ExampleActivityActer,
   ExampleActivity,
@@ -41,7 +42,12 @@ Activities.parameters = {
   nextRouter: {
     pathname: 'search/activities',
   },
-  urql: () => ({ data: { searchActivities: activities, interestTypes } }),
+  urql: () => ({
+    data: {
+      searchActivities: activities,
+      ...withExampleInterestParams.urql().data,
+    },
+  }),
 }
 
 export const Acters = Template.bind({})

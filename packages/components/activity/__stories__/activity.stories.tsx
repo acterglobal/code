@@ -3,6 +3,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
 import { Activity, ActivityProps } from '@acter/components/activity'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { Acter } from '@acter/schema'
 import {
   ExampleActer,
@@ -29,6 +30,7 @@ export default {
   args: {
     acter,
   },
+  parameters: withExampleActerParams(acter),
 } as Meta
 
 export const Main: Story<ActivityProps> = (args) => <Activity {...args} />

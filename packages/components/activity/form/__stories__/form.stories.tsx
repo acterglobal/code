@@ -7,15 +7,15 @@ import {
   ActivityFormProps,
   ActivityFormValues,
 } from '@acter/components/activity/form'
-import { pluralize } from '@acter/lib/string/pluralize'
+import {
+  withExampleActerParams,
+  withExampleUserParams,
+} from '@acter/lib/storybook-helpers'
 import {
   ExampleActivityActer,
   ExampleActivity,
-  OrganisationActerType,
-  NetworkActerType,
   EventActivityType,
   ProjectActivityType,
-  ExampleActer,
   ExampleUser,
 } from '@acter/schema/fixtures'
 
@@ -54,18 +54,13 @@ export default {
         email: ExampleUser.email,
       },
     },
-    nextRouter: {
-      asPath: `/${pluralize(OrganisationActerType.name)}/`,
-      query: {
-        slug: ExampleActer.slug,
-      },
-    },
+    ...withExampleActerParams(),
+    ...withExampleUserParams(),
     urql: () => ({
       data: {
-        acterTypes: [OrganisationActerType, NetworkActerType],
+        ...withExampleActerParams().urql().data,
+        ...withExampleUserParams().urql().data,
         activityTypes: [EventActivityType, ProjectActivityType],
-        findFirstActer: ExampleActer,
-        user: ExampleUser,
       },
     }),
   },

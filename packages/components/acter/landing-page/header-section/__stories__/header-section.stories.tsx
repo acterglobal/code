@@ -6,6 +6,7 @@ import {
   HeaderSection,
   HeaderSectionProps,
 } from '@acter/components/acter/landing-page/header-section'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
@@ -18,6 +19,7 @@ export default {
     onJoin: { action: 'Join' },
     onLeave: { action: 'Leave' },
   },
+  parameters: withExampleActerParams(),
 } as Meta
 
 export const Header: Story<HeaderSectionProps> = (args) => (

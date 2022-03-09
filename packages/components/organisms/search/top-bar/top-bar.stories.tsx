@@ -1,18 +1,18 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SearchTopBar } from './index'
+import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 
-import { Interests } from '@acter/schema/fixtures'
+import { SearchTopBar } from './index'
 
 export default {
   title: 'Organisms/Search/Top Bar',
   component: SearchTopBar,
   args: {},
   parameters: {
+    ...withExampleInterestParams,
     backgrounds: {
       default: 'background',
     },
-    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
   },
 } as Meta
 

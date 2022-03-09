@@ -3,9 +3,10 @@ import React, { FC } from 'react'
 import { Story, Meta } from '@storybook/react'
 
 import { ActerLayout } from '@acter/components/layout/acter'
-import { loggedInParameters } from '@acter/lib/storybook-helpers'
-import { pluralize } from '@acter/lib/string/pluralize'
-import { ExampleActer, OrganisationActerType } from '@acter/schema/fixtures'
+import {
+  loggedInParameters,
+  withExampleActerParams,
+} from '@acter/lib/storybook-helpers'
 
 const Content: FC = () => <main>Main content</main>
 
@@ -16,18 +17,7 @@ export default {
     children: <Content />,
   },
   parameters: {
-    nextRouter: {
-      asPath: `/${pluralize(OrganisationActerType.name)}/`,
-      query: {
-        slug: ExampleActer.slug,
-      },
-    },
-    urql: () => ({
-      data: {
-        acterTypes: [OrganisationActerType],
-        findFirstActer: ExampleActer,
-      },
-    }),
+    ...withExampleActerParams(),
   },
 } as Meta
 
@@ -38,11 +28,11 @@ export const LoggedOut = Template.bind({})
 export const LoggedIn = Template.bind({})
 LoggedIn.parameters = {
   ...loggedInParameters,
+  ...withExampleActerParams(),
   urql: () => ({
     data: {
       ...loggedInParameters.urql().data,
-      acterTypes: [OrganisationActerType],
-      findFirstActer: ExampleActer,
+      ...withExampleActerParams().urql().data,
     },
   }),
 }
