@@ -115,7 +115,7 @@ __metadata:
     handlebars: 4.7.7
     intercom-client: 2.11.2
     ioredis: 4.27.7
-    just-camel-case: ^6.0.1
+    just-camel-case: 6.0.1
     marked: 4.0.10
     md5: 2.3.0
     mime: 2.5.2
@@ -19610,7 +19610,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"just-camel-case@npm:^6.0.1":
+"just-camel-case@npm:6.0.1":
   version: 6.0.1
   resolution: "just-camel-case@npm:6.0.1"
   checksum: 58862e8bbfe536a06f38110b63c3cad578ed6437674ae30285a89bfb01fb4232b713700517e90fda27c37c2e0102c6522b2cd0b8b8909742ee1356d73d90b860
