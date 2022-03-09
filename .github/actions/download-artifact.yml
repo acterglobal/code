@@ -1,0 +1,12 @@
+name: 'Download Artifact'
+runs:
+  using: 'composite'
+  steps:
+    - name: download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: workspace
+        path: /tmp
+
+    - name: unzip
+      run: tar --use-compress-program zstd -xf /tmp/workspace.tzst

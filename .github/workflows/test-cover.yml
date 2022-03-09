@@ -55,13 +55,7 @@ jobs:
     needs: checkout-install-schema
     steps:
       - name: download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: workspace
-          path: /tmp
-
-      - name: unzip
-        run: tar --use-compress-program zstd -xf /tmp/workspace.tzst
+        uses: './.github/actions/download-artifact'
 
       - name: lint
         run: |
@@ -72,13 +66,7 @@ jobs:
     needs: checkout-install-schema
     steps:
       - name: download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: workspace
-          path: /tmp
-
-      - name: unzip
-        run: tar --use-compress-program zstd -xf /tmp/workspace.tzst
+        uses: './.github/actions/download-artifact'
 
       - name: coverage tests
         run: |
@@ -89,13 +77,7 @@ jobs:
     needs: checkout-install-schema
     steps:
       - name: download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: workspace
-          path: /tmp
-
-      - name: unzip
-        run: tar --use-compress-program zstd -xf /tmp/workspace.tzst
+        uses: './.github/actions/download-artifact'
 
       - name: build web
         run: |
