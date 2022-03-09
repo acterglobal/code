@@ -40,7 +40,7 @@ jobs:
           yarn workspace @acter/schema build
 
       - name: zip
-        run: tar -zcf /tmp/${{ env.GITHUB_REF }}
+        run: tar -zcf /tmp/${{ env.GITHUB_REF }} .
 
       - name: upload artifact
         uses: actions/upload-artifact@v2
