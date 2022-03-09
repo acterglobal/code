@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { ActivityTypeIcon } from '@acter/components/icons/activity-type-icons'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Activity } from '@acter/schema'
 
@@ -19,6 +20,7 @@ interface ActivityAvatarProps {
 export const ActivityAvatar: FC<ActivityAvatarProps> = ({ activity }) => {
   const type: string = activity.ActivityType.name
   const classes = useStyles({ type })
+  const { t } = useTranslation('common')
 
   return (
     <Box className={classes.activityAvatar}>
@@ -27,7 +29,7 @@ export const ActivityAvatar: FC<ActivityAvatarProps> = ({ activity }) => {
       </Box>
       <Box className={classes.labelContainer}>
         <Typography className={classes.label}>
-          {capitalize(activity.ActivityType?.name)}
+          {capitalize(t(`activityTypes.${activity.ActivityType?.name}`))}
         </Typography>
       </Box>
     </Box>

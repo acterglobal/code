@@ -44,5 +44,7 @@
   "acterForm.back": "Back",
   "acterForm.submit": "Submit",
   "acterForm.continue": "Continue",
-  "acterForm.create": "Create"
+  "acterForm.create": "Create",
+  "date": "date",
+  "name": "name"
 }

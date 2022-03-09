@@ -44,5 +44,7 @@
   "acterForm.back": "Tilbage",
   "acterForm.submit": "Indsend",
   "acterForm.continue": "Fortsæt",
-  "acterForm.create": "Opret"
+  "acterForm.create": "Opret",
+  "date": "dato",
+  "name": "navn"
 }

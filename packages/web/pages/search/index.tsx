@@ -25,7 +25,11 @@ SearchPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'interests'])),
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'search',
+    ])),
   },
 })
 
