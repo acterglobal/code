@@ -98,3 +98,13 @@ jobs:
       - name: build web
         run: |
           yarn workspace @acter/web build
+
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: [lint, test-cover, build-web]
+    steps:
+      - name: delete artifacts
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: workspace
