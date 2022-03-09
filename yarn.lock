@@ -13,7 +13,7 @@ __metadata:
     "@babel/plugin-proposal-private-methods": 7.14.5
     "@babel/plugin-proposal-private-property-in-object": 7.15.4
     "@date-io/date-fns": 1.3.13
-    "@fontsource/montserrat": 4.5.0
+    "@fontsource/montserrat": 4.5.5
     "@material-ui/icons": 4.11.2
     "@material-ui/lab": 4.0.0-alpha.60
     "@material-ui/pickers": 3.3.10
@@ -2425,10 +2425,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/montserrat@npm:4.5.0":
-  version: 4.5.0
-  resolution: "@fontsource/montserrat@npm:4.5.0"
-  checksum: 9b5a808a9bf55e0ddea786a0abfbafaca56d3b04ed84b98b98624c1388767089b001599e355e0dfc00caddbffc9b4bb19e966fa2c6671f4bed6f74cd2b8a7631
+"@fontsource/montserrat@npm:4.5.5":
+  version: 4.5.5
+  resolution: "@fontsource/montserrat@npm:4.5.5"
+  checksum: fa61cde0c6cb05557b22fee82aef700654319631f9fb66f518f1de74bab55664a9f7cc98f9ea00ce55277f0d01b0ab63aaf4c63906876cab0ac09a842e0c0f1c
   languageName: node
   linkType: hard
 
