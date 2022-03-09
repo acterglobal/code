@@ -40,7 +40,7 @@ __metadata:
     filepond: 4.28.2
     filepond-plugin-file-validate-type: 1.2.6
     filepond-plugin-image-edit: 1.6.3
-    filepond-plugin-image-preview: 4.6.7
+    filepond-plugin-image-preview: 4.6.10
     formik: 2.2.9
     formik-material-ui: 3.0.1
     formik-material-ui-pickers: 0.0.12
@@ -15062,12 +15062,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filepond-plugin-image-preview@npm:4.6.7":
-  version: 4.6.7
-  resolution: "filepond-plugin-image-preview@npm:4.6.7"
+"filepond-plugin-image-preview@npm:4.6.10":
+  version: 4.6.10
+  resolution: "filepond-plugin-image-preview@npm:4.6.10"
   peerDependencies:
     filepond: ">=4.x <5.x"
-  checksum: cd6c15e5dee538aa9a4f12dc776a2f5e4a709738a59585c2d3e03d97d49dc66593f573ea464bc3d032249deea0f742809cf711db2cd5c08142e392e746f65c97
+  checksum: 158a50e0ec580a2b558834b188d04bc135062395e313f98c19a09a204c2761eb959494fcf9ace99d435616aad514af920f45b6ad1338ace4e22da3abcb54784b
   languageName: node
   linkType: hard
 
