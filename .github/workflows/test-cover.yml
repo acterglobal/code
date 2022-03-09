@@ -40,7 +40,7 @@ jobs:
           yarn workspace @acter/schema build
 
       - name: zip
-        run: tar --exclude='./.git' --exclude='./.yarn/cache' -vzcf /tmp/workspace.tar.gz .
+        run: tar --exclude='./.git' --exclude='./.yarn/cache' -zcf /tmp/workspace.tar.gz .
 
       - name: upload artifact
         uses: actions/upload-artifact@v2
@@ -58,6 +58,9 @@ jobs:
           name: workspace
           path: /tmp
 
+      - name: unzip
+        run: tar -tf /tmp/workspace.tar.gz
+
       - name: lint
         run: |
           yarn lint
@@ -72,6 +75,9 @@ jobs:
           name: workspace
           path: /tmp
 
+      - name: unzip
+        run: tar -tf /tmp/workspace.tar.gz
+
       - name: coverage tests
         run: |
           yarn cover
@@ -85,6 +91,9 @@ jobs:
         with:
           name: workspace
           path: /tmp
+
+      - name: unzip
+        run: tar -tf /tmp/workspace.tar.gz
 
       - name: build web
         run: |
