@@ -40,13 +40,13 @@ jobs:
           yarn workspace @acter/schema build
 
       - name: zip
-        run: tar -zcf /tmp/${{GITHUB_REF}}
+        run: tar -zcf /tmp/${{ env.GITHUB_REF }}
 
       - name: upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: workspace-${{GITHUB_REF}}
-          path: /tmp/${{GITHUB_REF}}
+          name: workspace-${{ env.GITHUB_REF }}
+          path: /tmp/${{ env.GITHUB_REF }}
 
   lint:
     needs: checkout-install-schema
@@ -54,7 +54,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
-          name: workspace-${{GITHUB_REF}}
+          name: workspace-${{ env.GITHUB_REF }}
           path: /tmp
 
       - name: lint
@@ -67,7 +67,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
-          name: workspace-${{GITHUB_REF}}
+          name: workspace-${{ env.GITHUB_REF }}
           path: /tmp
 
       - name: coverage tests
@@ -80,7 +80,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
-          name: workspace-${{GITHUB_REF}}
+          name: workspace-${{ env.GITHUB_REF }}
           path: /tmp
 
       - name: build web
