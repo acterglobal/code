@@ -9,10 +9,10 @@
     "env-cmd": "env-cmd --silent --file ../../.env"
   },
   "dependencies": {
-    "@swc/core": "^1.2.76",
-    "auth0": "^2.40.0",
-    "env-cmd": "^10.1.0",
-    "handlebars": "^4.7.7",
+    "@swc/core": "1.2.76",
+    "auth0": "2.40.0",
+    "env-cmd": "10.1.0",
+    "handlebars": "4.7.7",
     "reflect-metadata": "*",
     "ts-node": "*",
     "typescript": "*"
@@ -22,6 +22,6 @@
     "bullmq": "*"
   },
   "devDependencies": {
-    "@types/auth0": "^2.33.5"
+    "@types/auth0": "2.33.5"
   }
 }
