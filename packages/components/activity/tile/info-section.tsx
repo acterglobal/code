@@ -20,7 +20,7 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.infoSection}>
       <Box className={classes.dateInfo}>
         <DateTimeInfo activity={activity} />
       </Box>
@@ -42,13 +42,14 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    infoSection: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       color: theme.palette.secondary.main,
+      width: 250,
     },
     dateInfo: {
       marginLeft: 10,
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: 1.3,
       display: '-webkit-box',
       boxOrient: 'vertical',
-      lineClamp: 2,
+      lineClamp: 1,
       wordBreak: 'keep-all',
       overflow: 'hidden',
       marginBottom: theme.spacing(0.5),
