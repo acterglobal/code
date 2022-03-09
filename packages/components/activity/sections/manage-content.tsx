@@ -24,11 +24,13 @@ const { MEMBERS, INVITE, SETTINGS } = ActivitySectionTabs
 interface ManageContentProps {
   openDrawer: boolean
   setDrawer: (open: boolean) => void
+  contentTab: ActivitySectionTabs
 }
 
 export const ManageContent: FC<ManageContentProps> = ({
   openDrawer,
   setDrawer,
+  contentTab,
 }) => {
   const classes = useStyles()
 
@@ -38,7 +40,7 @@ export const ManageContent: FC<ManageContentProps> = ({
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const tabs = [MEMBERS, INVITE, isAdmin && SETTINGS]
 
-  const [currentTab, setCurrentTab] = useState(tabs.indexOf(MEMBERS))
+  const [currentTab, setCurrentTab] = useState(tabs.indexOf(contentTab))
 
   if (!acter) return null
 

@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core'
 
 import { ActivityTile } from '@acter/components/activity/tile'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -39,7 +41,9 @@ export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
       ) : (
         activities?.map((activity) => (
           <StyledActivityBox key={activity.id}>
-            <ActivityTile activity={activity} />
+            <Link href={acterAsUrl({ acter: activity?.Acter })} passHref>
+              <ActivityTile activity={activity} />
+            </Link>
           </StyledActivityBox>
         ))
       )}

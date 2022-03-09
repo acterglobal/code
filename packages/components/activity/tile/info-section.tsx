@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import {
   Box,
   createStyles,
-  Divider,
   makeStyles,
   Theme,
   Typography,
@@ -11,6 +10,9 @@ import {
 
 import { ActivityTileProps } from '@acter/components/activity/tile'
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
+import { Size } from '@acter/lib/constants'
+
+import { Organiser } from '../organiser'
 
 type InfoSectionProps = ActivityTileProps
 
@@ -22,10 +24,9 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
       <Box className={classes.dateInfo}>
         <DateTimeInfo activity={activity} />
       </Box>
-      <Divider className={classes.divider} />
 
       <Box className={classes.info}>
-        <Typography className={classes.name} variant="h6">
+        <Typography className={classes.name} variant="h5">
           {activity.Acter?.name}
         </Typography>
 
@@ -33,9 +34,7 @@ export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
           {activity.isOnline ? 'Online' : activity.Acter?.location}
         </Typography>
 
-        <Typography className={classes.organiser} noWrap variant="subtitle1">
-          {activity.Organiser?.name}
-        </Typography>
+        <Organiser acter={activity?.Organiser} size={Size.SMALL} />
       </Box>
     </Box>
   )
@@ -53,22 +52,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dateInfo: {
       marginLeft: 10,
+      marginBottom: 5,
     },
     info: {
       marginLeft: 13,
       maxWidth: '85%',
     },
-    divider: {
-      marginTop: 5,
-      marginBottom: 5,
-      backgroundColor: theme.palette.secondary.light,
-    },
-    activityName: {
-      height: 20,
-    },
     name: {
-      fontSize: theme.spacing(1.5),
+      fontSize: '0.9rem',
       fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.secondary.main,
       lineHeight: 1.3,
       display: '-webkit-box',
       boxOrient: 'vertical',
@@ -78,14 +71,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(0.5),
     },
     location: {
-      fontSize: theme.spacing(1.3),
-      color: theme.colors.grey.main,
-      fontWeight: theme.typography.fontWeightBold,
-    },
-    organiser: {
-      fontSize: theme.spacing(1.1),
-      color: theme.colors.grey.main,
-      fontWeight: theme.typography.fontWeightBold,
+      fontSize: '0.8rem',
+      color: theme.colors.blue.light,
     },
   })
 )

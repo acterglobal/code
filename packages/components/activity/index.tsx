@@ -9,13 +9,16 @@ import {
   Button,
 } from '@material-ui/core'
 
-import { Connect } from '../acter/connect'
-import { Organiser } from './organiser'
-
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'
 import { ManageContent } from '@acter/components/activity/sections/manage-content'
+import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
+
+import { Connect } from '../acter/connect'
+import { Organiser } from './organiser'
+
+const { MEMBERS, INVITE } = ActivitySectionTabs
 
 export interface ActivityProps {
   acter: Acter
@@ -24,8 +27,17 @@ export interface ActivityProps {
 export const Activity: FC<ActivityProps> = ({ acter }) => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [contentTab, setContentTab] = useState(INVITE)
 
-  const handleOnClick = () => setOpenDrawer(true)
+  const handleOnClick = () => {
+    setContentTab(INVITE)
+    setOpenDrawer(true)
+  }
+
+  const handleParticipantsOnClick = () => {
+    setContentTab(MEMBERS)
+    setOpenDrawer(true)
+  }
 
   return (
     <LandingPageLayout>
@@ -41,10 +53,17 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
         </Box>
       </Grid>
       <Grid className={classes.activity} item xs={12} sm={12}>
-        <ActivityDetails acter={acter} handleOnClick={handleOnClick} />
+        <ActivityDetails
+          acter={acter}
+          handleOnClick={handleParticipantsOnClick}
+        />
       </Grid>
       {openDrawer && (
-        <ManageContent openDrawer={openDrawer} setDrawer={setOpenDrawer} />
+        <ManageContent
+          openDrawer={openDrawer}
+          setDrawer={setOpenDrawer}
+          contentTab={contentTab}
+        />
       )}
     </LandingPageLayout>
   )
@@ -79,12 +98,16 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       minWidth: theme.spacing(14),
       height: theme.spacing(4.5),
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       border: '1px solid',
-      borderColor: theme.palette.primary.main,
+      borderColor: theme.palette.secondary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: '1rem',
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+        color: 'white',
+      },
     },
   })
 )

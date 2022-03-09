@@ -11,14 +11,20 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { Size } from '@acter/lib/constants'
+import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
+const { ACTIVITY } = ActerTypes
+const { SMALL } = Size
+
 interface ConnectProps {
   acterId?: string
+  size?: Size
 }
-export const Connect: FC<ConnectProps> = ({ acterId }) => {
-  const classes = useStyles()
+export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
+  const classes = useStyles({ size })
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
@@ -31,10 +37,21 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
     [acter?.Followers]
   )
 
-  if (!user) return <ConnectButton href={loginUrl}>Join</ConnectButton>
-
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
+
+  const isActivity = acter?.ActerType.name === ACTIVITY ? true : false
+
+  if (!user)
+    return (
+      <ConnectButton
+        buttonText="Join"
+        redirectUrl={loginUrl}
+        isActivity={isActivity}
+        size={size}
+      />
+    )
+
   if (!followers.length) return null
 
   const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
@@ -53,33 +70,46 @@ export const Connect: FC<ConnectProps> = ({ acterId }) => {
             Member <KeyboardArrowDown fontSize="small" />
           </Button>
         ) : (
-          <ConnectButton>Join</ConnectButton>
+          <ConnectButton
+            buttonText="Join"
+            redirectUrl={loginUrl}
+            isActivity={isActivity}
+            size={size}
+          />
         )
       }
       closeOnClick={false}
       size="large"
     >
       {selectedFollowers.map((follower) => (
-        <FollowerRow follower={follower} acterId={acterId} />
+        <FollowerRow
+          follower={follower}
+          acterId={acterId}
+          key={`follower-${follower.id}`}
+        />
       ))}
     </DropdownMenu>
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
+type StyleProps = {
+  size: Size
+}
+
+const useStyles = makeStyles((theme: Theme) => {
+  return createStyles({
+    button: ({ size }: StyleProps) => ({
       borderRadius: theme.spacing(3),
       marginRight: theme.spacing(1),
       paddingLeft: theme.spacing(2),
-      height: theme.spacing(4.5),
+      height: theme.spacing(size === SMALL ? 4 : 4.5),
       color: theme.palette.secondary.main,
       border: '1px solid',
       borderColor: theme.palette.secondary.main,
       textTransform: 'capitalize',
       fontWeight: theme.typography.fontWeightRegular,
-      fontSize: '1rem',
-    },
+      fontSize: size === SMALL ? '0.8rem' : '1rem',
+    }),
     memberLabel: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
@@ -94,4 +124,4 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1rem',
     },
   })
-)
+})

@@ -84,10 +84,10 @@ export const colors: Colors = {
     dark: '#5E5E5E',
   },
   activityTypes: {
-    event: '#A3DAFF',
-    project: '#8ED77F',
-    idea: '#FED990',
-    meeting: '#D5D5D5',
+    event: '#2A2A2A',
+    project: '#67A24A',
+    idea: '#ECAC3C',
+    meeting: '#5778B2',
     dark: {
       event: '#4287f5',
       project: '#25cc04',
