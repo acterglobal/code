@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: workspace
-          path: /tmp/workspace
+          path: /tmp/workspace.tar.gz
 
   lint:
     runs-on: ubuntu-latest
