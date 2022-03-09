@@ -59,7 +59,7 @@ jobs:
           path: /tmp
 
       - name: unzip
-        run: tar -tf /tmp/workspace.tar.gz
+        run: tar -f /tmp/workspace.tar.gz .
 
       - name: lint
         run: |
@@ -76,7 +76,7 @@ jobs:
           path: /tmp
 
       - name: unzip
-        run: tar -tf /tmp/workspace.tar.gz
+        run: tar -f /tmp/workspace.tar.gz .
 
       - name: coverage tests
         run: |
@@ -93,7 +93,7 @@ jobs:
           path: /tmp
 
       - name: unzip
-        run: tar -tf /tmp/workspace.tar.gz
+        run: tar -f /tmp/workspace.tar.gz .
 
       - name: build web
         run: |
