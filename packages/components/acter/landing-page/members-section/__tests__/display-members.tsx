@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react'
 
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'

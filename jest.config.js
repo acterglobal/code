@@ -1,14 +1,11 @@
-module.exports = {
-  // preset: 'ts-jest',
-  testEnvironment: 'jest-environment-jsdom',
+/* eslint-disable @typescript-eslint/no-var-requires */
+const nextJest = require('next/jest')
 
-  // A set of global variables that need to be available in all test environments
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.test.json',
-    },
-  },
+const createJestConfig = nextJest({
+  dir: './',
+})
 
+const customJestConfig = {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     '/node_modules/',
@@ -17,18 +14,12 @@ module.exports = {
     '/packages/schema/generated',
   ],
 
-  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: {
-    // ...pathsToModuleNameMapper(compilerOptions.paths),
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-  },
-
-  // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['./jest.setup.js'],
-
   // A map from regular expressions to paths to transformers
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
-    '\\.[jt]sx?$': 'babel-jest',
   },
+
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 }
+
+module.exports = createJestConfig(customJestConfig)

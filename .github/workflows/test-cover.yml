@@ -5,6 +5,9 @@ name: Run test coverage on each push
 
 on: push
 
+env:
+  NEXT_PUBLIC_IMAGE_LOADER_URL: https://acter-dev.imgix.net
+
 jobs:
   lint-cover-build:
     runs-on: ubuntu-latest
@@ -41,8 +44,6 @@ jobs:
           yarn workspace @acter/schema build
 
       - name: coverage tests
-        env:
-          NEXT_PUBLIC_IMAGE_LOADER_URL: https://acter-dev.imgix.net
         run: |
           yarn cover
 
