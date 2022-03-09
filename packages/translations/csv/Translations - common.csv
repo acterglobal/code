@@ -1,28 +1,47 @@
-"Translation key","en_UK","da_DK"
-"acters","acters","acters"
-"acterTypes.university","university","universitet"
-"acterTypes.activity","activity","aktivitet"
-"acterTypes.group","group","gruppe"
-"acterTypes.network","network","netværk"
-"acterTypes.organisation","organisation","organisation"
-"acterTypes.publicOrganisation","public organisation","offentlig organisation"
-"acterTypes.community","community","fællesskab"
-"acterTypes.NGO","NGO","NGO"
-"acterTypes.company","company","selskab"
-"acterTypes.user","user","bruger"
-"login","Login","Log på"
-"signup","Signup","Tilmelde"
-"signOut","Sign Out","Log ud"
-"editProfile","Edit Profile","Rediger Profil"
-"acterForm.heading","Create an Actor to start coordinating or collaborating","Opret en acter for at begynde at koordinere eller samarbejde"
-"acterForm.selectActerType","Select Acter type","Vælg Acter type"
-"acterForm.name","Name","Navn"
-"acterForm.description","Description","Beskrivelse"
-"acterForm.location","Location","Beliggenhed"
-"acterForm.websiteLink","Website link","Webstedslink"
-"acterForm.logo","logo","logo"
-"acterForm.banner","banner image","banner billede"
-"acterForm.back","Back","Tilbage"
-"acterForm.submit","Submit","Indsend"
-"acterForm.continue","Continue","Fortsætte"
-"acterForm.create","Create","Skab"
+Translation key,en_UK,da_DK
+acters,acters,acters
+acterTypes.acter,acter,acter
+acterTypes.acters,acters,acters
+acterTypes.university,university,universitet
+acterTypes.universities,universities,universiteter
+acterTypes.activity,activity,aktivitet
+acterTypes.activities,activities,aktiviteter
+acterTypes.group,group,gruppe
+acterTypes.groups,groups,grupper
+acterTypes.network,network,netværk
+acterTypes.networks,networks,netværk
+acterTypes.organisation,organisation,organisation
+acterTypes.organisations,organisations,organisationer
+acterTypes.publicOrganisation,public organisation,offentlig organisation
+acterTypes.publicOrganisations,public organisations,offentlige organisationer
+acterTypes.community,community,fællesskab
+acterTypes.communities,communities,fællesskaber
+acterTypes.NGO,NGO,NGO
+acterTypes.NGOs,NGOs,NGOer
+acterTypes.company,company,selskab
+acterTypes.companies,companies,virksomheder
+acterTypes.user,user,bruger
+activityTypes.event,event,begivenhed
+activityTypes.events,events,begivenheder
+activityTypes.idea,idea,ide
+activityTypes.ideas,ideas,ideer
+activityTypes.project,project,projekt
+activityTypes.projects,projects,projekter
+activityTypes.meeting,meeting,møde
+activityTypes.meetings,meetings,møder
+login,Login,Log på
+signup,Signup,Opret bruger
+signOut,Sign out,Log ud
+editProfile,Edit profile,Rediger profil
+acterForm.heading,Create an Actor to start coordinating or collaborating,Opret en acter for at begynde at koordinere eller samarbejde
+acterForm.selectActerType,Select acter type,Vælg acter type
+acterForm.name,Name,Navn
+acterForm.description,Description,Beskrivelse
+acterForm.location,Location,Beliggenhed
+acterForm.websiteLink,Website link,Weblink
+acterForm.logo,logo,logo
+acterForm.banner,banner image,banner billede
+acterForm.back,Back,Tilbage
+acterForm.submit,Submit,Indsend
+acterForm.continue,Continue,Fortsæt
+acterForm.create,Create,Opret
