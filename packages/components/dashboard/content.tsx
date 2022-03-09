@@ -111,7 +111,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.colors.white,
       position: 'fixed',
       zIndex: 99,
-      textTransform: 'capitalize',
     },
     heading: {
       fontSize: theme.spacing(2),
