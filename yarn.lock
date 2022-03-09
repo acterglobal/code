@@ -108,7 +108,7 @@ __metadata:
     "@types/mime": 2.0.3
     "@urql/core": 2.3.4
     "@urql/devtools": 2.0.3
-    "@urql/exchange-graphcache": 4.3.5
+    "@urql/exchange-graphcache": 4.3.6
     date-fns-tz: 1.1.6
     deep-equal: 2.0.5
     deepmerge: 4.2.2
@@ -2847,6 +2847,15 @@ __metadata:
   peerDependencies:
     graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 582eb2006012a29bdcf72d223e3fec1a1ccdac8f4e249bd92cb68412e9881b4f7aa9ed9c74a495a2aa988904aaa4b8aa7b21bf0cb8c7aed700b8150f5818ef3f
+  languageName: node
+  linkType: hard
+
+"@graphql-typed-document-node/core@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@graphql-typed-document-node/core@npm:3.1.1"
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 87ff4cee308f1075f4472b80f9f9409667979940f8f701e87f0aa35ce5cf104d94b41258ea8192d05a0893475cd0f086a3929a07663b4fe8d0e805a277f07ed5
   languageName: node
   linkType: hard
 
@@ -8096,7 +8105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/core@npm:2.3.4, @urql/core@npm:>=2.3.3, @urql/core@npm:^2.3.2":
+"@urql/core@npm:2.3.4, @urql/core@npm:^2.3.2":
   version: 2.3.4
   resolution: "@urql/core@npm:2.3.4"
   dependencies:
@@ -8105,6 +8114,18 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 36c2f6ad83a406f5dc8fbae4cbe58e6bb6f6580a934b24e6a73e99098d10fd47fd9f084aacf45bc84ba35588b9c46e8830fc433e8f4f686d281439fca2504593
+  languageName: node
+  linkType: hard
+
+"@urql/core@npm:>=2.3.6":
+  version: 2.4.3
+  resolution: "@urql/core@npm:2.4.3"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 368324171c33a3e9ede22896ac5ba93a34a8aaa22cc3765b23401a94da2c4501c47b334192220ddc3f5f7c139f17a40c1265a3c2efedf40533eaf7a85a8e76e5
   languageName: node
   linkType: hard
 
@@ -8120,15 +8141,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/exchange-graphcache@npm:4.3.5":
-  version: 4.3.5
-  resolution: "@urql/exchange-graphcache@npm:4.3.5"
+"@urql/exchange-graphcache@npm:4.3.6":
+  version: 4.3.6
+  resolution: "@urql/exchange-graphcache@npm:4.3.6"
   dependencies:
-    "@urql/core": ">=2.3.3"
+    "@urql/core": ">=2.3.6"
     wonka: ^4.0.14
   peerDependencies:
-    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-  checksum: 368139d6e81ec64379b3ebf103bc1f74420249b51d3177de03cfcc16a4c930c6a57b32ac9c547a18ffbd7fa0f5b11fdb3e9239da1bcd1eff1234c26d687a7813
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 861d52572d14d3a0a4c15068d6680b3b0ee4ec091ab5f16fe3b43e476cb14d628748bce3a2b1c81fdc46c407ef3a42883f9859e424da432ab57dbf34bd0ae7ec
   languageName: node
   linkType: hard
 

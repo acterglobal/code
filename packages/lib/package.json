@@ -8,7 +8,7 @@
     "@sendgrid/mail": "7.4.5",
     "@urql/core": "2.3.4",
     "@urql/devtools": "2.0.3",
-    "@urql/exchange-graphcache": "4.3.5",
+    "@urql/exchange-graphcache": "4.3.6",
     "date-fns-tz": "1.1.6",
     "deep-equal": "2.0.5",
     "deepmerge": "4.2.2",
