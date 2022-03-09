@@ -66,7 +66,7 @@
     "@types/markdown-draft-js": "2.2.4",
     "@types/node": "14.17.20",
     "@types/react": "17.0.16",
-    "@types/react-draft-wysiwyg": "1.13.3",
+    "@types/react-draft-wysiwyg": "1.13.4",
     "@typescript-eslint/eslint-plugin": "4.29.0",
     "@typescript-eslint/parser": "4.29.0",
     "cli-confirm": "1.0.1",

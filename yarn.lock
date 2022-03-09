@@ -7700,13 +7700,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-draft-wysiwyg@npm:1.13.3":
-  version: 1.13.3
-  resolution: "@types/react-draft-wysiwyg@npm:1.13.3"
+"@types/react-draft-wysiwyg@npm:1.13.4":
+  version: 1.13.4
+  resolution: "@types/react-draft-wysiwyg@npm:1.13.4"
   dependencies:
     "@types/draft-js": "*"
     "@types/react": "*"
-  checksum: 17a0df643048470b478ccdc6c0d17ae259b54b94838e5086b36ff87f353141ba9b9bdb14db292b7b1d35aa5332932828ec08e1901ee2ed373cd1d9a5c7239df4
+  checksum: 359bf9264a55083d8a7a9e5338b07dd75e2c5cd8587ee9d5a3cb74175a7a4c53e86e691ae9a25a460e476205eb64da220f5894d9413ba6f339c26bee92554d4f
   languageName: node
   linkType: hard
 
@@ -8621,7 +8621,7 @@ __metadata:
     "@types/markdown-draft-js": 2.2.4
     "@types/node": 14.17.20
     "@types/react": 17.0.16
-    "@types/react-draft-wysiwyg": 1.13.3
+    "@types/react-draft-wysiwyg": 1.13.4
     "@typescript-eslint/eslint-plugin": 4.29.0
     "@typescript-eslint/parser": 4.29.0
     axios: 0.26.0
