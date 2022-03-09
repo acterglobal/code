@@ -14,7 +14,7 @@
   "dependencies": {
     "@next/bundle-analyzer": "11.0.1",
     "@sentry/nextjs": "6.11.0",
-    "apollo-server-micro": "^3.1.2",
+    "apollo-server-micro": "3.1.2",
     "aws-sdk": "2.962.0",
     "env-cmd": "10.1.0",
     "micro": "9.3.4",

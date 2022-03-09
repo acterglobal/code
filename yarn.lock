@@ -167,7 +167,7 @@ __metadata:
     "@next/bundle-analyzer": 11.0.1
     "@sentry/cli": 1.68.0
     "@sentry/nextjs": 6.11.0
-    apollo-server-micro: ^3.1.2
+    apollo-server-micro: 3.1.2
     aws-sdk: 2.962.0
     env-cmd: 10.1.0
     eslint-config-next: 11.0.1
@@ -8633,7 +8633,7 @@ __metadata:
     eslint-plugin-jest: 24.4.0
     eslint-plugin-you-dont-need-lodash-underscore: 6.12.0
     graphql: 15.5.1
-    graphql-tag: ^2.11.0
+    graphql-tag: 2.12.5
     husky: 5.2.0
     identity-obj-proxy: 3.0.0
     ignore-loader: 0.1.2
@@ -9079,7 +9079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-micro@npm:^3.1.2":
+"apollo-server-micro@npm:3.1.2":
   version: 3.1.2
   resolution: "apollo-server-micro@npm:3.1.2"
   dependencies:
@@ -16283,7 +16283,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"graphql-tag@npm:^2.10.3, graphql-tag@npm:^2.11.0":
+"graphql-tag@npm:2.12.5, graphql-tag@npm:^2.10.3, graphql-tag@npm:^2.11.0":
   version: 2.12.5
   resolution: "graphql-tag@npm:2.12.5"
   dependencies:
