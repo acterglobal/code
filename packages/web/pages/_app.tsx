@@ -8,7 +8,7 @@ import { appWithTranslation } from 'next-i18next'
 import { AppProps } from 'next/app'
 
 import { UserProvider } from '@auth0/nextjs-auth0'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import CssBaseline from '@mui/material/CssBaseline'
 
 import { SnackbarProvider } from 'notistack'
 
