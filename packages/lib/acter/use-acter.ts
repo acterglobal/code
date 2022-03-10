@@ -88,10 +88,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     }
   }, [acterTypes?.length, acterTypeName])
 
-  const slug = useMemo(() => options?.slug || (router.query?.slug as string), [
-    options?.slug,
-    router.query?.slug,
-  ])
+  const slug = useMemo(
+    () => options?.slug || (router.query?.slug as string),
+    [options?.slug, router.query?.slug]
+  )
 
   const variables = useMemo<UseActerVariables>(() => {
     if (acterId) {
@@ -131,8 +131,11 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
         setActer(data.acter)
       } else {
         const { findFirstActer: acter } = data
-        if (fetchParent && acter?.Parent) {
-          setActerId(acter.Parent.id)
+        const parentActer = acter?.Parent
+          ? acter?.Parent
+          : acter?.Activity?.Organiser
+        if (fetchParent && parentActer) {
+          setActerId(parentActer.id)
         }
         setActer(acter)
       }

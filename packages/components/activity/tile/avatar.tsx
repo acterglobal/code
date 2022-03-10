@@ -27,6 +27,7 @@ export const ActivityAvatar: FC<ActivityAvatarProps> = ({ activity }) => {
       <Box className={classes.avatar}>
         <ActivityTypeIcon activity={activity} />
       </Box>
+
       <Box className={classes.labelContainer}>
         <Typography className={classes.label}>
           {capitalize(t(`activityTypes.${activity.ActivityType?.name}`))}

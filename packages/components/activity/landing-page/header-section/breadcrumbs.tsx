@@ -24,7 +24,9 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
 }) => {
   const classes = useStyles()
 
-  if (!acter || !acter.Parent) return null
+  if (!acter) return null
+
+  const parentActer = acter.Parent ? acter.Parent : acter.Activity.Organiser
 
   return (
     <Box>
@@ -35,21 +37,21 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
             className={classes.activityBreadcrumbs}
           />
         }
-        aria-label="breadcrumb"
+        aria-label="breadcrumbs"
       >
-        <Link href={acterAsUrl({ acter: acter?.Parent })}>
+        <Link href={acterAsUrl({ acter: parentActer })}>
           <Typography className={classes.name}>
-            {capitalize(acter?.Parent.name)}
+            {capitalize(parentActer.name)}
           </Typography>
         </Link>
 
-        <Link href={`${acterAsUrl({ acter: acter?.Parent })}/activities`}>
+        <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
           <Typography className={classes.name}>Activities</Typography>
         </Link>
 
         <Link href={acterAsUrl({ acter })}>
           <Typography className={classes.activity}>
-            {capitalize(acter?.name)}
+            {capitalize(acter.name)}
           </Typography>
         </Link>
       </Breadcrumbs>

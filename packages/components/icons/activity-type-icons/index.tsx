@@ -18,7 +18,7 @@ interface ActivityTypeIconProps {
 }
 
 export const ActivityTypeIcon: FC<ActivityTypeIconProps> = ({ activity }) => {
-  const Icon = iconComponents[activity.ActivityType.name]
+  const Icon = iconComponents[activity?.ActivityType?.name]
 
   return <Icon activity={activity} />
 }

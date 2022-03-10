@@ -17,7 +17,7 @@ export const ImageSection: FC<ImageSectionProps> = ({ activity }) => {
       <Box className={classes.image}>
         <Image
           src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
-          alt={activity.Acter?.name}
+          alt={activity?.Acter?.name}
           height={85}
         />
         <ActivityAvatar activity={activity} />

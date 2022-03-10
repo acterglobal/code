@@ -35,9 +35,11 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
 
+  const parentActer = acter?.Parent ? acter?.Parent : acter?.Activity.Organiser
+
   const handleCloseActivity = () => {
     acter &&
-      router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
+      router.push(acterAsUrl({ acter: parentActer, extraPath: [ACTIVITIES] }))
   }
 
   return (

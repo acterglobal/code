@@ -38,7 +38,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
       acter.avatarUrl
         ? `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
         : '',
-    [acter.avatarUrl]
+    [acter?.avatarUrl]
   )
 
   return (

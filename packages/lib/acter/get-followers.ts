@@ -17,7 +17,7 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
   ).filter(canFollowActer(acter))
 
   // Only include the User's UserActer if this Acter was not created by the User
-  if (acter.createdByUserId !== user.id) {
+  if (acter?.createdByUserId !== user.id) {
     followers.unshift(user.Acter)
   }
   return followers
