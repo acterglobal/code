@@ -5,7 +5,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
 
 import { HeaderSection } from '@acter/components/acter/landing-page/header-section'
 import { theme } from '@acter/components/themes/acter-theme'
@@ -39,9 +39,11 @@ describe('[Header Section]', () => {
   })
   it('should render the header section component with correct content', () => {
     render(
-      <MuiThemeProvider theme={theme}>
-        <HeaderSection acter={acter} />
-      </MuiThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <HeaderSection acter={acter} />
+        </ThemeProvider>
+      </StyledEngineProvider>
     )
     expect(screen.getByRole('acter-name')).toHaveTextContent(
       'Greenlight Aarhus'

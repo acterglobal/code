@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  Drawer as MUIDrawer,
-  makeStyles,
-} from '@material-ui/core'
+import { Box, Drawer as MUIDrawer } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { TopBar, TopBarProps } from '@acter/components/util/drawer/top-bar'
 

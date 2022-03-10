@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, createStyles, makeStyles } from '@material-ui/core'
+import { Box } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActivityTileProps } from '@acter/components/activity/tile'
 import { ActivityAvatar } from '@acter/components/activity/tile/avatar'

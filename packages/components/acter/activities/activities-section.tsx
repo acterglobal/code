@@ -1,12 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  createStyles,
-  withStyles,
-} from '@material-ui/core'
+import { Box, Checkbox, FormControlLabel } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'

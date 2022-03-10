@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 
-import { Tabs as MUITabs, Tab as MUITab } from '@material-ui/core'
-import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { Tabs as MUITabs, Tab as MUITab } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import withStyles from '@mui/styles/withStyles';
+import createStyles from '@mui/styles/createStyles';
 
 // ? overriding the MaterialUI tab styles
 const StyledTabs = withStyles((theme: Theme) =>

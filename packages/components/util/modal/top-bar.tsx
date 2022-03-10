@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
 
-import { Box, IconButton, MenuItem, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, IconButton, MenuItem, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   MoreVert as ThreeDotsIcon,
   Close as CloseIcon,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import { Link } from '@acter/components/util/anchor-link'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
@@ -52,21 +54,21 @@ export const TopBar: FC<Props> = ({
           <ThreeDots />
         )}
 
-        <IconButton className={classes.button} onClick={handleClose}>
+        <IconButton className={classes.button} onClick={handleClose} size="large">
           <CloseIcon />
         </IconButton>
       </Box>
     </Box>
-  )
+  );
 }
 
 const ThreeDots: FC = () => {
   const classes = useStyles()
   return (
-    <IconButton>
+    <IconButton size="large">
       <ThreeDotsIcon className={classes.threeDots} />
     </IconButton>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>

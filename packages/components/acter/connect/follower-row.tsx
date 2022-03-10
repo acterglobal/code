@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { Box, Grid } from '@material-ui/core'
+import { Box, Grid } from '@mui/material'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'

@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  ListItemAvatar,
-  ListItemText,
-} from '@material-ui/core'
+import { Theme, ListItemAvatar, ListItemText } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { ActerTypes } from '@acter/lib/constants'

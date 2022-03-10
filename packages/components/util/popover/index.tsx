@@ -1,14 +1,9 @@
 import React, { FC, useEffect, useState, MouseEvent, ReactNode } from 'react'
 
-import {
-  Box,
-  Button,
-  Popover as MUIPopover,
-  Typography,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, Button, Popover as MUIPopover, Typography, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 export type PopoverProps = {
   tabLabel: string
@@ -83,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: 'white',
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         minWidth: theme.spacing(10),
       },
     },

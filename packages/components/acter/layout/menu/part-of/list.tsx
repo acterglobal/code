@@ -1,14 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, ListItem, ListItemAvatar, ListItemText, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Link } from '@acter/components/util/anchor-link'

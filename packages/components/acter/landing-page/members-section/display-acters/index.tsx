@@ -2,15 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  createStyles,
-  makeStyles,
-  List,
-  Theme,
-  ListItem,
-  ListItemSecondaryAction,
-  Button,
-} from '@material-ui/core'
+import { List, Theme, ListItem, ListItemSecondaryAction, Button } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { MemberDetails } from '@acter/components/acter/landing-page/members-section/display-members/member-details'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

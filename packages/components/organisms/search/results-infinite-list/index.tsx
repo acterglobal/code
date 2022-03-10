@@ -2,8 +2,11 @@ import React, { FC, useEffect, useRef } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useIsVisible } from 'react-is-visible'
 
-import { Box } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Box } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import clsx from 'clsx'
 
@@ -68,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
     searchResultsInfiniteList: {
       marginTop: theme.spacing(5),
       height: '100%',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginTop: 0,
       },
     },

@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
 
-import { Box, Breadcrumbs, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
+import { Box, Breadcrumbs, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { NavigateNext as NavigateNextIcon } from '@mui/icons-material'
 
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

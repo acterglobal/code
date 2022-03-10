@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 
-import { Box, Divider, ListItem, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, Divider, ListItem, Typography } from '@mui/material'
+import { Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Link } from '@acter/components/util/anchor-link'
 import { Tooltip } from '@acter/components/util/tool-tip'

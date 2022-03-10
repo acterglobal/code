@@ -3,7 +3,10 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import dynamic from 'next/dynamic'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'

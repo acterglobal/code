@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { AccessTime } from '@material-ui/icons'
+import { AccessTime } from '@mui/icons-material'
 import {
   KeyboardTimePicker,
   KeyboardTimePickerProps,

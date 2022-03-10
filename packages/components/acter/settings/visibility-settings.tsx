@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 
-import { RadioGroup } from '@material-ui/core'
+import { RadioGroup } from '@mui/material'
 
 import { SettingsRadio } from '@acter/components/util/forms'
 import {

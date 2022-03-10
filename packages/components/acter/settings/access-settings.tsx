@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { Box, makeStyles, RadioGroup, Theme } from '@material-ui/core'
+import { Box, RadioGroup, Theme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Switch } from '@acter/components/atoms/fields/switch'
 import { SettingsRadio } from '@acter/components/util/forms'

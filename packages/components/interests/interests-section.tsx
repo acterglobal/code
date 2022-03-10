@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@mui/material'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InterestTypes } from '@acter/components/interests/interest-types'

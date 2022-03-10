@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 
-import { makeStyles, Theme, Divider, Typography, List } from '@material-ui/core'
+import { Theme, Divider, Typography, List } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'

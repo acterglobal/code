@@ -1,13 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import {
-  Grid,
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Button,
-} from '@material-ui/core'
+import { Grid, Theme, Box, Button } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'

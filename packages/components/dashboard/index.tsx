@@ -2,14 +2,9 @@ import React, { FC } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Typography,
-  Theme,
-  useTheme,
-} from '@material-ui/core'
+import { Box, Typography, Theme, useTheme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { DashboardContent } from '@acter/components/dashboard/content'
 import { HomeIcon } from '@acter/components/icons/home-icon'

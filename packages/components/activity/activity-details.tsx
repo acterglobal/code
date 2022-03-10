@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, Grid, Hidden, makeStyles, Theme } from '@material-ui/core'
+import { Box, Grid, Hidden, Theme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { Participants } from '@acter/components/activity/participants'
@@ -26,7 +28,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
   return (
     <Box className={classes.activityDetails}>
       <Grid container spacing={2} className={classes.content}>
-        <Hidden smDown>
+        <Hidden mdDown>
           <Grid item xs={12} sm={7}>
             <ActivityDescription acter={acter} />
           </Grid>
@@ -41,7 +43,7 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,10 +53,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       maxWidth: 700,
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       maxWidth: 310,
     },
     marginBottom: 10,
@@ -69,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   content: {
     borderRadius: 5,
     justifyContent: 'space-between',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       padding: theme.spacing(1),
     },
   },

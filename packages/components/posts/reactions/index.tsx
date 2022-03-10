@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-} from '@material-ui/core/'
+import { Theme, Box, Typography } from '@mui/material/';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'

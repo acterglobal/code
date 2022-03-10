@@ -1,7 +1,10 @@
 import React, { FC, useState } from 'react'
 
-import { Box } from '@material-ui/core'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { Box } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import clsx from 'clsx'
 
@@ -85,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: 300,
       },
       marginBottom: theme.spacing(2),

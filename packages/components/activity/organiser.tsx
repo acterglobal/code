@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Link } from '@acter/components/util/anchor-link'
@@ -53,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => {
       backgroundColor: 'white',
       borderRadius: theme.spacing(1),
       display: 'flex',
-      [theme.breakpoints.down('xs')]: {},
+      [theme.breakpoints.down('sm')]: {},
       marginTop: size === SMALL && 5,
       marginBottom: size === SMALL && 5,
     }),
@@ -82,5 +85,5 @@ const useStyles = makeStyles((theme: Theme) => {
       overflow: 'hidden',
       lineHeight: 1.3,
     }),
-  })
+  });
 })

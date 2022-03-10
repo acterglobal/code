@@ -3,9 +3,11 @@ import React, { FC, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import { Box, IconButton } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { Box, IconButton } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Close as CloseIcon } from '@mui/icons-material'
 
 import { ActerDeleteConfirmDialog as DeleteActivity } from '@acter/components/acter/delete-confirm-dialog'
 import { ActivityBreadcrumbs } from '@acter/components/activity/landing-page/header-section/breadcrumbs'
@@ -111,13 +113,13 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
             <MenuOptions onEdit={handleEdit} onDelete={handleDelete} />
           )}
 
-          <IconButton className={classes.icon} onClick={handleCloseActivity}>
+          <IconButton className={classes.icon} onClick={handleCloseActivity} size="large">
             <CloseIcon />
           </IconButton>
         </Box>
       </Box>
     </Box>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>

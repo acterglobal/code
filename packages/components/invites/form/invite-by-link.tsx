@@ -1,15 +1,10 @@
 import React, { FC, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import {
-  Box,
-  Button,
-  FormGroup,
-  FormLabel,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, Button, FormGroup, FormLabel, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Field, useFormikContext } from 'formik'
 

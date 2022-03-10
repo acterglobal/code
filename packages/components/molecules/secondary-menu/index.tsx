@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { makeStyles, Theme, createStyles, Box } from '@material-ui/core'
+import { Theme, Box } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 

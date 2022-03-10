@@ -1,4 +1,7 @@
-import { createStyles, StyleRules, Theme } from '@material-ui/core'
+import { Theme } from '@mui/material';
+
+import { StyleRules } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
 
 type CommonStyleRules = StyleRules<'item'>
 

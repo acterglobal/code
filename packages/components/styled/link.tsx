@@ -1,5 +1,6 @@
-import { Link as MuiLink } from '@material-ui/core'
-import { createStyles, withStyles } from '@material-ui/core/styles'
+import { Link as MuiLink } from '@mui/material'
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 export const Link = withStyles(
   createStyles({

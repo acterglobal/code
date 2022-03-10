@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  AppBar,
-  createStyles,
-  IconButton,
-  makeStyles,
-  Toolbar,
-} from '@material-ui/core'
-import { Menu as MenuIcon } from '@material-ui/icons'
+import { AppBar, IconButton, Toolbar } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Menu as MenuIcon } from '@mui/icons-material'
 
 import { ProfileButton } from '@acter/components/molecules/profile-button'
 
@@ -25,7 +21,7 @@ export const BottomBar: FC<BottomBarProps> = ({ onOpen }) => {
           color="inherit"
           aria-label="open drawer"
           onClick={() => onOpen()}
-        >
+          size="large">
           <MenuIcon />
         </IconButton>
         <div className={classes.grow} />
@@ -41,7 +37,7 @@ export const BottomBar: FC<BottomBarProps> = ({ onOpen }) => {
         />
       </Toolbar>
     </AppBar>
-  )
+  );
 }
 
 const useStyles = makeStyles(() =>

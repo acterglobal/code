@@ -1,8 +1,7 @@
-import {
-  Button as MuiButton,
-  createStyles,
-  withStyles,
-} from '@material-ui/core'
+import { Button as MuiButton } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 export const Button = withStyles(
   createStyles({

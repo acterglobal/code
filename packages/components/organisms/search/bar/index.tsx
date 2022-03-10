@@ -1,6 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { SearchButton } from '@acter/components/atoms/search/button'
 import { SearchInput } from '@acter/components/atoms/search/input'

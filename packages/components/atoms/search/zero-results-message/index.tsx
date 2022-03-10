@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 
 export const ZeroResultsMessage: FC = () => (
   <Typography variant="body2" aria-label="zero-acters">

@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Button, createStyles, withStyles, Theme } from '@material-ui/core'
-import { AddSharp as AddIcon } from '@material-ui/icons'
+import { Box, Button, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import { AddSharp as AddIcon } from '@mui/icons-material'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'

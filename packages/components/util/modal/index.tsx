@@ -1,7 +1,8 @@
 import React, { FC, ReactNode } from 'react'
 
-import { Modal as MUIModal, Backdrop, Fade } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Modal as MUIModal, Backdrop, Fade } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { TopBar } from '@acter/components/util/modal/top-bar'
 import { TopBarProps } from '@acter/components/util/modal/top-bar'

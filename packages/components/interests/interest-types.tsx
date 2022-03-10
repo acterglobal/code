@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  Divider,
-  Typography,
-  makeStyles,
-  createStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, Divider, Typography, Theme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { Interest } from '@acter/components/interests/interest'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'

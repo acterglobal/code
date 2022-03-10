@@ -2,14 +2,10 @@ import React, { FC, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Badge,
-  ListItem,
-  createStyles,
-  makeStyles,
-  Theme,
-  Box,
-} from '@material-ui/core'
+import { Badge, ListItem, Theme, Box } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import clsx from 'clsx'
 

@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActivitiesSection } from '@acter/components/acter/activities/activities-section'
 import { LandingPageLayout } from '@acter/components/group/layout'

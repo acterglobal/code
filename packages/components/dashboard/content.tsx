@@ -2,14 +2,9 @@ import React, { FC } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  Divider,
-} from '@material-ui/core'
+import { Box, Theme, Typography, Divider } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'

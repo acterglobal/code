@@ -2,13 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Box,
-  Typography,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, Typography, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
@@ -102,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '90px',
       alignItems: 'flex-end',
       paddingBottom: theme.spacing(1.0),
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
       },
@@ -117,7 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'cover',
       overflow: 'hidden',
       zIndex: 99,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
         width: 60,
         height: 60,
@@ -127,7 +124,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       marginLeft: theme.spacing(2),
       flexGrow: 2,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
       },
     },
@@ -139,7 +136,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
       fontSize: '1.3rem',
       fontWeight: theme.typography.fontWeightBold,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.9rem',
       },
     },
@@ -149,7 +146,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     location: {
       color: theme.colors.blue.light,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.9rem',
       },
       marginLeft: theme.spacing(0.5),

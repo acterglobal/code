@@ -1,11 +1,9 @@
 import React, { FC, ReactElement } from 'react'
 
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Tooltip as MUITooltip,
-} from '@material-ui/core'
+import { Theme, Tooltip as MUITooltip } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Color } from '@acter/components/themes/colors'
 

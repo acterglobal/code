@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react'
 
 // import DateUtils from '@date-io/date-fns'
-import { Grid } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
+import { Grid } from '@mui/material'
+import { grey } from '@mui/material/colors'
 
 import { differenceInMinutes, set } from 'date-fns'
 import isValid from 'date-fns/isValid'

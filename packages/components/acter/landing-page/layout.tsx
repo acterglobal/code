@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
+import { Grid, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { HeaderSection as ActerHeaderSection } from '@acter/components/acter/landing-page/header-section'
 import { HeaderSection as ActivityHeaderSection } from '@acter/components/activity/landing-page/header-section'

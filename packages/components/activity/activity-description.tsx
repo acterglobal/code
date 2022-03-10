@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Hidden } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Hidden } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { About } from '@acter/components/activity/about'
 import { InterestsSection } from '@acter/components/interests/interests-section'
@@ -12,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: 5,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       height: '100%',
       overflow: 'scroll',
     },
@@ -29,12 +31,12 @@ export const ActivityDescription: FC<ActivityDescriptionProps> = ({
   const classes = useStyles()
   return (
     <Box className={classes.container}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <About acter={acter} />
       </Hidden>
       <InterestsSection
         selected={acter.ActerInterests.map(({ Interest }) => Interest)}
       />
     </Box>
-  )
+  );
 }

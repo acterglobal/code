@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Button, Typography } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Button, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Acter } from '@acter/schema'

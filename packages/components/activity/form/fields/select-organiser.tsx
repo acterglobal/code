@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, MenuItem, Typography } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, MenuItem, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Field } from 'formik'
 import { Select } from 'formik-material-ui'

@@ -1,14 +1,9 @@
 import { FC } from 'react'
 
-import {
-  AppBar,
-  makeStyles,
-  Theme,
-  createStyles,
-  Toolbar,
-  Typography,
-  useTheme,
-} from '@material-ui/core'
+import { AppBar, Theme, Toolbar, Typography, useTheme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { SettingsIcon } from '@acter/components/icons'
 import { useActer } from '@acter/lib/acter/use-acter'

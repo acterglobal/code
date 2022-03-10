@@ -1,13 +1,9 @@
 import React, { FC, useEffect, useRef } from 'react'
 
-import {
-  Box,
-  Typography,
-  createStyles,
-  makeStyles,
-  useTheme,
-  Theme,
-} from '@material-ui/core'
+import { Box, Typography, useTheme, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchIcon } from '@acter/components/icons/search-icon'

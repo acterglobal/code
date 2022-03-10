@@ -1,12 +1,9 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  TextareaAutosize,
-  useTheme,
-} from '@material-ui/core'
+import { Theme, TextareaAutosize, useTheme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { Field, Form, Formik, FormikBag } from 'formik'
 

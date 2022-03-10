@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { AccessSettings } from '@acter/components/acter/settings/access-settings'
 import { VisibilitySettings } from '@acter/components/acter/settings/visibility-settings'

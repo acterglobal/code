@@ -2,13 +2,10 @@ import React, { FC } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Popover,
-  Box,
-} from '@material-ui/core'
+import { Theme, Popover, Box } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { AddEmojiIcon } from '@acter/components/icons/add-emoji-icon'

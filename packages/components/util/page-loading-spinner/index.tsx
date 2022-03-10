@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Backdrop,
-  CircularProgress,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Backdrop, CircularProgress, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 interface PageLoadingSpinnerProps {
   load?: boolean

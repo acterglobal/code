@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  createStyles,
-  Grid,
-  Hidden,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Grid, Hidden, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { LandingPageLayout } from '@acter/components/group/layout'
 import { DescriptionSection } from '@acter/components/group/sections/description'
@@ -25,7 +22,7 @@ export const GroupLanding: FC = () => {
           <PostList />
         </Grid>
 
-        <Hidden smDown>
+        <Hidden mdDown>
           <Grid item md={4} className={classes.items}>
             <UpcomingActivities />
             <LinksSection />
@@ -35,7 +32,7 @@ export const GroupLanding: FC = () => {
         </Hidden>
       </Grid>
     </LandingPageLayout>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>

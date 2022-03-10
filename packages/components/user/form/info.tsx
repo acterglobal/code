@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Grid, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
@@ -131,7 +134,7 @@ export const ProfileInfoForm: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      margin: `${theme.spacing(2)}px auto`,
+      margin: `${theme.spacing(2)} auto`,
       padding: theme.spacing(4),
       minWidth: 350,
       maxWidth: 960,

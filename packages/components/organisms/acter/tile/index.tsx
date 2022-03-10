@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Hidden } from '@material-ui/core'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { Box, Hidden } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { InterestsSection } from '@acter/components/interests/interests-section'
@@ -25,7 +27,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
         <ActerTileInfo acter={acter} />
       </Box>
 
-      <Hidden smDown>
+      <Hidden mdDown>
         <Box className={classes.interests}>
           <InterestsSection
             selected={acter.ActerInterests?.map(({ Interest }) => Interest)}

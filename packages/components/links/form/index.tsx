@@ -1,10 +1,12 @@
 import React, { FC } from 'react'
 
-import { Box, IconButton } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Delete } from '@material-ui/icons'
-import { Cancel as CancelIcon } from '@material-ui/icons'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import { Box, IconButton } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Delete } from '@mui/icons-material'
+import { Cancel as CancelIcon } from '@mui/icons-material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 import clsx from 'clsx'
 import { Formik, Form, Field, FormikBag } from 'formik'
@@ -79,15 +81,15 @@ export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
             {creating || updating || deleting ? (
               <LoadingSpinner thickness={5} />
             ) : dirty ? (
-              <IconButton disableRipple disableFocusRipple type="submit">
+              <IconButton disableRipple disableFocusRipple type="submit" size="large">
                 <CheckCircleIcon />
               </IconButton>
             ) : link ? (
-              <IconButton onClick={onDelete}>
+              <IconButton onClick={onDelete} size="large">
                 <Delete />
               </IconButton>
             ) : (
-              <IconButton onClick={handleCancel}>
+              <IconButton onClick={handleCancel} size="large">
                 <CancelIcon />
               </IconButton>
             )}
@@ -95,7 +97,7 @@ export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
         </Form>
       )}
     </Formik>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>

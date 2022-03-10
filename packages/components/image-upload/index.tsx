@@ -1,7 +1,10 @@
 import React, { FC, useState, useEffect, createRef, RefObject } from 'react'
 import { FilePond, registerPlugin } from 'react-filepond'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import axios from 'axios'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'

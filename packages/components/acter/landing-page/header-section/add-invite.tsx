@@ -2,7 +2,10 @@ import React, { FC, useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Button, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Button, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'

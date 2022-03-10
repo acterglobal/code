@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { IconButton } from '@material-ui/core'
-import { Edit as EditIcon } from '@material-ui/icons'
+import { IconButton } from '@mui/material'
+import { Edit as EditIcon } from '@mui/icons-material'
 
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -40,18 +40,16 @@ export const EditButton: FC = () => {
 
   if (!isAdmin) return null
 
-  return (
-    <>
-      <IconButton onClick={handleEdit}>
-        <EditIcon />
-      </IconButton>
-      <Drawer
-        heading={heading}
-        open={openDrawer}
-        handleClose={handleDrawerClose}
-      >
-        <EditActer acter={acter} onSubmit={updateActer} />
-      </Drawer>
-    </>
-  )
+  return <>
+    <IconButton onClick={handleEdit} size="large">
+      <EditIcon />
+    </IconButton>
+    <Drawer
+      heading={heading}
+      open={openDrawer}
+      handleClose={handleDrawerClose}
+    >
+      <EditActer acter={acter} onSubmit={updateActer} />
+    </Drawer>
+  </>;
 }

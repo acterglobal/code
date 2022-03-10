@@ -1,14 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import {
-  createStyles,
-  Hidden,
-  IconButton,
-  makeStyles,
-  Theme,
-  useMediaQuery,
-} from '@material-ui/core'
-import { FilterList } from '@material-ui/icons'
+import { Hidden, IconButton, Theme, useMediaQuery } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { FilterList } from '@mui/icons-material'
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchBar } from '@acter/components/organisms/search/bar'
@@ -24,7 +19,7 @@ export const SearchTopBar: FC = () => {
   const [showOtherControls, setShowOtherControls] = useState(true)
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('xs')
+    theme.breakpoints.down('sm')
   )
 
   useEffect(() => {
@@ -58,7 +53,7 @@ export const SearchTopBar: FC = () => {
         <SearchBar onClick={handleSearch} />
 
         <Hidden smUp>
-          <IconButton onClick={() => setShowOtherControls(!showOtherControls)}>
+          <IconButton onClick={() => setShowOtherControls(!showOtherControls)} size="large">
             <FilterList />
           </IconButton>
         </Hidden>
@@ -77,14 +72,14 @@ export const SearchTopBar: FC = () => {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         '& > *': {
           marginBottom: theme.spacing(1),
@@ -97,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     otherControls: {
       display: 'inline',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',

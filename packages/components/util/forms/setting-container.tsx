@@ -1,13 +1,9 @@
 import React, { FC, ReactNode } from 'react'
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Typography,
-  FormControl,
-  Box,
-} from '@material-ui/core'
+import { Theme, Typography, FormControl, Box } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { useActer } from '@acter/lib/acter/use-acter'
 

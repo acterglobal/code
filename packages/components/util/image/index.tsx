@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 import Imgix, { ImgixProviderProps, Background as Banner } from 'react-imgix'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { getFileExtension as getImageExtension } from '@acter/lib/files/get-file-extension'
 

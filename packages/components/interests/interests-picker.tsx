@@ -1,7 +1,10 @@
 import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 
-import { Tabs, Tab, Box } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Tabs, Tab, Box } from '@mui/material'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { getSelectedTypes } from '@acter/lib/interests/get-selected-types'

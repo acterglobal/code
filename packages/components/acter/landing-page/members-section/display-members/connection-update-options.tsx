@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  IconButton,
-  createStyles,
-  makeStyles,
-  Theme,
-  MenuItem,
-} from '@material-ui/core'
-import { MoreHoriz as DotsIcon } from '@material-ui/icons'
+import { IconButton, Theme, MenuItem } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { MoreHoriz as DotsIcon } from '@mui/icons-material'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
@@ -39,7 +35,7 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
   return (
     <DropdownMenu
       anchorNode={
-        <IconButton disableRipple className={classes.iconButton}>
+        <IconButton disableRipple className={classes.iconButton} size="large">
           <DotsIcon fontSize="small" />
         </IconButton>
       }
@@ -57,7 +53,7 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
         Remove as Member
       </MenuItem>
     </DropdownMenu>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>

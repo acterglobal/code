@@ -1,12 +1,9 @@
 import React, { FC, useMemo } from 'react'
 
-import {
-  createStyles,
-  Divider,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Divider, Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'

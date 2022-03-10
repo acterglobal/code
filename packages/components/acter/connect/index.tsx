@@ -1,7 +1,9 @@
 import React, { FC, useMemo } from 'react'
 
-import { Button, makeStyles, createStyles, Theme, Box } from '@material-ui/core'
-import { KeyboardArrowDown } from '@material-ui/icons'
+import { Button, Theme, Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import { KeyboardArrowDown } from '@mui/icons-material'
 
 import { ConnectButton } from '@acter/components/acter/connect/connect-button'
 import { FollowerRow } from '@acter/components/acter/connect/follower-row'

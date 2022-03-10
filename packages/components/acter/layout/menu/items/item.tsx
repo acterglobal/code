@@ -2,17 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-  Box,
-} from '@material-ui/core'
-import { SvgIconComponent } from '@material-ui/icons'
+import { ListItem, ListItemIcon, ListItemText, Theme, useTheme, Box } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { SvgIconComponent } from '@mui/icons-material'
 
 import clsx from 'clsx'
 

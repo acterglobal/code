@@ -1,6 +1,9 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { Button, Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Button, Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import clsx from 'clsx'
 import { Form, Formik, FormikBag } from 'formik'
@@ -273,7 +276,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
 const useStyles = makeStyles((theme: Theme) => {
   const containerPadding = 4
-  const containerHeight = `calc(100vh - ${theme.spacing(containerPadding)}px)`
+  const containerHeight = `calc(100vh - ${theme.spacing(containerPadding)})`
   return createStyles({
     form: { height: containerHeight },
     container: {

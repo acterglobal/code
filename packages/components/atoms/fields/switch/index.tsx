@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  createStyles,
-  Switch as MUISwitch,
-  SwitchProps as MUISwitchProps,
-  Theme,
-  makeStyles,
-} from '@material-ui/core'
+import { Switch as MUISwitch, SwitchProps as MUISwitchProps, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 

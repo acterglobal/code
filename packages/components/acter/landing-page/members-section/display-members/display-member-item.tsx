@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { ListItem, ListItemSecondaryAction } from '@material-ui/core'
+import { ListItem, ListItemSecondaryAction } from '@mui/material'
 
 import { ConnectionUpdateOptions } from '@acter/components/acter/landing-page/members-section/display-members/connection-update-options'
 import { MemberDetails } from '@acter/components/acter/landing-page/members-section/display-members/member-details'

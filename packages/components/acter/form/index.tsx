@@ -1,7 +1,10 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import React, { FC, useState } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Form, Formik } from 'formik'
 
@@ -149,7 +152,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: 30,
       paddingRight: 30,
       paddingBottom: 0,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: 300,
         height: 'auto',
       },

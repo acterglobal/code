@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
-// TODO: refactor below import after update to mui-5
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import { Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'

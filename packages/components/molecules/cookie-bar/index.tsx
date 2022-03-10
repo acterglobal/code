@@ -3,7 +3,9 @@ import CookieConsent from 'react-cookie-consent'
 
 import Link from 'next/link'
 
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 export const CookieBar: FC = () => {
   const classes = useStyles()

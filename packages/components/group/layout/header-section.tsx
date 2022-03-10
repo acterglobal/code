@@ -2,15 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Box,
-  Breadcrumbs,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
+import { Box, Breadcrumbs, Theme, Typography } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { NavigateNext as NavigateNextIcon } from '@mui/icons-material'
 
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'

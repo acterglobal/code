@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { MenuItem, makeStyles, createStyles } from '@material-ui/core'
-import { MoreVert as ThreeDotsIcon } from '@material-ui/icons'
+import { MenuItem } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import { MoreVert as ThreeDotsIcon } from '@mui/icons-material'
 
 import { theme } from '@acter/components/themes/acter-theme'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'

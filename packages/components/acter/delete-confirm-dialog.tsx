@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 import { Button, ButtonsContainer } from '@acter/components/styled'
 import { Acter } from '@acter/schema'

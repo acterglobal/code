@@ -2,7 +2,10 @@ import React, { FC, ReactNode } from 'react'
 
 import NextLink from 'next/link'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Language as Locale } from '@acter/schema'
 

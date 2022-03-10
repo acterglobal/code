@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  SvgIcon,
-  SvgIconProps,
-  makeStyles,
-  createStyles,
-} from '@material-ui/core'
+import { SvgIcon, SvgIconProps } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 export const AddIcon: FC<SvgIconProps> = (props) => {
   const classes = useStyles()

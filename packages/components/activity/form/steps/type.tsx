@@ -1,15 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
-import { NavigateNextOutlined } from '@material-ui/icons'
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { NavigateNextOutlined } from '@mui/icons-material'
 
 import clsx from 'clsx'
 import { useFormikContext } from 'formik'

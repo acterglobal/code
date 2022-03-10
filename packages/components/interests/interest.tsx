@@ -1,12 +1,10 @@
 import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles'
+import { Box, Typography } from '@mui/material'
+import { Theme, useTheme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import clsx from 'clsx'
 

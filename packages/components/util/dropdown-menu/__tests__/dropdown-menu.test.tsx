@@ -3,7 +3,7 @@
  */
 import React from 'react'
 
-import { MenuItem } from '@material-ui/core'
+import { MenuItem } from '@mui/material'
 import userEvent from '@testing-library/user-event'
 
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'

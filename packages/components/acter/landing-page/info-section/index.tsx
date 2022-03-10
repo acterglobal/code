@@ -2,7 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { Header } from '@acter/components/acter/landing-page/info-section/header'

@@ -1,7 +1,9 @@
 import React, { FC, ReactNode } from 'react'
 
-import { Box, Button, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
+import { Box, Button, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from '@mui/material/colors'
 
 import clsx from 'clsx'
 

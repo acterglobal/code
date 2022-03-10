@@ -1,12 +1,9 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
 
-import {
-  Menu,
-  createStyles,
-  makeStyles,
-  Theme,
-  PopoverOrigin,
-} from '@material-ui/core'
+import { Menu, Theme, PopoverOrigin } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const REGULAR_WIDTH = 20
 const LARGE_WIDTH = 30

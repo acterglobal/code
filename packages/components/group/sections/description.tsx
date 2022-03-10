@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'

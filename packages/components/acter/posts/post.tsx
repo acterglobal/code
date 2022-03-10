@@ -2,7 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Grid, Theme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'

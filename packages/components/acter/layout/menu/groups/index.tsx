@@ -2,9 +2,11 @@ import React, { FC, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { Box, Divider, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
-import { AddRounded as AddIcon } from '@material-ui/icons'
+import { Box, Divider, Typography } from '@mui/material'
+import { Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { AddRounded as AddIcon } from '@mui/icons-material'
 
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'

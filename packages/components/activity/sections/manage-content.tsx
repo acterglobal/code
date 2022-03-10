@@ -1,13 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Box,
-  Tabs,
-  Tab,
-} from '@material-ui/core'
+import { Theme, Box, Tabs, Tab } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { MembersSection } from '@acter/components/acter/landing-page/members-section'
 import { SettingsSection } from '@acter/components/acter/settings/settings-section'

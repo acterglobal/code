@@ -2,18 +2,10 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-  Hidden,
-} from '@material-ui/core'
-import { SvgIconComponent } from '@material-ui/icons'
+import { Box, Divider, List, ListItem, Theme, useTheme, Hidden } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { SvgIconComponent } from '@mui/icons-material'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
@@ -61,14 +53,14 @@ export const Sidebar: FC = () => {
         <Locales />
       </FeatureFlag>
 
-      <Hidden smDown>
+      <Hidden mdDown>
         <Divider />
         <Box className={classes.profileItem}>
           <ProfileButton />
         </Box>
       </Hidden>
     </Box>
-  )
+  );
 }
 
 interface IconMenuItemProps {

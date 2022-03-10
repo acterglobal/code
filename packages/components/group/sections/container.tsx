@@ -2,15 +2,10 @@ import React, { FC, ReactNode, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { AddRounded as AddIcon } from '@material-ui/icons'
+import { Box, Button, Theme, Typography } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { AddRounded as AddIcon } from '@mui/icons-material'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'

@@ -1,16 +1,17 @@
 import React, { FC, useState } from 'react'
 import Cropper from 'react-cropper'
 
-import { Box, Button, Modal } from '@material-ui/core/'
-import { green } from '@material-ui/core/colors'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Box, Button, Modal } from '@mui/material/'
+import { green } from '@mui/material/colors'
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   Crop as CropIcon,
   RotateLeft as RotateLeftIcon,
   RotateRight as RotateRightIcon,
   ZoomIn as ZoomInIcon,
   ZoomOut as ZoomOutIcon,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import clsx from 'clsx'
 import 'cropperjs/dist/cropper.css'
@@ -76,11 +77,9 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
   }
 
   return (
-    <Modal
-      className={classes.modal}
-      open={openModal}
-      disableBackdropClick={true}
-    >
+    <Modal// `disableBackdropClick` is removed by codemod.
+// You can find more details about this breaking change in [the migration guide](https://mui.com/guides/migration-v4/#modal)
+ className={classes.modal} open={openModal}>
       <Box
         className={clsx(
           classes.container,
@@ -132,7 +131,7 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
         </Box>
       </Box>
     </Modal>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) => ({

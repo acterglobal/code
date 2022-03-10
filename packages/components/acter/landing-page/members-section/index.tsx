@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 
-import { Box } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles';
 
 import { DisplayActers } from '@acter/components/acter/landing-page/members-section/display-acters'
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'

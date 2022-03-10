@@ -1,9 +1,7 @@
-import {
-  MenuItem as MuiMenuItem,
-  createStyles,
-  withStyles,
-  Theme,
-} from '@material-ui/core'
+import { MenuItem as MuiMenuItem, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 
 export const MenuItem = withStyles((theme: Theme) =>
   createStyles({

@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Box, Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Switch } from '@acter/components/atoms/fields/switch'
 import { Size } from '@acter/lib/constants'

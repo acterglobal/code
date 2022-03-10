@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { ArrowBackSharp as BackIcon } from '@material-ui/icons'
+import { Box, Theme, Typography } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { ArrowBackSharp as BackIcon } from '@mui/icons-material'
 
 import { SinglePost } from '@acter/components/posts/single-post'
 import { Link } from '@acter/components/util/anchor-link'

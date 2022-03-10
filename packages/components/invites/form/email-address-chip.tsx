@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { Close as DeleteIcon } from '@material-ui/icons'
+import { Box, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Close as DeleteIcon } from '@mui/icons-material'
 
 interface EmailAddressChipProps {
   emailAddress: string

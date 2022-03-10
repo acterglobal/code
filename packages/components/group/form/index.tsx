@@ -1,16 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  FormGroup,
-  FormLabel,
-  FormHelperText,
-} from '@material-ui/core'
+import { Box, Button, Theme, Typography, FormGroup, FormLabel, FormHelperText } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Form, Formik, Field } from 'formik'
 import { TextField } from 'formik-material-ui'

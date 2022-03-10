@@ -2,15 +2,10 @@ import React, { FC, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  Tabs,
-  Tab,
-  Box,
-  Grid,
-} from '@material-ui/core'
+import { Theme, Tabs, Tab, Box, Grid } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { SettingsSection } from '@acter/components/acter/settings/settings-section'
 import { TopBar } from '@acter/components/acter/settings/top-bar'

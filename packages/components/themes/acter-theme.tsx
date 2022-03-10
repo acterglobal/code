@@ -1,21 +1,28 @@
 import React, { FC } from 'react'
 
-import { ThemeProvider } from '@material-ui/core/styles'
-import { createTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
 import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
 import { typography } from '@acter/components/themes/fonts'
 
-declare module '@material-ui/core/styles/createTheme' {
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+declare module '@mui/material/styles/createTheme' {
   interface Theme {
     colors: Colors
   }
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     colors: Colors
   }
 }
 
-declare module '@material-ui/core/styles/createMixins' {
+declare module '@mui/material/styles/createMixins' {
   interface SidebarMixin {
     primaryWidth: number
     secondaryWidth: number
@@ -25,7 +32,7 @@ declare module '@material-ui/core/styles/createMixins' {
   }
 }
 
-export const theme = createTheme({
+export const theme = createTheme(adaptV4Theme({
   palette: paletteColors,
 
   colors: colors,
@@ -45,10 +52,12 @@ export const theme = createTheme({
       secondaryWidth: 22,
     },
   },
-})
+}))
 
 export const acterTheme = responsiveFontSizes(theme)
 
 export const ActerThemeProvider: FC = ({ children }) => (
-  <ThemeProvider theme={acterTheme}>{children}</ThemeProvider>
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={acterTheme}>{children}</ThemeProvider>
+  </StyledEngineProvider>
 )

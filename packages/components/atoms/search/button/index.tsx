@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Button,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { green } from '@material-ui/core/colors'
+import { Button, Theme, Typography } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { green } from '@mui/material/colors'
 
 export interface SearchButtonProps {
   onClick: () => void
@@ -37,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: green[500],
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         minWidth: theme.spacing(10),
       },
     },

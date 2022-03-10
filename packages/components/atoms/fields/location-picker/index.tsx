@@ -9,13 +9,12 @@ import {
   TextField,
   TextFieldProps,
   Typography,
-} from '@material-ui/core'
-import LocationOnIcon from '@material-ui/icons/LocationOn'
-import {
-  Autocomplete,
-  AutocompleteChangeReason,
-  AutocompleteProps,
-} from '@material-ui/lab'
+} from '@mui/material'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { Autocomplete } from '@mui/material';
+import { AutocompleteProps } from '@mui/lab';
+
+import { AutocompleteChangeReason } from '@mui/material/useAutocomplete';
 
 import { useFormikContext } from 'formik'
 import usePlacesAutocomplete, {

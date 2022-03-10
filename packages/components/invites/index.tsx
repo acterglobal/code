@@ -2,14 +2,10 @@ import React, { FC, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Tab,
-  Tabs,
-  Theme,
-} from '@material-ui/core'
+import { Box, Tab, Tabs, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { InviteForm } from '@acter/components/invites/form'
 import { Invitations } from '@acter/components/invites/invitations'

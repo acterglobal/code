@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Box, Theme } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 import { Connect } from '@acter/components/acter/connect'
 import { ImageSection } from '@acter/components/activity/tile/image-section'

@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  Hidden,
-  Typography,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { Box, Hidden, Typography, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
@@ -70,7 +66,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
             </Box>
           </Box>
 
-          <Hidden xsDown>
+          <Hidden smDown>
             <Box>
               <EditButton />
               <DeleteButton />
@@ -84,7 +80,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         </Box>
       </Box>
     </Box>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -99,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '80px',
       alignItems: 'flex-end',
       paddingBottom: theme.spacing(2.2),
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
       },
@@ -114,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'cover',
       overflow: 'hidden',
       zIndex: 99,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
         width: 60,
         height: 60,
@@ -124,13 +120,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       marginLeft: theme.spacing(2),
       flexGrow: 2,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
       },
     },
     title: {
       fontWeight: theme.typography.fontWeightBold,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.9rem',
       },
     },
@@ -140,14 +136,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     acterType: {
       color: theme.palette.secondary.dark,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.7rem',
       },
       marginRight: theme.spacing(0.5),
     },
     location: {
       color: theme.palette.secondary.dark,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.7rem',
       },
       marginLeft: theme.spacing(0.5),

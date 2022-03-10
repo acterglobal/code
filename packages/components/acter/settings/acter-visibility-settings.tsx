@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
+import { FormControl, FormLabel, RadioGroup, Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Formik, Form } from 'formik'
 

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 
-import { IconButton } from '@material-ui/core'
-import { Delete as DeleteIcon } from '@material-ui/icons'
+import { IconButton } from '@mui/material'
+import { Delete as DeleteIcon } from '@mui/icons-material'
 
 import { ActerDeleteConfirmDialog as DeleteActer } from '@acter/components/acter/delete-confirm-dialog'
 import { Drawer } from '@acter/components/util/drawer'
@@ -37,23 +37,21 @@ export const DeleteButton: FC = () => {
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   if (!isAdmin) return null
 
-  return (
-    <>
-      <IconButton onClick={handleDelete}>
-        <DeleteIcon />
-      </IconButton>
+  return <>
+    <IconButton onClick={handleDelete} size="large">
+      <DeleteIcon />
+    </IconButton>
 
-      <Drawer
-        heading={heading}
-        open={openDrawer}
-        handleClose={handleDrawerClose}
-      >
-        <DeleteActer
-          acter={acter}
-          onCancel={handleDrawerClose}
-          onSubmit={() => deleteActer(acter.id)}
-        />
-      </Drawer>
-    </>
-  )
+    <Drawer
+      heading={heading}
+      open={openDrawer}
+      handleClose={handleDrawerClose}
+    >
+      <DeleteActer
+        acter={acter}
+        onCancel={handleDrawerClose}
+        onSubmit={() => deleteActer(acter.id)}
+      />
+    </Drawer>
+  </>;
 }

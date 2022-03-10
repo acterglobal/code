@@ -1,6 +1,9 @@
 import React, { FC, ReactNode } from 'react'
 
-import { Box, createStyles, makeStyles } from '@material-ui/core'
+import { Box } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { HeaderSection } from '@acter/components/group/layout/header-section'

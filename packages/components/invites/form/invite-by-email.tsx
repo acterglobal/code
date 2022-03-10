@@ -1,15 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import {
-  Box,
-  Button,
-  FormGroup,
-  FormLabel,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Box, Button, FormGroup, FormLabel, Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { validate } from 'email-validator'
 import { Field, useFormikContext } from 'formik'

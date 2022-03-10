@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { LocationOnOutlined } from '@material-ui/icons'
+import { Box, Theme, Typography } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { LocationOnOutlined } from '@mui/icons-material'
 
 import { Acter } from '@acter/schema'
 
@@ -63,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     location: {
       fontSize: '0.9rem',
       fontWeight: theme.typography.fontWeightLight,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.8rem',
       },
     },

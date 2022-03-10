@@ -1,13 +1,9 @@
 import { FC, useState } from 'react'
 
-import {
-  Button,
-  makeStyles,
-  createStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
-import { AddCircleOutlineOutlined } from '@material-ui/icons'
+import { Button, Theme, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import { AddCircleOutlineOutlined } from '@mui/icons-material'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { ManageContent } from '@acter/components/group/sections/manage-content'

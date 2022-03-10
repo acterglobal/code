@@ -1,13 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  IconButton,
-  Typography,
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
-import { AccountCircle, KeyboardArrowDownOutlined } from '@material-ui/icons'
+import { IconButton, Typography, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { AccountCircle, KeyboardArrowDownOutlined } from '@mui/icons-material'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { User } from '@acter/schema'
@@ -47,7 +43,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
       color="inherit"
       aria-label="profile-button"
       className={classes.root}
-    >
+      size="large">
       {user.Acter?.avatarUrl ? (
         <ActerAvatar acter={user.Acter} size={4} />
       ) : (
@@ -58,5 +54,5 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
       </Typography>
       <KeyboardArrowDownOutlined className={classes.downIcon} />
     </IconButton>
-  )
+  );
 }

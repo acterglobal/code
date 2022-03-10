@@ -1,14 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  createStyles,
-  makeStyles,
-  MenuItem,
-  Theme,
-  Link as MuiLink,
-  Box,
-  PopoverOrigin,
-} from '@material-ui/core'
+import { MenuItem, Theme, Link as MuiLink, Box, PopoverOrigin } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'

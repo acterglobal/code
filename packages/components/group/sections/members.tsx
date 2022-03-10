@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Theme } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
 import { SectionContainer } from '@acter/components/group/sections/container'

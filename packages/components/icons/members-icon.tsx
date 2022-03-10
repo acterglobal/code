@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { SvgIcon, SvgIconProps, useTheme } from '@material-ui/core'
+import { SvgIcon, SvgIconProps, useTheme } from '@mui/material'
 
 export const MembersIcon: FC<SvgIconProps> = (props) => {
   const theme = useTheme()

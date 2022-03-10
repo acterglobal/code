@@ -1,15 +1,9 @@
 import React, { FC } from 'react'
 
-import {
-  FormControlLabel,
-  Radio,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  Box,
-} from '@material-ui/core'
-import { CheckCircle } from '@material-ui/icons'
+import { FormControlLabel, Radio, Theme, Typography, Box } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { CheckCircle } from '@mui/icons-material'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 

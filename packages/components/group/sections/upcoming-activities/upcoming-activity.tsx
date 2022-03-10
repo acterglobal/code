@@ -1,13 +1,9 @@
 import { FC } from 'react'
 
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Box, Button, Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'

@@ -1,13 +1,10 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  withStyles,
-  Theme,
-  makeStyles,
-  Typography,
-} from '@material-ui/core'
+import { Box, Theme, Typography } from '@mui/material';
+
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { ActivityTile } from '@acter/components/activity/tile'
 import { Link } from '@acter/components/util/anchor-link'
