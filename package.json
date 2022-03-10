@@ -33,7 +33,13 @@
     "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
     "@material-ui/core": "4.12.3",
+    "@mui/icons-material": "^5.5.0",
+    "@mui/lab": "^5.0.0-alpha.72",
+    "@mui/material": "^5.5.0",
+    "@mui/styles": "^5.5.0",
     "axios": "0.26.0",
     "bullmq": "1.40.1",
     "date-fns": "2.23.0",
