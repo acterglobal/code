@@ -33,12 +33,14 @@ export interface ActerAvatarProps {
 export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   const classes = useStyles({ size })
 
+  if (!acter) return null
+
   const avatarUrl = useMemo(
     () =>
       acter.avatarUrl
         ? `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
         : '',
-    [acter?.avatarUrl]
+    [acter.avatarUrl]
   )
 
   return (

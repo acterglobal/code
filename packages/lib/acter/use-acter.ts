@@ -6,6 +6,7 @@ import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
+import { getParentActer } from '@acter/lib/activity/get-parent-acter'
 import { Acter } from '@acter/schema'
 import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
 import QUERY_ACTER_SLUG from '@acter/schema/queries/acter-by-slug.graphql'
@@ -131,9 +132,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
         setActer(data.acter)
       } else {
         const { findFirstActer: acter } = data
-        const parentActer = acter?.Parent
-          ? acter?.Parent
-          : acter?.Activity?.Organiser
+        const parentActer = getParentActer(acter)
         if (fetchParent && parentActer) {
           setActerId(parentActer.id)
         }

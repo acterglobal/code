@@ -12,12 +12,14 @@ type ImageSectionProps = ActivityTileProps
 export const ImageSection: FC<ImageSectionProps> = ({ activity }) => {
   const classes = useStyles()
 
+  if (!activity) return null
+
   return (
     <Box>
       <Box className={classes.image}>
         <Image
-          src={getImageUrl(activity.Acter?.bannerUrl, 'banner')}
-          alt={activity?.Acter?.name}
+          src={getImageUrl(activity.Acter.bannerUrl, 'banner')}
+          alt={activity.Acter.name}
           height={85}
         />
         <ActivityAvatar activity={activity} />
