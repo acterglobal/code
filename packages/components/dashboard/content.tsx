@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
     headingSection: {
       marginTop: 20,
       width: '100%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       position: 'fixed',
       zIndex: 99,
       textTransform: 'capitalize',

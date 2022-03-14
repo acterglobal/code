@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Switch } from '@acter/components/atoms/fields/switch'
 import { Size } from '@acter/lib/constants'
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 12,
       borderRadius: '50%',
       backgroundColor: ({ type }: { type: string }) =>
-        type && theme.colors.activityTypes[type],
+        type && theme.palette.activityTypes[type],
     },
   })
 )

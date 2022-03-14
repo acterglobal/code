@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { Box, ListItem, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, ListItem, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Action } from '@acter/components/invites/requests/action'
+import { blueGrey } from '@acter/components/themes/colors'
 import { ActerTypes } from '@acter/lib/constants'
 import { InviteActions } from '@acter/lib/constants'
 import { ActerConnection as RequestType } from '@acter/schema'
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     byActer: {
       fontSize: '0.8rem',
       fontWeight: theme.typography.fontWeightMedium,
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
     },
     actions: {
       width: '50%',

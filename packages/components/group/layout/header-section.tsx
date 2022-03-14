@@ -10,6 +10,7 @@ import { NavigateNext as NavigateNextIcon } from '@mui/icons-material'
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -72,12 +73,12 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     icon: {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
     name: {
       fontWeight: theme.typography.fontWeightBold,
       fontSize: 14,
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
     activities: {
       fontWeight: theme.typography.fontWeightMedium,

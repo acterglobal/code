@@ -2,14 +2,15 @@ import React, { FC, ReactNode, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, Button, Theme, Typography } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { AddRounded as AddIcon } from '@mui/icons-material'
+import { Box, Button, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ManageContent } from '@acter/components/group/sections/manage-content'
+import { blueGrey } from '@acter/components/themes/colors'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
@@ -115,7 +116,7 @@ type HoverStyle = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing(1.5),
       borderRadius: 6,
       padding: theme.spacing(2.5),
@@ -132,7 +133,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       fontWeight: theme.typography.fontWeightMedium,
       fontSize: 14,
-      color: theme.colors.blue.dark,
+      color: blueGrey.A700,
     },
     buttons: {
       display: 'flex',
@@ -142,9 +143,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: ({ onHover }: HoverStyle) => (onHover ? 'block' : 'none'),
       fontSize: 20,
       cursor: 'pointer',
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
       '&:hover': {
-        color: theme.colors.grey.dark,
+        color: blueGrey.A700,
       },
     },
     button: {
@@ -153,11 +154,11 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'none',
       textDecoration: 'underline',
       fontSize: 12,
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
       '&:hover': {
-        color: theme.colors.grey.dark,
+        color: blueGrey.A700,
         textDecoration: 'underline',
-        backgroundColor: theme.colors.white,
+        backgroundColor: theme.palette.background.paper,
       },
     },
   })

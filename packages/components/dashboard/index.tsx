@@ -45,7 +45,7 @@ const TopSection: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       minHeight: '100vh',
     },
     topSection: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       width: '100%',
       height: 52,
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
     },
     heading: {
       fontSize: theme.spacing(2),

@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { Theme, Box, Typography } from '@mui/material/';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme, Box, Typography } from '@mui/material/'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
+import { blueGrey } from '@acter/components/themes/colors'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreatePostReaction } from '@acter/lib/post/use-create-post-reaction'
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
       backgroundColor: ({ isComment }: { isComment: boolean }) =>
-        isComment ? theme.colors.white : theme.colors.grey.extraLight,
+        isComment ? theme.palette.background.paper : blueGrey.A100,
       borderRadius: 30,
       marginRight: theme.spacing(0.5),
       fontWeight: theme.typography.fontWeightLight,

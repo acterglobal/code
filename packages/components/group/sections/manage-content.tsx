@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
     tab: {
       minWidth: theme.spacing(12),
       fontWeight: theme.typography.fontWeightRegular,
-      color: theme.colors.black,
+      color: 'black',
       fontSize: '0.88rem',
       textTransform: 'capitalize',
     },

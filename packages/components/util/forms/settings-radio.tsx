@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
-import { FormControlLabel, Radio, Theme, Typography, Box } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { CheckCircle } from '@mui/icons-material'
+import { FormControlLabel, Radio, Theme, Typography, Box } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     radioLabel: {
       justifyContent: 'space-between',
-      color: theme.colors.black,
+      color: 'black',
     },
     radio: {
       padding: 5,

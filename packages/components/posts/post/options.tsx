@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { MenuItem } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
 import { MoreVert as ThreeDotsIcon } from '@mui/icons-material'
+import { MenuItem } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
-import { theme } from '@acter/components/themes/acter-theme'
+import { blueGrey } from '@acter/components/themes/colors'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { capitalize } from '@acter/lib/string/capitalize'
 
@@ -43,7 +43,7 @@ export const PostOptions: FC<PostOptionsProps> = ({
 const useStyles = makeStyles(
   createStyles({
     threeDotsIcon: {
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
       cursor: 'pointer',
     },
     menuItem: {

@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 
-import { SvgIcon, SvgIconProps, useTheme } from '@mui/material'
+import { SvgIcon, SvgIconProps } from '@mui/material'
+import { blueGrey } from '@mui/material/colors'
 
 export const SearchIcon: FC<SvgIconProps> = (props) => {
-  const theme = useTheme()
+  const color = props.style?.color || blueGrey.A200
   return (
     <SvgIcon {...props}>
       <svg
@@ -15,7 +16,7 @@ export const SearchIcon: FC<SvgIconProps> = (props) => {
       >
         <path
           d="M17.6062 9C17.6062 13.6917 13.7796 17.5 9.05311 17.5C4.32658 17.5 0.5 13.6917 0.5 9C0.5 4.30835 4.32658 0.5 9.05311 0.5C13.7796 0.5 17.6062 4.30835 17.6062 9Z"
-          stroke={props.style?.color || theme.colors.grey.main}
+          stroke={color}
           strokeWidth={props.style?.fontWeight === 'bold' ? 2.3 : undefined}
         />
         <rect
@@ -23,7 +24,7 @@ export const SearchIcon: FC<SvgIconProps> = (props) => {
           height="7.58208"
           rx="1"
           transform="matrix(0.658256 -0.752795 0.756617 0.653859 16.8555 16.1123)"
-          fill={props.style?.color || theme.colors.grey.main}
+          fill={color}
         />
       </svg>
     </SvgIcon>

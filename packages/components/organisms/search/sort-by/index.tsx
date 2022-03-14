@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { DoneRounded as SelectedIcon } from '@mui/icons-material'
+import { Box, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
+import { blueGrey } from '@acter/components/themes/colors'
 import { Popover } from '@acter/components/util/popover'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       fontSize: 20,
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
   })
 )

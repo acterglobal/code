@@ -2,14 +2,15 @@ import React, { FC, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { Box, Divider, Typography } from '@mui/material'
-import { Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { AddRounded as AddIcon } from '@mui/icons-material'
+import { Box, Divider, Typography } from '@mui/material'
+import { Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { grey } from '@acter/components/themes/colors'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
@@ -109,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
       color: theme.palette.secondary.contrastText,
       '&:hover': {
-        color: theme.colors.white,
+        color: theme.palette.background.paper,
       },
     },
   })

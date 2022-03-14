@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { Box, Button, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Button, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
+import { blueGrey } from '@acter/components/themes/colors'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Activity } from '@acter/schema'
 
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     location: {
       fontSize: theme.spacing(1.3),
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
       fontWeight: theme.typography.fontWeightBold,
       marginLeft: theme.spacing(0.5),
     },

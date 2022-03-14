@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { Box, Divider, Typography, Theme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Box, Divider, Typography, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Interest } from '@acter/components/interests/interest'
+import { blueGrey } from '@acter/components/themes/colors'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
 import { InterestType } from '@acter/schema'
 
@@ -122,11 +122,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(0.8),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      backgroundColor: theme.colors.grey.main,
+      backgroundColor: blueGrey.A200,
     },
     title: {
       color: ({ typeName }: { typeName: string }) =>
-        theme.colors.interestTypes[typeName],
+        theme.palette.interestTypes[typeName],
     },
   })
 )

@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react'
 
 import { Box } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -14,6 +13,7 @@ import {
   PostFormProps,
   PostFormValues,
 } from '@acter/components/posts/form'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateComment } from '@acter/lib/post/use-create-comment'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
@@ -110,21 +110,21 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1.5),
       width: '100%',
       height: 40,
-      borderColor: theme.colors.grey.main,
+      borderColor: blueGrey.A200,
       borderRadius: theme.spacing(1),
       border: '1px solid',
       outline: 'none',
       fontFamily: theme.typography.fontFamily,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: 11,
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
     },
     commentField: {
       border: 'none',
       height: theme.spacing(4.5),
       padding: theme.spacing(1),
       paddingTop: theme.spacing(1.3),
-      backgroundColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey[50],
       color: theme.palette.secondary.main,
     },
   })

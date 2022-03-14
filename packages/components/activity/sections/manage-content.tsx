@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 
-import { Theme, Box, Tabs, Tab } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, Box, Tabs, Tab } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { MembersSection } from '@acter/components/acter/landing-page/members-section'
 import { SettingsSection } from '@acter/components/acter/settings/settings-section'
@@ -96,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
     tab: {
       minWidth: theme.spacing(12),
       fontWeight: theme.typography.fontWeightRegular,
-      color: theme.colors.black,
+      color: 'black',
       fontSize: '0.88rem',
       textTransform: 'capitalize',
     },

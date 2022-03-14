@@ -2,10 +2,9 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, ListItem, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, ListItem, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -74,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         '&:hover': {
-          color: theme.colors.white,
+          color: theme.palette.background.paper,
         },
       },
       marginBottom: theme.spacing(0.8),
@@ -87,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
     },
     active: {
-      color: theme.colors.white,
+      color: theme.palette.background.paper,
       fontWeight: theme.typography.fontWeightMedium,
     },
   })

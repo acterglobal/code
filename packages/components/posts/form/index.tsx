@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 
-import { Theme, TextareaAutosize, useTheme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme, TextareaAutosize, useTheme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Field, Form, Formik, FormikBag } from 'formik'
 
+import { blueGrey } from '@acter/components/themes/colors'
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { Size } from '@acter/lib/constants'
@@ -92,7 +92,7 @@ export const PostForm: FC<PostFormProps> = ({
               height={theme.spacing(1)}
               borderStyles={{
                 radius: theme.spacing(1),
-                color: theme.colors.grey.main,
+                color: blueGrey.A200,
               }}
               toolbarSize={Size.SMALL}
               initialValue={initialValues.content}
@@ -132,8 +132,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       width: '100%',
       height: theme.spacing(4.5),
-      backgroundColor: theme.colors.grey.extraLight,
-      borderColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey.A100,
+      borderColor: blueGrey.A100,
       borderRadius: theme.spacing(1),
       border: 'none',
       outline: 'none',

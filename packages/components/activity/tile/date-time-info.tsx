@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(1),
       height: 12,
-      color: theme.colors.blue.light,
+      color: theme.palette.blue.light,
     },
     startSection: {
       display: 'flex',

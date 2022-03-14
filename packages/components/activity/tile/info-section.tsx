@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     location: {
       fontSize: '0.8rem',
-      color: theme.colors.blue.light,
+      color: theme.palette.blue.light,
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 1,

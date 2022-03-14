@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 
 import { Box, FormLabel } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
@@ -16,6 +15,7 @@ import { Switch } from '@acter/components/atoms/fields/switch'
 import { LocationVenuePicker } from '@acter/components/molecules/fields/location-venue-picker'
 import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
+import { blueGrey } from '@acter/components/themes/colors'
 
 export type MeetingStepProps = SettingsStepProps
 
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.secondary.light,
   },
   label: {
-    color: theme.colors.grey.dark,
+    color: blueGrey.A700,
     fontSize: '0.9rem',
     fontWeight: theme.typography.fontWeightBold,
   },

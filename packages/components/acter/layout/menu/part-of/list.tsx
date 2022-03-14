@@ -1,9 +1,14 @@
 import React, { FC } from 'react'
 
-import { Box, ListItem, ListItemAvatar, ListItemText, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Box,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Theme,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Link } from '@acter/components/util/anchor-link'
@@ -64,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
         textDecoration: 'none',
         '&:hover': {
-          color: theme.colors.white,
+          color: theme.palette.background.paper,
         },
       },
     },

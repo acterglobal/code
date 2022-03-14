@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, Grid, Hidden, Theme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Grid, Hidden, Theme } from '@mui/material'
+import { blueGrey } from '@mui/material/colors'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActivityDescription } from '@acter/components/activity/activity-description'
 import { Participants } from '@acter/components/activity/participants'
@@ -43,12 +43,12 @@ export const ActivityDetails: FC<ActivityDetailsProps> = ({
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   activityDetails: {
-    backgroundColor: theme.colors.grey.extraLight,
+    backgroundColor: blueGrey.A100,
     columnGap: '120px',
     alignItems: 'center',
     justifyContent: 'center',

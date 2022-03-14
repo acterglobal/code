@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react'
 
-import { Theme, Typography, FormControl, Box } from '@mui/material';
+import { Theme, Typography, FormControl, Box } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
-
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActer } from '@acter/lib/acter/use-acter'
 
 interface SettingContainerProps {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontSize: '0.88rem',
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
       fontWeight: theme.typography.fontWeightLight,
       display: 'flex',
       alignItems: 'center',
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(0.5),
       marginRight: theme.spacing(0.5),
       fontSize: '0.88rem',
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       fontWeight: theme.typography.fontWeightMedium,
     },
   })

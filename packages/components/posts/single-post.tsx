@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 
 import { Box, Divider } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { Post } from '@acter/components/posts/post/index'
+import { blueGrey } from '@acter/components/themes/colors'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       whiteSpace: 'pre-line',
     },
     divider: {
-      backgroundColor: theme.colors.grey.main,
+      backgroundColor: blueGrey.A200,
       marginTop: 8,
       marginBottom: 16,
     },

@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 
-import { SvgIcon, SvgIconProps, useTheme } from '@mui/material'
+import { SvgIcon, SvgIconProps } from '@mui/material'
+
+import { grey } from '@acter/components/themes/colors'
 
 export const ActivityLocationIcon: FC<SvgIconProps> = (props) => {
-  const theme = useTheme()
-  const iconColor = props.style?.color || theme.colors.blue.light
+  const iconColor = props.style?.color || grey.A100
 
   return (
     <SvgIcon {...props}>

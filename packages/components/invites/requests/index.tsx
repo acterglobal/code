@@ -6,6 +6,7 @@ import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Request } from '@acter/components/invites/requests/request'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(7),
       fontSize: '0.85rem',
       textAlign: 'center',
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
     list: {
       marginTop: theme.spacing(3),

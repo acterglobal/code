@@ -2,10 +2,9 @@ import { FC, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -74,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: 10,
     },
     locale: {
-      color: theme.colors.white,
+      color: theme.palette.background.paper,
       fontSize: 10,
       fontWeight: theme.typography.fontWeightLight,
     },

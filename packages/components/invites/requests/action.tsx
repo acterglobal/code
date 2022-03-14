@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Button, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Button, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -25,10 +24,8 @@ interface ActionProps {
 export const Action: FC<ActionProps> = ({ action, request }) => {
   const classes = useStyles()
 
-  const [
-    { fetching: updatingConnection },
-    updateActerConnection,
-  ] = useUpdateActerConnection()
+  const [{ fetching: updatingConnection }, updateActerConnection] =
+    useUpdateActerConnection()
 
   const handleClick = () => {
     const role = action === InviteActions.APPROVE ? MEMBER : REJECTED
@@ -56,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.main,
     },
     reject: {
-      color: theme.colors.red,
+      color: theme.palette.error.main,
     },
   })
 )

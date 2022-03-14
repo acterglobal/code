@@ -2,10 +2,9 @@ import React, { FC } from 'react'
 
 import Link from 'next/link'
 
-import { Box, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       cursor: 'pointer',
       fontSize: theme.spacing(1.5),
-      backgroundColor: theme.colors.others.searchTab,
+      backgroundColor: theme.palette.secondary.light,
     },
     activeTab: {
       height: '100%',

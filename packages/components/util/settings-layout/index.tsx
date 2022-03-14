@@ -15,6 +15,7 @@ import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
+import { blueGrey } from '@acter/components/themes/colors'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export const SettingsContainer: FC = ({ children }) => {
@@ -87,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(4),
     },
     menu: {
-      borderRight: `1px solid ${theme.colors.grey.main}`,
+      borderRight: `1px solid ${blueGrey.A200}`,
     },
     item: {},
     activeItem: {
@@ -106,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.2rem',
       paddingBottom: theme.spacing(1),
       marginBottom: theme.spacing(2),
-      borderBottom: `1px solid ${theme.colors.grey.main}`,
+      borderBottom: `1px solid ${blueGrey.A200}`,
     },
   })
 )

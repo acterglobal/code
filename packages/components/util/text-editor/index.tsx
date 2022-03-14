@@ -10,6 +10,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 
+import { blueGrey } from '@acter/components/themes/colors'
 import { Size } from '@acter/lib/constants'
 
 const Editor = dynamic(
@@ -112,18 +113,18 @@ export const TextEditor: FC<TextEditorProps> = ({
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     wrapper: {
       border: '1px solid',
       borderColor: ({ borderStyles }: stylesProp) =>
-        borderStyles?.color || theme.colors.grey.main,
+        borderStyles?.color || blueGrey.A200,
       borderRadius: ({ borderStyles }: stylesProp) => borderStyles?.radius || 4,
       width: ({ size }: stylesProp) => size.width || '100%',
       minHeight: ({ size }: stylesProp) => size.height,
     },
     toolBar: {
-      backgroundColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey.A100,
       marginBottom: 0,
       borderTopLeftRadius: ({ borderStyles }: stylesProp) =>
         borderStyles?.radius || 4,

@@ -38,8 +38,8 @@ export const commonStyles = (theme: Theme): CommonStyleRules =>
         color: theme.palette.secondary.contrastText,
       },
       '& .MuiBadge-colorError': {
-        color: theme.colors.white,
-        backgroundColor: theme.colors.others.notificationBadge,
+        color: theme.palette.background.paper,
+        backgroundColor: theme.palette.error.light,
       },
       '& .MuiBadge-badge': {
         height: theme.spacing(2),

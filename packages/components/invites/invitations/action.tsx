@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { Button, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Button, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 import { InviteActions } from '@acter/lib/constants'
 import { useUpdateInvite } from '@acter/lib/invites/use-update-invite'
 import { Invite } from '@acter/schema'
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.85rem',
     },
     cancel: {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
     resend: {
       color: theme.palette.primary.main,

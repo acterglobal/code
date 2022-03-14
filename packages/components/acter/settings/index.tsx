@@ -2,10 +2,9 @@ import React, { FC, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Theme, Tabs, Tab, Box, Grid } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme, Tabs, Tab, Box, Grid } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { SettingsSection } from '@acter/components/acter/settings/settings-section'
 import { TopBar } from '@acter/components/acter/settings/top-bar'
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
     acterSettings: {
       margin: 'auto',
       minHeight: '94vh',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

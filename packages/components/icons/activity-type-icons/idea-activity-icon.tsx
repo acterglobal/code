@@ -4,7 +4,7 @@ import { SvgIcon, SvgIconProps, useTheme } from '@mui/material'
 
 export const IdeaActivityIcon: FC<SvgIconProps> = (props) => {
   const theme = useTheme()
-  const iconColor = props.style?.color || theme.colors.activityTypes.idea
+  const iconColor = props.style?.color || theme.palette.activityTypes.idea
 
   return (
     <SvgIcon {...props}>

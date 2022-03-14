@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Theme } from '@mui/material'
+import { ToggleButton, ToggleButtonGroup } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { ActivityTypes } from '@acter/lib/constants'
 
@@ -64,14 +65,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
       '& .MuiToggleButton-root.Mui-selected': {
         backgroundColor: ({ color }: { color: ActivityTypes }) =>
-          theme.colors.activityTypes[color],
+          theme.palette.activityTypes[color],
         borderColor: ({ color }: { color: ActivityTypes }) =>
-          theme.colors.activityTypes[color],
+          theme.palette.activityTypes[color],
       },
     },
     button: {
       width: '33.39%',
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
     },
   })
 )

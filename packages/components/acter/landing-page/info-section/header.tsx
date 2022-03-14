@@ -1,19 +1,20 @@
 import React, { FC } from 'react'
 
 import { Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import MarkDown from 'markdown-to-jsx'
 
-export interface headerProps {
+import { grey } from '@acter/components/themes/colors'
+
+export interface InfoSectionHeaderProps {
   title: string
   description: string
 }
 
-export const Header: FC<headerProps> = ({ title, description }) => {
+export const Header: FC<InfoSectionHeaderProps> = ({ title, description }) => {
   const classes = useStyles()
   return (
     <>
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontWeight: 600,
       marginBottom: theme.spacing(2),
-      color: theme.colors.content.title,
+      color: grey[900],
     },
     description: {
       fontSize: '0.813rem',

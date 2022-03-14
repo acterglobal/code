@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react'
 
 import { Box, InputLabel, Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
@@ -14,6 +13,7 @@ import {
   ActerTypePickerValues,
 } from '@acter/components/atoms/fields/acter-type-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
+import { blueGrey } from '@acter/components/themes/colors'
 import { TextEditor } from '@acter/components/util/text-editor'
 
 export interface BasicInformationValues extends ActerTypePickerValues {
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       textAlign: 'center',
       marginBottom: theme.spacing(2),
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       fontWeight: theme.typography.fontWeightLight,
     },
     textEditor: {

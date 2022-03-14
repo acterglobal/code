@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 
 import { Box, Typography } from '@mui/material'
-import { Theme, useTheme } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, useTheme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
+import { blueGrey } from '@acter/components/themes/colors'
 import { Image } from '@acter/components/util/image'
 import { Tooltip } from '@acter/components/util/tool-tip'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
@@ -85,7 +85,7 @@ const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
         <Tooltip
           title={interest.name}
           backgroundColor={theme.palette.secondary.main}
-          color={theme.colors.white}
+          color={theme.palette.background.paper}
         >
           <Typography className={classes.name} variant="caption" noWrap>
             {type === TAGS ? `# ${interest.name}` : interest.name}
@@ -119,18 +119,18 @@ const useStyles = makeStyles((theme: Theme) => {
     }),
     // TODO: refactor to use InterestType-specific classes
     outline: ({ type }: StyleProps) => ({
-      borderColor: theme.colors.interestTypes[type],
-      color: theme.colors.interestTypes[type],
+      borderColor: theme.palette.interestTypes[type],
+      color: theme.palette.interestTypes[type],
     }),
     selected: ({ type }: StyleProps) => ({
       border: type === TAGS ? '1px solid' : 'none',
-      borderColor: type === TAGS && theme.colors.interestTypes[type],
-      backgroundColor: type !== TAGS ? theme.colors.interestTypes[type] : '',
-      color: type === TAGS ? theme.colors.interestTypes[type] : 'white',
+      borderColor: type === TAGS && theme.palette.interestTypes[type],
+      backgroundColor: type !== TAGS ? theme.palette.interestTypes[type] : '',
+      color: type === TAGS ? theme.palette.interestTypes[type] : 'white',
     }),
     disable: {
-      color: theme.colors.grey.main,
-      borderColor: theme.colors.grey.main,
+      color: blueGrey.A200,
+      borderColor: blueGrey.A200,
       cursor: 'default',
     },
     name: ({ size }: StyleProps) => ({

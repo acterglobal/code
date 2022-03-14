@@ -4,25 +4,15 @@ import {
   ThemeProvider,
   Theme,
   StyledEngineProvider,
-  adaptV4Theme,
 } from '@mui/material/styles'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
 import { typography } from '@acter/components/themes/fonts'
+import { ActivityTypes, InterestTypes } from '@acter/lib/constants'
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
-}
-
-declare module '@mui/material/styles/createTheme' {
-  interface Theme {
-    colors: Colors
-  }
-  interface DeprecatedThemeOptions {
-    colors: Colors
-  }
 }
 
 declare module '@mui/material/styles/createMixins' {
@@ -36,19 +26,65 @@ declare module '@mui/material/styles/createMixins' {
 }
 
 declare module '@mui/material/styles' {
-  interface Theme {
-    colors: Colors
+  type ActivityTypeColors = {
+    [key in ActivityTypes]: Palette['primary']
+  }
+  type ActivityTypeColorOptions = {
+    [key in ActivityTypes]: PaletteOptions['primary']
   }
 
-  interface ThemeOptions {
-    colors?: Colors
+  type InterestTypeColors = {
+    [key in InterestTypes]: Palette['primary']
+  }
+  type InterestTypeColorOptions = {
+    [key in InterestTypes]: PaletteOptions['primary']
+  }
+  interface Palette {
+    blue: Palette['primary']
+    activityTypes: ActivityTypeColors
+    interestTypes: InterestTypeColors
+  }
+  interface PaletteOptions {
+    blue: PaletteOptions['primary']
+    activityTypes: ActivityTypeColorOptions
+    interestTypes: InterestTypeColorOptions
   }
 }
 
 export const theme = createTheme({
-  palette: paletteColors,
-
-  colors: colors,
+  palette: {
+    primary: {
+      main: '#1EB001',
+    },
+    secondary: {
+      main: '#1B2941',
+      dark: '#071528',
+      light: '#3C485D',
+      contrastText: '#D5D5D5',
+    },
+    background: {
+      default: '#ECEFF4',
+    },
+    blue: {
+      dark: '#243141',
+      main: '#3A527D',
+      light: '#3A527D',
+    },
+    activityTypes: {
+      event: { main: '#2A2A2A' },
+      project: { main: '#67A24A' },
+      idea: { main: '#ECAC3C' },
+      meeting: { main: '#5778B2' },
+    },
+    interestTypes: {
+      Economy: { main: '#FFC53B' },
+      Environment: { main: '#69B656' },
+      Social: { main: '#F29C40' },
+      Approach: { main: '#545559' },
+      Focus: { main: '#000' },
+      Tags: { main: '#000' },
+    },
+  },
 
   typography: typography,
 

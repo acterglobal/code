@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActivityTypeIcon } from '@acter/components/icons/activity-type-icons'
 import { capitalize } from '@acter/lib/string/capitalize'
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatar: {
       borderRadius: '50%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       width: 40,
       height: 40,
       display: 'flex',
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     labelContainer: {
       borderRadius: theme.spacing(3),
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
       height: 18,
       position: 'relative',
       left: 10,
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     label: {
       fontSize: '0.5rem',
-      color: ({ type }: { type: string }) => theme.colors.activityTypes[type],
+      color: ({ type }: { type: string }) => theme.palette.activityTypes[type],
     },
   })
 )

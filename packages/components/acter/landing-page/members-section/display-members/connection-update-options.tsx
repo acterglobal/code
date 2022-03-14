@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 
-import { IconButton, Theme, MenuItem } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { MoreHoriz as DotsIcon } from '@mui/icons-material'
+import { IconButton, Theme, MenuItem } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
@@ -21,10 +22,8 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
   canEdit,
 }) => {
   const classes = useStyles()
-  const [
-    { fetching: updatingConnection },
-    updateConnection,
-  ] = useUpdateActerConnection()
+  const [{ fetching: updatingConnection }, updateConnection] =
+    useUpdateActerConnection()
 
   if (!canEdit) return null
 
@@ -53,14 +52,14 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
         Remove as Member
       </MenuItem>
     </DropdownMenu>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     iconButton: {
       width: theme.spacing(6),
-      backgroundColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey.A100,
       borderRadius: 5,
       height: theme.spacing(3.5),
     },
@@ -70,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.secondary.main,
       '&:hover': {
-        backgroundColor: theme.colors.white,
+        backgroundColor: theme.palette.background.paper,
       },
     },
   })

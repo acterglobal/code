@@ -1,12 +1,12 @@
 import React, { FC, useMemo } from 'react'
 
 import { Box, Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { blueGrey } from '@acter/components/themes/colors'
 import { Link } from '@acter/components/util/anchor-link'
 import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     infoSection: {
       width: 400,
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'flex-start',
     },
     description: {
-      color: theme.colors.black,
+      color: 'black',
       display: '-webkit-box',
       boxOrient: 'vertical',
       lineClamp: 2,
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
     networkTitle: {
       fontWeight: theme.typography.fontWeightBold,
       marginLeft: theme.spacing(0.5),
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
   })
 )

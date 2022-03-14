@@ -70,7 +70,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
             color="inherit"
             className={classes.icon}
             style={{
-              color: isActive ? theme.colors.white : null,
+              color: isActive ? theme.palette.background.paper : null,
               fontWeight: isActive ? 'bold' : null,
             }}
           />
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
     currentItem: {
       '& .MuiListItemText-primary': {
         fontWeight: theme.typography.fontWeightMedium,
-        color: theme.colors.white,
+        color: theme.palette.background.paper,
       },
     },
     icon: {
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
     itemText: {
       '& .MuiListItemText-primary': {
         '&:hover': {
-          color: theme.colors.white,
+          color: theme.palette.background.paper,
         },
       },
       textTransform: 'capitalize',
@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 10,
       width: 10,
       borderRadius: '50%',
-      backgroundColor: theme.colors.others.notificationBadge,
+      backgroundColor: theme.palette.error.light,
       alignSelf: 'flex-end',
     },
   })

@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { Theme, Popover, Box } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme, Popover, Box } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { AddEmojiIcon } from '@acter/components/icons/add-emoji-icon'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActer } from '@acter/lib/acter/use-acter'
 import {
   useCreatePostReaction,
@@ -32,10 +32,8 @@ export const AddPostReaction: FC<AddPostReactionsProps> = ({
   const classes = useStyles({ isComment })
   const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const [
-    { fetching: addingReaction },
-    createPostReaction,
-  ] = useCreatePostReaction()
+  const [{ fetching: addingReaction }, createPostReaction] =
+    useCreatePostReaction()
   const { acter } = useActer()
   const { user } = useUser()
 
@@ -105,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(3),
       borderRadius: 30,
       backgroundColor: ({ isComment }: { isComment?: boolean }) =>
-        isComment ? theme.colors.white : theme.colors.grey.extraLight,
+        isComment ? theme.palette.background.paper : blueGrey.A100,
     },
     loading: {
       width: 280,

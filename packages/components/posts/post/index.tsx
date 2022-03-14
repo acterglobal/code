@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Theme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Box, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -13,6 +12,7 @@ import { PostForm, PostFormValues } from '@acter/components/posts/form'
 import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
 import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
+import { blueGrey } from '@acter/components/themes/colors'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1.2),
     },
     comment: {
-      backgroundColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey.A100,
       borderRadius: theme.spacing(1),
       marginBottom: theme.spacing(1.3),
       padding: theme.spacing(1),

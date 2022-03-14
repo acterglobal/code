@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 
-import { List, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { List, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Invitation } from '@acter/components/invites/invitations/invitation'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useInvites } from '@acter/lib/invites/use-invites'
 import { useUser } from '@acter/lib/user/use-user'
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(7),
       fontSize: '0.85rem',
       textAlign: 'center',
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
     list: {
       marginTop: theme.spacing(3),

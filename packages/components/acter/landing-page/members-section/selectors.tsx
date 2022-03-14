@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   active: {
     backgroundColor: theme.palette.secondary.main,
-    color: theme.colors.white,
+    color: theme.palette.background.paper,
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
     },

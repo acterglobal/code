@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
 import { Box, Button, Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
+import { blueGrey } from '@acter/components/themes/colors'
 import { Acter } from '@acter/schema'
 
 export type ParticipantsProps = {
@@ -57,11 +57,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'none',
     textDecoration: 'underline',
     fontSize: 12,
-    color: theme.colors.grey.main,
+    color: blueGrey.A200,
     '&:hover': {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       textDecoration: 'underline',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
     },
   },
 }))

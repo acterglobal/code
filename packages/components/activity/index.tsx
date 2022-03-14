@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
 
-import { Grid, Theme, Box, Button } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Grid, Theme, Box, Button } from '@mui/material'
+import { blueGrey } from '@mui/material/colors'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'
@@ -68,7 +68,7 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     activity: {
-      backgroundColor: theme.colors.grey.extraLight,
+      backgroundColor: blueGrey.A100,
       '&.MuiGrid-item': {
         paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),

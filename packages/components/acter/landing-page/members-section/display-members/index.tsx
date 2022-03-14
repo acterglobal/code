@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import { Theme, Divider, Typography, List } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, Divider, Typography, List } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
+import { blueGrey } from '@acter/components/themes/colors'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 const { ADMIN, MEMBER } = ActerConnectionRole
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   heading: {
     fontSize: '0.88rem',
     fontWeight: theme.typography.fontWeightMedium,
-    color: theme.colors.grey.dark,
+    color: blueGrey.A700,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },

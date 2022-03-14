@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { Close as DeleteIcon } from '@mui/icons-material'
+import { Box, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 interface EmailAddressChipProps {
   emailAddress: string
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       margin: theme.spacing(0.5),
       backgroundColor: theme.palette.secondary.main,
-      color: theme.colors.white,
+      color: theme.palette.background.paper,
       fontSize: '0.7rem',
       padding: theme.spacing(0.5),
       paddingLeft: theme.spacing(1),

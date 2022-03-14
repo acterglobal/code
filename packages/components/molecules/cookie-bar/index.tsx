@@ -3,9 +3,8 @@ import CookieConsent from 'react-cookie-consent'
 
 import Link from 'next/link'
 
-import { Theme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 export const CookieBar: FC = () => {
   const classes = useStyles()
@@ -27,7 +26,7 @@ export const CookieBar: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {
-    color: theme.colors.white,
+    color: theme.palette.background.paper,
     textDecoration: 'none',
   },
 }))

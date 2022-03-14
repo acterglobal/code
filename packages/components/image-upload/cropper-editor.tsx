@@ -1,10 +1,6 @@
 import React, { FC, useState } from 'react'
 import Cropper from 'react-cropper'
 
-import { Box, Button, Modal } from '@mui/material/'
-import { green } from '@mui/material/colors'
-import { Theme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import {
   Crop as CropIcon,
   RotateLeft as RotateLeftIcon,
@@ -12,9 +8,14 @@ import {
   ZoomIn as ZoomInIcon,
   ZoomOut as ZoomOutIcon,
 } from '@mui/icons-material'
+import { Box, Button, Modal } from '@mui/material/'
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 import 'cropperjs/dist/cropper.css'
+
+import { blueGrey, green } from '@acter/components/themes/colors'
 
 type cropDataType = {
   center: {
@@ -77,9 +78,11 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
   }
 
   return (
-    <Modal// `disableBackdropClick` is removed by codemod.
-// You can find more details about this breaking change in [the migration guide](https://mui.com/guides/migration-v4/#modal)
- className={classes.modal} open={openModal}>
+    <Modal // `disableBackdropClick` is removed by codemod.
+      // You can find more details about this breaking change in [the migration guide](https://mui.com/guides/migration-v4/#modal)
+      className={classes.modal}
+      open={openModal}
+    >
       <Box
         className={clsx(
           classes.container,
@@ -131,7 +134,7 @@ export const ImageCropper: FC<ImageCropperProps> = (props) => {
         </Box>
       </Box>
     </Modal>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -180,7 +183,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white',
     marginLeft: theme.spacing(2),
     '&:hover': {
-      backgroundColor: theme.colors.grey.main,
+      backgroundColor: blueGrey.A200,
     },
   },
 }))

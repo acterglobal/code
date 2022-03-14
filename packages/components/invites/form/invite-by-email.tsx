@@ -1,15 +1,22 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { Box, Button, FormGroup, FormLabel, Theme, Typography } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Box,
+  Button,
+  FormGroup,
+  FormLabel,
+  Theme,
+  Typography,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { validate } from 'email-validator'
 import { Field, useFormikContext } from 'formik'
 
 import { InviteFormValues } from '@acter/components/invites/form'
 import { EmailAddressChip } from '@acter/components/invites/form/email-address-chip'
+import { blueGrey } from '@acter/components/themes/colors'
 
 export const InviteByEmail: FC = () => {
   const classes = useStyles()
@@ -126,7 +133,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     input: {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       padding: theme.spacing(0.5),
       outline: 'none',
       fontFamily: theme.typography.fontFamily,
@@ -136,22 +143,20 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       '&::placeholder': {
         fontSize: '0.rem',
-        color: theme.colors.grey.main,
+        color: blueGrey.A200,
         fontWeight: theme.typography.fontWeightLight,
       },
     },
     error: {
       fontWeight: theme.typography.fontWeightLight,
       fontSize: '0.75rem',
-      color: theme.colors.error,
+      color: theme.palette.error.main,
     },
     message: {
       marginTop: theme.spacing(1.5),
       outline: 'none',
       resize: 'none',
       color: theme.palette.secondary.dark,
-      // color: theme.colors.grey.dark,
-
       fontFamily: theme.typography.fontFamily,
       fontSize: '0.85rem',
       borderRadius: theme.spacing(0.6),

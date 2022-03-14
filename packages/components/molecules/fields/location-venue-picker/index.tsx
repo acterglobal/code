@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, FormControlLabel, FormLabel, Radio, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, FormControlLabel, FormLabel, Radio, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Field, useFormikContext } from 'formik'
 import { TextField, RadioGroup } from 'formik-material-ui'
@@ -12,6 +11,7 @@ import {
   LocationPicker,
   LocationPickerResult,
 } from '@acter/components/atoms/fields/location-picker'
+import { blueGrey } from '@acter/components/themes/colors'
 
 export interface LocationVenuePickerValues extends LocationPickerResult {
   isOnline: boolean
@@ -20,10 +20,8 @@ export interface LocationVenuePickerValues extends LocationPickerResult {
 
 export const LocationVenuePicker: FC = () => {
   const classes = useStyles()
-  const {
-    values,
-    setFieldValue,
-  } = useFormikContext<LocationVenuePickerValues>()
+  const { values, setFieldValue } =
+    useFormikContext<LocationVenuePickerValues>()
 
   return (
     <Box className={classes.container}>
@@ -62,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 20,
     },
     label: {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       marginBottom: 10,
       fontSize: '0.9rem',
       fontWeight: theme.typography.fontWeightBold,

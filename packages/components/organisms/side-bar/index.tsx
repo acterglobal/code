@@ -21,6 +21,7 @@ import { Locales } from '@acter/components/layout/side-bar/locales'
 import { FollowingList } from '@acter/components/molecules/following-list'
 import { ProfileButton } from '@acter/components/molecules/profile-button'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
+import { grey } from '@acter/components/themes/colors'
 import { Link } from '@acter/components/util/anchor-link'
 import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { useUser } from '@acter/lib/user/use-user'
@@ -94,7 +95,7 @@ const IconMenuItem: FC<IconMenuItemProps> = ({ Icon, href, text, active }) => {
           aria-label={text}
           color="inherit"
           style={{
-            color: active ? theme.colors.white : null,
+            color: active ? theme.palette.background.paper : null,
             fontWeight: active ? 'bold' : null,
           }}
         />
@@ -114,7 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       '& .MuiDivider-root': {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: grey.A100,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         marginBottom: theme.spacing(1.4),
@@ -142,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         justifyContent: 'space-around',
         fontSize: 12,
-        color: theme.colors.white,
+        color: theme.palette.background.paper,
         marginBottom: theme.spacing(1),
         paddingRight: 8,
         paddingLeft: 8,

@@ -1,14 +1,21 @@
 import React, { FC } from 'react'
 
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { NavigateNextOutlined } from '@mui/icons-material'
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  Theme,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 import { useFormikContext } from 'formik'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { capitalize } from '@acter/lib/string/capitalize'
 
@@ -66,16 +73,16 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     event: {
-      color: theme.colors.activityTypes.dark.event,
+      color: theme.palette.activityTypes.event.main,
     },
     project: {
-      color: theme.colors.activityTypes.dark.project,
+      color: theme.palette.activityTypes.project.main,
     },
     idea: {
-      color: theme.colors.activityTypes.dark.idea,
+      color: theme.palette.activityTypes.idea.main,
     },
     meeting: {
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
     },
   })
 )

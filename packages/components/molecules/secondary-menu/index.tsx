@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { Theme, Box } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Theme, Box } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
+import { grey } from '@acter/components/themes/colors'
 
 export const SecondaryMenu: FC = ({ children }) => {
   const classes = useStyles()
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingBottom: 0,
       },
       '& .MuiDivider-root': {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: grey.A100,
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         marginBottom: theme.spacing(1.4),

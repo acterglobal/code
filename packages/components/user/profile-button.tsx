@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 
-import { IconButton, Typography, Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { AccountCircle, KeyboardArrowDownOutlined } from '@mui/icons-material'
+import { IconButton, Typography, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { blueGrey } from '@acter/components/themes/colors'
 import { User } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,12 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       fontSize: theme.typography.fontSize * 1.1,
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
     downIcon: {
-      color: theme.colors.grey.main,
+      color: blueGrey.A200,
     },
   })
 )
@@ -43,7 +44,8 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
       color="inherit"
       aria-label="profile-button"
       className={classes.root}
-      size="large">
+      size="large"
+    >
       {user.Acter?.avatarUrl ? (
         <ActerAvatar acter={user.Acter} size={4} />
       ) : (
@@ -54,5 +56,5 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ user }) => {
       </Typography>
       <KeyboardArrowDownOutlined className={classes.downIcon} />
     </IconButton>
-  );
+  )
 }

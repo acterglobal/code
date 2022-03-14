@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
 
-import { Box, Button, Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
 import { AddSharp as AddIcon } from '@mui/icons-material'
+import { Box, Button, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import withStyles from '@mui/styles/withStyles'
 
 import { AddActivity } from '@acter/components/activity/add-activity'
+import { blueGrey } from '@acter/components/themes/colors'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerMenu } from '@acter/lib/constants'
@@ -66,12 +67,12 @@ const StyledButton = withStyles((theme: Theme) =>
       minWidth: '100px',
       height: theme.spacing(4.5),
       backgroundColor: theme.palette.secondary.main,
-      color: theme.colors.white,
+      color: theme.palette.background.paper,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: '1rem',
       textTransform: 'capitalize',
       '&:hover': {
-        backgroundColor: theme.colors.grey.dark,
+        backgroundColor: blueGrey.A700,
       },
     },
   })

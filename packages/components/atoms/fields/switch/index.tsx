@@ -1,11 +1,15 @@
 import React, { FC } from 'react'
 
-import { Switch as MUISwitch, SwitchProps as MUISwitchProps, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Switch as MUISwitch,
+  SwitchProps as MUISwitchProps,
+  Theme,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { blueGrey } from '@acter/components/themes/colors'
 
 export interface SwitchProps extends Omit<MUISwitchProps, 'onChange'> {
   onChange: (switchStatus: boolean) => void
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     switchBase: {
       padding: 2,
-      color: theme.palette.grey[500],
+      color: blueGrey.A200,
       '&$checked': {
         transform: 'translateX(12px)',
         color: theme.palette.common.white,

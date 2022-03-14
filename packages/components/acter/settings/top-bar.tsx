@@ -1,9 +1,8 @@
 import { FC } from 'react'
 
-import { AppBar, Theme, Toolbar, Typography, useTheme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { AppBar, Theme, Toolbar, Typography, useTheme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { SettingsIcon } from '@acter/components/icons'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -20,7 +19,7 @@ export const TopBar: FC = () => {
         <SettingsIcon
           color="inherit"
           style={{
-            color: theme.colors.white,
+            color: theme.palette.background.paper,
             marginRight: theme.spacing(1),
           }}
         />
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     title: {
-      color: theme.colors.white,
+      color: theme.palette.background.paper,
       fontWeight: theme.typography.fontWeightMedium,
       fontSize: theme.spacing(2),
     },

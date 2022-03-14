@@ -1,10 +1,9 @@
 import React, { FC, useMemo } from 'react'
 
-import { Avatar as MuiAvatar, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
+import { Avatar as MuiAvatar, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import withStyles from '@mui/styles/withStyles'
 
 import { getInitials } from '@acter/lib/get-initials'
 import { Acter } from '@acter/schema'
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     acterAvatar: {
       color: theme.palette.secondary.dark,
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.paper,
     },
   })
 })

@@ -1,9 +1,8 @@
 import React, { FC, ReactElement } from 'react'
 
-import { Theme, Tooltip as MUITooltip } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, Tooltip as MUITooltip } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Color } from '@acter/components/themes/colors'
 
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tooltip: {
       backgroundColor: ({ backgroundColor }: TooltipColors) =>
-        backgroundColor || theme.colors.white,
+        backgroundColor || theme.palette.background.paper,
       color: ({ color }: TooltipColors) =>
         color || theme.palette.secondary.main,
       boxShadow: theme.shadows[1],
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     arrow: {
       color: ({ backgroundColor }: TooltipColors) =>
-        backgroundColor || theme.colors.white,
+        backgroundColor || theme.palette.background.paper,
     },
   })
 )

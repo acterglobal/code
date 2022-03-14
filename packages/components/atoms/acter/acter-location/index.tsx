@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
-import { Box, Theme, Typography } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { LocationOnOutlined } from '@mui/icons-material'
+import { Box, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Acter } from '@acter/schema'
 
@@ -44,7 +44,7 @@ export const ActerLocation: FC<ActerLocationProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      color: theme.colors.black,
+      color: 'black',
       textDecoration: 'none',
       display: 'inline-flex',
     },

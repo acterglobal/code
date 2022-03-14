@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react'
 
 import { Box, Button } from '@mui/material'
-import { Theme } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Form, Formik } from 'formik'
 
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
+import { blueGrey } from '@acter/components/themes/colors'
 import { Popover } from '@acter/components/util/popover'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
@@ -103,14 +103,14 @@ const useStyles = makeStyles((theme: Theme) =>
     btnsContainer: {
       marginTop: theme.spacing(1),
       borderTop: '1px solid',
-      borderTopColor: theme.colors.grey.main,
+      borderTopColor: blueGrey.A200,
       padding: theme.spacing(1),
       display: 'flex',
       justifyContent: 'space-between',
     },
     clear: {
       textTransform: 'capitalize',
-      color: theme.colors.grey.dark,
+      color: blueGrey.A700,
       fontWeight: theme.typography.fontWeightBold,
     },
     save: {
