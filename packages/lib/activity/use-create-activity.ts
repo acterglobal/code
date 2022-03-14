@@ -27,10 +27,10 @@ type CreateActivityOptions = UseMutationOptions<
   ActivityVariables
 >
 
-export type HandleMethod<TData> = (
+export type HandleMethod<CreateActivityData, ActivityVariables> = (
   activity: ActivityVariables
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => Promise<OperationResult<TData, Record<string, any>>>
+) => Promise<OperationResult<CreateActivityData, ActivityVariables>>
 
 type CreateActivityUseMutationState = UseMutationState<
   ActivityData,
@@ -49,7 +49,10 @@ type CreateActivityUseMutationRestState = Omit<
  */
 export const useCreateActivity = (
   options?: CreateActivityOptions
-): [CreateActivityUseMutationState, HandleMethod<ActivityData>] => {
+): [
+  CreateActivityUseMutationState,
+  HandleMethod<CreateActivityData, ActivityVariables>
+] => {
   const [fetching, setFetching] = useState(false)
   const [resultData, setResultData] = useState<ActivityData>(null)
   const [error, setError] = useState<CombinedError>()
@@ -91,9 +94,10 @@ export const useCreateActivity = (
     })
   }, [JSON.stringify(createRestState), JSON.stringify(updateRestState)])
 
-  const handleCreateActivity: HandleMethod<UpdateActivityData> = async (
-    activity
-  ) => {
+  const handleCreateActivity: HandleMethod<
+    CreateActivityData,
+    ActivityVariables
+  > = async (activity) => {
     setFetching(true)
     const { data } = await createActivity({
       ...activity,

@@ -4,6 +4,7 @@ import { prepareActivityValues } from '@acter/lib/acter/prepare-activity-values'
 import { _updatePictures } from '@acter/lib/acter/update-acter-with-pictures'
 import {
   ActivityVariables,
+  CreateActivityData,
   HandleMethod,
 } from '@acter/lib/activity/use-create-activity'
 import {
@@ -34,7 +35,7 @@ export const useUpdateActivity = (
   isNewActivity?: boolean
 ): [
   UseMutationState<UpdateActivityData, ActivityVariables>,
-  HandleMethod<UpdateActivityData>
+  HandleMethod<CreateActivityData, ActivityVariables>
 ] => {
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
