@@ -20,6 +20,7 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter, ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 export interface GroupFormProps {
@@ -35,6 +36,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   onSubmit,
   saving,
 }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { acterTypes, fetching } = useActerTypes()
 
@@ -82,8 +84,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   return (
     <Box className={classes.content}>
       <Typography className={classes.headerMessage} variant="body2">
-        Working groups are where your community can plan, communicate, share and
-        organise around a specific topic.
+        {t('form.groupFormHeading')}
       </Typography>
 
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -92,7 +93,7 @@ export const GroupForm: FC<GroupFormProps> = ({
             <Field
               className={classes.field}
               component={TextField}
-              label="Name"
+              label={t('form.name')}
               name="name"
               required={true}
               variant="outlined"
@@ -100,7 +101,7 @@ export const GroupForm: FC<GroupFormProps> = ({
             <Field
               className={classes.field}
               component={TextField}
-              label="Description"
+              label={t('form.description')}
               name="description"
               variant="outlined"
               multiline={true}
@@ -109,11 +110,12 @@ export const GroupForm: FC<GroupFormProps> = ({
 
             {!acter?.id && (
               <FormGroup>
-                <FormLabel className={classes.label}>Make private</FormLabel>
+                <FormLabel className={classes.label}>
+                  {t('form.makePrivate')}
+                </FormLabel>
                 <Box className={classes.makePrivate}>
                   <FormHelperText className={classes.helperText}>
-                    When a group is set to private, new members need to be
-                    approved.
+                    {t('form.makePrivateMessage')}
                   </FormHelperText>
                   <Switch
                     name="makePrivate"
@@ -132,7 +134,7 @@ export const GroupForm: FC<GroupFormProps> = ({
                 type="submit"
                 disabled={isSubmitting || saving}
               >
-                {acter?.id ? 'Save' : 'Create'}
+                {acter?.id ? t('form.save') : t('form.create')}
               </Button>
             </Box>
           </Form>

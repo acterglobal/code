@@ -13,6 +13,8 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { Size } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Post as PostType, User } from '@acter/schema'
 
 export type PostFormValues = PostType & {
@@ -38,6 +40,7 @@ export const PostForm: FC<PostFormProps> = ({
   onCancel,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const initialValues: PostType = {
     content: post?.content || '',
@@ -84,7 +87,7 @@ export const PostForm: FC<PostFormProps> = ({
           {parentId ? (
             <Field
               name="content"
-              placeholder="Comment..."
+              placeholder={`${capitalize(t('comment'))} ...`}
               className={classes.field}
               innerRef={inputRef}
               autoFocus={true}
@@ -101,7 +104,7 @@ export const PostForm: FC<PostFormProps> = ({
               initialValue={initialValues.content}
               handleInputChange={(value) => setFieldValue('content', value)}
               clearTextEditor={clearText}
-              placeholder="Write a post..."
+              placeholder={`${capitalize(t('write'))} ${t('post')} ...`}
               editorRef={handleEditorRef}
             />
           )}
@@ -112,7 +115,7 @@ export const PostForm: FC<PostFormProps> = ({
             <FormButtons
               align="right"
               onCancel={onCancel}
-              saveText={parentId ? 'Comment' : 'Post'}
+              saveText={parentId ? 'comment' : 'post'}
             />
           )}
         </Form>
