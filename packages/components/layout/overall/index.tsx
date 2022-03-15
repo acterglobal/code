@@ -98,6 +98,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       flexDirection: 'row',
+      overflow: 'scroll',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
     },
     drawer: {
       flexShrink: 0,
@@ -117,6 +122,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       display: 'flex',
       flexDirection: 'row',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+        overflowY: 'hidden',
+      },
     },
     container: {
       flexGrow: 1,
