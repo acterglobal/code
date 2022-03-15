@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { NextPageWithLayout } from 'pages/_app'
+import { getPostStaticPath } from 'static-paths/acter-landingpage-post-paths'
 
 import { ActerPost } from '@acter/components/acter/posts/post'
 import { Head } from '@acter/components/atoms/head'
 import { ActerLayout } from '@acter/components/layout/acter'
 import { useActerTitle } from '@acter/lib/acter/use-title'
-import { prisma } from '@acter/schema/prisma'
 
 export const PostPage: NextPageWithLayout = () => {
   const { title } = useActerTitle('post')
@@ -27,34 +27,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 })
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await prisma.post.findMany({
-    select: {
-      id: true,
-      Acter: {
-        select: {
-          slug: true,
-          ActerType: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-    },
-  })
+export const getStaticPaths: GetStaticPaths = getPostStaticPath
 
-  const paths = posts.map((post) => ({
-    params: {
-      acterType: post.Acter.ActerType.name,
-      slug: post.Acter.slug,
-      id: post.id,
-    },
-  }))
-
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
 export default PostPage
