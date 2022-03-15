@@ -21,7 +21,6 @@ import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { ActerMenu as Path } from '@acter/lib/constants'
-import { ActerMenu } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
 import { Acter, Notification } from '@acter/schema'
@@ -57,7 +56,6 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
       updateNotifications(notifications?.map((notification) => notification.id))
     }
   }
-  const label = path === ActerMenu.ACTIVITIES ? `acterTypes.${path}` : path
   return (
     <ListItem
       className={clsx({
@@ -80,7 +78,7 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
         </ListItemIcon>
         <ListItemText
           className={classes.itemText}
-          primary={text ? text : t(label)}
+          primary={text ? text : t(path)}
         />
         <ListItemIcon>
           {notifications?.length > 0 && (

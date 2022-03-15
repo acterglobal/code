@@ -1,0 +1,17 @@
+{
+  "topBarHeading": "Settings for {{acterName}}",
+  "settings": "settings",
+  "links": "links",
+  "access": "access",
+  "whoCanAccess": "Who can access",
+  "everyone": "everyone",
+  "restricted": "restricted",
+  "needsApproval": "(Needs approval)",
+  "whoCanJoin": "Who can join",
+  "visibility": "visibility",
+  "whoCanSee": "Who can see",
+  "public": "public",
+  "private": "private",
+  "anyOneCanSee": "(Anyone can find and see)",
+  "onlyMembersCanSee": "(Only members can see)"
+}

@@ -17,10 +17,12 @@ import { TopBar } from '@acter/components/acter/settings/top-bar'
 import { InvitesSection } from '@acter/components/invites'
 import { Links as LinkSection } from '@acter/components/links'
 import { InviteTabs, SettingsTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const { SETTINGS, INVITE, LINKS } = SettingsTabs
 
 export const ActerSettings: FC = () => {
+  const { t } = useTranslation('settings')
   const classes = useStyles()
   const { query } = useRouter()
 
@@ -44,7 +46,7 @@ export const ActerSettings: FC = () => {
           {tabs.map((tab, i) => (
             <Tab
               classes={{ root: classes.tab }}
-              label={tab}
+              label={t(tab)}
               id={tab}
               key={`tab-${i}`}
             />
