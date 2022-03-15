@@ -15,7 +15,6 @@ export interface UseMutationOptions<TData, TVariables> {
   getErrorMessage?: (data: CombinedError) => string
   onCompleted?: (data: TData) => void
   getSuccessMessage?: (data: TData) => string
-  isNew?: boolean
 }
 
 /**
@@ -35,8 +34,7 @@ export const useNotificationMutation = <
   options?: UseMutationOptions<TData, TVariables>
 ): UseMutationResponse<TData, TVariables> => {
   const { enqueueSnackbar } = useSnackbar()
-  const { getErrorMessage, getSuccessMessage, isNew, ...restOptions } =
-    options || {}
+  const { getErrorMessage, getSuccessMessage, ...restOptions } = options || {}
   const [result, runMutation] = useMutation<TData, TVariables>(mutation)
 
   const { data, error } = result
@@ -53,7 +51,7 @@ export const useNotificationMutation = <
   }, [error])
 
   useEffect(() => {
-    if (data && !isNew) {
+    if (data) {
       const message =
         typeof getSuccessMessage === 'function'
           ? getSuccessMessage(data)

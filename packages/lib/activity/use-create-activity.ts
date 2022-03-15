@@ -6,14 +6,14 @@ import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
-import { ActerConnection, ActerInterest, Activity } from '@acter/schema'
+import { Activity } from '@acter/schema'
 import CREATE_ACTIVITY from '@acter/schema/mutations/activity-create.graphql'
 
 import { UpdateActivityData, useUpdateActivity } from './use-update-activity'
 
 export interface ActivityVariables extends Activity {
-  interestIds: ActerInterest[] | string[]
-  followerIds: ActerConnection[] | string[]
+  interestIds: string[]
+  followerIds: string[]
 }
 
 export type CreateActivityData = {

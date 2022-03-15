@@ -37,15 +37,16 @@ export const useUpdateActivity = (
   UseMutationState<UpdateActivityData, ActivityVariables>,
   HandleMethod<CreateActivityData, ActivityVariables>
 ] => {
+  const messageOptions = isNewActivity
+    ? {}
+    : {
+        getSuccessMessage: (data: UpdateActivityData) =>
+          `${data.updateActivityCustom.Acter.name} Activity updated`,
+      }
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
-  >(UPDATE_ACTIVITY, {
-    getSuccessMessage: (data: UpdateActivityData) =>
-      `${data.updateActivityCustom.Acter.name} Activity updated`,
-    isNew: isNewActivity,
-    ...options,
-  })
+  >(UPDATE_ACTIVITY, { ...messageOptions, ...options })
 
   const handleUpdateActivity = async (
     updatedActivity: ActivityVariables
