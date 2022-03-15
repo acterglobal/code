@@ -9,9 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { Switch } from '@acter/components/atoms/fields/switch'
-import { SearchType, Size } from '@acter/lib/constants'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
-import { useSearchType } from '@acter/lib/search/use-search-type'
+import { Size } from '@acter/lib/constants'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { pluralize } from '@acter/lib/string/pluralize'
 
@@ -28,23 +26,15 @@ export const SubtypeSelect: FC<SubtypeSelectProps> = ({
   showTypeIcon: useTypeColorDot = false,
   onChange,
 }) => {
-  const classes = useStyles({ type: subTypeName })
-  const { t } = useTranslation('common')
-  const searchType = useSearchType()
-  const nestedKey =
-    searchType === SearchType.ACTIVITIES ? 'activityTypes' : 'acterTypes'
-
-  const capitalizeSubTypeNameText = (subTypeName: string): string =>
-    subTypeName === 'NGO'
-      ? t(`${nestedKey}.${pluralize(subTypeName)}`)
-      : capitalize(t(`${nestedKey}.${pluralize(subTypeName)}`))
+  const type: string = subTypeName
+  const classes = useStyles({ type })
 
   return (
     <Box className={classes.root}>
       <Box className={classes.type}>
         {useTypeColorDot && <Box className={classes.icon}></Box>}
         <Typography className={classes.typeName} variant="body2">
-          {capitalizeSubTypeNameText(subTypeName)}
+          {pluralize(capitalize(subTypeName))}
         </Typography>
       </Box>
       <Switch

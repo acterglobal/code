@@ -23,14 +23,13 @@ const SearchPage: NextPageWithLayout = () => {
 
 SearchPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, [
-      'common',
-      'interests',
-      'search',
-    ])),
-  },
-})
-
 export default SearchPage
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      // Will be passed to the page component as props
+    },
+  }
+}

@@ -20,7 +20,6 @@ export const getImageUrl = (
     process.env.NEXT_PUBLIC_IMAGE_LOADER_URL ||
     process.env.STORYBOOK_IMAGE_LOADER_URL
   const imageSuffix = process.env.NEXT_PUBLIC_DEFAULT_IMAGE_SUFFIX || ''
-  // TODO: refactor this SDG.
   const imagePath =
     imageType === 'SDG'
       ? `/assets/SDG-logo.png`

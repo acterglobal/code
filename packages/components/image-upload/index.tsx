@@ -13,13 +13,34 @@ import 'filepond/dist/filepond.min.css'
 import { useFormikContext } from 'formik'
 
 import { ImageCropper } from '@acter/components/image-upload/cropper-editor'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 registerPlugin(
   FilePondPluginImagePreview,
   FilePondPluginFileValidateType,
   FilePondPluginImageEdit
 )
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      margin: theme.spacing(1.2),
+    },
+    uploadContainer: {
+      minWidth: 230,
+      fontSize: '0.85rem',
+      fontFamily: 'Montserrat',
+    },
+    button: {
+      color: 'white',
+      margin: 5,
+      height: 30,
+    },
+  })
+)
+
 export interface ImageUploadProps {
   imageType: string
   aspectRatio?: number
@@ -32,7 +53,6 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   fileUrl,
 }) => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
   const { setFieldValue } = useFormikContext()
   const pond: RefObject<FilePond> = createRef()
 
@@ -150,10 +170,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
       }
     },
   }
-  const label = t(
-    imageType === 'avatar' ? 'acterForm.logo' : 'acterForm.banner'
-  )
-
+  const label = imageType === 'avatar' ? 'logo' : 'banner image'
   return (
     <div className={classes.container}>
       <FilePond
@@ -183,24 +200,3 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     </div>
   )
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'relative',
-      margin: theme.spacing(1.2),
-    },
-    uploadContainer: {
-      minWidth: 230,
-      fontSize: '0.85rem',
-      fontFamily: 'Montserrat',
-    },
-    button: {
-      color: 'white',
-      margin: 5,
-      height: 30,
-    },
-  })
-)

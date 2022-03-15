@@ -9,20 +9,16 @@ import {
 } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 
-import { useTranslation } from '@acter/lib/i18n/use-translation'
-
 export interface SearchButtonProps {
   onClick: () => void
 }
 
 export const SearchButton: FC<SearchButtonProps> = ({ onClick }) => {
   const classes = useStyles()
-  const { t } = useTranslation('search')
-
   return (
     <Button className={classes.button} variant="contained" onClick={onClick}>
       <Typography className={classes.text} variant="caption">
-        {t('searchButtonText')}
+        Search
       </Typography>
     </Button>
   )

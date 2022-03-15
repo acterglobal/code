@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useTranslation } from 'next-i18next'
+
 import {
   Box,
   createStyles,
@@ -15,7 +17,6 @@ import { GroupsList } from '@acter/components/dashboard/groups-list'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
 const { ACTIVITY, GROUP } = ActerTypes
@@ -82,11 +83,14 @@ const Heading: FC<HeadingProps> = ({ title }) => {
 
 const ZeroMessage = ({ messageFor }) => {
   const classes = useStyles()
-  const { t } = useTranslation('dashboard')
   return (
     <Typography variant="body2" className={classes.zeroMessage}>
-      {messageFor === GROUP && t('zeroMessage.groups')}
-      {messageFor === ACTIVITY && t('zeroMessage.activities')}
+      {messageFor === GROUP &&
+        `You are currently not part of any groups. As you join new groups they will
+      show here.`}
+      {messageFor === ACTIVITY &&
+        `You are currently not participating in any activities. As you join new
+        activities, they will show here.`}
     </Typography>
   )
 }
@@ -111,6 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.colors.white,
       position: 'fixed',
       zIndex: 99,
+      textTransform: 'capitalize',
     },
     heading: {
       fontSize: theme.spacing(2),

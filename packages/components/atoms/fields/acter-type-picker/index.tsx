@@ -13,7 +13,6 @@ import { Select } from 'formik-material-ui'
 
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { MainActerTypes, ActerTypes } from '@acter/lib/constants'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export type ActerTypePickerProps = FormControlProps
@@ -24,7 +23,6 @@ export interface ActerTypePickerValues {
 
 export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
   const {
     values: { acterTypeId },
     setFieldValue,
@@ -41,7 +39,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
 
   return (
     <FormControl {...props}>
-      <InputLabel>{t('acterForm.selectActerType')}</InputLabel>
+      <InputLabel>Select Acter Type</InputLabel>
       <Field
         component={Select}
         label="Select Acter Type"
@@ -58,7 +56,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
             key={`type-${type.id}`}
             className={classes.acterTypeItem}
           >
-            {capitalize(t(`acterTypes.${type.name}`))}
+            {capitalize(type.name)}
           </MenuItem>
         ))}
       </Field>

@@ -1,7 +1,5 @@
 {
   "dashboard": "Dashboard",
-  "myActivities": "My activities",
-  "myGroups": "My groups",
-  "zeroMessage.activities": "You are currently not participating in any activities. As you join new activities, they will show here.",
-  "zeroMessage.groups": "You are currently not part of any groups. As you join new groups they will show here."
+  "myGroups": "my groups",
+  "myActivities": "my activities"
 }

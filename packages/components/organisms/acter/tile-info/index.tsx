@@ -9,7 +9,6 @@ import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
@@ -21,7 +20,6 @@ export interface ActerTileInfoProps {
 
 export const ActerTileInfo: FC<ActerTileInfoProps> = ({ acter }) => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
   const followingActers = useMemo(
     () =>
       excludeActerTypes(
@@ -45,7 +43,7 @@ export const ActerTileInfo: FC<ActerTileInfoProps> = ({ acter }) => {
           className={classes.typeAndLocation}
           style={{ marginLeft: 10 }}
         >
-          {capitalize(t(`acterTypes.${acter.ActerType.name}`))}
+          {capitalize(acter.ActerType.name)}
         </Typography>
       </Box>
 
