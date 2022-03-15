@@ -70,7 +70,7 @@ describe('Display search results', () => {
       const links = within(item).queryAllByRole('link')
       const exampleActivity = activities[i]
       expect(links[0].getAttribute('href')).toMatch(
-        acterAsUrl({ acter: exampleActivity.Activity.Acter })
+        acterAsUrl({ acter: exampleActivity })
       )
     })
   })

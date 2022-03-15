@@ -15,6 +15,8 @@ export interface ActivityTileProps {
 export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
   const classes = useStyles()
 
+  if (!activity) return null
+
   return (
     <Box className={classes.activityTile}>
       <ImageSection activity={activity} />
@@ -22,7 +24,7 @@ export const ActivityTile: FC<ActivityTileProps> = ({ activity }) => {
       <InfoSection activity={activity} />
 
       <Box className={classes.buttonContainer}>
-        <Connect acterId={activity?.Acter.id} size={Size.SMALL} />
+        <Connect acterId={activity.Acter.id} size={Size.SMALL} />
       </Box>
     </Box>
   )

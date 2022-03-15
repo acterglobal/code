@@ -25,8 +25,11 @@ export const Organiser: FC<OrganiserProps> = ({ acter, size }) => {
     <Box className={classes.organiser}>
       <ActerAvatar acter={acter} size={size === SMALL ? 2 : 4} />
 
-      <Typography className={classes.heading}>Hosted by</Typography>
-      <Typography className={classes.heading}> </Typography>
+      <Box>
+        <Typography className={classes.heading} noWrap>
+          Hosted by
+        </Typography>
+      </Box>
 
       <Box className={classes.organiserContainer}>
         <Link href={acterAsUrl({ acter })}>
@@ -60,6 +63,8 @@ const useStyles = makeStyles((theme: Theme) => {
       marginLeft: size === SMALL ? 3 : 10,
       color: theme.palette.secondary.main,
       fontSize: size === SMALL ? '0.7rem' : '0.9rem',
+      lineHeight: 1.3,
+      marginRight: 5,
     }),
     organiserContainer: {
       display: 'flex',
@@ -70,6 +75,12 @@ const useStyles = makeStyles((theme: Theme) => {
       color: theme.palette.secondary.main,
       fontSize: size === SMALL ? '0.7rem' : '0.9rem',
       fontWeight: theme.typography.fontWeightBold,
+      display: '-webkit-box',
+      boxOrient: 'vertical',
+      lineClamp: 1,
+      wordBreak: 'keep-all',
+      overflow: 'hidden',
+      lineHeight: 1.3,
     }),
   })
 })

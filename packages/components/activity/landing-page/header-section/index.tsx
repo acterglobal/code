@@ -15,6 +15,7 @@ import { ActivityLocationIcon } from '@acter/components/icons'
 import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getActerDateFormat } from '@acter/lib/acter/get-acter-date-format'
+import { getParentActer } from '@acter/lib/activity/get-parent-acter'
 import { ActerMenu } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
@@ -35,9 +36,11 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
   const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
 
+  const parentActer = getParentActer(acter)
+
   const handleCloseActivity = () => {
     acter &&
-      router.push(acterAsUrl({ acter: acter?.Parent, extraPath: [ACTIVITIES] }))
+      router.push(acterAsUrl({ acter: parentActer, extraPath: [ACTIVITIES] }))
   }
 
   return (

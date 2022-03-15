@@ -33,6 +33,8 @@ export interface ActerAvatarProps {
 export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   const classes = useStyles({ size })
 
+  if (!acter) return null
+
   const avatarUrl = useMemo(
     () =>
       acter.avatarUrl
