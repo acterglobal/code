@@ -17,8 +17,10 @@ import {
   sortActivitiesByStartAt,
 } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const ActivitiesSection: FC = () => {
+  const { t } = useTranslation('common')
   const [showPastActivities, setShowPastActivities] = useState(true)
   const { acter, fetching: acterFetching } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
@@ -47,7 +49,7 @@ export const ActivitiesSection: FC = () => {
                 name="showPastActivities"
               />
             }
-            label="Show past activities?"
+            label={t('showPastActivities')}
           />
         </FormControlsContainer>
       </TopSection>
