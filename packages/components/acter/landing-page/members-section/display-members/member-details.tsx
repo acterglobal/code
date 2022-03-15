@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     memberInfo: {
       marginLeft: theme.spacing(3),
-      textTransform: 'capitalize',
     },
     name: {
       fontWeight: theme.typography.fontWeightBold,

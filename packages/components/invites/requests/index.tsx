@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import {
-  capitalize,
   createStyles,
   List,
   makeStyles,
@@ -29,7 +28,7 @@ export const Requests: FC = () => {
     <>
       {requests.length === 0 ? (
         <Typography className={classes.zeroMessage}>
-          {`${capitalize(acter.name)} has no new joining requests.`}
+          {`${acter.name} has no new joining requests.`}
         </Typography>
       ) : (
         <List className={classes.list}>

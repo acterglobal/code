@@ -50,7 +50,7 @@ export const ActerTileInfo: FC<ActerTileInfoProps> = ({ acter }) => {
       </Box>
 
       <Typography variant="subtitle1" className={classes.title}>
-        {capitalize(acter.name)}
+        {acter.name}
       </Typography>
       <Typography
         className={classes.typeAndLocation}

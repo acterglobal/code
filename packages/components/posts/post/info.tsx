@@ -4,7 +4,6 @@ import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { getPostTimeStamp } from '@acter/lib/post/get-post-timestamp'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { Post } from '@acter/schema'
 
 export interface PostInfoProps {
@@ -17,7 +16,7 @@ export const PostInfo: FC<PostInfoProps> = ({ post }) => {
     <Box>
       <Box className={classes.topSection}>
         <Typography variant="h6" className={classes.title}>
-          {capitalize(post.Author.name)}
+          {post.Author.name}
         </Typography>
         <Typography variant="body2" className={classes.timeStamp}>
           {getPostTimeStamp(post.updatedAt)}
