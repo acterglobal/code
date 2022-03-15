@@ -1,4 +1,8 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
+import { getActerLandingPageStaticPaths } from 'static-paths/acter-landing-page-paths'
 
 import { ActerMembers } from '@acter/components/acter/members'
 import { Head } from '@acter/components/atoms/head'
@@ -22,5 +26,13 @@ export const ActerMembersPage: NextPageWithLayout = () => {
 }
 
 ActerMembersPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common', 'interests'])),
+  },
+})
+
+export const getStaticPaths: GetStaticPaths = getActerLandingPageStaticPaths
 
 export default ActerMembersPage
