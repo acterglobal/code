@@ -46,7 +46,7 @@ export const SearchResultsInfiniteList: FC = () => {
   return (
     <div className={classes.searchResultsInfiniteList}>
       <InfiniteScroll
-        className={clsx(classes[searchType])}
+        className={clsx(classes[searchType], classes.infinityScroll)}
         dataLength={acters?.length || 0}
         next={loadMore}
         hasMore={hasMore}
@@ -70,6 +70,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       [theme.breakpoints.down('xs')]: {
         marginTop: 0,
+      },
+    },
+    infinityScroll: {
+      overflow: 'hidden',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
       },
     },
     activities: {

@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     info: {
       order: 2,
+      overflow: 'scroll',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
     },
   })
 )
