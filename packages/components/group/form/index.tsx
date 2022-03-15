@@ -20,7 +20,7 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
-import { Acter, ActerJoinSettings } from '@acter/schema'
+import { Acter, ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 export interface GroupFormProps {
   acter?: Acter
@@ -46,11 +46,16 @@ export const GroupForm: FC<GroupFormProps> = ({
 
   const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
 
+  const parentActerAdmins = parentActer.Followers.filter(
+    (follower) => follower.role === ActerConnectionRole.ADMIN
+  )
+
   const initialValues = {
     name: '',
     description: '',
     parentActerId: parentActer.id,
     acterTypeId: acterType?.id,
+    followerIds: parentActerAdmins?.map(({ Follower: { id } }) => id) || [],
     ...acter,
   }
 
