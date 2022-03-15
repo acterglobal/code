@@ -6,6 +6,7 @@ import {
   ActivityDetails,
   ActivityDetailsProps,
 } from '@acter/components/activity/activity-details'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { Acter } from '@acter/schema'
 import {
   ExampleActer,
@@ -32,6 +33,7 @@ export default {
   args: {
     acter: acter,
   },
+  parameters: withExampleActerParams(acter),
 } as Meta
 
 export const Main: Story<ActivityDetailsProps> = (args) => (

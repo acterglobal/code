@@ -4,7 +4,9 @@ import {
   ActerTile,
   ActerTileProps,
 } from '@acter/components/organisms/acter/tile'
-import { ExampleActer, Interests } from '@acter/schema/fixtures'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
+import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
+import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
   title: 'Organisms/Acter/Tile',
@@ -13,7 +15,13 @@ export default {
     acter: ExampleActer,
   },
   parameters: {
-    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
+    ...withExampleActerParams(),
+    urql: () => ({
+      data: {
+        ...withExampleActerParams().urql().data,
+        ...withExampleInterestParams.urql().data,
+      },
+    }),
   },
 } as Meta
 

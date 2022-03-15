@@ -12,7 +12,7 @@ type ImageUrlOptions = {
 
 export const getImageUrl = (
   imageName: string,
-  imageType: 'avatar' | 'banner' | 'SDG',
+  imageType?: 'avatar' | 'banner' | 'SDG',
   options?: ImageUrlOptions
 ): string => {
   const { suffix = '' } = options || {}

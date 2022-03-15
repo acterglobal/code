@@ -8,6 +8,7 @@ import {
   ActivitiesList,
   ActivityListProps,
 } from '@acter/components/activity/list'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { Acter } from '@acter/schema'
 import {
   ExampleActer,
@@ -15,10 +16,10 @@ import {
   ExampleUser,
 } from '@acter/schema/fixtures'
 
-const acter = ({
+const acter = {
   ...ExampleActer,
   Followers: [{ id: v4(), Follower: ExampleActer }],
-} as unknown) as Acter
+} as unknown as Acter
 
 export default {
   title: 'Pages/Activity/ActivitiesList',
@@ -28,6 +29,7 @@ export default {
     user: ExampleUser,
     activities: [ExampleActivity],
   },
+  parameters: withExampleActerParams(acter),
 } as Meta
 
 export const List: Story<ActivityListProps> = (args) => (

@@ -4,7 +4,8 @@ import {
   PostReactions,
   PostReactionsProps,
 } from '@acter/components/posts/reactions'
-import { ExampleActer, ExamplePost, ExampleUser } from '@acter/schema/fixtures'
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
+import { ExamplePost } from '@acter/schema/fixtures'
 
 const reaction1 = {
   emoji: '😀',
@@ -34,14 +35,7 @@ export default {
       PostReactions: [reaction1, reaction2, reaction3],
     },
   },
-  parameters: {
-    urql: () => ({
-      data: {
-        findFirstActer: ExampleActer,
-        user: ExampleUser,
-      },
-    }),
-  },
+  parameters: withExampleActerParams(),
 } as Meta
 
 export const Reactions: Story<PostReactionsProps> = (args) => (

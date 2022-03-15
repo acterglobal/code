@@ -1,8 +1,9 @@
 import { Meta, Story } from '@storybook/react'
 
-import { ActerTileInfo, ActerTileInfoProps } from './index'
-
+import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { ExampleActer } from '@acter/schema/fixtures'
+
+import { ActerTileInfo, ActerTileInfoProps } from './index'
 
 export default {
   title: 'Organisms/Acter/Tile/Info',
@@ -10,6 +11,7 @@ export default {
   args: {
     acter: ExampleActer,
   },
+  parameters: withExampleActerParams(),
 } as Meta<ActerTileInfoProps>
 
 const Template: Story<ActerTileInfoProps> = (args) => (

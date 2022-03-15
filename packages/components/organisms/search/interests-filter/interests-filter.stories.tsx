@@ -1,16 +1,14 @@
 import { Meta, Story } from '@storybook/react'
 
-import { InterestsFilter, InterestsFilterProps } from './index'
+import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 
-import { Interests } from '@acter/schema/fixtures'
+import { InterestsFilter, InterestsFilterProps } from './index'
 
 export default {
   title: 'Organisms/Search/Interests Filter',
   component: InterestsFilter,
   args: {},
-  parameters: {
-    urql: () => ({ data: { interestTypes: Interests.data.interestTypes } }),
-  },
+  parameters: withExampleInterestParams,
 } as Meta
 
 const Template: Story<InterestsFilterProps> = (args) => (

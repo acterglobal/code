@@ -72,7 +72,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
 
   const acterTypeName = useMemo(
     () => options?.acterTypeName || router.asPath.split('/')[1],
-    [options?.acterTypeName, router.asPath]
+    [options?.acterTypeName, router?.asPath]
   )
 
   const acterTypeId = useMemo(() => {
@@ -88,10 +88,10 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     }
   }, [acterTypes?.length, acterTypeName])
 
-  const slug = useMemo(() => options?.slug || (router.query?.slug as string), [
-    options?.slug,
-    router.query?.slug,
-  ])
+  const slug = useMemo(
+    () => options?.slug || (router.query?.slug as string),
+    [options?.slug, router.query?.slug]
+  )
 
   const variables = useMemo<UseActerVariables>(() => {
     if (acterId) {
