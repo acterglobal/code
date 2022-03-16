@@ -42,6 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'interests',
       'settings',
+      'invitations',
     ])),
   },
 })
