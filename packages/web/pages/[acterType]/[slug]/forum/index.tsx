@@ -29,7 +29,11 @@ ActerPostsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'interests'])),
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'invitations',
+    ])),
   },
 })
 

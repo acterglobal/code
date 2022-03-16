@@ -48,7 +48,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   if (!user)
     return (
       <ConnectButton
-        buttonText="Join"
+        buttonText={capitalize(t('join'))}
         redirectUrl={loginUrl}
         isActivity={isActivity}
         size={size}
