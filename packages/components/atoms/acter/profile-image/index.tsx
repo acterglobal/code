@@ -3,7 +3,9 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
+import { ActivityTypeIcon } from '@acter/components/icons/activity-type-icons'
 import { Image, ImageProps } from '@acter/components/util/image'
+import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
@@ -22,6 +24,14 @@ export const ActerProfileImage: FC<ActerProfileImageProps> = ({
   ...restProps
 }) => {
   const classes = useStyles({ background, borderSize, size })
+
+  if (acter.ActerType?.name == ActerTypes.ACTIVITY && acter.Activity) {
+    return (
+      <Box className={classes.acterProfileImage}>
+        <ActivityTypeIcon activity={acter.Activity} />
+      </Box>
+    )
+  }
 
   return (
     <Box className={classes.acterProfileImage}>

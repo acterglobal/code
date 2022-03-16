@@ -19,9 +19,9 @@ export interface SearchResultsListProps {
 }
 
 export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
-  const classes = useStyles()
   const { t } = useTranslation('search')
   const searchType = useSearchType()
+  const classes = useStyles({ searchType })
 
   if (acters?.length === 0) {
     return (
@@ -34,7 +34,7 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
   }
 
   return (
-    <>
+    <Box className={classes.searchResultsList}>
       {acters?.map((acter, index) => (
         <Box className={classes.singleItem} key={index} role="listitem">
           {searchType === ACTERS && (
@@ -49,13 +49,21 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
           )}
         </Box>
       ))}
-    </>
+    </Box>
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+type StylesProps = {
+  searchType: SearchType
+}
+
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
-    root: {
+    searchResultsList: ({ searchType }) => ({
+      display: 'flex',
+      flexDirection: searchType == ACTIVITIES ? 'row' : 'column',
+    }),
+    zeroResults: {
       marginTop: theme.spacing(5),
       height: '100%',
       [theme.breakpoints.down('xs')]: {
