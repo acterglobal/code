@@ -21,12 +21,14 @@ import {
   ActivitySearchTypes,
   SearchType,
 } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { CombinedSearchTypes } from '@acter/lib/search/use-search-types'
 
 export const SearchMenu: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('search')
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const searchType = useSearchType()
   const currentSearchType = useRef<SearchType>()
@@ -75,7 +77,7 @@ export const SearchMenu: FC = () => {
           className={classes.searchIcon}
           style={{ color: theme.palette.secondary.light }}
         />
-        <Typography variant="caption">Public search</Typography>
+        <Typography variant="caption">{t('heading')}</Typography>
       </Box>
 
       <SearchTabs activeTab={searchType} />
