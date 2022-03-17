@@ -33,7 +33,6 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({
         <Box className={classes.singleItem} key={index} role="listitem">
           {searchType === ACTERS && (
             <Link href={acterAsUrl({ acter })} passHref>
-              {/* <ActerTile acter={acter} profileImageSizes={profileImageSizes} /> */}
               <ActerTile acter={acter} />
             </Link>
           )}

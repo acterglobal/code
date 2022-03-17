@@ -16,12 +16,14 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.acterTile}>
       <Hidden xsDown>
         <ActerProfileImage acter={acter} />
       </Hidden>
 
-      <ActerTileInfo acter={acter} />
+      <Box className={classes.info}>
+        <ActerTileInfo acter={acter} />
+      </Box>
 
       <Hidden smDown>
         <Box className={classes.interests}>
@@ -36,19 +38,27 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    acterTile: {
       backgroundColor: 'white',
       borderRadius: theme.spacing(1),
       display: 'flex',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
       alignItems: 'center',
       padding: theme.spacing(1),
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
+    avatar: {
+      flex: '0 0',
+      width: 96,
+    },
+    info: {
+      flex: '2 1',
+    },
     interests: {
+      flex: '0 0',
       height: '100%',
-      width: 310,
+      minWidth: 310,
       marginTop: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
