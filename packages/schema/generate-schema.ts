@@ -1,6 +1,5 @@
 import 'reflect-metadata'
 
-import { authChecker } from './auth-checker'
 import { GraphQLSchema } from 'graphql/type'
 import path from 'path'
 import { buildSchema, UseMiddleware } from 'type-graphql'
@@ -19,6 +18,10 @@ import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-not
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
 import { SearchResolver } from '@acter/schema/resolvers/search'
+
+import { authChecker } from './auth-checker'
+
+let schema
 
 export const generateSchema = async (
   writeSchema = false
@@ -40,24 +43,27 @@ export const generateSchema = async (
 
   applyResolversEnhanceMap(resolversEnhanceMap)
 
-  const generatedPath = path.join(__dirname, 'generated')
-  const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
-  console.debug('in generateSchema with writeSchema', writeSchema)
-
-  const schema = await buildSchema({
-    authChecker,
-    resolvers: [
-      ...crudResolvers,
-      ...relationResolvers,
-      ActerResolver,
-      ActerConnectionResolver,
-      SearchResolver,
-    ],
-    validate: false,
-    dateScalarMode: 'isoDate',
-    // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
-    emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
-  })
+  if (!schema) {
+    const generatedPath = path.join(__dirname, 'generated')
+    const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
+    console.debug('In generateSchema with writeSchema', writeSchema)
+    schema = await buildSchema({
+      authChecker,
+      resolvers: [
+        ...crudResolvers,
+        ...relationResolvers,
+        ActerResolver,
+        ActerConnectionResolver,
+        SearchResolver,
+      ],
+      validate: false,
+      dateScalarMode: 'isoDate',
+      // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
+      emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
+    })
+  } else {
+    console.debug('Using existing schema')
+  }
 
   return schema
 }

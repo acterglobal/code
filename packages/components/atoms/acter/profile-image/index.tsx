@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     image: {
       display: 'flex',
+      flexShrink: 0,
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(3),
       border: '2px solid black',
