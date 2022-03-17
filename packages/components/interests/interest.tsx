@@ -13,6 +13,7 @@ import clsx from 'clsx'
 import { Image } from '@acter/components/util/image'
 import { Tooltip } from '@acter/components/util/tool-tip'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Interest as InterestType } from '@acter/schema'
 
@@ -80,22 +81,24 @@ export const Interest: FC<InterestProps> = ({
 const InterestName: FC<InterestProps> = ({ interest, type, chipSize }) => {
   const classes = useStyles({ type, size: chipSize })
   const theme = useTheme()
+  const { t } = useTranslation('interests')
+  const interestName = t(interest.name)
 
   return (
     <>
-      {chipSize === Size.SMALL && interest.name.length > 12 ? (
+      {chipSize === Size.SMALL && interestName.length > 12 ? (
         <Tooltip
-          title={interest.name}
+          title={interestName}
           backgroundColor={theme.palette.secondary.main}
           color={theme.colors.white}
         >
           <Typography className={classes.name} variant="caption" noWrap>
-            {type === TAGS ? `# ${interest.name}` : interest.name}
+            {type === TAGS ? `# ${interestName}` : interestName}
           </Typography>
         </Tooltip>
       ) : (
         <Typography className={classes.name} variant="caption">
-          {type === TAGS ? `# ${interest.name}` : interest.name}
+          {type === TAGS ? `# ${interestName}` : interestName}
         </Typography>
       )}
     </>
