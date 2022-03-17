@@ -15,6 +15,7 @@
     "handlebars": "4.7.7",
     "intercom-client": "2.11.2",
     "ioredis": "4.27.7",
+    "just-camel-case": "^6.0.1",
     "marked": "4.0.10",
     "md5": "2.3.0",
     "mime": "2.5.2",

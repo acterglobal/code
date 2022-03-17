@@ -9,6 +9,7 @@ import { AddIcon } from '@acter/components/icons'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const ActerForm = dynamic(() =>
   import('@acter/components/acter/form').then((mod) => mod.ActerForm)
@@ -16,15 +17,16 @@ const ActerForm = dynamic(() =>
 
 export const AddActer: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [heading, setHeading] = useState('Create')
+  const [heading, setHeading] = useState(t('acterForm.create') as string)
   const { acterTypes } = useActerTypes()
 
   const handleAddIconClick = () => setOpenDrawer(true)
 
   const handleDrawerClose = () => {
     setOpenDrawer(false)
-    setHeading('Create')
+    setHeading(t('acterForm.create'))
   }
 
   const [{ data, fetching }, createActer] = useCreateActer()

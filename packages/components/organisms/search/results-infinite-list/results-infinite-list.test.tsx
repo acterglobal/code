@@ -9,6 +9,7 @@ import { SearchResultsInfiniteList } from '@acter/components/organisms/search/re
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SearchType } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { render, screen, within } from '@acter/lib/test-utils'
@@ -22,6 +23,7 @@ jest.mock('@acter/lib/search/use-acter-search')
 jest.mock('@acter/lib/url/use-auth-redirect')
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/user/use-user')
+jest.mock('@acter/lib/i18n/use-translation')
 
 describe('Display search results', () => {
   const mockUseRouter = useRouter as jest.Mock
@@ -30,10 +32,12 @@ describe('Display search results', () => {
   const mockUseAuthDirect = useAuthRedirect as jest.Mock
   const mockUseActer = useActer as jest.Mock
   const mockUseUser = useUser as jest.Mock
+  const mockUseTranslation = useTranslation as jest.Mock
 
   beforeEach(() => {
     jest.resetAllMocks()
     mockUseActerSearch.mockReturnValue({ acters: [] })
+    mockUseTranslation.mockReturnValue({ t: (_) => '' })
   })
 
   it('should display search results with a list of Acters', async () => {
@@ -87,14 +91,19 @@ describe('Display search results', () => {
   })
 
   it('should display a message with no search results', async () => {
+    const zeroMessage =
+      'Your search did not return any results. Try removing search terms and/or filters to see more.'
+    mockUseTranslation.mockReturnValue({
+      t: (text) => {
+        if (text === 'zeroResults') return zeroMessage
+      },
+    })
     render(<SearchResultsInfiniteList />)
     const items = screen.queryAllByRole('listitem')
     const message = screen.queryByLabelText('zero-acters').textContent
 
     expect(items.length).toBe(0)
 
-    expect(message).toBe(
-      'Your search did not return any results. Try removing search terms and/or filters to see more.'
-    )
+    expect(message).toBe(zeroMessage)
   })
 })
