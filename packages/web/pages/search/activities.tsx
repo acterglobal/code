@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
@@ -19,5 +22,15 @@ const SearchActivitiesPage: NextPageWithLayout = () => {
 }
 
 SearchActivitiesPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'search',
+    ])),
+  },
+})
 
 export default SearchActivitiesPage

@@ -11,6 +11,7 @@ import {
 
 import { Interest } from '@acter/components/interests/interest'
 import { Size, InterestTypes as InterestTypeName } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { InterestType } from '@acter/schema'
 
 const { FOCUS, ECONOMY, ENVIRONMENT, SOCIAL } = InterestTypeName
@@ -43,6 +44,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
 }) => {
   const typeName: string = type.name
   const classes = useStyles({ typeName })
+  const { t } = useTranslation('interests')
 
   const subTypes = allTypes.filter(
     (subtype) => type.id === subtype.parentInterestTypeId
@@ -76,7 +78,7 @@ export const InterestTypes: FC<InterestTypesProps> = ({
       )}
       <Box ml={columns ? 0 : 3} role="list">
         {showTitle && (
-          <Typography className={classes.title}>{type.name}</Typography>
+          <Typography className={classes.title}>{t(type.name)}</Typography>
         )}
         <Box
           style={
