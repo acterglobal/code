@@ -1,6 +1,4 @@
 "Translation key","en_UK","da_DK"
 "dashboard","Dashboard","Dashboard"
-"myActivities","My activities","Mine aktiviteter"
-"myGroups","My groups","Mine grupper"
-"zeroMessage.activities","You are currently not participating in any activities. As you join new activities, they will show here.","Du deltager i øjeblikket ikke i nogen aktiviteter. Når du tilmelder dig nye aktiviteter, vil de blive vist her."
-"zeroMessage.groups","You are currently not part of any groups. As you join new groups they will show here.","Du er i øjeblikket ikke en del af nogen grupper. Når du tilmelder dig nye grupper, vises de her."
+"myGroups","my groups","mine grupper"
+"myActivities","my activities","mine aktiviteter"

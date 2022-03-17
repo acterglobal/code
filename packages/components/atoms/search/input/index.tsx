@@ -4,22 +4,19 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
 
-import { useTranslation } from '@acter/lib/i18n/use-translation'
-
 export interface SearchInputProps {
   handleInputChange: (data: string) => void
 }
 
 export const SearchInput: FC<SearchInputProps> = ({ handleInputChange }) => {
   const classes = useStyles()
-  const { t } = useTranslation('search')
 
   return (
     <Box style={{ width: '100%' }}>
       <Box className={classes.searchField}>
         <SearchIcon fontSize="inherit" className={classes.searchIcon} />
         <input
-          placeholder={t('searchInputPlaceholder')}
+          placeholder="Search"
           className={classes.input}
           onChange={(evt) => handleInputChange(evt.target.value)}
         />

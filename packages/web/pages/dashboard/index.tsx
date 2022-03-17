@@ -18,14 +18,13 @@ const DashboardPage: NextPageWithLayout = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, [
-      'common',
-      'interests',
-      'dashboard',
-    ])),
-  },
-})
-
 export default DashboardPage
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
+      // Will be passed to the page component as props
+    },
+  }
+}

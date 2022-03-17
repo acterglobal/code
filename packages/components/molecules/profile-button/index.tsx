@@ -16,7 +16,6 @@ import { LoginIcon } from '@acter/components/icons'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
 import { DropdownMenu as MenuPopUp } from '@acter/components/util/dropdown-menu'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
@@ -30,7 +29,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({
   transformOrigin = { vertical: 'top', horizontal: 'left' },
 }) => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
+
   const { user, fetching: userLoading } = useUser()
   const { loginUrl } = useAuthRedirect()
 
@@ -44,12 +43,12 @@ export const ProfileButton: FC<ProfileButtonProps> = ({
         >
           <MenuItem className={classes.menuItem}>
             <Link href="/profile">
-              <MuiLink className={classes.text}>{t('editProfile')}</MuiLink>
+              <MuiLink className={classes.text}>Edit Profile</MuiLink>
             </Link>
           </MenuItem>
           <MenuItem className={classes.menuItem}>
             <Link href="/api/auth/logout" isExternal={true}>
-              <MuiLink className={classes.text}>{t('signOut')}</MuiLink>
+              <MuiLink className={classes.text}>Sign Out</MuiLink>
             </Link>
           </MenuItem>
         </MenuPopUp>

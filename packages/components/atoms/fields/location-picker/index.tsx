@@ -26,7 +26,6 @@ import usePlacesAutocomplete, {
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export type LocationPickerProps = Partial<
   AutocompleteProps<LocationPickerResult, false, false, false>
@@ -46,9 +45,8 @@ export type LocationPickerResult = {
 }
 
 export const LocationPicker: FC<LocationPickerProps> = (props) => {
-  const { t } = useTranslation('common')
   const {
-    label = t('acterForm.location'),
+    label = 'Location',
     placeholder,
     types,
     cacheKey,
