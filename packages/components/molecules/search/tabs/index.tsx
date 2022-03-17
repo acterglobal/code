@@ -7,6 +7,7 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import clsx from 'clsx'
 
 import { SearchType } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface SearchTabsProps {
@@ -14,6 +15,7 @@ export interface SearchTabsProps {
 }
 
 export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { ACTERS, ACTIVITIES } = SearchType
   const searchTypes = [ACTERS, ACTIVITIES]
@@ -31,7 +33,7 @@ export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
               [classes.activeTab]: activeTab === searchType,
             })}
           >
-            {capitalize(searchType)}
+            {capitalize(t(`acterTypes.${searchType}`))}
           </Box>
         </Link>
       ))}

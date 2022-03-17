@@ -19,6 +19,7 @@ import {
 } from '@acter/components/acter/form/interests-add-section'
 import { Button, ButtonsContainer } from '@acter/components/styled'
 import { Stepper } from '@acter/components/util/stepper'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { Acter, ActerType } from '@acter/schema'
 
@@ -53,6 +54,7 @@ export const ActerForm: FC<ActerFormProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
   const [activeStep, setActiveStep] = useState(0)
   const totalSteps = steps.length
 
@@ -122,7 +124,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                 disabled={activeStep === 0 || isSubmitting}
                 onClick={handlePrev}
               >
-                Back
+                {t('acterForm.back')}
               </Button>
               <Button
                 variant="contained"
@@ -131,7 +133,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                 disabled={isSubmitting}
                 type="submit"
               >
-                {isLastStep() ? 'Submit' : 'Continue'}
+                {isLastStep() ? t('acterForm.submit') : t('acterForm.continue')}
               </Button>
             </ButtonsContainer>
           </Form>
