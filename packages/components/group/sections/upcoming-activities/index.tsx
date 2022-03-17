@@ -10,8 +10,12 @@ import { useActer } from '@acter/lib/acter/use-acter'
 import { getUpcomingActivities } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const UpcomingActivities: FC = () => {
+  const { t } = useTranslation('group-landing', {
+    keyPrefix: 'sectionContainer',
+  })
   const { acter } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
 
@@ -21,8 +25,8 @@ export const UpcomingActivities: FC = () => {
 
   return (
     <SectionContainer
-      title="Upcoming Activities"
-      buttonText="See All Activities"
+      title={t('title')}
+      buttonText={t('buttonText')}
       addItem={ActerTypes.ACTIVITY}
     >
       {activitiesFetching ? (
@@ -30,9 +34,9 @@ export const UpcomingActivities: FC = () => {
       ) : upcomingActivities?.length === 0 ? (
         <ZeroMessage
           addItem={ActerTypes.ACTIVITY}
-          primaryText="There are currently no activities planned for this group."
-          secondaryText="Do you want to plan an activity?"
-          buttonText="Create Activity"
+          primaryText={t('zeroMessage.primaryText')}
+          secondaryText={t('zeroMessage.secondaryText')}
+          buttonText={t('zeroMessage.buttonText')}
         />
       ) : (
         <>
