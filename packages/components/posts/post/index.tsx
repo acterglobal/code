@@ -14,7 +14,8 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
-import { Post as PostType, User } from '@acter/schema'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole, Post as PostType, User } from '@acter/schema'
 
 export interface PostsProps {
   user: User
@@ -42,6 +43,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
 
   if (updateFetching || deleteFetching) return <LoadingSpinner />
 
+  const isAuthor = user?.Acter?.id === post.Author.id
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = checkMemberAccess(user, acter)
 
   if (toggleForm) {
@@ -69,8 +72,12 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
               isComment={Boolean(post.parentId)}
             />
           )}
-          {user?.Acter?.id === post.Author.id && (
-            <PostOptions onEdit={handleEdit} onDelete={handleDelete} />
+          {(isAuthor || isAdmin) && (
+            <PostOptions
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              isAuthor={isAuthor}
+            />
           )}
         </Box>
       </Box>
