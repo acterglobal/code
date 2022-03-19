@@ -55,7 +55,16 @@ export const GroupForm: FC<GroupFormProps> = ({
     description: '',
     parentActerId: parentActer.id,
     acterTypeId: acterType?.id,
-    followerIds: parentActerAdmins?.map(({ Follower: { id } }) => id) || [],
+    parentAdminActerIds:
+      parentActerAdmins?.map(({ Follower: { id } }) => id) || [],
+    parentAdminUserIds:
+      parentActerAdmins?.map(
+        ({
+          Follower: {
+            createdByUser: { id },
+          },
+        }) => id
+      ) || [],
     ...acter,
   }
 
