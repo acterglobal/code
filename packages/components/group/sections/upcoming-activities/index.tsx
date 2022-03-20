@@ -14,7 +14,7 @@ import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const UpcomingActivities: FC = () => {
   const { t } = useTranslation('group-landing', {
-    keyPrefix: 'sectionContainer',
+    keyPrefix: 'upcomingActivities',
   })
   const { acter } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)

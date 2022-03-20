@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'interests',
       'invitations',
       'group-landing',
+      'settings',
     ])),
   },
 })

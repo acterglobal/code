@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
+import { getGroupLandingPageStaticPaths } from 'static-paths/group-landing-page-paths'
 
 import { Head } from '@acter/components/atoms/head'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
@@ -22,5 +26,19 @@ export const GroupMembersPage: NextPageWithLayout = () => {
 }
 
 GroupMembersPage.getLayout = (page) => <GroupLayout>{page}</GroupLayout>
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'invitations',
+      'group-landing',
+      'settings',
+    ])),
+  },
+})
+
+export const getStaticPaths: GetStaticPaths = getGroupLandingPageStaticPaths
 
 export default GroupMembersPage
