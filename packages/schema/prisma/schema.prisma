@@ -355,7 +355,7 @@ model Notification {
 }
 
 enum Language {
-  en_UK
+  en_GB
   da_DK
 }
 
@@ -365,7 +365,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  language      Language  @default(en_UK)
+  language      Language  @default(en_GB)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @default(now()) @map("updated_at")
 
