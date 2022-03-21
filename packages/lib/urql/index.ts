@@ -17,7 +17,6 @@ import { prismaPagination } from '@acter/lib/urql/prisma-pagination'
 import * as updates from '@acter/lib/urql/updates'
 
 export * from './use-notification-mutation'
-export * from './use-paginated-query'
 export * from './provider'
 
 export type Resolvers = ResolverConfig & {

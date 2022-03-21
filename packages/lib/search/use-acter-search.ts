@@ -9,7 +9,7 @@ import {
   usePaginatedQuery,
   UsePaginatedState,
   UsePaginationQueryOptions,
-} from '@acter/lib/urql'
+} from '@acter/lib/urql/use-paginated-query'
 import { Acter } from '@acter/schema'
 import SEARCH_ACTERS from '@acter/schema/queries/acters-search.graphql'
 

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
 import {
   Box,
@@ -27,46 +27,40 @@ import { CombinedSearchTypes } from '@acter/lib/search/use-search-types'
 export const SearchMenu: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
-  const searchType = useSearchType()
-  const [currentSearchType, setCurrentSearchType] = useState<SearchType>()
-  const [subTypes, setSubTypes] = useState<CombinedSearchTypes[]>()
-  const [selectedSubTypes, setSelectedSubTypes] = useState<
-    CombinedSearchTypes[]
-  >()
   const [searchVariables, setSearchVariables] = useSearchVariables()
+  const searchType = useSearchType()
+  const currentSearchType = useRef<SearchType>()
+
+  const isActivitySearch = searchType === SearchType.ACTIVITIES
 
   useEffect(() => {
-    if (searchType !== currentSearchType) {
-      setCurrentSearchType(searchType)
-
-      switch (searchType) {
-        case SearchType.ACTERS:
-          setSubTypes(ActerSearchTypes)
-          setSelectedSubTypes(ActerSearchTypes)
-          setSearchVariables({
-            types: ActerSearchTypes,
-            activityTypes: undefined,
-            orderBy: SearchActivitiesSortBy.NAME,
-          })
-          break
-        case SearchType.ACTIVITIES:
-          setSubTypes(ActivitySearchTypes)
-          setSelectedSubTypes(ActivitySearchTypes)
-          setSearchVariables({
-            types: [ActerTypes.ACTIVITY],
-            activityTypes: ActivitySearchTypes,
-            orderBy: SearchActivitiesSortBy.DATE,
-          })
+    if (currentSearchType.current !== searchType) {
+      if (isActivitySearch) {
+        setSearchVariables({
+          types: [ActerTypes.ACTIVITY],
+          activityTypes: ActivitySearchTypes,
+          orderBy: SearchActivitiesSortBy.DATE,
+        })
+      } else {
+        setSearchVariables({
+          types: ActerSearchTypes,
+          activityTypes: undefined,
+          orderBy: SearchActivitiesSortBy.NAME,
+        })
       }
+      currentSearchType.current = searchType
     }
   }, [searchType])
+
+  const subTypes = isActivitySearch ? ActivitySearchTypes : ActerSearchTypes
+  const selectedSubTypes = isActivitySearch
+    ? searchVariables.activityTypes
+    : searchVariables.types
 
   const handleTypesPickerChange = (
     newSelectedSubTypes: CombinedSearchTypes[]
   ) => {
-    setSelectedSubTypes(newSelectedSubTypes)
-    const searchVariableTypeKey =
-      searchType === SearchType.ACTIVITIES ? 'activityTypes' : 'types'
+    const searchVariableTypeKey = isActivitySearch ? 'activityTypes' : 'types'
     setSearchVariables({
       ...searchVariables,
       [searchVariableTypeKey]: newSelectedSubTypes,
