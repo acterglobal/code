@@ -6,7 +6,7 @@ type Language = Record<string, string>
 type LanguageMap = Record<string, Language>
 
 export const languageMap: LanguageMap = {
-  en_UK: {},
+  en_GB: {},
   da_DK: {},
 }
 
@@ -34,8 +34,8 @@ const jsonToCsv = async () => {
     }
   }, {})
 
-  const data = Object.keys(bulkData['en_UK']).reduce((prev1, namespace) => {
-    const keysData = Object.keys(bulkData['en_UK'][namespace]).reduce(
+  const data = Object.keys(bulkData['en_GB']).reduce((prev1, namespace) => {
+    const keysData = Object.keys(bulkData['en_GB'][namespace]).reduce(
       (prev2, key) => {
         const localeData = Object.keys(languageMap).reduce((prev3, locale) => {
           return {
