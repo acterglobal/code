@@ -47,7 +47,6 @@ export const LanguagePicker: FC<LanguagePickerProps> = (props) => {
         name="language"
         onChange={handleChange}
       >
-        {/* TODO: replace language name with translation keys */}
         {Object.entries(LanguageNames).map(([language, languageName]) => (
           <MenuItem value={language as Language} className={classes.item}>
             {capitalize(languageName)}
