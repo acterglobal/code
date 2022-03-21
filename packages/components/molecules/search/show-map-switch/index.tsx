@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { Box, createStyles, makeStyles, Typography } from '@material-ui/core'
 
 import { Switch } from '@acter/components/atoms/fields/switch'
+import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { ResultDisplayType } from '@acter/lib/constants'
 
 export interface ShowMapSwitchProps {
@@ -15,6 +16,30 @@ export const ShowMapSwitch: FC<ShowMapSwitchProps> = ({
   onChange,
 }) => {
   const classes = useStyles()
+  const [searchVariables, setSearchVariables] = useSearchVariables()
+
+  const handleChange = (checked: boolean) => {
+    if (checked) {
+      setSearchVariables({
+        ...searchVariables,
+        north: null,
+        east: null,
+        south: null,
+        west: null,
+      })
+      onChange(ResultDisplayType.MAP)
+      return
+    }
+
+    setSearchVariables({
+      ...searchVariables,
+      north: undefined,
+      east: undefined,
+      south: undefined,
+      west: undefined,
+    })
+    onChange(ResultDisplayType.LIST)
+  }
 
   return (
     <Box className={classes.showMapSwitch}>
@@ -24,9 +49,7 @@ export const ShowMapSwitch: FC<ShowMapSwitchProps> = ({
       <Switch
         name="showOnMap"
         checked={resultDisplayType === ResultDisplayType.MAP}
-        onChange={(checked) =>
-          onChange(checked ? ResultDisplayType.MAP : ResultDisplayType.LIST)
-        }
+        onChange={handleChange}
       />
     </Box>
   )

@@ -38,7 +38,6 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({
   const classes = useStyles()
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const mapRef = useRef<google.maps.Map>()
-  const initialRender = useRef(true)
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
   const { latitude = defaultCenter.lat, longitude = defaultCenter.lng } =
     usePosition()
@@ -67,24 +66,13 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({
   const handleBoundsChanged = debounce(() => {
     const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
     if (
-      initialRender.current === false &&
-      (north !== searchVariables.north ||
-        east !== searchVariables.east ||
-        south !== searchVariables.south ||
-        west !== searchVariables.west)
+      north !== searchVariables.north ||
+      east !== searchVariables.east ||
+      south !== searchVariables.south ||
+      west !== searchVariables.west
     )
       setMapSearchVariables()
   }, 300)
-
-  useEffect(() => {
-    if (
-      initialRender.current &&
-      typeof mapRef.current?.getBounds === 'function'
-    ) {
-      setMapSearchVariables()
-      initialRender.current = false
-    }
-  }, [initialRender.current, mapRef.current])
 
   useEffect(() => {
     if (
