@@ -12,7 +12,6 @@ import {
 import { Action } from '@acter/components/invites/requests/action'
 import { ActerTypes } from '@acter/lib/constants'
 import { InviteActions } from '@acter/lib/constants'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { ActerConnection as RequestType } from '@acter/schema'
 
 const { USER } = ActerTypes
@@ -30,14 +29,12 @@ export const Request: FC<RequestProps> = ({ request }) => {
   return (
     <ListItem>
       <Box className={classes.details}>
-        <Typography className={classes.name}>
-          {capitalize(followerName)}
-        </Typography>
+        <Typography className={classes.name}>{followerName}</Typography>
         {ActerType.name !== USER && (
           <Box style={{ display: 'flex' }}>
             <Typography className={classes.by}>By:</Typography>
             <Typography className={classes.byActer}>
-              {capitalize(createdByUser.Acter.name)}
+              {createdByUser.Acter.name}
             </Typography>
           </Box>
         )}

@@ -8,16 +8,15 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { InviteByEmail } from './invite-by-email'
-import { InviteByLink } from './invite-by-link'
 import { Form, Formik, FormikBag } from 'formik'
 
+import { InviteByEmail } from '@acter/components/invites/form/invite-by-email'
+import { InviteByLink } from '@acter/components/invites/form/invite-by-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { getInvitationMessage } from '@acter/lib/invites/get-invitation-message'
 import { useCreateInvites } from '@acter/lib/invites/use-create-invites'
 import { useInvites } from '@acter/lib/invites/use-invites'
-import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -47,13 +46,11 @@ export const InviteForm: FC = () => {
   if (!acter || !user) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  const acterName = capitalize(acter.name)
-  const userName = capitalize(user.Acter.name)
 
   const initialValues: InviteFormValues = {
     inviteLink: acterAsUrl({ acter, includeBaseUrl: true }),
     emails: [],
-    message: getInvitationMessage(acterName, userName),
+    message: getInvitationMessage(acter.name, user.Acter.name),
     onActerId: acter.id,
     createdByUserId: user.id,
   }
@@ -85,7 +82,7 @@ export const InviteForm: FC = () => {
   }
 
   return (
-    <Box className={classes.content}>
+    <Box className={classes.inviteForm}>
       {!isAdmin && (
         <Typography className={classes.headerMessage} variant="h6">
           Invite people to join "{acter.name}"
@@ -105,7 +102,7 @@ export const InviteForm: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    content: {
+    inviteForm: {
       marginTop: theme.spacing(3),
       padding: theme.spacing(4),
       color: theme.palette.secondary.main,
@@ -115,16 +112,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       marginBottom: theme.spacing(8),
       fontWeight: theme.typography.fontWeightBold,
-    },
-    status: {
-      float: 'right',
-      marginTop: theme.spacing(1.5),
-      width: theme.spacing(13),
-      textAlign: 'center',
-      color: theme.palette.primary.main,
-      textTransform: 'capitalize',
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: '0.75rem',
     },
   })
 )

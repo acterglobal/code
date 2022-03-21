@@ -18,7 +18,6 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
-import { capitalize } from '@acter/lib/string/capitalize'
 
 export const HeaderSection: FC = () => {
   const classes = useStyles()
@@ -41,9 +40,7 @@ export const HeaderSection: FC = () => {
             aria-label="breadcrumb"
           >
             <Link href={acterAsUrl({ acter })}>
-              <Typography className={classes.name}>
-                # {capitalize(acter.name)}
-              </Typography>
+              <Typography className={classes.name}># {acter.name}</Typography>
             </Link>
 
             <Typography className={classes.activities}>
