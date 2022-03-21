@@ -55,7 +55,11 @@ export class ActerResolver {
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('interestIds', () => [String]) interestIds: [string],
     @Arg('followerIds', () => [String], { nullable: true })
-    followerIds: [string]
+    followerIds: [string],
+    @Arg('parentAdminActerIds', () => [String], { nullable: true })
+    parentAdminActerIds: [string],
+    @Arg('parentAdminUserIds', () => [String], { nullable: true })
+    parentAdminUserIds: [string]
   ): Promise<Acter> {
     const currentUser = ctx.session.user
 
@@ -106,6 +110,19 @@ export class ActerResolver {
       },
     ]
 
+    const parentActerAdminConnectlist = [
+      ...parentAdminActerIds.map((id, index) => ({
+        followerActerId: id,
+        role: ADMIN,
+        createdByUserId: parentAdminUserIds[index],
+      })),
+    ]
+
+    const followerList = [
+      ...parentActerAdminConnectlist,
+      ...followerConnectList,
+    ]
+
     return ctx.prisma.acter.create({
       data: {
         name,
@@ -125,7 +142,7 @@ export class ActerResolver {
         updatedAt: new Date(),
         createdByUserId,
         Followers: {
-          create: followerConnectList,
+          create: followerList,
         },
         ActerInterests: {
           create: interestIds.map((interestId) => ({
@@ -293,7 +310,11 @@ export class ActerResolver {
     @Arg('activityTypeId') activityTypeId: string,
     @Arg('parentActerId', { nullable: true }) parentActerId: string,
     @Arg('followerIds', () => [String], { nullable: true })
-    followerIds: [string]
+    followerIds: [string],
+    @Arg('parentAdminActerIds', () => [String], { nullable: true })
+    parentAdminActerIds: [string],
+    @Arg('parentAdminUserIds', () => [String], { nullable: true })
+    parentAdminUserIds: [string]
   ): Promise<Partial<Activity>> {
     const acter = await this.createActerCustom(
       ctx,
@@ -311,7 +332,9 @@ export class ActerResolver {
       acterTypeId,
       organiserActerId,
       interestIds,
-      followerIds
+      followerIds,
+      parentAdminActerIds,
+      parentAdminUserIds
     )
 
     const activity = await ctx.prisma.activity.create({

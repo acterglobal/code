@@ -10,18 +10,27 @@ import { capitalize } from '@acter/lib/string/capitalize'
 export interface PostOptionsProps {
   onEdit: () => void
   onDelete: () => void
+  isAuthor: boolean
 }
 
-export const PostOptions: FC<PostOptionsProps> = ({ onEdit, onDelete }) => {
+export const PostOptions: FC<PostOptionsProps> = ({
+  onEdit,
+  onDelete,
+  isAuthor,
+}) => {
   const classes = useStyles()
+
   return (
     <DropdownMenu
       anchorNode={<ThreeDotsIcon className={classes.threeDotsIcon} />}
       closeOnClick
     >
-      <MenuItem className={classes.menuItem} onClick={onEdit}>
-        {capitalize('Edit')}
-      </MenuItem>
+      {isAuthor && (
+        <MenuItem className={classes.menuItem} onClick={onEdit}>
+          {capitalize('Edit')}
+        </MenuItem>
+      )}
+
       <MenuItem className={classes.menuItem} onClick={onDelete}>
         {capitalize('Delete')}
       </MenuItem>

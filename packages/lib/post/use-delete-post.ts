@@ -42,6 +42,7 @@ export const useDeletePost = (
     PostVariables
   >(DELETE_POST, {
     ...options,
+    getSuccessMessage: () => 'Post deleted',
   })
 
   const handleDeletePost = async (values: PostType) =>

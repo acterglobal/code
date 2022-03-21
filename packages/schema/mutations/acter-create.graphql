@@ -13,6 +13,8 @@ mutation CreateActer(
   $interestIds: [String!]!
   $followerIds: [String!]!
   $parentActerId: String
+  $parentAdminActerIds: [String!]
+  $parentAdminUserIds: [String!]
 ) {
   createActerCustom(
     name: $name
@@ -27,6 +29,8 @@ mutation CreateActer(
     interestIds: $interestIds
     followerIds: $followerIds
     parentActerId: $parentActerId
+    parentAdminActerIds: $parentAdminActerIds
+    parentAdminUserIds: $parentAdminUserIds
   ) {
     ...ActerFull
   }
