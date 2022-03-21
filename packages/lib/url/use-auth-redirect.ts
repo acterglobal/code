@@ -24,7 +24,7 @@ export const useAuthRedirect = (
   const authPath = '/api/auth'
   const query = getQuery(loginRedirectPath, router)
 
-  const loginUrl = router?.route.includes('/search')
+  const loginUrl = router?.pathname.includes('/search')
     ? `${authPath}/login?returnTo=/dashboard`
     : `${authPath}/login${query}`
   const loginRedirect = () => window.location.assign(loginUrl)

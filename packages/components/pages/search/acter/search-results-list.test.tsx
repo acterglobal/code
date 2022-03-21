@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react'
 
 import { useRouter } from 'next/router'
@@ -7,26 +10,32 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 import { render, screen, within } from '@acter/lib/test-utils'
-import { ExampleActerList, ExampleActivity } from '@acter/schema/fixtures'
+import { useUser } from '@acter/lib/user/use-user'
+import {
+  ExampleActerList,
+  ExampleActivity,
+  ExampleUser,
+} from '@acter/schema/fixtures'
 
 jest.mock('next/router')
 jest.mock('@acter/lib/search/use-search-type')
+jest.mock('@acter/lib/user/use-user')
 
 describe('Display search results', () => {
   const mockUseRouter = useRouter as jest.Mock
   const mockUseSearchType = useSearchType as jest.Mock
+  const mockUseUser = useUser as jest.Mock
+
+  beforeAll(() => {
+    mockUseUser.mockReturnValue({
+      user: ExampleUser,
+    })
+  })
 
   it('should display search results with a list of Acters', async () => {
     mockUseSearchType.mockReturnValue(SearchType.ACTERS)
 
-    render(
-      <SearchResultsList
-        acters={ExampleActerList}
-        fetching={false}
-        hasMore={false}
-        loadMore={jest.fn()}
-      />
-    )
+    render(<SearchResultsList acters={ExampleActerList} />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
@@ -53,21 +62,13 @@ describe('Display search results', () => {
       Activity: ExampleActivity,
     }))
 
-    render(
-      <SearchResultsList
-        acters={activities}
-        fetching={false}
-        hasMore={false}
-        loadMore={jest.fn()}
-      />
-    )
+    render(<SearchResultsList acters={activities} />)
     const items = screen.queryAllByRole('listitem')
 
     expect(items.length).toBe(9)
 
     items.map((item) => {
-      const type = within(item).queryByLabelText('activity-type')
-      expect(type.textContent).toContain('Event')
+      expect(item.textContent).toContain('Event')
     })
   })
 })
