@@ -1,4 +1,4 @@
 export enum LanguageNames {
-  en_UK = 'English',
+  en_GB = 'English',
   da_DK = 'Danish',
 }

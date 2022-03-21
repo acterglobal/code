@@ -7,7 +7,7 @@ type LanguageMap = Record<string, Language>
 
 // TODO :create languageMap with typegraphql generated Language enum keys
 const languageMap: LanguageMap = {
-  en_UK: {},
+  en_GB: {},
   da_DK: {},
 }
 
