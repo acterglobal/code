@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { createStyles, Grid, makeStyles } from '@material-ui/core'
 
@@ -18,6 +18,7 @@ const profileImageSizes: ProfileImageSizes = {
 export const ResultsMapList: FC = () => {
   const classes = useStyles()
   const { acters, fetching } = useActerSearch()
+  const [hoverActerId, setHoverActerId] = useState('')
 
   return (
     <Grid container className={classes.resultsMapList}>
@@ -25,12 +26,13 @@ export const ResultsMapList: FC = () => {
         <SearchResultsList
           acters={acters}
           profileImageSizes={profileImageSizes}
+          hoverActerId={hoverActerId}
         />
         {acters?.length === 0 && !fetching && <ZeroResultsMessage />}
         {fetching && <LoadingBar />}
       </Grid>
       <Grid item xs={12} sm={6}>
-        <SearchResultsMap acters={acters} />
+        <SearchResultsMap acters={acters} onActerHover={setHoverActerId} />
       </Grid>
     </Grid>
   )

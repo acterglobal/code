@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 
-import { makeStyles, createStyles } from '@material-ui/core'
+import { makeStyles, createStyles, Box } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { GoogleMap, OverlayView, useLoadScript } from '@react-google-maps/api'
 
@@ -10,11 +10,14 @@ import { usePosition } from 'use-position'
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
+import { Link } from '@acter/components/util/anchor-link'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Acter } from '@acter/schema'
 
 export interface SearchResultsMapProps {
   acters: Acter[]
   onBoundsChange?: () => void
+  onActerHover: (id: string) => void
 }
 
 const defaultCenter: google.maps.LatLngLiteral = {
@@ -28,16 +31,17 @@ const googleMapsApiKey =
   process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
   process.env.STORYBOOK_GOOGLE_MAPS_API_KEY
 
-export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
+export const SearchResultsMap: FC<SearchResultsMapProps> = ({
+  acters,
+  onActerHover,
+}) => {
   const classes = useStyles()
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const mapRef = useRef<google.maps.Map>()
   const initialRender = useRef(true)
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
-  const {
-    latitude = defaultCenter.lat,
-    longitude = defaultCenter.lng,
-  } = usePosition()
+  const { latitude = defaultCenter.lat, longitude = defaultCenter.lng } =
+    usePosition()
   const [mapCenter, setMapCenter] = useState<google.maps.LatLngLiteral>({
     lat: latitude,
     lng: longitude,
@@ -48,13 +52,8 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
   }
 
   const setMapSearchVariables = () => {
-    if (mapRef.current) {
-      const {
-        north,
-        east,
-        south,
-        west,
-      } = mapRef.current?.getBounds?.().toJSON()
+    if (mapRef.current?.getBounds?.()) {
+      const { north, east, south, west } = mapRef.current.getBounds().toJSON()
       setSearchVariables({
         ...searchVariables,
         north,
@@ -67,16 +66,14 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
 
   const handleBoundsChanged = debounce(() => {
     const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
-    setMapCenter(mapRef.current?.getCenter?.().toJSON())
     if (
       initialRender.current === false &&
       (north !== searchVariables.north ||
         east !== searchVariables.east ||
         south !== searchVariables.south ||
         west !== searchVariables.west)
-    ) {
+    )
       setMapSearchVariables()
-    }
   }, 300)
 
   useEffect(() => {
@@ -89,13 +86,26 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
     }
   }, [initialRender.current, mapRef.current])
 
+  useEffect(() => {
+    if (
+      typeof mapRef.current?.getBounds === 'function' &&
+      latitude &&
+      longitude
+    ) {
+      setMapCenter({ lat: latitude, lng: longitude })
+      mapRef.current.panTo(mapCenter)
+    }
+  }, [mapRef.current, latitude, longitude])
+
   if (!isLoaded) return <LoadingBar />
 
   if (loadError) return <Alert severity="error">{loadError}</Alert>
 
+  const onHover = (acterId = '') => debounce(() => onActerHover(acterId), 100)
+
   return (
     <GoogleMap
-      mapContainerClassName={classes.root}
+      mapContainerClassName={classes.searchResultsMap}
       center={mapCenter}
       zoom={12}
       onLoad={handleMapLoad}
@@ -108,13 +118,22 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
             <OverlayView
               position={{ lat: acter.locationLat, lng: acter.locationLng }}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+              key={`map-result-${acter.id}`}
             >
-              <ActerProfileImage
-                acter={acter}
-                background="white"
-                borderSize={1}
-                size={markerSize}
-              />
+              <Box
+                className={classes.acterMarker}
+                onMouseOver={onHover(acter.id)}
+                onMouseOut={onHover()}
+              >
+                <Link href={acterAsUrl({ acter })}>
+                  <ActerProfileImage
+                    acter={acter}
+                    background="white"
+                    borderSize={1}
+                    size={markerSize}
+                  />
+                </Link>
+              </Box>
             </OverlayView>
           )
       )}
@@ -124,8 +143,12 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({ acters }) => {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
+    searchResultsMap: {
       height: '100%',
+    },
+    acterMarker: {
+      transition: 'transform 0.2s ease-in-out',
+      '&:hover': { transform: 'scale(1.2)' },
     },
   })
 )
