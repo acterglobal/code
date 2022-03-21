@@ -63,9 +63,12 @@ export const TopBar: FC<TopBarProps> = ({ acter, handleCloseActivity }) => {
     setHeading('')
   }
 
-  const [_updateActivityResult, updateActivity] = useUpdateActivity({
-    onCompleted: handleDrawerClose,
-  })
+  const [_updateActivityResult, updateActivity] = useUpdateActivity(
+    acter?.Activity,
+    {
+      onCompleted: handleDrawerClose,
+    }
+  )
 
   const [_deleteActivityResult, deleteActivity] = useDeleteActer({
     onCompleted: () =>
