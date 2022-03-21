@@ -66,6 +66,7 @@ __metadata:
     stringify-object: 4.0.1
     title-case: 3.0.3
     typescript: "*"
+    use-places-autocomplete: ^2.0.0
     use-position: 1.0.0
     uuid: 8.3.2
     webpack: "*"
@@ -28792,6 +28793,15 @@ typescript@^3.9.7:
     "@types/react":
       optional: true
   checksum: f0cb3a49119e14ed46db8a946b1aa17b838b8834c8a652bde314877ede6057c55b50654a97ee802597a5839c070180195e58ea3a756b7c33db7f540642f0ddea
+  languageName: node
+  linkType: hard
+
+"use-places-autocomplete@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "use-places-autocomplete@npm:2.0.0"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: 9ef4a888e0c988ed9593d0d87f83c2827244d05cbf3ebc275ac852fcd91676b6b69e0daff6c13552c406d74296fe8c7bb42e149a032737070ac4ffbed524026a
   languageName: node
   linkType: hard
 

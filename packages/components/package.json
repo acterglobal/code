@@ -44,6 +44,7 @@
     "react-infinite-scroll-component": "6.1.0",
     "react-is-visible": "1.1.2",
     "title-case": "3.0.3",
+    "use-places-autocomplete": "^2.0.0",
     "use-position": "1.0.0",
     "uuid": "8.3.2"
   },
