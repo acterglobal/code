@@ -33,7 +33,7 @@ export const SearchTabs: FC<SearchTabsProps> = ({ activeTab }) => {
               [classes.activeTab]: activeTab === searchType,
             })}
           >
-            {capitalize(t(`acterTypes.${searchType}`))}
+            {capitalize(t(searchType))}
           </Box>
         </Link>
       ))}

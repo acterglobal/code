@@ -12,8 +12,9 @@ import {
 
 import clsx from 'clsx'
 
-import { Link } from '@acter/components/util/anchor-link'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useUpdateUserLanguage } from '@acter/lib/acter/use-update-user-language'
+import { getLocale } from '@acter/lib/i18n/get-locale'
 import { useUser } from '@acter/lib/user/use-user'
 import { Language as ActerLocales, Language } from '@acter/schema'
 
@@ -23,11 +24,13 @@ export const Locales: FC = () => {
   const router = useRouter()
   const classes = useStyles({ locale: router.locale })
   const { user } = useUser()
-  const [_, updateLanguage] = useUpdateUserLanguage()
+  const [{ fetching: updating }, updateLanguage] = useUpdateUserLanguage()
 
   useEffect(() => {
-    if (user?.language !== router.locale) {
-      router.push(router.asPath, router.asPath, { locale: user?.language })
+    if (user?.language && getLocale(user?.language) !== router.locale) {
+      router.push(router.asPath, router.asPath, {
+        locale: getLocale(user?.language),
+      })
     }
   }, [user])
 
@@ -39,29 +42,31 @@ export const Locales: FC = () => {
 
   return (
     <Box className={classes.locales}>
-      <Link href={router.asPath} locale={en_GB}>
-        <Typography
-          className={clsx(
-            classes.locale,
-            router.locale === en_GB && classes.active
-          )}
-          onClick={() => handleClick(en_GB)}
-        >
-          EN
-        </Typography>
-      </Link>
-      /
-      <Link href={router.asPath} locale={da_DK}>
-        <Typography
-          className={clsx(
-            classes.locale,
-            router.locale === da_DK && classes.active
-          )}
-          onClick={() => handleClick(da_DK)}
-        >
-          DA
-        </Typography>
-      </Link>
+      {updating ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <Typography
+            className={clsx(
+              classes.locale,
+              router.locale === getLocale(en_GB) && classes.active
+            )}
+            onClick={() => handleClick(en_GB)}
+          >
+            EN
+          </Typography>
+          /
+          <Typography
+            className={clsx(
+              classes.locale,
+              router.locale === getLocale(da_DK) && classes.active
+            )}
+            onClick={() => handleClick(da_DK)}
+          >
+            DA
+          </Typography>
+        </>
+      )}
     </Box>
   )
 }
@@ -80,6 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.colors.white,
       fontSize: 10,
       fontWeight: theme.typography.fontWeightLight,
+      cursor: 'pointer',
     },
     active: {
       fontWeight: theme.typography.fontWeightBold,
