@@ -5,6 +5,7 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
+    'storybook-addon-swc',
     'storybook-formik/register',
     'storybook-addon-next-router',
     '@urql/storybook-addon',

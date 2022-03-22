@@ -59,6 +59,7 @@ __metadata:
     sb: 6.3.6
     storybook-addon-next-auth0: 1.0.6
     storybook-addon-next-router: 3.1.1
+    storybook-addon-swc: ^1.1.1
     storybook-formik: 2.3.1
     stringify-object: 4.0.1
     title-case: 3.0.3
@@ -1990,6 +1991,15 @@ __metadata:
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: a48702d271ecc59c09c397856407afa29ff980ab537b3da58eeee1aeaa0f545402d340a1680c9af58aec94dfdcbccfb6abb211991b74686a86d03d3f6956cacd
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.17.2":
+  version: 7.17.8
+  resolution: "@babel/runtime@npm:7.17.8"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 68d195c1630bb91ac20e86635d292a17ebab7f361cfe79406b3f5a6cc2e59fa283ae5006568899abf869312c2b35b744bd407aea8ffdb650f1a68d07785d47e9
   languageName: node
   linkType: hard
 
@@ -6626,10 +6636,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-android-arm-eabi@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-android-arm-eabi@npm:1.2.160"
+  checksum: b7ca81d4138c6709e87159ef66546b20c4d9658c5868134f7304c2150cc518e3287253fe9f1de719f497ce22bc80fce64f1c527b067b27aa3d29488b6785ca90
+  languageName: node
+  linkType: hard
+
+"@swc/core-android-arm64@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-android-arm64@npm:1.2.160"
+  checksum: 49b40ac8b001b9ba58052bf72024fbf105dbe48e47db24f21209c1bc445600fcc4a10e82e0327f7fd56108ebbb23b524774832cb01d505fbd109831c775544c6
+  languageName: node
+  linkType: hard
+
 "@swc/core-android-arm64@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-android-arm64@npm:1.2.76"
   checksum: f728f075ed61170d18f12b5f4758a683b306c857a680db16bd40e02c7fa364bf94049220fe9f41ea5191dbead91e99cc501eb7445c1c0f1bb6bab89e9b79653b
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-arm64@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-darwin-arm64@npm:1.2.160"
+  checksum: dcc09678699fbf05139d7a79ba2a4a288b01b28d75d44e78f5fe4e48e00161afeac6f37a83c01895dbd9c029beef99c3c0de65348ba91b42044ea6ab20d6dd37
   languageName: node
   linkType: hard
 
@@ -6640,10 +6671,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-darwin-x64@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-darwin-x64@npm:1.2.160"
+  checksum: f5b69ddd0055cf70fb7f56e056c0e6b37ddc7fae261dc572bfa0747edc49498b4f3b82f46bbc791b6988760690fa4588335de8e94817d5fcf64eec29c867c926
+  languageName: node
+  linkType: hard
+
 "@swc/core-darwin-x64@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-darwin-x64@npm:1.2.76"
   checksum: 5cd262dae0d9c1023c85f9e69eab037a15d9015ea515c327176ba180a1563fdeb2eadf7ee9516d3ecd3da88d24226af8f3dbe1e2320c4768d1f7c20b30f73223
+  languageName: node
+  linkType: hard
+
+"@swc/core-freebsd-x64@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-freebsd-x64@npm:1.2.160"
+  checksum: af57408ab33321025e7e2d6e51bcef8ae84021bf1df27791e42f1c0ca932aca483325e6f56ff5571d0f8aa775ddbf5f4506d5b825825c6df2373569878940efd
   languageName: node
   linkType: hard
 
@@ -6654,10 +6699,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-arm-gnueabihf@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.160"
+  checksum: b1d129b71ab4adb18c7f02234f868f6d47e46de5b244e48cfcb6981ea80c032b314c5a3834fd2228fd915090031f0f5388c4eba55f0ce2bf6e6e312b625f585e
+  languageName: node
+  linkType: hard
+
 "@swc/core-linux-arm-gnueabihf@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.76"
   checksum: 1d776ad6fe5fe82b86640810bf5486bab150b0a4862aa6748df7f3c554d2521035b352abfea43882423d5b263ece26e8ac5690ef649f9ad7a738a599429ef2e8
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-gnu@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.160"
+  checksum: 6d259d9dbef61128b661f31c33b073d3262923b240d91feca77b8d3662eee8e80dc55ff0696a1a5b5210fbd221ef885e55db0c0a699d2d37317a5b64392120ad
   languageName: node
   linkType: hard
 
@@ -6668,10 +6727,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-arm64-musl@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-linux-arm64-musl@npm:1.2.160"
+  checksum: a2ddd62546ac5698d095924ef70059d2c285fb63c5c864726a7870b034e7bb6cc6075396207feff5fae9bb2a4922072b464efb1ad2f0b631a98166e9a355a7ca
+  languageName: node
+  linkType: hard
+
 "@swc/core-linux-arm64-musl@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-linux-arm64-musl@npm:1.2.76"
   checksum: 10e5772064d294cb7a3d6b88aef1f09da7434bdfe191595f98497cc056ca27281fcf3991e7f698a17611dc79096e1a355ee2d787fa71a40b27d1e1a8279dae4c
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-gnu@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-linux-x64-gnu@npm:1.2.160"
+  checksum: fe07acd873179399475f8fe3211a326cf81482805f8a79dec7d6c734a0507b5dc0674cd23a9da5365c99ca8bc92f016d81de82e542082e988a0db6f16eed75a3
   languageName: node
   linkType: hard
 
@@ -6682,10 +6755,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-x64-musl@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-linux-x64-musl@npm:1.2.160"
+  checksum: cdaa779ec2ce457f4b7ec8592dbe69ab530aad107cdae4c7c98ba591f3e6f869b6a3e6b6d4322fecc2a2358d8d560c319f02e178ad4872fe4a38f102e726f9be
+  languageName: node
+  linkType: hard
+
 "@swc/core-linux-x64-musl@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-linux-x64-musl@npm:1.2.76"
   checksum: 8848302b156f98f92912afca6f0d83dd9945981508d5d6733b92da00e4a2c056a5b7dea386cb61127676f6f04c541beb06e09fb5660d3e85afba61746d05f3b3
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-arm64-msvc@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.160"
+  checksum: 79384896ad14ca9080d70efa7178defaaf18e644a4a1c20880aafbc45972609e4f0c10b3a3197f457a0710b0d8e695c6de9029f13f347becd194aa27d7f40bd1
   languageName: node
   linkType: hard
 
@@ -6696,10 +6783,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-win32-ia32-msvc@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.160"
+  checksum: 6b39bd2adcdc0ea5ff8cb2d4f94269f008b5c89ddf131848f4c273e507ec2d16f6e39b9bf33a7692e1a5897224f55cc81dddf5d297803c1599bbd8461167f84f
+  languageName: node
+  linkType: hard
+
 "@swc/core-win32-ia32-msvc@npm:^1.2.76":
   version: 1.2.76
   resolution: "@swc/core-win32-ia32-msvc@npm:1.2.76"
   checksum: 7e0f61ae931f4665d24095499061fd95596ceab46384b18faa3a3d0b0877cfaa48c0c8cb632f84e859264630b3340888a15fddc419b415fa22af5707d429f61d
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-x64-msvc@npm:1.2.160":
+  version: 1.2.160
+  resolution: "@swc/core-win32-x64-msvc@npm:1.2.160"
+  checksum: 7ff9dc988a0af6d0448729633edaf74b0eabb9e8a38c55834ac50c8f33817b7abf8ac98f30049c9f31a958d7ea874318caf3e99f8f0f3130cb5d76ddf038f86c
   languageName: node
   linkType: hard
 
@@ -6753,6 +6854,56 @@ __metadata:
     "@swc/core-win32-x64-msvc":
       optional: true
   checksum: d2fcec262fb572fd7b8da1d5282f521a06e2a905df48ee6dbc7e858660fce6ddcd53fd93ea57531a94e3af56aa62b2904765b98e9a7b9f1b3d9e1a9fc3e3ded9
+  languageName: node
+  linkType: hard
+
+"@swc/core@npm:^1.2.152":
+  version: 1.2.160
+  resolution: "@swc/core@npm:1.2.160"
+  dependencies:
+    "@swc/core-android-arm-eabi": 1.2.160
+    "@swc/core-android-arm64": 1.2.160
+    "@swc/core-darwin-arm64": 1.2.160
+    "@swc/core-darwin-x64": 1.2.160
+    "@swc/core-freebsd-x64": 1.2.160
+    "@swc/core-linux-arm-gnueabihf": 1.2.160
+    "@swc/core-linux-arm64-gnu": 1.2.160
+    "@swc/core-linux-arm64-musl": 1.2.160
+    "@swc/core-linux-x64-gnu": 1.2.160
+    "@swc/core-linux-x64-musl": 1.2.160
+    "@swc/core-win32-arm64-msvc": 1.2.160
+    "@swc/core-win32-ia32-msvc": 1.2.160
+    "@swc/core-win32-x64-msvc": 1.2.160
+  dependenciesMeta:
+    "@swc/core-android-arm-eabi":
+      optional: true
+    "@swc/core-android-arm64":
+      optional: true
+    "@swc/core-darwin-arm64":
+      optional: true
+    "@swc/core-darwin-x64":
+      optional: true
+    "@swc/core-freebsd-x64":
+      optional: true
+    "@swc/core-linux-arm-gnueabihf":
+      optional: true
+    "@swc/core-linux-arm64-gnu":
+      optional: true
+    "@swc/core-linux-arm64-musl":
+      optional: true
+    "@swc/core-linux-x64-gnu":
+      optional: true
+    "@swc/core-linux-x64-musl":
+      optional: true
+    "@swc/core-win32-arm64-msvc":
+      optional: true
+    "@swc/core-win32-ia32-msvc":
+      optional: true
+    "@swc/core-win32-x64-msvc":
+      optional: true
+  bin:
+    swcx: run_swcx.js
+  checksum: 2926a1b6a2f059a682331f318edf1086a47684a09f77bd75516d7df7dd419a882872946aa5ae26437afcae5b69bc65b1cc1cc398fc1d04410a723812898d76de
   languageName: node
   linkType: hard
 
@@ -26369,6 +26520,23 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"storybook-addon-swc@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "storybook-addon-swc@npm:1.1.1"
+  dependencies:
+    "@babel/runtime": ^7.17.2
+    "@swc/core": ^1.2.152
+    deepmerge: ^4.2.2
+    swc-loader: ^0.1.15
+  peerDependencies:
+    terser-webpack-plugin: ^4.0.0 || ^5.0.0
+  peerDependenciesMeta:
+    terser-webpack-plugin:
+      optional: true
+  checksum: 8574de226e47b54c5f243b104b037afa1cc2673482e93fc57fa21e614f33f21bcf22e520cb17a8aa5fe3b010073391ff25799eb4f9887001528e812ff5146284
+  languageName: node
+  linkType: hard
+
 "storybook-formik@npm:2.3.1":
   version: 2.3.1
   resolution: "storybook-formik@npm:2.3.1"
@@ -26926,6 +27094,18 @@ fsevents@^1.2.7:
   dependencies:
     tslib: ^2.0.3
   checksum: 6e21c9e1b3cd5735eb2af679a99ec3efc78a14e3d4d5e3fd594e254b91cfd37185b3d1c6e41b22f53a2cdf5d1b963ce30c0fe8b78337e3fd43d0137084670a5f
+  languageName: node
+  linkType: hard
+
+"swc-loader@npm:^0.1.15":
+  version: 0.1.15
+  resolution: "swc-loader@npm:0.1.15"
+  dependencies:
+    loader-utils: ^2.0.0
+  peerDependencies:
+    "@swc/core": ^1.2.52
+    webpack: ">=2"
+  checksum: dd3b5893cc04abba85f7f3abbd97f4e810da5df24fe87123d4c0b4ac8559df37b59b3b044e88661e9ae52cbb111e0eb6eff02c96e243f984f26cba651eb90f15
   languageName: node
   linkType: hard
 
