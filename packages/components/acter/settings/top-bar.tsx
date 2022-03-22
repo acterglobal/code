@@ -12,8 +12,10 @@ import {
 
 import { SettingsIcon } from '@acter/components/icons'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const TopBar: FC = () => {
+  const { t } = useTranslation('settings')
   const classes = useStyles()
   const theme = useTheme()
   const { acter } = useActer()
@@ -30,7 +32,7 @@ export const TopBar: FC = () => {
           }}
         />
         <Typography className={classes.title}>
-          Settings for {acter.name}
+          {t('topBarHeading', { acterName: acter.name })}
         </Typography>
       </Toolbar>
     </AppBar>

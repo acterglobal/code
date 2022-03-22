@@ -9,6 +9,8 @@ import {
 } from '@acter/components/util/forms/setting-container'
 import { ActerVariables } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter, ActerPrivacySettings } from '@acter/schema'
 
 interface VisibilitySettingsProps {
@@ -16,12 +18,11 @@ interface VisibilitySettingsProps {
 }
 
 export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
-  const [
-    acterPrivacySetting,
-    setActerPrivacySetting,
-  ] = useState<ActerPrivacySettings>(
-    ActerPrivacySettings[acter.acterPrivacySetting]
-  )
+  const { t } = useTranslation('settings')
+  const [acterPrivacySetting, setActerPrivacySetting] =
+    useState<ActerPrivacySettings>(
+      ActerPrivacySettings[acter.acterPrivacySetting]
+    )
 
   const [{ fetching: updatingSetting }, updateActer] = useUpdateActer(acter, {
     onCompleted: (data) =>
@@ -38,8 +39,8 @@ export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
   }
 
   return (
-    <SettingContainer heading="Visibility">
-      <Setting title="Who can see">
+    <SettingContainer heading={capitalize(t('visibility'))}>
+      <Setting title={t('whoCanSee')}>
         <RadioGroup
           aria-label="acter-privacy-setting"
           name="acterPrivacySetting"
@@ -47,8 +48,8 @@ export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
           onChange={handleChange}
         >
           <SettingsRadio
-            label="Public"
-            subText="(Anyone can find and see)"
+            label={capitalize(t('public'))}
+            subText={t('anyOneCanSee')}
             value={ActerPrivacySettings.PUBLIC}
             updating={
               acterPrivacySetting === ActerPrivacySettings.PRIVATE &&
@@ -56,8 +57,8 @@ export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
             }
           />
           <SettingsRadio
-            label="Private"
-            subText="(Only members can see)"
+            label={capitalize(t('private'))}
+            subText={t('onlyMembersCanSee')}
             value={ActerPrivacySettings.PRIVATE}
             updating={
               acterPrivacySetting === ActerPrivacySettings.PUBLIC &&

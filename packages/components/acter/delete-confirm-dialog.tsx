@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { Box, createStyles, withStyles, Theme } from '@material-ui/core'
 
 import { Button, ButtonsContainer } from '@acter/components/styled'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter } from '@acter/schema'
 
 export interface ActerDeleteConfirmDialogProps {
@@ -24,19 +25,23 @@ export const ActerDeleteConfirmDialog: FC<ActerDeleteConfirmDialogProps> = ({
   acter,
   onCancel,
   onSubmit,
-}) => (
-  <ContentContainer>
-    Are you sure you want to delete "{acter.name}"?
-    <ButtonsContainer>
-      <Button variant="outlined" color="primary" onClick={onCancel}>
-        Cancel
-      </Button>
-      <DeleteButton variant="contained" color="secondary" onClick={onSubmit}>
-        Delete
-      </DeleteButton>
-    </ButtonsContainer>
-  </ContentContainer>
-)
+}) => {
+  const { t } = useTranslation('common')
+
+  return (
+    <ContentContainer>
+      {t('deleteMessage', { acterName: acter.name })}
+      <ButtonsContainer>
+        <Button variant="outlined" color="primary" onClick={onCancel}>
+          {t('cancel')}
+        </Button>
+        <DeleteButton variant="contained" color="secondary" onClick={onSubmit}>
+          {t('delete')}
+        </DeleteButton>
+      </ButtonsContainer>
+    </ContentContainer>
+  )
+}
 
 const ContentContainer = withStyles((theme: Theme) =>
   createStyles({

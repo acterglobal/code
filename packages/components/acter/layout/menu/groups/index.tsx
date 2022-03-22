@@ -13,6 +13,8 @@ import { getUserGroupList } from '@acter/lib/acter/get-user-group-list'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -24,7 +26,7 @@ const AddGroup = dynamic(() =>
 export const GroupsSection: FC = () => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
-
+  const { t } = useTranslation('common')
   const handleAddGroup = () => setOpenDrawer(true)
   const handleCloseDrawer = () => setOpenDrawer(false)
 
@@ -60,7 +62,7 @@ export const GroupsSection: FC = () => {
 
       <Box className={classes.heading}>
         <Typography className={classes.text} variant="caption">
-          Groups
+          {capitalize(t('acterTypes.groups'))}
         </Typography>
         {userCanCreateGroup && (
           <AddIcon
@@ -75,7 +77,7 @@ export const GroupsSection: FC = () => {
 
       <Drawer
         open={openDrawer}
-        heading="Create work group"
+        heading={`${t('form.create')} ${t('acterTypes.group')}`}
         handleClose={handleCloseDrawer}
       >
         <AddGroup

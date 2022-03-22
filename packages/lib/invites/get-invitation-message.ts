@@ -5,10 +5,12 @@
  * @returns
  */
 export const getInvitationMessage = (
-  acterName: string,
+  hi: string,
+  content: string,
+  greetings: string,
   userName: string
-): string => `Hi! 
-I'm inviting you to join ${acterName} on Acter. ${acterName} is using Acter as our dedicated space for communication & collaboration.
+): string => `${hi} 
+${content}
 
-Best regards,
+${greetings} ,
 ${userName}`
