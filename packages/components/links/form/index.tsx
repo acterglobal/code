@@ -11,6 +11,7 @@ import { Formik, Form, Field, FormikBag } from 'formik'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useCreateLink } from '@acter/lib/links/use-create-link'
 import { useDeleteLink } from '@acter/lib/links/use-delete-link'
 import { useUpdateLink } from '@acter/lib/links/use-update-link'
@@ -28,6 +29,7 @@ export interface LinkFormProps {
 }
 
 export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
+  const { t } = useTranslation('settings')
   const classes = useStyles()
   const initialValues: LinkFormValues = {
     id: link?.id || null,
@@ -67,13 +69,13 @@ export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
               name="name"
               required
               className={clsx(classes.field, classes.linkName)}
-              placeholder="Enter link's name"
+              placeholder={t('enterLinkName')}
             />
             <Field
               name="url"
               required
               className={clsx(classes.field, classes.link)}
-              placeholder="Enter link URL"
+              placeholder={t('enterLinkUrl')}
             />
 
             {creating || updating || deleting ? (

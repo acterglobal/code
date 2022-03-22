@@ -14,15 +14,17 @@ import {
 import { Field, useFormikContext } from 'formik'
 
 import { InviteFormValues } from '@acter/components/invites/form'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const InviteByLink: FC = () => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const [copied, setCopied] = useState(false)
   const { values } = useFormikContext<InviteFormValues>()
 
   return (
     <FormGroup>
-      <FormLabel className={classes.label}>Invite by link</FormLabel>
+      <FormLabel className={classes.label}>{t('inviteByLink')}</FormLabel>
       <Box className={classes.inviteLink}>
         <Field name="inviteLink" className={classes.field} />
         <CopyToClipboard
@@ -30,7 +32,7 @@ export const InviteByLink: FC = () => {
           onCopy={() => setCopied(true)}
         >
           <Button style={{ marginLeft: 10 }} className={classes.button}>
-            {copied ? 'Copied' : 'Copy link'}
+            {copied ? t('copied') : t('copyLink')}
           </Button>
         </CopyToClipboard>
       </Box>
@@ -65,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.8rem',
     },
     button: {
+      padding: 0,
       borderRadius: theme.spacing(0.6),
       minWidth: theme.spacing(11),
       height: theme.spacing(4.5),

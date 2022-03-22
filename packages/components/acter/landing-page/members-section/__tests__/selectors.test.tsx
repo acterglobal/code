@@ -4,7 +4,10 @@
 import React from 'react'
 
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { render, screen } from '@acter/lib/test-utils'
+
+jest.mock('@acter/lib/i18n/use-translation')
 
 const FOO = 'Foo'
 const BAR = 'Bar'
@@ -12,6 +15,12 @@ const selectors = [FOO, BAR]
 const onChange = () => null
 
 describe('<Selectors>', () => {
+  const mockUseTranslation = useTranslation as jest.Mock
+
+  beforeEach(() => {
+    mockUseTranslation.mockReturnValue({ t: (key) => key })
+  })
+
   it('should display a button for each selector', async () => {
     render(
       <Selectors

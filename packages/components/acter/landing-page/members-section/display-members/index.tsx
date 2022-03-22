@@ -3,6 +3,8 @@ import React, { FC } from 'react'
 import { makeStyles, Theme, Divider, Typography, List } from '@material-ui/core'
 
 import { DisplayMemberItem } from '@acter/components/acter/landing-page/members-section/display-members/display-member-item'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 const { ADMIN, MEMBER } = ActerConnectionRole
@@ -15,13 +17,16 @@ export interface DisplayMembersProps {
 
 export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const admins = followers.filter(({ role }) => role === ADMIN)
   const members = followers.filter(({ role }) => role === MEMBER)
 
   return (
     <List className={classes.list}>
-      <Typography className={classes.heading}>Admins</Typography>
+      <Typography className={classes.heading}>
+        {capitalize(t('admins'))}
+      </Typography>
       {admins.map((connection) => (
         <DisplayMemberItem
           key={`follower-${connection.Follower.id}`}
@@ -34,7 +39,9 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
 
       {members && (
         <>
-          <Typography className={classes.heading}>Members</Typography>
+          <Typography className={classes.heading}>
+            {capitalize(t('members'))}
+          </Typography>
           {members.map((connection) => (
             <DisplayMemberItem
               key={`follower-${connection.Follower.id}`}

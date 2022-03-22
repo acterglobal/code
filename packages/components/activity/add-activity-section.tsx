@@ -7,11 +7,14 @@ import { AddActivity } from '@acter/components/activity/add-activity'
 import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerMenu } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
 
 export const AddActivitySection: FC = () => {
+  const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleOnClick = () => setOpenDrawer(true)
@@ -37,7 +40,8 @@ export const AddActivitySection: FC = () => {
     <>
       <StyledContainer>
         <StyledButton onClick={handleOnClick}>
-          <AddIcon fontSize="inherit" style={{ fontSize: 17 }} /> New Activity
+          <AddIcon fontSize="inherit" style={{ fontSize: 17 }} />{' '}
+          {`${capitalize(t('new'))} ${t('activity')}`}
         </StyledButton>
       </StyledContainer>
       <AddActivity openDrawer={openDrawer} setDrawer={setOpenDrawer} />
