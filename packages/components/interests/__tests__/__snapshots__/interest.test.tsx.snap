@@ -3,11 +3,11 @@
 exports[`[Interest] should render Tag interest with correct info and styles 1`] = `
 <div>
   <div
-    class="MuiBox-root MuiBox-root-13 makeStyles-chip-1 makeStyles-chip-8 makeStyles-selected-3 makeStyles-selected-10"
+    class="makeStyles-chip-1 makeStyles-chip-8 makeStyles-selected-3 makeStyles-selected-10 MuiBox-root css-0"
     role="listitem"
   >
     <span
-      class="MuiTypography-root makeStyles-name-5 makeStyles-name-17 MuiTypography-caption"
+      class="MuiTypography-root MuiTypography-caption makeStyles-name-5 makeStyles-name-16 css-1xoq6s4-MuiTypography-root"
     >
       Example Interest
     </span>

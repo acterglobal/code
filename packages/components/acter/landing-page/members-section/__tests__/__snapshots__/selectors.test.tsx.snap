@@ -3,42 +3,34 @@
 exports[`<Selectors> should highlight the selected tab 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root MuiBox-root-19 makeStyles-container-15"
+    class="makeStyles-container-9 MuiBox-root css-0"
   >
     <div
-      class="MuiBox-root MuiBox-root-20"
+      class="MuiBox-root css-0"
       role="tablist"
     >
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-16 makeStyles-active-17 MuiButton-disableElevation"
+        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButtonBase-root makeStyles-button-10 makeStyles-active-11 css-1qk2aq7-MuiButtonBase-root-MuiButton-root"
         role="tab"
         tabindex="0"
         type="button"
       >
-        <span
-          class="MuiButton-label"
-        >
-          Foo
-        </span>
+        Foo
       </button>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-16 MuiButton-disableElevation"
+        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButtonBase-root makeStyles-button-10 css-1qk2aq7-MuiButtonBase-root-MuiButton-root"
         role="tab"
         tabindex="0"
         type="button"
       >
-        <span
-          class="MuiButton-label"
-        >
-          Bar
-        </span>
+        Bar
       </button>
     </div>
     <div
-      class="MuiBox-root MuiBox-root-21"
+      class="MuiBox-root css-0"
     >
       <p
-        class="MuiTypography-root makeStyles-results-18 MuiTypography-body1"
+        class="MuiTypography-root MuiTypography-body1 makeStyles-results-12 css-1hivc1e-MuiTypography-root"
         role="heading"
       >
         10 Foos
