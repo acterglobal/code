@@ -48,7 +48,7 @@ export type LocationPickerResult = {
 export const LocationPicker: FC<LocationPickerProps> = (props) => {
   const { t } = useTranslation('common')
   const {
-    label = t('acterForm.location'),
+    label = t('form.location'),
     placeholder,
     types,
     cacheKey,
