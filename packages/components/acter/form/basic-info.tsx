@@ -23,14 +23,14 @@ export interface BasicInformationValues extends ActerTypePickerValues {
 
 export const BasicInformation: FC = () => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   return (
     <Box className={classes.wrapper}>
       <Typography className={classes.heading}>
-        {t('acterForm.heading')}
+        {t('acterFormHeading')}
       </Typography>
 
       <ActerTypePicker
@@ -46,14 +46,12 @@ export const BasicInformation: FC = () => {
         variant="outlined"
         size="small"
         fullWidth
-        label={t('acterForm.name')}
+        label={t('name')}
         name="name"
         required={true}
       />
       <Box mb={2} className={classes.textEditor} onClick={() => editor.focus()}>
-        <InputLabel style={{ marginBottom: 5 }}>
-          {t('acterForm.description')}
-        </InputLabel>
+        <InputLabel style={{ marginBottom: 5 }}>{t('description')}</InputLabel>
         <TextEditor
           height={150}
           initialValue={values.description}
@@ -75,7 +73,7 @@ export const BasicInformation: FC = () => {
         variant="outlined"
         size="small"
         fullWidth
-        label={t('acterForm.websiteLink')}
+        label={t('websiteLink')}
         name="url"
       />
     </Box>

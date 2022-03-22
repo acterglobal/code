@@ -124,7 +124,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                 disabled={activeStep === 0 || isSubmitting}
                 onClick={handlePrev}
               >
-                {t('acterForm.back')}
+                {t('form.back')}
               </Button>
               <Button
                 variant="contained"
@@ -133,7 +133,7 @@ export const ActerForm: FC<ActerFormProps> = ({
                 disabled={isSubmitting}
                 type="submit"
               >
-                {isLastStep() ? t('acterForm.submit') : t('acterForm.continue')}
+                {isLastStep() ? t('form.submit') : t('form.continue')}
               </Button>
             </ButtonsContainer>
           </Form>

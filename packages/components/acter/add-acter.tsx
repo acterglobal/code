@@ -19,14 +19,14 @@ export const AddActer: FC = () => {
   const classes = useStyles()
   const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [heading, setHeading] = useState(t('acterForm.create') as string)
+  const [heading, setHeading] = useState(t('form.create') as string)
   const { acterTypes } = useActerTypes()
 
   const handleAddIconClick = () => setOpenDrawer(true)
 
   const handleDrawerClose = () => {
     setOpenDrawer(false)
-    setHeading(t('acterForm.create'))
+    setHeading(t('form.create'))
   }
 
   const [{ data, fetching }, createActer] = useCreateActer()

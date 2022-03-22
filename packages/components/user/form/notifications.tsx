@@ -9,6 +9,7 @@ import {
   SettingsRadio,
 } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import {
   ActerNotificationEmailFrequency,
@@ -21,6 +22,7 @@ export interface ProfileNotificationsFormValues {
 }
 
 export const ProfileNotificationsForm: FC = () => {
+  const { t } = useTranslation('notifications')
   const { user, fetching } = useUser()
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
@@ -41,27 +43,27 @@ export const ProfileNotificationsForm: FC = () => {
     <ProfileFormLayout>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
-          <RadioGroup label="Notify me about" name="acterNotifySetting">
+          <RadioGroup label={t('notifyMeAbout')} name="acterNotifySetting">
             <SettingsRadio
-              label="All Activity"
+              label={t('allActivities')}
               value={ActerNotificationSettings.ALL_ACTIVITY}
             />
             <SettingsRadio
-              label="None"
+              label={t('none')}
               value={ActerNotificationSettings.NONE}
             />
           </RadioGroup>
-          <RadioGroup label="Email me" name="acterNotifyEmailFrequency">
+          <RadioGroup label={t('emailMe')} name="acterNotifyEmailFrequency">
             <SettingsRadio
-              label="Never"
+              label={t('never')}
               value={ActerNotificationEmailFrequency.NEVER}
             />
             <SettingsRadio
-              label="Daily digest"
+              label={t('dailyDigest')}
               value={ActerNotificationEmailFrequency.DAILY}
             />
             <SettingsRadio
-              label="Immediately"
+              label={t('immediately')}
               value={ActerNotificationEmailFrequency.INSTANT}
             />
           </RadioGroup>

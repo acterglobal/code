@@ -32,7 +32,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
   fileUrl,
 }) => {
   const classes = useStyles()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const { setFieldValue } = useFormikContext()
   const pond: RefObject<FilePond> = createRef()
 
@@ -150,9 +150,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
       }
     },
   }
-  const label = t(
-    imageType === 'avatar' ? 'acterForm.logo' : 'acterForm.banner'
-  )
+  const label = t(imageType === 'avatar' ? 'logo' : 'banner')
 
   return (
     <div className={classes.container}>

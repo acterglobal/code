@@ -6,9 +6,7 @@ describe('getTranslationKey', () => {
 
     expect(getTranslationKey('Public organisation')).toBe('publicOrganisation')
 
-    expect(getTranslationKey('acterForm.UploadImage')).toBe(
-      'acterForm.uploadImage'
-    )
+    expect(getTranslationKey('form.UploadImage')).toBe('form.uploadImage')
 
     expect(getTranslationKey('nested.nested.TranslationKey')).toBe(
       'nested.nested.translationKey'
