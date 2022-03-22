@@ -39,7 +39,7 @@ export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
   }
 
   return (
-    <SettingContainer heading={t('visibility')}>
+    <SettingContainer heading={capitalize(t('visibility'))}>
       <Setting title={t('whoCanSee')}>
         <RadioGroup
           aria-label="acter-privacy-setting"

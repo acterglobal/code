@@ -41,7 +41,7 @@ export const AddActivitySection: FC = () => {
       <StyledContainer>
         <StyledButton onClick={handleOnClick}>
           <AddIcon fontSize="inherit" style={{ fontSize: 17 }} />{' '}
-          {`${capitalize(t('new'))} ${t('acterTypes.activity')}`}
+          {`${capitalize(t('new'))} ${t('activity')}`}
         </StyledButton>
       </StyledContainer>
       <AddActivity openDrawer={openDrawer} setDrawer={setOpenDrawer} />
