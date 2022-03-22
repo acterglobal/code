@@ -4,8 +4,10 @@ import { Box, Breadcrumbs, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 
+import { useCurrentActerVariables } from '@acter/components/contexts/current-acter-variables'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useActer } from '@acter/lib/acter/use-acter'
 import { Acter } from '@acter/schema'
 
 interface ActivityBreadcrumbsProps {
@@ -22,36 +24,40 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
   acter,
 }) => {
   const classes = useStyles()
+  const [currentActerVariables, _] = useCurrentActerVariables()
+  const { acter: parentActer } = useActer({
+    acterId: currentActerVariables?.acterId,
+  })
 
-  if (!acter) return null
+  if (!acter || !parentActer) return null
 
-  const parentActer = acter.Parent ? acter.Parent : acter.Activity.Organiser
+  if (parentActer) {
+    return (
+      <Box>
+        <Breadcrumbs
+          separator={
+            <NavigateNextIcon
+              fontSize="small"
+              className={classes.activityBreadcrumbs}
+            />
+          }
+          aria-label="breadcrumbs"
+        >
+          <Link href={acterAsUrl({ acter: parentActer })}>
+            <Typography className={classes.name}>{parentActer.name}</Typography>
+          </Link>
 
-  return (
-    <Box>
-      <Breadcrumbs
-        separator={
-          <NavigateNextIcon
-            fontSize="small"
-            className={classes.activityBreadcrumbs}
-          />
-        }
-        aria-label="breadcrumbs"
-      >
-        <Link href={acterAsUrl({ acter: parentActer })}>
-          <Typography className={classes.name}>{parentActer.name}</Typography>
-        </Link>
+          <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
+            <Typography className={classes.name}>Activities</Typography>
+          </Link>
 
-        <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
-          <Typography className={classes.name}>Activities</Typography>
-        </Link>
-
-        <Link href={acterAsUrl({ acter })}>
-          <Typography className={classes.activity}>{acter.name}</Typography>
-        </Link>
-      </Breadcrumbs>
-    </Box>
-  )
+          <Link href={acterAsUrl({ acter })}>
+            <Typography className={classes.activity}>{acter.name}</Typography>
+          </Link>
+        </Breadcrumbs>
+      </Box>
+    )
+  }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
