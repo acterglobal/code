@@ -41,7 +41,7 @@ export const ActerTypePicker: FC<ActerTypePickerProps> = (props) => {
 
   return (
     <FormControl {...props}>
-      <InputLabel>{t('acterForm.selectActerType')}</InputLabel>
+      <InputLabel>{t('form.selectActerType')}</InputLabel>
       <Field
         component={Select}
         label="Select Acter Type"
