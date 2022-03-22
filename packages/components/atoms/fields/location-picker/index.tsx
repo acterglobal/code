@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 import {
   Box,
   FormHelperText,
@@ -10,11 +11,8 @@ import {
   TextFieldProps,
   Typography,
 } from '@mui/material'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import { Autocomplete } from '@mui/material';
-import { AutocompleteProps } from '@mui/lab';
-
-import { AutocompleteChangeReason } from '@mui/material/useAutocomplete';
+import { Autocomplete, AutocompleteProps } from '@mui/material'
+import { AutocompleteChangeReason } from '@mui/material/useAutocomplete'
 
 import { useFormikContext } from 'formik'
 import usePlacesAutocomplete, {
@@ -168,7 +166,7 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
             onChange={(e) => handleInput(e)} // <-- moved from Autocomplete prop to here
           />
         )}
-        renderOption={(option) => {
+        renderOption={(_props, option) => {
           return (
             <Grid container alignItems="center">
               <Grid item>

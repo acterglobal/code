@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "@auth0/nextjs-auth0": "*",
-    "@material-ui/core": "*",
+    "@mui/material": "*",
     "graphql": "*",
     "just-capitalize": "*",
     "next-urql": "*",

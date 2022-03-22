@@ -2,10 +2,18 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, Divider, List, ListItem, Theme, useTheme, Hidden } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { SvgIconComponent } from '@mui/icons-material'
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  Theme,
+  useTheme,
+  Hidden,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { AddActer } from '@acter/components/acter/add-acter'
 import { ActerIcon, HomeIcon, SearchIcon } from '@acter/components/icons'
@@ -25,15 +33,19 @@ export const Sidebar: FC = () => {
     <Box className={classes.root}>
       <Box className={classes.menu}>
         <List className={classes.list}>
-          <IconMenuItem Icon={ActerIcon} href="/" text="Acter" />
           <IconMenuItem
-            Icon={HomeIcon}
+            Icon={ActerIcon as SvgIconComponent}
+            href="/"
+            text="Acter"
+          />
+          <IconMenuItem
+            Icon={HomeIcon as SvgIconComponent}
             href="/dashboard"
             text="Home"
             active={router.route === '/dashboard'}
           />
           <IconMenuItem
-            Icon={SearchIcon}
+            Icon={SearchIcon as SvgIconComponent}
             href="/search"
             text="Search"
             active={!!router.route.match(/^\/search/)}
@@ -60,7 +72,7 @@ export const Sidebar: FC = () => {
         </Box>
       </Hidden>
     </Box>
-  );
+  )
 }
 
 interface IconMenuItemProps {

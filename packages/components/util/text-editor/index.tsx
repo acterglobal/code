@@ -3,10 +3,9 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import dynamic from 'next/dynamic'
 
-import { Theme } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
@@ -18,11 +17,11 @@ const Editor = dynamic(
   { ssr: false }
 )
 interface widthHeightType {
-  width?: number
-  height?: number
+  width?: string | number
+  height?: string | number
 }
 interface borderStylesType {
-  radius?: number
+  radius?: string | number
   color?: string
 }
 interface stylesProp {

@@ -2,10 +2,16 @@ import React, { FC } from 'react'
 
 import Link, { LinkProps } from 'next/link'
 
-import { Grid, MenuList, MenuItem, MenuItemProps, Typography, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Grid,
+  MenuList,
+  MenuItem,
+  MenuItemProps,
+  Typography,
+  Theme,
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -39,7 +45,6 @@ export const SettingsMenuItem: FC<SettingsMenuItemProps> = (props) => {
     <MenuItem
       {...restProps}
       className={clsx(classes.item, isActive && classes.activeItem)}
-      button={false}
     >
       {props.children}
     </MenuItem>

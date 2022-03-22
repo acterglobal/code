@@ -1,9 +1,8 @@
 import React, { MouseEvent, useState, FC, ReactNode } from 'react'
 
-import { Menu, Theme, PopoverOrigin } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Menu, Theme, PopoverOrigin } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const REGULAR_WIDTH = 20
 const LARGE_WIDTH = 30
@@ -41,7 +40,6 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
       <Menu
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
-        getContentAnchorEl={null}
         anchorEl={menuAnchorEl}
         open={Boolean(menuAnchorEl)}
         onClose={closeMenu}

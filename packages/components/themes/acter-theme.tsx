@@ -1,17 +1,20 @@
 import React, { FC } from 'react'
 
-import { ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+  adaptV4Theme,
+} from '@mui/material/styles'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
 import { colors, Colors, paletteColors } from '@acter/components/themes/colors'
 import { typography } from '@acter/components/themes/fonts'
 
-
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 declare module '@mui/material/styles/createTheme' {
   interface Theme {
@@ -32,17 +35,33 @@ declare module '@mui/material/styles/createMixins' {
   }
 }
 
-export const theme = createTheme(adaptV4Theme({
+declare module '@mui/material/styles' {
+  interface Theme {
+    colors: Colors
+  }
+
+  interface ThemeOptions {
+    colors?: Colors
+  }
+}
+
+export const theme = createTheme({
   palette: paletteColors,
 
   colors: colors,
 
   typography: typography,
 
-  props: {
-    MuiButton: {
-      disableElevation: true,
-      disableRipple: true,
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiButtonGroup: {
+      defaultProps: {
+        disableElevation: true,
+      },
     },
   },
 
@@ -52,7 +71,7 @@ export const theme = createTheme(adaptV4Theme({
       secondaryWidth: 22,
     },
   },
-}))
+})
 
 export const acterTheme = responsiveFontSizes(theme)
 

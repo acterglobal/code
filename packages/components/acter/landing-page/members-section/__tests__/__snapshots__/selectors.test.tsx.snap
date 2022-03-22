@@ -10,7 +10,7 @@ exports[`<Selectors> should highlight the selected tab 1`] = `
       role="tablist"
     >
       <button
-        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButtonBase-root makeStyles-button-10 makeStyles-active-11 css-1qk2aq7-MuiButtonBase-root-MuiButton-root"
+        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root makeStyles-button-10 makeStyles-active-11 css-1jiksrg-MuiButtonBase-root-MuiButton-root"
         role="tab"
         tabindex="0"
         type="button"
@@ -18,7 +18,7 @@ exports[`<Selectors> should highlight the selected tab 1`] = `
         Foo
       </button>
       <button
-        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButtonBase-root makeStyles-button-10 css-1qk2aq7-MuiButtonBase-root-MuiButton-root"
+        class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root makeStyles-button-10 css-1jiksrg-MuiButtonBase-root-MuiButton-root"
         role="tab"
         tabindex="0"
         type="button"

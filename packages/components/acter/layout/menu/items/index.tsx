@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { SvgIconComponent } from '@mui/icons-material'
+
 import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
 import {
   ForumIcon,
@@ -35,24 +37,28 @@ export const ActerMenuItems: FC = () => {
     <>
       <ActerMenuItem
         acter={acter}
-        Icon={ForumIcon}
+        Icon={ForumIcon as SvgIconComponent}
         path={FORUM}
         notifications={getNotifications(NEW_POST)}
       />
       <ActerMenuItem
         acter={acter}
-        Icon={ActivitiesIcon}
+        Icon={ActivitiesIcon as SvgIconComponent}
         path={ACTIVITIES}
         notifications={getNotifications(NEW_ACTIVITY)}
       />
       <ActerMenuItem
         acter={acter}
-        Icon={MembersIcon}
+        Icon={MembersIcon as SvgIconComponent}
         path={MEMBERS}
         notifications={getNotifications(NEW_MEMBER)}
       />
       {isAdmin && (
-        <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
+        <ActerMenuItem
+          acter={acter}
+          Icon={SettingsIcon as SvgIconComponent}
+          path={SETTINGS}
+        />
       )}
     </>
   )

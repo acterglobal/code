@@ -1,9 +1,8 @@
-import { Theme } from '@mui/material';
+import { Theme } from '@mui/material'
+import { StyleRules } from '@mui/styles'
+import createStyles from '@mui/styles/createStyles'
 
-import { StyleRules } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-
-type CommonStyleRules = StyleRules<'item'>
+type CommonStyleRules = StyleRules<null, 'item'>
 
 export const commonStyles = (theme: Theme): CommonStyleRules =>
   createStyles({

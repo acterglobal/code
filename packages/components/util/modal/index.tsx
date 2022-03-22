@@ -1,8 +1,8 @@
 import React, { FC, ReactNode } from 'react'
 
 import { Modal as MUIModal, Backdrop, Fade } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { TopBar } from '@acter/components/util/modal/top-bar'
 import { TopBarProps } from '@acter/components/util/modal/top-bar'
@@ -21,7 +21,6 @@ export const Modal: FC<ModalProps> = ({
   acter,
   user,
   heading,
-  disableBackdropClick = true,
 }) => {
   const classes = useStyles()
 
@@ -35,7 +34,11 @@ export const Modal: FC<ModalProps> = ({
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{ timeout: 500 }}
-      disableBackdropClick={disableBackdropClick}
+      onClose={(event, reason) => {
+        if (reason !== 'backdropClick') {
+          handleModalClose(event)
+        }
+      }}
     >
       <Fade in={open}>
         <div className={classes.modalContainer}>
