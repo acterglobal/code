@@ -13,6 +13,8 @@ import { getFollowers } from '@acter/lib/acter/get-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
 
@@ -24,6 +26,7 @@ interface ConnectProps {
   size?: Size
 }
 export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles({ size })
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
@@ -45,7 +48,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   if (!user)
     return (
       <ConnectButton
-        buttonText="Join"
+        buttonText={capitalize(t('join'))}
         redirectUrl={loginUrl}
         isActivity={isActivity}
         size={size}
@@ -59,7 +62,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   const isMember = checkMemberAccess(user, acter)
 
   if (isMember && selectedFollowers.length === 0) {
-    return <Box className={classes.memberLabel}>Member</Box>
+    return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>
   }
 
   return (
@@ -67,11 +70,11 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       anchorNode={
         isMember ? (
           <Button className={classes.button}>
-            Member <KeyboardArrowDown fontSize="small" />
+            {capitalize(t('member'))} <KeyboardArrowDown fontSize="small" />
           </Button>
         ) : (
           <ConnectButton
-            buttonText="Join"
+            buttonText={capitalize(t('join'))}
             redirectUrl={loginUrl}
             isActivity={isActivity}
             size={size}

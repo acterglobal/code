@@ -13,6 +13,7 @@ import { ActivityTile } from '@acter/components/activity/tile'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole, Activity } from '@acter/schema'
@@ -22,6 +23,7 @@ export interface ActivityListProps {
 }
 
 export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { acter } = useActer()
   const { user } = useUser()
@@ -33,9 +35,7 @@ export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
       {activities.length <= 0 ? (
         <Box className={classes.zeroMessage}>
           <Typography variant="body1">
-            {isMember
-              ? 'You have no activities.'
-              : 'There are no activities to show at this time'}
+            {isMember ? t('noActivities') : t('noActivitiesToShow')}
           </Typography>
         </Box>
       ) : (

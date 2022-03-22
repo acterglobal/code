@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 
-import { Box, Grid } from '@material-ui/core'
+import { Box, capitalize, Grid } from '@material-ui/core'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { AvatarGrid } from '@acter/components/acter/connect/avatar-grid'
@@ -10,6 +10,7 @@ import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActerConnection } from '@acter/lib/acter/use-create-connection'
 import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter, ActerConnectionRole } from '@acter/schema'
 
 interface FollowerRowProps {
@@ -24,20 +25,17 @@ interface FollowerRowProps {
 }
 
 export const FollowerRow: FC<FollowerRowProps> = ({ follower, acterId }) => {
+  const { t } = useTranslation('common')
   const noop = () => null
   const [onClick, setOnClick] = useState(noop)
   const [fetching, setLoading] = useState(false)
   const { acter, fetching: acterLoading } = useActer({ acterId })
 
-  const [
-    { fetching: creatingConnection },
-    createActerConnection,
-  ] = useCreateActerConnection(acter)
+  const [{ fetching: creatingConnection }, createActerConnection] =
+    useCreateActerConnection(acter)
 
-  const [
-    { fetching: deletingConnection },
-    deleteActerConnection,
-  ] = useDeleteActerConnection(acter)
+  const [{ fetching: deletingConnection }, deleteActerConnection] =
+    useDeleteActerConnection(acter)
 
   useEffect(() => {
     setLoading(acterLoading || creatingConnection || deletingConnection)
@@ -57,7 +55,7 @@ export const FollowerRow: FC<FollowerRowProps> = ({ follower, acterId }) => {
 
   if (acterLoading) return <LoadingSpinner />
   if (!acter) return null
-  const verb = connection ? 'Leave' : 'Join'
+  const verb = connection ? 'leave' : 'join'
 
   return (
     <MenuItem
@@ -72,9 +70,10 @@ export const FollowerRow: FC<FollowerRowProps> = ({ follower, acterId }) => {
           <ActerAvatar acter={follower} size={4} />
         </AvatarGrid>
         <Grid>
-          {verb} as <strong>{follower.name}</strong>
+          {`${capitalize(t(verb))} ${t('as')} `}{' '}
+          <strong>{follower.name}</strong>
           {connection && connection.role === ActerConnectionRole.PENDING && (
-            <Box>Connection pending</Box>
+            <Box>{t('connectionPending')}</Box>
           )}
         </Grid>
       </Grid>

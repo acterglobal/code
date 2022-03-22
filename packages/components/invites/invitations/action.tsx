@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InviteActions } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUpdateInvite } from '@acter/lib/invites/use-update-invite'
 import { Invite } from '@acter/schema'
 
@@ -16,6 +17,7 @@ interface ActionProps {
 }
 
 export const Action: FC<ActionProps> = ({ action, invite }) => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
 
@@ -38,7 +40,7 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
       onClick={action === CANCEL ? handleCancel : handleResend}
       disabled={action === CANCEL && invite.expiredAt ? true : false}
     >
-      {loading ? <LoadingSpinner size={13} thickness={5} /> : action}
+      {loading ? <LoadingSpinner size={13} thickness={5} /> : t(action)}
     </Button>
   )
 }

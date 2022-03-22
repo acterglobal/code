@@ -66,7 +66,7 @@ export const ActerTileInfo: FC<ActerTileInfoProps> = ({ acter }) => {
       </Box>
       {followingActers.length > 0 && (
         <Box className={classes.partOf}>
-          <Typography variant="caption">Part of</Typography>
+          <Typography variant="caption">{t('partOf')}</Typography>
 
           <Box className={classes.container}>
             {followingActers.map((acter) => (

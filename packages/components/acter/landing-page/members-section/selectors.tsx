@@ -5,6 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import clsx from 'clsx'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { pluralize } from '@acter/lib/string/pluralize'
 
@@ -22,6 +23,7 @@ export const Selectors: FC<SelectorProps> = ({
   totalResults,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   return (
     <Box className={classes.container}>
@@ -37,13 +39,13 @@ export const Selectors: FC<SelectorProps> = ({
             variant="contained"
             onClick={() => onChange(selector)}
           >
-            {capitalize(selector)}
+            {capitalize(t(selector))}
           </Button>
         ))}
       </Box>
       <Box>
         <Typography className={classes.results} role="heading">
-          {totalResults || 0} {pluralize(activeSelector)}
+          {totalResults || 0} {t(pluralize(activeSelector))}
         </Typography>
       </Box>
     </Box>

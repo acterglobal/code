@@ -11,11 +11,13 @@ import {
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Request } from '@acter/components/invites/requests/request'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { ActerConnectionRole } from '@acter/schema'
 
 const { PENDING } = ActerConnectionRole
 
 export const Requests: FC = () => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const { acter, fetching: acterLoading } = useActer()
 
@@ -28,7 +30,7 @@ export const Requests: FC = () => {
     <>
       {requests.length === 0 ? (
         <Typography className={classes.zeroMessage}>
-          {`${acter.name} has no new joining requests.`}
+          {t('zeroMessage.requests', { acterName: acter.name })}
         </Typography>
       ) : (
         <List className={classes.list}>

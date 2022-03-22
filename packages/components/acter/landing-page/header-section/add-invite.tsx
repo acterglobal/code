@@ -9,9 +9,11 @@ import { Drawer } from '@acter/components/util/drawer'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes, InviteTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const AddInviteSection: FC = () => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { query } = useRouter()
 
@@ -40,7 +42,7 @@ export const AddInviteSection: FC = () => {
   return (
     <>
       <Button className={classes.button} onClick={handleOnClick}>
-        Invite
+        {t('invite')}
       </Button>
 
       <Drawer

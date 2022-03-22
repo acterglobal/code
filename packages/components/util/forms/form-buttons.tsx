@@ -7,6 +7,8 @@ import {
   ButtonsContainer,
   ButtonsContainerRight,
 } from '@acter/components/styled'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 type SubmitButtonAlignment = 'left' | 'right'
 
@@ -19,12 +21,13 @@ export interface FormButtonsProps {
 }
 
 export const FormButtons: FC<FormButtonsProps> = ({
-  saveText = 'Save',
-  cancelText = 'Cancel',
+  saveText = 'save',
+  cancelText = 'cancel',
   align = 'left',
   hideUnlessDirty = false,
   onCancel,
 }) => {
+  const { t } = useTranslation('common')
   const Container = align === 'left' ? ButtonsContainer : ButtonsContainerRight
   const { dirty, isSubmitting, resetForm } = useFormikContext()
 
@@ -43,7 +46,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
         disabled={isSubmitting}
         onClick={handleClick}
       >
-        {cancelText}
+        {capitalize(t(cancelText))}
       </Button>
       <Button
         variant="contained"
@@ -52,7 +55,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
         disabled={isSubmitting}
         type="submit"
       >
-        {saveText}
+        {capitalize(t(saveText))}
       </Button>
     </Container>
   )

@@ -11,10 +11,12 @@ import {
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Invitation } from '@acter/components/invites/invitations/invitation'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useInvites } from '@acter/lib/invites/use-invites'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const Invitations: FC = () => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const { acter, fetching: acterLoading } = useActer()
   const { user, fetching: userLoading } = useUser()
@@ -32,7 +34,7 @@ export const Invitations: FC = () => {
     <>
       {activeInvites.length === 0 ? (
         <Typography className={classes.zeroMessage}>
-          {`${acter.name} has no new invitations.`}
+          {t('zeroMessage.invitations', { acterName: acter.name })}
         </Typography>
       ) : (
         <List className={classes.list}>
