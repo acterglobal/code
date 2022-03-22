@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.8rem',
     },
     button: {
+      padding: 0,
       borderRadius: theme.spacing(0.6),
       minWidth: theme.spacing(11),
       height: theme.spacing(4.5),
