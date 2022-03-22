@@ -15,7 +15,7 @@ export const LinksList: FC = () => {
   const classes = useStyles()
   const { acter } = useActer()
   const acterId =
-    acter?.ActerType.name === ActerTypes.GROUP ? acter?.Parent.id : acter?.id
+    acter?.ActerType.name === ActerTypes.GROUP ? acter?.Parent?.id : acter?.id
 
   const { links } = useLinks({ acterId })
   if (!links || links.length === 0) return null
