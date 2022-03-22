@@ -16,6 +16,7 @@ import { Invitations } from '@acter/components/invites/invitations'
 import { Requests } from '@acter/components/invites/requests'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { InviteTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -28,6 +29,7 @@ interface InvitesSectionProps {
 export const InvitesSection: FC<InvitesSectionProps> = ({
   setDrawerHeading,
 }) => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const { query } = useRouter()
 
@@ -61,7 +63,7 @@ export const InvitesSection: FC<InvitesSectionProps> = ({
             aria-label="full width tabs example"
           >
             {tabs.map((tab, i) => (
-              <Tab label={tab} id={tab} key={`tab-${i}`} />
+              <Tab label={t(tab)} id={tab} key={`tab-${i}`} />
             ))}
           </Tabs>
           {tabs[currentTab] === INVITE && <InviteForm />}

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
+import { getActerLandingPageStaticPaths } from 'static-paths/acter-landing-page-paths'
 
 import { ActerSettings } from '@acter/components/acter/settings'
 import { Head } from '@acter/components/atoms/head'
@@ -31,5 +35,18 @@ export const ActerSettingsPage: NextPageWithLayout = () => {
 }
 
 ActerSettingsPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'settings',
+      'invitations',
+    ])),
+  },
+})
+
+export const getStaticPaths: GetStaticPaths = getActerLandingPageStaticPaths
 
 export default ActerSettingsPage

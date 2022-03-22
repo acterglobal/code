@@ -16,8 +16,10 @@ import { Field, useFormikContext } from 'formik'
 
 import { InviteFormValues } from '@acter/components/invites/form'
 import { EmailAddressChip } from '@acter/components/invites/form/email-address-chip'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const InviteByEmail: FC = () => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const [input, setInput] = useState('')
 
@@ -48,7 +50,7 @@ export const InviteByEmail: FC = () => {
     const isValidEmail = validate(email) && !emails.includes(email)
 
     if (input !== '' && !isValidEmail) {
-      setFieldError('emails', '* Please enter a valid email address.')
+      setFieldError('emails', t('enterValidEmail'))
     }
 
     if (isValidEmail) {
@@ -108,7 +110,7 @@ export const InviteByEmail: FC = () => {
         color="inherit"
         type="submit"
       >
-        Send invites
+        {t('sendInvites')}
       </Button>
     </FormGroup>
   )

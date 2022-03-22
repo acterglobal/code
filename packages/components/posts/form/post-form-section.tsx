@@ -12,8 +12,10 @@ import {
   PostFormValues,
 } from '@acter/components/posts/form'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useCreateComment } from '@acter/lib/post/use-create-comment'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { User } from '@acter/schema'
 import { Post as PostType } from '@acter/schema'
 
@@ -31,6 +33,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   parentId,
   acterId,
 }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
   const { acter } = useActer({ acterId })
@@ -58,7 +61,9 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
             onClick={handleClick}
             className={clsx(classes.field, parentId && classes.commentField)}
           >
-            {parentId ? 'Comment...' : 'Write post...'}
+            {parentId
+              ? `${capitalize(t('comment'))} ...`
+              : `${capitalize(t('write'))} ${t('post')} ...`}
           </Box>
         ) : (
           <PostForm

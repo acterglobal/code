@@ -7,9 +7,11 @@ import { AddCircleOutlineOutlined } from '@material-ui/icons'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { LinkForm } from '@acter/components/links/form'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useLinks } from '@acter/lib/links/use-links'
 
 export const Links: FC = () => {
+  const { t } = useTranslation('settings')
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
   const { acter } = useActer()
@@ -23,7 +25,7 @@ export const Links: FC = () => {
   return (
     <Box className={classes.root}>
       <Typography variant="body2" className={classes.heading}>
-        Here you can add custom navigation links
+        {t('linksHeading')}
       </Typography>
 
       {toggleForm ? (
@@ -35,7 +37,7 @@ export const Links: FC = () => {
               fontSize="small"
               className={classes.icon}
             />
-            Add new link
+            {t('addNewLink')}
           </Button>
         </Box>
       )}
@@ -72,7 +74,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       color: theme.palette.secondary.main,
-      textTransform: 'capitalize',
       fontSize: '0.88rem',
     },
     icon: {

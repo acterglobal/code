@@ -5,6 +5,7 @@ import { Box, Typography } from '@material-ui/core'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { Size } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   getSelectedTopLevelTypes,
   getSelectedInterests,
@@ -18,6 +19,7 @@ export interface InterestsSectionProps {
 }
 
 export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
+  const { t } = useTranslation('interests')
   const { interestTypes, fetching: interestTypesLoading } = useInterestTypes()
 
   if (interestTypesLoading) return <LoadingSpinner />
@@ -40,7 +42,7 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
             id="interest-type-name"
             style={{ marginLeft: 4, fontWeight: 600 }}
           >
-            {capitalize(type.name)}
+            {capitalize(t(type.name))}
           </Typography>
           <InterestTypes
             type={type}
