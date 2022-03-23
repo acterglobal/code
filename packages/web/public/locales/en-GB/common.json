@@ -74,6 +74,7 @@
     "submit": "Submit",
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
+    "save": "save",
     "websiteLink": "Website link"
   },
   "forum": "forum",
@@ -91,12 +92,17 @@
   "partOf": "Part of",
   "people": "people",
   "post": "post",
-  "save": "save",
   "settings": "settings",
   "showPastActivities": "Show past activities ?",
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
   "time": "time",
-  "write": "write"
+  "write": "write",
+  "about": "about",
+  "host": "host",
+  "hostedBy": "Hosted by",
+  "info": "info",
+  "interests": "interests",
+  "notifications": "notifications"
 }

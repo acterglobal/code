@@ -7,6 +7,7 @@ import { ActerAvatar } from '@acter/components/acter/avatar'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { Size } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter } from '@acter/schema'
 
 const { SMALL } = Size
@@ -18,6 +19,7 @@ interface OrganiserProps {
 
 export const Organiser: FC<OrganiserProps> = ({ acter, size }) => {
   const classes = useStyles({ size })
+  const { t } = useTranslation('common')
 
   if (!acter) return null
 
@@ -27,7 +29,7 @@ export const Organiser: FC<OrganiserProps> = ({ acter, size }) => {
 
       <Box>
         <Typography className={classes.heading} noWrap>
-          Hosted by
+          {t('hostedBy')}
         </Typography>
       </Box>
 

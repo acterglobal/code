@@ -74,6 +74,7 @@
     "submit": "Indsend",
     "typeOnlineMeetingLink": "Skriv online mødelink",
     "venue": "sted",
+    "save": "gem",
     "websiteLink": "Weblink"
   },
   "forum": "forum",
@@ -91,12 +92,17 @@
   "partOf": "Part of",
   "people": "personer",
   "post": "post",
-  "save": "gem",
   "settings": "indstillinger",
   "showPastActivities": "Vis tidligere aktiviteter?",
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
   "time": "tid",
-  "write": "write"
+  "write": "write",
+  "about": "about",
+  "host": "host",
+  "hostedBy": "Hosted by",
+  "info": "info",
+  "interests": "interests",
+  "notifications": "notifications"
 }
