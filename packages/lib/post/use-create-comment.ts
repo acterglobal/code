@@ -1,5 +1,6 @@
 import { UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -32,6 +33,7 @@ export const useCreateComment = (
   HandleMethod<CreatePostData>,
   UseMutationState<CreatePostData, PostVariables>
 ] => {
+  const { t } = useTranslation('success-messages')
   const { user } = useUser()
 
   const [mutationResult, createPost] = useNotificationMutation<
@@ -39,7 +41,7 @@ export const useCreateComment = (
     PostVariables
   >(CREATE_COMMENT, {
     ...options,
-    getSuccessMessage: () => 'Comment created',
+    getSuccessMessage: () => t('comment.created'),
   })
 
   const handlePost = async (values: PostVariables) => {

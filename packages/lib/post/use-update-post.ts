@@ -1,5 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -35,12 +36,14 @@ export const useUpdatePost = (
   UseMutationState<UpdatePostData, PostVariables>,
   HandleMethod<UpdatePostData>
 ] => {
+  const { t } = useTranslation('success-messages')
+
   const [mutationResult, updatePost] = useNotificationMutation<
     UpdatePostData,
     PostVariables
   >(UPDATE_POST, {
     ...options,
-    getSuccessMessage: () => 'Post updated',
+    getSuccessMessage: () => t('post.updated'),
   })
 
   const handlePost = async (values: PostVariables) => {

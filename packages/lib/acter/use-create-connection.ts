@@ -1,5 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -36,6 +37,7 @@ export const useCreateActerConnection = (
   UseMutationState<CreateConnectionData, ConnectionVariables>,
   HandleMethod<CreateConnectionData>
 ] => {
+  const { t } = useTranslation('success-messages')
   const [mutationResult, createConnection] = useNotificationMutation(
     CREATE_ACTER_CONNECTION,
     {
@@ -44,7 +46,7 @@ export const useCreateActerConnection = (
         createActerConnectionCustom: {
           Follower: { name },
         },
-      }) => `Connected to ${acter.name} as ${name}`,
+      }) => t('connectedTo', { toActer: acter.name, asActer: name }),
     }
   )
 
