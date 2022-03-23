@@ -31,7 +31,7 @@ export const Locales: FC = () => {
       // Match dynamic route vars in pathname like /[acterType]/[slug]/forum
       const neededQueryVars = pathname.match(/\[\w*\]/g)
       // Only redirect when router has these
-      if (neededQueryVars.length === Object.keys(query).length)
+      if (neededQueryVars?.length === Object.keys(query).length)
         router.push({ pathname, query }, null, { locale: user?.language })
     }
   }, [user, JSON.stringify(router.query)])
