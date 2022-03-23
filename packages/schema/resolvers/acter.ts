@@ -57,9 +57,9 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string],
     @Arg('parentAdminActerIds', () => [String], { nullable: true })
-    parentAdminActerIds: [string],
+    parentAdminActerIds: [string?] = [],
     @Arg('parentAdminUserIds', () => [String], { nullable: true })
-    parentAdminUserIds: [string]
+    parentAdminUserIds: [string?] = []
   ): Promise<Acter> {
     const currentUser = ctx.session.user
 
@@ -312,9 +312,9 @@ export class ActerResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string],
     @Arg('parentAdminActerIds', () => [String], { nullable: true })
-    parentAdminActerIds: [string],
+    parentAdminActerIds: [string?] = [],
     @Arg('parentAdminUserIds', () => [String], { nullable: true })
-    parentAdminUserIds: [string]
+    parentAdminUserIds: [string?] = []
   ): Promise<Partial<Activity>> {
     const acter = await this.createActerCustom(
       ctx,

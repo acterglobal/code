@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { acterAsUrl } from './acter-as-url'
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
 import {
@@ -16,6 +15,8 @@ import {
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
+
+import { acterAsUrl } from './acter-as-url'
 
 export interface ActerVariables extends Acter {
   acterId?: string
@@ -81,11 +82,14 @@ export const useCreateActer = (
   })
 
   useEffect(() => {
-    setFetching(createFetching || updateFetching)
+    if (createFetching || updateFetching) setFetching(true)
   }, [createFetching, updateFetching])
 
   useEffect(() => {
-    setError(createError || updateError)
+    if (createError || updateError) {
+      setError(createError || updateError)
+      setFetching(false)
+    }
   }, [createError, updateError])
 
   useEffect(() => {
@@ -117,6 +121,7 @@ export const useCreateActer = (
       ...data.createActerCustom,
     })
 
+    setFetching(false)
     setResultData(updateResult.data)
     router.push(acterAsUrl({ acter: updateResult.data.updateActerCustom }))
 
