@@ -29,7 +29,7 @@ export const SelectActivityType: FC<SelectActivityTypeProps> = ({
     const activityType = activityTypes.find(
       (type) => type.id === selectedTypeId
     )
-    setColor(activityType.name as ActivityTypes)
+    if (activityType) setColor(activityType.name as ActivityTypes)
   }, [selectedTypeId])
 
   return (
