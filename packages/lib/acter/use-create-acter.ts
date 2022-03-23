@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { acterAsUrl } from './acter-as-url'
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import {
   UpdateActerData,
   useUpdateActer,
@@ -81,11 +81,14 @@ export const useCreateActer = (
   })
 
   useEffect(() => {
-    setFetching(createFetching || updateFetching)
+    if (createFetching || updateFetching) setFetching(true)
   }, [createFetching, updateFetching])
 
   useEffect(() => {
-    setError(createError || updateError)
+    if (createError || updateError) {
+      setError(createError || updateError)
+      setFetching(false)
+    }
   }, [createError, updateError])
 
   useEffect(() => {
@@ -117,6 +120,7 @@ export const useCreateActer = (
       ...data.createActerCustom,
     })
 
+    setFetching(false)
     setResultData(updateResult.data)
     router.push(acterAsUrl({ acter: updateResult.data.updateActerCustom }))
 
