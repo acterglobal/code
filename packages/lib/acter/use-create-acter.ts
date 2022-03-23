@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import { CombinedError, OperationResult, UseMutationState } from 'urql'
 
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import {
   UpdateActerData,
   useUpdateActer,
@@ -15,8 +16,6 @@ import {
 } from '@acter/lib/urql/use-notification-mutation'
 import { Acter, ActerInterest, ActerConnection } from '@acter/schema'
 import ACTER_CREATE from '@acter/schema/mutations/acter-create.graphql'
-
-import { acterAsUrl } from './acter-as-url'
 
 export interface ActerVariables extends Acter {
   acterId?: string
