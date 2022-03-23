@@ -1,5 +1,6 @@
 import { OperationContext, UseMutationState, OperationResult } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useNotificationMutation } from '@acter/lib/urql/use-notification-mutation'
 import { Language } from '@acter/schema'
 import UPDATE_USER_LANGUAGE from '@acter/schema/mutations/user-language-update.graphql'
@@ -19,11 +20,12 @@ export const useUpdateUserLanguage = (): [
   UseMutationState<UpdateUserLanguageData, UpdateUserLanguageVariables>,
   HandleUpdateMethod
 ] => {
+  const { t } = useTranslation('success-messages')
   const [mutationResult, updateUserLanguage] = useNotificationMutation<
     UpdateUserLanguageData,
     UpdateUserLanguageVariables
   >(UPDATE_USER_LANGUAGE, {
-    getSuccessMessage: () => `Language updated`,
+    getSuccessMessage: () => t('languageUpdated'),
   })
 
   const handleMethod = (variables: UpdateUserLanguageVariables) =>

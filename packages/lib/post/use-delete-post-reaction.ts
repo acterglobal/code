@@ -1,5 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -37,12 +38,14 @@ export const useDeletePostReaction = (
   UseMutationState<DeletePostReactionData, DeletePostReactionVariables>,
   HandleMethod
 ] => {
+  const { t } = useTranslation('success-messages')
+
   const [mutationResult, deletePostReaction] = useNotificationMutation<
     DeletePostReactionData,
     DeletePostReactionVariables
   >(DELETE_POST_REACTION, {
     ...options,
-    getSuccessMessage: () => 'Reaction deleted',
+    getSuccessMessage: () => t('reaction.deleted'),
   })
 
   const handleDeletePostReaction = async (

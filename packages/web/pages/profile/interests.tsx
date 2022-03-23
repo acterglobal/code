@@ -21,7 +21,11 @@ export const UserProfileInterestsPage: NextPageWithLayout = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'interests'])),
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'success-messages',
+    ])),
   },
 })
 
