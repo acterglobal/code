@@ -6,26 +6,28 @@ import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const DescriptionSection: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('group-landing', { keyPrefix: 'description' })
 
   const { acter } = useActer()
   if (!acter) return null
 
   return (
     <SectionContainer
-      title="About"
-      buttonText="Edit Description"
+      title={t('title')}
+      buttonText={t('buttonText')}
       sectionContent={GroupSectionTabs.ABOUT}
       hideAddIcon
     >
       {acter?.description.length === 0 ? (
         <ZeroMessage
           contentTab={GroupSectionTabs.ABOUT}
-          primaryText="There is currently no description written for this group."
-          secondaryText="Do you want to add a description?"
-          buttonText="Add Description"
+          primaryText={t('zeroMessage.primaryText')}
+          secondaryText={t('zeroMessage.secondaryText')}
+          buttonText={t('zeroMessage.buttonText')}
         />
       ) : (
         <div className={classes.descriptionSection}>

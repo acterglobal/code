@@ -16,6 +16,8 @@ import {
   StartEndDateTimePickerValues,
 } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface BasicsStepValues
   extends LocationVenuePickerValues,
@@ -27,6 +29,7 @@ export interface BasicsStepValues
 }
 
 export const BasicsStep: FC = () => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { values } = useFormikContext<BasicsStepValues>()
   const [selectedTypeId, setSelectedTypeId] = useState(values.activityTypeId)
@@ -44,7 +47,7 @@ export const BasicsStep: FC = () => {
           fullWidth
           component={TextField}
           variant="outlined"
-          label="Name of the Activity"
+          label={capitalize(t('name'))}
           name="name"
           required={true}
         />

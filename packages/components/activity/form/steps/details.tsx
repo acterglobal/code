@@ -11,6 +11,7 @@ import { ImageUpload } from '@acter/components/image-upload'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
 import { TextEditor } from '@acter/components/util/text-editor'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export interface DetailsStepValues {
@@ -20,6 +21,7 @@ export interface DetailsStepValues {
 }
 
 export const DetailsStep: FC = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const classes = useStyles()
   const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<DetailsStepValues>()
@@ -29,7 +31,7 @@ export const DetailsStep: FC = () => {
   return (
     <Box className={classes.container}>
       <FormSection>
-        <FormLabel>Image</FormLabel>
+        <FormLabel>{t('image')}</FormLabel>
         <ImageUpload
           aspectRatio={72 / 25}
           imageType="banner"
@@ -38,7 +40,7 @@ export const DetailsStep: FC = () => {
       </FormSection>
 
       <FormSection onClick={() => editor.focus()}>
-        <FormLabel>Description</FormLabel>
+        <FormLabel>{t('description')}</FormLabel>
 
         <TextEditor
           height={150}
@@ -51,7 +53,7 @@ export const DetailsStep: FC = () => {
       {fetching && <LoadingSpinner />}
       {interestTypes ? (
         <FormSection>
-          <FormLabel>Choose interests</FormLabel>
+          <FormLabel>{t('chooseInterests')}</FormLabel>
           <InterestsAddSection />
         </FormSection>
       ) : null}

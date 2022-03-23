@@ -16,6 +16,7 @@ import { useFormikContext } from 'formik'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface ActivityTypeStepProps {
@@ -27,6 +28,7 @@ export interface ActivityTypeStepValues {
 }
 
 export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({ onClick }) => {
+  const { t } = useTranslation('common', { keyPrefix: 'activityTypes' })
   const classes = useStyles()
   const { activityTypes, fetching } = useActivityTypes()
 
@@ -47,7 +49,7 @@ export const ActivityTypeStep: FC<ActivityTypeStepProps> = ({ onClick }) => {
           button={true}
           onClick={() => handleClick(type.id)}
         >
-          <ListItemText>{capitalize(type.name)}</ListItemText>
+          <ListItemText>{capitalize(t(type.name))}</ListItemText>
           <ListItemSecondaryAction>
             <NavigateNextOutlined />
           </ListItemSecondaryAction>
