@@ -20,7 +20,7 @@ export const canFollowActer =
     // Don't include activity organizer
     if (
       acter.ActerType.name === ACTIVITY &&
-      acter.Activity.organiserId === following.id
+      (!acter.Activity || acter.Activity?.organiserId === following.id)
     ) {
       return false
     }
