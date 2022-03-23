@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useTheme } from '@mui/material'
+
 import { EventActivityIcon } from '@acter/components/icons/activity-type-icons/event-activity-icon'
 import { IdeaActivityIcon } from '@acter/components/icons/activity-type-icons/idea-activity-icon'
 import { MeetingActivityIcon } from '@acter/components/icons/activity-type-icons/meeting-activity-icon'
@@ -18,9 +20,15 @@ interface ActivityTypeIconProps {
 }
 
 export const ActivityTypeIcon: FC<ActivityTypeIconProps> = ({ activity }) => {
+  const theme = useTheme()
   if (!activity) return null
 
   const Icon = iconComponents[activity.ActivityType.name]
 
-  return <Icon activity={activity} />
+  return (
+    <Icon
+      activity={activity}
+      htmlColor={theme.palette.activityTypes[activity.ActivityType.name].main}
+    />
+  )
 }

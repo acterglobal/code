@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     date: {
-      color: theme.colors.blue.light,
+      color: theme.palette.blue.light,
       fontSize: '1.5rem',
     },
     acterName: {
@@ -144,7 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'row',
     },
     location: {
-      color: theme.colors.blue.light,
+      color: theme.palette.blue.light,
       [theme.breakpoints.down('sm')]: {
         fontSize: '0.9rem',
       },
