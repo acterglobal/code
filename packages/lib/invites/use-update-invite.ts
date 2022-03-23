@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { useTranslation } from '../i18n/use-translation'
 import { OperationResult, UseMutationState } from 'urql'
 
 import {
@@ -39,6 +40,7 @@ type MutationResult = UseMutationState<UpdateInviteData, UpdateInviteVariables>
 export const useUpdateInvite = (
   options?: UpdateInviteOptions
 ): [MutationResult, HandleMethod] => {
+  const { t } = useTranslation('success-messages')
   const [message, setMessage] = useState(null)
   const [mutationResult, updateInvite] = useNotificationMutation(
     UPDATE_INVITE,
@@ -50,7 +52,7 @@ export const useUpdateInvite = (
 
   const handleUpdateInvite = ({ inviteId, expiredAt, acceptedAt }) => {
     const status = acceptedAt ? 'accepted' : expiredAt ? 'cancelled' : 'sent'
-    setMessage(`Invitation ${status}`)
+    setMessage(`Invitation ${t(`invitationStatus.${status}`)}`)
 
     return updateInvite({ inviteId, expiredAt, acceptedAt })
   }

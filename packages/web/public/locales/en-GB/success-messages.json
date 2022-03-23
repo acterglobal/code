@@ -1,0 +1,24 @@
+{
+  "acterCreated": "{{acterName}} {{acterTypeName}} created",
+  "acterUpdated": "{{acterName}} updated",
+  "activityCreated": "{{activityName}} created",
+  "activityUpdated": "Activity updated",
+  "comment": { "created": "Comment created" },
+  "connectedTo": "Connected to {{toActer}} as {{asActer}}",
+  "disConnected": "Disconnected from {{acterName}}",
+  "imagesUploaded": "Images uploaded for {{acterName}}",
+  "invitationsSent": "Invitations sent",
+  "invitationStatus": {
+    "accepted": "accepted",
+    "cancelled": "cancelled",
+    "sent": "sent"
+  },
+  "languageUpdated": "Language updated",
+  "link": {
+    "created": "Link {{linkName}} created",
+    "deleted": "Link {{linkName}} deleted",
+    "updated": "Link updated"
+  },
+  "post": { "created": "Post created", "updated": "Post updated" },
+  "reaction": { "added": "Reaction added", "deleted": "Reaction deleted" }
+}

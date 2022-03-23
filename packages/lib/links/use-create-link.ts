@@ -1,5 +1,6 @@
 import { OperationResult, UseMutationState } from 'urql'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -37,6 +38,7 @@ export const useCreateLink = (
   UseMutationState<CreateLinkData, LinkVariables>,
   HandleMethod<CreateLinkData>
 ] => {
+  const { t } = useTranslation('success-messages')
   const { user } = useUser()
 
   const [mutationResult, createLink] = useNotificationMutation<
@@ -44,7 +46,8 @@ export const useCreateLink = (
     LinkVariables
   >(CREATE_LINK, {
     ...options,
-    getSuccessMessage: ({ createLink: { name } }) => `Link "${name}" created`,
+    getSuccessMessage: ({ createLink: { name } }) =>
+      t('link.created', { linkName: name }),
   })
 
   const handleLink = async (values: LinkVariables) => {
