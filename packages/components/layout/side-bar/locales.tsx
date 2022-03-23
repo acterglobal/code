@@ -27,9 +27,14 @@ export const Locales: FC = () => {
 
   useEffect(() => {
     if (user?.language !== router.locale) {
-      router.push(router.asPath, router.asPath, { locale: user?.language })
+      const { pathname, query } = router
+      // Match dynamic route vars in pathname like /[acterType]/[slug]/forum
+      const neededQueryVars = pathname.match(/\[\w*\]/g)
+      // Only redirect when router has these
+      if (neededQueryVars.length === Object.keys(query).length)
+        router.push({ pathname, query }, null, { locale: user?.language })
     }
-  }, [user])
+  }, [user, JSON.stringify(router.query)])
 
   const handleClick = (language: Language) => {
     if (!user) return null
