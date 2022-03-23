@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Box, Hidden, Typography, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Hidden, Typography, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
@@ -80,7 +79,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         </Box>
       </Box>
     </Box>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,7 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatarImage: {
       borderRadius: '50%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: '#fff',
       borderColor: theme.palette.secondary.main,
       marginLeft: theme.spacing(6) + 2,
       width: 130,

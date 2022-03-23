@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 
-import { Grid, Theme } from '@mui/material';
-
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import { Grid, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       marginTop: theme.spacing(1.1),
       borderRadius: 6,
-      backgroundColor: theme.colors.white,
+      backgroundColor: '#fff',
       '&.MuiGrid-item': {
         padding: theme.spacing(6),
         paddingTop: theme.spacing(1),

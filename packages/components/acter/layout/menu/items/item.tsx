@@ -67,12 +67,13 @@ export const ActerMenuItem: FC<ActerMenuItemProps> = ({
       <Link href={acterAsUrl({ acter, extraPath: [path] })}>
         <ListItemIcon>
           <Icon
-            color="inherit"
             className={classes.icon}
-            style={{
-              color: isActive ? theme.palette.background.paper : null,
-              fontWeight: isActive ? 'bold' : null,
-            }}
+            htmlColor={
+              isActive
+                ? theme.palette.background.paper
+                : theme.palette.grey.A100
+            }
+            fontSize={isActive ? 'large' : 'medium'}
           />
         </ListItemIcon>
         <ListItemText
@@ -104,6 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       height: theme.spacing(2),
+      width: theme.spacing(3),
     },
     itemText: {
       '& .MuiListItemText-primary': {

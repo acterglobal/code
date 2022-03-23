@@ -2,11 +2,7 @@ import React, { FC } from 'react'
 
 import { SvgIcon, SvgIconProps } from '@mui/material'
 
-import { grey } from '@acter/components/themes/colors'
-
 export const ActivityLocationIcon: FC<SvgIconProps> = (props) => {
-  const iconColor = props.style?.color || grey.A100
-
   return (
     <SvgIcon {...props}>
       <svg
@@ -14,8 +10,8 @@ export const ActivityLocationIcon: FC<SvgIconProps> = (props) => {
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke={iconColor}
-        strokeWidth={props.style?.fontWeight || '0.0001rem'}
+        stroke={props.htmlColor}
+        strokeWidth="0.0001rem"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

@@ -2,10 +2,9 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Box, Typography, Theme } from '@mui/material';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Typography, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
@@ -106,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatarImage: {
       borderRadius: '50%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: '#fff',
       borderColor: theme.palette.secondary.main,
       marginLeft: theme.spacing(6) + 2,
       width: 130,

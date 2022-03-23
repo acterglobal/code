@@ -1,9 +1,8 @@
 import React, { FC, ReactNode } from 'react'
 
-import { Box, Button, Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import { grey } from '@mui/material/colors'
+import { Box, Button, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import clsx from 'clsx'
 
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bar: {
       height: 8,
-      backgroundColor: grey[200],
+      backgroundColor: theme.palette.grey[200],
       borderRadius: 10,
       flexGrow: 1,
     },

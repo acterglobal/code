@@ -7,8 +7,6 @@ import makeStyles from '@mui/styles/makeStyles'
 
 import MarkDown from 'markdown-to-jsx'
 
-import { grey } from '@acter/components/themes/colors'
-
 export interface InfoSectionHeaderProps {
   title: string
   description: string
@@ -33,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontWeight: 600,
       marginBottom: theme.spacing(2),
-      color: grey[900],
+      color: theme.palette.grey[900],
     },
     description: {
       fontSize: '0.813rem',

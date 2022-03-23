@@ -1,8 +1,7 @@
 import React, { FC, useEffect } from 'react'
 
 // import DateUtils from '@date-io/date-fns'
-import { Grid } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { Grid, useTheme } from '@mui/material'
 
 import { differenceInMinutes, set } from 'date-fns'
 import isValid from 'date-fns/isValid'
@@ -24,6 +23,7 @@ export interface StartEndDateTimePickerValues {
 export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
   hideIsAllDayCheckBox,
 }) => {
+  const theme = useTheme()
   const {
     values: { endAt, isAllDay, startAt },
     touched: { endAt: endAtTouched, startAt: startAtTouched },
@@ -89,7 +89,10 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
             component={CheckboxWithLabel}
             type="checkbox"
             name="isAllDay"
-            Label={{ label: 'All day activity', style: { color: grey[700] } }}
+            Label={{
+              label: 'All day activity',
+              style: { color: theme.palette.grey[700] },
+            }}
             inputProps={{ 'aria-label': 'all day activity' }}
           />
         </Grid>
