@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Box,
@@ -21,12 +21,7 @@ import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-nam
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
 import { useUser } from '@acter/lib/user/use-user'
-import {
-  Acter,
-  ActerConnection,
-  ActerConnectionRole,
-  ActerJoinSettings,
-} from '@acter/schema'
+import { Acter, ActerConnectionRole, ActerJoinSettings } from '@acter/schema'
 
 export interface GroupFormProps {
   acter?: Acter
@@ -42,9 +37,6 @@ export const GroupForm: FC<GroupFormProps> = ({
   saving,
 }) => {
   const classes = useStyles()
-  const [parentActerAdmins, setParentActerAdmins] = useState<ActerConnection[]>(
-    []
-  )
   const { user } = useUser()
   const { acterTypes, fetching } = useActerTypes()
 
@@ -54,19 +46,15 @@ export const GroupForm: FC<GroupFormProps> = ({
   const setting = joinSetting === ActerJoinSettings.RESTRICTED
   const [isActerJoinRestricted, setIsActerJoinRestricted] = useState(setting)
 
+  if (!user) return null
+
   const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
 
-  useEffect(() => {
-    if (parentActer && user) {
-      setParentActerAdmins([
-        ...parentActer.Followers.filter(
-          (follower) =>
-            follower.role === ActerConnectionRole.ADMIN &&
-            follower.Follower?.createdByUser?.id !== user?.id
-        ),
-      ])
-    }
-  }, [parentActer, user])
+  const parentActerAdmins = parentActer.Followers.filter(
+    (follower) =>
+      follower.role === ActerConnectionRole.ADMIN &&
+      follower.Follower?.createdByUser?.id !== user?.id
+  )
 
   const initialValues = {
     name: '',

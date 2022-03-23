@@ -27,13 +27,13 @@ export const DashboardContent: FC = () => {
 
   const { user } = useUser()
 
-  if (!user?.Acter === undefined) return null
-
   const { activities, fetching: activitiesLoading } = useActivities(
     user?.Acter?.id
   )
 
   if (activitiesLoading) return <LoadingSpinner />
+
+  if (!user) return null
 
   const acters = flattenFollowing(user?.Acter)
   const groups = acters.filter((acter) => acter.ActerType.name === GROUP)
