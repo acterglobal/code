@@ -20,9 +20,12 @@ import { useLinks } from '@acter/lib/links/use-links'
 export const LinksSection: FC = () => {
   const classes = useStyles()
   const { acter } = useActer()
+
   const { links, fetching: linksLoading } = useLinks({
     acterId: acter?.id,
   })
+
+  if (!acter) return null
 
   return (
     <SectionContainer

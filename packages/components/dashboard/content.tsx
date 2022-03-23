@@ -25,13 +25,14 @@ export const DashboardContent: FC = () => {
   const classes = useStyles()
   const { t } = useTranslation('dashboard')
 
-  const { user, fetching: userLoading } = useUser()
+  const { user } = useUser()
 
   const { activities, fetching: activitiesLoading } = useActivities(
-    user?.Acter.id
+    user?.Acter?.id
   )
 
-  if (userLoading || activitiesLoading) return <LoadingSpinner />
+  if (activitiesLoading) return <LoadingSpinner />
+
   if (!user) return null
 
   const acters = flattenFollowing(user?.Acter)
