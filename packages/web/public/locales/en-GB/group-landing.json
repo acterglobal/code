@@ -1,1 +1,31 @@
-{"description":{"buttonText":"Edit description","title":"About","zeroMessage":{"buttonText":"Add Description","primaryText":"There is currently no description written for this group.","secondaryText":"Do you want to add a description?"}},"links":{"buttonText":"Manage links","title":"links","zeroMessage":{"buttonText":"Add new link","primaryText":"There are currently no links added to this group.","secondaryText":"Do you want to add a link?"}},"members":{"buttonText":"See all members","title":"Members"},"upcomingActivities":{"buttonText":"See all activities","title":"Upcoming activities","view":"view","zeroMessage":{"buttonText":"Create activity","primaryText":"There are currently no activities planned for this group.","secondaryText":"Do you want to plan an activity?"}}}
+{
+  "description": {
+    "buttonText": "Edit description",
+    "title": "About",
+    "zeroMessage": {
+      "buttonText": "Add Description",
+      "primaryText": "There is currently no description written for this group.",
+      "secondaryText": "Do you want to add a description?"
+    }
+  },
+  "links": {
+    "buttonText": "Manage links",
+    "title": "links",
+    "zeroMessage": {
+      "buttonText": "Add new link",
+      "primaryText": "There are currently no links added to this group.",
+      "secondaryText": "Do you want to add a link?"
+    }
+  },
+  "members": { "buttonText": "See all members", "title": "Members" },
+  "upcomingActivities": {
+    "buttonText": "See all activities",
+    "title": "Upcoming activities",
+    "view": "view",
+    "zeroMessage": {
+      "buttonText": "Create activity",
+      "primaryText": "There are currently no activities planned for this group.",
+      "secondaryText": "Do you want to plan an activity?"
+    }
+  }
+}

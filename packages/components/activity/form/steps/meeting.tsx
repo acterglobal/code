@@ -14,10 +14,13 @@ import { Switch } from '@acter/components/atoms/fields/switch'
 import { LocationVenuePicker } from '@acter/components/molecules/fields/location-venue-picker'
 import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export type MeetingStepProps = SettingsStepProps
 
 export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const [selectOrganiser, setSelectOrganiser] = useState(false)
 
@@ -33,7 +36,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
           fullWidth
           component={TextField}
           variant="outlined"
-          label="Name of the Activity"
+          label={capitalize(t('name'))}
           name="name"
           required={true}
         />
@@ -52,7 +55,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
           className={classes.field}
           fullWidth
           component={TextField}
-          label="Description"
+          label={t('form.description')}
           name="description"
           variant="outlined"
           multiline={true}
@@ -61,7 +64,9 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
       </FormSection>
 
       <FormSection>
-        <FormLabel className={classes.label}>Share Activity</FormLabel>
+        <FormLabel className={classes.label}>
+          {t('form.shareActivity')}
+        </FormLabel>
         <Box className={classes.switch}>
           <Switch
             name="host"

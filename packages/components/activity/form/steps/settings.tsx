@@ -14,21 +14,24 @@ import {
 } from '@acter/components/activity/form/fields/select-organiser'
 import { FormLabel } from '@acter/components/styled/form-label'
 import { FormSection } from '@acter/components/styled/form-section'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export type SettingsStepProps = SelectOrganiserProps & SelectFollowersProps
 
 export type SettingsStepValues = SelectFollowersValues & SelectOrganiserValues
 
 export const SettingsStep: FC<SettingsStepProps> = ({ acters }) => {
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   return (
     <Box>
       <FormSection>
-        <FormLabel>Host</FormLabel>
+        <FormLabel>{capitalize(t('host'))}</FormLabel>
         <SelectOrganiser acters={acters} />
       </FormSection>
 
       <FormSection>
-        <FormLabel>Where should this be posted?</FormLabel>
+        <FormLabel>{t('postTo')}</FormLabel>
         <SelectFollowers acters={acters} />
       </FormSection>
     </Box>

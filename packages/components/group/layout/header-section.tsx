@@ -18,8 +18,10 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const HeaderSection: FC = () => {
+  const { t } = useTranslation('group-landing')
   const classes = useStyles()
   const { asPath: currentUrl } = useRouter()
   const { acter, fetching: acterLoading } = useActer()
@@ -44,7 +46,7 @@ export const HeaderSection: FC = () => {
             </Link>
 
             <Typography className={classes.activities}>
-              Upcoming activities
+              {t('upcomingActivities.title')}
             </Typography>
           </Breadcrumbs>
         ) : (
