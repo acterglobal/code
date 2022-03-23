@@ -10,6 +10,8 @@ import { Field, FormikTouched, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
 import { DateTimePicker } from '@acter/components/molecules/fields/datetime-picker'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface StartEndDateTimePickerProps {
   hideIsAllDayCheckBox?: boolean
@@ -24,6 +26,7 @@ export interface StartEndDateTimePickerValues {
 export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
   hideIsAllDayCheckBox,
 }) => {
+  const { t } = useTranslation('common')
   const {
     values: { endAt, isAllDay, startAt },
     touched: { endAt: endAtTouched, startAt: startAtTouched },
@@ -47,14 +50,14 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
 
   const validateDateTime = (touched: FormikTouched<Date>) => (val: Date) => {
     if (!touched) return
-    if (!val) return 'Required'
-    if (!isValid(val)) return 'Invaild date'
+    if (!val) return t('dateTimePickerValidateMessages.required')
+    if (!isValid(val)) return t('dateTimePickerValidateMessages.invalidDate')
   }
   const validateEndTime = (val: Date) => {
     const basicValidation = validateDateTime(endAtTouched)(val)
     if (basicValidation) return basicValidation
     if (startAt && isValid(startAt) && differenceInMinutes(val, startAt) < 0) {
-      return 'Cannot be before start'
+      return 'dateTimePickerValidateMessages.cantBeBeforeStart'
     }
   }
 
@@ -64,7 +67,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
     <Grid container spacing={2}>
       <Grid item xs={gridSize}>
         <DateTimePicker
-          placeholder="Start"
+          placeholder={capitalize(t('start'))}
           name="startAt"
           isAllDay={isAllDay}
           required={true}
@@ -74,7 +77,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
       </Grid>
       <Grid item xs={gridSize}>
         <DateTimePicker
-          placeholder="End"
+          placeholder={capitalize(t('end'))}
           name="endAt"
           isAllDay={isAllDay}
           required={true}
@@ -89,7 +92,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
             component={CheckboxWithLabel}
             type="checkbox"
             name="isAllDay"
-            Label={{ label: 'All day activity', style: { color: grey[700] } }}
+            Label={{ label: t('form.isAllDay'), style: { color: grey[700] } }}
             inputProps={{ 'aria-label': 'all day activity' }}
           />
         </Grid>
