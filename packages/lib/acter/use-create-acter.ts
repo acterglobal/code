@@ -10,6 +10,8 @@ import {
   useUpdateActer,
 } from '@acter/lib/acter/use-update-acter'
 import { ActerTypes } from '@acter/lib/constants'
+import { getTranslationKey } from '@acter/lib/i18n/get-translation-keys'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -51,6 +53,8 @@ type CreateActerUseMutationRestState = Omit<
 export const useCreateActer = (
   options?: CreateActerOptions
 ): [CreateActerUseMutationState, HandleMethod<ActerData>] => {
+  const { t } = useTranslation('success-messages')
+
   const [fetching, setFetching] = useState(false)
   const [resultData, setResultData] = useState<ActerData>(null)
   const [error, setError] = useState<CombinedError>()
@@ -62,7 +66,7 @@ export const useCreateActer = (
     updateActer,
   ] = useUpdateActer({} as Acter, {
     getSuccessMessage: (data) =>
-      `Images uploaded for ${data.updateActerCustom.name}`,
+      t('imagesUploaded', { acterName: data.updateActerCustom.name }),
   })
 
   const [
@@ -75,9 +79,15 @@ export const useCreateActer = (
     createActer,
   ] = useNotificationMutation<CreateActerData, ActerVariables>(ACTER_CREATE, {
     ...options,
-    getSuccessMessage: (data: CreateActerData) => {
-      return `${data.createActerCustom.name} ${data.createActerCustom.ActerType.name} created`
-    },
+    getSuccessMessage: (data: CreateActerData) =>
+      t('acterCreated', {
+        acterName: data.createActerCustom.name,
+        acterTypeName: t(
+          `common:acterTypes.${getTranslationKey(
+            data.createActerCustom.ActerType.name
+          )}`
+        ),
+      }),
   })
 
   useEffect(() => {

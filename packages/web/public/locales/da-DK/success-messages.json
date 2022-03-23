@@ -1,0 +1,24 @@
+{
+  "acterCreated": "{{acterName}} {{acterTypeName}} oprettet",
+  "acterUpdated": "{{acterName}} opdateret",
+  "activityCreated": "{{activityName}} oprettet",
+  "activityUpdated": "Aktivitet opdateret",
+  "comment": { "created": "Kommentar oprettet" },
+  "connectedTo": "Forbundet til {{toActer}} som {{asActer}}",
+  "disConnected": "Udmeldt af {{acterName}}",
+  "imagesUploaded": "Billeder uploadet til {{acterName}}",
+  "invitationsSent": "Invitationer sendt",
+  "invitationStatus": {
+    "accepted": "accepteret",
+    "cancelled": "annulleret",
+    "sent": "sendt"
+  },
+  "languageUpdated": "Sprog opdateret",
+  "link": {
+    "created": "Link {{linkName}} oprettet",
+    "deleted": "Link {{linkName}} slettet",
+    "updated": "Link opdateret"
+  },
+  "post": { "created": "Opslag oprettet", "updated": "Opslag opdateret" },
+  "reaction": { "added": "Reaktion tilføjet", "deleted": "Reaktion slettet" }
+}
