@@ -79,7 +79,6 @@ export const GroupsSection: FC = () => {
       >
         <AddGroup
           parentActer={acter}
-          user={user}
           onSubmit={createGroup}
           saving={creating}
         />

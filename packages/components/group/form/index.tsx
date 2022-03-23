@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -20,16 +20,16 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { useUser } from '@acter/lib/user/use-user'
 import {
   Acter,
-  User,
+  ActerConnection,
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
 
 export interface GroupFormProps {
   acter?: Acter
-  user?: User
   parentActer: Acter
   onSubmit: (data: Acter) => void
   saving: boolean
@@ -37,12 +37,15 @@ export interface GroupFormProps {
 
 export const GroupForm: FC<GroupFormProps> = ({
   acter,
-  user,
   parentActer,
   onSubmit,
   saving,
 }) => {
   const classes = useStyles()
+  const [parentActerAdmins, setParentActerAdmins] = useState<ActerConnection[]>(
+    []
+  )
+  const { user } = useUser()
   const { acterTypes, fetching } = useActerTypes()
 
   const joinSetting = acter
@@ -53,11 +56,17 @@ export const GroupForm: FC<GroupFormProps> = ({
 
   const acterType = getActerTypeByName(acterTypes || [], ActerTypes.GROUP)
 
-  const parentActerAdmins = parentActer.Followers.filter(
-    (follower) =>
-      follower.role === ActerConnectionRole.ADMIN &&
-      follower.Follower?.createdByUser?.id !== user?.id
-  )
+  useEffect(() => {
+    if (parentActer && user) {
+      setParentActerAdmins([
+        ...parentActer.Followers.filter(
+          (follower) =>
+            follower.role === ActerConnectionRole.ADMIN &&
+            follower.Follower?.createdByUser?.id !== user?.id
+        ),
+      ])
+    }
+  }, [parentActer, user])
 
   const initialValues = {
     name: '',
