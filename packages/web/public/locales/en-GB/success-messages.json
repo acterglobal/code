@@ -1,32 +1,24 @@
 {
-  "languageUpdated": "Language updated",
   "acterCreated": "{{acterName}} {{acterTypeName}} created",
   "acterUpdated": "{{acterName}} updated",
-  "imagesUploaded": "Images uploaded for {{acterName}}",
-  "connectedTo": "Connected to {{toActer}} as {{asActer}}",
-  "disConnected": "Disconnected from {{acterName}}",
   "activityCreated": "{{activityName}} created",
   "activityUpdated": "Activity updated",
-  "invitationsSent": "Invitationer sendt",
+  "comment": { "created": "Comment created" },
+  "connectedTo": "Connected to {{toActer}} as {{asActer}}",
+  "disConnected": "Disconnected from {{acterName}}",
+  "imagesUploaded": "Images uploaded for {{acterName}}",
+  "invitationsSent": "Invitations sent",
   "invitationStatus": {
     "accepted": "accepted",
     "cancelled": "cancelled",
     "sent": "sent"
   },
+  "languageUpdated": "Language updated",
   "link": {
     "created": "Link {{linkName}} created",
-    "updated": "Link updated",
-    "deleted": "Link {{linkName}} deleted"
+    "deleted": "Link {{linkName}} deleted",
+    "updated": "Link updated"
   },
-  "post": {
-    "created": "Post created",
-    "updated": "Post updated"
-  },
-  "comment": {
-    "created": "Comment created"
-  },
-  "reaction": {
-    "added": "Reaction added",
-    "deleted": "Reaction deleted"
-  }
+  "post": { "created": "Post created", "updated": "Post updated" },
+  "reaction": { "added": "Reaction added", "deleted": "Reaction deleted" }
 }
