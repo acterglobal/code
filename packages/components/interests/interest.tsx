@@ -119,14 +119,15 @@ const useStyles = makeStyles((theme: Theme) => {
     }),
     // TODO: refactor to use InterestType-specific classes
     outline: ({ type }: StyleProps) => ({
-      borderColor: theme.palette.interestTypes[type],
-      color: theme.palette.interestTypes[type],
+      borderColor: theme.palette.interestTypes[type]?.main,
+      color: theme.palette.interestTypes[type]?.main,
     }),
     selected: ({ type }: StyleProps) => ({
       border: type === TAGS ? '1px solid' : 'none',
-      borderColor: type === TAGS && theme.palette.interestTypes[type],
-      backgroundColor: type !== TAGS ? theme.palette.interestTypes[type] : '',
-      color: type === TAGS ? theme.palette.interestTypes[type] : 'white',
+      borderColor: type === TAGS && theme.palette.interestTypes[type]?.main,
+      backgroundColor:
+        type !== TAGS ? theme.palette.interestTypes[type]?.main : '',
+      color: type === TAGS ? theme.palette.interestTypes[type]?.main : 'white',
     }),
     disable: {
       color: blueGrey.A200,

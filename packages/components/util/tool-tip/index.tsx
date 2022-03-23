@@ -4,11 +4,9 @@ import { Theme, Tooltip as MUITooltip } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 
-import { Color } from '@acter/components/themes/colors'
-
 type TooltipColors = {
-  backgroundColor?: Color
-  color?: Color
+  backgroundColor?: string
+  color?: string
 }
 interface TooltipProps extends TooltipColors {
   title: string
