@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
     interests: {
       flex: '0 0',
       height: '100%',
-      minWidth: 310,
+      minWidth: 336,
       marginTop: theme.spacing(1),
       marginRight: theme.spacing(1),
     },

@@ -3,10 +3,8 @@ import React, { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+import { ActerTile } from '@acter/components/acter/organisms/tile'
 import { ActivityTile } from '@acter/components/activity/tile'
-import {
-  ActerTile, // ProfileImageSizes,
-} from '@acter/components/organisms/acter/tile'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'

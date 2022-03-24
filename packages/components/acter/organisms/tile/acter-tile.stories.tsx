@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react'
 import {
   ActerTile,
   ActerTileProps,
-} from '@acter/components/organisms/acter/tile'
+} from '@acter/components/acter/organisms/tile'
 import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 import { ExampleActer } from '@acter/schema/fixtures'
