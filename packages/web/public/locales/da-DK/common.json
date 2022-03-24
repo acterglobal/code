@@ -1,4 +1,5 @@
 {
+  "about": "om",
   "acter": "acter",
   "acters": "acters",
   "acterTypes": {
@@ -35,7 +36,7 @@
   "add": "tilføj",
   "admins": "administratorer",
   "as": "som",
-  "cancel": "Cancel",
+  "cancel": "Fortryd",
   "comment": "comment",
   "connectionPending": "Tilføjelse afventer godkendelse",
   "date": "dato",
@@ -44,9 +45,9 @@
     "invalidDate": "Ugyldig dato",
     "required": "Påkrævet"
   },
-  "delete": "Delete",
-  "deleteMessage": "Are you sure you want to delete {{acterName}} ?",
-  "edit": "edit",
+  "delete": "Slet",
+  "deleteMessage": "Er du sikker på at du vil slette {{acterName}} ?",
+  "edit": "redigér",
   "editProfile": "Rediger profil",
   "end": "slut",
   "form": {
@@ -58,7 +59,6 @@
     "create": "Opret",
     "description": "Beskrivelse",
     "groupFormHeading": "Arbejdsgrupper er der hvor din organisation kan planlægge, kommunikere, dele og organisere et specifikt emne eller projekt.",
-    "host": "vært",
     "image": "billede",
     "isAllDay": "Heldagsaktivitet",
     "location": "Beliggenhed",
@@ -69,6 +69,7 @@
     "next": "næste",
     "online": "online",
     "postTo": "Hvor skal dette slås op?",
+    "save": "gem",
     "selectActerType": "Vælg acter type",
     "shareActivity": "Del aktivitet",
     "submit": "Indsend",
@@ -77,6 +78,8 @@
     "websiteLink": "Weblink"
   },
   "forum": "forum",
+  "host": "arrangør",
+  "hostedBy": "Arrangeret af",
   "invite": "invitér",
   "join": "join",
   "leave": "forlad",
@@ -91,7 +94,6 @@
   "partOf": "Part of",
   "people": "personer",
   "post": "post",
-  "save": "gem",
   "settings": "indstillinger",
   "showPastActivities": "Vis tidligere aktiviteter?",
   "signOut": "Log ud",

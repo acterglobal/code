@@ -37,7 +37,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   onSubmit,
   saving,
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const classes = useStyles()
   const { user } = useUser()
   const { acterTypes, fetching } = useActerTypes()
@@ -90,7 +90,7 @@ export const GroupForm: FC<GroupFormProps> = ({
   return (
     <Box className={classes.content}>
       <Typography className={classes.headerMessage} variant="body2">
-        {t('form.groupFormHeading')}
+        {t('groupFormHeading')}
       </Typography>
 
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -99,7 +99,7 @@ export const GroupForm: FC<GroupFormProps> = ({
             <Field
               className={classes.field}
               component={TextField}
-              label={t('form.name')}
+              label={t('name')}
               name="name"
               required={true}
               variant="outlined"
@@ -107,7 +107,7 @@ export const GroupForm: FC<GroupFormProps> = ({
             <Field
               className={classes.field}
               component={TextField}
-              label={t('form.description')}
+              label={t('description')}
               name="description"
               variant="outlined"
               multiline={true}
@@ -117,11 +117,11 @@ export const GroupForm: FC<GroupFormProps> = ({
             {!acter?.id && (
               <FormGroup>
                 <FormLabel className={classes.label}>
-                  {t('form.makePrivate')}
+                  {t('makePrivate')}
                 </FormLabel>
                 <Box className={classes.makePrivate}>
                   <FormHelperText className={classes.helperText}>
-                    {t('form.makePrivateMessage')}
+                    {t('makePrivateMessage')}
                   </FormHelperText>
                   <Switch
                     name="makePrivate"
@@ -140,7 +140,7 @@ export const GroupForm: FC<GroupFormProps> = ({
                 type="submit"
                 disabled={isSubmitting || saving}
               >
-                {acter?.id ? t('form.save') : t('form.create')}
+                {acter?.id ? t('save') : t('create')}
               </Button>
             </Box>
           </Form>
