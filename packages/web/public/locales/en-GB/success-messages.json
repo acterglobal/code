@@ -9,9 +9,9 @@
   "imagesUploaded": "Images uploaded for {{acterName}}",
   "invitationsSent": "Invitations sent",
   "invitationStatus": {
-    "accepted": "accepted",
-    "cancelled": "cancelled",
-    "sent": "sent"
+    "accepted": "Invitation accepted",
+    "cancelled": "Invitation cancelled",
+    "sent": "Invitation sent"
   },
   "languageUpdated": "Language updated",
   "link": {
