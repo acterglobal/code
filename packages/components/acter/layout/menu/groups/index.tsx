@@ -14,7 +14,7 @@ import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
+import { ActerConnectionRole, ActerPrivacySettings } from '@acter/schema'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)
@@ -53,6 +53,26 @@ export const GroupsSection: FC = () => {
 
   const activeGroups = groups?.filter((group) => group.deletedAt === null)
 
+  const publicActiveGroups = activeGroups?.filter((group) =>
+    [ActerPrivacySettings.PUBLIC].includes(
+      group.acterPrivacySetting as ActerPrivacySettings
+    )
+  )
+
+  const privateActiveGroups = activeGroups?.filter((group) => {
+    const userGroups = user.Acter.Following.filter(
+      (follow) => follow.Following.id === group.id
+    )
+    return (
+      userGroups.length !== 0 &&
+      [ActerPrivacySettings.PRIVATE].includes(
+        group.acterPrivacySetting as ActerPrivacySettings
+      )
+    )
+  })
+
+  const groupList = [...publicActiveGroups, ...privateActiveGroups]
+
   return (
     <>
       <Divider className={classes.divider} />
@@ -70,7 +90,7 @@ export const GroupsSection: FC = () => {
         )}
       </Box>
 
-      <GroupsList acters={activeGroups} />
+      <GroupsList acters={groupList} />
 
       <Drawer
         open={openDrawer}
