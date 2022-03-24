@@ -1,7 +1,7 @@
 import { da, enGB } from 'date-fns/locale'
 
 const localeMap = {
-  en_UK: enGB,
+  en_GB: enGB,
   da_DK: da,
 }
 
@@ -10,4 +10,5 @@ const localeMap = {
  * @param locale current locale
  * @returns date-fns locale
  */
-export const getDateTimeLocale = (locale: string): Locale => localeMap[locale]
+export const getDateTimeLocale = (locale: string): Locale =>
+  localeMap[locale.replace('-', '_')]

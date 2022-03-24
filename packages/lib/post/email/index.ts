@@ -50,7 +50,10 @@ export const createPostEmailNotification = ({
     content,
     notificationUrl,
     postType,
-    sentAt: parseAndFormat(post.createdAt, DATE_TIME_FORMAT_LONG),
+    sentAt: parseAndFormat({
+      dateString: post.createdAt,
+      formatString: DATE_TIME_FORMAT_LONG,
+    }),
     sentBy: post.Author.name,
   })
   const { OnActer } = notification

@@ -60,10 +60,16 @@ export const createActivityNotificationEmail = ({
     acterType: acter.ActerType?.name?.toLocaleLowerCase(),
     activityName: activity.Acter.name,
     activityType: activity.ActivityType?.name?.toLocaleLowerCase(),
-    endAt: parseAndFormat(activity.endAt, DATE_TIME_FORMAT_LONG),
+    endAt: parseAndFormat({
+      dateString: activity.endAt,
+      formatString: DATE_TIME_FORMAT_LONG,
+    }),
     isAllDay: activity.isAllDay,
     notificationUrl,
-    startAt: parseAndFormat(activity.startAt, DATE_TIME_FORMAT_LONG),
+    startAt: parseAndFormat({
+      dateString: activity.startAt,
+      formatString: DATE_TIME_FORMAT_LONG,
+    }),
   })
   const { OnActer } = notification
   const aAn = getArticle(OnActer.name)
