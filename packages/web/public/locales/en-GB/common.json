@@ -33,7 +33,6 @@
     "project": "project",
     "projects": "projects"
   },
-  "add": "add",
   "admins": "admins",
   "as": "as",
   "cancel": "Cancel",
@@ -75,7 +74,15 @@
     "submit": "Submit",
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
-    "websiteLink": "Website link"
+    "websiteLink": "Website link",
+    "add": {
+      "activity": "Add activity",
+      "event": "Add event",
+      "idea": "Add idea",
+      "meeting": "Add meeting",
+      "project": "Add project"
+    },
+    "writePost": "Skriv indlæg..."
   },
   "forum": "forum",
   "host": "host",
@@ -93,12 +100,10 @@
   "ok": "ok",
   "partOf": "Part of",
   "people": "people",
-  "post": "post",
   "settings": "settings",
   "showPastActivities": "Show past activities ?",
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
-  "time": "time",
-  "write": "write"
+  "time": "time"
 }
