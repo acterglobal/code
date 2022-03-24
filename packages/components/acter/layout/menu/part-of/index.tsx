@@ -11,6 +11,7 @@ import {
 import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter } from '@acter/schema'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
@@ -21,6 +22,7 @@ interface PartOfSectionProps {
 
 export const PartOfSection: FC<PartOfSectionProps> = ({ acter }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const followingActers = useMemo(
     () =>
@@ -38,7 +40,7 @@ export const PartOfSection: FC<PartOfSectionProps> = ({ acter }) => {
       <Divider className={classes.divider} />
 
       <Typography className={classes.heading} variant="caption">
-        Part of
+        {t('partOf')}
       </Typography>
 
       <NetworksList followingActers={followingActers} />

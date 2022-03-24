@@ -17,9 +17,7 @@ type GroupListProps = {
 }
 export const GroupsList: FC<GroupListProps> = ({ groups }) => {
   const classes = useStyles()
-  if (groups.length === 0) {
-    return <ZeroGroups />
-  }
+
   return (
     <>
       {groups.map((group) => (
@@ -40,16 +38,6 @@ export const GroupsList: FC<GroupListProps> = ({ groups }) => {
         </Link>
       ))}
     </>
-  )
-}
-
-const ZeroGroups = () => {
-  const classes = useStyles()
-  return (
-    <Typography variant="body2" className={classes.zeroMessage}>
-      You are currently not part of any groups. As you join new groups they will
-      show here.
-    </Typography>
   )
 }
 
@@ -97,12 +85,6 @@ const useStyles = makeStyles((theme: Theme) =>
       lineClamp: 1,
       wordBreak: 'keep-all',
       overflow: 'hidden',
-    },
-    zeroMessage: {
-      width: 250,
-      fontStyle: 'italic',
-      fontWeight: theme.typography.fontWeightLight,
-      color: theme.palette.secondary.main,
     },
   })
 )

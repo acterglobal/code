@@ -1,1 +1,10 @@
-{"applyButtonText":"Apply","clearButtonText":"Clear","heading":"Public search","interestsTabLabel":"Interests","searchButtonText":"Search","searchInputPlaceholder":"Search","sortByTabLabel":"Sort By","zeroResults":"Your search did not return any results. Try removing search terms and/or filters to see more."}
+{
+  "applyButtonText": "Apply",
+  "clearButtonText": "Clear",
+  "heading": "Public search",
+  "interestsTabLabel": "Interests",
+  "searchButtonText": "Search",
+  "searchInputPlaceholder": "Search",
+  "sortByTabLabel": "Sort By",
+  "zeroResults": "Your search did not return any results. Try removing search terms and/or filters to see more."
+}
