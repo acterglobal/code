@@ -1,4 +1,5 @@
 {
+  "about": "about",
   "acter": "acter",
   "acters": "acters",
   "acterTypes": {
@@ -69,15 +70,17 @@
     "next": "next",
     "online": "online",
     "postTo": "Where should this be posted?",
+    "save": "save",
     "selectActerType": "Select acter type",
     "shareActivity": "Share activity",
     "submit": "Submit",
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
-    "save": "save",
     "websiteLink": "Website link"
   },
   "forum": "forum",
+  "host": "host",
+  "hostedBy": "Hosted by",
   "invite": "invite",
   "join": "join",
   "leave": "leave",
@@ -98,11 +101,5 @@
   "signup": "Signup",
   "start": "start",
   "time": "time",
-  "write": "write",
-  "about": "about",
-  "host": "host",
-  "hostedBy": "Hosted by",
-  "info": "info",
-  "interests": "interests",
-  "notifications": "notifications"
+  "write": "write"
 }
