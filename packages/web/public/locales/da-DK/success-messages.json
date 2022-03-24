@@ -9,9 +9,9 @@
   "imagesUploaded": "Billeder uploadet til {{acterName}}",
   "invitationsSent": "Invitationer sendt",
   "invitationStatus": {
-    "accepted": "accepteret",
-    "cancelled": "annulleret",
-    "sent": "sendt"
+    "accepted": "Invitation accepteret",
+    "cancelled": "Invitation annulleret",
+    "sent": "Invitation sendt"
   },
   "languageUpdated": "Sprog opdateret",
   "link": {

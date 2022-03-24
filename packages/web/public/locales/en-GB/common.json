@@ -33,7 +33,6 @@
     "project": "project",
     "projects": "projects"
   },
-  "add": "add",
   "admins": "admins",
   "as": "as",
   "cancel": "Cancel",
@@ -75,7 +74,14 @@
     "submit": "Submit",
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
-    "websiteLink": "Website link"
+    "websiteLink": "Website link",
+    "add": {
+      "activity": "Add activity",
+      "event": "Add event",
+      "idea": "Add idea",
+      "meeting": "Add meeting",
+      "project": "Add project"
+    }
   },
   "forum": "forum",
   "host": "host",

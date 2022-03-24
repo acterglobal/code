@@ -33,7 +33,6 @@
     "project": "projekt",
     "projects": "projekter"
   },
-  "add": "tilføj",
   "admins": "administratorer",
   "as": "som",
   "cancel": "Fortryd",
@@ -75,7 +74,14 @@
     "submit": "Indsend",
     "typeOnlineMeetingLink": "Skriv online mødelink",
     "venue": "sted",
-    "websiteLink": "Weblink"
+    "websiteLink": "Weblink",
+    "add": {
+      "activity": "Tilføj aktivitet",
+      "event": "Tilføj begivenhed",
+      "idea": "Tilføj ide",
+      "meeting": "Tilføj møde",
+      "project": "Tilføj projekt"
+    }
   },
   "forum": "forum",
   "host": "arrangør",
