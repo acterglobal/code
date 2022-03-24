@@ -9,12 +9,13 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Drawer } from '@acter/components/util/drawer'
+import { getUserGroupList } from '@acter/lib/acter/get-user-group-list'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole, ActerPrivacySettings } from '@acter/schema'
+import { ActerConnectionRole } from '@acter/schema'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)
@@ -51,27 +52,7 @@ export const GroupsSection: FC = () => {
         (child) => child.ActerType.name === ActerTypes.GROUP
       )
 
-  const activeGroups = groups?.filter((group) => group.deletedAt === null)
-
-  const publicActiveGroups = activeGroups?.filter((group) =>
-    [ActerPrivacySettings.PUBLIC].includes(
-      group.acterPrivacySetting as ActerPrivacySettings
-    )
-  )
-
-  const privateActiveGroups = activeGroups?.filter((group) => {
-    const userGroups = user.Acter.Following.filter(
-      (follow) => follow.Following.id === group.id
-    )
-    return (
-      userGroups.length !== 0 &&
-      [ActerPrivacySettings.PRIVATE].includes(
-        group.acterPrivacySetting as ActerPrivacySettings
-      )
-    )
-  })
-
-  const groupList = [...publicActiveGroups, ...privateActiveGroups]
+  const groupList = getUserGroupList(groups, user)
 
   return (
     <>
