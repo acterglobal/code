@@ -32,16 +32,20 @@ export const Locales: FC = () => {
       // Match dynamic route vars in pathname like /[acterType]/[slug]/forum
       const neededQueryVars = pathname.match(/\[\w*\]/g)
       // Only redirect when router has these
-      if (neededQueryVars?.length === Object.keys(query).length)
-        router.push({ pathname, query }, null, { locale: user?.language })
+      if (
+        neededQueryVars &&
+        neededQueryVars?.length !== Object.keys(query).length
+      ) {
+        return
+      }
+      router.push({ pathname, query }, null, {
+        locale: getLocale(user?.language),
+      })
     }
   }, [user, JSON.stringify(router.query)])
 
   const handleClick = (language: Language) => {
-    if (!user) {
-      router.push(router.asPath, router.asPath, { locale: getLocale(language) })
-      return
-    }
+    if (!user) return null
 
     updateLanguage({ email: user.email, language })
   }
