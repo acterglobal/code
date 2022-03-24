@@ -22,7 +22,7 @@ export type SettingsStepProps = SelectOrganiserProps & SelectFollowersProps
 export type SettingsStepValues = SelectFollowersValues & SelectOrganiserValues
 
 export const SettingsStep: FC<SettingsStepProps> = ({ acters }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'form' })
+  const { t } = useTranslation('common')
   return (
     <Box>
       <FormSection>
