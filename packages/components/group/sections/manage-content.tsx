@@ -17,6 +17,7 @@ import { Links as LinksSection } from '@acter/components/links'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const { ABOUT, LINKS, MEMBERS, INVITE, SETTINGS } = GroupSectionTabs
 const tabs = [ABOUT, LINKS, MEMBERS, INVITE, SETTINGS]
@@ -33,6 +34,7 @@ export const ManageContent: FC<ManageContentProps> = ({
 }) => {
   const [currentTab, setCurrentTab] = useState(tabs.indexOf(contentTab))
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const { acter } = useActer()
   if (!acter) return null
@@ -51,7 +53,7 @@ export const ManageContent: FC<ManageContentProps> = ({
           {tabs.map((tab, i) => (
             <Tab
               classes={{ root: classes.tab }}
-              label={tab}
+              label={t(tab)}
               id={tab}
               key={`tab-${i}`}
               disableRipple
@@ -92,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     tab: {
-      minWidth: theme.spacing(12),
+      minWidth: theme.spacing(11),
       fontWeight: theme.typography.fontWeightRegular,
       color: theme.colors.black,
       fontSize: '0.88rem',

@@ -45,7 +45,10 @@ export const Locales: FC = () => {
   }, [user, JSON.stringify(router.query)])
 
   const handleClick = (language: Language) => {
-    if (!user) return null
+    if (!user) {
+      router.push(router.asPath, router.asPath, { locale: getLocale(language) })
+      return
+    }
 
     updateLanguage({ email: user.email, language })
   }

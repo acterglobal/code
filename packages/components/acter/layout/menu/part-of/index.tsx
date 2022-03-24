@@ -12,11 +12,13 @@ import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
 
 export const PartOfSection: FC = () => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const { acter } = useActer({ fetchParent: true })
 
@@ -36,7 +38,7 @@ export const PartOfSection: FC = () => {
       <Divider className={classes.divider} />
 
       <Typography className={classes.heading} variant="caption">
-        Part of
+        {t('partOf')}
       </Typography>
 
       <NetworksList followingActers={followingActers} />

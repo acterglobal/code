@@ -9,8 +9,10 @@ import {
   SettingsLinkMenuItem,
 } from '@acter/components/util/settings-layout'
 import { ProfileSettingsPages } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const ProfileFormLayout: FC = ({ children }) => {
+  const { t } = useTranslation('common')
   const router = useRouter()
   // Get the value after the last /
   const route = router.pathname.match(/\/([^/]*)$/)
@@ -26,7 +28,7 @@ export const ProfileFormLayout: FC = ({ children }) => {
               href={`/profile/${page}`}
               isActive={selectedPage === page}
             >
-              {page}
+              {t(page)}
             </SettingsLinkMenuItem>
           )
         })}
