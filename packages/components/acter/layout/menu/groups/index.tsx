@@ -9,6 +9,7 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Drawer } from '@acter/components/util/drawer'
+import { getUserGroupList } from '@acter/lib/acter/get-user-group-list'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
 import { ActerTypes } from '@acter/lib/constants'
@@ -51,7 +52,7 @@ export const GroupsSection: FC = () => {
         (child) => child.ActerType.name === ActerTypes.GROUP
       )
 
-  const activeGroups = groups?.filter((group) => group.deletedAt === null)
+  const groupList = getUserGroupList(groups, user)
 
   return (
     <>
@@ -70,7 +71,7 @@ export const GroupsSection: FC = () => {
         )}
       </Box>
 
-      <GroupsList acters={activeGroups} />
+      <GroupsList acters={groupList} />
 
       <Drawer
         open={openDrawer}
