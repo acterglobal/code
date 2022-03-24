@@ -33,7 +33,6 @@
     "project": "projekt",
     "projects": "projekter"
   },
-  "add": "tilføj",
   "admins": "administratorer",
   "as": "som",
   "cancel": "Fortryd",
@@ -75,7 +74,15 @@
     "submit": "Indsend",
     "typeOnlineMeetingLink": "Skriv online mødelink",
     "venue": "sted",
-    "websiteLink": "Weblink"
+    "websiteLink": "Weblink",
+    "add": {
+      "activity": "Tilføj aktivitet",
+      "event": "Tilføj begivenhed",
+      "idea": "Tilføj ide",
+      "meeting": "Tilføj møde",
+      "project": "Tilføj projekt"
+    },
+    "writePost": "Write post ..."
   },
   "forum": "forum",
   "host": "arrangør",
@@ -93,12 +100,10 @@
   "ok": "ok",
   "partOf": "Part of",
   "people": "personer",
-  "post": "post",
   "settings": "indstillinger",
   "showPastActivities": "Vis tidligere aktiviteter?",
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
-  "time": "tid",
-  "write": "write"
+  "time": "tid"
 }

@@ -104,7 +104,7 @@ export const PostForm: FC<PostFormProps> = ({
               initialValue={initialValues.content}
               handleInputChange={(value) => setFieldValue('content', value)}
               clearTextEditor={clearText}
-              placeholder={`${capitalize(t('write'))} ${t('post')} ...`}
+              placeholder={t('form.writePost')}
               editorRef={handleEditorRef}
             />
           )}

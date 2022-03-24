@@ -138,13 +138,13 @@ export const ActivityForm: FC<ActivityFormProps> = ({
 
   useEffect(() => {
     if (activityType && !acter?.id) {
-      setDrawerHeading(`${t('add')} ${t(`activityTypes.${activityType}`)}`)
+      setDrawerHeading(t(`form.add.${activityType}`))
     }
   }, [activityType])
 
   useEffect(() => {
     if (steps[activeStep] === ActivityTypeStep) {
-      setDrawerHeading(`${t('add')} ${t('activity')}`)
+      setDrawerHeading(t('form.add.activity'))
     }
   }, [activeStep])
 

@@ -61,9 +61,7 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
             onClick={handleClick}
             className={clsx(classes.field, parentId && classes.commentField)}
           >
-            {parentId
-              ? `${capitalize(t('comment'))} ...`
-              : `${capitalize(t('write'))} ${t('post')} ...`}
+            {parentId ? `${capitalize(t('comment'))} ...` : t('form.writePost')}
           </Box>
         ) : (
           <PostForm
