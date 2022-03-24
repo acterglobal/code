@@ -9,7 +9,7 @@ import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-exa
 import { ExampleActer } from '@acter/schema/fixtures'
 
 export default {
-  title: 'Organisms/Acter/Tile',
+  title: 'Acter/Organisms/Tile',
   component: ActerTile,
   args: {
     acter: ExampleActer,
