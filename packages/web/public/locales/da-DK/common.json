@@ -81,7 +81,8 @@
       "idea": "Tilføj ide",
       "meeting": "Tilføj møde",
       "project": "Tilføj projekt"
-    }
+    },
+    "writePost": "Write post ..."
   },
   "forum": "forum",
   "host": "arrangør",
@@ -99,12 +100,10 @@
   "ok": "ok",
   "partOf": "Part of",
   "people": "personer",
-  "post": "post",
   "settings": "indstillinger",
   "showPastActivities": "Vis tidligere aktiviteter?",
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
-  "time": "tid",
-  "write": "write"
+  "time": "tid"
 }

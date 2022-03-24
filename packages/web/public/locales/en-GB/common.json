@@ -81,7 +81,8 @@
       "idea": "Add idea",
       "meeting": "Add meeting",
       "project": "Add project"
-    }
+    },
+    "writePost": "Skriv indlæg..."
   },
   "forum": "forum",
   "host": "host",
@@ -99,12 +100,10 @@
   "ok": "ok",
   "partOf": "Part of",
   "people": "people",
-  "post": "post",
   "settings": "settings",
   "showPastActivities": "Show past activities ?",
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
-  "time": "time",
-  "write": "write"
+  "time": "time"
 }
