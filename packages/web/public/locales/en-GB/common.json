@@ -105,5 +105,7 @@
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
-  "time": "time"
+  "time": "time",
+  "participants": "Participants",
+  "seeAllParticipants": "See All participants"
 }

@@ -105,5 +105,7 @@
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
-  "time": "tid"
+  "time": "tid",
+  "participants": "Participants",
+  "seeAllParticipants": "See All participants"
 }

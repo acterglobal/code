@@ -5,6 +5,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import Markdown from 'markdown-to-jsx'
 
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,11 +28,12 @@ export interface AboutProps {
 
 export const About: FC<AboutProps> = ({ acter }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   return (
     <>
       <Typography className={classes.heading} variant="h6">
-        About
+        {capitalize(t('about'))}
       </Typography>
       <Box className={classes.description}>
         <Typography variant="caption">
