@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 
 import {
   Box,
@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core'
 
 import { ActivityTile } from '@acter/components/activity/tile'
-import { useCurrentActerVariables } from '@acter/components/contexts/current-acter-variables'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -24,17 +23,10 @@ export interface ActivityListProps {
 
 export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
   const classes = useStyles()
-  const [_, setCurrentActerVariables] = useCurrentActerVariables()
   const { acter } = useActer()
   const { user } = useUser()
 
   const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
-
-  useEffect(() => {
-    if (acter) {
-      setCurrentActerVariables({ acterId: acter.id })
-    }
-  }, [acter])
 
   return (
     <Box>

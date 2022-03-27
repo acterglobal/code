@@ -14,8 +14,11 @@ import { useActer } from '@acter/lib/acter/use-acter'
 
 export const ActerMenuHeader: FC = () => {
   const classes = useStyles()
-  const { acter } = useActer({ fetchParent: true })
-  if (!acter) return null
+  const { acter: fetchedParent } = useActer({ fetchParent: true })
+
+  if (!fetchedParent) return null
+
+  const acter = fetchedParent?.Parent ? fetchedParent.Parent : fetchedParent
 
   return (
     <ListItem divider className={classes.acterHeaderItem}>

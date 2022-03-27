@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import { ActerMenuItem } from '@acter/components/acter/layout/menu/items/item'
-import { useCurrentActerVariables } from '@acter/components/contexts/current-acter-variables'
 import {
   ForumIcon,
   MembersIcon,
@@ -19,19 +18,13 @@ const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
 export const ActerMenuItems: FC = () => {
-  const [currentActerVariables, _] = useCurrentActerVariables()
-  const { acter } = useActer(
-    currentActerVariables
-      ? {
-          acterId: currentActerVariables?.acterId,
-        }
-      : { fetchParent: true }
-  )
-
   const { user } = useUser()
   const { notifications } = useNotifications()
+  const { acter: fetchedParent } = useActer({ fetchParent: true })
 
-  if (!acter) return null
+  if (!fetchedParent) return null
+
+  const acter = fetchedParent?.Parent ? fetchedParent.Parent : fetchedParent
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 
