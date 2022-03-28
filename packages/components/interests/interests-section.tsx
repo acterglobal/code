@@ -61,5 +61,4 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
 const InterestsSectionContainer = styled(Box)({
   display: 'flex',
   width: '100%',
-  justifyContent: 'space-around',
 })

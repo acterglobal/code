@@ -16,9 +16,15 @@ const { ACTIVITIES, ACTERS } = SearchType
 
 export interface SearchResultsListProps {
   acters: Acter[]
+  collapsed?: boolean
+  activeActerId?: string
 }
 
-export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
+export const SearchResultsList: FC<SearchResultsListProps> = ({
+  acters,
+  collapsed = false,
+  activeActerId,
+}) => {
   const { t } = useTranslation('search')
   const searchType = useSearchType()
   const classes = useStyles({ searchType })
@@ -39,7 +45,11 @@ export const SearchResultsList: FC<SearchResultsListProps> = ({ acters }) => {
         <Box className={classes.singleItem} key={index} role="listitem">
           {searchType === ACTERS && (
             <Link href={acterAsUrl({ acter })} passHref>
-              <ActerTile acter={acter} />
+              <ActerTile
+                acter={acter}
+                collapsed={collapsed}
+                active={acter.id === activeActerId}
+              />
             </Link>
           )}
           {searchType === ACTIVITIES && (

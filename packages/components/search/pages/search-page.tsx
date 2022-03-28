@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     results: {
       flex: '1 1 auto',
+      height: 'calc(100% - 84px)',
     },
   })
 )
