@@ -52,9 +52,10 @@ export const useUpdateActivity = (
     updatedActivity: ActivityVariables
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
-    const acterId = activity?.Acter?.id
-      ? activity?.Acter?.id
-      : updatedActivity?.Acter?.id
+    const acterId = updatedActivity?.Acter?.id
+      ? updatedActivity?.Acter.id
+      : updatedActivity?.acterId
+
     const variables = {
       ...activity,
       ...updatedActivity,
