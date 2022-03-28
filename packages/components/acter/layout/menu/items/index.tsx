@@ -27,6 +27,7 @@ export const ActerMenuItems: FC = () => {
   const acter = fetchedParent?.Parent ? fetchedParent.Parent : fetchedParent
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  const isMember = userHasRoleOnActer(user, ActerConnectionRole.MEMBER, acter)
 
   const getNotifications = (type: NotificationType) =>
     notifications[acter.id]?.filter(
@@ -47,12 +48,14 @@ export const ActerMenuItems: FC = () => {
         path={ACTIVITIES}
         notifications={getNotifications(NEW_ACTIVITY)}
       />
-      <ActerMenuItem
-        acter={acter}
-        Icon={MembersIcon}
-        path={MEMBERS}
-        notifications={getNotifications(NEW_MEMBER)}
-      />
+      {(isAdmin || isMember) && (
+        <ActerMenuItem
+          acter={acter}
+          Icon={MembersIcon}
+          path={MEMBERS}
+          notifications={getNotifications(NEW_MEMBER)}
+        />
+      )}
       {isAdmin && (
         <ActerMenuItem acter={acter} Icon={SettingsIcon} path={SETTINGS} />
       )}
