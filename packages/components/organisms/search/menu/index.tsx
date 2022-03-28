@@ -11,9 +11,9 @@ import {
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { SearchIcon } from '@acter/components/icons/search-icon'
-import { SearchTabs } from '@acter/components/molecules/search/tabs'
-import { SearchTypesPicker } from '@acter/components/molecules/search/types-picker'
 import { SecondaryMenu } from '@acter/components/molecules/secondary-menu'
+import { SearchTabs } from '@acter/components/search/molecules/tabs'
+import { SearchTypesPicker } from '@acter/components/search/molecules/types-picker'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import {
   ActerSearchTypes,

@@ -11,13 +11,13 @@ import {
 import { FilterList } from '@material-ui/icons'
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
-import {
-  ShowMapSwitch,
-  ShowMapSwitchProps,
-} from '@acter/components/molecules/search/show-map-switch'
 import { SearchBar } from '@acter/components/organisms/search/bar'
 import { InterestsFilter } from '@acter/components/organisms/search/interests-filter'
 import { SortBy } from '@acter/components/organisms/search/sort-by'
+import {
+  ShowMapSwitch,
+  ShowMapSwitchProps,
+} from '@acter/components/search/molecules/show-map-switch'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'

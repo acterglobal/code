@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/react'
 
-import { ShowMapSwitch, ShowMapSwitchProps } from './index'
-
 import { ResultDisplayType } from '@acter/lib/constants'
+
+import { ShowMapSwitch, ShowMapSwitchProps } from './show-map-switch'
 
 export default {
   title: 'Molecules/Search/Results Display Type Picker',
