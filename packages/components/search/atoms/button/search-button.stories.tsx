@@ -10,5 +10,4 @@ export default {
 
 const Template: Story<SearchButtonProps> = (args) => <SearchButton {...args} />
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Button = Template.bind({})

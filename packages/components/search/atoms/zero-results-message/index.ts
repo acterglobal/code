@@ -1,1 +1,1 @@
-export { SearchZeroResultsMessage } from './index'
+export { SearchZeroResultsMessage } from './search-zero-results-message'

@@ -10,5 +10,4 @@ export default {
 
 const Template: Story<SearchInputProps> = (args) => <SearchInput {...args} />
 
-export const story = Template.bind({})
-story.args = {}
+export const Input = Template.bind({})

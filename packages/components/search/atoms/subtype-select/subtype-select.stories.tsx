@@ -6,7 +6,7 @@ import {
 } from './search-subtype-select'
 
 export default {
-  title: 'Molecules/Search/Subtype Select',
+  title: 'Molecules/Search/SubtypeSelect',
   component: SearchSubtypeSelect,
   args: { subTypeName: 'Example' },
 } as Meta<SearchSubtypeSelectProps>
