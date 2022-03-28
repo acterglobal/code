@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
+import { Box, styled, Typography } from '@material-ui/core'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InterestTypes } from '@acter/components/interests/interest-types'
@@ -35,7 +35,7 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
   )
 
   return (
-    <Box style={{ display: 'flex' }}>
+    <InterestsSectionContainer>
       {selectedTopLevel.map((type) => (
         <Box key={type.id} role="list">
           <Typography
@@ -54,6 +54,12 @@ export const InterestsSection: FC<InterestsSectionProps> = ({ selected }) => {
           />
         </Box>
       ))}
-    </Box>
+    </InterestsSectionContainer>
   )
 }
+
+const InterestsSectionContainer = styled(Box)({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-around',
+})

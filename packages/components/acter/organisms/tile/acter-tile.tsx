@@ -14,9 +14,10 @@ const { ACTIVITY, GROUP, USER } = ActerTypes
 
 export interface ActerTileProps {
   acter: Acter
+  collapsed?: boolean
 }
 
-export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
+export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed }) => {
   const following = useMemo(
     () =>
       excludeActerTypes(
@@ -26,46 +27,71 @@ export const ActerTile: FC<ActerTileProps> = ({ acter }) => {
     [acter?.Following]
   )
 
+  const collapsedClass = collapsed ? 'collapsed' : ''
+
   return (
-    <ActerTileContainer>
-      <Hidden xsDown>
-        <ActerProfileImage acter={acter} />
-      </Hidden>
+    <ActerTileContainer className={collapsedClass}>
+      <AvatarTitleDescriptionContainer>
+        <Hidden xsDown>
+          <ActerProfileImage acter={acter} />
+        </Hidden>
 
-      <ActerTileInfoContainer>
-        <ActerTypeDisplay acterType={acter.ActerType} />
+        <ActerTileInfoContainer>
+          <ActerTypeDisplay acterType={acter.ActerType} />
 
-        <ActerName variant="subtitle1">{acter.name}</ActerName>
-        <ActerLocation variant="body2" gutterBottom>
-          {acter.location}
-        </ActerLocation>
-        <ActerDescription>
-          <Typography variant="caption">{acter.description}</Typography>
-        </ActerDescription>
-        <MiniFollowingList following={following} />
-      </ActerTileInfoContainer>
+          <ActerName variant="subtitle1">{acter.name}</ActerName>
+          <ActerLocation variant="body2" gutterBottom>
+            {acter.location}
+          </ActerLocation>
+          <ActerDescription className={collapsedClass}>
+            <Typography variant="caption">{acter.description}</Typography>
+          </ActerDescription>
+          <MiniFollowingList following={following} />
+        </ActerTileInfoContainer>
+      </AvatarTitleDescriptionContainer>
 
-      <Hidden smDown>
-        <InterestsContainer>
-          <InterestsSection
-            selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
-          />
-        </InterestsContainer>
-      </Hidden>
+      <ActerDescriptionCollapsed className={collapsedClass}>
+        <Typography variant="caption">{acter.description}</Typography>
+      </ActerDescriptionCollapsed>
+
+      <InterestsContainer>
+        <InterestsSection
+          selected={acter.ActerInterests?.map(({ Interest }) => Interest)}
+        />
+      </InterestsContainer>
     </ActerTileContainer>
   )
 }
 
 const ActerTileContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  justifyContent: 'space-between',
   overflow: 'hidden',
   backgroundColor: 'white',
   borderRadius: theme.spacing(1),
-  justifyContent: 'space-between',
-  alignItems: 'center',
   padding: theme.spacing(1),
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
+  boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.1)',
+  '&:hover, &+.hovered': {
+    boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.1)',
+  },
+  '&, &.collapsed': {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+  },
+  [theme.breakpoints.up('md')]: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+}))
+
+const AvatarTitleDescriptionContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+  },
 }))
 
 const ActerTileInfoContainer = styled(Box)(({ theme }) => ({
@@ -91,7 +117,6 @@ const ActerLocation = styled(Typography)(({ theme }) => ({
 }))
 
 const ActerDescription = styled(Box)(({ theme }) => ({
-  display: 'flex',
   maxHeight: 40,
   minWidth: 400,
   color: theme.colors.black,
@@ -100,12 +125,32 @@ const ActerDescription = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   marginRight: theme.spacing(0.5),
   alignItems: 'flex-start',
+  '&, &.collapsed': {
+    display: 'none',
+  },
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+  },
+}))
+
+const ActerDescriptionCollapsed = styled(ActerDescription)(({ theme }) => ({
+  '&, &.collapsed': {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  },
 }))
 
 const InterestsContainer = styled(Box)(({ theme }) => ({
   flex: '0 0',
   height: '100%',
-  minWidth: 336,
+  width: '100%',
   marginTop: theme.spacing(1),
   marginRight: theme.spacing(1),
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
+    minWidth: 336,
+  },
 }))

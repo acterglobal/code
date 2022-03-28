@@ -48,7 +48,7 @@ Activities.parameters = {
   },
   urql: () => ({
     data: {
-      searchActivities: activities,
+      searchActers: activities,
       ...withExampleInterestParams.urql().data,
     },
   }),
@@ -56,7 +56,7 @@ Activities.parameters = {
 
 export const Acters = Template.bind({})
 Acters.parameters = {
-  urql: () => ({ data: { acters, interestTypes } }),
+  urql: () => ({ data: { searchActers: acters, interestTypes } }),
 }
 
 export const ActersMap = Template.bind({})
@@ -64,7 +64,7 @@ ActersMap.args = {
   initialResultDisplayType: ResultDisplayType.MAP,
 }
 ActersMap.parameters = {
-  urql: () => ({ data: { acters, interestTypes } }),
+  urql: () => ({ data: { searchActers: acters, interestTypes } }),
 }
 
 export const ZeroActers = Template.bind({})

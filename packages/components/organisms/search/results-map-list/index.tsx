@@ -27,6 +27,7 @@ export const ResultsMapList: FC = () => {
           acters={acters}
           profileImageSizes={profileImageSizes}
           hoverActerId={hoverActerId}
+          collapsed={true}
         />
         {acters?.length === 0 && !fetching && <ZeroResultsMessage />}
         {fetching && <LoadingBar />}
