@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Box, Breadcrumbs, Typography } from '@material-ui/core'
+import { Breadcrumbs, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 
@@ -27,30 +27,30 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
 
   const parentActer = acter.Parent ? acter.Parent : acter.Activity.Organiser
 
+  if (!parentActer) return null
+
   return (
-    <Box>
-      <Breadcrumbs
-        separator={
-          <NavigateNextIcon
-            fontSize="small"
-            className={classes.activityBreadcrumbs}
-          />
-        }
-        aria-label="breadcrumbs"
-      >
-        <Link href={acterAsUrl({ acter: parentActer })}>
-          <Typography className={classes.name}>{parentActer.name}</Typography>
-        </Link>
+    <Breadcrumbs
+      separator={
+        <NavigateNextIcon
+          fontSize="small"
+          className={classes.activityBreadcrumbs}
+        />
+      }
+      aria-label="breadcrumbs"
+    >
+      <Link href={acterAsUrl({ acter: parentActer })}>
+        <Typography className={classes.name}>{parentActer.name}</Typography>
+      </Link>
 
-        <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
-          <Typography className={classes.name}>Activities</Typography>
-        </Link>
+      <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
+        <Typography className={classes.name}>Activities</Typography>
+      </Link>
 
-        <Link href={acterAsUrl({ acter })}>
-          <Typography className={classes.activity}>{acter.name}</Typography>
-        </Link>
-      </Breadcrumbs>
-    </Box>
+      <Link href={acterAsUrl({ acter })}>
+        <Typography className={classes.activity}>{acter.name}</Typography>
+      </Link>
+    </Breadcrumbs>
   )
 }
 
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     activityBreadcrumbs: {
       color: theme.palette.secondary.contrastText,
+      alignItems: 'center',
     },
     name: {
       fontWeight: theme.typography.fontWeightLight,

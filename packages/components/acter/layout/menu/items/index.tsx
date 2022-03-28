@@ -18,11 +18,13 @@ const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
 const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
 export const ActerMenuItems: FC = () => {
-  const { acter } = useActer({ fetchParent: true })
   const { user } = useUser()
   const { notifications } = useNotifications()
+  const { acter: fetchedParent } = useActer({ fetchParent: true })
 
-  if (!acter) return null
+  if (!fetchedParent) return null
+
+  const acter = fetchedParent?.Parent ? fetchedParent.Parent : fetchedParent
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
 

@@ -67,15 +67,23 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     error: acterTypesError,
   } = useActerTypes()
 
+  // TODO Refactor/Remove unnecessary useMemos
+  const slug = useMemo(
+    () => options?.slug || (router.query?.slug as string),
+    [options?.slug, router.query?.slug]
+  )
+
   useEffect(() => {
     setActerId(options?.acterId)
-  }, [options?.acterId])
+  }, [options?.acterId, slug])
 
+  // TODO Refactor/Remove unnecessary useMemos
   const acterTypeName = useMemo(
     () => options?.acterTypeName || router.asPath.split('/')[1],
     [options?.acterTypeName, router?.asPath]
   )
 
+  // TODO Refactor/Remove unnecessary useMemos
   const acterTypeId = useMemo(() => {
     if (acterTypes?.length > 0 && acterTypeName) {
       const result = acterTypes.find(
@@ -89,11 +97,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     }
   }, [acterTypes?.length, acterTypeName])
 
-  const slug = useMemo(
-    () => options?.slug || (router.query?.slug as string),
-    [options?.slug, router.query?.slug]
-  )
-
+  // TODO Refactor/Remove unnecessary useMemos
   const variables = useMemo<UseActerVariables>(() => {
     if (acterId) {
       return {
@@ -111,6 +115,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     return {} as UseActerVariables
   }, [acterId, acterTypeId, slug])
 
+  // TODO Refactor/Remove unnecessary useMemos
   const pause = useMemo(
     () => !variables || Object.keys(variables).length === 0,
     [JSON.stringify(variables)]

@@ -53,37 +53,27 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
         banner
       />
       <Box className={classes.infoSection}>
-        <Box className={classes.avatarImage} border={2}>
-          <Image
-            src={getImageUrl(acter.avatarUrl, 'avatar')}
-            alt="Acter Logo"
-            height={126}
-          />
+        <Box className={classes.activityInfo}>
+          <Typography className={classes.date} variant="subtitle1">
+            {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
+          </Typography>
+          <Typography
+            role="acter-name"
+            variant="h5"
+            className={classes.acterName}
+          >
+            {acter.name}
+          </Typography>
         </Box>
-
-        <Box className={classes.info}>
-          <Box>
-            <Typography className={classes.date} variant="subtitle1">
-              {startAt === endAt ? startAt : `${startAt} - ${endAt}`}
-            </Typography>
-            <Typography
-              role="acter-name"
-              variant="h5"
-              className={classes.acterName}
-            >
-              {acter.name}
-            </Typography>
-            <Box className={classes.infoDescription}>
-              <ActivityLocationIcon />
-              <Typography
-                role="acter-location"
-                variant="subtitle2"
-                className={classes.location}
-              >
-                {acter.location}
-              </Typography>
-            </Box>
-          </Box>
+        <Box className={classes.locationInfo}>
+          <ActivityLocationIcon />
+          <Typography
+            role="acter-location"
+            variant="subtitle2"
+            className={classes.location}
+          >
+            {acter.location}
+          </Typography>
         </Box>
       </Box>
     </Box>
@@ -94,42 +84,25 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bannerSection: {
       width: '100%',
-      backgroundColor: theme.palette.background.paper,
-      marginBottom: theme.spacing(2),
+      backgroundColor: theme.colors.grey.extraLight,
+      marginBottom: theme.spacing(1),
     },
     infoSection: {
       display: 'flex',
-      height: '90px',
-      alignItems: 'flex-end',
-      paddingBottom: theme.spacing(1.0),
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      marginTop: 0,
+      paddingTop: 0,
+      paddingLeft: theme.spacing(5.2),
+      paddingBottom: theme.spacing(0.5),
+      flexGrow: 2,
       [theme.breakpoints.down('xs')]: {
         alignItems: 'center',
         paddingBottom: theme.spacing(1),
       },
     },
-    avatarImage: {
-      borderRadius: '50%',
-      backgroundColor: theme.colors.white,
-      borderColor: theme.palette.secondary.main,
-      marginLeft: theme.spacing(6) + 2,
-      width: 130,
-      height: 130,
-      objectFit: 'cover',
-      overflow: 'hidden',
-      zIndex: 99,
-      [theme.breakpoints.down('xs')]: {
-        marginLeft: theme.spacing(1),
-        width: 60,
-        height: 60,
-      },
-    },
-    info: {
-      display: 'flex',
-      marginLeft: theme.spacing(2),
-      flexGrow: 2,
-      [theme.breakpoints.down('xs')]: {
-        marginLeft: theme.spacing(1),
-      },
+    activityInfo: {
+      marginLeft: 5,
     },
     date: {
       color: theme.colors.blue.light,
@@ -143,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '0.9rem',
       },
     },
-    infoDescription: {
+    locationInfo: {
       display: 'flex',
       flexDirection: 'row',
     },
@@ -152,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         fontSize: '0.9rem',
       },
-      marginLeft: theme.spacing(0.5),
+      marginLeft: theme.spacing(0.3),
       marginTop: 3,
     },
   })
