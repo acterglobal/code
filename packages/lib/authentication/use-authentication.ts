@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { getRedirectPathByError } from '../acter/get-redirect-path-by-error'
-
+import { getRedirectPathByError } from '@acter/lib/acter/get-redirect-path-by-error'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -31,6 +30,12 @@ export const useAuthentication = (): AuthenticationResult => {
       if (acter && user && !isAdmin) {
         router.push({
           pathname: '/403',
+          query: router.asPath,
+        })
+      }
+      if (acter && !user) {
+        router.push({
+          pathname: '/401',
           query: router.asPath,
         })
       }
