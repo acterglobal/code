@@ -67,6 +67,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     error: acterTypesError,
   } = useActerTypes()
 
+  // TODO Refactor/Remove unnecessary useMemos
   const slug = useMemo(
     () => options?.slug || (router.query?.slug as string),
     [options?.slug, router.query?.slug]
