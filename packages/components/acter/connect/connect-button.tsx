@@ -26,8 +26,9 @@ export const ConnectButton: FC<ConnectButtonProps> = ({
   const router = useRouter()
 
   const handleButtonClick = () => {
-    router.push(redirectUrl)
+    redirectUrl && router.push(redirectUrl)
   }
+
   return (
     <Button
       className={clsx(

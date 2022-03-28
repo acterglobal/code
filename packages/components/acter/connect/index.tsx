@@ -72,7 +72,6 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
         ) : (
           <ConnectButton
             buttonText="Join"
-            redirectUrl={loginUrl}
             isActivity={isActivity}
             size={size}
           />
