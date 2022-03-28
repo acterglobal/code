@@ -4,6 +4,7 @@ import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { FollowersAvatars } from '@acter/components/acter/followers-avatars'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter } from '@acter/schema'
 
 export type ParticipantsProps = {
@@ -16,15 +17,16 @@ export const Participants: FC<ParticipantsProps> = ({
   handleOnClick,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   return (
     <Box className={classes.participants}>
       <Box className={classes.headingContainer}>
         <Typography className={classes.heading} variant="h6">
-          Participants
+          {t('participants')}
         </Typography>
         <Button className={classes.button} onClick={handleOnClick}>
-          See All Participants
+          {t('seeAllParticipants')}
         </Button>
       </Box>
 

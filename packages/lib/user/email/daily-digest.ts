@@ -71,10 +71,10 @@ export const createDailyDigestEmail = ({
       const activitiesContent = activities
         .map(
           (activity) =>
-            `A new activity titled "${activity.Acter.name} at ${parseAndFormat(
-              activity.startAt,
-              DATE_FORMAT_TZ
-            )}.`
+            `A new activity titled "${activity.Acter.name} at ${parseAndFormat({
+              dateString: activity.startAt,
+              formatString: DATE_FORMAT_TZ,
+            })}.`
         )
         .join('\n')
 
@@ -82,10 +82,10 @@ export const createDailyDigestEmail = ({
       const postsContent = posts
         .map(
           (post) =>
-            `${post.Author.name} created a new post at ${parseAndFormat(
-              post.createdAt,
-              DATE_FORMAT_SHORT_TZ
-            )}:\n ${post.content}`
+            `${post.Author.name} created a new post at ${parseAndFormat({
+              dateString: post.createdAt,
+              formatString: DATE_FORMAT_SHORT_TZ,
+            })}:\n ${post.content}`
         )
         .join('\n')
       return [

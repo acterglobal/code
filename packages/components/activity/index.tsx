@@ -13,6 +13,7 @@ import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 import { ActivityDetails } from '@acter/components/activity/activity-details'
 import { ManageContent } from '@acter/components/activity/sections/manage-content'
 import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Acter } from '@acter/schema'
 
 import { Connect } from '../acter/connect'
@@ -26,6 +27,7 @@ export interface ActivityProps {
 
 export const Activity: FC<ActivityProps> = ({ acter }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
   const [contentTab, setContentTab] = useState(INVITE)
 
@@ -46,7 +48,7 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
           <Organiser acter={acter?.Activity?.Organiser} />
           <Box className={classes.connectButtonContainer}>
             <Button className={classes.button} onClick={handleOnClick}>
-              Invite
+              {t('invite')}
             </Button>
             <Connect acterId={acter.id} />
           </Box>

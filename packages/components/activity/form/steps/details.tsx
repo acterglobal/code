@@ -13,6 +13,7 @@ import { FormSection } from '@acter/components/styled/form-section'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface DetailsStepValues {
   bannerUrl?: string
@@ -31,7 +32,7 @@ export const DetailsStep: FC = () => {
   return (
     <Box className={classes.container}>
       <FormSection>
-        <FormLabel>{t('image')}</FormLabel>
+        <FormLabel>{capitalize(t('image'))}</FormLabel>
         <ImageUpload
           aspectRatio={72 / 25}
           imageType="banner"

@@ -8,6 +8,7 @@ import { Edit as EditIcon } from '@material-ui/icons'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -20,8 +21,10 @@ export const EditButton: FC = () => {
   const [heading, setHeading] = useState('')
   const { user } = useUser()
   const { acter } = useActer()
+  const { t } = useTranslation('common')
+
   const handleEdit = () => {
-    setHeading(`Edit ${acter.name}`)
+    setHeading(`${t('edit')} ${acter.name}`)
     setOpenDrawer(true)
   }
 

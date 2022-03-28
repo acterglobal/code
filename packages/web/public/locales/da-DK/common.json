@@ -51,6 +51,13 @@
   "end": "slut",
   "form": {
     "acterFormHeading": "Opret en Acter for at begynde at koordinere eller samarbejde",
+    "add": {
+      "activity": "Tilføj aktivitet",
+      "event": "Tilføj begivenhed",
+      "idea": "Tilføj ide",
+      "meeting": "Tilføj møde",
+      "project": "Tilføj projekt"
+    },
     "back": "Tilbage",
     "banner": "banner billede",
     "chooseInterests": "Vælg interesser",
@@ -75,20 +82,13 @@
     "typeOnlineMeetingLink": "Skriv online mødelink",
     "venue": "sted",
     "websiteLink": "Weblink",
-    "add": {
-      "activity": "Tilføj aktivitet",
-      "event": "Tilføj begivenhed",
-      "idea": "Tilføj ide",
-      "meeting": "Tilføj møde",
-      "project": "Tilføj projekt"
-    },
-    "writePost": "Write post ..."
+    "writePost": "Skriv indlæg ..."
   },
   "forum": "forum",
   "host": "arrangør",
   "hostedBy": "Arrangeret af",
   "invite": "invitér",
-  "join": "join",
+  "join": "tilmeld",
   "leave": "forlad",
   "login": "Log på",
   "member": "member",
@@ -98,12 +98,15 @@
   "noActivities": "Du har ingen aktiviteter.",
   "noActivitiesToShow": "Der er ikke nogen aktiviteter at vise i øjeblikket.",
   "ok": "ok",
+  "participants": "Deltagere",
   "partOf": "Part of",
   "people": "personer",
+  "seeAllParticipants": "Se alle deltagere",
   "settings": "indstillinger",
   "showPastActivities": "Vis tidligere aktiviteter?",
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
-  "time": "tid"
+  "time": "tid",
+  "write": "write"
 }
