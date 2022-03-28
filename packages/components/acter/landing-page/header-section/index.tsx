@@ -14,6 +14,7 @@ import { AddInviteSection } from '@acter/components/acter/landing-page/header-se
 import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
 import { Image } from '@acter/components/util/image'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
@@ -24,6 +25,7 @@ export interface HeaderSectionProps {
 
 export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   return (
     <Box className={classes.bannerSection}>
@@ -57,7 +59,7 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
                 variant="subtitle2"
                 className={classes.acterType}
               >
-                {capitalize(acter?.ActerType.name)}
+                {capitalize(t(`acterTypes.${acter?.ActerType.name}`))}
               </Typography>
               {'-'}
               <Typography

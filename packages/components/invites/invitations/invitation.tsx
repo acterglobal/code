@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -22,13 +24,18 @@ interface InvitationProps {
 }
 export const Invitation: FC<InvitationProps> = ({ invite }) => {
   const classes = useStyles()
+  const { locale } = useRouter()
   return (
     <ListItem>
       <Box className={classes.emailSection}>
         <Typography className={classes.email}>{invite.email}</Typography>
         {invite.sentAt && (
           <Typography className={classes.sentAt}>
-            {parseAndFormat(invite.sentAt, DD_MM_YY_FORMAT)}
+            {parseAndFormat({
+              dateString: invite.sentAt,
+              formatString: DD_MM_YY_FORMAT,
+              currentLocale: locale,
+            })}
           </Typography>
         )}
       </Box>

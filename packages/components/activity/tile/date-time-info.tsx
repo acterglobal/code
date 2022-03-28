@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import {
   Box,
   createStyles,
@@ -20,15 +22,31 @@ type DateTimeInfoProps = ActivityTileProps
 
 export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
   const classes = useStyles()
-
+  const { locale } = useRouter()
   const displayDayFormat = activity.isAllDay
     ? DAY_DATE_MONTH_FORMAT_SHORT
     : DATE_MONTH_FORMAT_SHORT
 
-  const startDay = parseAndFormat(activity.startAt, displayDayFormat)
-  const endDay = parseAndFormat(activity.endAt, displayDayFormat)
-  const startTime = parseAndFormat(activity.startAt, TIME_FORMAT_SHORT)
-  const endTime = parseAndFormat(activity.endAt, TIME_FORMAT_SHORT)
+  const startDay = parseAndFormat({
+    dateString: activity.startAt,
+    formatString: displayDayFormat,
+    currentLocale: locale,
+  })
+  const endDay = parseAndFormat({
+    dateString: activity.endAt,
+    formatString: displayDayFormat,
+    currentLocale: locale,
+  })
+  const startTime = parseAndFormat({
+    dateString: activity.startAt,
+    formatString: TIME_FORMAT_SHORT,
+    currentLocale: locale,
+  })
+  const endTime = parseAndFormat({
+    dateString: activity.endAt,
+    formatString: TIME_FORMAT_SHORT,
+    currentLocale: locale,
+  })
 
   return (
     <Box className={classes.root}>

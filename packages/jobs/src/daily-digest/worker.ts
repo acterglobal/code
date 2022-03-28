@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import 'reflect-metadata'
 
-import { DailyDigest, NotificationByActerMap } from './types'
 import { Job } from 'bullmq'
 import { getTime } from 'date-fns'
 
@@ -15,16 +14,18 @@ import { createDailyDigestEmail } from '@acter/lib/user/email/daily-digest'
 import { NotificationType } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
+import { DailyDigest, NotificationByActerMap } from './types'
+
 export const dailyDigestWorker = createWorker(
   DAILY_DIGEST_CREATE,
   async (job: Job<DailyDigest>) => {
     const {
       data: { acter, afterDateTime },
     } = job
-    const formattedAfterDateTime = parseAndFormat(
-      afterDateTime,
-      DATE_FORMAT_LONG
-    )
+    const formattedAfterDateTime = parseAndFormat({
+      dateString: afterDateTime,
+      formatString: DATE_FORMAT_LONG,
+    })
 
     const notifications = await prisma.notification.findMany({
       include: {

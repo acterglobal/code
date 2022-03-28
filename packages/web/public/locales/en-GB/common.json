@@ -51,6 +51,13 @@
   "end": "end",
   "form": {
     "acterFormHeading": "Create an Actor to start coordinating or collaborating",
+    "add": {
+      "activity": "Add activity",
+      "event": "Add event",
+      "idea": "Add idea",
+      "meeting": "Add meeting",
+      "project": "Add project"
+    },
     "back": "Back",
     "banner": "banner image",
     "chooseInterests": "Choose interests",
@@ -75,14 +82,7 @@
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
     "websiteLink": "Website link",
-    "add": {
-      "activity": "Add activity",
-      "event": "Add event",
-      "idea": "Add idea",
-      "meeting": "Add meeting",
-      "project": "Add project"
-    },
-    "writePost": "Skriv indlæg..."
+    "writePost": "Write post ..."
   },
   "forum": "forum",
   "host": "host",
@@ -98,12 +98,15 @@
   "noActivities": "You have no activities.",
   "noActivitiesToShow": "There are no activities to show at this time.",
   "ok": "ok",
+  "participants": "Participants",
   "partOf": "Part of",
   "people": "people",
+  "seeAllParticipants": "See All participants",
   "settings": "settings",
   "showPastActivities": "Show past activities ?",
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
-  "time": "time"
+  "time": "time",
+  "write": "write"
 }

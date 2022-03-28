@@ -33,8 +33,16 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
 
   const displayFormat = getActerDateFormat(acter)
 
-  const startAt = parseAndFormat(acter?.Activity?.startAt, displayFormat)
-  const endAt = parseAndFormat(acter?.Activity?.endAt, displayFormat)
+  const startAt = parseAndFormat({
+    dateString: acter?.Activity?.startAt,
+    formatString: displayFormat,
+    currentLocale: router.locale,
+  })
+  const endAt = parseAndFormat({
+    dateString: acter?.Activity?.endAt,
+    formatString: displayFormat,
+    currentLocale: router.locale,
+  })
 
   const parentActer = getRootParentActer(acter)
 
