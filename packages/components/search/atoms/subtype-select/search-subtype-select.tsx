@@ -15,14 +15,14 @@ import { useSearchType } from '@acter/lib/search/use-search-type'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { pluralize } from '@acter/lib/string/pluralize'
 
-export interface SubtypeSelectProps {
+export interface SearchSubtypeSelectProps {
   subTypeName: string
   checked: boolean
   showTypeIcon?: boolean
   onChange: (checked: boolean) => void
 }
 
-export const SubtypeSelect: FC<SubtypeSelectProps> = ({
+export const SearchSubtypeSelect: FC<SearchSubtypeSelectProps> = ({
   subTypeName,
   checked,
   showTypeIcon: useTypeColorDot = false,

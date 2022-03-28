@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { SubtypeSelect } from '@acter/components/atoms/search/subtype-select'
+import { SearchSubtypeSelect } from '@acter/components/search/atoms/subtype-select'
 import { CombinedSearchTypes } from '@acter/lib/search/use-search-types'
 
 export interface SearchTypesPickerProps {
@@ -33,7 +33,7 @@ export const SearchTypesPicker: FC<SearchTypesPickerProps> = ({
   return (
     <Box className={classes.root}>
       {types?.map((type) => (
-        <SubtypeSelect
+        <SearchSubtypeSelect
           key={`sub-type-${type}`}
           subTypeName={type}
           checked={selectedTypes?.includes(type)}

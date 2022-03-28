@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SearchInput, SearchInputProps } from './index'
+import { SearchInput, SearchInputProps } from './search-input'
 
 export default {
   title: 'Atoms/Search/Input',

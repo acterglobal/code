@@ -1,15 +1,18 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SubtypeSelect, SubtypeSelectProps } from './index'
+import {
+  SearchSubtypeSelect,
+  SearchSubtypeSelectProps,
+} from './search-subtype-select'
 
 export default {
   title: 'Molecules/Search/Subtype Select',
-  component: SubtypeSelect,
+  component: SearchSubtypeSelect,
   args: { subTypeName: 'Example' },
-} as Meta<SubtypeSelectProps>
+} as Meta<SearchSubtypeSelectProps>
 
-const Template: Story<SubtypeSelectProps> = (args) => (
-  <SubtypeSelect {...args} />
+const Template: Story<SearchSubtypeSelectProps> = (args) => (
+  <SearchSubtypeSelect {...args} />
 )
 
 export const Unchecked = Template.bind({})

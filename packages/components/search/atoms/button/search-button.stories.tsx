@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SearchButton, SearchButtonProps } from './index'
+import { SearchButton, SearchButtonProps } from './search-button'
 
 export default {
   title: 'Atoms/Search/Button',

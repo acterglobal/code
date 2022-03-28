@@ -8,7 +8,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
-import { ZeroResultsMessage } from '@acter/components/atoms/search/zero-results-message'
+import { SearchZeroResultsMessage } from '@acter/components/search/atoms/zero-results-message'
 import { Button } from '@acter/components/styled'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
 import { useSearchType } from '@acter/lib/search/use-search-type'
@@ -38,7 +38,7 @@ export const SearchResultsInfiniteList: FC = () => {
     if (fetching) return <LoadingBar />
     return (
       <Box className={classes.searchResultsInfiniteList}>
-        <ZeroResultsMessage />
+        <SearchZeroResultsMessage />
       </Box>
     )
   }

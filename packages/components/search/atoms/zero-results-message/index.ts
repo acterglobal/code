@@ -1,0 +1,1 @@
+export { SearchZeroResultsMessage } from './index'

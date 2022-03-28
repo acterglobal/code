@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react'
 
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
-import { SearchButton } from '@acter/components/atoms/search/button'
-import { SearchInput } from '@acter/components/atoms/search/input'
+import { SearchButton } from '@acter/components/search/atoms/button'
+import { SearchInput } from '@acter/components/search/atoms/input'
 
 export interface SearchBarProps {
   onClick: (searchText: string) => void

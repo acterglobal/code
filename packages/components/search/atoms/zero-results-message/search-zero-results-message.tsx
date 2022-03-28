@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core'
 
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 
-export const ZeroResultsMessage: FC = () => {
+export const SearchZeroResultsMessage: FC = () => {
   const { t } = useTranslation('search')
   return (
     <Typography variant="body2" aria-label="zero-acters">
