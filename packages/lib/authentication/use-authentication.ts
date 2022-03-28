@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { getRedirectPathByError } from '@acter/lib/acter/get-redirect-path-by-error'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole } from '@acter/schema'
-
-import { getRedirectPathByError } from '../acter/get-redirect-path-by-error'
 
 export type AuthenticationResult = {
   acter: Acter
