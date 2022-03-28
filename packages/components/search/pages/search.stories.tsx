@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SearchPage, SearchPageProps } from '@acter/components/search/pages'
 import { ResultDisplayType } from '@acter/lib/constants'
 import { withExampleInterestParams } from '@acter/lib/storybook-helpers/with-example-interest-params'
 import {
@@ -9,6 +8,8 @@ import {
   Interests,
   ExampleActerLocationList,
 } from '@acter/schema/fixtures'
+
+import { SearchPage, SearchPageProps } from './search-page'
 
 const interestTypes = Interests.data.interestTypes
 

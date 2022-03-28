@@ -39,12 +39,18 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const mapRef = useRef<google.maps.Map>()
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey })
-  const { latitude = defaultCenter.lat, longitude = defaultCenter.lng } =
-    usePosition()
-  const [mapCenter, setMapCenter] = useState<google.maps.LatLngLiteral>({
-    lat: latitude,
-    lng: longitude,
-  })
+  const { latitude, longitude, error: usePositionError } = usePosition()
+  const [mapCenter, setMapCenter] = useState<google.maps.LatLngLiteral>()
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      setMapCenter({ lat: latitude, lng: longitude })
+    }
+
+    if (usePositionError) {
+      setMapCenter(defaultCenter)
+    }
+  }, [latitude, longitude, usePositionError])
 
   const handleMapLoad = (map: google.maps.Map): void => {
     mapRef.current = map
@@ -74,18 +80,7 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({
       setMapSearchVariables()
   }, 300)
 
-  useEffect(() => {
-    if (
-      typeof mapRef.current?.getBounds === 'function' &&
-      latitude &&
-      longitude
-    ) {
-      setMapCenter({ lat: latitude, lng: longitude })
-      mapRef.current.panTo(mapCenter)
-    }
-  }, [mapRef.current, latitude, longitude])
-
-  if (!isLoaded) return <LoadingBar />
+  if (!isLoaded || !mapCenter) return <LoadingBar />
 
   if (loadError) return <Alert severity="error">{loadError}</Alert>
 
