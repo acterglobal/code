@@ -1,0 +1,15 @@
+{
+  "clickHere": "click here",
+  "401": {
+    "notLogged": "Oops, looks like you are not logged in. Please <2>{{login}}</2> / <4>{{signup}}</4> and you will arrive at your dashboard."
+  },
+  "403": {
+    "notAuthorized": "Oops, looks like you are not authorized to view this page. Please <2>{{clickHere}}</2> and you will arrive at your dashboard."
+  },
+  "404": {
+    "noActerFound": {
+      "user": "We're sorry, but we can't find that Acter. Please <2>{{login}}</2> / <4>{{signup}}</4> and you will arrive at your dashboard.",
+      "guest": "We're sorry, but we can't find that Acter. Please <2>{{clickHere}}</2> and you will arrive at your dashboard."
+    }
+  }
+}
