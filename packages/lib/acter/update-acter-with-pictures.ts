@@ -64,10 +64,13 @@ UpdateActerWithPicturesProps): Promise<any> => {
 }
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-const _updateActer = (updateActer: (any) => any) => (
-  variables: ActerPictureData
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<any> => updateActer({ variables })
+const _updateActer =
+  (updateActer: (any) => any) =>
+  (
+    variables: ActerPictureData
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> =>
+    updateActer({ variables })
 
 /**
  * Sets avatar and banner images on ActerData
@@ -77,6 +80,7 @@ const _updateActer = (updateActer: (any) => any) => (
 export const _updatePictures = async (
   data: ActerPictureData
 ): Promise<ActerPictureData> => {
+  if (!data) return null
   const folder = `acter/${md5(data.id)}`
   const dataWithPics = await ['avatar', 'banner'].reduce<
     Promise<ActerPictureData>
@@ -92,34 +96,36 @@ export const _updatePictures = async (
  * @param folder name of the folder to which we'll save pictures
  * @returns a reducer function that takes an ActerData Promise and the picture type
  */
-export const _updatePicture = (folder: string) => async (
-  dataPromise: Promise<ActerPictureData>,
-  type: ActerPictureType
-): Promise<ActerPictureData> => {
-  //TODO: error handling for failed upload
-  const variables = await dataPromise
-  const file = variables[type]
-  if (!file) {
-    return variables
-  }
+export const _updatePicture =
+  (folder: string) =>
+  async (
+    dataPromise: Promise<ActerPictureData>,
+    type: ActerPictureType
+  ): Promise<ActerPictureData> => {
+    //TODO: error handling for failed upload
+    const variables = await dataPromise
+    const file = variables[type]
+    if (!file) {
+      return variables
+    }
 
-  const fileName = `${type}Url`
-  if (
-    typeof variables[fileName] === 'string' &&
-    variables[fileName].match(file.name)
-  ) {
+    const fileName = `${type}Url`
+    if (
+      typeof variables[fileName] === 'string' &&
+      variables[fileName].match(file.name)
+    ) {
+      return {
+        ...variables,
+        [fileName]: variables[fileName],
+      }
+    }
+
+    const img = await uploadFile(folder, file)
+    if (!img) {
+      throw new Error(`Could not update ${type} image`)
+    }
     return {
       ...variables,
-      [fileName]: variables[fileName],
+      [fileName]: img,
     }
   }
-
-  const img = await uploadFile(folder, file)
-  if (!img) {
-    throw new Error(`Could not update ${type} image`)
-  }
-  return {
-    ...variables,
-    [fileName]: img,
-  }
-}
