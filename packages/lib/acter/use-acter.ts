@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -6,7 +6,6 @@ import { CombinedError, useQuery, UseQueryState } from 'urql'
 
 import { acterTypeAsUrl } from '@acter/lib/acter-types/acter-type-as-url'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { getParentActer } from '@acter/lib/activity/get-parent-acter'
 import { Acter } from '@acter/schema'
 import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
 import QUERY_ACTER_SLUG from '@acter/schema/queries/acter-by-slug.graphql'
@@ -44,7 +43,6 @@ export type ActerQueryResult = Omit<
 
 type UseActerProps = {
   acterId?: string
-  fetchParent?: boolean
   acterTypeName?: string
   slug?: string
 }
@@ -55,9 +53,8 @@ type UseActerProps = {
  * @returns an acter along with rest of query results such as loading, error
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
-  const { fetchParent = false } = options || {}
   const [acter, setActer] = useState<Acter>()
-  const [acterId, setActerId] = useState<string>(options?.acterId)
+  // const [acterId, setActerId] = useState<string>(options?.acterId)
   const [fetching, setFetching] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
   const router = useRouter()
@@ -67,60 +64,30 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
     error: acterTypesError,
   } = useActerTypes()
 
-  // TODO Refactor/Remove unnecessary useMemos
-  const slug = useMemo(
-    () => options?.slug || (router.query?.slug as string),
-    [options?.slug, router.query?.slug]
-  )
+  const slug = options?.slug || (router.query?.slug as string)
+  const acterId = options?.acterId
+  const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
 
-  useEffect(() => {
-    setActerId(options?.acterId)
-  }, [options?.acterId, slug])
+  const acterTypeId = acterTypes?.find?.(
+    (type) => acterTypeAsUrl(type) === acterTypeName
+  )?.id
+  if (acterTypes?.length && !acterTypeId) {
+    setErrors(Error('Not valid acter type'))
+    return
+  }
 
-  // TODO Refactor/Remove unnecessary useMemos
-  const acterTypeName = useMemo(
-    () => options?.acterTypeName || router.asPath.split('/')[1],
-    [options?.acterTypeName, router?.asPath]
-  )
-
-  // TODO Refactor/Remove unnecessary useMemos
-  const acterTypeId = useMemo(() => {
-    if (acterTypes?.length > 0 && acterTypeName) {
-      const result = acterTypes.find(
-        (type) => acterTypeAsUrl(type) === acterTypeName
-      )
-      if (!result?.id) {
-        setErrors(Error('Not valid acter type'))
-        return
-      }
-      return result.id
-    }
-  }, [acterTypes?.length, acterTypeName])
-
-  // TODO Refactor/Remove unnecessary useMemos
-  const variables = useMemo<UseActerVariables>(() => {
-    if (acterId) {
-      return {
+  const variables = acterId
+    ? {
         acterId,
-      } as UseActerVariablesById
-    }
-
-    if (acterTypeId && slug) {
-      return {
+      }
+    : acterTypeId && slug
+    ? {
         acterTypeId,
         slug,
-      } as UseActerVariablesByTypeAndSlug
-    }
+      }
+    : {}
 
-    return {} as UseActerVariables
-  }, [acterId, acterTypeId, slug])
-
-  // TODO Refactor/Remove unnecessary useMemos
-  const pause = useMemo(
-    () => !variables || Object.keys(variables).length === 0,
-    [JSON.stringify(variables)]
-  )
-
+  const pause = !variables || Object.keys(variables).length === 0
   const query = acterId ? QUERY_ACTER_ID : QUERY_ACTER_SLUG
 
   const [
@@ -132,18 +99,7 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   })
 
   useEffect(() => {
-    if (data) {
-      if (acterId) {
-        setActer(data.acter)
-      } else {
-        const { findFirstActer: acter } = data
-        const parentActer = getParentActer(acter)
-        if (fetchParent && parentActer) {
-          setActerId(parentActer.id)
-        }
-        setActer(acter)
-      }
-    }
+    if (data) setActer(acterId ? data.acter : data.findFirstActer)
   }, [data])
 
   useEffect(() => {

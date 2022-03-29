@@ -7,5 +7,5 @@ import { Acter } from '@acter/schema'
  */
 
 export const getParentActer = (acter: Acter): Acter => {
-  return acter?.Parent ? acter?.Parent : acter?.Activity?.Organiser
+  return acter?.Parent ? getParentActer(acter.Parent) : acter
 }

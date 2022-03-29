@@ -10,15 +10,17 @@ import {
 
 import { NetworksList } from '@acter/components/acter/layout/menu/part-of/list'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
+import { Acter } from '@acter/schema'
 
 const { ACTIVITY, GROUP, USER } = ActerTypes
 
-export const PartOfSection: FC = () => {
-  const classes = useStyles()
+interface PartOfSectionProps {
+  acter: Acter
+}
 
-  const { acter } = useActer({ fetchParent: true })
+export const PartOfSection: FC<PartOfSectionProps> = ({ acter }) => {
+  const classes = useStyles()
 
   const followingActers = useMemo(
     () =>

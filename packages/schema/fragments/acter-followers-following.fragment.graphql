@@ -1,0 +1,35 @@
+#import "./acter-display.fragment.graphql"
+
+fragment ActerFollowersFollowing on Acter {
+  Following(
+    where: {
+      Following: {
+        is: {
+          ActerType: { isNot: { name: { equals: "activity" } } }
+          deletedAt: { equals: null }
+        }
+      }
+    }
+  ) {
+    id
+    role
+    Following {
+      ...ActerDisplay
+    }
+  }
+
+  Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
+    id
+    role
+    Follower {
+      ...ActerDisplay
+      createdByUser {
+        id
+        Acter {
+          id
+          name
+        }
+      }
+    }
+  }
+}
