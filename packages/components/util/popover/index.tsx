@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       color: 'black',
       backgroundColor: 'white',
-      textTransform: 'capitalize',
+      textTransform: 'initial',
       fontSize: '0.7rem',
       '&:hover': {
         backgroundColor: 'white',
