@@ -82,11 +82,14 @@
     "typeOnlineMeetingLink": "Skriv online mødelink",
     "venue": "sted",
     "websiteLink": "Weblink",
-    "writePost": "Skriv indlæg ..."
+    "writePost": "Skriv indlæg ...",
+    "writeAboutYou": "Skriv noget om dig"
   },
   "forum": "forum",
   "host": "arrangør",
   "hostedBy": "Arrangeret af",
+  "info": "Information",
+  "interests": "Interesser",
   "invite": "invitér",
   "join": "tilmeld",
   "leave": "forlad",
@@ -98,6 +101,7 @@
   "new": "ny",
   "noActivities": "Du har ingen aktiviteter.",
   "noActivitiesToShow": "Der er ikke nogen aktiviteter at vise i øjeblikket.",
+  "notifications": "Notifikationer",
   "ok": "ok",
   "participants": "Deltagere",
   "partOf": "En del af",
@@ -110,6 +114,5 @@
   "signOut": "Log ud",
   "signup": "Opret bruger",
   "start": "start",
-  "time": "tid",
-  "write": "write"
+  "time": "tid"
 }

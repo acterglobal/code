@@ -82,11 +82,14 @@
     "typeOnlineMeetingLink": "Type online meeting link",
     "venue": "venue",
     "websiteLink": "Website link",
-    "writePost": "Write post ..."
+    "writePost": "Write post ...",
+    "writeAboutYou": "Write something about you"
   },
   "forum": "forum",
   "host": "host",
   "hostedBy": "Hosted by",
+  "info": "Info",
+  "interests": "Interests",
   "invite": "invite",
   "join": "join",
   "leave": "leave",
@@ -98,6 +101,7 @@
   "new": "new",
   "noActivities": "You have no activities.",
   "noActivitiesToShow": "There are no activities to show at this time.",
+  "notifications": "Notifications",
   "ok": "ok",
   "participants": "Participants",
   "partOf": "Part of",
@@ -110,6 +114,5 @@
   "signOut": "Sign out",
   "signup": "Signup",
   "start": "start",
-  "time": "time",
-  "write": "write"
+  "time": "time"
 }

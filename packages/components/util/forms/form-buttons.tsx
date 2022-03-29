@@ -55,7 +55,7 @@ export const FormButtons: FC<FormButtonsProps> = ({
         disabled={isSubmitting}
         type="submit"
       >
-        {capitalize(t(saveText))}
+        {capitalize(t(`form.${saveText}`))}
       </Button>
     </Container>
   )
