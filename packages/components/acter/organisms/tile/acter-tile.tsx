@@ -75,6 +75,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 }
 
 const ActerTileContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
   overflow: 'hidden',

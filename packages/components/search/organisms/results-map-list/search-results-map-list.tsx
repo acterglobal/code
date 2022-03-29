@@ -27,14 +27,18 @@ export const SearchResultsMapList: FC = () => {
   return (
     <SearchResultsMapListContainer container>
       <ResultsContainer item xs={12} sm={6}>
-        <SearchResultsList
-          acters={acters}
-          activeActerId={activeActerId}
-          collapsed={true}
-        />
-        {(!searchReady || fetching) && <LoadingBar />}
-        {searchReady && !fetching && acters?.length === 0 && (
-          <SearchZeroResultsMessage />
+        {searchReady && (
+          <>
+            <SearchResultsList
+              acters={acters}
+              activeActerId={activeActerId}
+              collapsed={true}
+            />
+            {fetching && <LoadingBar />}
+            {searchReady && !fetching && acters?.length === 0 && (
+              <SearchZeroResultsMessage />
+            )}
+          </>
         )}
       </ResultsContainer>
       <Grid item xs={12} sm={6}>

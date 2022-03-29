@@ -49,7 +49,10 @@ export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
   // Let reducer know there are new results
   useEffect(() => {
     const newRef = getObjectArrayMemoString(data?.[dataKey])
-    if (newRef && dataRef.current !== newRef) {
+    if (
+      (!dataRef.current && data?.[dataKey]) ||
+      (newRef && dataRef.current !== newRef)
+    ) {
       dataRef.current = newRef
       dispatch({
         type: PaginatedResultsActionKind.NEW_RESULTS,
