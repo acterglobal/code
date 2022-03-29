@@ -18,7 +18,7 @@ export const AddInviteSection: FC = () => {
   const { query } = useRouter()
 
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [drawerHeading, setDrawerHeading] = useState('Invite people')
+  const [drawerHeading, setDrawerHeading] = useState(t('invite') as string)
 
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
