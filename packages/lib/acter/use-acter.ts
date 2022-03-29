@@ -54,7 +54,6 @@ type UseActerProps = {
  */
 export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const [acter, setActer] = useState<Acter>()
-  // const [acterId, setActerId] = useState<string>(options?.acterId)
   const [fetching, setFetching] = useState<boolean>(false)
   const [errors, setErrors] = useState<UseActerError>()
   const router = useRouter()

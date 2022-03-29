@@ -6,6 +6,6 @@ import { Acter } from '@acter/schema'
  * @returns parent acter of acter passed as prop
  */
 
-export const getParentActer = (acter: Acter): Acter => {
-  return acter?.Parent ? getParentActer(acter.Parent) : acter
+export const getRootParentActer = (acter: Acter): Acter => {
+  return acter?.Parent ? getRootParentActer(acter.Parent) : acter
 }

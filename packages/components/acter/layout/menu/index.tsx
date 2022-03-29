@@ -10,7 +10,7 @@ import { PartOfSection } from '@acter/components/acter/layout/menu/part-of'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { SecondaryMenu } from '@acter/components/molecules/secondary-menu'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
-import { getParentActer } from '@acter/lib/acter/get-parent-acter'
+import { getRootParentActer } from '@acter/lib/acter/get-root-parent-acter'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
@@ -23,7 +23,7 @@ export const ActerMenu: FC = () => {
   })
   const { user, fetching: userLoading } = useUser()
 
-  const acter = getParentActer(fetchedActer)
+  const acter = getRootParentActer(fetchedActer)
 
   if (acterLoading || userLoading) return <LoadingSpinner />
   if (!acter) return null
