@@ -39,13 +39,23 @@ export const ActivitiesList: FC<ActivityListProps> = ({ activities }) => {
           </Typography>
         </Box>
       ) : (
-        activities?.map((activity) => (
-          <StyledActivityBox key={`activity-${activity.id}`}>
-            <Link href={acterAsUrl({ acter: activity?.Acter })}>
-              <ActivityTile activity={activity} />
-            </Link>
-          </StyledActivityBox>
-        ))
+        activities?.map((activity) => {
+          const acterUrl = acterAsUrl({ acter: activity?.Acter })
+          const fromActerId =
+            acter?.id &&
+            activity.Organiser?.id &&
+            activity.Organiser.id !== acter.id
+              ? `?fromActerId=${acter.id}`
+              : ''
+          const href = [acterUrl, fromActerId].join('')
+          return (
+            <StyledActivityBox key={`activity-${activity.id}`}>
+              <Link href={href}>
+                <ActivityTile activity={activity} />
+              </Link>
+            </StyledActivityBox>
+          )
+        })
       )}
     </Box>
   )

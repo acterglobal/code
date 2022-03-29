@@ -9,33 +9,34 @@ import { AddRounded as AddIcon } from '@material-ui/icons'
 import { GroupsList } from '@acter/components/acter/layout/menu/groups/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Drawer } from '@acter/components/util/drawer'
-import { getUserGroupList } from '@acter/lib/acter/get-user-group-list'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { getGroupsForUser } from '@acter/lib/acter/get-groups-for-user'
 import { useCreateActer } from '@acter/lib/acter/use-create-acter'
-import { ActerTypes } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
-import { ActerConnectionRole } from '@acter/schema'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 
 const AddGroup = dynamic(() =>
   import('@acter/components/group/form').then((mod) => mod.GroupForm)
 )
 
-export const GroupsSection: FC = () => {
+export interface GroupsSectionProps {
+  acter: Acter
+}
+
+export const GroupsSection: FC<GroupsSectionProps> = ({ acter }) => {
   const classes = useStyles()
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleAddGroup = () => setOpenDrawer(true)
   const handleCloseDrawer = () => setOpenDrawer(false)
 
-  const { acter, fetching: acterLoading } = useActer({ fetchParent: true })
   const { user, fetching: userLoading } = useUser()
 
   const [{ fetching: creating }, createGroup] = useCreateActer({
     onCompleted: handleCloseDrawer,
   })
 
-  if (acterLoading || userLoading) return <LoadingSpinner />
+  if (userLoading) return <LoadingSpinner />
   if (!user || !acter) return null
 
   const userCanCreateGroup = userHasRoleOnActer(
@@ -44,15 +45,7 @@ export const GroupsSection: FC = () => {
     acter
   )
 
-  const groups = acter?.Parent?.ActerType.name
-    ? acter?.Parent?.Children?.filter(
-        (child) => child.ActerType.name === ActerTypes.GROUP
-      )
-    : acter.Children?.filter(
-        (child) => child.ActerType.name === ActerTypes.GROUP
-      )
-
-  const groupList = getUserGroupList(groups, user)
+  const groupList = getGroupsForUser(acter, user)
 
   return (
     <>

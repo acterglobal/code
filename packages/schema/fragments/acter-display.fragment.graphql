@@ -20,9 +20,10 @@ fragment ActerDisplay on Acter {
     id
     name
   }
-  deletedAt
   Parent {
     id
     name
   }
+  deletedAt
+  createdByUserId
 }

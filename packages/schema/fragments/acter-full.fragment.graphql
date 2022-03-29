@@ -1,45 +1,35 @@
 #import "./acter-display.fragment.graphql"
+#import "../fragments/acter-followers-following.fragment.graphql"
 #import "./acter-interests-display.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
 
 fragment ActerFull on Acter {
   ...ActerDisplay
-  Following(
-    where: {
-      Following: {
-        is: {
-          ActerType: { isNot: { name: { equals: "activity" } } }
-          deletedAt: { equals: null }
-        }
-      }
-    }
-  ) {
-    id
-    Following {
-      ...ActerDisplay
-    }
-  }
-  Followers(where: { Following: { is: { deletedAt: { equals: null } } } }) {
-    id
-    role
-    Follower {
-      ...ActerDisplay
-      createdByUser {
-        id
-        Acter {
-          id
-          name
-        }
-      }
-    }
-  }
+
+  ...ActerFollowersFollowing
   ...ActerInterestsDisplay
+
+  Activity {
+    ...ActivityDisplay
+  }
+
   Children {
     ...ActerDisplay
   }
   Parent {
     ...ActerDisplay
+    ...ActerFollowersFollowing
     Children {
       ...ActerDisplay
+      ...ActerFollowersFollowing
+    }
+    Parent {
+      ...ActerDisplay
+      ...ActerFollowersFollowing
+      Children {
+        ...ActerDisplay
+        ...ActerFollowersFollowing
+      }
     }
   }
 }

@@ -10,15 +10,14 @@ import {
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
-import { useActer } from '@acter/lib/acter/use-acter'
+import { Acter } from '@acter/schema'
 
-export const ActerMenuHeader: FC = () => {
+export interface ActerMenuHeaderProps {
+  acter: Acter
+}
+
+export const ActerMenuHeader: FC<ActerMenuHeaderProps> = ({ acter }) => {
   const classes = useStyles()
-  const { acter: fetchedParent } = useActer({ fetchParent: true })
-
-  if (!fetchedParent) return null
-
-  const acter = fetchedParent?.Parent ? fetchedParent.Parent : fetchedParent
 
   return (
     <ListItem divider className={classes.acterHeaderItem}>

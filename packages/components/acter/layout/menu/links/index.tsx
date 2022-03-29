@@ -5,15 +5,18 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { Link } from '@acter/components/util/anchor-link'
 import { Tooltip } from '@acter/components/util/tool-tip'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes } from '@acter/lib/constants'
 import { getUrl } from '@acter/lib/links/get-url'
 import { useLinks } from '@acter/lib/links/use-links'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
-export const LinksList: FC = () => {
+export interface LinksListProps {
+  acter: Acter
+}
+
+export const LinksList: FC<LinksListProps> = ({ acter }) => {
   const classes = useStyles()
-  const { acter } = useActer()
 
   const acterId =
     acter?.ActerType.name === ActerTypes.GROUP ? acter?.Parent?.id : acter?.id
