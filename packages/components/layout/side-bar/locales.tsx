@@ -26,9 +26,9 @@ export const Locales: FC = () => {
   const { user } = useUser()
   const [{ fetching: updating }, updateLanguage] = useUpdateUserLanguage()
 
+  const { pathname, query } = router
   useEffect(() => {
     if (user?.language !== router.locale) {
-      const { pathname, query } = router
       // Match dynamic route vars in pathname like /[acterType]/[slug]/forum
       const neededQueryVars = pathname.match(/\[\w*\]/g)
       // Only redirect when router has these
@@ -45,7 +45,10 @@ export const Locales: FC = () => {
   }, [user, JSON.stringify(router.query)])
 
   const handleClick = (language: Language) => {
-    if (!user) return null
+    if (!user) {
+      router.push({ pathname, query }, null, { locale: getLocale(language) })
+      return null
+    }
 
     updateLanguage({ email: user.email, language })
   }
