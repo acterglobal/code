@@ -40,7 +40,7 @@ export const InvitesSection: FC<InvitesSectionProps> = ({
 
   const handleChange = (_, tab) => {
     setCurrentTab(tab)
-    setDrawerHeading?.(tabs[tab])
+    setDrawerHeading?.(t(tabs[tab]) as string)
   }
 
   const { acter } = useActer()

@@ -81,7 +81,7 @@ export const InviteByEmail: FC = () => {
 
   return (
     <FormGroup>
-      <FormLabel className={classes.label}>Invite by Email</FormLabel>
+      <FormLabel className={classes.label}>{t('inviteByEmail')}</FormLabel>
       <Box className={classes.emailAddress}>
         {emails.map((emailAddress, i) => (
           <EmailAddressChip
