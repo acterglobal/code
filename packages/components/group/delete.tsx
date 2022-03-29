@@ -10,6 +10,7 @@ import {
 
 import { SettingContainer } from '@acter/components/util/forms/setting-container'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -19,6 +20,7 @@ interface GroupDeleteProps {
 }
 export const GroupDelete: FC<GroupDeleteProps> = ({ handleClick }) => {
   const classes = useStyles()
+  const { t } = useTranslation('settings')
 
   const { user } = useUser()
   const { acter } = useActer()
@@ -29,9 +31,9 @@ export const GroupDelete: FC<GroupDeleteProps> = ({ handleClick }) => {
   if (!isAdmin) return null
 
   return (
-    <SettingContainer heading="Group Termination">
+    <SettingContainer heading={t('groupTermination')}>
       <Button className={classes.button} onClick={handleClick}>
-        <Typography className={classes.text}>Delete group</Typography>
+        <Typography className={classes.text}>{t('deleteGroup')}</Typography>
       </Button>
     </SettingContainer>
   )
