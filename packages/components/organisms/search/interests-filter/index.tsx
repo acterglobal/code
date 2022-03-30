@@ -45,7 +45,7 @@ export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
 
   return (
     <Popover
-      tabLabel={`${t('interestsTabLabel')} ${
+      tabLabel={`${t('interests')} ${
         selectedInterestIds.length > 0 ? `(${selectedInterestIds.length})` : ``
       }`}
       closePopover={closePopover}
