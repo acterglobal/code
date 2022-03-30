@@ -6,6 +6,7 @@ import {
   _updatePictures,
 } from '@acter/lib/acter/update-acter-with-pictures'
 import { ActerVariables, HandleMethod } from '@acter/lib/acter/use-create-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   useNotificationMutation,
   UseMutationOptions,
@@ -34,12 +35,13 @@ export const useUpdateActer = (
   UseMutationState<UpdateActerData, ActerVariables>,
   HandleMethod<UpdateActerData>
 ] => {
+  const { t } = useTranslation('success-messages')
   const [mutationResult, updateActer] = useNotificationMutation<
     UpdateActerData,
     ActerVariables
   >(UPDATE_ACTER, {
     getSuccessMessage: (data: UpdateActerData) =>
-      `${data.updateActerCustom.name} updated`,
+      t('acterUpdated', { acterName: data.updateActerCustom.name }),
     ...options,
   })
 

@@ -15,6 +15,7 @@ import { InvitesSection } from '@acter/components/invites'
 import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -33,6 +34,7 @@ export const ManageContent: FC<ManageContentProps> = ({
   contentTab,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const { acter } = useActer()
   const { user } = useUser()
@@ -58,7 +60,7 @@ export const ManageContent: FC<ManageContentProps> = ({
           {tabs.map((tab, i) => (
             <Tab
               classes={{ root: classes.tab }}
-              label={tab}
+              label={t(tab)}
               id={tab}
               key={`tab-${i}`}
               disableRipple

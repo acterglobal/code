@@ -12,6 +12,7 @@ import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 import { Language } from '@acter/schema'
 
@@ -28,6 +29,7 @@ export interface ProfileInfoFormValues {
 }
 
 export const ProfileInfoForm: FC = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const classes = useStyles()
   const { user, fetching } = useUser()
 
@@ -78,7 +80,7 @@ export const ProfileInfoForm: FC = () => {
                 className={classes.textinput}
                 component={TextField}
                 name="name"
-                placeholder="name"
+                placeholder={t('name')}
                 variant="outlined"
                 inputProps={{
                   style: { paddingLeft: 25, fontSize: '0.9rem' },
@@ -102,7 +104,7 @@ export const ProfileInfoForm: FC = () => {
                 name="description"
                 multiline
                 rows={4}
-                placeholder="Write some thing about you"
+                placeholder={t('writeAboutYou')}
                 variant="outlined"
                 inputProps={{
                   style: { padding: 10, fontSize: '0.9rem' },

@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { NextPageWithLayout } from 'pages/_app'
+import { getActivityLandingPageStaticPaths } from 'static-paths/activity-landing-page-paths'
 
 import { Activity as ActivityLanding } from '@acter/components/activity'
 import { Head } from '@acter/components/atoms/head'
@@ -25,5 +29,19 @@ export const ActivityLandingPage: NextPageWithLayout = () => {
 }
 
 ActivityLandingPage.getLayout = (page) => <ActerLayout>{page}</ActerLayout>
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'interests',
+      'success-messages',
+      'invitations',
+      'settings',
+    ])),
+  },
+})
+
+export const getStaticPaths: GetStaticPaths = getActivityLandingPageStaticPaths
 
 export default ActivityLandingPage

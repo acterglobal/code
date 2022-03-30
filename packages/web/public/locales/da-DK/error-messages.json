@@ -1,0 +1,15 @@
+{
+  "401": {
+    "notLogged": "Ups, det ser ud til, at du ikke er logget ind.Venligst, <2>{{login}}</2> / <4>{{signup}}</4> så kommer du til dit dashboard."
+  },
+  "403": {
+    "notAuthorized": "Ups, det ser ud til, at du ikke er autoriseret til at se denne side. Venligst, <2>{{clickHere}}</2> så kommer du til dit dashboard."
+  },
+  "404": {
+    "noActerFound": {
+      "guest": "Vi beklager, men vi kan ikke finde den Acter. Venigst, <2>{{clickHere}}</2> så kommer du til dit dashboard.",
+      "user": "Vi beklager, men vi kan ikke finde den Acter. Venligst <2>{{login}}</2> / <4>{{signup}}</4> så kommer du til dit dashboard."
+    }
+  },
+  "clickHere": "Klik her"
+}

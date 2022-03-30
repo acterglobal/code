@@ -7,6 +7,7 @@ import { Form, Formik } from 'formik'
 
 import { InterestsPicker } from '@acter/components/interests/interests-picker'
 import { Popover } from '@acter/components/util/popover'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
@@ -16,6 +17,8 @@ export type InterestsFilterProps = {
 
 export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
   const classes = useStyles()
+  const { t } = useTranslation('search')
+
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
   const [selectedInterestIds, setSelectedInterestIds] = useState([])
 
@@ -42,7 +45,7 @@ export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
 
   return (
     <Popover
-      tabLabel={`Interests ${
+      tabLabel={`${t('interests')} ${
         selectedInterestIds.length > 0 ? `(${selectedInterestIds.length})` : ``
       }`}
       closePopover={closePopover}
@@ -67,7 +70,7 @@ export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
                   color="primary"
                   onClick={handleClear}
                 >
-                  Clear
+                  {t('clearButtonText')}
                 </Button>
                 <Button
                   className={classes.save}
@@ -76,7 +79,7 @@ export const InterestsFilter: FC<InterestsFilterProps> = ({ applyFilters }) => {
                   disabled={selectedInterestIds.length === 0}
                   type="submit"
                 >
-                  Apply
+                  {t('applyButtonText')}
                 </Button>
               </Box>
             </Form>

@@ -11,6 +11,8 @@ import {
 import { ActerVariables } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { Size } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import {
   Acter,
   ActerJoinSettings,
@@ -30,6 +32,7 @@ export interface AccessSettingsProps {
 
 export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
   const classes = useStyles()
+  const { t } = useTranslation('settings')
 
   const [{ fetching: updatingSetting }, updateActer] = useUpdateActer(acter)
 
@@ -78,8 +81,8 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
   }, [acterCanJoinSetting, peopleCanJoinSetting])
 
   return (
-    <SettingContainer heading="Access">
-      <Setting title="Who can access">
+    <SettingContainer heading={capitalize(t('access'))}>
+      <Setting title={t('whoCanAccess')}>
         <RadioGroup
           aria-label="member-join-setting"
           name="acterJoinSetting"
@@ -87,7 +90,7 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
           onChange={handleChangeJoinSetting}
         >
           <SettingsRadio
-            label="Everyone"
+            label={capitalize(t('everyone'))}
             value={ActerJoinSettings.EVERYONE}
             updating={
               acter.acterJoinSetting === ActerJoinSettings.RESTRICTED &&
@@ -95,8 +98,8 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
             }
           />
           <SettingsRadio
-            label="Restricted"
-            subText="(Needs approval)"
+            label={capitalize(t('restricted'))}
+            subText={t('needsApproval')}
             value={ActerJoinSettings.RESTRICTED}
             updating={
               acter.acterJoinSetting === ActerJoinSettings.EVERYONE &&
@@ -105,9 +108,9 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
           />
         </RadioGroup>
       </Setting>
-      <Setting title="Who can join">
+      <Setting title={t('whoCanJoin')}>
         <Box className={classes.switchSection}>
-          <Box className={classes.label}>People</Box>
+          <Box className={classes.label}>{capitalize(t('people'))}</Box>
           <Switch
             name="People"
             checked={peopleCanJoinSetting}
@@ -119,7 +122,7 @@ export const AccessSettings: FC<AccessSettingsProps> = ({ acter }) => {
         </Box>
 
         <Box className={classes.switchSection}>
-          <Box className={classes.label}>Acters</Box>
+          <Box className={classes.label}>{capitalize(t('acters'))}</Box>
           <Switch
             name="Acters"
             checked={acterCanJoinSetting}

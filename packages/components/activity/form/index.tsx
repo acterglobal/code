@@ -34,6 +34,7 @@ import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getInterestIdsFromActer } from '@acter/lib/interests/get-interest-ids-from-acter'
 import { useUser } from '@acter/lib/user/use-user'
 import { Acter } from '@acter/schema'
@@ -91,6 +92,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   setDrawerHeading,
   organiserActerId,
 }) => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { activityTypes, fetching: activityTypesLoading } = useActivityTypes()
   const { user } = useUser()
@@ -100,7 +102,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   const acterType = getActerTypeByName(acterTypes, ActerTypes.ACTIVITY)
 
   const [activityType, setActivityType] = useState(null)
-  const [submitButtonLabel, setSubmitButtonLabel] = useState('Create')
+  const [submitButtonLabel, setSubmitButtonLabel] = useState(t('form.create'))
 
   const steps = getSteps(activityType, acter)
   const [activeStep, setActiveStep] = useState(0)
@@ -129,20 +131,20 @@ export const ActivityForm: FC<ActivityFormProps> = ({
   useEffect(() => {
     if (acter?.id) {
       setActivityType(acter.Activity.ActivityType.name)
-      setDrawerHeading(`Edit ${acter.Activity.ActivityType.name}`)
-      setSubmitButtonLabel('Save')
+      setDrawerHeading(`${t('edit')} ${acter.Activity.ActivityType.name}`)
+      setSubmitButtonLabel(t('save'))
     }
   }, [])
 
   useEffect(() => {
     if (activityType && !acter?.id) {
-      setDrawerHeading(`Add ${activityType}`)
+      setDrawerHeading(t(`form.add.${activityType}`))
     }
   }, [activityType])
 
   useEffect(() => {
     if (steps[activeStep] === ActivityTypeStep) {
-      setDrawerHeading(`Add Activity`)
+      setDrawerHeading(t('form.add.activity'))
     }
   }, [activeStep])
 
@@ -245,7 +247,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                         disabled={activeStep === 0 || isSubmitting}
                         onClick={handlePrev}
                       >
-                        Back
+                        {t('form.back')}
                       </Button>
                       <Button
                         variant="contained"
@@ -257,7 +259,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
                       >
                         {isLastStep() || activityType === ActivityTypes.MEETING
                           ? submitButtonLabel
-                          : 'Next'}
+                          : t('form.next')}
                       </Button>
                     </Box>
                   </Box>

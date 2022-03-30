@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { Box, styled, Typography } from '@material-ui/core'
 
 import { Image } from '@acter/components/util/image'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getActerTypeIcon } from '@acter/lib/images/get-icons'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { ActerType } from '@acter/schema'
@@ -12,6 +13,7 @@ export interface ActerTypeDisplayProps {
 }
 
 export const ActerTypeDisplay: FC<ActerTypeDisplayProps> = ({ acterType }) => {
+  const { t } = useTranslation('common')
   if (!acterType) return null
 
   const { name } = acterType
@@ -19,7 +21,9 @@ export const ActerTypeDisplay: FC<ActerTypeDisplayProps> = ({ acterType }) => {
   return (
     <ActerTypesContainer>
       <Image src={getActerTypeIcon(name)} alt={name} width={20} height={20} />
-      <ActerTypeName variant="body2">{capitalize(name)}</ActerTypeName>
+      <ActerTypeName variant="body2">
+        {capitalize(t(`acterTypes.${name}`))}
+      </ActerTypeName>
     </ActerTypesContainer>
   )
 }

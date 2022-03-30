@@ -1,6 +1,7 @@
 import { OperationResult, UseMutationState } from 'urql'
 
 import { ConnectionVariables } from '@acter/lib/acter/use-create-connection'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -29,11 +30,13 @@ export const useDeleteActerConnection = (
   UseMutationState<DeleteConnectionData, ConnectionVariables>,
   HandleMethod
 ] => {
+  const { t } = useTranslation('success-messages')
+
   const [mutationResult, deleteConnection] = useNotificationMutation(
     DELETE_ACTER_CONNECTION,
     {
       ...options,
-      getSuccessMessage: () => `Disconnected from ${acter.name}`,
+      getSuccessMessage: () => t('disConnected', { acterName: acter.name }),
     }
   )
 

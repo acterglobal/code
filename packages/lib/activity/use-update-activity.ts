@@ -7,6 +7,7 @@ import {
   CreateActivityData,
   HandleMethod,
 } from '@acter/lib/activity/use-create-activity'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -37,12 +38,11 @@ export const useUpdateActivity = (
   UseMutationState<UpdateActivityData, ActivityVariables>,
   HandleMethod<CreateActivityData, ActivityVariables>
 ] => {
+  const { t } = useTranslation('success-messages')
   const messageOptions = isNewActivity
     ? {}
-    : {
-        getSuccessMessage: (data: UpdateActivityData) =>
-          `${data.updateActivityCustom.Acter.name} Activity updated`,
-      }
+    : { getSuccessMessage: () => t('activityUpdated') }
+
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables

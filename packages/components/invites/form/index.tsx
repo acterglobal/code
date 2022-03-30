@@ -14,9 +14,11 @@ import { InviteByEmail } from '@acter/components/invites/form/invite-by-email'
 import { InviteByLink } from '@acter/components/invites/form/invite-by-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getInvitationMessage } from '@acter/lib/invites/get-invitation-message'
 import { useCreateInvites } from '@acter/lib/invites/use-create-invites'
 import { useInvites } from '@acter/lib/invites/use-invites'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { useUser } from '@acter/lib/user/use-user'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole } from '@acter/schema'
@@ -31,6 +33,7 @@ export type InviteFormValues = {
 }
 
 export const InviteForm: FC = () => {
+  const { t } = useTranslation('invitations')
   const classes = useStyles()
   const { acter } = useActer()
   const { user } = useUser()
@@ -46,11 +49,19 @@ export const InviteForm: FC = () => {
   if (!acter || !user) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  const acterName = capitalize(acter.name)
+  const userName = capitalize(user.Acter.name)
+  const message = getInvitationMessage(
+    t('message.hi'),
+    t('message.content', { acterName }),
+    t('message.greetings'),
+    userName
+  )
 
   const initialValues: InviteFormValues = {
     inviteLink: acterAsUrl({ acter, includeBaseUrl: true }),
     emails: [],
-    message: getInvitationMessage(acter.name, user.Acter.name),
+    message,
     onActerId: acter.id,
     createdByUserId: user.id,
   }
@@ -67,7 +78,7 @@ export const InviteForm: FC = () => {
 
     if (emails.length <= 0) {
       setSubmitting(false)
-      return setFieldError('emails', '* Please enter a valid email address.')
+      return setFieldError('emails', t('enterValidEmail'))
     }
 
     const formData = { message, onActerId, createdByUserId, sentAt: new Date() }
@@ -85,7 +96,7 @@ export const InviteForm: FC = () => {
     <Box className={classes.inviteForm}>
       {!isAdmin && (
         <Typography className={classes.headerMessage} variant="h6">
-          Invite people to join "{acter.name}"
+          {`${t('invitePeople')} "${acter.name}"`}
         </Typography>
       )}
 

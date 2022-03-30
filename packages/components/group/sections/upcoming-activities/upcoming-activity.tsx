@@ -11,6 +11,7 @@ import {
 
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { Activity } from '@acter/schema'
 
 interface UpcomingActivityProps {
@@ -18,6 +19,7 @@ interface UpcomingActivityProps {
 }
 export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
   const classes = useStyles()
+  const { t } = useTranslation('group-landing')
 
   return (
     <Box className={classes.activity}>
@@ -29,7 +31,9 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
         </Typography>
 
         <Typography className={classes.location} variant="body2">
-          {activity.isOnline ? 'Online' : activity.Acter?.location}
+          {activity.isOnline
+            ? t('common.form.online')
+            : activity.Acter?.location}
         </Typography>
       </Box>
       <Box>
@@ -40,7 +44,7 @@ export const UpcomingActivity: FC<UpcomingActivityProps> = ({ activity }) => {
             acter: activity?.Acter,
           })}
         >
-          View
+          {t('upcomingActivities.view')}
         </Button>
       </Box>
     </Box>

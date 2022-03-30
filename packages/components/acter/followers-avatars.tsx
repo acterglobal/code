@@ -8,6 +8,7 @@ import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acte
 import { filterConnectionsByAtLeastRole } from '@acter/lib/acter/filter-connections-by-at-least-role'
 import { mapFollowersByType } from '@acter/lib/acter/map-followers-by-type'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import {
   Acter,
@@ -17,24 +18,6 @@ import {
 } from '@acter/schema'
 
 const { ACTERS, PEOPLE } = ActerWhoCanJoinSettings
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    section: {
-      fontSize: '0.75rem',
-      fontWeight: theme.typography.fontWeightBold,
-      color: theme.palette.secondary.main,
-      marginBottom: theme.spacing(0.5),
-    },
-    container: {
-      display: 'flex',
-    },
-    followers: {
-      cursor: 'pointer',
-      marginBottom: theme.spacing(1),
-    },
-  })
-)
 
 export interface FollowersAvatarsProps {
   acter: Acter
@@ -50,6 +33,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
   onAvatarClick,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation('common')
 
   const followerTypeMap = mapFollowersByType(acter)
 
@@ -80,7 +64,7 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
             onClick={onAvatarClick}
           >
             <Typography variant="h6" className={classes.section}>
-              {capitalize(title)} ({acters.length})
+              {capitalize(t(title))} ({acters.length})
             </Typography>
             <AvatarGroup
               acters={acters.slice(0, 7)}
@@ -92,3 +76,21 @@ export const FollowersAvatars: FC<FollowersAvatarsProps> = ({
     </Box>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    section: {
+      fontSize: '0.75rem',
+      fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.secondary.main,
+      marginBottom: theme.spacing(0.5),
+    },
+    container: {
+      display: 'flex',
+    },
+    followers: {
+      cursor: 'pointer',
+      marginBottom: theme.spacing(1),
+    },
+  })
+)

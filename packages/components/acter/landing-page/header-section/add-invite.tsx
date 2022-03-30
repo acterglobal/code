@@ -9,14 +9,16 @@ import { Drawer } from '@acter/components/util/drawer'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { ActerTypes, InviteTabs } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
 export const AddInviteSection: FC = () => {
+  const { t } = useTranslation('common')
   const classes = useStyles()
   const { query } = useRouter()
 
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [drawerHeading, setDrawerHeading] = useState('Invite people')
+  const [drawerHeading, setDrawerHeading] = useState(t('invite') as string)
 
   const handleOnClick = () => setOpenDrawer(true)
   const handleClose = () => setOpenDrawer(false)
@@ -40,7 +42,7 @@ export const AddInviteSection: FC = () => {
   return (
     <>
       <Button className={classes.button} onClick={handleOnClick}>
-        Invite
+        {t('invite')}
       </Button>
 
       <Drawer

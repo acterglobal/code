@@ -17,6 +17,8 @@ import {
   LocationPicker,
   LocationPickerResult,
 } from '@acter/components/atoms/fields/location-picker'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 
 export interface LocationVenuePickerValues extends LocationPickerResult {
   isOnline: boolean
@@ -24,11 +26,10 @@ export interface LocationVenuePickerValues extends LocationPickerResult {
 }
 
 export const LocationVenuePicker: FC = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'form' })
   const classes = useStyles()
-  const {
-    values,
-    setFieldValue,
-  } = useFormikContext<LocationVenuePickerValues>()
+  const { values, setFieldValue } =
+    useFormikContext<LocationVenuePickerValues>()
 
   return (
     <Box className={classes.container}>
@@ -41,8 +42,16 @@ export const LocationVenuePicker: FC = () => {
       >
         <FormLabel className={classes.label}>Location</FormLabel>
         <Box>
-          <FormControlLabel value={false} control={<Radio />} label="Venue" />
-          <FormControlLabel value={true} control={<Radio />} label="Online" />
+          <FormControlLabel
+            value={false}
+            control={<Radio />}
+            label={capitalize(t('venue'))}
+          />
+          <FormControlLabel
+            value={true}
+            control={<Radio />}
+            label={capitalize(t('online'))}
+          />
         </Box>
       </Field>
       {values.isOnline && (
@@ -52,7 +61,7 @@ export const LocationVenuePicker: FC = () => {
           variant="outlined"
           name="url"
           title="meeting url"
-          placeholder="Type online meeting link"
+          placeholder={t('typeOnlineMeetingLink')}
           required={true}
         />
       )}

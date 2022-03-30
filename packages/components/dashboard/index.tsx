@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import { useTranslation } from 'next-i18next'
-
 import {
   Box,
   createStyles,
@@ -13,6 +11,7 @@ import {
 
 import { DashboardContent } from '@acter/components/dashboard/content'
 import { HomeIcon } from '@acter/components/icons/home-icon'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const Dashboard: FC = () => {
   const classes = useStyles()

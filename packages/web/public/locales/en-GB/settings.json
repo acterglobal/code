@@ -1,0 +1,22 @@
+{
+  "access": "access",
+  "addNewLink": "Add new link",
+  "anyOneCanSee": "(Anyone can find and see)",
+  "deleteGroup": "Delete group",
+  "enterLinkName": "Enter link's name",
+  "enterLinkUrl": "Enter link URL",
+  "everyone": "everyone",
+  "groupTermination": "Group termination",
+  "links": "links",
+  "linksHeading": "Here you can add custom navigation links",
+  "needsApproval": "(Needs approval)",
+  "onlyMembersCanSee": "(Only members can see)",
+  "private": "private",
+  "public": "public",
+  "restricted": "restricted",
+  "topBarHeading": "Settings for {{acterName}}",
+  "visibility": "visibility",
+  "whoCanAccess": "Who can access",
+  "whoCanJoin": "Who can join",
+  "whoCanSee": "Who can see"
+}
