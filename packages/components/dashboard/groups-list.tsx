@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
       color: theme.palette.secondary.main,
+      backgroundColor: 'white',
+      padding: theme.spacing(1),
+      borderRadius: theme.spacing(2),
     },
     icon: {
       height: theme.spacing(8.5),

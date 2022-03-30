@@ -49,19 +49,16 @@ const TopSection: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      backgroundColor: theme.colors.white,
       minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     topSection: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      position: 'fixed',
-      zIndex: 100,
-      top: 0,
-      width: '100%',
-      height: 52,
-      backgroundColor: theme.colors.white,
+      marginTop: theme.spacing(2),
     },
     heading: {
       fontSize: theme.spacing(2),
