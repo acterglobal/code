@@ -5,6 +5,7 @@ import { Box, createStyles, makeStyles, Typography } from '@material-ui/core'
 import { Switch } from '@acter/components/atoms/fields/switch'
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
 import { ResultDisplayType } from '@acter/lib/constants'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export interface ShowMapSwitchProps {
   resultDisplayType: ResultDisplayType
@@ -15,6 +16,7 @@ export const ShowMapSwitch: FC<ShowMapSwitchProps> = ({
   resultDisplayType,
   onChange,
 }) => {
+  const { t } = useTranslation('search')
   const classes = useStyles()
   const [searchVariables, setSearchVariables] = useSearchVariables()
 
@@ -44,7 +46,7 @@ export const ShowMapSwitch: FC<ShowMapSwitchProps> = ({
   return (
     <Box className={classes.showMapSwitch}>
       <Typography className={classes.label} variant="body2">
-        Show Map
+        {t('showOnMap')}
       </Typography>
       <Switch
         name="showOnMap"

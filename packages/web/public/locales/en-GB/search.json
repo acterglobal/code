@@ -1,9 +1,1 @@
-{
-  "applyButtonText": "Apply",
-  "clearButtonText": "Clear",
-  "heading": "Public search",
-  "searchButtonText": "Search",
-  "searchInputPlaceholder": "Search",
-  "sortByTabLabel": "Sort By",
-  "zeroResults": "Your search did not return any results. Try removing search terms and/or filters to see more."
-}
+{"heading":"Public search","showOnMap":"Show on map","zeroResults":"Your search did not return any results. Try removing search terms and/or filters to see more.","sortByTabLabel":"Sort by","applyButtonText":"Apply","clearButtonText":"Clear","searchButtonText":"Search","searchInputPlaceholder":"Search"}
