@@ -14,7 +14,7 @@ export type SortByProps = {
   onChange: (sortBy: SearchActivitiesSortBy) => void
 }
 
-export const SortBy: FC<SortByProps> = ({ sortBy, onChange }) => {
+export const SearchSortBy: FC<SortByProps> = ({ sortBy, onChange }) => {
   const { t } = useTranslation('search')
   const classes = useStyles()
   const [closePopover, setClosePopover] = useState<boolean | null>(null)

@@ -9,7 +9,7 @@ import { ActerTypes } from '@acter/lib/constants'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { Acter } from '@acter/schema'
 
-export interface ActerProfileImageProps extends ImageProps {
+export interface ActerProfileImageProps extends Omit<ImageProps, 'alt'> {
   acter: Acter
   size?: number
   background?: string
