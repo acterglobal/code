@@ -20,6 +20,10 @@ export const ActerProfileImage: FC<ActerProfileImageProps> = ({ acter }) => {
         src={getImageUrl(acter.avatarUrl, 'avatar')}
         alt={acter.name}
         height={96}
+        width={96}
+        imgixParams={{
+          fit: 'facearea',
+        }}
       />
     </Box>
   )

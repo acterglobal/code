@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -67,13 +67,16 @@ export const useActer = (options?: UseActerProps): ActerQueryResult => {
   const acterId = options?.acterId
   const acterTypeName = options?.acterTypeName || router.asPath.split('/')[1]
 
-  const acterTypeId = acterTypes?.find?.(
-    (type) => acterTypeAsUrl(type) === acterTypeName
-  )?.id
-  if (acterTypes?.length && !acterTypeId) {
+  const acterTypeId = useMemo(() => {
+    if (acterTypes?.length) {
+      const acterType = acterTypes?.find?.(
+        (type) => acterTypeAsUrl(type) === acterTypeName
+      )
+      if (acterType?.id) return acterType.id
+    }
     setErrors(Error('Not valid acter type'))
-    return
-  }
+    return false
+  }, [acterTypes?.length, acterTypeName])
 
   const variables = acterId
     ? {

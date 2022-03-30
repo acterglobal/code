@@ -7,14 +7,13 @@ import { getFileExtension as getImageExtension } from '@acter/lib/files/get-file
 
 interface ImageProps extends ImgixProviderProps {
   alt: string
-  height?: number
   banner?: boolean
 }
 
 // TODO: monitor https://github.com/imgix/react-imgix/issues/356 for the addition of types to library so we can remove @types/react-imgix
 export const Image: FC<ImageProps> = (props) => {
   const classes = useStyles()
-  const { alt, src, banner, height, ...restProps } = props
+  const { alt, src, banner, ...restProps } = props
 
   if (banner)
     return <Banner src={src} className={classes.backgroundImage}></Banner>
@@ -23,7 +22,6 @@ export const Image: FC<ImageProps> = (props) => {
     <Imgix
       {...restProps}
       src={src}
-      height={height}
       imgixParams={{
         fm: getImageExtension(src),
       }}
