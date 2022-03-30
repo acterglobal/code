@@ -69,7 +69,7 @@ describe('Display search results', () => {
     expect(items.length).toBe(9)
 
     items.map((item) => {
-      expect(item.textContent).toContain('Event')
+      expect(item.textContent).toContain('Activitytypes.event')
     })
   })
 })
