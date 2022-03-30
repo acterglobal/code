@@ -1,13 +1,13 @@
 import { UpdateResolver } from '@urql/exchange-graphcache'
 
+import { WithTypeName } from '@acter/lib/urql/types'
+import { Acter, Activity } from '@acter/schema'
+
 import { addItemToFieldList } from '../util/add-item-to-field-list'
 import {
   forEachQueryFields,
   prependItemFn,
 } from '../util/query-fields-for-each'
-
-import { WithTypeName } from '@acter/lib/urql/types'
-import { Acter, Activity } from '@acter/schema'
 
 export type ActivityWithType = WithTypeName<Activity>
 
@@ -22,13 +22,6 @@ export const createActivityCustom: UpdateResolver<ActerData> = (
   _info
 ) => {
   result.createActivityCustom.Acter.Followers.forEach((connection) => {
-    addItemToFieldList({
-      cache,
-      target: connection.Follower,
-      field: 'Following',
-      item: connection,
-    })
-
     forEachQueryFields({
       cache,
       result: result.createActivityCustom,
