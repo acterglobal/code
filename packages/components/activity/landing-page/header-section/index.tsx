@@ -12,6 +12,7 @@ import {
 
 import { TopBar } from '@acter/components/activity/landing-page/header-section/top-bar'
 import { ActivityLocationIcon } from '@acter/components/icons'
+import { Link } from '@acter/components/util/anchor-link'
 import { Image } from '@acter/components/util/image'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { getActerDateFormat } from '@acter/lib/acter/get-acter-date-format'
@@ -51,6 +52,14 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
       router.push(acterAsUrl({ acter: parentActer, extraPath: [ACTIVITIES] }))
   }
 
+  const getUrl = (url) => {
+    if (!url) return ''
+
+    if (url.match(/^https?:\/\//)) return url
+
+    return `http://${url}`
+  }
+
   return (
     <Box className={classes.bannerSection}>
       <TopBar acter={acter} handleCloseActivity={handleCloseActivity} />
@@ -73,15 +82,25 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
             {acter.name}
           </Typography>
         </Box>
+
         <Box className={classes.locationInfo}>
           <ActivityLocationIcon />
-          <Typography
-            role="acter-location"
-            variant="subtitle2"
-            className={classes.location}
-          >
-            {acter.location}
-          </Typography>
+          {acter.Activity.isOnline && acter.url && (
+            <Link href={getUrl(acter.url)} target="_blank">
+              <Typography className={classes.location} variant="subtitle2">
+                {acter.url}
+              </Typography>
+            </Link>
+          )}
+          {!acter.Activity.isOnline && acter.location && (
+            <Typography
+              role="acter-location"
+              variant="subtitle2"
+              className={classes.location}
+            >
+              {acter.location}
+            </Typography>
+          )}
         </Box>
       </Box>
     </Box>
