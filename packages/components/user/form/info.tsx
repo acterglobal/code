@@ -9,7 +9,6 @@ import { LanguagePicker } from '@acter/components/atoms/fields/language-picker'
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { ImageUpload } from '@acter/components/image-upload'
 import { ProfileFormLayout } from '@acter/components/user/form/layout'
-import { FeatureFlag } from '@acter/components/util/feature-flag'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
@@ -113,14 +112,12 @@ export const ProfileInfoForm: FC = () => {
 
               <LocationPicker types={['(regions)']} cacheKey="regions" />
 
-              <FeatureFlag>
-                <LanguagePicker
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  className={classes.languagePicker}
-                />
-              </FeatureFlag>
+              <LanguagePicker
+                size="small"
+                variant="outlined"
+                fullWidth
+                className={classes.languagePicker}
+              />
             </Grid>
           </Grid>
           <FormButtons align="right" hideUnlessDirty={true} />
