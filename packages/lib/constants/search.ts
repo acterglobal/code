@@ -13,6 +13,11 @@ export enum ResultKey {
   ACTIVITIES = 'searchActivities',
 }
 
+export enum ResultDisplayType {
+  LIST = 'list',
+  MAP = 'map',
+}
+
 export const ActerSearchTypes = [...MainActerTypes]
 
 export const ActivitySearchTypes = [EVENT, IDEA, PROJECT, MEETING]

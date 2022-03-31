@@ -37,7 +37,7 @@ describe('[Header Section]', () => {
     mockUseActer.mockReturnValue({ acter: ExampleActer, fetching: false })
     mockUseRouter.mockReturnValue({
       query: {},
-      route: '',
+      pathname: '',
     })
     mockUseTranslation.mockReturnValue({
       t: (text) => {

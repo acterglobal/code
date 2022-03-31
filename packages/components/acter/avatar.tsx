@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { getInitials } from '@acter/lib/get-initials'
+import { getImageBaseUrl } from '@acter/lib/images/get-image-base-url'
 import { Acter } from '@acter/schema'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -38,7 +39,7 @@ export const ActerAvatar: FC<ActerAvatarProps> = ({ acter, size = 6 }) => {
   const avatarUrl = useMemo(
     () =>
       acter.avatarUrl
-        ? `${process.env.NEXT_PUBLIC_IMAGE_LOADER_URL}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
+        ? `${getImageBaseUrl()}/${acter.avatarUrl}?w=64&h=64&crop=entropy`
         : '',
     [acter.avatarUrl]
   )

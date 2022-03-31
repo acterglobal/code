@@ -6,8 +6,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
-import { SearchLayout } from '@acter/components/layout/search'
-import { Search } from '@acter/components/pages/search'
+import { SearchPage as SearchPageComponent } from '@acter/components/search/pages'
+import { SearchTemplate } from '@acter/components/search/templates'
 
 const SearchPage: NextPageWithLayout = () => {
   return (
@@ -15,13 +15,13 @@ const SearchPage: NextPageWithLayout = () => {
       <Head title="Acter" />
 
       <main>
-        <Search />
+        <SearchPageComponent />
       </main>
     </>
   )
 }
 
-SearchPage.getLayout = (page) => <SearchLayout>{page}</SearchLayout>
+SearchPage.getLayout = (page) => <SearchTemplate>{page}</SearchTemplate>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {

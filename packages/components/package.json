@@ -17,6 +17,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.60",
     "@material-ui/pickers": "3.3.10",
+    "@react-google-maps/api": "2.7.0",
     "clsx": "1.1.1",
     "color-string": "1.6.0",
     "draft-js": "0.11.7",
@@ -30,6 +31,7 @@
     "formik": "2.2.9",
     "formik-material-ui": "3.0.1",
     "formik-material-ui-pickers": "0.0.12",
+    "just-debounce": "1.1.0",
     "markdown-draft-js": "2.3.0",
     "markdown-to-jsx": "7.1.3",
     "node-polyfill-webpack-plugin": "1.1.4",
@@ -42,7 +44,8 @@
     "react-infinite-scroll-component": "6.1.0",
     "react-is-visible": "1.1.2",
     "title-case": "3.0.3",
-    "use-places-autocomplete": "1.11.0",
+    "use-places-autocomplete": "^2.0.0",
+    "use-position": "1.0.0",
     "uuid": "8.3.2"
   },
   "devDependencies": {

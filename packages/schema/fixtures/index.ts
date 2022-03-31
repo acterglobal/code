@@ -43,6 +43,7 @@ export * from './acter-connection/example-acter-connection'
 
 export * from './acter/example-acter'
 export * from './acter/example-acter-list'
+export * from './acter/example-acter-with-interests'
 export * from './acter/example-acter-location-list'
 export * from './activity/example-activity'
 export * from './post/example-post'

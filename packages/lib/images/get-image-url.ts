@@ -5,6 +5,7 @@
  * @param imageType acter's avatar/banner image
  * @returns image url
  */
+import { getImageBaseUrl } from './get-image-base-url'
 
 type ImageUrlOptions = {
   suffix?: string
@@ -16,9 +17,8 @@ export const getImageUrl = (
   options?: ImageUrlOptions
 ): string => {
   const { suffix = '' } = options || {}
-  const baseURL =
-    process.env.NEXT_PUBLIC_IMAGE_LOADER_URL ||
-    process.env.STORYBOOK_IMAGE_LOADER_URL
+
+  const baseURL = getImageBaseUrl()
   const imageSuffix = process.env.NEXT_PUBLIC_DEFAULT_IMAGE_SUFFIX || ''
   // TODO: refactor this SDG.
   const imagePath =

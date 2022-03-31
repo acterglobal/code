@@ -35,12 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: 28,
-      height: 16,
+      height: 14,
       padding: 0,
       display: 'flex',
     },
     switchBase: {
-      padding: 2,
+      paddingTop: 1,
+      paddingLeft: 2,
+      paddingBottom: 0,
       color: theme.palette.grey[500],
       '&$checked': {
         transform: 'translateX(12px)',

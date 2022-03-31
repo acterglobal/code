@@ -8,13 +8,15 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { ActivityTileProps } from '@acter/components/activity/tile'
 import { DateTimeInfo } from '@acter/components/activity/tile/date-time-info'
 import { Size } from '@acter/lib/constants'
+import { Activity } from '@acter/schema'
 
 import { Organiser } from '../organiser'
 
-type InfoSectionProps = ActivityTileProps
+type InfoSectionProps = {
+  activity: Activity
+}
 
 export const InfoSection: FC<InfoSectionProps> = ({ activity }) => {
   const classes = useStyles()

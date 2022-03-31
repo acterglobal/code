@@ -2,12 +2,14 @@ import React, { FC } from 'react'
 
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 
-import { ActivityTileProps } from '@acter/components/activity/tile'
 import { ActivityAvatar } from '@acter/components/activity/tile/avatar'
 import { Image } from '@acter/components/util/image'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { Activity } from '@acter/schema'
 
-type ImageSectionProps = ActivityTileProps
+type ImageSectionProps = {
+  activity: Activity
+}
 
 export const ImageSection: FC<ImageSectionProps> = ({ activity }) => {
   const classes = useStyles()

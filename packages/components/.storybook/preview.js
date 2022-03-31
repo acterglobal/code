@@ -31,7 +31,7 @@ export const parameters = {
   },
   options: {
     storySort: {
-      order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
+      order: ['*', ['Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'], 'Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
     },
   },
   layout: 'fullscreen',
@@ -42,6 +42,7 @@ export const parameters = {
       { name: 'background', value: '#ECEFF4' },
     ],
   },
+  urql: () => ({ data: {} }),
 }
 
 addDecorator(urqlDecorator)

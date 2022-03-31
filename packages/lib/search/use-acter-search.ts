@@ -40,8 +40,21 @@ export const useActerSearch = (
   const [acters, setActers] = useState<Acter[]>([])
 
   useEffect(() => {
-    // If we don't have any types set, don't bother searching
-    setPause(variables.types?.length < 1)
+    if (
+      // If we don't have any types set, don't bother searching
+      variables.types?.length < 1 ||
+      // If we have bounding box variables but they're null, wait to search
+      (variables.north === null &&
+        variables.east === null &&
+        variables.south === null &&
+        variables.west === null)
+    ) {
+      setActers([])
+      setPause(true)
+      return
+    }
+
+    return setPause(false)
   }, [JSON.stringify(variables)])
 
   const [{ results, ...restQueryResult }] = usePaginatedQuery<

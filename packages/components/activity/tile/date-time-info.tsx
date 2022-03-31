@@ -10,15 +10,17 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { ActivityTileProps } from '@acter/components/activity/tile'
 import {
   DAY_DATE_MONTH_FORMAT_SHORT,
   DATE_MONTH_FORMAT_SHORT,
   TIME_FORMAT_SHORT,
 } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
+import { Activity } from '@acter/schema'
 
-type DateTimeInfoProps = ActivityTileProps
+type DateTimeInfoProps = {
+  activity: Activity
+}
 
 export const DateTimeInfo: FC<DateTimeInfoProps> = ({ activity }) => {
   const classes = useStyles()
