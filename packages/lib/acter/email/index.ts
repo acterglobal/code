@@ -13,11 +13,13 @@ type NewMemberNotificationEmail = {
 type CreateNewMemberNotificationEmailParams = {
   follower: Acter
   notification: Notification
+  languageCode: string
 }
 
 export const createNewMemberNotificationEmail = ({
   follower,
   notification,
+  languageCode,
 }: CreateNewMemberNotificationEmailParams): CreateEmailReturn => {
   const notificationUrl = getNotificationUrl(notification)
   const { OnActer } = notification
@@ -28,7 +30,8 @@ export const createNewMemberNotificationEmail = ({
       : 'joined'
   const text = `${follower.name} just ${verb} ${aAn} ${OnActer.ActerType.name} you follow on Acter, ${OnActer.name}.`
   const html = createEmailTemplate<NewMemberNotificationEmail>(
-    path.join(__dirname, 'template.hbs')
+    path.join(__dirname, 'template.hbs'),
+    languageCode
   )({
     text,
     notificationUrl,

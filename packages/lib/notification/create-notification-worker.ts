@@ -1,5 +1,3 @@
-import { CreateEmailReturn, Email } from '../email'
-import { createNotification } from './create-notification'
 import { Job, Worker } from 'bullmq'
 
 import { emailSendQueue, NotificationEmail } from '@acter/jobs'
@@ -18,6 +16,9 @@ import {
 } from '@acter/schema'
 import { prisma, Prisma } from '@acter/schema/prisma'
 
+import { CreateEmailReturn, Email } from '../email'
+import { createNotification } from './create-notification'
+
 export type FollowerType = Partial<Acter> &
   Required<
     Pick<Acter, 'acterNotifyEmailFrequency' | 'id' | 'name' | 'slug'> & {
@@ -30,6 +31,7 @@ interface NotificationEmailProps<T> {
   data: T
   following: Pick<Acter, 'id' | 'name' | 'slug'>
   notification: Notification
+  languageCode: string
 }
 
 interface CreateNotificationWorker<T> {
@@ -161,6 +163,7 @@ export const createNotificationWorker = <T>({
             following,
             data,
             notification,
+            languageCode: notification.ToActer.User.language,
           }
           const { html, text } = getNotificationEmail(emailProps)
           const email: Email = {

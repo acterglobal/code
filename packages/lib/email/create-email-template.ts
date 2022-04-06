@@ -12,7 +12,8 @@ type LayoutVars = {
 }
 
 export const createEmailTemplate = <TData>(
-  templatePath: string
+  templatePath: string,
+  _languageCode: string
 ): HandlebarsTemplateDelegate<TData> => {
   const layout = fs.readFileSync(
     path.join(__dirname, 'layout', 'template.hbs'),

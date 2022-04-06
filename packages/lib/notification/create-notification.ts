@@ -43,7 +43,11 @@ export const createNotification = async ({
       ...postConnect,
     },
     include: {
-      ToActer: true,
+      ToActer: {
+        include: {
+          User: true,
+        },
+      },
       OnActer: {
         include: {
           ActerType: true,

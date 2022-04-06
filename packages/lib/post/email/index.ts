@@ -44,7 +44,8 @@ export const createPostEmailNotification = ({
   const content = marked(post.content)
   const postType = post.parentId ? 'comment' : 'post'
   const html = createEmailTemplate<PostEmail>(
-    path.join(__dirname, 'template.hbs')
+    path.join(__dirname, 'template.hbs'),
+    notification.ToActer.User.language
   )({
     acterName: post.Acter.name,
     content,
