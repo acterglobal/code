@@ -48,7 +48,7 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
         className={classes.menuItem}
         onClick={() => handleClick(connection.role === ADMIN ? MEMBER : ADMIN)}
       >
-        {connection.role === ADMIN ? t('removeAsAdmin') : t('makeAsAdmin')}
+        {connection.role === ADMIN ? t('removeAsAdmin') : t('makeAdmin')}
       </MenuItem>
       <MenuItem
         className={classes.menuItem}
