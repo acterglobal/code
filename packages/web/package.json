@@ -12,21 +12,21 @@
     "analyze": "ANALYZE=true yarn env-cmd next build"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "11.0.1",
-    "@sentry/nextjs": "6.18.2",
-    "apollo-server-micro": "3.1.2",
-    "aws-sdk": "2.962.0",
+    "@next/bundle-analyzer": "12.1.4",
+    "@sentry/nextjs": "6.19.5",
+    "apollo-server-micro": "3.6.7",
+    "aws-sdk": "2.1109.0",
     "env-cmd": "10.1.0",
     "micro": "9.3.4",
-    "next": "12.1.0",
+    "next": "12.1.4",
     "next-compose-plugins": "2.2.1",
     "next-graphql-loader": "1.0.1",
-    "next-i18next": "10.4.0",
-    "next-transpile-modules": "8.0.0",
-    "react-use-intercom": "1.4.0"
+    "next-i18next": "11.0.0",
+    "next-transpile-modules": "9.0.0",
+    "react-use-intercom": "1.5.0"
   },
   "devDependencies": {
-    "eslint-config-next": "11.0.1"
+    "eslint-config-next": "12.1.4"
   },
   "peerDependencies": {
     "@auth0/nextjs-auth0": "*",
