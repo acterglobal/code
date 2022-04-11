@@ -21,7 +21,6 @@ export const getGroupsForUser = (acter: Acter, user: User): Acter[] => {
     return memo
   }, {})
 
-  //TODO: this *really* needs tests
   return (
     acter?.Children?.filter((group) => {
       const isGroup = group.ActerType.name === ActerTypes.GROUP
