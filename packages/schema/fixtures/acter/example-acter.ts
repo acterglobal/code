@@ -1,11 +1,10 @@
-import { ActerWhoCanJoinSettings } from '.prisma/client'
-
 import {
   Acter,
   ActerJoinSettings,
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
   ActerPrivacySettings,
+  ActerWhoCanJoinSettings,
 } from '@acter/schema'
 import {
   ExampleUser,
@@ -13,6 +12,7 @@ import {
   NetworkActerType,
   UserActerType,
   ActivityActerType,
+  GroupActerType,
 } from '@acter/schema/fixtures'
 
 export const ExampleActer: Acter = {
@@ -81,4 +81,14 @@ export const ExampleActivityActer: Acter = {
   name: 'Greenlight Aarhus',
   location: 'Aarhus Denmark',
   slug: 'greenlight-aarhus',
+}
+
+export const ExampleGroupActer: Acter = {
+  ...ExampleActer,
+  id: 'e4be26e9-6683-4b98-bdf7-d257690e8539',
+  acterTypeId: GroupActerType.id,
+  ActerType: GroupActerType,
+  name: 'Aarhus Green Group',
+  location: 'Aarhus Denmark',
+  slug: 'aarhus-green-group',
 }
