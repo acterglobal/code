@@ -1,21 +1,23 @@
 import React, { FC, useState, useEffect } from 'react'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-import dynamic from 'next/dynamic'
-
+import Editor from '@draft-js-plugins/editor'
+import createImagePlugin from '@draft-js-plugins/image'
+import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 
-import { Size } from '@acter/lib/constants'
+import {
+  Toolbar,
+  toolbarPlugin,
+} from '@acter/components/util/text-editor/toolbar'
 
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((reactDraft) => reactDraft.Editor),
-  { ssr: false }
-)
+const imagePlugin = createImagePlugin()
+const plugins = [toolbarPlugin, imagePlugin]
+
 interface widthHeightType {
-  width?: number
   height?: number
 }
 interface borderStylesType {
@@ -23,9 +25,8 @@ interface borderStylesType {
   color?: string
 }
 interface stylesProp {
-  size?: widthHeightType
   borderStyles?: borderStylesType
-  toolbarSize?: Size
+  size?: widthHeightType
 }
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
@@ -39,16 +40,14 @@ export interface TextEditorProps extends widthHeightType, stylesProp {
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
   initialValue,
-  height,
-  width,
-  borderStyles,
   editorRef,
   clearTextEditor,
   placeholder,
-  toolbarSize,
+  borderStyles,
+  height,
 }) => {
-  const size = { height, width }
-  const classes = useStyles({ size, borderStyles, toolbarSize })
+  const size = { height }
+  const classes = useStyles({ borderStyles, size })
 
   const rawData = markdownToDraft(initialValue)
   const contentState = convertFromRaw(rawData)
@@ -69,104 +68,44 @@ export const TextEditor: FC<TextEditorProps> = ({
     setEditorState(data)
   }
 
-  const customBlockStyleFn = (contentBlock) => {
-    const type = contentBlock.getType()
-    if (type === 'unordered-list-item' || type === 'ordered-list-item') {
-      return classes.listStyle
-    }
-  }
-
   return (
-    <Editor
-      // @ts-ignore
-      editorState={editorState}
-      onEditorStateChange={onEditorStateChange}
-      editorRef={editorRef}
-      placeholder={placeholder}
-      blockStyleFn={customBlockStyleFn}
-      wrapperClassName={classes.wrapper}
-      editorClassName={classes.editor}
-      toolbarClassName={classes.toolBar}
-      toolbar={{
-        options: ['inline', 'blockType', 'list'],
-        inline: {
-          options: ['bold', 'italic'],
-          bold: { className: classes.inlineTools },
-          italic: { className: classes.inlineTools },
-        },
-        blockType: {
-          className: classes.blockType,
-          dropdownClassName: undefined,
-        },
-        list: {
-          className: undefined,
-          unordered: { className: classes.list },
-          ordered: { className: classes.list },
-          indent: { className: classes.list },
-          outdent: { className: classes.list },
-        },
-      }}
-    />
+    <div>
+      <div className={classes.editor}>
+        <Toolbar />
+        <Editor
+          editorState={editorState}
+          onChange={onEditorStateChange}
+          plugins={plugins}
+          ref={editorRef}
+          placeholder={placeholder}
+        />
+      </div>
+    </div>
   )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    wrapper: {
+    editor: {
+      boxSizing: 'border-box',
       border: '1px solid',
       borderColor: ({ borderStyles }: stylesProp) =>
         borderStyles?.color || theme.colors.grey.main,
       borderRadius: ({ borderStyles }: stylesProp) => borderStyles?.radius || 4,
-      width: ({ size }: stylesProp) => size.width || '100%',
-      minHeight: ({ size }: stylesProp) => size.height,
-    },
-    toolBar: {
-      backgroundColor: theme.colors.grey.extraLight,
-      marginBottom: 0,
       borderTopLeftRadius: ({ borderStyles }: stylesProp) =>
         borderStyles?.radius || 4,
       borderTopRightRadius: ({ borderStyles }: stylesProp) =>
         borderStyles?.radius || 4,
-      paddingTop: ({ toolbarSize }: stylesProp) =>
-        toolbarSize === Size.SMALL && 3,
-      paddingLeft: ({ toolbarSize }: stylesProp) =>
-        toolbarSize === Size.SMALL && 8,
-      height: ({ toolbarSize }: stylesProp) => toolbarSize === Size.SMALL && 27,
-    },
-    toolbarHide: {
-      display: 'none',
-    },
-    editor: {
+      height: ({ size }: stylesProp) => size.height,
+      cursor: 'text',
       lineHeight: '1.2rem',
-      paddingTop: 10,
-      paddingLeft: 15,
-      paddingRight: 10,
-      marginTop: -10,
-    },
-    inlineTools: {
-      height: ({ toolbarSize }: stylesProp) => toolbarSize === Size.SMALL && 10,
-      minWidth: ({ toolbarSize }: stylesProp) =>
-        toolbarSize === Size.SMALL && 10,
-      '& img': {
-        height: ({ toolbarSize }: stylesProp) =>
-          toolbarSize === Size.SMALL && '0.6rem',
+      padding: 8,
+      marginBottom: '2em',
+      boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
+      background: '#fefefe',
+      '&:global(.public-DraftEditor-content)': {
+        minHeight: '140px,',
       },
-    },
-    blockType: {
-      height: ({ toolbarSize }: stylesProp) => toolbarSize === Size.SMALL && 20,
-      width: ({ toolbarSize }: stylesProp) => toolbarSize === Size.SMALL && 80,
-      fontSize: ({ toolbarSize }: stylesProp) =>
-        toolbarSize === Size.SMALL && '0.7rem',
-    },
-    list: {
-      padding: ({ toolbarSize }: stylesProp) => toolbarSize === Size.SMALL && 0,
-      '& img': {
-        height: ({ toolbarSize }: stylesProp) =>
-          toolbarSize === Size.SMALL && '0.6rem',
-      },
-    },
-    listStyle: {
-      lineHeight: '0.2rem',
     },
   })
 )

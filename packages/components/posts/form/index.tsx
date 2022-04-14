@@ -12,7 +12,6 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Size } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post as PostType, User } from '@acter/schema'
@@ -95,17 +94,15 @@ export const PostForm: FC<PostFormProps> = ({
             />
           ) : (
             <TextEditor
-              height={theme.spacing(1)}
+              initialValue={initialValues.content}
+              handleInputChange={(value) => setFieldValue('content', value)}
+              placeholder={t('form.writePost')}
+              editorRef={handleEditorRef}
+              clearTextEditor={clearText}
               borderStyles={{
                 radius: theme.spacing(1),
                 color: theme.colors.grey.main,
               }}
-              toolbarSize={Size.SMALL}
-              initialValue={initialValues.content}
-              handleInputChange={(value) => setFieldValue('content', value)}
-              clearTextEditor={clearText}
-              placeholder={t('form.writePost')}
-              editorRef={handleEditorRef}
             />
           )}
 

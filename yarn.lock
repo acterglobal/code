@@ -2259,6 +2259,119 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@draft-js-plugins/alignment@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@draft-js-plugins/alignment@npm:5.0.2"
+  dependencies:
+    "@draft-js-plugins/buttons": ^4.0.0
+    "@draft-js-plugins/utils": ^4.0.0
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: b8eec68a5772cf7b4a532f22b737cbd3428e3f5d0d8b1e0a1642e0505ee6c83892d5807bcbc2f8b3eb1400fb31542f757bc817178c2073bbf6b34d61034bec2a
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/buttons@npm:^4.0.0":
+  version: 4.3.0
+  resolution: "@draft-js-plugins/buttons@npm:4.3.0"
+  dependencies:
+    clsx: ^1.0.4
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: 940b57981ae1fd4bce42fc1f2786f66a5a3b0a97104f5c4f1057254955f0aa433e9605ef9ccfac6fd00f0ba489022d91b0ab8d5c99f90a2670ee134f00b14b02
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/drag-n-drop-upload@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@draft-js-plugins/drag-n-drop-upload@npm:4.2.1"
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: 96fb7646f48b6b831908f73513eeb00cab43768064460ecfe8a8063392febd7aab788ac7c154688456d3299e139e0bf4be02faa5be1f3ce0c39ea68bae4f1351
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/editor@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@draft-js-plugins/editor@npm:4.1.2"
+  dependencies:
+    immutable: ~3.7.4
+    prop-types: ^15.8.1
+  peerDependencies:
+    draft-js: ^0.11.0
+    react: ^16.3.0 || ^17.0.0
+  checksum: c3be1259cf3189d82ea244b8185a7315df4866c449319b234dacbe7f6c767f5009f17ffb8c692667f32781c6af1c3cc93df0962b4b51187fa738944a6ae054e4
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/focus@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@draft-js-plugins/focus@npm:4.1.2"
+  dependencies:
+    clsx: ^1.0.4
+    immutable: ~3.7.4
+  peerDependencies:
+    draft-js: ^0.11.0
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: ac59f7b80b355b4a9bca847ee02a689f2eadc869ace4bf3703bf19d962924bafd87b59e59cdba1cf0eeca7f8f81e6879e235511813b8ed2c8e8cad953aa9398d
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/image@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@draft-js-plugins/image@npm:4.1.2"
+  dependencies:
+    clsx: ^1.0.4
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: 84771ec4b3c5036c1f5842fc8ce147b6841eac7dd9ee70afd1aafebfc6f6146e3ca293aa5449e84d11c2caedc3c30c7a363c9e8b89c4e19032ecd8cc7232e53b
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/resizeable@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@draft-js-plugins/resizeable@npm:5.0.2"
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: fa0e8d8764fbadc18dc55ff2bb54ba238129cf6ebf96fd2e55e4754f196a3005d60b3f8316941cbd43706badb421dbe2a4437a894675afb6e27ad3ae3b717056
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/static-toolbar@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@draft-js-plugins/static-toolbar@npm:4.1.2"
+  dependencies:
+    "@draft-js-plugins/buttons": ^4.0.0
+    "@draft-js-plugins/utils": ^4.0.0
+    prop-types: ^15.5.8
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: 919ccc509def8dd67af70ce53d74a18db8a25e991d2353aea207a3e9052b3af5da29b7d27830081c2714a5737ad19bee2f5a25f2354d9fb8d4825a7b96934eb1
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/utils@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "@draft-js-plugins/utils@npm:4.2.0"
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+  checksum: 0c5579f4e5cc715931604be0637163428ea7fc555ca9055aace90b1756cb61716243f49695eb5cfc48b01d7a13ade524da69add6e55fd098b2b2feb5688de096
+  languageName: node
+  linkType: hard
+
 "@emotion/cache@npm:^10.0.27":
   version: 10.0.29
   resolution: "@emotion/cache@npm:10.0.29"
@@ -8820,6 +8933,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "acter@workspace:."
   dependencies:
+    "@draft-js-plugins/alignment": ^5.0.2
+    "@draft-js-plugins/drag-n-drop-upload": ^4.2.1
+    "@draft-js-plugins/editor": ^4.1.2
+    "@draft-js-plugins/focus": ^4.1.2
+    "@draft-js-plugins/image": ^4.1.2
+    "@draft-js-plugins/resizeable": ^5.0.2
+    "@draft-js-plugins/static-toolbar": ^4.1.2
     "@material-ui/core": 4.12.3
     "@mdx-js/react": 1.6.22
     "@testing-library/dom": 7.31.2
@@ -23830,7 +23950,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.0, prop-types@npm:^15.8.0":
+"prop-types@npm:^15.6.0, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
