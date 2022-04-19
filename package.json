@@ -33,13 +33,6 @@
     "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
-    "@draft-js-plugins/alignment": "^5.0.2",
-    "@draft-js-plugins/drag-n-drop-upload": "^4.2.1",
-    "@draft-js-plugins/editor": "^4.1.2",
-    "@draft-js-plugins/focus": "^4.1.2",
-    "@draft-js-plugins/image": "^4.1.2",
-    "@draft-js-plugins/resizeable": "^5.0.2",
-    "@draft-js-plugins/static-toolbar": "^4.1.2",
     "@material-ui/core": "4.12.3",
     "axios": "0.26.0",
     "bullmq": "1.40.1",

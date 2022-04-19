@@ -2,7 +2,6 @@ import React, { FC, useState, useEffect } from 'react'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import Editor from '@draft-js-plugins/editor'
-import createImagePlugin from '@draft-js-plugins/image'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -14,8 +13,7 @@ import {
   toolbarPlugin,
 } from '@acter/components/util/text-editor/toolbar'
 
-const imagePlugin = createImagePlugin()
-const plugins = [toolbarPlugin, imagePlugin]
+const plugins = [toolbarPlugin]
 
 interface widthHeightType {
   height?: number
@@ -96,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
         borderStyles?.radius || 4,
       borderTopRightRadius: ({ borderStyles }: stylesProp) =>
         borderStyles?.radius || 4,
-      height: ({ size }: stylesProp) => size.height,
+      minHeight: ({ size }: stylesProp) => size.height,
       cursor: 'text',
       lineHeight: '1.2rem',
       padding: 8,
