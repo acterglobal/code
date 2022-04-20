@@ -69,7 +69,7 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   return (
     <Box className={classes.editor}>
-      <Toolbar onEditorStateChange={onEditorStateChange} />
+      <Toolbar />
       <Box className={classes.editorContainer}>
         <Editor
           editorState={editorState}
@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '2em',
       boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
       background: '#fefefe',
+      [theme.breakpoints.down('md')]: {
+        minHeight: ({ size }: stylesProp) => size.height + theme.spacing(5),
+      },
     },
     editorContainer: {
       paddingTop: 10,

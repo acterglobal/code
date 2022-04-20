@@ -101,6 +101,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(0.5),
       marginLeft: theme.spacing(1.2),
       width: '100%',
+      overflowX: 'auto',
+      [theme.breakpoints.down('xs')]: {
+        width: 300,
+      },
     },
     commentForm: {
       marginTop: 0,

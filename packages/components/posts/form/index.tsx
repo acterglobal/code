@@ -128,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: 2,
       display: 'flex',
       flexDirection: 'column',
-      width: '100%',
       overflow: 'hidden',
       fontSize: 11,
     },

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, SyntheticEvent, useEffect } from 'react'
 
 import {
   ItalicButton,
@@ -16,17 +16,11 @@ import {
 import createToolbarPlugin, {
   Separator,
 } from '@draft-js-plugins/static-toolbar'
-import { Box, createStyles, Grid, makeStyles } from '@material-ui/core'
+import { Box, createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
 export const toolbarPlugin = createToolbarPlugin()
 
-export interface ToolbarProps {
-  onEditorStateChange: (data) => Promise<void>
-}
-
-export const Toolbar: FC<ToolbarProps> = ({
-  onEditorStateChange,
-}): JSX.Element => {
+export const Toolbar: FC = () => {
   const classes = useStyles()
   const { Toolbar } = toolbarPlugin
 
@@ -36,7 +30,6 @@ export const Toolbar: FC<ToolbarProps> = ({
 
     useEffect(() => {
       const onWindowClick = () => {
-        onEditorStateChange(getEditorState())
         onOverrideContent(undefined)
 
         return window.removeEventListener('click', onWindowClick)
@@ -60,14 +53,16 @@ export const Toolbar: FC<ToolbarProps> = ({
 
   const HeadlinesButton = ({ ...props }) => {
     const { onOverrideContent } = props
+    const onMouseDown = (event: SyntheticEvent) => event.preventDefault()
+
     const onClick = () => onOverrideContent(HeadlinesPicker)
 
     return (
-      <Box className={classes.headlineButtonWrapper}>
+      <div onMouseDown={onMouseDown}>
         <button onClick={onClick} className={classes.headlineButton}>
           H
         </button>
-      </Box>
+      </div>
     )
   }
 
@@ -95,10 +90,12 @@ export const Toolbar: FC<ToolbarProps> = ({
   )
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolbar: {
       display: 'flex',
+      flex: 1,
+      flexWrap: 'wrap',
     },
     headlineButtonWrapper: {
       display: 'inline-block',
@@ -108,14 +105,25 @@ const useStyles = makeStyles(() =>
       color: '#888',
       fontSize: 18,
       border: 0,
-      paddingTop: 5,
-      verticalAlign: 'bottom',
+      paddingTop: 2,
       height: 34,
       width: 36,
+      '&:hover, &:focus': {
+        backgroundColor: '#f3f3f3',
+      },
     },
     separator: {
       display: 'flex',
       alignItems: 'center',
+    },
+    menuItem: {
+      fontSize: '0.8rem',
+      display: 'flex',
+      justifyContent: 'center',
+      color: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.contrastText,
+      },
     },
   })
 )
