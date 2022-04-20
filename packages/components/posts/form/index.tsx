@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { Component, FC, useEffect, useRef, useState } from 'react'
 
 import {
   makeStyles,
@@ -70,7 +70,7 @@ export const PostForm: FC<PostFormProps> = ({
     setClearText(true)
   }
 
-  const handleEditorRef = (editorRef) => {
+  const handleEditorRef = (editorRef: Component) => {
     setEditor(editorRef)
     setClearText(false)
   }
@@ -99,6 +99,7 @@ export const PostForm: FC<PostFormProps> = ({
               placeholder={t('form.writePost')}
               editorRef={handleEditorRef}
               clearTextEditor={clearText}
+              height={theme.spacing(12)}
               borderStyles={{
                 radius: theme.spacing(1),
                 color: theme.colors.grey.main,

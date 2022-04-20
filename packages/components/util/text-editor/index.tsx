@@ -1,11 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import Editor from '@draft-js-plugins/editor'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
+import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
+import 'draft-js/dist/Draft.css'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 
 import {
@@ -67,9 +68,9 @@ export const TextEditor: FC<TextEditorProps> = ({
   }
 
   return (
-    <div>
-      <div className={classes.editor}>
-        <Toolbar />
+    <Box className={classes.editor}>
+      <Toolbar onEditorStateChange={onEditorStateChange} />
+      <Box className={classes.editorContainer}>
         <Editor
           editorState={editorState}
           onChange={onEditorStateChange}
@@ -77,8 +78,8 @@ export const TextEditor: FC<TextEditorProps> = ({
           ref={editorRef}
           placeholder={placeholder}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
@@ -101,9 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '2em',
       boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
       background: '#fefefe',
-      '&:global(.public-DraftEditor-content)': {
-        minHeight: '140px,',
-      },
+    },
+    editorContainer: {
+      paddingTop: 10,
     },
   })
 )
