@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(0.6),
       borderRadius: theme.spacing(1),
       width: '100%',
+      overflowX: 'auto',
     },
     description: {
       color: theme.palette.secondary.dark,
