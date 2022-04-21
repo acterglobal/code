@@ -12,7 +12,7 @@ import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import {
   Toolbar,
   toolbarPlugin,
-} from '@acter/components/util/text-editor/toolbar'
+} from '@acter/components/util/text-editor-toolbar'
 
 const plugins = [toolbarPlugin]
 
