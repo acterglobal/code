@@ -6,7 +6,6 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
-import 'draft-js/dist/Draft.css'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 
 import {

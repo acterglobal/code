@@ -21,6 +21,10 @@ export const HeadlinesPicker = ({
       return window.removeEventListener('click', onWindowClick)
     }
     window.addEventListener('click', onWindowClick)
+
+    return () => {
+      window.removeEventListener('click', onWindowClick)
+    }
   }, [])
 
   return (
