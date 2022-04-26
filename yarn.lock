@@ -174,9 +174,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@acter/web@workspace:packages/web":
+"@acter/web@workspace:apps/web":
   version: 0.0.0-use.local
-  resolution: "@acter/web@workspace:packages/web"
+  resolution: "@acter/web@workspace:apps/web"
   dependencies:
     "@acter/components": "workspace:packages/components"
     "@acter/lib": "workspace:packages/lib"
