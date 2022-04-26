@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "apps/*",
     "packages/schema",
     "packages/*"
   ],
@@ -23,7 +24,7 @@
     "cover": "env-cmd --silent jest --coverage",
     "husky-install": "husky install",
     "clean:modules": "cli-confirm \"Are you you wan to clear all node_modules?\" && find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn && yarn generate",
-    "clean:next": "rm -rf packages/web/.next",
+    "clean:next": "rm -rf apps/web/.next",
     "clean:all": "yarn clean:next && yarn clean:all",
     "generate": "yarn workspace @acter/schema build",
     "db:migrate": "yarn workspace @acter/schema db:migrate",
@@ -96,14 +97,5 @@
   "engines": {
     "node": "16.x",
     "yarn": "3.x"
-  },
-  "cacheDirectories": [
-    ".yarn/cache",
-    "node_modules",
-    "packages/components/node_modules",
-    "packages/lib/node_modules",
-    "packages/schema/node_modules",
-    "packages/web/node_modules",
-    "packages/web/.next/cache"
-  ]
+  }
 }
