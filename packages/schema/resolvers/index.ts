@@ -38,8 +38,8 @@ import {
 } from '@acter/schema/generated'
 import { CheckActerExists } from '@acter/schema/middlewares/check-acter-exists'
 import { CheckUserAccess } from '@acter/schema/middlewares/check-user-access'
-import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
-import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
+// import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
+// import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
 import { ActerResolver } from '@acter/schema/resolvers/acter'
 import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
 import { SearchResolver } from '@acter/schema/resolvers/search'
@@ -51,12 +51,12 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
     findFirstActer: [UseMiddleware(CheckActerExists, CheckUserAccess)],
   },
   Invite: {
-    createManyInvite: [UseMiddleware(QueueInviteEmail)],
-    updateInvite: [UseMiddleware(QueueInviteEmail)],
+    // createManyInvite: [UseMiddleware(QueueInviteEmail)],
+    // updateInvite: [UseMiddleware(QueueInviteEmail)],
   },
   Post: {
     createPost: [
-      UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),
+      // UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),
     ],
   },
 }
