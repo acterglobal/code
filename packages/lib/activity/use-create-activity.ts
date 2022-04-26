@@ -83,11 +83,14 @@ export const useCreateActivity = (
   )
 
   useEffect(() => {
-    setFetching(createFetching || updateFetching)
+    if (createFetching || updateFetching) setFetching(true)
   }, [createFetching, updateFetching])
 
   useEffect(() => {
-    setError(createError || updateError)
+    if (createError || updateError) {
+      setError(createError || updateError)
+      setFetching(false)
+    }
   }, [createError, updateError])
 
   useEffect(() => {
@@ -111,7 +114,8 @@ export const useCreateActivity = (
       ...data?.createActivityCustom,
     })
 
-    setResultData(updateResult.data)
+    setFetching(false)
+    setResultData(updateResult?.data)
 
     return updateResult
   }

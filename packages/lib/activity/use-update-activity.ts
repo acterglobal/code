@@ -39,6 +39,7 @@ export const useUpdateActivity = (
   HandleMethod<CreateActivityData, ActivityVariables>
 ] => {
   const { t } = useTranslation('success-messages')
+
   const messageOptions = isNewActivity
     ? {}
     : { getSuccessMessage: () => t('activityUpdated') }
@@ -46,15 +47,17 @@ export const useUpdateActivity = (
   const [mutationResult, updateActivity] = useNotificationMutation<
     UpdateActivityData,
     ActivityVariables
-  >(UPDATE_ACTIVITY, { ...messageOptions, ...options })
+  >(UPDATE_ACTIVITY, { ...options, ...messageOptions })
 
   const handleUpdateActivity = async (
     updatedActivity: ActivityVariables
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> => {
-    const acterId = updatedActivity?.Acter?.id
-      ? updatedActivity?.Acter.id
-      : updatedActivity?.acterId
+    const acterId = activity?.Acter?.id
+      ? activity?.Acter?.id
+      : updatedActivity?.Acter?.id
+
+    if (!acterId) return
 
     const variables = {
       ...activity,
