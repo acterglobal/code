@@ -198,7 +198,12 @@ export const ActivityForm: FC<ActivityFormProps> = ({
         },
       } as Acter)
   const acterFollowers = getFollowers(user, checkActer)
-  const acters = [parentActer && parentActer, ...acterFollowers]
+
+  const filteredActerFollowers = acterFollowers?.filter(
+    (follower) => follower?.id !== parentActer?.id
+  )
+
+  const acters = [parentActer && parentActer, ...filteredActerFollowers]
 
   return (
     <>

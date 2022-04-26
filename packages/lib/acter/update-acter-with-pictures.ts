@@ -80,8 +80,8 @@ const _updateActer =
 export const _updatePictures = async (
   data: ActerPictureData
 ): Promise<ActerPictureData> => {
-  if (!data) return null
   const folder = `acter/${md5(data.id)}`
+
   const dataWithPics = await ['avatar', 'banner'].reduce<
     Promise<ActerPictureData>
   >(_updatePicture(folder), Promise.resolve(data))
