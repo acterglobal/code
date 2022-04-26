@@ -12,6 +12,9 @@
     "analyze": "ANALYZE=true yarn env-cmd next build"
   },
   "dependencies": {
+    "@acter/components": "workspace:packages/components",
+    "@acter/lib": "workspace:packages/lib",
+    "@acter/schema": "workspace:packages/schema",
     "@next/bundle-analyzer": "11.0.1",
     "@sentry/nextjs": "6.18.2",
     "apollo-server-micro": "3.1.2",
