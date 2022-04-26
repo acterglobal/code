@@ -31,7 +31,8 @@ const afterCallback: AfterCallback = async (_req, res, session, _state) => {
       user: userWithActer,
     }
   } catch (err) {
-    res.status(err.status || 500).end(err.message)
+    res.status(err.status || 500)
+    res.send(err.message)
   }
 }
 
@@ -40,7 +41,8 @@ export default handleAuth({
     try {
       await handleCallback(req, res, { afterCallback })
     } catch (error) {
-      res.status(error.status || 500).end(error.message)
+      res.status(error.status || 500)
+      res.send(error.message)
     }
   },
 })
