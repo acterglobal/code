@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { Component, FC, useEffect, useRef, useState } from 'react'
 
 import {
   makeStyles,
@@ -12,7 +12,6 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Size } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post as PostType, User } from '@acter/schema'
@@ -71,7 +70,7 @@ export const PostForm: FC<PostFormProps> = ({
     setClearText(true)
   }
 
-  const handleEditorRef = (editorRef) => {
+  const handleEditorRef = (editorRef: Component) => {
     setEditor(editorRef)
     setClearText(false)
   }
@@ -95,17 +94,16 @@ export const PostForm: FC<PostFormProps> = ({
             />
           ) : (
             <TextEditor
-              height={theme.spacing(1)}
+              initialValue={initialValues.content}
+              handleInputChange={(value) => setFieldValue('content', value)}
+              placeholder={clearText && t('form.writePost')}
+              editorRef={handleEditorRef}
+              clearTextEditor={clearText}
+              height={theme.spacing(12)}
               borderStyles={{
                 radius: theme.spacing(1),
                 color: theme.colors.grey.main,
               }}
-              toolbarSize={Size.SMALL}
-              initialValue={initialValues.content}
-              handleInputChange={(value) => setFieldValue('content', value)}
-              clearTextEditor={clearText}
-              placeholder={t('form.writePost')}
-              editorRef={handleEditorRef}
             />
           )}
 
@@ -130,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: 2,
       display: 'flex',
       flexDirection: 'column',
-      width: '100%',
       overflow: 'hidden',
       fontSize: 11,
     },
