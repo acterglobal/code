@@ -1,6 +1,6 @@
 import { handleAuth, handleCallback, AfterCallback } from '@auth0/nextjs-auth0'
 
-import { syncAuth0IntercomQueue } from '@acter/jobs/src/sync-auth0-intercom-data'
+import { syncAuth0IntercomQueue } from '@acter/jobs-old/src/sync-auth0-intercom-data'
 import { getOrCreateActerFromDB } from '@acter/lib/acter/get-or-create-acter-from-db'
 import { getOrCreateUserByEmailFromDB } from '@acter/lib/user/get-or-create-user-by-email-from-db'
 

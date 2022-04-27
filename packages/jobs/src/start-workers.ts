@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import 'reflect-metadata'
 
+import { createPostNotifications } from '../../../services/jobs/post-notifications'
 import { activityNotificationsCreateWorker } from './activity-notifications-create/worker'
 import { activityNotificationsOnActerCreate } from './activity-notifications-on-acter-create/worker'
 import { dailyDigestCronQueue } from './daily-digest-cron/queue'
@@ -11,7 +12,6 @@ import { emailSendWorker } from './email-send/worker'
 import { inviteEmailCreateWorker } from './invite-email-create/worker'
 import { inviteEmailSendWorker } from './invite-email-send/worker'
 import { newMemberJoinNotificationWorker } from './new-member-join-notification/worker'
-import { postNotificationsCreateWorker } from './post-notification-create/worker'
 import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
 
 ;(async () => {
@@ -25,7 +25,7 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
     inviteEmailCreateWorker,
     inviteEmailSendWorker,
     newMemberJoinNotificationWorker,
-    postNotificationsCreateWorker,
+    createPostNotifications,
     syncAuth0IntercomDataWorker,
   ].forEach((worker) => {
     worker.on('drained', () =>

@@ -1,8 +1,5 @@
-import { Job, Worker } from 'bullmq'
-
-import { emailSendQueue, NotificationEmail } from '@acter/jobs'
+import { emailSendWorker, NotificationEmail } from '@acter/jobs-old'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
 import {
@@ -34,7 +31,7 @@ interface NotificationEmailProps<T> {
   notification: Notification
 }
 
-interface CreateNotificationWorker<T> {
+interface CreateNotificationWorker<TVariables, TData> {
   /**
    * The name of the job queue
    */
@@ -42,31 +39,33 @@ interface CreateNotificationWorker<T> {
   /**
    * Hook to enhance Job data, perhaps querying DB for more data
    */
-  getJobData?: (job: Job<T>) => Promise<T>
+  getJobData?: (job: TVariables) => Promise<TData>
   /**
    * Get the the Acter we are following
    */
-  getFollowing: (data: T) => Promise<Acter>
+  getFollowing: (data: TData) => Promise<Acter>
   /**
    * Get the followers we will notify
    */
-  getFollowersWhere?: (data: T) => Prisma.ActerConnectionWhereInput
+  getFollowersWhere?: (data: TData) => Prisma.ActerConnectionWhereInput
   /**
    * Get the html & text email text
    */
-  getNotificationEmail: (props: NotificationEmailProps<T>) => CreateEmailReturn
+  getNotificationEmail: (
+    props: NotificationEmailProps<TData>
+  ) => CreateEmailReturn
   /**
    * Get the subject for this email
    */
-  getNotificationEmailSubject: (props: NotificationEmailProps<T>) => string
+  getNotificationEmailSubject: (props: NotificationEmailProps<TData>) => string
   /**
    * Optionally get Activity
    */
-  getActivity?: (data: T) => Activity
+  getActivity?: (data: TData) => Activity
   /**
    * Optionally get Post
    */
-  getPost?: (data: T) => Post
+  getPost?: (data: TData) => Post
   /**
    * The type of the notification
    */
@@ -78,125 +77,109 @@ interface CreateNotificationWorker<T> {
 }
 
 const l = getLogger('createNotificationWorker')
-
-export const createNotificationWorker = <T>({
-  queue,
-  getJobData = async (job) => job.data,
-  getFollowing,
-  getFollowersWhere = () => ({}),
-  getNotificationEmail,
-  getNotificationEmailSubject,
-  getActivity,
-  getPost,
-  type,
-  getNotificationUrlPath,
-}: CreateNotificationWorker<T>): Worker => {
-  return createWorker(queue, async (job: Job<T>) => {
-    try {
-      l.debug('Starting notification worker', { job })
-      const data = await getJobData(job)
-      l.debug('Got notification data', { data })
-      const following = await getFollowing(data)
-      l.debug('Got following', { following })
-      const followersWhere = getFollowersWhere(data)
-      l.debug('Got followersWhere', { followersWhere })
-      const followers = await prisma.acterConnection.findMany({
-        include: {
-          Follower: {
-            include: {
-              ActerType: true,
-              User: true,
-            },
+export const createNotificationWorker =
+  <TVariables, TData>({
+    getJobData = async (job) => job as unknown as TData,
+    getFollowing,
+    getFollowersWhere = () => ({}),
+    getNotificationEmail,
+    getNotificationEmailSubject,
+    getActivity,
+    getPost,
+    type,
+    getNotificationUrlPath,
+  }: CreateNotificationWorker<TVariables, TData>) =>
+  async (job: TVariables): Promise<void> => {
+    const data = await getJobData(job)
+    const following = await getFollowing(data)
+    const followersWhere = getFollowersWhere(data)
+    const followers = await prisma.acterConnection.findMany({
+      include: {
+        Follower: {
+          include: {
+            ActerType: true,
+            User: true,
           },
         },
-        where: {
-          followingActerId: following.id,
-          ...followersWhere,
-          Follower: {
-            ActerType: {
-              ...(followersWhere?.Follower
-                ?.ActerType as Prisma.ActerTypeWhereInput),
-              name: ActerTypes.USER,
-            },
-            ...(followersWhere?.Follower as Prisma.ActerWhereInput),
-            acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
-            acterNotifyEmailFrequency: {
-              not: ActerNotificationEmailFrequency.NEVER,
-            },
+      },
+      where: {
+        followingActerId: following.id,
+        ...followersWhere,
+        Follower: {
+          ActerType: {
+            ...(followersWhere?.Follower
+              ?.ActerType as Prisma.ActerTypeWhereInput),
+            name: ActerTypes.USER,
+          },
+          ...(followersWhere?.Follower as Prisma.ActerWhereInput),
+          acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
+          acterNotifyEmailFrequency: {
+            not: ActerNotificationEmailFrequency.NEVER,
           },
         },
-      })
-      l.debug(
-        'Sending to followers',
-        followers.map(
-          ({
-            Follower: {
-              name,
-              ActerType: { name: acterTypeName },
-            },
-          }) => ({ name, acterTypeName })
-        )
+      },
+    })
+    l.debug(
+      'Sending to followers',
+      followers.map(
+        ({
+          Follower: {
+            name,
+            ActerType: { name: acterTypeName },
+          },
+        }) => ({ name, acterTypeName })
       )
-      const activity = getActivity?.(data)
-      const post = getPost?.(data)
+    )
+    const activity = getActivity?.(data)
+    const post = getPost?.(data)
 
-      const extraPath = getNotificationUrlPath(
-        activity?.Acter.name || post?.parentId || post?.id,
-        following
-      )
+    const extraPath = getNotificationUrlPath(
+      activity?.Acter.name || post?.parentId || post?.id,
+      following
+    )
 
-      const url = acterAsUrl({
-        acter:
-          following.ActerType.name === ActerTypes.ACTIVITY
-            ? following.Parent
-            : following,
-        includeBaseUrl: true,
-        extraPath,
-      })
+    const url = acterAsUrl({
+      acter:
+        following.ActerType.name === ActerTypes.ACTIVITY
+          ? following.Parent
+          : following,
+      includeBaseUrl: true,
+      extraPath,
+    })
 
-      await Promise.all(
-        followers.map(async ({ Follower }) => {
-          const notification = await createNotification({
-            ToActer: Follower,
-            OnActer: following,
-            url,
-            type,
-            Activity: activity,
-            Post: post,
-          })
-
-          if (notification.sendTo) {
-            const emailProps: NotificationEmailProps<T> = {
-              following,
-              data,
-              notification,
-            }
-            const { html, text } = getNotificationEmail(emailProps)
-            const email: Email = {
-              to: notification.sendTo,
-              subject: getNotificationEmailSubject(emailProps),
-              html,
-              text,
-            }
-            const emailData: NotificationEmail = {
-              ...email,
-              notifications: notification,
-            }
-            emailSendQueue.add(
-              `email-${queue}-notification-${notification.id}`,
-              emailData,
-              {
-                removeOnComplete: true,
-              }
-            )
-          }
+    await Promise.all(
+      followers.map(async ({ Follower }) => {
+        const notification = await createNotification({
+          ToActer: Follower,
+          OnActer: following,
+          url,
+          type,
+          Activity: activity,
+          Post: post,
         })
-      )
-    } catch (e) {
-      l.error('Error processing job', {
-        error: e,
+
+        if (notification.sendTo) {
+          const emailProps: NotificationEmailProps<TData> = {
+            following,
+            data,
+            notification,
+          }
+          const { html, text } = getNotificationEmail(emailProps)
+          const email: Email = {
+            to: notification.sendTo,
+            subject: getNotificationEmailSubject(emailProps),
+            html,
+            text,
+          }
+          const emailData: NotificationEmail = {
+            ...email,
+            notifications: notification,
+          }
+
+          emailSendWorker({
+            ...emailData,
+          })
+        }
       })
-      throw e
-    }
-  })
-}
+    )
+  }
