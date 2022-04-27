@@ -1,4 +1,4 @@
-import { generateSchema } from './generate-schema'
+import { generateSchema } from '@acter/api/generate-schema'
 
 generateSchema(true)
   .catch((e) => {

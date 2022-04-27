@@ -1,13 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["**/*.ts"],
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2018",
-    "lib": ["es2018", "ESNext.AsyncIterable", "DOM.Iterable"]
-  },
   "ts-node": {
     "transpileOnly": true,
-    "transpiler": "ts-node/transpilers/swc-experimental"
+    "transpiler": "ts-node/transpilers/swc-experimental",
+    "compilerOptions": {
+      "esModuleInterop": true
+    }
   }
 }
