@@ -13,7 +13,7 @@ import {
 import createToolbarPlugin, {
   Separator,
 } from '@draft-js-plugins/static-toolbar'
-import { Box, createStyles, Grid, makeStyles } from '@material-ui/core'
+import { Box, createStyles, makeStyles } from '@material-ui/core'
 
 import { HeadlinesButton } from '@acter/components/util/text-editor-toolbar/headlines-button'
 
@@ -26,8 +26,9 @@ export const Toolbar: FC = () => {
   return (
     <Toolbar>
       {(externalProps) => (
-        <Grid className={classes.toolbar}>
+        <Box className={classes.toolbar}>
           <BoldButton {...externalProps} />
+
           <ItalicButton {...externalProps} />
           <UnderlineButton {...externalProps} />
           <CodeButton {...externalProps} />
@@ -41,7 +42,7 @@ export const Toolbar: FC = () => {
           <OrderedListButton {...externalProps} />
           <BlockquoteButton {...externalProps} />
           <CodeBlockButton {...externalProps} />
-        </Grid>
+        </Box>
       )}
     </Toolbar>
   )

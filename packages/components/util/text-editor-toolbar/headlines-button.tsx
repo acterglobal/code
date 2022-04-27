@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react'
 
 import { ToolbarChildrenProps } from '@draft-js-plugins/static-toolbar/lib/components/Toolbar'
-import { createStyles, makeStyles } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { HeadlinesPicker } from '@acter/components/util/text-editor-toolbar/headlines-picker'
 
@@ -24,10 +24,10 @@ export const HeadlinesButton = ({
   )
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     headlineButton: {
-      backgroundColor: '#fbfbfb',
+      backgroundColor: theme.colors.toolbar.main,
       color: '#888',
       fontSize: 18,
       border: 0,
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() =>
       height: 34,
       width: 36,
       '&:hover, &:focus': {
-        backgroundColor: '#f3f3f3',
+        backgroundColor: theme.colors.toolbar.hover,
       },
     },
   })

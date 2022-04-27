@@ -96,7 +96,7 @@ export const PostForm: FC<PostFormProps> = ({
             <TextEditor
               initialValue={initialValues.content}
               handleInputChange={(value) => setFieldValue('content', value)}
-              placeholder={t('form.writePost')}
+              placeholder={clearText && t('form.writePost')}
               editorRef={handleEditorRef}
               clearTextEditor={clearText}
               height={theme.spacing(12)}

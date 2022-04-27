@@ -67,9 +67,12 @@ export const TextEditor: FC<TextEditorProps> = ({
   }
 
   return (
-    <Box className={classes.editor}>
-      <Toolbar />
-      <Box className={classes.editorContainer}>
+    <Box className={classes.editorContainer}>
+      <Box className={classes.toolbarContainer}>
+        <Toolbar />
+      </Box>
+
+      <Box className={classes.editor}>
         <Editor
           editorState={editorState}
           onChange={onEditorStateChange}
@@ -84,29 +87,27 @@ export const TextEditor: FC<TextEditorProps> = ({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    editor: {
-      boxSizing: 'border-box',
+    editorContainer: {
       border: '1px solid',
-      borderColor: ({ borderStyles }: stylesProp) =>
-        borderStyles?.color || theme.colors.grey.main,
-      borderRadius: ({ borderStyles }: stylesProp) => borderStyles?.radius || 4,
-      borderTopLeftRadius: ({ borderStyles }: stylesProp) =>
-        borderStyles?.radius || 4,
-      borderTopRightRadius: ({ borderStyles }: stylesProp) =>
-        borderStyles?.radius || 4,
+      borderColor: theme.colors.blue.lightGrey,
+      borderRadius: 8,
       minHeight: ({ size }: stylesProp) => size.height,
       cursor: 'text',
-      lineHeight: '1.2rem',
-      padding: 8,
-      marginBottom: '2em',
+      minInlineSize: '1.2rem',
+      marginBottom: '1em',
       boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
-      background: '#fefefe',
       [theme.breakpoints.down('md')]: {
         minHeight: ({ size }: stylesProp) => size.height + theme.spacing(5),
       },
     },
-    editorContainer: {
-      paddingTop: 10,
+    toolbarContainer: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
+    },
+    editor: {
+      padding: 10,
+      fontSize: '0.813rem',
     },
   })
 )

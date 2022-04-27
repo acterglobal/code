@@ -14,6 +14,7 @@ type Grey = {
 type Blue = {
   dark: Color
   light: Color
+  lightGrey: Color
 }
 
 type ActivityTypeColor = {
@@ -28,6 +29,11 @@ type ActivityTypeColors = ActivityTypeColor & ActivityTypeDarkColor
 
 type InterestTypeColors = {
   [key in InterestTypes]: Color
+}
+
+type ToolbarColors = {
+  main: Color
+  hover: Color
 }
 
 type OtherColors = {
@@ -49,6 +55,7 @@ export type Colors = {
   error: Color
   activityTypes: ActivityTypeColors
   interestTypes: InterestTypeColors
+  toolbar: ToolbarColors
   others: OtherColors
   content: ContentColours
 }
@@ -76,6 +83,7 @@ export const colors: Colors = {
   blue: {
     dark: '#243141',
     light: '#3A527D',
+    lightGrey: '#D6DDEB',
   },
   grey: {
     extraLight: '#E3E8F2',
@@ -109,5 +117,9 @@ export const colors: Colors = {
   },
   content: {
     title: '#171717',
+  },
+  toolbar: {
+    main: '#fbfbfb',
+    hover: '#f3f3f3',
   },
 }
