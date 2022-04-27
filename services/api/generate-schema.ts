@@ -14,13 +14,13 @@ import {
 let schema
 
 export const generateSchema = async (
-  writeSchema = false
+  _writeSchema = false
 ): Promise<GraphQLSchema> => {
   applyResolversEnhanceMap(resolversEnhanceMap)
 
   if (!schema) {
-    const generatedPath = path.join(__dirname, 'generated')
-    const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
+    // const generatedPath = path.join(__dirname, 'generated')
+    // const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
     const timeStart = new Date().getTime()
     schema = await buildSchema({
       authChecker,
@@ -28,12 +28,10 @@ export const generateSchema = async (
       validate: false,
       dateScalarMode: 'isoDate',
       // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
-      emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
+      // emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
     })
     const timeEnd = new Date().getTime()
     console.debug(`Schema built in ${timeEnd - timeStart} ms`)
-  } else {
-    console.debug('Using existing schema')
   }
 
   return schema

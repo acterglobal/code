@@ -21,8 +21,9 @@ import {
   ActerWhoCanJoinSettings,
   Activity,
 } from '@acter/schema'
-import { QueueNewActivityNotification } from '@acter/schema/middlewares/queue-activity-notifications'
 import { Prisma } from '@acter/schema/prisma'
+
+import { QueueNewActivityNotification } from '../middlewares/queue-activity-notifications'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole

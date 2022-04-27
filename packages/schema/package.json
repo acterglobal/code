@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "yarn generate && yarn build:schema && yarn build:codegen",
+    "build": "yarn generate",
     "generate": "yarn prisma generate",
     "build:schema": "ts-node ./build-schema",
     "build:codegen": "graphql-codegen --config codegen.yml",

@@ -1,4 +1,3 @@
-import { ActerConnectionRole } from '.prisma/client'
 import { MiddlewareFn } from 'type-graphql'
 
 import {
@@ -6,6 +5,7 @@ import {
   NotLoggedError,
 } from '@acter/lib/errors/graphql-errors'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import { ActerConnectionRole } from '@acter/schema'
 import { ActerPrivacySettings } from '@acter/schema'
 
 export const CheckUserAccess: MiddlewareFn<ActerGraphQLContext> = async (
