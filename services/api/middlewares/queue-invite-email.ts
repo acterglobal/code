@@ -1,6 +1,6 @@
 import { MiddlewareFn } from 'type-graphql'
 
-import { inviteEmailCreateQueue } from '@acter/jobs'
+import { inviteEmailCreateQueue } from '@acter/jobs-old'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'

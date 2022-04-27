@@ -4,7 +4,7 @@ import 'reflect-metadata'
 import { Job } from 'bullmq'
 import { getTime } from 'date-fns'
 
-import { emailSendQueue, NotificationEmail } from '@acter/jobs'
+import { emailSendQueue, NotificationEmail } from '@acter/jobs-old'
 import { createWorker } from '@acter/lib/bullmq'
 import { DAILY_DIGEST_CREATE, DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'

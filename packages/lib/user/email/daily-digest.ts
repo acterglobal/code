@@ -5,7 +5,7 @@ import Handlebars from 'handlebars'
 import { marked } from 'marked'
 import path from 'path'
 
-import { NotificationByActer } from '@acter/jobs/src/daily-digest/types'
+import { NotificationByActer } from '@acter/jobs-old/src/daily-digest/types'
 import {
   DATE_FORMAT_TZ,
   DATE_FORMAT_SHORT_TZ,

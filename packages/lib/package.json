@@ -19,6 +19,8 @@
     "marked": "4.0.10",
     "md5": "2.3.0",
     "mime": "2.5.2",
+    "mjml": "^4.12.0",
+    "mjml-react": "^2.0.7",
     "nodemailer": "6.6.3",
     "ramda": "0.27.1",
     "react-script-hook": "1.5.0",

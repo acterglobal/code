@@ -40,7 +40,7 @@ import {
 import { CheckActerExists } from '../middlewares/check-acter-exists'
 import { CheckUserAccess } from '../middlewares/check-user-access'
 // import { QueueInviteEmail } from '.../middlewares/queue-invite-email'
-// import { QueuePostNotifications } from '.../middlewares/queue-post-notifications'
+import { QueuePostNotifications } from '../middlewares/queue-post-notifications'
 import { ActerResolver } from '../resolvers/acter'
 import { ActerConnectionResolver } from '../resolvers/acter-connection'
 import { SearchResolver } from '../resolvers/search'
@@ -56,9 +56,7 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
     // updateInvite: [UseMiddleware(QueueInviteEmail)],
   },
   Post: {
-    createPost: [
-      // UseMiddleware(QueuePostNotifications(NotificationQueueType.NEW_POST)),
-    ],
+    createPost: [UseMiddleware(QueuePostNotifications())],
   },
 }
 

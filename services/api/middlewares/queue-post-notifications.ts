@@ -1,20 +1,20 @@
+import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
-import { postNotificationCreateQueue } from '@acter/jobs'
-import { NotificationQueueType } from '@acter/lib/constants'
+export const QueuePostNotifications = (): MiddlewareFn => async (_, next) => {
+  const post = await next()
 
-export const QueuePostNotifications = (
-  type: NotificationQueueType
-): MiddlewareFn => async (_, next) => {
-  const result = await next()
-
-  if (!result?.id) {
-    console.error('No ID to create notification', result)
+  if (!post?.id) {
+    console.error('No ID to create post notification', post)
     return
   }
 
-  /* eslint-disable-next-line no-console */
-  console.log('Adding to notification queue', type, result)
-
-  postNotificationCreateQueue.add(type, { [type]: result })
+  console.debug('Sending post job notification')
+  axios({
+    method: 'POST',
+    url: `${process.env.BASE_URL}/api/jobs/notify`,
+    data: {
+      post,
+    },
+  })
 }

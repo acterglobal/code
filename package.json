@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@material-ui/core": "4.12.3",
-    "axios": "0.26.0",
+    "axios": "0.27.0",
     "bullmq": "1.40.1",
     "date-fns": "2.23.0",
     "env-cmd": "10.1.0",

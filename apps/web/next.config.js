@@ -11,6 +11,7 @@ const withTM = transpileModules([
   '@acter/api',
   '@acter/components',
   '@acter/jobs',
+  '@acter/jobs-old',
   '@acter/lib',
   '@acter/schema',
 ])
@@ -52,6 +53,7 @@ module.exports = withPlugins(
           }
         )
       )
+
       return config
     },
   }

@@ -1,27 +1,23 @@
-import { InviteEmailCreate } from './types'
 import { Job } from 'bullmq'
 
 import {
   inviteEmailSendQueue,
   InviteEmailSend,
-} from '@acter/jobs/src/invite-email-send'
+} from '@acter/jobs-old/src/invite-email-send'
 import { createWorker } from '@acter/lib/bullmq'
 import { INVITE_EMAIL_CREATE } from '@acter/lib/constants'
 import { createInviteEmail } from '@acter/lib/invites/email'
 import { getInviteUrl } from '@acter/lib/invites/get-invite-url'
 import { prisma } from '@acter/schema/prisma'
 
+import { InviteEmailCreate } from './types'
+
 export const inviteEmailCreateWorker = createWorker(
   INVITE_EMAIL_CREATE,
   async (job: Job<InviteEmailCreate>) => {
     try {
-      const {
-        email,
-        message,
-        onActerId,
-        createdByUserId,
-        senderName,
-      } = job.data
+      const { email, message, onActerId, createdByUserId, senderName } =
+        job.data
 
       const invitation = await prisma.invite.findFirst({
         where: { onActerId, email, createdByUserId },

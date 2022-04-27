@@ -1,6 +1,6 @@
 import { MiddlewareFn } from 'type-graphql'
 
-import { newMemberJoinNotificationQueue } from '@acter/jobs'
+import { newMemberJoinNotificationQueue } from '@acter/jobs-old'
 import { ActerTypes } from '@acter/lib/constants'
 
 export const QueueNewMemberJoinNotification: MiddlewareFn = async (_, next) => {

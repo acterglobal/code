@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@acter/components": "workspace:packages/components",
+    "@acter/jobs": "workspace:services/jobs",
     "@acter/lib": "workspace:packages/lib",
     "@acter/schema": "workspace:packages/schema",
     "@next/bundle-analyzer": "11.0.1",

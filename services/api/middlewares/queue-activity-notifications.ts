@@ -1,6 +1,6 @@
 import { MiddlewareFn } from 'type-graphql'
 
-import { activityNotificationsQueue, ActivityPick } from '@acter/jobs'
+import { activityNotificationsQueue, ActivityPick } from '@acter/jobs-old'
 
 export const QueueNewActivityNotification: MiddlewareFn = async (_, next) => {
   const activity: ActivityPick = await next()
