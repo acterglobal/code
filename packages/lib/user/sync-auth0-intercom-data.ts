@@ -1,37 +1,41 @@
 import 'reflect-metadata'
 
-import { SyncAuth0IntercomData, IntercomUser } from './types'
+import { Session } from '@auth0/nextjs-auth0'
+
 import { ManagementClient } from 'auth0'
 import axios from 'axios'
-import { Job } from 'bullmq'
 import { assert } from 'console'
 import { getUnixTime } from 'date-fns'
 
-import { createWorker } from '@acter/lib/bullmq'
-import { SYNC_AUTH0_INTERCOM_DATA } from '@acter/lib/constants'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
+import { User } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-export const syncAuth0IntercomDataWorker = createWorker(
-  SYNC_AUTH0_INTERCOM_DATA,
-  async (job: Job<SyncAuth0IntercomData>) => {
-    const {
-      data: { session, user },
-    } = job
+export interface SyncAuth0IntercomData {
+  session: Session
+  user: User
+}
 
-    assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
-    assert(
-      !!process.env.AUTH0_MANAGEMENT_API_URL,
-      'Auth0 management API URL missing'
-    )
-    assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
-    assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
+export interface IntercomUser {
+  id: string
+}
 
-    const intercomUser = await syncIntercomData({ user, session })
-    await syncIntercomToAuth0({ session, intercomUser })
-    await syncWithDb({ user, intercomUser })
-  }
-)
+export const syncAuth0IntercomData = async ({
+  session,
+  user,
+}: SyncAuth0IntercomData): Promise<void> => {
+  assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
+  assert(
+    !!process.env.AUTH0_MANAGEMENT_API_URL,
+    'Auth0 management API URL missing'
+  )
+  assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
+  assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
+
+  const intercomUser = await syncIntercomData({ user, session })
+  await syncIntercomToAuth0({ session, intercomUser })
+  await syncWithDb({ user, intercomUser })
+}
 
 const syncIntercomData = async ({
   user,

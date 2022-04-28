@@ -8,7 +8,6 @@ import { dailyDigestQueueScheduler } from './daily-digest-cron/scheduler'
 import { dailyDigestCronWorker } from './daily-digest-cron/worker'
 import { dailyDigestWorker } from './daily-digest/worker'
 import { emailSendWorker } from './email-send/worker'
-import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
 
 ;(async () => {
   console.log('Starting all workers')
@@ -17,7 +16,6 @@ import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
     dailyDigestWorker,
     emailSendWorker,
     createPostNotifications,
-    syncAuth0IntercomDataWorker,
   ].forEach((worker) => {
     worker.on('drained', () =>
       console.log(`No (more) jobs for ${worker.name} to complete. Ready...`)
