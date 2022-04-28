@@ -1,6 +1,7 @@
+import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
-import { inviteEmailCreateQueue } from '@acter/jobs-old'
+import { NotificationQueueType } from '@acter/lib/constants'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
@@ -20,11 +21,14 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       const invite = await next()
 
       if (!invite.expiredAt) {
-        inviteEmailCreateQueue.add(
-          `create-invite-email-${invite.email}`,
-          { ...invite, senderName: user.Acter.name },
-          { removeOnComplete: true }
-        )
+        axios({
+          method: 'POST',
+          url: `${process.env.BASE_URL}/api/jobs/notify/${NotificationQueueType.NEW_INVITE}`,
+          data: {
+            ...invite,
+            senderName: user.Acter.name,
+          },
+        })
       }
       return invite
     }
@@ -40,11 +44,11 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
     await next()
 
     data.map((invitation) => {
-      inviteEmailCreateQueue.add(
-        `create-invite-email-${invitation.email}`,
-        { ...invitation, senderName: user.Acter.name },
-        { removeOnComplete: true }
-      )
+      axios({
+        method: 'POST',
+        url: `${process.env.BASE_URL}/api/jobs/notify/${NotificationQueueType.NEW_INVITE}`,
+        data: invitation,
+      })
     })
   } catch (error) {
     console.error('Error: ', error)

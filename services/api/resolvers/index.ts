@@ -39,7 +39,7 @@ import {
 
 import { CheckActerExists } from '../middlewares/check-acter-exists'
 import { CheckUserAccess } from '../middlewares/check-user-access'
-// import { QueueInviteEmail } from '.../middlewares/queue-invite-email'
+import { QueueInviteEmail } from '../middlewares/queue-invite-email'
 import { QueueNotifications } from '../middlewares/queue-notifications'
 import { ActerResolver } from '../resolvers/acter'
 import { ActerConnectionResolver } from '../resolvers/acter-connection'
@@ -52,8 +52,8 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
     findFirstActer: [UseMiddleware(CheckActerExists, CheckUserAccess)],
   },
   Invite: {
-    // createManyInvite: [UseMiddleware(QueueInviteEmail)],
-    // updateInvite: [UseMiddleware(QueueInviteEmail)],
+    createManyInvite: [UseMiddleware(QueueInviteEmail)],
+    updateInvite: [UseMiddleware(QueueInviteEmail)],
   },
   Post: {
     createPost: [
