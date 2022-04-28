@@ -58,7 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: theme.spacing(2),
+      width: '100%',
+      height: 50,
+      position: 'fixed',
+      zIndex: 100,
+      backgroundColor: theme.palette.background.default,
     },
     heading: {
       fontSize: theme.spacing(2),

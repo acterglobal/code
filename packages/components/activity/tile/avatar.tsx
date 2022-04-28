@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     activityAvatar: {
       width: 'fit-content',
       height: 40,
-      zIndex: 99,
+      zIndex: 90,
       position: 'relative',
       left: 10,
       bottom: 44,
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: 7,
       alignItems: 'center',
       position: 'relative',
-      zIndex: 98,
+      zIndex: 89,
     },
     labelContainer: {
       borderRadius: theme.spacing(3),

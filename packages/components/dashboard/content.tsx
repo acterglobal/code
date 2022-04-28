@@ -41,7 +41,7 @@ export const DashboardContent: FC = () => {
     <Box className={classes.container}>
       <Box className={classes.groups}>
         <Heading title={t('myGroups')} />
-        <Box>
+        <Box className={classes.content}>
           {groups.length === 0 ? (
             <ZeroMessage messageFor={GROUP} />
           ) : (
@@ -52,7 +52,7 @@ export const DashboardContent: FC = () => {
 
       <Box className={classes.activities}>
         <Heading title={t('myActivities')} />
-        <Box>
+        <Box className={classes.content}>
           {activities ? (
             <>
               {activities.length === 0 ? (
@@ -106,9 +106,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1),
     },
     headingSection: {
-      marginTop: 20,
+      marginTop: 50,
       width: '100%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.default,
       position: 'fixed',
       zIndex: 99,
       textTransform: 'capitalize',
@@ -128,6 +128,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontStyle: 'italic',
       fontWeight: theme.typography.fontWeightLight,
       color: theme.palette.secondary.main,
+    },
+    content: {
+      marginTop: 100,
     },
   })
 )
