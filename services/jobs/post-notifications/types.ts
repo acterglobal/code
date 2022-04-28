@@ -1,9 +1,7 @@
 import { PostWithActerAndAuthor } from './template'
 
 export interface PostJobVariables {
-  post: {
-    id: string
-  }
+  id: string
 }
 
 export interface PostJobData {

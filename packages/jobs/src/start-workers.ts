@@ -1,10 +1,8 @@
 /* eslint-disable no-console */
 import 'reflect-metadata'
 
-import { activityNotificationsCreateWorker } from '@acter/jobs/activity-notifications/worker'
-import { activityNotificationsOnActerCreate } from '@acter/jobs/activity-notifications/worker'
+import { createPostNotifications } from '@acter/jobs/post-notifications/create-post-notifications'
 
-import { createPostNotifications } from '../../../services/jobs/post-notifications'
 import { dailyDigestCronQueue } from './daily-digest-cron/queue'
 import { dailyDigestQueueScheduler } from './daily-digest-cron/scheduler'
 import { dailyDigestCronWorker } from './daily-digest-cron/worker'
@@ -12,20 +10,16 @@ import { dailyDigestWorker } from './daily-digest/worker'
 import { emailSendWorker } from './email-send/worker'
 import { inviteEmailCreateWorker } from './invite-email-create/worker'
 import { inviteEmailSendWorker } from './invite-email-send/worker'
-import { newMemberJoinNotificationWorker } from './new-member-join-notification/worker'
 import { syncAuth0IntercomDataWorker } from './sync-auth0-intercom-data/worker'
 
 ;(async () => {
   console.log('Starting all workers')
   ;[
-    activityNotificationsCreateWorker,
-    activityNotificationsOnActerCreate,
     dailyDigestCronWorker,
     dailyDigestWorker,
     emailSendWorker,
     inviteEmailCreateWorker,
     inviteEmailSendWorker,
-    newMemberJoinNotificationWorker,
     createPostNotifications,
     syncAuth0IntercomDataWorker,
   ].forEach((worker) => {

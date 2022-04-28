@@ -2,7 +2,6 @@ import 'reflect-metadata'
 
 import slugify from 'slugify'
 
-import { ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER } from '@acter/lib/constants'
 import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { Activity, NotificationType } from '@acter/schema'
 
@@ -13,7 +12,6 @@ export const createActerActivityNotifications = createNotificationWorker<
   ActivityNotificationForActer,
   ActivityNotificationForActer
 >({
-  queue: ACTIVITY_NOTIFICATIONS_CREATE_FOR_ACTER,
   getFollowing: async ({ acter }) => acter,
   getFollowersWhere: ({ activity }) => ({
     Follower: {

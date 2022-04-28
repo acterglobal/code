@@ -32,10 +32,6 @@ interface NotificationEmailProps<T> {
 
 interface CreateNotificationWorker<TVariables, TData> {
   /**
-   * The name of the job queue
-   */
-  queue: string
-  /**
    * Hook to enhance Job data, perhaps querying DB for more data
    */
   getJobData?: (job: TVariables) => Promise<TData>

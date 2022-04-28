@@ -11,6 +11,4 @@ type ActerConnectionWithFollowerFollowing = ActerConnection &
     Following: ActerWithActerType
   }>
 
-export type NewMemberJoinNotification = {
-  connection: ActerConnectionWithFollowerFollowing
-}
+export type NewMemberJoinNotification = ActerConnectionWithFollowerFollowing

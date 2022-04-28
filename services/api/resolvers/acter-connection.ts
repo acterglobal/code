@@ -7,6 +7,7 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
+import { NotificationQueueType } from '@acter/lib/constants'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   ActerConnection,
@@ -14,13 +15,13 @@ import {
   ActerJoinSettings,
 } from '@acter/schema'
 
-import { QueueNewMemberJoinNotification } from '../middlewares/queue-member-join-notification'
+import { QueueNotifications } from '../middlewares/queue-notifications'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
-  @UseMiddleware(QueueNewMemberJoinNotification)
+  @UseMiddleware(QueueNotifications(NotificationQueueType.NEW_MEMBER))
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
