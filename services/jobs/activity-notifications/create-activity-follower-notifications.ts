@@ -4,13 +4,11 @@ import { ActerTypes } from '@acter/lib/constants'
 import { prisma } from '@acter/schema/prisma'
 
 import { createActerActivityNotifications } from './create-acter-activity-notifications'
-import { ActerPickWithUser, ActivityNotification } from './types'
+import { ActerPickWithUser, ActivityPick } from './types'
 
 export const createActivityFollowerNotifications = async (
-  job: ActivityNotification
+  activity: ActivityPick
 ): Promise<void> => {
-  const { activity } = job
-
   // For each Acter that set as a follower of this Activity, send notifications to their users
 
   // First, get the non-User follower acters
