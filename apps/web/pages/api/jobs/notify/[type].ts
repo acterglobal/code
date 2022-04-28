@@ -1,9 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { createInviteNotification } from '@acter/../services/jobs/invite-notification/create-invites'
 import {
   ActivityPick,
   createActivityFollowerNotifications,
 } from '@acter/jobs/activity-notifications'
+import { InviteEmailCreate } from '@acter/jobs/invite-notification/types'
 import {
   createNewMemberNotifications,
   NewMemberJoinNotification,
@@ -19,7 +21,11 @@ type NotificationTypeMapItem<T> = {
   fn: (body: T) => void
 }
 
-type MapItem = ActivityPick | NewMemberJoinNotification | PostJobVariables
+type MapItem =
+  | ActivityPick
+  | InviteEmailCreate
+  | NewMemberJoinNotification
+  | PostJobVariables
 
 const notificationTypeMap: Record<
   NotificationQueueType,
@@ -29,11 +35,13 @@ const notificationTypeMap: Record<
     checks: (body: ActivityPick) => !!body.acterId,
     fn: createActivityFollowerNotifications,
   },
+  [NotificationQueueType.NEW_INVITE]: {
+    checks: (body: InviteEmailCreate) =>
+      !!body.onActerId && !!body.email && !!body.createdByUserId,
+    fn: createInviteNotification,
+  },
   [NotificationQueueType.NEW_MEMBER]: {
-    checks: (body: NewMemberJoinNotification) => {
-      console.log(body)
-      return !!body?.Following
-    },
+    checks: (body: NewMemberJoinNotification) => !!body?.Following,
     fn: createNewMemberNotifications,
   },
   [NotificationQueueType.NEW_POST]: {
