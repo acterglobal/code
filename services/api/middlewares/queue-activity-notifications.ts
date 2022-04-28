@@ -1,15 +1,17 @@
+import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
-import { activityNotificationsQueue, ActivityPick } from '@acter/jobs-old'
+import { ActivityPick } from '@acter/jobs/activity-notifications'
 
 export const QueueNewActivityNotification: MiddlewareFn = async (_, next) => {
   const activity: ActivityPick = await next()
 
   console.debug('Adding Activity notification to queue ', activity)
-
-  activityNotificationsQueue.add(
-    `new-activity-${activity.id}`,
-    { activity },
-    { removeOnComplete: true }
-  )
+  axios({
+    method: 'POST',
+    url: `${process.env.BASE_URL}/api/jobs/activity-notify`,
+    data: {
+      activity,
+    },
+  })
 }

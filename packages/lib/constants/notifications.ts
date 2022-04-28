@@ -1,5 +1,6 @@
 export enum NotificationQueueType {
-  NEW_POST = 'post',
+  NEW_ACTIVITY = 'activity-notify',
+  NEW_POST = 'post-notify',
 }
 
 export enum NotificationJobState {

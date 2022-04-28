@@ -27,3 +27,10 @@ export interface ActivityNotificationForActer {
   acter: ActerPickWithUser
   activity: ActivityPick
 }
+
+export interface ActivityNotification {
+  /**
+   * The activity for which we are creating a notification
+   */
+  activity: ActivityPick
+}

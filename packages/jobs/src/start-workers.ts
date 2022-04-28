@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import 'reflect-metadata'
 
+import { activityNotificationsCreateWorker } from '@acter/jobs/activity-notifications/worker'
+import { activityNotificationsOnActerCreate } from '@acter/jobs/activity-notifications/worker'
+
 import { createPostNotifications } from '../../../services/jobs/post-notifications'
-import { activityNotificationsCreateWorker } from './activity-notifications-create/worker'
-import { activityNotificationsOnActerCreate } from './activity-notifications-on-acter-create/worker'
 import { dailyDigestCronQueue } from './daily-digest-cron/queue'
 import { dailyDigestQueueScheduler } from './daily-digest-cron/scheduler'
 import { dailyDigestCronWorker } from './daily-digest-cron/worker'

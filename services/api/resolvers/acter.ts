@@ -9,7 +9,7 @@ import {
 } from 'type-graphql'
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerTypes, NotificationQueueType } from '@acter/lib/constants'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   Acter,
@@ -23,7 +23,7 @@ import {
 } from '@acter/schema'
 import { Prisma } from '@acter/schema/prisma'
 
-import { QueueNewActivityNotification } from '../middlewares/queue-activity-notifications'
+import { QueueNotifications } from '../middlewares/queue-notifications'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -279,7 +279,7 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  @UseMiddleware(QueueNewActivityNotification)
+  @UseMiddleware(QueueNotifications(NotificationQueueType.NEW_ACTIVITY))
   async createActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
