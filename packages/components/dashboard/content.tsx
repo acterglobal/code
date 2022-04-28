@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
     headingSection: {
       marginTop: 50,
       width: '100%',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.palette.background.default,
       position: 'fixed',
       zIndex: 99,
       textTransform: 'capitalize',
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
     },
     content: {
-      marginTop: 70,
+      marginTop: 100,
     },
   })
 )
