@@ -11,6 +11,11 @@ export interface Email {
   html: string
 }
 
+export interface CreateEmailReturn {
+  html: string
+  text: string
+}
+
 interface EmailInternal extends Email {
   from: string
 }

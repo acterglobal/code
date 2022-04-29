@@ -1,9 +1,19 @@
-import { sendEmail } from '@acter/lib/email'
 import { prisma } from '@acter/schema/prisma'
 
-import { NotificationEmail } from './types'
+import { sendEmail, Email } from '../email/send-email'
 
-export const emailSendWorker = async (
+interface Notification {
+  id: string
+}
+
+export interface NotificationEmail extends Email {
+  /**
+   * Notifications to close out on send success
+   */
+  notifications?: Notification | Notification[]
+}
+
+export const sendNotificationEmail = async (
   job: NotificationEmail
 ): Promise<void> => {
   try {

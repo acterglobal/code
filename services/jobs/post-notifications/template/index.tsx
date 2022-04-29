@@ -1,5 +1,4 @@
 import { assert } from 'console'
-import { marked } from 'marked'
 import {
   render,
   MjmlButton,
@@ -8,14 +7,13 @@ import {
   MjmlText,
 } from 'mjml-react'
 
-import { DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
-import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { CreateEmailReturn } from '@acter/lib/email'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { getArticle } from '@acter/lib/string/get-article'
 import { Acter, Notification, Post } from '@acter/schema'
 
 import { EmailLayout } from '../../templates/layout'
+import { PostEmailBlock } from './post-email-block'
 
 export type PostWithActerAndAuthor = Omit<Post, 'Acter' | 'Author'> & {
   Acter: ActerNameAndID
@@ -38,33 +36,13 @@ export const createPostEmailNotification = ({
   assert(!!post.createdAt, 'Post created at required')
 
   const notificationUrl = getNotificationUrl(notification)
-  const content = marked(post.content)
   const postType = post.parentId ? 'comment' : 'post'
-  const sentAt = parseAndFormat({
-    dateString: post.createdAt,
-    formatString: DATE_TIME_FORMAT_LONG,
-  })
   const { html } = render(
     <EmailLayout>
-      <MjmlSection backgroundColor="#fff">
-        <MjmlColumn>
-          <MjmlText fontFamily="Montserrat, Arial, non-serif">
-            <p>
-              A new {postType} was created on {post.Acter.name}.
-            </p>
-            <p>
-              On {sentAt} {post.Author.name} said:
-            </p>
-          </MjmlText>
-        </MjmlColumn>
-      </MjmlSection>
-      <MjmlSection backgroundColor="#fff" padding="0px 10px">
-        <MjmlColumn borderLeft="3px solid #666" backgroundColor="#f0f0f0">
-          <MjmlText fontFamily="Montserrat, Arial, non-serif">
-            <div dangerouslySetInnerHTML={{ __html: content }} />
-          </MjmlText>
-        </MjmlColumn>
-      </MjmlSection>
+      <MjmlText fontFamily="Montserrat, Arial, non-serif">
+        A new {postType} was created on {post.Acter.name}.
+      </MjmlText>
+      <PostEmailBlock post={post as Post} notificationUrl={notificationUrl} />
       <MjmlSection backgroundColor="#fff">
         <MjmlColumn>
           <MjmlButton

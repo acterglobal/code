@@ -1,4 +1,3 @@
-import { emailSendWorker, NotificationEmail } from '@acter/jobs-old'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ActerTypes } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
@@ -16,6 +15,8 @@ import { prisma, Prisma } from '@acter/schema/prisma'
 
 import { CreateEmailReturn, Email } from '../email'
 import { createNotification } from './create-notification'
+import { NotificationEmail } from './send-notification-email'
+import { sendNotificationEmail } from './send-notification-email'
 
 export type FollowerType = Partial<Acter> &
   Required<
@@ -172,7 +173,7 @@ export const createNotificationWorker =
             notifications: notification,
           }
 
-          emailSendWorker({
+          sendNotificationEmail({
             ...emailData,
           })
         }
