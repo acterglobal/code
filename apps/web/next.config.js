@@ -11,7 +11,6 @@ const withTM = transpileModules([
   '@acter/api',
   '@acter/components',
   '@acter/jobs',
-  '@acter/jobs-old',
   '@acter/lib',
   '@acter/schema',
 ])

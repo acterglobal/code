@@ -35,7 +35,9 @@
     "db:seed": "yarn workspace @acter/schema db:seed"
   },
   "dependencies": {
+    "@acter/lib": "workspace:packages/lib",
     "@material-ui/core": "4.12.3",
+    "auth0": "^2.40.0",
     "axios": "0.27.0",
     "bullmq": "1.40.1",
     "date-fns": "2.23.0",
@@ -54,7 +56,8 @@
     "react-is": "17.0.2",
     "reflect-metadata": "0.1.13",
     "tar": "6.1.11",
-    "urql": "2.0.5"
+    "urql": "2.0.5",
+    "workspace": "^0.0.1-preview.1"
   },
   "devDependencies": {
     "@mdx-js/react": "1.6.22",

@@ -1,13 +1,19 @@
 import sendgrid from '@sendgrid/mail'
 
-import { Environments } from '../constants'
 import nodemailer from 'nodemailer'
+
+import { Environments } from '../constants'
 
 export interface Email {
   to: string
   subject: string
   text: string
   html: string
+}
+
+export interface CreateEmailReturn {
+  html: string
+  text: string
 }
 
 interface EmailInternal extends Email {
