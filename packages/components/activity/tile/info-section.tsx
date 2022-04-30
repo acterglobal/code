@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(0.5),
     },
     location: {
+      height: 15,
       fontSize: '0.8rem',
       color: theme.colors.blue.light,
       display: '-webkit-box',

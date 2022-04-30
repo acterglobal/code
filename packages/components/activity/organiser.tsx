@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: theme.spacing(1),
       display: 'flex',
       [theme.breakpoints.down('xs')]: {},
-      marginTop: size === SMALL && 5,
+      marginTop: size === SMALL && 6,
       marginBottom: size === SMALL && 5,
     }),
     heading: ({ size }: StyleProps) => ({
