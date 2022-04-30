@@ -112,6 +112,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       zIndex: 99,
       textTransform: 'capitalize',
+      boxShadow: '2px 0px 8px rgb(0, 0, 0, .1)',
     },
     heading: {
       fontSize: theme.spacing(2),
