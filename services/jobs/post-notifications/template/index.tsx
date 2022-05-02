@@ -39,9 +39,13 @@ export const createPostEmailNotification = ({
   const postType = post.parentId ? 'comment' : 'post'
   const { html } = render(
     <EmailLayout>
-      <MjmlText fontFamily="Montserrat, Arial, non-serif">
-        A new {postType} was created on {post.Acter.name}.
-      </MjmlText>
+      <MjmlSection backgroundColor="#fff">
+        <MjmlColumn>
+          <MjmlText fontFamily="Montserrat, Arial, non-serif">
+            A new {postType} was created on {post.Acter.name}.
+          </MjmlText>
+        </MjmlColumn>
+      </MjmlSection>
       <PostEmailBlock post={post as Post} notificationUrl={notificationUrl} />
       <MjmlSection backgroundColor="#fff">
         <MjmlColumn>

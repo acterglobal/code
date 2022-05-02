@@ -32,9 +32,13 @@ export const syncAuth0IntercomData = async ({
   assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
   assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
 
-  const intercomUser = await syncIntercomData({ user, session })
-  await syncIntercomToAuth0({ session, intercomUser })
-  await syncWithDb({ user, intercomUser })
+  try {
+    const intercomUser = await syncIntercomData({ user, session })
+    await syncIntercomToAuth0({ session, intercomUser })
+    await syncWithDb({ user, intercomUser })
+  } catch (e) {
+    console.error('Error syncing intercom user', e)
+  }
 }
 
 const syncIntercomData = async ({
