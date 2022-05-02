@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 
 import Editor from '@draft-js-plugins/editor'
+import createLinkifyPlugin from '@draft-js-plugins/linkify'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -13,7 +14,9 @@ import {
   toolbarPlugin,
 } from '@acter/components/util/text-editor-toolbar'
 
-const plugins = [toolbarPlugin]
+const linkifyPlugin = createLinkifyPlugin({ target: '_blank' })
+
+const plugins = [toolbarPlugin, linkifyPlugin]
 
 interface widthHeightType {
   height?: number
