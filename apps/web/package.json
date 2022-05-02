@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "yarn env-cmd next dev",
     "build": "yarn env-cmd next build",
-    "start": "yarn env-cmd next start -p $PORT",
+    "start": "yarn env-cmd next start",
     "env-cmd": "env-cmd --silent --file ../../.env",
     "analyze": "ANALYZE=true yarn env-cmd next build"
   },

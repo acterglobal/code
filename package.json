@@ -15,6 +15,7 @@
   "scripts": {
     "dev": "yarn workspace @acter/web dev",
     "build": "yarn workspaces foreach run build",
+    "build:web": "yarn workspace @acter/web build",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components dev",
     "chromatic": "yarn workspace @acter/components chromatic",
