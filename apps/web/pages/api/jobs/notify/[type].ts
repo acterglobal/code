@@ -54,12 +54,16 @@ const notificationTypeMap: Record<
 
 const notifyHandler = (req: NextApiRequest, res: NextApiResponse): void => {
   try {
+    console.debug('Received notify job', {
+      type: req.query.type,
+      body: req.body,
+    })
     const worker = notificationTypeMap[req.query.type as NotificationQueueType]
     if (!worker) return res.status(400).send('Bad request')
     if (!worker.checks(req.body)) return res.status(422).send('Data missing')
     worker.fn(req.body)
   } catch (e) {
-    console.error(e)
+    console.error(`Error processing ${req.query.body}`, e)
     return res.status(400).send(e)
   }
 
