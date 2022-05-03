@@ -6,13 +6,22 @@ import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { convertToRaw, convertFromRaw, EditorState } from 'draft-js'
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+  CompositeDecorator,
+  ContentBlock,
+} from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 
 import {
   Toolbar,
   toolbarPlugin,
 } from '@acter/components/util/text-editor-toolbar'
+import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
+import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
+import { MediaComponent } from '@acter/components/util/text-editor/media-component'
 
 const linkifyPlugin = createLinkifyPlugin({ target: '_blank' })
 
@@ -58,15 +67,44 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   useEffect(() => {
     if (clearTextEditor) {
-      setEditorState(EditorState.createEmpty())
+      setEditorState(
+        EditorState.createEmpty(
+          new CompositeDecorator([
+            {
+              strategy: linkStrategy,
+              component: DecoratedLink,
+            },
+          ])
+        )
+      )
     }
   }, [clearTextEditor])
 
   const onEditorStateChange = async (data) => {
     const rawObject = convertToRaw(data.getCurrentContent())
+
+    console.log('CURRENT...', rawObject)
+
     const value = draftToMarkdown(rawObject)
     handleInputChange(value)
     setEditorState(data)
+  }
+
+  const renderBlock = (contentBlock: ContentBlock) => {
+    if (contentBlock.getType() === 'atomic') {
+      const entityKey = contentBlock.getEntityAt(0)
+      const entityData = editorState
+        .getCurrentContent()
+        .getEntity(entityKey)
+        .getData()
+      return {
+        component: MediaComponent,
+        editable: false,
+        props: {
+          src: { file: entityData.src },
+        },
+      }
+    }
   }
 
   return (
@@ -81,6 +119,7 @@ export const TextEditor: FC<TextEditorProps> = ({
           onChange={onEditorStateChange}
           plugins={plugins}
           ref={editorRef}
+          blockRendererFn={renderBlock}
           placeholder={placeholder}
         />
       </Box>
@@ -114,3 +153,56 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
+
+const initialState = {
+  blocks: [
+    {
+      key: 'agrno',
+      text: '',
+      type: 'unstyled',
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [],
+      data: {},
+    },
+  ],
+  entityMap: {},
+}
+
+const initialState2 = {
+  entityMap: {
+    0: {
+      type: 'IMAGE',
+      mutability: 'IMMUTABLE',
+      data: {
+        src: '/images/canada-landscape-small.jpg',
+      },
+    },
+  },
+  blocks: [
+    {
+      key: '9gm3s',
+      text: 'You can have images in your text field. This is a very rudimentary example, but you can enhance the image plugin with resizing, focus or alignment plugins.',
+      type: 'unstyled',
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [],
+      data: {},
+    },
+    {
+      key: 'ov7r',
+      text: ' ',
+      type: 'atomic',
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [
+        {
+          offset: 0,
+          length: 1,
+          key: 0,
+        },
+      ],
+      data: {},
+    },
+  ],
+}

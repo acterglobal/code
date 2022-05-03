@@ -39,6 +39,7 @@ __metadata:
     clsx: 1.1.1
     color-string: 1.6.0
     draft-js: 0.11.7
+    draft-js-plugins-utils: ^2.0.3
     email-validator: 2.0.4
     emoji-picker-react: 3.4.8
     env-cmd: 10.1.0
@@ -13620,6 +13621,15 @@ __metadata:
   peerDependencies:
     react: ">=16.12.0"
   checksum: 0904ed8f285d31ee00e471dcddd57e72468bee354b191167bcaebe690ec292647fe4c31f483665094d750e72dd71e5d7db695acef33ab5dba6a39fed0112bab6
+  languageName: node
+  linkType: hard
+
+"draft-js-plugins-utils@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "draft-js-plugins-utils@npm:2.0.3"
+  peerDependencies:
+    draft-js: ^0.10.1
+  checksum: e84bce6c61e503e8b41d947bfa5553f5b207e612a94b8c606fd8ac1d0dd468de4e70138fc39e84f5607de143cea199f759f85e9c147b5405929ace4447ca687a
   languageName: node
   linkType: hard
 
