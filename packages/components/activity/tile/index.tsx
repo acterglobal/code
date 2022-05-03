@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 4,
+      marginTop: theme.spacing(1.7),
     },
   })
 )
