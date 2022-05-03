@@ -84,10 +84,17 @@ export const createNotificationWorker =
     type,
     getNotificationUrlPath,
   }: CreateNotificationWorker<TVariables, TData>) =>
-  async (job: TVariables): Promise<void> => {
+  async (job: TVariables & { id: string }): Promise<void> => {
+    const jobId = job.id
+    const debug = (message: string, data) =>
+      console.debug(message, { jobId, ...data })
+    debug('Starting notification worker', { job })
     const data = await getJobData(job)
+    debug('Got notification data', { data })
     const following = await getFollowing(data)
+    debug('Got following', { following })
     const followersWhere = getFollowersWhere(data)
+    debug('Got followersWhere', { followersWhere })
     const followers = await prisma.acterConnection.findMany({
       include: {
         Follower: {
@@ -114,19 +121,20 @@ export const createNotificationWorker =
         },
       },
     })
-    console.log(
-      'Sending to followers',
-      followers.map(
+    debug('Sending notification followers', {
+      followers: followers.map(
         ({
           Follower: {
             name,
             ActerType: { name: acterTypeName },
           },
         }) => ({ name, acterTypeName })
-      )
-    )
+      ),
+    })
     const activity = getActivity?.(data)
+    debug('Got activity', { activity })
     const post = getPost?.(data)
+    debug('Got post', { post })
 
     const extraPath = getNotificationUrlPath(
       activity?.Acter.name || post?.parentId || post?.id,
@@ -173,6 +181,10 @@ export const createNotificationWorker =
 
           sendNotificationEmail({
             ...emailData,
+          })
+        } else {
+          debug('No email sent for notification', {
+            notification,
           })
         }
       })

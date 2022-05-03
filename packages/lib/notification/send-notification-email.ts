@@ -18,6 +18,10 @@ export const sendNotificationEmail = async (
 ): Promise<void> => {
   try {
     const res = await sendEmail(job)
+    console.debug('Notification email sent', {
+      to: job.to,
+      subject: job.subject,
+    })
 
     const sentAt = new Date()
     if (job.notifications) {
