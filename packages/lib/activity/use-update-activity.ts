@@ -55,7 +55,7 @@ export const useUpdateActivity = (
   ): Promise<any> => {
     const acterId = activity?.Acter?.id
       ? activity?.Acter?.id
-      : updatedActivity?.Acter?.id
+      : updatedActivity?.acterId
 
     if (!acterId) return
 
