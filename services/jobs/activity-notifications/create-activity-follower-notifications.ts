@@ -51,6 +51,7 @@ export const createActivityFollowerNotifications = async (
   followers.forEach(({ Follower }) => {
     const acter = Follower as ActerPickWithUser
     createActerActivityNotifications({
+      id: activity.id,
       acter,
       activity,
     })
