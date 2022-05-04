@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react'
 
-// import DateUtils from '@date-io/date-fns'
 import { Grid } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 
@@ -57,7 +56,7 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
     const basicValidation = validateDateTime(endAtTouched)(val)
     if (basicValidation) return basicValidation
     if (startAt && isValid(startAt) && differenceInMinutes(val, startAt) < 0) {
-      return 'dateTimePickerValidateMessages.cantBeBeforeStart'
+      return t('dateTimePickerValidateMessages.cantBeBeforeStart')
     }
   }
 
@@ -71,7 +70,6 @@ export const StartEndDateTimePicker: FC<StartEndDateTimePickerProps> = ({
           name="startAt"
           isAllDay={isAllDay}
           required={true}
-          maxDate={endAt && isValid(endAt) ? endAt : undefined}
           validate={validateDateTime(startAtTouched)}
         />
       </Grid>
