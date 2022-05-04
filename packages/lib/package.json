@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@sendgrid/mail": "7.4.5",
+    "@sendgrid/mail": "7.6.2",
     "@urql/core": "2.3.4",
     "@urql/devtools": "2.0.3",
     "@urql/exchange-graphcache": "4.3.5",
