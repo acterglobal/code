@@ -2,8 +2,6 @@ import sendgrid from '@sendgrid/mail'
 
 import nodemailer from 'nodemailer'
 
-import { Environments } from '../constants'
-
 export interface Email {
   to: string
   subject: string
@@ -26,11 +24,24 @@ export const sendEmail = async (email: Email): Promise<any> => {
     ...email,
     from: process.env.EMAIL_FROM,
   }
-  if (process.env.NODE_ENV === Environments.PRODUCTION) {
-    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-    return await sendgrid.send(mail)
+  if (process.env.SENDGRID_API_KEY) {
+    try {
+      console.debug('[sendEmail][sendgrid] Sending email via SendGrid')
+      sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
+      const resp = await sendgrid.send(mail)
+      console.debug('[sendEmail][sendgrid] Got response', { resp })
+      return resp
+    } catch (e) {
+      console.debug(
+        '[sendEmail][sendgrid] Error sending via sendgrid',
+        e,
+        e.response?.body?.errors
+      )
+      throw e
+    }
   }
 
+  console.debug('[sendEmail][nodemailer] Sending email via nodemailer')
   const transport = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,
     port: process.env.EMAIL_SERVER_PORT,
@@ -39,5 +50,5 @@ export const sendEmail = async (email: Email): Promise<any> => {
       rejectUnauthorized: false,
     },
   })
-  return await transport.sendMail(mail)
+  return transport.sendMail(mail)
 }

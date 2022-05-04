@@ -13,7 +13,11 @@ export const QueueNotifications =
       return
     }
 
-    console.debug('Sending job notification', queueType, data)
+    console.debug('Sending job notification', {
+      jobId: data.id,
+      queueType,
+      data,
+    })
 
     axios({
       method: 'POST',
