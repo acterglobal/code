@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { withSentry } from '@sentry/nextjs'
+
 import { createInviteNotification } from '@acter/../services/jobs/invite-notification/create-invites'
 import {
   ActivityPick,
@@ -50,7 +52,7 @@ const notificationTypeMap: Record<
   },
 }
 
-export default (req: NextApiRequest, res: NextApiResponse): void => {
+const notifyHandler = (req: NextApiRequest, res: NextApiResponse): void => {
   try {
     const worker = notificationTypeMap[req.query.type as NotificationQueueType]
     if (!worker) return res.status(400).send('Bad request')
@@ -63,3 +65,5 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
 
   res.status(200).send('ok')
 }
+
+export default withSentry(notifyHandler)
