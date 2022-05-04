@@ -18,9 +18,10 @@ export const sendNotificationEmail = async (
 ): Promise<void> => {
   try {
     const res = await sendEmail(job)
-    console.debug('Notification email sent', {
+    console.debug('[sendNotificationEmail] Email sent', {
       to: job.to,
       subject: job.subject,
+      res,
     })
 
     const sentAt = new Date()
@@ -39,13 +40,14 @@ export const sendNotificationEmail = async (
           },
         },
       })
-      return {
-        ...res,
+      console.debug('[sendNotificationEmail] Notification(s) updated', {
         notification,
-      }
+      })
     }
-    return
   } catch (err) {
-    console.error('Error sending message', job, err)
+    console.error('[sendNotificationEmail] Error sending message', {
+      notifications: job.notifications,
+      err,
+    })
   }
 }
