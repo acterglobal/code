@@ -29,7 +29,7 @@ export const PostEmailBlock: FC<PostEmailBlockProps> = ({
           </MjmlText>
         </MjmlColumn>
       </MjmlSection>
-      <MjmlSection>
+      <MjmlSection backgroundColor="#fff">
         <MjmlColumn>
           <MjmlText fontFamily="Montserrat, Arial, non-serif">
             <div className="post-content">
