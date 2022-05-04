@@ -13,8 +13,10 @@ __metadata:
     "@babel/plugin-proposal-private-methods": 7.14.5
     "@babel/plugin-proposal-private-property-in-object": 7.15.4
     "@date-io/date-fns": 1.3.13
+    "@draft-js-plugins/anchor": ^4.1.4
     "@draft-js-plugins/buttons": ^4.3.1
     "@draft-js-plugins/editor": ^4.1.3
+    "@draft-js-plugins/inline-toolbar": ^4.1.3
     "@draft-js-plugins/linkify": ^4.2.1
     "@draft-js-plugins/static-toolbar": ^4.1.3
     "@fontsource/montserrat": 4.5.5
@@ -39,7 +41,7 @@ __metadata:
     clsx: 1.1.1
     color-string: 1.6.0
     draft-js: 0.11.7
-    draft-js-plugins-utils: ^2.0.3
+    draft-js-export-html: ^1.4.1
     email-validator: 2.0.4
     emoji-picker-react: 3.4.8
     env-cmd: 10.1.0
@@ -2263,6 +2265,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@draft-js-plugins/anchor@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "@draft-js-plugins/anchor@npm:4.1.4"
+  dependencies:
+    "@draft-js-plugins/utils": ^4.0.0
+    clsx: ^1.0.4
+    prepend-http: 3.0.1
+    prop-types: ^15.8.1
+    tlds: ^1.231.0
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: b7c3bd987945941264c89204dd9d23577ced091bf018348e5f7541a59cd5c5fab5d4a1b50c06570ba21a803690971df7fb319a9088fe6949a4e0eeb99cc1cf01
+  languageName: node
+  linkType: hard
+
 "@draft-js-plugins/buttons@npm:^4.0.0":
   version: 4.3.0
   resolution: "@draft-js-plugins/buttons@npm:4.3.0"
@@ -2300,6 +2319,20 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: c3c523f4b06eef8714633a2b37126528857c16abc1cbeef55d9ac4449d8d4b36ca12cee166da78ccdcbca745855d134345a1492f13cf255ef5fbf9a5662934a4
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/inline-toolbar@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@draft-js-plugins/inline-toolbar@npm:4.1.3"
+  dependencies:
+    "@draft-js-plugins/buttons": ^4.0.0
+    "@draft-js-plugins/utils": ^4.0.0
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 7c7d9d7978c4cc0db067d8efca8687740f05806c794d9a1b983755218a0759623350d13cb870cb188cfe6b9c97c8b26a9d14968fa296836a195d4008b177dccf
   languageName: node
   linkType: hard
 
@@ -13624,12 +13657,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"draft-js-plugins-utils@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "draft-js-plugins-utils@npm:2.0.3"
+"draft-js-export-html@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "draft-js-export-html@npm:1.4.1"
+  dependencies:
+    draft-js-utils: ^1.4.0
   peerDependencies:
-    draft-js: ^0.10.1
-  checksum: e84bce6c61e503e8b41d947bfa5553f5b207e612a94b8c606fd8ac1d0dd468de4e70138fc39e84f5607de143cea199f759f85e9c147b5405929ace4447ca687a
+    draft-js: ">=0.10.0"
+    immutable: 3.x.x
+  checksum: 41a95522abcd3f12933ef2656fc25356f6d7e5e67689dc3ae50a3927cc129e17d45ac648fc20723f335a08f6e696de04a73db61013920692486a5f99398e3af1
+  languageName: node
+  linkType: hard
+
+"draft-js-utils@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "draft-js-utils@npm:1.4.0"
+  peerDependencies:
+    draft-js: ">=0.10.0"
+    immutable: 3.x.x
+  checksum: f05fb12cc614efab8597fc80c455ff0dd196ae63be6acbf0324be2920efa88492cf8374d91d18a5eb53e2445b726fc5df0168f2dddc695adfd42f284656f5871
   languageName: node
   linkType: hard
 
@@ -23610,6 +23656,13 @@ fsevents@^1.2.7:
   version: 1.1.2
   resolution: "prelude-ls@npm:1.1.2"
   checksum: c4867c87488e4a0c233e158e4d0d5565b609b105d75e4c05dc760840475f06b731332eb93cc8c9cecb840aa8ec323ca3c9a56ad7820ad2e63f0261dadcb154e4
+  languageName: node
+  linkType: hard
+
+"prepend-http@npm:3.0.1":
+  version: 3.0.1
+  resolution: "prepend-http@npm:3.0.1"
+  checksum: faa4e7c944204d54a902afed0caff11c4c99956a2a451b1b6cb40f180508518eea14f6f9cbc3567bddee85dae748e8f26720dbec5e0c117e65546f0f43cdc0d0
   languageName: node
   linkType: hard
 

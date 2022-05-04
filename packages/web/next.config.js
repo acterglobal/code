@@ -22,6 +22,14 @@ const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
 module.exports = withPlugins(
   [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM],
   {
+    module: {
+      loaders: [
+        {
+          test: /plugin\.css$/,
+          loaders: ['style-loader', 'css'],
+        },
+      ],
+    },
     i18n,
     images: {
       loader: 'imgix',

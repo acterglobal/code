@@ -1,31 +1,27 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useMemo } from 'react'
 
+import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
-import createLinkifyPlugin from '@draft-js-plugins/linkify'
+import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
+import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import {
-  convertToRaw,
   convertFromRaw,
+  convertFromHTML,
+  ContentState,
   EditorState,
   CompositeDecorator,
-  ContentBlock,
 } from 'draft-js'
-import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
+import { stateToHTML } from 'draft-js-export-html'
+import { markdownToDraft } from 'markdown-draft-js'
 
 import {
   Toolbar,
   toolbarPlugin,
 } from '@acter/components/util/text-editor-toolbar'
-import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
-import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
-import { MediaComponent } from '@acter/components/util/text-editor/media-component'
-
-const linkifyPlugin = createLinkifyPlugin({ target: '_blank' })
-
-const plugins = [toolbarPlugin, linkifyPlugin]
 
 interface widthHeightType {
   height?: number
@@ -58,6 +54,22 @@ export const TextEditor: FC<TextEditorProps> = ({
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
+  const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
+
+  const [inlinPlugin, InlineToolbar] = useMemo(() => {
+    const inlineToolbarPlugin = createInlineToolbarPlugin()
+
+    return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
+  }, [])
+
+  const plugins = [...inlinPlugin, toolbarPlugin, linkPlugin]
+
+  // const decorator = new CompositeDecorator([
+  //   {
+  //     strategy: linkStrategy,
+  //     component: DecoratedLink,
+  //   },
+  // ])
 
   const rawData = markdownToDraft(initialValue)
   const contentState = convertFromRaw(rawData)
@@ -65,46 +77,36 @@ export const TextEditor: FC<TextEditorProps> = ({
     EditorState.createWithContent(contentState)
   )
 
+  // const blocksFromHTML = convertFromHTML(initialValue)
+  // const contentState = ContentState.createFromBlockArray(
+  //   blocksFromHTML.contentBlocks,
+  //   blocksFromHTML.entityMap
+  // )
+
   useEffect(() => {
     if (clearTextEditor) {
-      setEditorState(
-        EditorState.createEmpty(
-          new CompositeDecorator([
-            {
-              strategy: linkStrategy,
-              component: DecoratedLink,
-            },
-          ])
-        )
-      )
+      setEditorState(EditorState.createEmpty())
     }
   }, [clearTextEditor])
 
   const onEditorStateChange = async (data) => {
-    const rawObject = convertToRaw(data.getCurrentContent())
-
-    console.log('CURRENT...', rawObject)
-
-    const value = draftToMarkdown(rawObject)
-    handleInputChange(value)
-    setEditorState(data)
-  }
-
-  const renderBlock = (contentBlock: ContentBlock) => {
-    if (contentBlock.getType() === 'atomic') {
-      const entityKey = contentBlock.getEntityAt(0)
-      const entityData = editorState
-        .getCurrentContent()
-        .getEntity(entityKey)
-        .getData()
-      return {
-        component: MediaComponent,
-        editable: false,
-        props: {
-          src: { file: entityData.src },
-        },
-      }
+    const options = {
+      entityStyleFn: (entity) => {
+        if (entity.get('type').toLowerCase() === 'link') {
+          const data = entity.getData()
+          return {
+            element: 'a',
+            attributes: {
+              href: data.url,
+              target: '_blank',
+            },
+          }
+        }
+      },
     }
+
+    handleInputChange(stateToHTML(data.getCurrentContent(), options))
+    setEditorState(data)
   }
 
   return (
@@ -119,9 +121,15 @@ export const TextEditor: FC<TextEditorProps> = ({
           onChange={onEditorStateChange}
           plugins={plugins}
           ref={editorRef}
-          blockRendererFn={renderBlock}
           placeholder={placeholder}
         />
+        <InlineToolbar>
+          {(externalProps) => (
+            <>
+              <linkPlugin.LinkButton {...externalProps} />
+            </>
+          )}
+        </InlineToolbar>
       </Box>
     </Box>
   )
@@ -153,56 +161,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
-const initialState = {
-  blocks: [
-    {
-      key: 'agrno',
-      text: '',
-      type: 'unstyled',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [],
-      data: {},
-    },
-  ],
-  entityMap: {},
-}
-
-const initialState2 = {
-  entityMap: {
-    0: {
-      type: 'IMAGE',
-      mutability: 'IMMUTABLE',
-      data: {
-        src: '/images/canada-landscape-small.jpg',
-      },
-    },
-  },
-  blocks: [
-    {
-      key: '9gm3s',
-      text: 'You can have images in your text field. This is a very rudimentary example, but you can enhance the image plugin with resizing, focus or alignment plugins.',
-      type: 'unstyled',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [],
-      data: {},
-    },
-    {
-      key: 'ov7r',
-      text: ' ',
-      type: 'atomic',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [
-        {
-          offset: 0,
-          length: 1,
-          key: 0,
-        },
-      ],
-      data: {},
-    },
-  ],
-}

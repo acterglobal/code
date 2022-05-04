@@ -12,7 +12,6 @@ import { Field, Form, Formik, FormikBag } from 'formik'
 
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
-import { Editor2 } from '@acter/components/util/text-editor/text-editor-2'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Post as PostType, User } from '@acter/schema'
@@ -94,19 +93,18 @@ export const PostForm: FC<PostFormProps> = ({
               as={TextareaAutosize}
             />
           ) : (
-            // <TextEditor
-            //   initialValue={initialValues.content}
-            //   handleInputChange={(value) => setFieldValue('content', value)}
-            //   placeholder={clearText && t('form.writePost')}
-            //   editorRef={handleEditorRef}
-            //   clearTextEditor={clearText}
-            //   height={theme.spacing(12)}
-            //   borderStyles={{
-            //     radius: theme.spacing(1),
-            //     color: theme.colors.grey.main,
-            //   }}
-            // />
-            <Editor2 />
+            <TextEditor
+              initialValue={initialValues.content}
+              handleInputChange={(value) => setFieldValue('content', value)}
+              placeholder={clearText && t('form.writePost')}
+              editorRef={handleEditorRef}
+              clearTextEditor={clearText}
+              height={theme.spacing(12)}
+              borderStyles={{
+                radius: theme.spacing(1),
+                color: theme.colors.grey.main,
+              }}
+            />
           )}
 
           {post ? (

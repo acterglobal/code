@@ -9,7 +9,6 @@ export const HeadlinesButton = ({
   ...props
 }: ToolbarChildrenProps): JSX.Element => {
   const classes = useStyles()
-  console.log('PROPS...', props)
 
   const { onOverrideContent } = props
   const onMouseDown = (event: SyntheticEvent) => event.preventDefault()
