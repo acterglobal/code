@@ -2,8 +2,7 @@ import React, { FC } from 'react'
 
 import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 
-import { ActivitiesSection } from './activities-section'
-
+import { ActivitiesSection } from '@acter/components/acter/activities/activities-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
 
 export const ActerActivities: FC = () => {

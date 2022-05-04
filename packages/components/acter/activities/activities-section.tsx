@@ -21,7 +21,7 @@ import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export const ActivitiesSection: FC = () => {
   const { t } = useTranslation('common')
-  const [showPastActivities, setShowPastActivities] = useState(true)
+  const [showPastActivities, setShowPastActivities] = useState(false)
   const { acter, fetching: acterFetching } = useActer()
   const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
 
