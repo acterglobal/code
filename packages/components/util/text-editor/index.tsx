@@ -8,20 +8,22 @@ import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import {
-  convertFromRaw,
-  convertFromHTML,
-  ContentState,
-  EditorState,
-  CompositeDecorator,
-} from 'draft-js'
+import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
-import { markdownToDraft } from 'markdown-draft-js'
 
 import {
   Toolbar,
   toolbarPlugin,
 } from '@acter/components/util/text-editor-toolbar'
+import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
+import { EditorContext } from '@acter/components/util/text-editor/editor-context'
+import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
+
+let htmlToDraft = null
+if (typeof window === 'object') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  htmlToDraft = require('html-to-draftjs').default
+}
 
 interface widthHeightType {
   height?: number
@@ -56,40 +58,41 @@ export const TextEditor: FC<TextEditorProps> = ({
   const classes = useStyles({ borderStyles, size })
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
-  const [inlinPlugin, InlineToolbar] = useMemo(() => {
+  const [plugins2, InlineToolbar] = useMemo(() => {
     const inlineToolbarPlugin = createInlineToolbarPlugin()
 
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const plugins = [...inlinPlugin, toolbarPlugin, linkPlugin]
+  const plugins = [...plugins2, toolbarPlugin, linkPlugin]
 
-  // const decorator = new CompositeDecorator([
-  //   {
-  //     strategy: linkStrategy,
-  //     component: DecoratedLink,
-  //   },
-  // ])
+  const decorator = new CompositeDecorator([
+    {
+      strategy: linkStrategy,
+      component: DecoratedLink,
+    },
+  ])
 
-  const rawData = markdownToDraft(initialValue)
-  const contentState = convertFromRaw(rawData)
-  const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(contentState)
+  const blocksFromHtml = htmlToDraft(initialValue)
+  const { contentBlocks, entityMap } = blocksFromHtml
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap
   )
 
-  // const blocksFromHTML = convertFromHTML(initialValue)
-  // const contentState = ContentState.createFromBlockArray(
-  //   blocksFromHTML.contentBlocks,
-  //   blocksFromHTML.entityMap
-  // )
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(contentState, decorator)
+  )
 
   useEffect(() => {
     if (clearTextEditor) {
-      setEditorState(EditorState.createEmpty())
+      return setEditorState(EditorState.createEmpty())
     }
   }, [clearTextEditor])
 
   const onEditorStateChange = async (data) => {
+    const contentState = data.getCurrentContent()
+
     const options = {
       entityStyleFn: (entity) => {
         if (entity.get('type').toLowerCase() === 'link') {
@@ -105,7 +108,9 @@ export const TextEditor: FC<TextEditorProps> = ({
       },
     }
 
-    handleInputChange(stateToHTML(data.getCurrentContent(), options))
+    const value = stateToHTML(contentState, options)
+    handleInputChange(value)
+
     setEditorState(data)
   }
 
@@ -116,13 +121,16 @@ export const TextEditor: FC<TextEditorProps> = ({
       </Box>
 
       <Box className={classes.editor}>
-        <Editor
-          editorState={editorState}
-          onChange={onEditorStateChange}
-          plugins={plugins}
-          ref={editorRef}
-          placeholder={placeholder}
-        />
+        <EditorContext.Provider value={editorState}>
+          <Editor
+            editorState={editorState}
+            onChange={onEditorStateChange}
+            plugins={plugins}
+            ref={editorRef}
+            placeholder={placeholder}
+          />
+        </EditorContext.Provider>
+
         <InlineToolbar>
           {(externalProps) => (
             <>
