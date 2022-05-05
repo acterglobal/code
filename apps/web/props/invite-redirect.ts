@@ -1,4 +1,5 @@
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { logger } from '@acter/lib/logger'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter, Invite } from '@acter/schema'
 import QUERY_ACTER_ID from '@acter/schema/queries/acter-by-id.graphql'
@@ -14,7 +15,7 @@ export const inviteRedirect: ComposedGetServerSideProps = async ({
   props,
 }) => {
   if (!params.id) {
-    console.error('No id in params', params)
+    logger.error('No id in params', params)
     return {
       props: {},
       notFound: true,
@@ -61,7 +62,7 @@ export const inviteRedirect: ComposedGetServerSideProps = async ({
       },
     }
   } catch (error) {
-    console.error('Error', error)
+    logger.error('Error', error)
     return {
       props: {},
       redirect: { destination: '/500' },

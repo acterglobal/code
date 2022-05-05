@@ -73,6 +73,10 @@ interface CreateNotificationWorker<TVariables, TData> {
   getNotificationUrlPath: (data?: string, following?: Acter) => string
 }
 
+const l = logger.child({
+  label: 'createNotificationWorker',
+})
+
 export const createNotificationWorker =
   <TVariables, TData>({
     getJobData = async (job) => job as unknown as TData,
@@ -86,20 +90,14 @@ export const createNotificationWorker =
     getNotificationUrlPath,
   }: CreateNotificationWorker<TVariables, TData>) =>
   async (job: TVariables & { id: string }): Promise<void> => {
-    const jobId = job.id
-    const debug = (message: string, data) =>
-      logger.debug(`[createNotificationWorker] ${message}`, {
-        jobId,
-        ...data,
-      })
     try {
-      debug('Starting notification worker', { job })
+      const timer = l.startTimer()
       const data = await getJobData(job)
-      debug('Got notification data', { data })
+      l.debug('Got notification data', { data })
       const following = await getFollowing(data)
-      debug('Got following', { following })
+      l.debug('Got following', { following })
       const followersWhere = getFollowersWhere(data)
-      debug('Got followersWhere', { followersWhere })
+      l.debug('Got followersWhere', { followersWhere })
       const followers = await prisma.acterConnection.findMany({
         include: {
           Follower: {
@@ -126,7 +124,7 @@ export const createNotificationWorker =
           },
         },
       })
-      debug('Sending notification followers', {
+      l.debug('Sending notification followers', {
         followers: followers.map(
           ({
             Follower: {
@@ -138,9 +136,9 @@ export const createNotificationWorker =
         ),
       })
       const activity = getActivity?.(data)
-      if (activity) debug('Got activity', { activity })
+      if (activity) l.debug('Got activity', { activity })
       const post = getPost?.(data)
-      if (post) debug('Got post', { post })
+      if (post) l.debug('Got post', { post })
 
       const extraPath = getNotificationUrlPath(
         activity?.Acter.name || post?.parentId || post?.id,
@@ -189,16 +187,16 @@ export const createNotificationWorker =
               ...emailData,
             })
           } else {
-            debug('No email sent for notification', {
+            l.debug('No email sent for notification', {
               notification,
             })
             return Promise.resolve()
           }
         })
       )
+      timer.done({ message: 'Notification complete', job })
     } catch (e) {
       logger.error('Error processing job', {
-        jobId,
         error: e,
       })
       throw e

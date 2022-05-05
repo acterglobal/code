@@ -6,6 +6,7 @@ import { getSession } from '@auth0/nextjs-auth0'
 
 import { ApolloServer } from 'apollo-server-micro'
 
+import { logger } from '@acter/lib/logger'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { prisma } from '@acter/schema/prisma'
 
@@ -23,8 +24,8 @@ export const getApiHandler =
   (path: string): NextApiHandler =>
   async (req, res): Promise<void> => {
     // Only start the server once
+    const timer = logger.startTimer()
     if (!server) {
-      const timeStart = new Date().getTime()
       const schema = await generateSchema()
       server = new ApolloServer({
         schema,
@@ -37,8 +38,9 @@ export const getApiHandler =
         },
       })
       await server.start()
-      const timeEnd = new Date().getTime()
-      console.debug(`Apollo server started in ${timeEnd - timeStart} ms`)
+      timer.done({ message: 'Apollo server started' })
+    } else {
+      timer.done({ message: 'Apollo server already exists and will be reused' })
     }
 
     const handler = server.createHandler({ path })

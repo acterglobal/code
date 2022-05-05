@@ -4,6 +4,7 @@ import { MiddlewareFn } from 'type-graphql'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
+import { logger } from '@acter/lib/logger'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 
 export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
@@ -37,7 +38,7 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       (invitation) => invitation.createdByUserId === user.id
     )
     if (!isSessionUser) {
-      console.error('ERROR: Wrong user')
+      logger.error('ERROR: Wrong user')
       throw 'Invitation failed. Please try again later.'
     }
 
@@ -51,7 +52,7 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       })
     })
   } catch (error) {
-    console.error('Error: ', error)
+    logger.error('Error: ', error)
     throw 'Invitation failed. Please try again later.'
   }
 }

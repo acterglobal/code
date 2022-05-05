@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
 import { NotificationQueueType } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 
 export const QueueNotifications =
   (queueType: NotificationQueueType): MiddlewareFn =>
@@ -9,11 +10,11 @@ export const QueueNotifications =
     const data = await next()
 
     if (!data?.id) {
-      console.error('No ID to create notification', data)
+      logger.error('No ID to create notification', data)
       return
     }
 
-    console.debug('Sending job notification', {
+    logger.debug('Sending job notification', {
       jobId: data.id,
       queueType,
       data,

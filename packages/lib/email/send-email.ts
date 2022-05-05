@@ -20,6 +20,10 @@ interface EmailInternal extends Email {
   from: string
 }
 
+const l = logger.child({
+  label: 'sendEmail',
+})
+
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sendEmail = async (email: Email): Promise<any> => {
   const mail: EmailInternal = {
@@ -28,17 +32,11 @@ export const sendEmail = async (email: Email): Promise<any> => {
   }
   if (process.env.SENDGRID_API_KEY) {
     try {
-      logger.debug('[sendEmail][sendgrid] Sending email via SendGrid')
+      l.debug('Sending email via SendGrid')
       sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-      const resp = await sendgrid.send(mail)
-      logger.debug('[sendEmail][sendgrid] Got response', { resp })
-      return resp
+      return sendgrid.send(mail)
     } catch (e) {
-      logger.debug(
-        '[sendEmail][sendgrid] Error sending via sendgrid',
-        e,
-        e.response?.body?.errors
-      )
+      l.error('Error sending via sendgrid', e, e.response?.body?.errors)
       throw e
     }
   }

@@ -17,6 +17,7 @@ import {
   PostJobVariables,
 } from '@acter/jobs/post-notifications'
 import { NotificationQueueType } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 
 type NotificationTypeMapItem<T> = {
   checks: (body: T) => boolean
@@ -57,7 +58,7 @@ const notifyHandler = async (
   res: NextApiResponse
 ): Promise<void> => {
   try {
-    console.debug('Received notify job', {
+    logger.debug('Received notify job', {
       type: req.query.type,
       body: req.body,
     })
@@ -67,7 +68,7 @@ const notifyHandler = async (
     await worker.fn(req.body)
     return res.status(200).send('ok')
   } catch (e) {
-    console.error(`Error processing ${req.query.body}`, e)
+    logger.error(`Error processing ${req.query.body}`, e)
     return res.status(400).send(e)
   }
 }

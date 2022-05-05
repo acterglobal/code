@@ -4,7 +4,11 @@ const logger = createLogger({
   level: process.env.NEXT_PUBLIC_LOG_LEVEL || 'info',
   transports: [
     new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
+      format: format.combine(
+        format.colorize(),
+        format.label(),
+        format.simple()
+      ),
     }),
     new transports.Console({
       level: 'error',
@@ -12,5 +16,24 @@ const logger = createLogger({
     }),
   ],
 })
+
+if (process.env.NEXT_PUBLIC_LOG_LEVEL === 'debug') {
+  logger.clear().add(
+    new transports.Console({
+      format: format.combine(
+        format.timestamp(),
+        format.prettyPrint({ colorize: true })
+      ),
+    })
+  )
+}
+
+if (process.env.NODE_ENV === 'production') {
+  logger.clear().add(
+    new transports.Console({
+      format: format.combine(format.timestamp(), format.json()),
+    })
+  )
+}
 
 export { logger }

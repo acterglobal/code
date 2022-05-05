@@ -1,8 +1,9 @@
 import 'reflect-metadata'
 
 import { GraphQLSchema } from 'graphql/type'
-import path from 'path'
 import { buildSchema } from 'type-graphql'
+
+import { logger } from '@acter/lib/logger'
 
 import { authChecker } from './auth-checker'
 import {
@@ -18,10 +19,10 @@ export const generateSchema = async (
 ): Promise<GraphQLSchema> => {
   applyResolversEnhanceMap(resolversEnhanceMap)
 
+  const timer = logger.startTimer()
   if (!schema) {
     // const generatedPath = path.join(__dirname, 'generated')
     // const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
-    const timeStart = new Date().getTime()
     schema = await buildSchema({
       authChecker,
       resolvers,
@@ -30,9 +31,9 @@ export const generateSchema = async (
       // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
       // emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
     })
-    const timeEnd = new Date().getTime()
-    console.debug(`Schema built in ${timeEnd - timeStart} ms`)
+    timer.done({ message: 'Schema built' })
   }
+  timer.done({ message: 'Schema found, reusing' })
 
   return schema
 }
