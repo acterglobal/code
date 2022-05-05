@@ -12,8 +12,11 @@ import { prisma } from '@acter/schema/prisma'
 
 import { createDailyDigest } from './create-daily-digest'
 
+const l = logger.child({ label: 'dailyDigestCronWorker' })
+
 export const dailyDigestCronWorker = async (): Promise<void> => {
   // TODO: We should probably break this up into users by timezone at some point
+  const timer = l.startTimer()
   const now = new Date()
   const afterDateTime = new Date(
     getYear(now),
@@ -24,7 +27,9 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
     0,
     0
   )
-  logger.debug(`Looking for digest users for items after ${afterDateTime}`)
+  l.debug(`Looking for digest users for items after ${afterDateTime}`, {
+    digestDateTime: afterDateTime,
+  })
   const digestUsers = await prisma.acter.findMany({
     include: {
       User: true,
@@ -37,11 +42,19 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
       acterNotifyEmailFrequency: ActerNotificationEmailFrequency.DAILY,
     },
   })
-  logger.debug(
-    `${digestUsers.length || 0} digest users found for ${afterDateTime}`
-  )
+  const count = digestUsers.length || 0
+  l.debug(`${count} digest users found for ${afterDateTime}`, {
+    userActers: digestUsers.map(({ id }) => id),
+    count,
+  })
 
-  digestUsers.forEach((acter) => {
-    createDailyDigest({ acter, afterDateTime })
+  await Promise.all(
+    digestUsers.map(async (acter) => {
+      await createDailyDigest({ acter, afterDateTime })
+    })
+  )
+  timer.done({
+    message: `Created digest notifications for ${count} users`,
+    count,
   })
 }

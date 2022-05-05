@@ -17,6 +17,7 @@
     "@acter/jobs": "workspace:services/jobs",
     "@acter/lib": "workspace:packages/lib",
     "@acter/schema": "workspace:packages/schema",
+    "@auth0/nextjs-auth0": "1.8.0",
     "@next/bundle-analyzer": "11.0.1",
     "@sentry/nextjs": "6.19.7",
     "aws-sdk": "2.962.0",
@@ -33,7 +34,6 @@
     "eslint-config-next": "11.0.1"
   },
   "peerDependencies": {
-    "@auth0/nextjs-auth0": "*",
     "@material-ui/core": "*",
     "graphql": "*",
     "just-capitalize": "*",

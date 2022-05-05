@@ -3,11 +3,23 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs'
 
 import { dailyDigestCronWorker } from '@acter/jobs/daily-digest/cron-worker'
+import { logger } from '@acter/lib/logger'
 
-const digestHandler = (req: NextApiRequest, res: NextApiResponse): void => {
-  dailyDigestCronWorker()
+const l = logger.child({ label: 'digestHandler' })
 
-  res.status(200).send('ok')
+const digestHandler = async (
+  _req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  try {
+    await dailyDigestCronWorker()
+
+    res.status(200).send('ok')
+  } catch (e) {
+    l.error(e)
+    res.status(400).send(e)
+    throw e
+  }
 }
 
 export default withSentry(digestHandler)

@@ -2,36 +2,37 @@ import { createLogger, format, transports } from 'winston'
 
 const logger = createLogger({
   level: process.env.NEXT_PUBLIC_LOG_LEVEL || 'info',
-  transports: [
-    new transports.Console({
-      format: format.combine(
-        format.colorize(),
-        format.label(),
-        format.simple()
-      ),
-    }),
-    new transports.Console({
-      level: 'error',
-      format: format.combine(format.errors(), format.colorize()),
-    }),
-  ],
 })
 
 if (process.env.NEXT_PUBLIC_LOG_LEVEL === 'debug') {
-  logger.clear().add(
+  logger.add(
     new transports.Console({
       format: format.combine(
+        format.errors({ stack: true }),
         format.timestamp(),
         format.prettyPrint({ colorize: true })
       ),
     })
   )
-}
-
-if (process.env.NODE_ENV === 'production') {
-  logger.clear().add(
+} else if (process.env.NODE_ENV === 'production') {
+  logger.add(
     new transports.Console({
-      format: format.combine(format.timestamp(), format.json()),
+      format: format.combine(
+        format.errors({ stack: true }),
+        format.timestamp(),
+        format.json()
+      ),
+    })
+  )
+} else {
+  logger.add(
+    new transports.Console({
+      format: format.combine(
+        format.errors({ stack: true }),
+        format.colorize(),
+        format.label(),
+        format.simple()
+      ),
     })
   )
 }
