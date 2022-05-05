@@ -2,6 +2,7 @@ import { isEqual } from 'date-fns'
 
 import { DATE_FORMAT_LONG, DATE_TIME_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
+import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
 import { Activity } from '@acter/schema'
 
 export const activityDateFormat = (activity: Activity): string => {
@@ -16,7 +17,10 @@ export const activityDateFormat = (activity: Activity): string => {
     dateString: activity.startAt,
     formatString: dateFormat,
   })
-  return isEqual(activity.startAt, activity.endAt)
+  return isEqual(
+    parseDateOrString(activity.startAt),
+    parseDateOrString(activity.endAt)
+  )
     ? `on ${startAt}`
     : `from ${startAt} to ${endAt}`
 }

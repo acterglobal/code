@@ -64,9 +64,8 @@ const notifyHandler = async (
     const worker = notificationTypeMap[req.query.type as NotificationQueueType]
     if (!worker) return res.status(400).send('Bad request')
     if (!worker.checks(req.body)) return res.status(422).send('Data missing')
-    const resp = await worker.fn(req.body)
-    console.debug('Worker returned response', resp)
-    res.status(200).send('ok')
+    await worker.fn(req.body)
+    return res.status(200).send('ok')
   } catch (e) {
     console.error(`Error processing ${req.query.body}`, e)
     return res.status(400).send(e)
