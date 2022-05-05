@@ -65,6 +65,8 @@ __metadata:
     react-imgix: 9.3.0
     react-infinite-scroll-component: 6.1.0
     react-is-visible: 1.1.2
+    react-sanitized-html: ^2.0.0
+    sanitize-html: ^2.7.0
     sb: 6.3.6
     storybook-addon-next-auth0: 1.0.6
     storybook-addon-next-router: 3.1.1
@@ -8964,9 +8966,7 @@ __metadata:
     react-hotjar: ^5.0.0
     react-is: 17.0.2
     react-magnetic-di: 2.2.6
-    react-sanitized-html: ^2.0.0
     reflect-metadata: 0.1.13
-    sanitize-html: ^2.7.0
     shelljs: 0.8.5
     syncpack: 5.8.14
     tar: 6.1.11

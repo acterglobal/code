@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import SanitizedHTML from 'react-sanitized-html'
 
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
-import Markdown from 'markdown-to-jsx'
-
+import { SantizedContent } from '@acter/components/molecules/sanitized-content'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
@@ -31,11 +29,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
 
-  const description = acter.isMarkDown ? (
-    <Markdown>{acter.description}</Markdown>
-  ) : (
-    <SanitizedHTML html={acter.description}></SanitizedHTML>
-  )
+  const acterDescription = SantizedContent(acter.description, acter.isMarkDown)
 
   return (
     <>
@@ -44,7 +38,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
       </Typography>
       <Box className={classes.description}>
         <Typography variant="caption">
-          {acter.description && description}
+          {acter.description && acterDescription}
         </Typography>
       </Box>
     </>

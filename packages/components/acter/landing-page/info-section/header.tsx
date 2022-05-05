@@ -1,10 +1,9 @@
 import React, { FC } from 'react'
-import SanitizedHTML from 'react-sanitized-html'
 
 import { Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import Markdown from 'markdown-to-jsx'
+import { SantizedContent } from '@acter/components/molecules/sanitized-content'
 
 export interface headerProps {
   title: string
@@ -15,11 +14,7 @@ export interface headerProps {
 export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
   const classes = useStyles()
 
-  const acterDescription = isMarkDown ? (
-    <Markdown>{description}</Markdown>
-  ) : (
-    <SanitizedHTML html={description}></SanitizedHTML>
-  )
+  const acterDescription = SantizedContent(description, isMarkDown)
 
   return (
     <>

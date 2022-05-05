@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import SanitizedHTML from 'react-sanitized-html'
 
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import Markdown from 'markdown-to-jsx'
-
+import { SantizedContent } from '@acter/components/molecules/sanitized-content'
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 import { PostReactions } from '@acter/components/posts/reactions'
 
@@ -14,18 +12,14 @@ type PostContentProps = PostInfoProps
 export const PostContent: FC<PostContentProps> = ({ post }) => {
   const classes = useStyles()
 
-  const acterDescription = post.isMarkDown ? (
-    <Markdown>{post.content}</Markdown>
-  ) : (
-    <SanitizedHTML html={post.content}></SanitizedHTML>
-  )
+  const postContent = SantizedContent(post.content, post.isMarkDown)
 
   return (
     <Box className={classes.postContent}>
       <PostInfo post={post} />
 
       <Typography variant="caption" className={classes.description}>
-        {post.content && acterDescription}
+        {post.content && postContent}
       </Typography>
 
       <PostReactions post={post} />
