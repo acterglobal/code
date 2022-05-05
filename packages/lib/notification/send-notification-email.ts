@@ -14,15 +14,17 @@ export interface NotificationEmail extends Email {
   notifications?: Notification | Notification[]
 }
 
+const l = logger.child({ label: 'sendNotificationEmail' })
+
 export const sendNotificationEmail = async (
   job: NotificationEmail
 ): Promise<void> => {
   try {
-    const res = await sendEmail(job)
-    logger.debug('[sendNotificationEmail] Email sent', {
-      to: job.to,
+    const { messageId, response } = await sendEmail(job)
+    l.info('Email sent', {
       subject: job.subject,
-      res,
+      messageId,
+      response,
     })
 
     const sentAt = new Date()
@@ -41,12 +43,12 @@ export const sendNotificationEmail = async (
           },
         },
       })
-      logger.debug('[sendNotificationEmail] Notification(s) updated', {
+      l.debug('Notification(s) updated', {
         notification,
       })
     }
   } catch (err) {
-    logger.error('[sendNotificationEmail] Error sending message', {
+    l.error('Error sending message', {
       notifications: job.notifications,
       err,
     })

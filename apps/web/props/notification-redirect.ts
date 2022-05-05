@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 import { GetServerSidePropsResult } from 'next'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
+import { logger } from '@acter/lib/logger'
 import { getNotificationRedirectUrl } from '@acter/lib/notification/get-notification-redirect-url'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter, Notification } from '@acter/schema'
@@ -18,14 +18,14 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   params,
   props,
 }) => {
-  console.log('Starting notificationRedirect')
+  logger.debug('Starting notificationRedirect')
   if (!props.user?.email || !params.id) {
-    if (!props.user) console.log('No user found', props)
-    if (!params.id) console.log('No id in params', params)
+    if (!props.user) logger.debug('No user found', props)
+    if (!params.id) logger.debug('No id in params', params)
     return redirectOnMissingData
   }
 
-  console.log(
+  logger.debug(
     `Moving forward with user ${props.user.email} and id ${params.id}`
   )
 
@@ -41,7 +41,7 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     .toPromise()
 
   if (error) {
-    console.error('Error', error)
+    logger.error('Error', error)
     return {
       props: {},
       redirect: {
@@ -55,8 +55,8 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   }: { findFirstNotification: Notification } = data
 
   if (!notification?.url) {
-    console.log('No notification found for id', props.id)
-    console.log(data)
+    logger.debug('No notification found for id', props.id)
+    logger.debug(data)
     return redirectOnMissingData
   }
 
@@ -90,7 +90,7 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     }
   } catch (err) {
     // Just log the update error and redirect anyways
-    console.error(err)
+    logger.error(err)
     return {
       props,
       redirect: {

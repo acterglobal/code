@@ -8,6 +8,7 @@ import {
 } from 'type-graphql'
 
 import { NotificationQueueType } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   ActerConnection,
@@ -41,7 +42,7 @@ export class ActerConnectionResolver {
     })
     if (!followingActer) {
       const err = 'No user found'
-      console.error(err)
+      logger.error(err)
       throw err
     }
 
@@ -98,7 +99,7 @@ export class ActerConnectionResolver {
     })
     if (!connection) {
       const err = 'No connection found'
-      console.error(err)
+      logger.error(err)
       throw err
     }
 
@@ -112,7 +113,7 @@ export class ActerConnectionResolver {
 
     if (!isAdmin) {
       const err = 'Not authorized'
-      console.error(err)
+      logger.error(err)
       throw err
     }
 

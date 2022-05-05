@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 import 'reflect-metadata'
 
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { sendEmail } from '@acter/lib/email'
+import { logger } from '@acter/lib/logger'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { NotificationEmail } from '@acter/lib/notification/send-notification-email'
 import { NotificationType } from '@acter/schema'
@@ -60,7 +60,7 @@ export const createDailyDigest = async ({
   })
 
   if (notifications.length === 0) {
-    console.log('No notifications, exiting')
+    logger.log('No notifications, exiting')
     return
   }
 

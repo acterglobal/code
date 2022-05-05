@@ -10,6 +10,7 @@ import {
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes, NotificationQueueType } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   Acter,
@@ -95,7 +96,7 @@ export class ActerResolver {
     })
     if (existingActer) {
       const err = `Found existing ${existingActer.ActerType.name} Acter with slug ${slug}`
-      console.error(err)
+      logger.error(err)
       throw err
     }
 

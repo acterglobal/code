@@ -22,6 +22,7 @@ export const generateSchema = async (
 
   applyResolversEnhanceMap(resolversEnhanceMap)
 
+  const timer = logger.startTimer()
   if (!schema) {
     // const generatedPath = path.join(__dirname, 'generated')
     // const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
@@ -37,6 +38,7 @@ export const generateSchema = async (
   } else {
     timer.done('using existing schema')
   }
+  timer.done({ message: 'Schema found, reusing' })
 
   return schema
 }

@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 import 'reflect-metadata'
 
 import { getDate, getMonth, getYear } from 'date-fns'
 
 import { ActerTypes } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
@@ -24,7 +24,7 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
     0,
     0
   )
-  console.log(`Looking for digest users for items after ${afterDateTime}`)
+  logger.debug(`Looking for digest users for items after ${afterDateTime}`)
   const digestUsers = await prisma.acter.findMany({
     include: {
       User: true,
@@ -37,7 +37,7 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
       acterNotifyEmailFrequency: ActerNotificationEmailFrequency.DAILY,
     },
   })
-  console.log(
+  logger.debug(
     `${digestUsers.length || 0} digest users found for ${afterDateTime}`
   )
 
