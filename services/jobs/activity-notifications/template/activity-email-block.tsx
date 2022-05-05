@@ -34,7 +34,9 @@ export const ActivityEmailBlock: FC<ActivityEmailBlockProps> = ({
 
           <p>It will occur {activityDateFormat(activity)}</p>
 
-          <p>Created by {activity.createdByUser.Acter.name}</p>
+          {activity.createdByUser?.Acter?.name && (
+            <p>Created by {activity.createdByUser.Acter.name}</p>
+          )}
         </MjmlText>
       </MjmlColumn>
     </MjmlSection>

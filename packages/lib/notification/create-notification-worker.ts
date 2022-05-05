@@ -87,7 +87,7 @@ export const createNotificationWorker =
   async (job: TVariables & { id: string }): Promise<void> => {
     const jobId = job.id
     const debug = (message: string, data) =>
-      console.debug(`[notification][notificationWorker] ${message}`, {
+      console.debug(`[createNotificationWorker] ${message}`, {
         jobId,
         ...data,
       })

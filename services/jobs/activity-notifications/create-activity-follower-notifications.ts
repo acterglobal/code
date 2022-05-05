@@ -38,6 +38,8 @@ export const createActivityFollowerNotifications = async (
     where: {
       Following: {
         id: activity.acterId,
+      },
+      Follower: {
         ActerType: {
           name: {
             not: ActerTypes.USER,
@@ -47,13 +49,20 @@ export const createActivityFollowerNotifications = async (
     },
   })
 
+  console.debug(
+    '[createActivityFollowerNotifications] Got followers',
+    followers
+  )
+
   // Now create a job to email the users for each follower
-  followers.forEach(({ Follower }) => {
-    const acter = Follower as ActerPickWithUser
-    createActerActivityNotifications({
-      id: activity.id,
-      acter,
-      activity,
+  await Promise.all(
+    followers.map(async ({ Follower }) => {
+      const acter = Follower as ActerPickWithUser
+      return createActerActivityNotifications({
+        id: activity.id,
+        acter,
+        activity,
+      })
     })
-  })
+  )
 }

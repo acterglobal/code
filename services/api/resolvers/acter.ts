@@ -371,6 +371,11 @@ export class ActerResolver {
           },
         },
         ActivityType: true,
+        createdByUser: {
+          select: {
+            Acter: true,
+          },
+        },
       },
     })
 
