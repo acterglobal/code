@@ -58,13 +58,13 @@ export const TextEditor: FC<TextEditorProps> = ({
   const classes = useStyles({ borderStyles, size })
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
-  const [plugins2, InlineToolbar] = useMemo(() => {
+  const [inlinePlugins, InlineToolbar] = useMemo(() => {
     const inlineToolbarPlugin = createInlineToolbarPlugin()
 
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const plugins = [...plugins2, toolbarPlugin, linkPlugin]
+  const plugins = [...inlinePlugins, toolbarPlugin, linkPlugin]
 
   const decorator = new CompositeDecorator([
     {
@@ -132,11 +132,7 @@ export const TextEditor: FC<TextEditorProps> = ({
         </EditorContext.Provider>
 
         <InlineToolbar>
-          {(externalProps) => (
-            <>
-              <linkPlugin.LinkButton {...externalProps} />
-            </>
-          )}
+          {(externalProps) => <linkPlugin.LinkButton {...externalProps} />}
         </InlineToolbar>
       </Box>
     </Box>

@@ -10,17 +10,12 @@ import {
   BlockquoteButton,
   CodeBlockButton,
 } from '@draft-js-plugins/buttons'
-import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import createToolbarPlugin, {
   Separator,
 } from '@draft-js-plugins/static-toolbar'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
 
 import { HeadlinesButton } from '@acter/components/util/text-editor-toolbar/headlines-button'
-
-// export const inlineToolbarPlugin = createInlineToolbarPlugin()
-
-// export const { InlineToolbar } = inlineToolbarPlugin
 
 export const toolbarPlugin = createToolbarPlugin()
 
