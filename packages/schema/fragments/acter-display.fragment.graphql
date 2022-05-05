@@ -16,6 +16,7 @@ fragment ActerDisplay on Acter {
   acterPrivacySetting
   acterWhoCanJoinSetting
   acterTypeId
+  isMarkDown
   ActerType {
     id
     name

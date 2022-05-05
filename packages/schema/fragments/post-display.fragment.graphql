@@ -9,6 +9,7 @@ fragment PostDisplay on Post {
   authorId
   acterId
   parentId
+  isMarkDown
   Acter {
     id
     name
