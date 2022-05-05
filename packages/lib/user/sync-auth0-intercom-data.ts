@@ -8,6 +8,7 @@ import { assert } from 'console'
 import { getUnixTime } from 'date-fns'
 
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
+import { logger } from '@acter/lib/logger'
 import { User } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
@@ -37,7 +38,7 @@ export const syncAuth0IntercomData = async ({
     await syncIntercomToAuth0({ session, intercomUser })
     await syncWithDb({ user, intercomUser })
   } catch (e) {
-    console.error('Error syncing intercom user', e)
+    logger.error('Error syncing intercom user', e)
   }
 }
 
