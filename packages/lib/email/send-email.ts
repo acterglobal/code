@@ -1,7 +1,8 @@
 import sendgrid from '@sendgrid/mail'
 
-import { Environments } from '../constants'
 import nodemailer from 'nodemailer'
+
+import { logger } from '@acter/lib/logger'
 
 export interface Email {
   to: string
@@ -14,24 +15,40 @@ interface EmailInternal extends Email {
   from: string
 }
 
+const l = logger.child({ label: 'sendEmail' })
+
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sendEmail = async (email: Email): Promise<any> => {
   const mail: EmailInternal = {
     ...email,
     from: process.env.EMAIL_FROM,
   }
-  if (process.env.NODE_ENV === Environments.PRODUCTION) {
-    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-    return await sendgrid.send(mail)
+  if (process.env.SENDGRID_API_KEY) {
+    try {
+      l.debug('Sending email via SendGrid')
+      sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
+      const resp = await sendgrid.send(mail)
+      l.debug('Got response', { resp })
+      return resp
+    } catch (e) {
+      logger.error('Error sending via sendgrid', e, e.response?.body?.errors)
+      throw e
+    }
   }
 
-  const transport = nodemailer.createTransport({
-    host: process.env.EMAIL_SERVER_HOST,
-    port: process.env.EMAIL_SERVER_PORT,
-    secure: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-  })
-  return await transport.sendMail(mail)
+  logger.debug('Sending email via nodemailer')
+  try {
+    const transport = nodemailer.createTransport({
+      host: process.env.EMAIL_SERVER_HOST,
+      port: process.env.EMAIL_SERVER_PORT,
+      secure: false,
+      tls: {
+        rejectUnauthorized: false,
+      },
+    })
+    return await transport.sendMail(mail)
+  } catch (e) {
+    l.error('Error sending via sendmail', e)
+    throw e
+  }
 }

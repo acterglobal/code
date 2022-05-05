@@ -1,5 +1,8 @@
+import { logger } from '@acter/lib/logger'
 import { ActerType } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
+
+const l = logger.child({ label: 'getActerTypeFromDB' })
 
 export const getActerTypeFromDB = async (name: string): Promise<ActerType> => {
   // Create a User Acter
@@ -9,7 +12,7 @@ export const getActerTypeFromDB = async (name: string): Promise<ActerType> => {
 
   if (!acterType) {
     const err = 'Could not find user ActerType'
-    console.error(err)
+    l.error(err)
     throw err
   }
 
