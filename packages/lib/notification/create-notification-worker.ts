@@ -1,5 +1,6 @@
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { ActerTypes } from '@acter/lib/constants'
+import { logger } from '@acter/lib/logger'
 import {
   Acter,
   ActerNotificationEmailFrequency,
@@ -87,7 +88,7 @@ export const createNotificationWorker =
   async (job: TVariables & { id: string }): Promise<void> => {
     const jobId = job.id
     const debug = (message: string, data) =>
-      console.debug(`[createNotificationWorker] ${message}`, {
+      logger.debug(`[createNotificationWorker] ${message}`, {
         jobId,
         ...data,
       })
@@ -196,7 +197,7 @@ export const createNotificationWorker =
         })
       )
     } catch (e) {
-      console.error('Error processing job', {
+      logger.error('Error processing job', {
         jobId,
         error: e,
       })

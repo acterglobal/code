@@ -1,3 +1,4 @@
+import { logger } from '@acter/lib/logger'
 import { ActerType } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
@@ -9,7 +10,7 @@ export const getActerTypeFromDB = async (name: string): Promise<ActerType> => {
 
   if (!acterType) {
     const err = 'Could not find user ActerType'
-    console.error(err)
+    logger.error(err)
     throw err
   }
 

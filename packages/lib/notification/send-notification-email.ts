@@ -1,3 +1,4 @@
+import { logger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
 
 import { sendEmail, Email } from '../email/send-email'
@@ -18,7 +19,7 @@ export const sendNotificationEmail = async (
 ): Promise<void> => {
   try {
     const res = await sendEmail(job)
-    console.debug('[sendNotificationEmail] Email sent', {
+    logger.debug('[sendNotificationEmail] Email sent', {
       to: job.to,
       subject: job.subject,
       res,
@@ -40,12 +41,12 @@ export const sendNotificationEmail = async (
           },
         },
       })
-      console.debug('[sendNotificationEmail] Notification(s) updated', {
+      logger.debug('[sendNotificationEmail] Notification(s) updated', {
         notification,
       })
     }
   } catch (err) {
-    console.error('[sendNotificationEmail] Error sending message', {
+    logger.error('[sendNotificationEmail] Error sending message', {
       notifications: job.notifications,
       err,
     })

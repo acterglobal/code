@@ -12,6 +12,7 @@ import { ProfileFormLayout } from '@acter/components/user/form/layout'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { logger } from '@acter/lib/logger'
 import { useUser } from '@acter/lib/user/use-user'
 import { Language } from '@acter/schema'
 
@@ -36,7 +37,7 @@ export const ProfileInfoForm: FC = () => {
 
   if (fetching) return <>Loading...</>
   if (!user) {
-    console.error('No user')
+    logger.error('No user')
 
     return null
   }
