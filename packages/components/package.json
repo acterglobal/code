@@ -49,8 +49,6 @@
     "react-imgix": "9.3.0",
     "react-infinite-scroll-component": "6.1.0",
     "react-is-visible": "1.1.2",
-    "sanitize-html": "^2.7.0",
-    "sanitize-html-react": "^1.13.0",
     "title-case": "3.0.3",
     "use-places-autocomplete": "^2.0.0",
     "use-position": "1.0.0",

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
+import SanitizedHTML from 'react-sanitized-html'
 
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import Markdown from 'markdown-to-jsx'
-import sanitizeHtml from 'sanitize-html'
 
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
@@ -34,7 +34,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
   const description = acter.isMarkDown ? (
     <Markdown>{acter.description}</Markdown>
   ) : (
-    sanitizeHtml(acter.description)
+    <SanitizedHTML html={acter.description}></SanitizedHTML>
   )
 
   return (
