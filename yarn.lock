@@ -169,7 +169,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@acter/schema@workspace:packages/schema"
   dependencies:
-    "@auth0/nextjs-auth0": 1.7.0
     "@graphql-codegen/cli": 2.2.1
     "@graphql-codegen/urql-introspection": 2.1.0
     "@prisma/client": 3.7.0
@@ -186,6 +185,7 @@ __metadata:
     typescript: "*"
     uuid: 8.3.2
   peerDependencies:
+    "@auth0/nextjs-auth0": "*"
     date-fns: "*"
   languageName: unknown
   linkType: soft
@@ -199,6 +199,7 @@ __metadata:
     "@acter/jobs": "workspace:services/jobs"
     "@acter/lib": "workspace:packages/lib"
     "@acter/schema": "workspace:packages/schema"
+    "@auth0/nextjs-auth0": 1.8.0
     "@next/bundle-analyzer": 11.0.1
     "@sentry/nextjs": 6.19.7
     aws-sdk: 2.962.0
@@ -212,7 +213,6 @@ __metadata:
     next-transpile-modules: 8.0.0
     react-use-intercom: 1.4.0
   peerDependencies:
-    "@auth0/nextjs-auth0": "*"
     "@material-ui/core": "*"
     graphql: "*"
     just-capitalize: "*"
@@ -276,16 +276,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth0/nextjs-auth0@npm:1.7.0":
-  version: 1.7.0
-  resolution: "@auth0/nextjs-auth0@npm:1.7.0"
+"@auth0/nextjs-auth0@npm:1.8.0":
+  version: 1.8.0
+  resolution: "@auth0/nextjs-auth0@npm:1.8.0"
   dependencies:
     base64url: ^3.0.1
-    cookie: ^0.4.1
-    debug: ^4.3.3
-    futoin-hkdf: ^1.4.2
+    cookie: ^0.5.0
+    debug: ^4.3.4
+    futoin-hkdf: ^1.5.0
     http-errors: ^1.8.1
-    joi: ^17.5.0
+    joi: ^17.6.0
     jose: ^2.0.5
     on-headers: ^1.0.2
     openid-client: ^4.9.1
@@ -293,7 +293,7 @@ __metadata:
     url-join: ^4.0.1
   peerDependencies:
     next: ">=10"
-  checksum: abf715585fca4c7ffe5fc481fdf029562d1a52700db326161c4861618c3b8b095fdc7ecb4c8af71e9615560b1f388f943d56555dd3ff4669a2c21ab26c5ba1b6
+  checksum: 41fed793be7938c415c0948d1dffc09bf3d896540b4071c3292ca5bc8390039f46e4375b8d396ad0ba6227904ceaf6855ffb5b62f1fcb6776c4e32d22aefc46a
   languageName: node
   linkType: hard
 
@@ -10824,6 +10824,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "cookie@npm:0.5.0"
+  checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
+  languageName: node
+  linkType: hard
+
 "cookiejar@npm:^2.1.2":
   version: 2.1.3
   resolution: "cookiejar@npm:2.1.3"
@@ -11458,15 +11465,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.3.3":
-  version: 4.3.3
-  resolution: "debug@npm:4.3.3"
+"debug@npm:^4.3.4":
+  version: 4.3.4
+  resolution: "debug@npm:4.3.4"
   dependencies:
     ms: 2.1.2
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 14472d56fe4a94dbcfaa6dbed2dd3849f1d72ba78104a1a328047bb564643ca49df0224c3a17fa63533fd11dd3d4c8636cd861191232a2c6735af00cc2d4de16
+  checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
   languageName: node
   linkType: hard
 
@@ -14073,7 +14080,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"futoin-hkdf@npm:^1.4.2":
+"futoin-hkdf@npm:^1.5.0":
   version: 1.5.0
   resolution: "futoin-hkdf@npm:1.5.0"
   checksum: c0819311f68ec1ba00d35b78ea6b825910def70a5fd330f2cc66e914e7ddb0b9ff267911286062324b120ad5f06fca5a1b09591473c553ac0bf0585a87fc9c72
@@ -17041,7 +17048,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"joi@npm:^17.5.0":
+"joi@npm:^17.6.0":
   version: 17.6.0
   resolution: "joi@npm:17.6.0"
   dependencies:

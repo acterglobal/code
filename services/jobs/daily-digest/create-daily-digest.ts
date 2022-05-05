@@ -12,10 +12,13 @@ import { prisma } from '@acter/schema/prisma'
 import { createDailyDigestEmail } from './template'
 import { DailyDigest, NotificationByActerMap } from './types'
 
+const l = logger.child({ label: 'createDailyDigest' })
+
 export const createDailyDigest = async ({
   acter,
   afterDateTime,
 }: DailyDigest): Promise<void> => {
+  const timer = l.startTimer()
   const formattedAfterDateTime = parseAndFormat({
     dateString: afterDateTime,
     formatString: DATE_FORMAT_LONG,
@@ -56,13 +59,20 @@ export const createDailyDigest = async ({
       type: {
         in: [NotificationType.NEW_ACTIVITY, NotificationType.NEW_POST],
       },
+      createdAt: {
+        gte: afterDateTime,
+      },
     },
   })
 
   if (notifications.length === 0) {
-    logger.log('No notifications, exiting')
+    l.debug('No notifications, exiting', { userActer: acter.id })
     return
   }
+
+  l.debug(`Creating digest with ${notifications.length} notifications`, {
+    acter: acter.id,
+  })
 
   const notificationsByActer: NotificationByActerMap = notifications.reduce(
     (memo, notification) => {
@@ -96,5 +106,10 @@ export const createDailyDigest = async ({
     text,
     notifications: notifications.map(({ id }) => ({ id })),
   }
-  sendEmail(email)
+  await sendEmail(email)
+  timer.done({
+    message: 'Finished creating digest',
+    acterId: acter.id,
+    notificationCount: notifications.length,
+  })
 }

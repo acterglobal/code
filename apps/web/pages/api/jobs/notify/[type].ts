@@ -53,12 +53,14 @@ const notificationTypeMap: Record<
   },
 }
 
+const l = logger.child({ label: 'notifyHandler' })
+
 const notifyHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   try {
-    logger.debug('Received notify job', {
+    l.debug('Received notify job', {
       type: req.query.type,
       body: req.body,
     })
@@ -68,8 +70,9 @@ const notifyHandler = async (
     await worker.fn(req.body)
     return res.status(200).send('ok')
   } catch (e) {
-    logger.error(`Error processing ${req.query.body}`, e)
-    return res.status(400).send(e)
+    l.error(e)
+    res.status(400).send(e)
+    throw e
   }
 }
 
