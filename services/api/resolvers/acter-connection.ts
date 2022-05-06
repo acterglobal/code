@@ -16,13 +16,13 @@ import {
   ActerJoinSettings,
 } from '@acter/schema'
 
-import { QueueNotifications } from '../middlewares/queue-notifications'
+import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
-  @UseMiddleware(QueueNotifications(NotificationQueueType.NEW_MEMBER))
+  @UseMiddleware(QueueNotificationsMiddleware(NotificationQueueType.NEW_MEMBER))
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,

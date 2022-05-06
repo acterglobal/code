@@ -1,28 +1,26 @@
-import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
+import { sendJobsApiRequest } from '@acter/lib/api/send-jobs-api-request'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { logger } from '@acter/lib/logger'
 
-export const QueueNotifications =
+const l = logger.child({ label: 'QueueNotificationsMiddleware' })
+
+export const QueueNotificationsMiddleware =
   (queueType: NotificationQueueType): MiddlewareFn =>
   async (_, next) => {
     const data = await next()
 
     if (!data?.id) {
-      logger.error('No ID to create notification', data)
+      l.error('No ID to create notification', data)
       return
     }
 
-    logger.debug('Sending job notification', {
-      jobId: data.id,
-      queueType,
-      data,
-    })
+    const timer = l.startTimer()
 
-    axios({
-      method: 'POST',
-      url: `${process.env.BASE_URL}/api/jobs/notify/${queueType}`,
+    sendJobsApiRequest({
+      url: `/notify/${queueType}`,
       data: data,
     })
+    timer.done({ message: 'Sent notifications job', queueType, data })
   }

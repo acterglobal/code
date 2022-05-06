@@ -16,7 +16,7 @@ import {
   createPostNotifications,
   PostJobVariables,
 } from '@acter/jobs/post-notifications'
-import { NotificationQueueType } from '@acter/lib/constants'
+import { API_SECRET_KEY, NotificationQueueType } from '@acter/lib/constants'
 import { logger } from '@acter/lib/logger'
 
 type NotificationTypeMapItem<T> = {
@@ -59,20 +59,27 @@ const notifyHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  try {
-    l.debug('Received notify job', {
+  if (req.method === 'POST') {
+    const loggerMeta = {
       type: req.query.type,
       body: req.body,
-    })
-    const worker = notificationTypeMap[req.query.type as NotificationQueueType]
-    if (!worker) return res.status(400).send('Bad request')
-    if (!worker.checks(req.body)) return res.status(422).send('Data missing')
-    await worker.fn(req.body)
-    return res.status(200).send('ok')
-  } catch (e) {
-    l.error(e)
-    res.status(400).send(e)
-    throw e
+    }
+
+    try {
+      const timer = l.startTimer()
+      const worker =
+        notificationTypeMap[req.query.type as NotificationQueueType]
+      if (!worker) return res.status(400).send('Bad request')
+      if (!worker.checks(req.body)) return res.status(422).send('Data missing')
+      await worker.fn(req.body)
+      res.status(200).end('ok')
+      timer.done({ ...loggerMeta, message: 'Notify job complete' })
+      return
+    } catch (e) {
+      l.error(e)
+      res.status(400).end(e)
+      throw e
+    }
   }
 }
 
