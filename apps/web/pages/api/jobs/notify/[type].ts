@@ -16,7 +16,7 @@ import {
   createPostNotifications,
   PostJobVariables,
 } from '@acter/jobs/post-notifications'
-import { API_SECRET_KEY, NotificationQueueType } from '@acter/lib/constants'
+import { NotificationQueueType } from '@acter/lib/constants'
 import { logger } from '@acter/lib/logger'
 
 type NotificationTypeMapItem<T> = {

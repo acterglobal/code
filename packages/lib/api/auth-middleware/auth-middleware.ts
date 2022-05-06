@@ -2,7 +2,7 @@ import { NextMiddleware, NextResponse } from 'next/server'
 
 export const getAuthMiddleware =
   (authKey: string): NextMiddleware =>
-  async ({ headers, url }) => {
+  ({ headers, url }) => {
     const authHeader = headers.get('authorization')
     if (authHeader !== authKey) {
       // eslint-disable-next-line no-console
