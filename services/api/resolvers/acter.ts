@@ -24,7 +24,7 @@ import {
 } from '@acter/schema'
 import { Prisma } from '@acter/schema/prisma'
 
-import { QueueNotifications } from '../middlewares/queue-notifications'
+import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
@@ -280,7 +280,9 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  @UseMiddleware(QueueNotifications(NotificationQueueType.NEW_ACTIVITY))
+  @UseMiddleware(
+    QueueNotificationsMiddleware(NotificationQueueType.NEW_ACTIVITY)
+  )
   async createActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,

@@ -1,6 +1,6 @@
-import axios from 'axios'
 import { MiddlewareFn } from 'type-graphql'
 
+import { sendJobsApiRequest } from '@acter/lib/api/send-jobs-api-request'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
@@ -22,9 +22,8 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       const invite = await next()
 
       if (!invite.expiredAt) {
-        axios({
-          method: 'POST',
-          url: `${process.env.BASE_URL}/api/jobs/notify/${NotificationQueueType.NEW_INVITE}`,
+        sendJobsApiRequest({
+          url: `/notify/${NotificationQueueType.NEW_INVITE}`,
           data: {
             ...invite,
             senderName: user.Acter.name,
@@ -45,9 +44,8 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
     await next()
 
     data.map((invitation) => {
-      axios({
-        method: 'POST',
-        url: `${process.env.BASE_URL}/api/jobs/notify/${NotificationQueueType.NEW_INVITE}`,
+      sendJobsApiRequest({
+        url: `/notify/${NotificationQueueType.NEW_INVITE}`,
         data: invitation,
       })
     })

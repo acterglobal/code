@@ -8,17 +8,19 @@ import { logger } from '@acter/lib/logger'
 const l = logger.child({ label: 'digestHandler' })
 
 const digestHandler = async (
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  try {
-    await dailyDigestCronWorker()
+  if (req.method === 'POST') {
+    try {
+      await dailyDigestCronWorker()
 
-    res.status(200).send('ok')
-  } catch (e) {
-    l.error(e)
-    res.status(400).send(e)
-    throw e
+      res.status(200).send('ok')
+    } catch (e) {
+      l.error(e)
+      res.status(400).send(e)
+      throw e
+    }
   }
 }
 
