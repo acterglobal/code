@@ -8918,7 +8918,6 @@ __metadata:
     react-dom: 17.0.2
     react-hotjar: ^5.0.0
     react-is: 17.0.2
-    react-magnetic-di: 2.2.6
     reflect-metadata: 0.1.13
     shelljs: 0.8.5
     syncpack: 5.8.14
@@ -24514,21 +24513,6 @@ fsevents@^1.2.7:
   version: 3.0.4
   resolution: "react-lifecycles-compat@npm:3.0.4"
   checksum: a904b0fc0a8eeb15a148c9feb7bc17cec7ef96e71188280061fc340043fd6d8ee3ff233381f0e8f95c1cf926210b2c4a31f38182c8f35ac55057e453d6df204f
-  languageName: node
-  linkType: hard
-
-"react-magnetic-di@npm:2.2.6":
-  version: 2.2.6
-  resolution: "react-magnetic-di@npm:2.2.6"
-  peerDependencies:
-    prop-types: ^15.0.0
-    react: ^16.9.0
-  peerDependenciesMeta:
-    babel-plugin-macros:
-      optional: true
-    eslint:
-      optional: true
-  checksum: 01bf392a3ad116c77b1b1184c6d8fde2a94bcbcc4b8eb94e7631662bf7ab708805a222cb4695af0c81f6e2ab0de541c66c2ce8b1d023af05532a8992a90508fe
   languageName: node
   linkType: hard
 
