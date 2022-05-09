@@ -1,36 +1,37 @@
 import React, { FC } from 'react'
 
-import { SvgIcon, SvgIconProps, useTheme } from '@material-ui/core'
+import { SvgIconProps, useTheme } from '@material-ui/core'
 
 export const ProjectActivityIcon: FC<SvgIconProps> = (props) => {
   const theme = useTheme()
   const iconColor = props.style?.color || theme.colors.activityTypes.project
 
   return (
-    <SvgIcon {...props}>
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 30 30"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M14 16.625C17.6244 16.625 20.5625 13.6869 20.5625 10.0625C20.5625 6.43813 17.6244 3.5 14 3.5C10.3756 3.5 7.4375 6.43813 7.4375 10.0625C7.4375 13.6869 10.3756 16.625 14 16.625Z"
-          stroke={iconColor}
-          strokeLinejoin="round"
-        />
-        <path
-          d="M18.8125 24.5C22.4369 24.5 25.375 21.5619 25.375 17.9375C25.375 14.3131 22.4369 11.375 18.8125 11.375C15.1881 11.375 12.25 14.3131 12.25 17.9375C12.25 21.5619 15.1881 24.5 18.8125 24.5Z"
-          stroke={iconColor}
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9.1875 24.5C12.8119 24.5 15.75 21.5619 15.75 17.9375C15.75 14.3131 12.8119 11.375 9.1875 11.375C5.56313 11.375 2.625 14.3131 2.625 17.9375C2.625 21.5619 5.56313 24.5 9.1875 24.5Z"
-          stroke={iconColor}
-          strokeLinejoin="round"
-        />
-      </svg>
-    </SvgIcon>
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16 19C20.1421 19 23.5 15.6421 23.5 11.5C23.5 7.35786 20.1421 4 16 4C11.8579 4 8.5 7.35786 8.5 11.5C8.5 15.6421 11.8579 19 16 19Z"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M21.5 28C25.6421 28 29 24.6421 29 20.5C29 16.3579 25.6421 13 21.5 13C17.3579 13 14 16.3579 14 20.5C14 24.6421 17.3579 28 21.5 28Z"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.5 28C14.6421 28 18 24.6421 18 20.5C18 16.3579 14.6421 13 10.5 13C6.35786 13 3 16.3579 3 20.5C3 24.6421 6.35786 28 10.5 28Z"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linejoin="round"
+      />
+    </svg>
   )
 }
