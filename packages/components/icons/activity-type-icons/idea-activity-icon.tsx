@@ -1,51 +1,54 @@
 import React, { FC } from 'react'
 
-import { SvgIcon, SvgIconProps, useTheme } from '@material-ui/core'
+import { SvgIconProps, useTheme } from '@material-ui/core'
 
 export const IdeaActivityIcon: FC<SvgIconProps> = (props) => {
   const theme = useTheme()
   const iconColor = props.style?.color || theme.colors.activityTypes.idea
 
   return (
-    <SvgIcon {...props}>
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 30 30"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M16.9167 21V19.6875C16.9167 18.1016 18.8332 16.6015 20.0764 15.5313C21.8288 14.0235 22.75 11.9979 22.75 9.62503C22.75 5.25003 18.8775 1.75003 14 1.75003C12.8501 1.74714 11.7108 1.94887 10.6478 2.3436C9.58471 2.73833 8.61884 3.31829 7.80569 4.05013C6.99254 4.78196 6.34815 5.65124 5.90955 6.60799C5.47096 7.56473 5.24683 8.59006 5.25003 9.62503C5.25003 11.9132 6.21071 14.076 7.92364 15.5313C9.16018 16.5818 11.0834 18.0852 11.0834 19.6875V21"
-          stroke={iconColor}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12.25 26.25H15.75"
-          stroke={iconColor}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M11.375 23.625H16.625"
-          stroke={iconColor}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M14 21V14"
-          stroke={iconColor}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M16.0781 13.125C16.0781 13.125 14.9018 14 14 14C13.0982 14 11.9219 13.125 11.9219 13.125"
-          stroke={iconColor}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </SvgIcon>
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M19.3333 24V22.5C19.3333 20.6875 21.5236 18.9732 22.9445 17.75C24.9472 16.0269 26 13.7119 26 11C26 6.00004 21.5743 2.00003 16 2.00003C14.6858 1.99674 13.3838 2.22728 12.1689 2.6784C10.954 3.12952 9.85011 3.79233 8.92079 4.62872C7.99148 5.4651 7.25502 6.45856 6.75378 7.55198C6.25253 8.6454 5.99637 9.81721 6.00004 11C6.00004 13.615 7.09795 16.0869 9.05559 17.75C10.4688 18.9507 12.6667 20.6688 12.6667 22.5V24"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M14 30H18"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M13 27H19"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M16 24V16"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M18.375 15C18.375 15 17.0306 16 16 16C14.9694 16 13.625 15 13.625 15"
+        stroke={iconColor}
+        stroke-width="1.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   )
 }
