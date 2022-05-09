@@ -23,7 +23,11 @@ export const InfoSection: FC = () => {
   return (
     <InfoSectionContainer>
       <Box>
-        <Header title={acter.name} description={acter.description} />
+        <Header
+          title={acter.name}
+          description={acter.description}
+          isMarkDown={acter.isMarkDown}
+        />
       </Box>
       <Box>
         <InterestsSection

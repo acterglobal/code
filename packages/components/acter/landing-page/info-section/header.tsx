@@ -3,23 +3,35 @@ import React, { FC } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import MarkDown from 'markdown-to-jsx'
+import { SantizedContent } from '@acter/components/molecules/sanitized-content'
 
 export interface headerProps {
   title: string
   description: string
+  isMarkDown: boolean
 }
 
-export const Header: FC<headerProps> = ({ title, description }) => {
+export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
   const classes = useStyles()
+
+  const acterDescription = description
+    ? SantizedContent(description, isMarkDown)
+    : null
+
   return (
     <>
       <Typography variant="h6" className={classes.title}>
         {title}
       </Typography>
-      <Typography variant="body2" component="p" className={classes.description}>
-        {description && <MarkDown>{description}</MarkDown>}
-      </Typography>
+      {description && (
+        <Typography
+          variant="body2"
+          component="p"
+          className={classes.description}
+        >
+          {description && acterDescription}
+        </Typography>
+      )}
     </>
   )
 }

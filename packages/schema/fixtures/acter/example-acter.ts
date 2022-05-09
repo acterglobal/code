@@ -30,6 +30,7 @@ export const ExampleActer: Acter = {
   alias veritatis vitae eum culpa amet delectus eveniet tempore
   quibusdam repellat ut? Corrupti, consequuntur ipsam`,
   url: 'company url',
+  isMarkDown: false,
   avatarUrl: `assets/default-avatar.png`,
   bannerUrl: `assets/default-banner.png`,
   createdAt: new Date(),

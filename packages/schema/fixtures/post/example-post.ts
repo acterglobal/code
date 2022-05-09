@@ -13,6 +13,7 @@ export const ExamplePost: Post = {
             quibusdam repellat ut? Corrupti, consequuntur ipsam`,
   createdAt: new Date(),
   updatedAt: new Date(),
+  isMarkDown: false,
   Comments: [],
   PostReactions: [],
 

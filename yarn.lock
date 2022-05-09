@@ -13,8 +13,10 @@ __metadata:
     "@babel/plugin-proposal-private-methods": 7.14.5
     "@babel/plugin-proposal-private-property-in-object": 7.15.4
     "@date-io/date-fns": 1.3.13
+    "@draft-js-plugins/anchor": ^4.1.4
     "@draft-js-plugins/buttons": ^4.3.1
     "@draft-js-plugins/editor": ^4.1.3
+    "@draft-js-plugins/inline-toolbar": ^4.1.3
     "@draft-js-plugins/static-toolbar": ^4.1.3
     "@fontsource/montserrat": 4.5.5
     "@material-ui/icons": 4.11.2
@@ -31,6 +33,7 @@ __metadata:
     "@storybook/react": 6.4.19
     "@types/googlemaps": 3.43.3
     "@types/react-imgix": 9.3.1
+    "@types/sanitize-html": ^2.6.2
     "@urql/storybook-addon": 1.0.8
     babel-loader: 8.2.2
     babel-plugin-polyfill-corejs2: 0.2.2
@@ -38,6 +41,7 @@ __metadata:
     clsx: 1.1.1
     color-string: 1.6.0
     draft-js: 0.11.7
+    draft-js-export-html: ^1.4.1
     email-validator: 2.0.4
     emoji-picker-react: 3.4.8
     env-cmd: 10.1.0
@@ -48,6 +52,7 @@ __metadata:
     formik: 2.2.9
     formik-material-ui: 3.0.1
     formik-material-ui-pickers: 0.0.12
+    html-to-draftjs: ^1.5.0
     just-debounce: 1.1.0
     markdown-draft-js: 2.3.0
     markdown-to-jsx: 7.1.3
@@ -60,6 +65,8 @@ __metadata:
     react-imgix: 9.3.0
     react-infinite-scroll-component: 6.1.0
     react-is-visible: 1.1.2
+    react-sanitized-html: ^2.0.0
+    sanitize-html: ^2.7.0
     sb: 6.3.6
     storybook-addon-next-auth0: 1.0.6
     storybook-addon-next-router: 3.1.1
@@ -2261,6 +2268,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@draft-js-plugins/anchor@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "@draft-js-plugins/anchor@npm:4.1.4"
+  dependencies:
+    "@draft-js-plugins/utils": ^4.0.0
+    clsx: ^1.0.4
+    prepend-http: 3.0.1
+    prop-types: ^15.8.1
+    tlds: ^1.231.0
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: b7c3bd987945941264c89204dd9d23577ced091bf018348e5f7541a59cd5c5fab5d4a1b50c06570ba21a803690971df7fb319a9088fe6949a4e0eeb99cc1cf01
+  languageName: node
+  linkType: hard
+
 "@draft-js-plugins/buttons@npm:^4.0.0":
   version: 4.3.0
   resolution: "@draft-js-plugins/buttons@npm:4.3.0"
@@ -2298,6 +2322,20 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: c3c523f4b06eef8714633a2b37126528857c16abc1cbeef55d9ac4449d8d4b36ca12cee166da78ccdcbca745855d134345a1492f13cf255ef5fbf9a5662934a4
+  languageName: node
+  linkType: hard
+
+"@draft-js-plugins/inline-toolbar@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@draft-js-plugins/inline-toolbar@npm:4.1.3"
+  dependencies:
+    "@draft-js-plugins/buttons": ^4.0.0
+    "@draft-js-plugins/utils": ^4.0.0
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 7c7d9d7978c4cc0db067d8efca8687740f05806c794d9a1b983755218a0759623350d13cb870cb188cfe6b9c97c8b26a9d14968fa296836a195d4008b177dccf
   languageName: node
   linkType: hard
 
@@ -8062,6 +8100,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/sanitize-html@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "@types/sanitize-html@npm:2.6.2"
+  dependencies:
+    htmlparser2: ^6.0.0
+  checksum: 08b43427427cbd8acd2843bbf9e00576c06e3916fc523d27fd9016f39563f7999f78b632ff473ef83a77f86bdea9286de2f81e3a8f8a05af6721687651c84f1c
+  languageName: node
+  linkType: hard
+
 "@types/scheduler@npm:*":
   version: 0.16.2
   resolution: "@types/scheduler@npm:0.16.2"
@@ -13607,6 +13654,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"draft-js-export-html@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "draft-js-export-html@npm:1.4.1"
+  dependencies:
+    draft-js-utils: ^1.4.0
+  peerDependencies:
+    draft-js: ">=0.10.0"
+    immutable: 3.x.x
+  checksum: 41a95522abcd3f12933ef2656fc25356f6d7e5e67689dc3ae50a3927cc129e17d45ac648fc20723f335a08f6e696de04a73db61013920692486a5f99398e3af1
+  languageName: node
+  linkType: hard
+
+"draft-js-utils@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "draft-js-utils@npm:1.4.0"
+  peerDependencies:
+    draft-js: ">=0.10.0"
+    immutable: 3.x.x
+  checksum: f05fb12cc614efab8597fc80c455ff0dd196ae63be6acbf0324be2920efa88492cf8374d91d18a5eb53e2445b726fc5df0168f2dddc695adfd42f284656f5871
+  languageName: node
+  linkType: hard
+
 "draft-js@npm:0.11.7":
   version: 0.11.7
   resolution: "draft-js@npm:0.11.7"
@@ -16879,6 +16948,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"html-to-draftjs@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "html-to-draftjs@npm:1.5.0"
+  peerDependencies:
+    draft-js: ^0.10.x || ^0.11.x
+    immutable: 3.x.x || 4.x.x
+  checksum: b1bab72ed07baece42b5b962cc57384305aa176b2bf5e7fbaf5675190867bbbde607788a71db61b2ad19eb238b09d795a0bbfacbf028d11949d97fb14d80ab1a
+  languageName: node
+  linkType: hard
+
 "html-void-elements@npm:^1.0.0":
   version: 1.0.5
   resolution: "html-void-elements@npm:1.0.5"
@@ -16927,7 +17006,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^6.1.0":
+"htmlparser2@npm:^6.0.0, htmlparser2@npm:^6.1.0":
   version: 6.1.0
   resolution: "htmlparser2@npm:6.1.0"
   dependencies:
@@ -21387,6 +21466,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.3":
+  version: 3.3.4
+  resolution: "nanoid@npm:3.3.4"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
+  languageName: node
+  linkType: hard
+
 "nanomatch@npm:^1.2.9":
   version: 1.2.13
   resolution: "nanomatch@npm:1.2.13"
@@ -22914,6 +23002,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"parse-srcset@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "parse-srcset@npm:1.0.2"
+  checksum: 3a0380380c6082021fcce982f0b89fb8a493ce9dfd7d308e5e6d855201e80db8b90438649b31fdd82a3d6089a8ca17dccddaa2b730a718389af4c037b8539ebf
+  languageName: node
+  linkType: hard
+
 "parse5@npm:6.0.1, parse5@npm:^6.0.0":
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
@@ -23534,6 +23629,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.3.11":
+  version: 8.4.13
+  resolution: "postcss@npm:8.4.13"
+  dependencies:
+    nanoid: ^3.3.3
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 514fb3552805a5d039a2d6b4df3e73f657001716ca93c0d57e6067b0473abdea70276d80afc96005c9aaff82ed5d98062bd97724d3f47ca400fba0b5e9e436ed
+  languageName: node
+  linkType: hard
+
 "precinct@npm:^8.0.0":
   version: 8.1.0
   resolution: "precinct@npm:8.1.0"
@@ -23575,6 +23681,13 @@ fsevents@^1.2.7:
   version: 1.1.2
   resolution: "prelude-ls@npm:1.1.2"
   checksum: c4867c87488e4a0c233e158e4d0d5565b609b105d75e4c05dc760840475f06b731332eb93cc8c9cecb840aa8ec323ca3c9a56ad7820ad2e63f0261dadcb154e4
+  languageName: node
+  linkType: hard
+
+"prepend-http@npm:3.0.1":
+  version: 3.0.1
+  resolution: "prepend-http@npm:3.0.1"
+  checksum: faa4e7c944204d54a902afed0caff11c4c99956a2a451b1b6cb40f180508518eea14f6f9cbc3567bddee85dae748e8f26720dbec5e0c117e65546f0f43cdc0d0
   languageName: node
   linkType: hard
 
@@ -24602,6 +24715,17 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ">=16.8"
   checksum: 1a2e7006d4d56bfae8ff11dd5ec15e8049578864dfb2764652510eb0ce4af26a8949790a3732c4f7beb14bcb6500469ea18841b8cfc953e09828e4e4113922f0
+  languageName: node
+  linkType: hard
+
+"react-sanitized-html@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-sanitized-html@npm:2.0.0"
+  peerDependencies:
+    prop-types: ^15.6.0
+    react: ^16.2.0
+    sanitize-html: ^1.16.1
+  checksum: 8611759fb4b2e75acfb54351261c3dc0c6878c9863d6c8883efdebe47254d0640f92ca67227f9ace67857c6edc94393f15e0bd13c8b84fbc37cd518fcf31d331
   languageName: node
   linkType: hard
 
@@ -25691,6 +25815,20 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"sanitize-html@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "sanitize-html@npm:2.7.0"
+  dependencies:
+    deepmerge: ^4.2.2
+    escape-string-regexp: ^4.0.0
+    htmlparser2: ^6.0.0
+    is-plain-object: ^5.0.0
+    parse-srcset: ^1.0.2
+    postcss: ^8.3.11
+  checksum: 73a4d66f69578bace3506519ca0734279b7117e15c33c7e4d075cdb483b1586261a18acd35934f6c6109f3b2a4a82f82c242171a94d5dc23fba5b09b01ea5b22
+  languageName: node
+  linkType: hard
+
 "sax@npm:1.2.1":
   version: 1.2.1
   resolution: "sax@npm:1.2.1"
@@ -26320,7 +26458,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.1":
+"source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
   checksum: c049a7fc4deb9a7e9b481ae3d424cc793cb4845daa690bc5a05d428bf41bf231ced49b4cf0c9e77f9d42fdb3d20d6187619fc586605f5eabe995a316da8d377c
@@ -27683,6 +27821,15 @@ fsevents@^1.2.7:
     sentence-case: ^1.1.1
     upper-case: ^1.0.3
   checksum: 42709c57df7e91a096dc0eb098d8103535cb859d2908d94afc27c5cd126f25a615dd7e07f4dd39079b8f33a7a0e09c1e1b6dba06c9298b178d35d3a1b8e0a9a4
+  languageName: node
+  linkType: hard
+
+"tlds@npm:^1.231.0":
+  version: 1.231.0
+  resolution: "tlds@npm:1.231.0"
+  bin:
+    tlds: bin.js
+  checksum: a77078c8d329c8a1f91d58459f48174a4d2be2cea1e48b8d732a3122dd394b23c5c18187882ad0139d01076191167242afa2307ec3f63c0ae9dcea0c9e9b48cc
   languageName: node
   linkType: hard
 
