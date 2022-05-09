@@ -1,10 +1,11 @@
 import 'reflect-metadata'
 
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { withSentry } from '@sentry/nextjs'
 
 import { getApiHandler } from '@acter/api'
+import { logger } from '@acter/lib/logger'
 
 export const config = {
   api: {
@@ -13,11 +14,20 @@ export const config = {
   },
 }
 
+let handler: NextApiHandler
+const l = logger.child({ label: 'api/graphql' })
+
 const graphqlHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const handler = getApiHandler('/api/graphql')
+  const timer = l.startTimer()
+  if (!handler) {
+    handler = await getApiHandler('/api/graphql')
+    timer.done({ message: 'handler built' })
+  } else {
+    timer.done({ message: 'reusing handler' })
+  }
   return handler(req, res)
 }
 

@@ -12,19 +12,14 @@ import { prisma } from '@acter/schema/prisma'
 
 import { generateSchema } from './generate-schema'
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
 let server: ApolloServer
+const l = logger.child({ label: 'getApiHandler' })
 
 export const getApiHandler =
   (path: string): NextApiHandler =>
   async (req, res): Promise<void> => {
     // Only start the server once
-    const timer = logger.startTimer()
+    const timer = l.startTimer()
     if (!server) {
       const schema = await generateSchema()
       server = new ApolloServer({
@@ -38,9 +33,9 @@ export const getApiHandler =
         },
       })
       await server.start()
-      timer.done({ message: 'Apollo server started' })
+      timer.done({ message: 'server built' })
     } else {
-      timer.done({ message: 'Apollo server already exists and will be reused' })
+      timer.done({ message: 'server already exists' })
     }
 
     const handler = server.createHandler({ path })

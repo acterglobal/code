@@ -13,13 +13,14 @@ import {
 } from './resolvers'
 
 let schema
+const l = logger.child({ label: 'generateSchema' })
 
 export const generateSchema = async (
   _writeSchema = false
 ): Promise<GraphQLSchema> => {
   applyResolversEnhanceMap(resolversEnhanceMap)
 
-  const timer = logger.startTimer()
+  const timer = l.startTimer()
   if (!schema) {
     // const generatedPath = path.join(__dirname, 'generated')
     // const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
@@ -31,9 +32,9 @@ export const generateSchema = async (
       // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
       // emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
     })
-    timer.done({ message: 'Schema built' })
+    timer.done({ message: 'schema built' })
   }
-  timer.done({ message: 'Schema found, reusing' })
+  timer.done({ message: 'schema already exists' })
 
   return schema
 }
