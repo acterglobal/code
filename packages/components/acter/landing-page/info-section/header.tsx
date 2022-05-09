@@ -14,16 +14,24 @@ export interface headerProps {
 export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
   const classes = useStyles()
 
-  const acterDescription = SantizedContent(description, isMarkDown)
+  const acterDescription = description
+    ? SantizedContent(description, isMarkDown)
+    : null
 
   return (
     <>
       <Typography variant="h6" className={classes.title}>
         {title}
       </Typography>
-      <Typography variant="body2" component="p" className={classes.description}>
-        {description && acterDescription}
-      </Typography>
+      {description && (
+        <Typography
+          variant="body2"
+          component="p"
+          className={classes.description}
+        >
+          {description && acterDescription}
+        </Typography>
+      )}
     </>
   )
 }

@@ -29,18 +29,22 @@ export const About: FC<AboutProps> = ({ acter }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
 
-  const acterDescription = SantizedContent(acter.description, acter.isMarkDown)
+  const acterDescription = acter.description
+    ? SantizedContent(acter.description, acter.isMarkDown)
+    : null
 
   return (
     <>
       <Typography className={classes.heading} variant="h6">
         {capitalize(t('about'))}
       </Typography>
-      <Box className={classes.description}>
-        <Typography variant="caption">
-          {acter.description && acterDescription}
-        </Typography>
-      </Box>
+      {acter.description && (
+        <Box className={classes.description}>
+          <Typography variant="caption">
+            {acter.description && acterDescription}
+          </Typography>
+        </Box>
+      )}
     </>
   )
 }
