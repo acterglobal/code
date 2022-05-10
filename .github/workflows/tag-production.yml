@@ -1,4 +1,4 @@
-name: Sync
+name: Tag to Production
 
 on:
   push:
@@ -24,5 +24,4 @@ jobs:
           FROM_BRANCH: 'main'
           TO_BRANCH: 'production'
           PULL_REQUEST_TITLE: 'Release ${GITHUB_REF_NAME} to Production'
-          TEAM_REVIEWERS:
-            - '@acterglobal/eng'
+          TEAM_REVIEWERS: '["@acterglobal/eng"]'
