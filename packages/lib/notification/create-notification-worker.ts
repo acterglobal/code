@@ -4,7 +4,7 @@ import { emailSendQueue, NotificationEmail } from '@acter/jobs'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import {
   Acter,
   ActerNotificationEmailFrequency,
@@ -77,7 +77,7 @@ interface CreateNotificationWorker<T> {
   getNotificationUrlPath: (data?: string, following?: Acter) => string
 }
 
-const l = logger.child({ label: 'createNotificationWorker' })
+const l = getLogger('createNotificationWorker')
 
 export const createNotificationWorker = <T>({
   queue,

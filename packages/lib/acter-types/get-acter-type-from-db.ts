@@ -1,8 +1,8 @@
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { ActerType } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-const l = logger.child({ label: 'getActerTypeFromDB' })
+const l = getLogger('getActerTypeFromDB')
 
 export const getActerTypeFromDB = async (name: string): Promise<ActerType> => {
   // Create a User Acter

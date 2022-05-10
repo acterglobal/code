@@ -9,12 +9,12 @@ import { getUnixTime } from 'date-fns'
 import { createWorker } from '@acter/lib/bullmq'
 import { SYNC_AUTH0_INTERCOM_DATA } from '@acter/lib/constants'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
 
 import { SyncAuth0IntercomData, IntercomUser } from './types'
 
-const l = logger.child({ label: 'syncAuth0IntercomDataWorker' })
+const l = getLogger('syncAuth0IntercomDataWorker')
 
 export const syncAuth0IntercomDataWorker = createWorker(
   SYNC_AUTH0_INTERCOM_DATA,

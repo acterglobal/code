@@ -2,7 +2,7 @@ import sendgrid from '@sendgrid/mail'
 
 import nodemailer from 'nodemailer'
 
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 
 export interface Email {
   to: string
@@ -15,7 +15,7 @@ interface EmailInternal extends Email {
   from: string
 }
 
-const l = logger.child({ label: 'sendEmail' })
+const l = getLogger('sendEmail')
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sendEmail = async (email: Email): Promise<any> => {
