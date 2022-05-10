@@ -52,8 +52,8 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
     findFirstActer: [UseMiddleware(CheckActerExists, CheckUserAccess)],
   },
   Invite: {
-    createManyInvite: [UseMiddleware(QueueInviteEmail)],
-    updateInvite: [UseMiddleware(QueueInviteEmail)],
+    // createManyInvite: [UseMiddleware(QueueInviteEmail)],
+    // updateInvite: [UseMiddleware(QueueInviteEmail)],
   },
   Post: {
     createPost: [
