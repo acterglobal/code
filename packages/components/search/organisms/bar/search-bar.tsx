@@ -18,7 +18,10 @@ export const SearchBar: FC<SearchBarProps> = ({ onClick }) => {
   return (
     <div className={classes.root}>
       <Box className={classes.input}>
-        <SearchInput handleInputChange={handleInputChange} />
+        <SearchInput
+          handleInputChange={handleInputChange}
+          handleSubmit={() => onClick(searchText)}
+        />
       </Box>
       <SearchButton onClick={() => onClick(searchText)} />
     </div>

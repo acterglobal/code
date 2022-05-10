@@ -8,12 +8,22 @@ import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export interface SearchInputProps {
   handleInputChange: (data: string) => void
+  handleSubmit: () => void
 }
 
-export const SearchInput: FC<SearchInputProps> = ({ handleInputChange }) => {
+export const SearchInput: FC<SearchInputProps> = ({
+  handleInputChange,
+  handleSubmit,
+}) => {
   const classes = useStyles()
   const { t } = useTranslation('search')
 
+  const onKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      handleSubmit()
+    }
+  }
   return (
     <Box style={{ width: '100%' }}>
       <Box className={classes.searchField}>
@@ -22,6 +32,7 @@ export const SearchInput: FC<SearchInputProps> = ({ handleInputChange }) => {
           placeholder={t('searchInputPlaceholder')}
           className={classes.input}
           onChange={(evt) => handleInputChange(evt.target.value)}
+          onKeyDown={onKeyDown}
         />
       </Box>
     </Box>
