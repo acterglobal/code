@@ -7,6 +7,7 @@ import { NavigateNext as NavigateNextIcon } from '@material-ui/icons'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
 
 interface ActivityBreadcrumbsProps {
@@ -46,7 +47,9 @@ export const ActivityBreadcrumbs: FC<ActivityBreadcrumbsProps> = ({
       </Link>
 
       <Link href={`${acterAsUrl({ acter: parentActer })}/activities`}>
-        <Typography className={classes.name}>{t('activities')}</Typography>
+        <Typography className={classes.name}>
+          {capitalize(t('activities'))}
+        </Typography>
       </Link>
 
       <Link href={acterAsUrl({ acter })}>
