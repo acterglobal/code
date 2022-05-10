@@ -1,6 +1,5 @@
 import 'reflect-metadata'
 
-import { SyncAuth0IntercomData, IntercomUser } from './types'
 import { ManagementClient } from 'auth0'
 import axios from 'axios'
 import { Job } from 'bullmq'
@@ -10,26 +9,38 @@ import { getUnixTime } from 'date-fns'
 import { createWorker } from '@acter/lib/bullmq'
 import { SYNC_AUTH0_INTERCOM_DATA } from '@acter/lib/constants'
 import { parseDateOrString } from '@acter/lib/datetime/parse-date-or-string'
+import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
+
+import { SyncAuth0IntercomData, IntercomUser } from './types'
+
+const l = getLogger('syncAuth0IntercomDataWorker')
 
 export const syncAuth0IntercomDataWorker = createWorker(
   SYNC_AUTH0_INTERCOM_DATA,
   async (job: Job<SyncAuth0IntercomData>) => {
-    const {
-      data: { session, user },
-    } = job
+    try {
+      const {
+        data: { session, user },
+      } = job
 
-    assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
-    assert(
-      !!process.env.AUTH0_MANAGEMENT_API_URL,
-      'Auth0 management API URL missing'
-    )
-    assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
-    assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
+      assert(
+        !!process.env.INTERCOM_ACCESS_TOKEN,
+        'Intercom access token missing'
+      )
+      assert(
+        !!process.env.AUTH0_MANAGEMENT_API_URL,
+        'Auth0 management API URL missing'
+      )
+      assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
+      assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
 
-    const intercomUser = await syncIntercomData({ user, session })
-    await syncIntercomToAuth0({ session, intercomUser })
-    await syncWithDb({ user, intercomUser })
+      const intercomUser = await syncIntercomData({ user, session })
+      await syncIntercomToAuth0({ session, intercomUser })
+      await syncWithDb({ user, intercomUser })
+    } catch (e) {
+      l.error('Error syncing intercom user', e)
+    }
   }
 )
 
@@ -69,7 +80,7 @@ const syncIntercomData = async ({
       },
     })
   } catch (e) {
-    console.error(e)
+    l.error(e)
   }
 
   try {
@@ -83,12 +94,12 @@ const syncIntercomData = async ({
       data,
     })
     if (!userUpsert.data) {
-      console.error(`No data from POST to ${url}`, data)
+      l.error(`No data from POST to ${url}`, data)
       return null
     }
     return userUpsert.data as IntercomUser
   } catch (e) {
-    console.error(e)
+    l.error(e)
   }
 }
 
@@ -110,7 +121,7 @@ const syncIntercomToAuth0 = async ({
   try {
     auth0User = await auth0.getUser({ id: session.user.sub })
   } catch (e) {
-    console.error(e)
+    l.error(e)
     return
   }
 

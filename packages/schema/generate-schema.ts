@@ -4,6 +4,8 @@ import { GraphQLSchema } from 'graphql/type'
 import path from 'path'
 import { buildSchema } from 'type-graphql'
 
+import { getLogger } from '@acter/lib/logger/logger'
+
 import { authChecker } from './auth-checker'
 import {
   resolvers,
@@ -12,16 +14,18 @@ import {
 } from './resolvers'
 
 let schema
+const l = getLogger('generateSchema')
 
 export const generateSchema = async (
   writeSchema = false
 ): Promise<GraphQLSchema> => {
+  const timer = l.startTimer()
+
   applyResolversEnhanceMap(resolversEnhanceMap)
 
   if (!schema) {
     const generatedPath = path.join(__dirname, 'generated')
     const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')
-    const timeStart = new Date().getTime()
     schema = await buildSchema({
       authChecker,
       resolvers,
@@ -30,10 +34,9 @@ export const generateSchema = async (
       // emitSchemaFile: schemaExists ? false : graphQLSchemaFilename,
       emitSchemaFile: writeSchema ? graphQLSchemaFilename : false,
     })
-    const timeEnd = new Date().getTime()
-    console.debug(`Schema built in ${timeEnd - timeStart} ms`)
+    timer.done('built schema')
   } else {
-    console.debug('Using existing schema')
+    timer.done('using existing schema')
   }
 
   return schema

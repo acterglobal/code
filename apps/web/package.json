@@ -7,11 +7,15 @@
   "scripts": {
     "dev": "yarn env-cmd next dev",
     "build": "yarn env-cmd next build",
-    "start": "yarn env-cmd next start -p $PORT",
+    "build:cicd": "yarn workspace @acter/schema build && yarn build",
+    "start": "yarn env-cmd next start",
     "env-cmd": "env-cmd --silent --file ../../.env",
     "analyze": "ANALYZE=true yarn env-cmd next build"
   },
   "dependencies": {
+    "@acter/components": "workspace:packages/components",
+    "@acter/lib": "workspace:packages/lib",
+    "@acter/schema": "workspace:packages/schema",
     "@next/bundle-analyzer": "11.0.1",
     "@sentry/nextjs": "6.18.2",
     "apollo-server-micro": "3.1.2",

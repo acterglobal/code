@@ -6,6 +6,7 @@ import {
 } from '@acter/lib/api/resolvers/get-order-by'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { Acter } from '@acter/schema'
+import { ActerPrivacySettings } from '@acter/schema'
 import { ActerWhereUniqueInput } from '@acter/schema/generated'
 import { Prisma } from '@acter/schema/prisma'
 
@@ -15,7 +16,6 @@ import { withEndsBeforeSearch } from './ends-before'
 import { withInterestsFilter } from './interests'
 import { withLocation } from './location'
 import { withNameSearch } from './name'
-import { ActerPrivacySettings } from '.prisma/client'
 
 registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
