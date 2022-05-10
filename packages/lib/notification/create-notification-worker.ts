@@ -1,8 +1,4 @@
-import { Job, Worker } from 'bullmq'
-
-import { emailSendQueue, NotificationEmail } from '@acter/jobs'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { createWorker } from '@acter/lib/bullmq'
 import { ActerTypes } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
 import {
@@ -19,6 +15,8 @@ import { prisma, Prisma } from '@acter/schema/prisma'
 
 import { CreateEmailReturn, Email } from '../email'
 import { createNotification } from './create-notification'
+import { NotificationEmail } from './send-notification-email'
+import { sendNotificationEmail } from './send-notification-email'
 
 export type FollowerType = Partial<Acter> &
   Required<
@@ -34,39 +32,37 @@ interface NotificationEmailProps<T> {
   notification: Notification
 }
 
-interface CreateNotificationWorker<T> {
-  /**
-   * The name of the job queue
-   */
-  queue: string
+interface CreateNotificationWorker<TVariables, TData> {
   /**
    * Hook to enhance Job data, perhaps querying DB for more data
    */
-  getJobData?: (job: Job<T>) => Promise<T>
+  getJobData?: (job: TVariables) => Promise<TData>
   /**
    * Get the the Acter we are following
    */
-  getFollowing: (data: T) => Promise<Acter>
+  getFollowing: (data: TData) => Promise<Acter>
   /**
    * Get the followers we will notify
    */
-  getFollowersWhere?: (data: T) => Prisma.ActerConnectionWhereInput
+  getFollowersWhere?: (data: TData) => Prisma.ActerConnectionWhereInput
   /**
    * Get the html & text email text
    */
-  getNotificationEmail: (props: NotificationEmailProps<T>) => CreateEmailReturn
+  getNotificationEmail: (
+    props: NotificationEmailProps<TData>
+  ) => CreateEmailReturn
   /**
    * Get the subject for this email
    */
-  getNotificationEmailSubject: (props: NotificationEmailProps<T>) => string
+  getNotificationEmailSubject: (props: NotificationEmailProps<TData>) => string
   /**
    * Optionally get Activity
    */
-  getActivity?: (data: T) => Activity
+  getActivity?: (data: TData) => Activity
   /**
    * Optionally get Post
    */
-  getPost?: (data: T) => Post
+  getPost?: (data: TData) => Post
   /**
    * The type of the notification
    */
@@ -79,21 +75,21 @@ interface CreateNotificationWorker<T> {
 
 const l = getLogger('createNotificationWorker')
 
-export const createNotificationWorker = <T>({
-  queue,
-  getJobData = async (job) => job.data,
-  getFollowing,
-  getFollowersWhere = () => ({}),
-  getNotificationEmail,
-  getNotificationEmailSubject,
-  getActivity,
-  getPost,
-  type,
-  getNotificationUrlPath,
-}: CreateNotificationWorker<T>): Worker => {
-  return createWorker(queue, async (job: Job<T>) => {
+export const createNotificationWorker =
+  <TVariables, TData>({
+    getJobData = async (job) => job as unknown as TData,
+    getFollowing,
+    getFollowersWhere = () => ({}),
+    getNotificationEmail,
+    getNotificationEmailSubject,
+    getActivity,
+    getPost,
+    type,
+    getNotificationUrlPath,
+  }: CreateNotificationWorker<TVariables, TData>) =>
+  async (job: TVariables & { id: string }): Promise<void> => {
     try {
-      l.debug('Starting notification worker', { job })
+      const timer = l.startTimer()
       const data = await getJobData(job)
       l.debug('Got notification data', { data })
       const following = await getFollowing(data)
@@ -126,19 +122,21 @@ export const createNotificationWorker = <T>({
           },
         },
       })
-      l.debug(
-        'Sending to followers',
-        followers.map(
+      l.debug('Sending notification followers', {
+        followers: followers.map(
           ({
             Follower: {
+              id,
               name,
               ActerType: { name: acterTypeName },
             },
-          }) => ({ name, acterTypeName })
-        )
-      )
+          }) => ({ id, name, acterTypeName })
+        ),
+      })
       const activity = getActivity?.(data)
+      if (activity) l.debug('Got activity', { activity })
       const post = getPost?.(data)
+      if (post) l.debug('Got post', { post })
 
       const extraPath = getNotificationUrlPath(
         activity?.Acter.name || post?.parentId || post?.id,
@@ -166,7 +164,7 @@ export const createNotificationWorker = <T>({
           })
 
           if (notification.sendTo) {
-            const emailProps: NotificationEmailProps<T> = {
+            const emailProps: NotificationEmailProps<TData> = {
               following,
               data,
               notification,
@@ -182,21 +180,23 @@ export const createNotificationWorker = <T>({
               ...email,
               notifications: notification,
             }
-            emailSendQueue.add(
-              `email-${queue}-notification-${notification.id}`,
-              emailData,
-              {
-                removeOnComplete: true,
-              }
-            )
+
+            return sendNotificationEmail({
+              ...emailData,
+            })
+          } else {
+            l.debug('No email sent for notification', {
+              notification,
+            })
+            return Promise.resolve()
           }
         })
       )
+      timer.done({ message: 'Notification complete', job })
     } catch (e) {
       l.error('Error processing job', {
         error: e,
       })
       throw e
     }
-  })
-}
+  }

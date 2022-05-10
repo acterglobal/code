@@ -1,0 +1,16 @@
+{
+  "name": "@acter/api",
+  "packageManager": "yarn@3.0.0",
+  "type": "module",
+  "dependencies": {
+    "@acter/schema": "workspace:packages/schema",
+    "apollo-server-micro": "3.1.2",
+    "type-graphql": "^1.1.1"
+  },
+  "peerDependencies": {
+    "@auth0/nextjs-auth0": "*",
+    "axios": "*",
+    "next": "*",
+    "reflect-metadata": "*"
+  }
+}

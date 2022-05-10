@@ -11,6 +11,11 @@ export interface Email {
   html: string
 }
 
+export interface CreateEmailReturn {
+  html: string
+  text: string
+}
+
 interface EmailInternal extends Email {
   from: string
 }
@@ -27,9 +32,7 @@ export const sendEmail = async (email: Email): Promise<any> => {
     try {
       l.debug('Sending email via SendGrid')
       sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-      const resp = await sendgrid.send(mail)
-      l.debug('Got response', { resp })
-      return resp
+      return sendgrid.send(mail)
     } catch (e) {
       l.error('Error sending via sendgrid', e, e.response?.body?.errors)
       throw e

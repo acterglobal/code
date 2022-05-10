@@ -1,9 +1,0 @@
-{
-  "acterName": "Test Acter",
-  "acterType": "organisation",
-  "activityName": "Test Activity",
-  "activityType": "event",
-  "startAt": "1 January 2021 at 00:00",
-  "endAt": "31 December 2021 at 11:59",
-  "isAllDay": false
-}

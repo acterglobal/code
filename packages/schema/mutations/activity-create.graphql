@@ -1,3 +1,4 @@
+#import "../fragments/acter-display.fragment.graphql"
 #import "../fragments/acter-full.fragment.graphql"
 
 mutation ActivityCreate(
@@ -45,6 +46,12 @@ mutation ActivityCreate(
     id
     Acter {
       ...ActerFull
+    }
+    createdByUser {
+      id
+      Acter {
+        ...ActerDisplay
+      }
     }
   }
 }
