@@ -10,7 +10,7 @@
     "build:codegen": "graphql-codegen --config codegen.yml",
     "db:migrate": "yarn db:migrate:run --create-only",
     "db:migrate:run": "yarn env prisma migrate dev",
-    "db:migrate:prod": "yarn env migrate deploy",
+    "db:migrate:prod": "yarn env prisma migrate deploy",
     "db:reset": "yarn env prisma migrate reset",
     "db:seed": "yarn env prisma db seed",
     "env": "dotenv -e ../../.env"
