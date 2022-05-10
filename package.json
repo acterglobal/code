@@ -79,7 +79,6 @@
     "ignore-loader": "0.1.2",
     "jest": "27.5.1",
     "jest-transform-graphql": "2.1.0",
-    "netlify-cli": "6.9.28",
     "shelljs": "0.8.5",
     "syncpack": "5.8.14",
     "ts-jest": "27.0.4",
