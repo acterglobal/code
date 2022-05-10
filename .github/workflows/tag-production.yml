@@ -23,6 +23,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: 'main'
           TO_BRANCH: 'production'
-          PULL_REQUEST_TITLE: 'Release $GITHUB_REF_NAME to Production'
-          PULL_REQUEST_BODY: 'Tag $GITHUB_REF_NAME is ready for production'
-          TEAM_REVIEWERS: '["eng"]'
+          PULL_REQUEST_TITLE: 'Release ${{github.GITHUB_REF_NAME}} to Production'
+          PULL_REQUEST_BODY: 'Tag ${{github.GITHUB_REF_NAME}} is ready for production'
+          TEAM_REVIEWERS: '["acterglobal/eng"]'
