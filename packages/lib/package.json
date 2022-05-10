@@ -36,7 +36,6 @@
   "peerDependencies": {
     "@auth0/nextjs-auth0": "*",
     "axios": "*",
-    "bullmq": "*",
     "graphql": "*",
     "next": "*",
     "notistack": "*",

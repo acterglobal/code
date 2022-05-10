@@ -156,7 +156,6 @@ __metadata:
   peerDependencies:
     "@auth0/nextjs-auth0": "*"
     axios: "*"
-    bullmq: "*"
     graphql: "*"
     next: "*"
     notistack: "*"
@@ -172,10 +171,8 @@ __metadata:
     "@graphql-codegen/cli": 2.2.1
     "@graphql-codegen/urql-introspection": 2.1.0
     "@prisma/client": 3.7.0
-    "@types/bull": 3.15.3
     "@types/node": 16.9.1
-    bull: 3.28.1
-    env-cmd: 10.1.0
+    dotenv-cli: 5.1.0
     fp-ts: 2.11.1
     graphql-fields: 2.0.3
     prisma: 3.7.0
@@ -6379,15 +6376,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/bull@npm:3.15.3":
-  version: 3.15.3
-  resolution: "@types/bull@npm:3.15.3"
-  dependencies:
-    "@types/ioredis": "*"
-  checksum: 4b7d9159f10c345fe307cf571ed68335dcf7ca4e2bc3cd88996d1ef408b56022f6be20a83dddabecd88c53d71ba84068e5c2da5873cf5431780c87e3b3c46c04
-  languageName: node
-  linkType: hard
-
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.2
   resolution: "@types/cacheable-request@npm:6.0.2"
@@ -6611,15 +6599,6 @@ __metadata:
     "@types/node": "*"
     "@types/request": "*"
   checksum: 952d80dc88d79854c570b2f99e28c32c12641e2d5b08f26df1271c0b424bd30472a96fc15ba60572bcd7f743938f1fcf07c63fb9316f5380850bcc39952b37ab
-  languageName: node
-  linkType: hard
-
-"@types/ioredis@npm:*, @types/ioredis@npm:^4.26.4":
-  version: 4.26.6
-  resolution: "@types/ioredis@npm:4.26.6"
-  dependencies:
-    "@types/node": "*"
-  checksum: 892e914c11faa30ed2e93869159b56f07326433e6360b4f4be71e50290168c8084acc3eab6241667d7470b3ef70635ec2d972bf89e37c343eacfd10aa8553066
   languageName: node
   linkType: hard
 
@@ -7798,7 +7777,6 @@ __metadata:
     "@typescript-eslint/parser": 4.29.0
     auth0: ^2.40.0
     axios: 0.27.0
-    bullmq: 1.40.1
     cli-confirm: 1.0.1
     date-fns: 2.23.0
     env-cmd: 10.1.0
@@ -9588,40 +9566,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:3.28.1":
-  version: 3.28.1
-  resolution: "bull@npm:3.28.1"
-  dependencies:
-    cron-parser: ^2.13.0
-    debuglog: ^1.0.0
-    get-port: ^5.1.1
-    ioredis: ^4.27.0
-    lodash: ^4.17.21
-    p-timeout: ^3.2.0
-    promise.prototype.finally: ^3.1.2
-    semver: ^7.3.2
-    util.promisify: ^1.0.1
-    uuid: ^8.3.0
-  checksum: e9958fb1ffccc6307294491727c670309ad51284a764569bd4728e8a7c14ae198773e409887934efa84e120b9f37e7e5199c50e5459a96b56a6842043e239408
-  languageName: node
-  linkType: hard
-
-"bullmq@npm:1.40.1":
-  version: 1.40.1
-  resolution: "bullmq@npm:1.40.1"
-  dependencies:
-    "@types/ioredis": ^4.26.4
-    cron-parser: ^2.7.3
-    get-port: ^5.0.0
-    ioredis: ^4.27.5
-    lodash: ^4.17.21
-    semver: ^6.3.0
-    tslib: ^1.10.0
-    uuid: ^8.2.0
-  checksum: ce21a39b87b7436b97cf33eaf76cb50a8af8fc66a035ee047717047e17a51ce210f8266ba556d7489fa86ca518be0fe60b3240a27d44c1bf04bf41944a6e76f1
-  languageName: node
-  linkType: hard
-
 "bytes@npm:3.0.0":
   version: 3.0.0
   resolution: "bytes@npm:3.0.0"
@@ -11073,16 +11017,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cron-parser@npm:^2.13.0, cron-parser@npm:^2.7.3":
-  version: 2.18.0
-  resolution: "cron-parser@npm:2.18.0"
-  dependencies:
-    is-nan: ^1.3.0
-    moment-timezone: ^0.5.31
-  checksum: c0fcb3922ca19a649d779abca1aad3302fb5bfc9c95da9ea19176a006a1225ea92f29e06f54a64ce9f9b8add7668af9ff865522922e66ddbc37017c226d16e70
-  languageName: node
-  linkType: hard
-
 "cron@npm:1.8.2":
   version: 1.8.2
   resolution: "cron@npm:1.8.2"
@@ -11474,13 +11408,6 @@ __metadata:
     supports-color:
       optional: true
   checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
-  languageName: node
-  linkType: hard
-
-"debuglog@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "debuglog@npm:1.0.1"
-  checksum: 970679f2eb7a73867e04d45b52583e7ec6dee1f33c058e9147702e72a665a9647f9c3d6e7c2f66f6bf18510b23eb5ded1b617e48ac1db23603809c5ddbbb9763
   languageName: node
   linkType: hard
 
@@ -12012,6 +11939,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv-cli@npm:5.1.0":
+  version: 5.1.0
+  resolution: "dotenv-cli@npm:5.1.0"
+  dependencies:
+    cross-spawn: ^7.0.3
+    dotenv: ^16.0.0
+    dotenv-expand: ^8.0.1
+    minimist: ^1.2.5
+  bin:
+    dotenv: cli.js
+  checksum: dd060623c4b63555effe9c25c073c0c01be1f0d17a0bc35a6b18f98ca8f918a5dfdd0ff2b879152fd2df9d57b207126d04adcb0207b9f66268ba9c788c213578
+  languageName: node
+  linkType: hard
+
 "dotenv-expand@npm:^5.1.0":
   version: 5.1.0
   resolution: "dotenv-expand@npm:5.1.0"
@@ -12019,10 +11960,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv-expand@npm:^8.0.1":
+  version: 8.0.3
+  resolution: "dotenv-expand@npm:8.0.3"
+  checksum: 128ce90ac825b543de3ece0154a51b056ab0dc36bb26d97a68cd0b8707327ecd3c182fb6ac63b26a0fcdfa85064419906a1065cb634f1f9dc08ad311375f1fc0
+  languageName: node
+  linkType: hard
+
 "dotenv@npm:10.0.0, dotenv@npm:^10.0.0":
   version: 10.0.0
   resolution: "dotenv@npm:10.0.0"
   checksum: f412c5fe8c24fbe313d302d2500e247ba8a1946492db405a4de4d30dd0eb186a88a43f13c958c5a7de303938949c4231c56994f97d05c4bc1f22478d631b4005
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.0.0":
+  version: 16.0.1
+  resolution: "dotenv@npm:16.0.1"
+  checksum: f459ffce07b977b7f15d8cc4ee69cdff77d4dd8c5dc8c85d2d485ee84655352c2415f9dd09d42b5b5985ced3be186130871b34e2f3e2569ebc72fbc2e8096792
   languageName: node
   linkType: hard
 
@@ -13668,7 +13623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.7, follow-redirects@npm:^1.14.9":
+"follow-redirects@npm:^1.14.7":
   version: 1.14.9
   resolution: "follow-redirects@npm:1.14.9"
   peerDependenciesMeta:
@@ -13678,22 +13633,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.8":
+"follow-redirects@npm:^1.14.8, follow-redirects@npm:^1.14.9":
   version: 1.15.0
   resolution: "follow-redirects@npm:1.15.0"
   peerDependenciesMeta:
     debug:
       optional: true
   checksum: eaec81c3e0ae57aae2422e38ad3539d0e7279b3a63f9681eeea319bb683dea67502c4e097136b8ce9721542b4e236e092b6b49e34e326cdd7733c274f0a3f378
-  languageName: node
-  linkType: hard
-
-"for-each@npm:^0.3.3":
-  version: 0.3.3
-  resolution: "for-each@npm:0.3.3"
-  dependencies:
-    is-callable: ^1.1.3
-  checksum: 6c48ff2bc63362319c65e2edca4a8e1e3483a2fabc72fbe7feaf8c73db94fc7861bd53bc02c8a66a0c1dd709da6b04eec42e0abdd6b40ce47305ae92a25e5d28
   languageName: node
   linkType: hard
 
@@ -14166,7 +14112,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"get-port@npm:^5.0.0, get-port@npm:^5.1.1":
+"get-port@npm:^5.1.1":
   version: 5.1.1
   resolution: "get-port@npm:5.1.1"
   checksum: 0162663ffe5c09e748cd79d97b74cd70e5a5c84b760a475ce5767b357fb2a57cb821cee412d646aa8a156ed39b78aab88974eddaa9e5ee926173c036c0713787
@@ -15532,7 +15478,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ioredis@npm:4.27.7, ioredis@npm:^4.27.0, ioredis@npm:^4.27.5":
+"ioredis@npm:4.27.7":
   version: 4.27.7
   resolution: "ioredis@npm:4.27.7"
   dependencies:
@@ -15680,7 +15626,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"is-callable@npm:^1.1.3, is-callable@npm:^1.1.4, is-callable@npm:^1.2.3":
+"is-callable@npm:^1.1.4, is-callable@npm:^1.2.3":
   version: 1.2.3
   resolution: "is-callable@npm:1.2.3"
   checksum: 084a732afd78e14a40cd5f6f34001edd500f43bb542991c1305b88842cab5f2fb6b48f0deed4cd72270b2e71cab3c3a56c69b324e3a02d486f937824bb7de553
@@ -15947,7 +15893,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"is-nan@npm:^1.2.1, is-nan@npm:^1.3.0":
+"is-nan@npm:^1.2.1":
   version: 1.3.2
   resolution: "is-nan@npm:1.3.2"
   dependencies:
@@ -19360,7 +19306,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.31, moment-timezone@npm:^0.5.x":
+"moment-timezone@npm:^0.5.x":
   version: 0.5.33
   resolution: "moment-timezone@npm:0.5.33"
   dependencies:
@@ -20128,7 +20074,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"object.getownpropertydescriptors@npm:^2.0.3, object.getownpropertydescriptors@npm:^2.1.1, object.getownpropertydescriptors@npm:^2.1.2":
+"object.getownpropertydescriptors@npm:^2.0.3, object.getownpropertydescriptors@npm:^2.1.2":
   version: 2.1.2
   resolution: "object.getownpropertydescriptors@npm:2.1.2"
   dependencies:
@@ -20468,7 +20414,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"p-timeout@npm:^3.1.0, p-timeout@npm:^3.2.0":
+"p-timeout@npm:^3.1.0":
   version: 3.2.0
   resolution: "p-timeout@npm:3.2.0"
   dependencies:
@@ -21524,7 +21470,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"promise.prototype.finally@npm:^3.1.0, promise.prototype.finally@npm:^3.1.2":
+"promise.prototype.finally@npm:^3.1.0":
   version: 3.1.2
   resolution: "promise.prototype.finally@npm:3.1.2"
   dependencies:
@@ -26298,19 +26244,6 @@ typescript@^4.0.2:
   languageName: node
   linkType: hard
 
-"util.promisify@npm:^1.0.1":
-  version: 1.1.1
-  resolution: "util.promisify@npm:1.1.1"
-  dependencies:
-    call-bind: ^1.0.0
-    define-properties: ^1.1.3
-    for-each: ^0.3.3
-    has-symbols: ^1.0.1
-    object.getownpropertydescriptors: ^2.1.1
-  checksum: ea371c30b90576862487ae4efd7182aa5855019549a4019d82629acc2709e8ccb0f38944403eebec622fff8ebb44ac3f46a52d745d5f543d30606132a4905f96
-  languageName: node
-  linkType: hard
-
 "util@npm:0.10.3":
   version: 0.10.3
   resolution: "util@npm:0.10.3"
@@ -26373,7 +26306,7 @@ typescript@^4.0.2:
   languageName: node
   linkType: hard
 
-"uuid@npm:8.3.2, uuid@npm:^8.0.0, uuid@npm:^8.2.0, uuid@npm:^8.3.0":
+"uuid@npm:8.3.2, uuid@npm:^8.0.0":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
