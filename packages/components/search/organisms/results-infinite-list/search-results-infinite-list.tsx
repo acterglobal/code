@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
     activities: {
       display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
     },
     singleItem: {
       margin: theme.spacing(1),
