@@ -40,13 +40,18 @@ export const sendEmail = async (email: Email): Promise<any> => {
   }
 
   l.debug('Sending email via nodemailer')
-  const transport = nodemailer.createTransport({
-    host: process.env.EMAIL_SERVER_HOST,
-    port: process.env.EMAIL_SERVER_PORT,
-    secure: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-  })
-  return transport.sendMail(mail)
+  try {
+    const transport = nodemailer.createTransport({
+      host: process.env.EMAIL_SERVER_HOST,
+      port: process.env.EMAIL_SERVER_PORT,
+      secure: false,
+      tls: {
+        rejectUnauthorized: false,
+      },
+    })
+    return await transport.sendMail(mail)
+  } catch (e) {
+    l.error('Error sending via sendmail', e)
+    throw e
+  }
 }
