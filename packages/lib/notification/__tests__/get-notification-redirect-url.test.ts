@@ -1,5 +1,3 @@
-import { getNotificationRedirectUrl } from '../get-notification-redirect-url'
-
 import { ActerTypes } from '@acter/lib/constants'
 import {
   Acter,
@@ -8,6 +6,8 @@ import {
   NotificationType,
 } from '@acter/schema'
 import { ExampleActer } from '@acter/schema/fixtures'
+
+import { getNotificationRedirectUrl } from '../get-notification-redirect-url'
 
 const { NEW_ACTIVITY, NEW_MEMBER } = NotificationType
 const { RESTRICTED, EVERYONE } = ActerJoinSettings
@@ -60,7 +60,7 @@ describe('getNotificationRedirectUrl', () => {
       acterJoinSetting: RESTRICTED,
     } as Acter
 
-    const redirectToRequestsUrl = `/${onActer1.ActerType.name}s/${onActer1.slug}/settings?inviteTab=requests`
+    const redirectToRequestsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${onActer1.ActerType.name}s/${onActer1.slug}/settings?inviteTab=requests`
 
     const url1 = getNotificationRedirectUrl(notification1, onActer1)
     expect(url1).toEqual(redirectToRequestsUrl)
@@ -79,7 +79,7 @@ describe('getNotificationRedirectUrl', () => {
       acterJoinSetting: RESTRICTED,
     } as Acter
 
-    const redirectToRequestsUrl = `/${onActer1.ActerType.name}s/${onActer1.slug}/?inviteTab=requests`
+    const redirectToRequestsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${onActer1.ActerType.name}s/${onActer1.slug}/?inviteTab=requests`
 
     const url1 = getNotificationRedirectUrl(notification1, onActer1)
     expect(url1).toEqual(redirectToRequestsUrl)

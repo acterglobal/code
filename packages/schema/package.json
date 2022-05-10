@@ -9,16 +9,16 @@
     "build:schema": "ts-node ./build-schema",
     "build:codegen": "graphql-codegen --config codegen.yml",
     "db:migrate": "yarn db:migrate:run --create-only",
-    "db:migrate:run": "yarn env-cmd prisma migrate dev",
-    "db:migrate:prod": "yarn env-cmd migrate deploy",
-    "db:reset": "yarn env-cmd prisma migrate reset",
-    "db:seed": "yarn env-cmd prisma db seed",
-    "env-cmd": "env-cmd --silent --file ../../.env"
+    "db:migrate:run": "yarn env prisma migrate dev",
+    "db:migrate:prod": "yarn env migrate deploy",
+    "db:reset": "yarn env prisma migrate reset",
+    "db:seed": "yarn env prisma db seed",
+    "env": "dotenv -e ../../.env"
   },
   "dependencies": {
     "@prisma/client": "3.7.0",
     "bull": "3.28.1",
-    "env-cmd": "10.1.0",
+    "dotenv-cli": "5.1.0",
     "fp-ts": "2.11.1",
     "graphql-fields": "2.0.3",
     "prisma": "3.7.0",
