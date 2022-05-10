@@ -5,7 +5,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs'
 
 import { getApiHandler } from '@acter/api'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 
 export const config = {
   api: {
@@ -15,7 +15,7 @@ export const config = {
 }
 
 let handler: NextApiHandler
-const l = logger.child({ label: 'api/graphql' })
+const l = getLogger('api/graphql')
 
 const graphqlHandler = async (
   req: NextApiRequest,

@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { DATE_FORMAT_LONG } from '@acter/lib/constants'
 import { parseAndFormat } from '@acter/lib/datetime/parse-and-format'
 import { sendEmail } from '@acter/lib/email'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { getNotificationUrl } from '@acter/lib/notification/get-notification-url'
 import { NotificationEmail } from '@acter/lib/notification/send-notification-email'
 import { NotificationType } from '@acter/schema'
@@ -12,7 +12,7 @@ import { prisma } from '@acter/schema/prisma'
 import { createDailyDigestEmail } from './template'
 import { DailyDigest, NotificationByActerMap } from './types'
 
-const l = logger.child({ label: 'createDailyDigest' })
+const l = getLogger('createDailyDigest')
 
 export const createDailyDigest = async ({
   acter,

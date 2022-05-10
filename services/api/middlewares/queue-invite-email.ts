@@ -4,8 +4,10 @@ import { sendJobsApiRequest } from '@acter/lib/api/send-jobs-api-request'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+
+const l = getLogger('QueueInviteEmail')
 
 export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
   { context, args, info },
@@ -37,7 +39,7 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       (invitation) => invitation.createdByUserId === user.id
     )
     if (!isSessionUser) {
-      logger.error('ERROR: Wrong user')
+      l.error('ERROR: Wrong user')
       throw 'Invitation failed. Please try again later.'
     }
 
@@ -50,7 +52,7 @@ export const QueueInviteEmail: MiddlewareFn<ActerGraphQLContext> = async (
       })
     })
   } catch (error) {
-    logger.error('Error: ', error)
+    l.error('Error: ', error)
     throw 'Invitation failed. Please try again later.'
   }
 }

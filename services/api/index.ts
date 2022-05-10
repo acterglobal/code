@@ -6,7 +6,7 @@ import { getSession } from '@auth0/nextjs-auth0'
 
 import { ApolloServer } from 'apollo-server-micro'
 
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { prisma } from '@acter/schema/prisma'
 
@@ -20,11 +20,13 @@ export const config = {
 
 let server: ApolloServer
 
+const l = getLogger('getApiHandler')
+
 export const getApiHandler =
   (path: string): NextApiHandler =>
   async (req, res): Promise<void> => {
     // Only start the server once
-    const timer = logger.startTimer()
+    const timer = l.startTimer()
     if (!server) {
       const schema = await generateSchema()
       server = new ApolloServer({

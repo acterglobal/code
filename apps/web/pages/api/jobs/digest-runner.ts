@@ -3,9 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs'
 
 import { dailyDigestCronWorker } from '@acter/jobs/daily-digest/cron-worker'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 
-const l = logger.child({ label: 'digestHandler' })
+const l = getLogger('digestHandler')
 
 const digestHandler = async (
   req: NextApiRequest,

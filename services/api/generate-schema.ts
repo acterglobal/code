@@ -22,7 +22,6 @@ export const generateSchema = async (
 
   applyResolversEnhanceMap(resolversEnhanceMap)
 
-  const timer = logger.startTimer()
   if (!schema) {
     // const generatedPath = path.join(__dirname, 'generated')
     // const graphQLSchemaFilename = path.join(generatedPath, 'schema.graphql')

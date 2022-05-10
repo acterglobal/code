@@ -2,9 +2,9 @@ import { MiddlewareFn } from 'type-graphql'
 
 import { sendJobsApiRequest } from '@acter/lib/api/send-jobs-api-request'
 import { NotificationQueueType } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 
-const l = logger.child({ label: 'QueueNotificationsMiddleware' })
+const l = getLogger('QueueNotificationsMiddleware')
 
 export const QueueNotificationsMiddleware =
   (queueType: NotificationQueueType): MiddlewareFn =>

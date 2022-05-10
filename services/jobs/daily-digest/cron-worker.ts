@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { getDate, getMonth, getYear } from 'date-fns'
 
 import { ActerTypes } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import {
   ActerNotificationEmailFrequency,
   ActerNotificationSettings,
@@ -12,7 +12,7 @@ import { prisma } from '@acter/schema/prisma'
 
 import { createDailyDigest } from './create-daily-digest'
 
-const l = logger.child({ label: 'dailyDigestCronWorker' })
+const l = getLogger('dailyDigestCronWorker')
 
 export const dailyDigestCronWorker = async (): Promise<void> => {
   // TODO: We should probably break this up into users by timezone at some point

@@ -10,7 +10,7 @@ import {
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes, NotificationQueueType } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   Acter,
@@ -28,6 +28,8 @@ import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
+
+const l = getLogger('ActerResolver')
 @Resolver(Acter)
 export class ActerResolver {
   @Authorized()
@@ -96,7 +98,7 @@ export class ActerResolver {
     })
     if (existingActer) {
       const err = `Found existing ${existingActer.ActerType.name} Acter with slug ${slug}`
-      logger.error(err)
+      l.warn(err)
       throw err
     }
 

@@ -1,7 +1,7 @@
 import { GetServerSidePropsResult } from 'next'
 
 import { ComposedGetServerSideProps } from '@acter/lib/compose-props'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { getNotificationRedirectUrl } from '@acter/lib/notification/get-notification-redirect-url'
 import { getUrqlClient } from '@acter/lib/urql'
 import { Acter, Notification } from '@acter/schema'
@@ -14,20 +14,20 @@ const redirectOnMissingData: GetServerSidePropsResult<Record<string, never>> = {
   notFound: true,
 }
 
+const l = getLogger('notificationRedirect')
+
 export const notificationRedirect: ComposedGetServerSideProps = async ({
   params,
   props,
 }) => {
-  logger.debug('Starting notificationRedirect')
+  l.debug('Starting notificationRedirect')
   if (!props.user?.email || !params.id) {
-    if (!props.user) logger.debug('No user found', props)
-    if (!params.id) logger.debug('No id in params', params)
+    if (!props.user) l.debug('No user found', props)
+    if (!params.id) l.debug('No id in params', params)
     return redirectOnMissingData
   }
 
-  logger.debug(
-    `Moving forward with user ${props.user.email} and id ${params.id}`
-  )
+  l.debug(`Moving forward with user ${props.user.email} and id ${params.id}`)
 
   const urqlClient = getUrqlClient()
 
@@ -41,7 +41,7 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     .toPromise()
 
   if (error) {
-    logger.error('Error', error)
+    l.error('Error', error)
     return {
       props: {},
       redirect: {
@@ -55,8 +55,8 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
   }: { findFirstNotification: Notification } = data
 
   if (!notification?.url) {
-    logger.debug('No notification found for id', props.id)
-    logger.debug(data)
+    l.debug('No notification found for id', props.id)
+    l.debug(data)
     return redirectOnMissingData
   }
 
@@ -90,7 +90,7 @@ export const notificationRedirect: ComposedGetServerSideProps = async ({
     }
   } catch (err) {
     // Just log the update error and redirect anyways
-    logger.error(err)
+    l.error(err)
     return {
       props,
       redirect: {

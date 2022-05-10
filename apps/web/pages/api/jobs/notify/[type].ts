@@ -17,7 +17,7 @@ import {
   PostJobVariables,
 } from '@acter/jobs/post-notifications'
 import { NotificationQueueType } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 
 type NotificationTypeMapItem<T> = {
   checks: (body: T) => boolean
@@ -53,7 +53,7 @@ const notificationTypeMap: Record<
   },
 }
 
-const l = logger.child({ label: 'notifyHandler' })
+const l = getLogger('notifyHandler')
 
 const notifyHandler = async (
   req: NextApiRequest,

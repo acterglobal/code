@@ -1,11 +1,13 @@
 import 'reflect-metadata'
 
 import { ActerTypes } from '@acter/lib/constants'
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
 
 import { createActerActivityNotifications } from './create-acter-activity-notifications'
 import { ActerPickWithUser, ActivityPick } from './types'
+
+const l = getLogger('createActivityFollowerNotifications')
 
 export const createActivityFollowerNotifications = async (
   activity: ActivityPick
@@ -50,7 +52,7 @@ export const createActivityFollowerNotifications = async (
     },
   })
 
-  logger.debug('[createActivityFollowerNotifications] Got followers', followers)
+  l.debug('Got followers', followers)
 
   // Now create a job to email the users for each follower
   await Promise.all(

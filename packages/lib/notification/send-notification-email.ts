@@ -1,4 +1,4 @@
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
 
 import { sendEmail, Email } from '../email/send-email'
@@ -14,7 +14,7 @@ export interface NotificationEmail extends Email {
   notifications?: Notification | Notification[]
 }
 
-const l = logger.child({ label: 'sendNotificationEmail' })
+const l = getLogger('sendNotificationEmail')
 
 export const sendNotificationEmail = async (
   job: NotificationEmail
