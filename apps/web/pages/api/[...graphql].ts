@@ -1,47 +1,33 @@
 import 'reflect-metadata'
 
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-import { getSession } from '@auth0/nextjs-auth0'
 import { withSentry } from '@sentry/nextjs'
 
-import { ApolloServer } from 'apollo-server-micro'
-
-import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
-import { generateSchema } from '@acter/schema/generate-schema'
-import { prisma } from '@acter/schema/prisma'
+import { getApiHandler } from '@acter/api'
+import { logger } from '@acter/lib/logger'
 
 export const config = {
   api: {
     bodyParser: false,
+    externalResolver: true,
   },
 }
 
-let server: ApolloServer
+let handler: NextApiHandler
+const l = logger.child({ label: 'api/graphql' })
 
 const graphqlHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  // Only start the server once
-  if (!server) {
-    const schema = await generateSchema()
-    server = new ApolloServer({
-      schema,
-      context: ({ req, res }): ActerGraphQLContext => {
-        const session = getSession(req, res)
-        return {
-          session,
-          prisma,
-        }
-      },
-    })
-    await server.start()
+  const timer = l.startTimer()
+  if (!handler) {
+    handler = await getApiHandler('/api/graphql')
+    timer.done({ message: 'handler built' })
   } else {
-    console.debug('Apollo server already exists')
+    timer.done({ message: 'reusing handler' })
   }
-
-  const handler = server.createHandler({ path: '/api/graphql' })
   return handler(req, res)
 }
 
