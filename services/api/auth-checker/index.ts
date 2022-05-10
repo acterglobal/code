@@ -1,10 +1,12 @@
 import { AuthChecker } from 'type-graphql'
 
-import { logger } from '@acter/lib/logger'
+import { getLogger } from '@acter/lib/logger'
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
 
 const { ADMIN } = ActerConnectionRole
+
+const l = getLogger('authChecker')
 
 export const authChecker: AuthChecker<
   ActerGraphQLContext,
@@ -12,13 +14,13 @@ export const authChecker: AuthChecker<
 > = async ({ context: { session, prisma }, args }, roles) => {
   // Check session user
   if (!session?.user) {
-    logger.error('No session user found')
+    l.error('No session user found')
     return false
   }
 
   // Check invalid roles
   if (roles?.length !== 0 && !roles.includes(ADMIN)) {
-    logger.error('Invalid role.')
+    l.error('Invalid role.')
     return false
   }
 
@@ -27,7 +29,7 @@ export const authChecker: AuthChecker<
     const { user } = session
 
     if (!args?.acterId) {
-      logger.error('Missing acter id on which user has admin role.')
+      l.error('Missing acter id on which user has admin role.')
       return false
     }
 
@@ -40,7 +42,7 @@ export const authChecker: AuthChecker<
     })
 
     if (!isAdmin && user.Acter.id !== args?.acterId) {
-      logger.error('Not authorized')
+      l.error('Not authorized')
       return false
     }
   }
