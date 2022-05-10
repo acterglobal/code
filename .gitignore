@@ -51,6 +51,9 @@ postgres-data
 # Reds
 redis*
 
+# Data files
+data
+
 # Typescript incremental build files
 .tsbuildinfo
 
