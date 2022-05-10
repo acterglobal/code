@@ -9,6 +9,7 @@
   },
   "peerDependencies": {
     "@auth0/nextjs-auth0": "*",
+    "axios": "*",
     "next": "*",
     "reflect-metadata": "*"
   }

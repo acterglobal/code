@@ -11,6 +11,11 @@ export interface Email {
   html: string
 }
 
+export interface CreateEmailReturn {
+  html: string
+  text: string
+}
+
 interface EmailInternal extends Email {
   from: string
 }
@@ -27,9 +32,7 @@ export const sendEmail = async (email: Email): Promise<any> => {
     try {
       l.debug('Sending email via SendGrid')
       sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
-      const resp = await sendgrid.send(mail)
-      l.debug('Got response', { resp })
-      return resp
+      return sendgrid.send(mail)
     } catch (e) {
       l.error('Error sending via sendgrid', e, e.response?.body?.errors)
       throw e
@@ -37,18 +40,13 @@ export const sendEmail = async (email: Email): Promise<any> => {
   }
 
   l.debug('Sending email via nodemailer')
-  try {
-    const transport = nodemailer.createTransport({
-      host: process.env.EMAIL_SERVER_HOST,
-      port: process.env.EMAIL_SERVER_PORT,
-      secure: false,
-      tls: {
-        rejectUnauthorized: false,
-      },
-    })
-    return await transport.sendMail(mail)
-  } catch (e) {
-    l.error('Error sending via sendmail', e)
-    throw e
-  }
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_SERVER_HOST,
+    port: process.env.EMAIL_SERVER_PORT,
+    secure: false,
+    tls: {
+      rejectUnauthorized: false,
+    },
+  })
+  return transport.sendMail(mail)
 }

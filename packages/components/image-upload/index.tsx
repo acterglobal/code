@@ -72,7 +72,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({
     // Callback set by FilePond
     // - should be called by the editor when user closes the editor
     onclose: () => {
-      //   logger.log(pond.getFile())
+      //   console.log(pond.getFile())
     },
   })
 

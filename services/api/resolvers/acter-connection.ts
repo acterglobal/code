@@ -7,6 +7,8 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
+import { NotificationQueueType } from '@acter/lib/constants'
+import { getLogger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   ActerConnection,
@@ -14,13 +16,14 @@ import {
   ActerJoinSettings,
 } from '@acter/schema'
 
-import { QueueNewMemberJoinNotification } from '../middlewares/queue-member-join-notification'
+import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 
+const l = getLogger('ActerConnectionResolver')
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
-  @UseMiddleware(QueueNewMemberJoinNotification)
+  @UseMiddleware(QueueNotificationsMiddleware(NotificationQueueType.NEW_MEMBER))
   async createActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
@@ -40,7 +43,7 @@ export class ActerConnectionResolver {
     })
     if (!followingActer) {
       const err = 'No user found'
-      console.error(err)
+      l.warn(err)
       throw err
     }
 
@@ -97,7 +100,7 @@ export class ActerConnectionResolver {
     })
     if (!connection) {
       const err = 'No connection found'
-      console.error(err)
+      l.error(err)
       throw err
     }
 
@@ -111,7 +114,7 @@ export class ActerConnectionResolver {
 
     if (!isAdmin) {
       const err = 'Not authorized'
-      console.error(err)
+      l.error(err)
       throw err
     }
 

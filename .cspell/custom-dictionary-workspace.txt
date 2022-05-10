@@ -8,6 +8,7 @@ Formik
 Geocode
 graphcache
 Imgix
+Mjml
 Mockuse
 ORGANISATIONS
 Organiser

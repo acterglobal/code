@@ -1,0 +1,14 @@
+{
+  "name": "@acter/jobs",
+  "packageManager": "yarn@3.0.0",
+  "dependencies": {
+    "@acter/lib": "workspace:packages/lib",
+    "@acter/schema": "workspace:packages/schema",
+    "console": "0.7.2",
+    "markdown-to-jsx": "7.1.3",
+    "mjml": "4.12.0",
+    "mjml-react": "2.0.7",
+    "reflect-metadata": "0.1.13",
+    "slugify": "1.6.5"
+  }
+}

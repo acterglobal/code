@@ -1,0 +1,13 @@
+name: Daily Digest Cron Job
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Digest Cron Runner
+        run: |
+          curl --request POST \
+          --url 'https://acter-dev.vercel.app/api/jobs/digest-runner' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'

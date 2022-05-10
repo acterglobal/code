@@ -9,7 +9,8 @@ import {
 } from 'type-graphql'
 
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
-import { ActerTypes } from '@acter/lib/constants'
+import { ActerTypes, NotificationQueueType } from '@acter/lib/constants'
+import { getLogger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import {
   Acter,
@@ -23,10 +24,12 @@ import {
 } from '@acter/schema'
 import { Prisma } from '@acter/schema/prisma'
 
-import { QueueNewActivityNotification } from '../middlewares/queue-activity-notifications'
+import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 
 const { ACTIVITY, GROUP } = ActerTypes
 const { ADMIN } = ActerConnectionRole
+
+const l = getLogger('ActerResolver')
 @Resolver(Acter)
 export class ActerResolver {
   @Authorized()
@@ -95,7 +98,7 @@ export class ActerResolver {
     })
     if (existingActer) {
       const err = `Found existing ${existingActer.ActerType.name} Acter with slug ${slug}`
-      console.error(err)
+      l.warn(err)
       throw err
     }
 
@@ -279,7 +282,9 @@ export class ActerResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  @UseMiddleware(QueueNewActivityNotification)
+  @UseMiddleware(
+    QueueNotificationsMiddleware(NotificationQueueType.NEW_ACTIVITY)
+  )
   async createActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
@@ -371,6 +376,11 @@ export class ActerResolver {
           },
         },
         ActivityType: true,
+        createdByUser: {
+          select: {
+            Acter: true,
+          },
+        },
       },
     })
 

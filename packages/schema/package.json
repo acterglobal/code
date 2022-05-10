@@ -16,7 +16,6 @@
     "env": "dotenv -e ../../.env"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "1.7.0",
     "@prisma/client": "3.7.0",
     "bull": "3.28.1",
     "env-cmd": "10.1.0",
@@ -36,6 +35,7 @@
     "typescript": "*"
   },
   "peerDependencies": {
+    "@auth0/nextjs-auth0": "*",
     "date-fns": "*"
   },
   "prisma": {
