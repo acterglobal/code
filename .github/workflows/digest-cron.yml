@@ -6,8 +6,13 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Start Digest Cron Runner
+      - name: Start Demo Digest Cron Runner
         run: |
           curl --request POST \
-          --url 'https://acter-dev.vercel.app/api/jobs/digest-runner' \
+          --url 'https://demo.acter.app/api/jobs/digest-runner' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
+      - name: Start Prod Digest Cron Runner
+        run: |
+          curl --request POST \
+          --url 'https://acter.app/api/jobs/digest-runner' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
