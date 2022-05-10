@@ -8,6 +8,7 @@ import { MiniFollowingList } from '@acter/components/acter/molecules/mini-follow
 import { ActerTypeDisplay } from '@acter/components/acter/molecules/type-display'
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { InterestsSection } from '@acter/components/interests/interests-section'
+import { SantizedContent } from '@acter/components/molecules/sanitized-content'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
@@ -38,6 +39,10 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 
   const collapsedClass = collapsed ? 'collapsed' : ''
 
+  const acterDescription = acter?.description
+    ? SantizedContent(acter?.description, acter?.isMarkDown)
+    : null
+
   return (
     <div ref={ref}>
       <ActerTileContainer className={clsx(collapsedClass, active && 'hovered')}>
@@ -53,16 +58,22 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
             <ActerLocation variant="body2" gutterBottom>
               {acter.location}
             </ActerLocation>
-            <ActerDescription className={collapsedClass}>
-              <Typography variant="caption">{acter.description}</Typography>
-            </ActerDescription>
+
+            {acter?.description && (
+              <ActerDescription className={collapsedClass}>
+                <Typography variant="caption">{acterDescription}</Typography>
+              </ActerDescription>
+            )}
+
             <MiniFollowingList following={following} />
           </ActerTileInfoContainer>
         </AvatarTitleDescriptionContainer>
 
-        <ActerDescriptionCollapsed className={collapsedClass}>
-          <Typography variant="caption">{acter.description}</Typography>
-        </ActerDescriptionCollapsed>
+        {acter?.description && (
+          <ActerDescriptionCollapsed className={collapsedClass}>
+            <Typography variant="caption">{acterDescription}</Typography>
+          </ActerDescriptionCollapsed>
+        )}
 
         <InterestsContainer>
           <InterestsSection
@@ -77,6 +88,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 const ActerTileContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
+  height: 'fit-content',
   justifyContent: 'space-between',
   overflow: 'hidden',
   backgroundColor: 'white',
@@ -133,7 +145,7 @@ const ActerLocation = styled(Typography)(({ theme }) => ({
 }))
 
 const ActerDescription = styled(Box)(({ theme }) => ({
-  maxHeight: 40,
+  maxHeight: 37,
   color: theme.colors.black,
   lineClamp: 2,
   wordBreak: 'keep-all',
