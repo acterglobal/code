@@ -31,12 +31,12 @@ export const sendEmail = async (email: Email): Promise<any> => {
       l.debug('Got response', { resp })
       return resp
     } catch (e) {
-      logger.error('Error sending via sendgrid', e, e.response?.body?.errors)
+      l.error('Error sending via sendgrid', e, e.response?.body?.errors)
       throw e
     }
   }
 
-  logger.debug('Sending email via nodemailer')
+  l.debug('Sending email via nodemailer')
   try {
     const transport = nodemailer.createTransport({
       host: process.env.EMAIL_SERVER_HOST,

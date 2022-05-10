@@ -193,7 +193,7 @@ export const createNotificationWorker = <T>({
         })
       )
     } catch (e) {
-      logger.error('Error processing job', {
+      l.error('Error processing job', {
         error: e,
       })
       throw e
