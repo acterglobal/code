@@ -25,7 +25,7 @@ jobs:
       - name: Set up Next.js build cache
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}/packages/web/.next/cache
+          path: ${{ github.workspace }}/apps/web/.next/cache
           # Generate a new cache whenever packages or source files change.
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]sx?') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
