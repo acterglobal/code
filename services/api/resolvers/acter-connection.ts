@@ -13,7 +13,8 @@ import {
   ActerConnectionRole,
   ActerJoinSettings,
 } from '@acter/schema'
-import { QueueNewMemberJoinNotification } from '@acter/schema/middlewares/queue-member-join-notification'
+
+import { QueueNewMemberJoinNotification } from '../middlewares/queue-member-join-notification'
 
 @Resolver(ActerConnection)
 export class ActerConnectionResolver {

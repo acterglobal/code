@@ -1,7 +1,6 @@
 import { NonEmptyArray, UseMiddleware } from 'type-graphql'
 
 import { NotificationQueueType } from '@acter/lib/constants'
-import { ResolversEnhanceMap } from '@acter/schema/generated'
 import {
   relationResolvers,
   FindFirstActerResolver,
@@ -35,14 +34,16 @@ import {
   CreatePostReactionResolver,
   UpdatePostResolver,
   UpdateUserResolver,
+  ResolversEnhanceMap,
 } from '@acter/schema/generated'
-import { CheckActerExists } from '@acter/schema/middlewares/check-acter-exists'
-import { CheckUserAccess } from '@acter/schema/middlewares/check-user-access'
-// import { QueueInviteEmail } from '@acter/schema/middlewares/queue-invite-email'
-// import { QueuePostNotifications } from '@acter/schema/middlewares/queue-post-notifications'
-import { ActerResolver } from '@acter/schema/resolvers/acter'
-import { ActerConnectionResolver } from '@acter/schema/resolvers/acter-connection'
-import { SearchResolver } from '@acter/schema/resolvers/search'
+
+import { CheckActerExists } from '../middlewares/check-acter-exists'
+import { CheckUserAccess } from '../middlewares/check-user-access'
+// import { QueueInviteEmail } from '.../middlewares/queue-invite-email'
+// import { QueuePostNotifications } from '.../middlewares/queue-post-notifications'
+import { ActerResolver } from '../resolvers/acter'
+import { ActerConnectionResolver } from '../resolvers/acter-connection'
+import { SearchResolver } from '../resolvers/search'
 
 export { applyResolversEnhanceMap } from '@acter/schema/generated'
 
