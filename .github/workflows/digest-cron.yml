@@ -11,8 +11,8 @@ jobs:
           curl --request POST \
           --url 'https://demo.acter.app/api/jobs/digest-runner' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
-      - name: Start Prod Digest Cron Runner
-        run: |
-          curl --request POST \
-          --url 'https://acter.app/api/jobs/digest-runner' \
-          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
+      # - name: Start Prod Digest Cron Runner
+      #   run: |
+      #     curl --request POST \
+      #     --url 'https://acter.app/api/jobs/digest-runner' \
+      #     --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
