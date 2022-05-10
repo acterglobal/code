@@ -35,11 +35,7 @@ export const ProfileInfoForm: FC = () => {
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
   if (fetching) return <>Loading...</>
-  if (!user) {
-    console.error('No user')
-
-    return null
-  }
+  if (!user) return null
 
   const { email, language } = user
   const {
