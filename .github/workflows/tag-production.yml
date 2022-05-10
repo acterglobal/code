@@ -23,6 +23,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: 'main'
           TO_BRANCH: 'production'
-          PULL_REQUEST_TITLE: 'Release ${{GITHUB_REF_NAME}} to Production'
+          PULL_REQUEST_TITLE: 'Release ${GITHUB_REF_NAME} to Production'
           TEAM_REVIEWERS:
             - '@acterglobal/eng'
