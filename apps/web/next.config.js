@@ -8,6 +8,7 @@ const { withSentryConfig } = require('@sentry/nextjs')
 const transpileModules = require('next-transpile-modules')
 
 const withTM = transpileModules([
+  '@acter/api',
   '@acter/components',
   '@acter/jobs',
   '@acter/lib',

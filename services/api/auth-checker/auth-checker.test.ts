@@ -2,15 +2,16 @@ import { ResolverData } from 'type-graphql'
 
 import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
-import { authChecker } from '@acter/schema/auth-checker'
 import {
   ExampleActer,
   ExampleActerConnection,
   ExampleUser,
 } from '@acter/schema/fixtures'
 
+import { authChecker } from './index'
+
 describe('auth-checker', () => {
-  const options = ({
+  const options = {
     args: {},
     context: {
       session: {},
@@ -20,7 +21,7 @@ describe('auth-checker', () => {
         },
       },
     },
-  } as unknown) as ResolverData<ActerGraphQLContext>
+  } as unknown as ResolverData<ActerGraphQLContext>
 
   it('should return false if no session user is available', async () => {
     const result = await authChecker(options, [])
