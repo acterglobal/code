@@ -47,7 +47,7 @@ export const getUrqlClientOptions = (): ClientOptions => {
   })
 
   const config = {
-    url: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    url: `/api/graphql`,
     exchanges: [dedupExchange, cache, devtoolsExchange, ssr, fetchExchange],
     suspense: false,
   }
