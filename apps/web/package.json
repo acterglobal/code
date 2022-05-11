@@ -19,33 +19,31 @@
     "@acter/lib": "workspace:packages/lib",
     "@acter/schema": "workspace:packages/schema",
     "@auth0/nextjs-auth0": "1.8.0",
+    "@material-ui/core": "4.12.3",
     "@next/bundle-analyzer": "11.0.1",
     "@sentry/nextjs": "6.19.7",
     "aws-sdk": "2.962.0",
     "env-cmd": "10.1.0",
+    "graphql": "15.5.1",
+    "just-capitalize": "1.0.1",
     "micro": "9.3.4",
     "next": "12.1.0",
     "next-compose-plugins": "2.2.1",
     "next-graphql-loader": "1.0.1",
     "next-i18next": "10.4.0",
     "next-transpile-modules": "8.0.0",
-    "react-use-intercom": "1.4.0"
+    "next-urql": "3.2.1",
+    "notistack": "1.0.10",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hotjar": "^5.0.0",
+    "react-use-intercom": "1.4.0",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "1.1.1",
+    "urql": "2.0.5"
   },
   "devDependencies": {
-    "eslint-config-next": "11.0.1"
-  },
-  "peerDependencies": {
-    "@material-ui/core": "*",
-    "graphql": "*",
-    "just-capitalize": "*",
-    "next-urql": "*",
-    "notistack": "*",
-    "react": "*",
-    "react-dom": "*",
-    "react-is": "*",
-    "reflect-metadata": "*",
-    "type-graphql": "*",
-    "urql": "*"
+    "@next/eslint-plugin-next": "^12.1.6"
   },
   "browser": {
     "fs": false,

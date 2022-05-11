@@ -5,41 +5,38 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@auth0/nextjs-auth0": "1.8.0",
     "@sendgrid/mail": "7.6.2",
+    "@types/mime": "2.0.3",
     "@urql/core": "2.3.4",
     "@urql/devtools": "2.0.3",
     "@urql/exchange-graphcache": "4.3.5",
-    "date-fns-tz": "1.1.6",
+    "auth0": "^2.40.0",
+    "axios": "0.27.0",
     "deep-equal": "2.0.5",
     "deepmerge": "4.2.2",
+    "graphql": "15.5.1",
     "intercom-client": "2.11.2",
     "ioredis": "4.27.7",
     "just-camel-case": "^6.0.1",
     "md5": "2.3.0",
     "mime": "2.5.2",
-    "mjml": "^4.12.0",
-    "mjml-react": "^2.0.7",
+    "mjml": "4.12.0",
+    "mjml-react": "2.0.7",
+    "next": "12.1.0",
     "nodemailer": "6.6.3",
+    "notistack": "1.0.10",
     "pino": "7.11.0",
     "pino-http-send": "0.4.2",
     "pino-pretty": "7.6.1",
+    "pluralize": "8.0.0",
     "ramda": "0.27.1",
+    "react": "17.0.2",
     "react-script-hook": "1.5.0",
-    "slugify": "1.6.0",
-    "urql": "2.0.5",
-    "winston": "^3.7.2"
+    "slugify": "1.6.5",
+    "urql": "2.0.5"
   },
   "devDependencies": {
-    "@types/intercom-client": "2.11.13",
-    "@types/mime": "2.0.3"
-  },
-  "peerDependencies": {
-    "@auth0/nextjs-auth0": "*",
-    "axios": "*",
-    "graphql": "*",
-    "next": "*",
-    "notistack": "*",
-    "pluralize": "*",
-    "react": "*"
+    "@types/intercom-client": "2.11.13"
   }
 }

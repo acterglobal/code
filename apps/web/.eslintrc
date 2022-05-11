@@ -1,0 +1,4 @@
+{
+  "extends": "../../.eslintrc",
+  "plugins": ["plugin:@next/next/recommended"]
+}
