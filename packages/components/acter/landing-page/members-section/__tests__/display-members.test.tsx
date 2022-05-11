@@ -6,7 +6,7 @@ import React from 'react'
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 import { useUser } from '@acter/lib/user/use-user'
 import {
   ExampleActer,

@@ -11,7 +11,8 @@
     "apps/*",
     "packages/schema",
     "packages/*",
-    "services/*"
+    "services/*",
+    "tools/*"
   ],
   "scripts": {
     "dev": "yarn workspace @acter/web dev",
@@ -21,9 +22,9 @@
     "storybook": "yarn workspace @acter/components dev",
     "chromatic": "yarn workspace @acter/components chromatic",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
-    "test": "env-cmd jest",
+    "test": "dotenv jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
-    "cover": "env-cmd --silent jest --coverage",
+    "cover": "dotenv jest --coverage",
     "husky-install": "husky install",
     "clean:modules": "cli-confirm \"Are you you wan to clear all node_modules?\" && find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
     "clean:next": "rm -rf apps/web/.next",
@@ -34,33 +35,11 @@
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
-    "db:seed": "yarn workspace @acter/schema db:seed"
-  },
-  "dependencies": {
-    "@acter/lib": "workspace:packages/lib",
-    "@material-ui/core": "4.12.3",
-    "auth0": "^2.40.0",
-    "axios": "0.27.0",
-    "date-fns": "2.23.0",
-    "env-cmd": "10.1.0",
-    "graphql": "15.5.1",
-    "just-capitalize": "1.0.1",
-    "next-urql": "3.2.1",
-    "node-fetch": "2.6.7",
-    "notistack": "1.0.10",
-    "pluralize": "8.0.0",
-    "pm2": "5.1.0",
-    "react": "17.0.2",
-    "react-cookie-consent": "6.4.1",
-    "react-dom": "17.0.2",
-    "react-hotjar": "^5.0.0",
-    "react-is": "17.0.2",
-    "reflect-metadata": "0.1.13",
-    "tar": "6.1.11",
-    "urql": "2.0.5",
-    "workspace": "^0.0.1-preview.1"
+    "db:seed": "yarn workspace @acter/schema db:seed",
+    "postinstall": "husky install"
   },
   "devDependencies": {
+    "@acter/eslint-config-base": "workspace:tools/eslint-config-base",
     "@mdx-js/react": "1.6.22",
     "@testing-library/dom": "7.31.2",
     "@testing-library/jest-dom": "5.16.2",
@@ -76,23 +55,16 @@
     "@typescript-eslint/eslint-plugin": "4.29.0",
     "@typescript-eslint/parser": "4.29.0",
     "cli-confirm": "1.0.1",
+    "dotenv-cli": "5.1.0",
     "eslint": "7.32.0",
     "eslint-plugin-jest": "24.4.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.12.0",
-    "graphql-tag": "2.12.5",
-    "husky": "5.2.0",
-    "identity-obj-proxy": "3.0.0",
-    "ignore-loader": "0.1.2",
+    "husky": "^8.0.0",
     "jest": "27.5.1",
     "jest-transform-graphql": "2.1.0",
-    "shelljs": "0.8.5",
     "syncpack": "5.8.14",
     "ts-jest": "27.0.4",
-    "ts-node": "10.2.1",
-    "tsconfig-paths-webpack-plugin": "3.5.1",
-    "tslib": "2.3.1",
-    "typescript": "4.4.3",
-    "webpack": "5.49.0"
+    "ts-node": "10.2.1"
   },
   "browser": {
     "fs": false,
@@ -102,5 +74,8 @@
   "engines": {
     "node": "16.x",
     "yarn": "3.x"
+  },
+  "resolutions": {
+    "webpack": "5.49.0"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "name": "@acter/eslint-config-base",
+  "packageManager": "yarn@3.0.0",
+  "dependencies": {
+    "eslint": "7.32.0"
+  }
+}

@@ -5,7 +5,7 @@ import React from 'react'
 
 import { Interest } from '@acter/components/interests/interest'
 import { InterestTypes } from '@acter/lib/constants'
-import { render } from '@acter/lib/test-utils'
+import { render } from '@acter/lib/test-helpers'
 import { ExampleInterest } from '@acter/schema/fixtures/interest/example-interests'
 
 describe('[Interest]', () => {

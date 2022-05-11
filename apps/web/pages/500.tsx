@@ -14,7 +14,7 @@ const Custom500: NextPageWithLayout = () => {
 
       <Box mt={20}>
         <Typography variant="body1">
-          We're sorry, but there seems to have been an error. We've been
+          We&apos;re sorry, but there seems to have been an error. We&apos;ve been
           notified, and hope to get things fixed quickly.
         </Typography>
       </Box>

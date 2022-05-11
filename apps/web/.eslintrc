@@ -1,0 +1,8 @@
+{
+  "extends": ["@acter/base", "next"],
+  "settings": {
+    "next": {
+      "rootDir": "apps/web"
+    }
+  }
+}

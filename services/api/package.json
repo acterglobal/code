@@ -4,13 +4,11 @@
   "type": "module",
   "dependencies": {
     "@acter/schema": "workspace:packages/schema",
+    "@auth0/nextjs-auth0": "1.8.0",
     "apollo-server-micro": "3.1.2",
-    "type-graphql": "^1.1.1"
-  },
-  "peerDependencies": {
-    "@auth0/nextjs-auth0": "*",
-    "axios": "*",
-    "next": "*",
-    "reflect-metadata": "*"
+    "axios": "0.27.0",
+    "next": "12.1.0",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "1.1.1"
   }
 }

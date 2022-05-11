@@ -7,7 +7,7 @@ import { MenuItem } from '@material-ui/core'
 import userEvent from '@testing-library/user-event'
 
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 
 const Anchor = () => <div>Foo</div>
 

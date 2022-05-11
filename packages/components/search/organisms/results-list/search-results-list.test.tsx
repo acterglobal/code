@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
-import { render, screen, within } from '@acter/lib/test-utils'
+import { render, screen, within } from '@acter/lib/test-helpers'
 import { useUser } from '@acter/lib/user/use-user'
 import {
   ExampleActerList,

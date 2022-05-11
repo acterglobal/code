@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import { InterestTypes } from '@acter/components/interests/interest-types'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 import { Interests } from '@acter/schema/fixtures/interest/interests'
 
 jest.mock('@acter/lib/i18n/use-translation')

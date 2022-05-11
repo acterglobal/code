@@ -11,7 +11,7 @@ import { HeaderSection } from '@acter/components/acter/landing-page/header-secti
 import { theme } from '@acter/components/themes/acter-theme'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 import { useUser } from '@acter/lib/user/use-user'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
