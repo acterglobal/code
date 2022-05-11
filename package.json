@@ -24,7 +24,7 @@
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "dotenv jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
-    "cover": "dotenv --silent jest --coverage",
+    "cover": "dotenv jest --coverage",
     "husky-install": "husky install",
     "clean:modules": "cli-confirm \"Are you you wan to clear all node_modules?\" && find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
     "clean:next": "rm -rf apps/web/.next",
@@ -35,7 +35,8 @@
     "db:migrate:run": "yarn workspace @acter/schema db:migrate:run",
     "db:migrate:prod": "yarn workspace @acter/schema db:migrate:prod",
     "db:reset": "yarn workspace @acter/schema db:reset",
-    "db:seed": "yarn workspace @acter/schema db:seed"
+    "db:seed": "yarn workspace @acter/schema db:seed",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@acter/eslint-config-base": "workspace:tools/eslint-config-base",
@@ -58,7 +59,7 @@
     "eslint": "7.32.0",
     "eslint-plugin-jest": "24.4.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.12.0",
-    "husky": "5.2.0",
+    "husky": "^8.0.0",
     "jest": "27.5.1",
     "jest-transform-graphql": "2.1.0",
     "syncpack": "5.8.14",
@@ -73,5 +74,8 @@
   "engines": {
     "node": "16.x",
     "yarn": "3.x"
+  },
+  "resolutions": {
+    "webpack": "5.49.0"
   }
 }
