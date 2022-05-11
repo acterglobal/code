@@ -30,7 +30,27 @@ const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
   ? false
   : true
 
+/**
+ * @type {import('next/dist/server/config').NextConfig}
+ **/
 const nextConfig = {
+  redirects: async () => [
+    {
+      source: '/',
+      destination: '/search',
+      permanent: false,
+    },
+    {
+      source: '/profile',
+      destination: '/profile/info',
+      permanent: false,
+    },
+    {
+      source: '/:acterType/:slug',
+      destination: '/:acterType/:slug/forum',
+      permanent: false,
+    },
+  ],
   module: {
     loaders: [
       {
@@ -39,6 +59,7 @@ const nextConfig = {
       },
     ],
   },
+  // @ts-ignore
   i18n,
   images: {
     loader: 'imgix',
