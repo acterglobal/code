@@ -8,7 +8,13 @@ import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
+import {
+  AtomicBlockUtils,
+  ContentBlock,
+  ContentState,
+  EditorState,
+  CompositeDecorator,
+} from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 
 import {
@@ -18,6 +24,7 @@ import {
 import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
 import { EditorContext } from '@acter/components/util/text-editor/editor-context'
 import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
+import { MediaComponent } from '@acter/components/util/text-editor/media-component'
 
 let htmlToDraft = null
 if (typeof window === 'object') {
@@ -114,6 +121,23 @@ export const TextEditor: FC<TextEditorProps> = ({
     setEditorState(data)
   }
 
+  const renderBlock = (contentBlock: ContentBlock) => {
+    if (contentBlock.getType() === 'atomic') {
+      const entityKey = contentBlock.getEntityAt(0)
+      const entityData = editorState
+        .getCurrentContent()
+        .getEntity(entityKey)
+        .getData()
+      return {
+        component: MediaComponent,
+        editable: false,
+        props: {
+          src: { file: entityData.src },
+        },
+      }
+    }
+  }
+
   return (
     <Box className={classes.editorContainer}>
       <Box className={classes.toolbarContainer}>
@@ -127,6 +151,7 @@ export const TextEditor: FC<TextEditorProps> = ({
             onChange={onEditorStateChange}
             plugins={plugins}
             ref={editorRef}
+            blockRendererFn={renderBlock}
             placeholder={placeholder}
           />
         </EditorContext.Provider>
@@ -134,6 +159,39 @@ export const TextEditor: FC<TextEditorProps> = ({
         <InlineToolbar>
           {(externalProps) => <linkPlugin.LinkButton {...externalProps} />}
         </InlineToolbar>
+
+        <input
+          id="fileInput"
+          style={{ display: 'none' }}
+          type="file"
+          accept="image/png,image/jpeg,image/jpg,image/gif"
+          onChange={(event) => {
+            const reader = new FileReader()
+            reader.addEventListener(
+              'load',
+              function () {
+                const contentStateWithEntity = editorState
+                  .getCurrentContent()
+                  .createEntity('IMAGE', 'IMMUTABLE', { src: reader.result })
+                setEditorState(
+                  AtomicBlockUtils.insertAtomicBlock(
+                    EditorState.set(editorState, {
+                      currentContent: contentStateWithEntity,
+                    }),
+                    contentStateWithEntity.getLastCreatedEntityKey(),
+                    ' '
+                  )
+                )
+              },
+              false
+            )
+            if (event.target.files) {
+              reader.readAsDataURL(
+                Array.prototype.slice.call(event.target.files)[0]
+              )
+            }
+          }}
+        />
       </Box>
     </Box>
   )
