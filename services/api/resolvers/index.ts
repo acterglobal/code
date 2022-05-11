@@ -41,9 +41,10 @@ import { CheckActerExists } from '../middlewares/check-acter-exists'
 import { CheckUserAccess } from '../middlewares/check-user-access'
 import { QueueInviteEmail } from '../middlewares/queue-invite-email'
 import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
-import { ActerResolver } from '../resolvers/acter'
-import { ActerConnectionResolver } from '../resolvers/acter-connection'
-import { SearchResolver } from '../resolvers/search'
+import { ActerResolver } from './acter'
+import { ActerConnectionResolver } from './acter-connection'
+import { HealthCheckResolver } from './health'
+import { SearchResolver } from './search'
 
 export { applyResolversEnhanceMap } from '@acter/schema/generated'
 
@@ -101,5 +102,6 @@ export const resolvers: NonEmptyArray<Function> = [
   // custom
   ActerResolver,
   ActerConnectionResolver,
+  HealthCheckResolver,
   SearchResolver,
 ]
