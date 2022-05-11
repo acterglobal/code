@@ -1,9 +1,11 @@
-import React, { FC, useState, useEffect, useMemo } from 'react'
+import React, { FC, useState, useEffect, useMemo, useRef } from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
+import createLinkifyPlugin from '@draft-js-plugins/linkify'
+import '@draft-js-plugins/linkify/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -56,6 +58,8 @@ export const TextEditor: FC<TextEditorProps> = ({
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
+  const ref = useRef<Editor>(null)
+
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
   const [inlinePlugins, InlineToolbar] = useMemo(() => {
@@ -64,7 +68,11 @@ export const TextEditor: FC<TextEditorProps> = ({
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const plugins = [...inlinePlugins, toolbarPlugin, linkPlugin]
+  const linkifyPlugin = createLinkifyPlugin({
+    target: '_blank',
+  })
+
+  const plugins = [...inlinePlugins, toolbarPlugin, linkPlugin, linkifyPlugin]
 
   const decorator = new CompositeDecorator([
     {
@@ -120,13 +128,18 @@ export const TextEditor: FC<TextEditorProps> = ({
         <Toolbar />
       </Box>
 
-      <Box className={classes.editor}>
+      <Box
+        className={classes.editor}
+        onClick={() => {
+          ref.current?.focus()
+        }}
+      >
         <EditorContext.Provider value={editorState}>
           <Editor
             editorState={editorState}
             onChange={onEditorStateChange}
             plugins={plugins}
-            ref={editorRef}
+            ref={ref}
             placeholder={placeholder}
           />
         </EditorContext.Provider>
