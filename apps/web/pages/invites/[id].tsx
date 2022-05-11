@@ -1,3 +1,4 @@
+// TODO: move this to api route
 import { useEffect } from 'react'
 
 import { NextPage } from 'next'
@@ -29,21 +30,13 @@ export const InvitationPage: NextPage<InvitationPageProps> = ({
 }) => {
   const router = useRouter()
 
-  if (expiredMessage) {
-    return (
-      <p style={{ textAlign: 'center', marginTop: 100 }}>{expiredMessage}</p>
-    )
-  }
-
   const [_, updateInvite] = useUpdateInvite()
 
-  const [
-    { fetching: creatingConnection },
-    createConnection,
-  ] = useCreateActerConnection(acter, {
-    onCompleted: () =>
-      updateInvite({ inviteId: invite?.id, acceptedAt: new Date() }),
-  })
+  const [{ fetching: creatingConnection }, createConnection] =
+    useCreateActerConnection(acter, {
+      onCompleted: () =>
+        updateInvite({ inviteId: invite?.id, acceptedAt: new Date() }),
+    })
 
   useEffect(() => {
     if (acter && invite) {
@@ -53,6 +46,12 @@ export const InvitationPage: NextPage<InvitationPageProps> = ({
       router.push(acterAsUrl({ acter }))
     }
   }, [acter, invite])
+
+  if (expiredMessage) {
+    return (
+      <p style={{ textAlign: 'center', marginTop: 100 }}>{expiredMessage}</p>
+    )
+  }
 
   if (creatingConnection) return <LoadingSpinner size={30} />
 

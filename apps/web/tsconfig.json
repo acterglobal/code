@@ -6,5 +6,18 @@
       "@acter/*": ["../*"]
     }
   },
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "../../document-node.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/storybook-helpers",
+    "**/test-helpers",
+    "**/*.stories.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

@@ -1,4 +1,8 @@
 {
-  "extends": "../../.eslintrc",
-  "plugins": ["plugin:@next/next/recommended"]
+  "extends": ["@acter/base", "next"],
+  "settings": {
+    "next": {
+      "rootDir": "apps/web"
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 import { Interests } from '@acter/schema/fixtures'
 
 describe('Interest Section', () => {

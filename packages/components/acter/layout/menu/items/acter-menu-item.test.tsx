@@ -13,7 +13,7 @@ import { getLandingPageTab } from '@acter/lib/acter/get-landing-page-tab'
 import { ActerMenu } from '@acter/lib/constants'
 import { useNotifications } from '@acter/lib/notification/use-notifications'
 import { useUpdateNotifications } from '@acter/lib/notification/use-update-notifications'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 import { ExampleActer } from '@acter/schema/fixtures'
 
 jest.mock('next/router')

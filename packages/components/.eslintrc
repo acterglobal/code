@@ -1,0 +1,3 @@
+{
+  "extends": ["@acter/base", "@acter/jest"]
+}

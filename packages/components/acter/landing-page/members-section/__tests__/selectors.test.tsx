@@ -5,7 +5,7 @@ import React from 'react'
 
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
-import { render, screen } from '@acter/lib/test-utils'
+import { render, screen } from '@acter/lib/test-helpers'
 
 jest.mock('@acter/lib/i18n/use-translation')
 

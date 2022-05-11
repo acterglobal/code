@@ -5,25 +5,32 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn env-cmd next dev",
-    "build": "yarn env-cmd next build",
+    "dev": "yarn env next dev",
+    "build": "yarn env next build",
     "build:cicd": "yarn workspace @acter/schema build && yarn build",
-    "start": "yarn env-cmd next start",
-    "env-cmd": "env-cmd --silent --file ../../.env",
-    "analyze": "ANALYZE=true yarn env-cmd next build"
+    "start": "yarn env next start",
+    "lint": "yarn env next lint",
+    "analyze": "ANALYZE=true yarn env next build",
+    "env": "dotenv -e ../../.env"
   },
   "dependencies": {
     "@acter/api": "workspace:services/api",
     "@acter/components": "workspace:packages/components",
+    "@acter/eslint-config-base": "workspace:tools/eslint-config-base",
     "@acter/jobs": "workspace:services/jobs",
     "@acter/lib": "workspace:packages/lib",
     "@acter/schema": "workspace:packages/schema",
     "@auth0/nextjs-auth0": "1.8.0",
     "@material-ui/core": "4.12.3",
     "@next/bundle-analyzer": "11.0.1",
+    "@next/eslint-plugin-next": "^12.1.6",
     "@sentry/nextjs": "6.19.7",
+    "@typescript-eslint/eslint-plugin": "4.29.0",
+    "@typescript-eslint/parser": "4.29.0",
     "aws-sdk": "2.962.0",
-    "env-cmd": "10.1.0",
+    "dotenv-cli": "5.1.0",
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.1.0",
     "graphql": "15.5.1",
     "just-capitalize": "1.0.1",
     "micro": "9.3.4",
@@ -41,9 +48,6 @@
     "reflect-metadata": "0.1.13",
     "type-graphql": "1.1.1",
     "urql": "2.0.5"
-  },
-  "devDependencies": {
-    "@next/eslint-plugin-next": "^12.1.6"
   },
   "browser": {
     "fs": false,

@@ -48,7 +48,7 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
 
   useEffect(() => {
     hotjar.initialize(HJ_ID, HJ_SV)
-  }, [])
+  }, [HJ_ID, HJ_SV])
 
   const getLayout =
     Component.getLayout ?? ((page) => <OverallLayout>{page}</OverallLayout>)

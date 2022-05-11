@@ -37,6 +37,8 @@
     "urql": "2.0.5"
   },
   "devDependencies": {
+    "@acter/eslint-config-base": "workspace:tools/eslint-config-base",
+    "@acter/eslint-config-jest": "workspace:tools/eslint-config-jest",
     "@types/intercom-client": "2.11.13"
   }
 }
