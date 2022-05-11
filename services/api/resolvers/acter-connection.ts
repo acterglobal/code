@@ -7,14 +7,11 @@ import {
   UseMiddleware,
 } from 'type-graphql'
 
+import { createActerConnection } from '@acter/lib/api/create-acter-connection'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
 import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
-import {
-  ActerConnection,
-  ActerConnectionRole,
-  ActerJoinSettings,
-} from '@acter/schema'
+import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 
@@ -34,53 +31,13 @@ export class ActerConnectionResolver {
 
     const createdByUserId = currentUser.id
 
-    const followingActer = await ctx.prisma.acter.findFirst({
-      select: {
-        id: true,
-        acterJoinSetting: true,
-      },
-      where: { id: followingActerId },
+    return await createActerConnection({
+      prisma: ctx.prisma,
+      followerActerId,
+      followingActerId,
+      createdByUserId,
+      role,
     })
-    if (!followingActer) {
-      const err = 'No user found'
-      l.warn(err)
-      throw err
-    }
-
-    const getDefaultRole = () =>
-      followingActer.acterJoinSetting === ActerJoinSettings.EVERYONE
-        ? ActerConnectionRole.MEMBER
-        : ActerConnectionRole.PENDING
-
-    const connection = await ctx.prisma.acterConnection.upsert({
-      include: {
-        Follower: {
-          include: {
-            ActerType: true,
-          },
-        },
-        Following: {
-          include: {
-            ActerType: true,
-          },
-        },
-      },
-      create: {
-        followerActerId,
-        followingActerId,
-        role: role || getDefaultRole(),
-        createdByUserId,
-      },
-      update: {},
-      where: {
-        acter_follower_following: {
-          followerActerId,
-          followingActerId,
-        },
-      },
-    })
-
-    return connection
   }
 
   @Authorized()
