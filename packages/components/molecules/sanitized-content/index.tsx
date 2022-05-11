@@ -11,6 +11,10 @@ export const SantizedContent = (
     return isMarkDown ? (
       <Markdown>{content}</Markdown>
     ) : (
-      <SanitizedHTML html={content}></SanitizedHTML>
+      <SanitizedHTML
+        allowedAttributes={{ a: ['href'] }}
+        allowedTags={['p', 'b', 'i', 'em', 'strong', 'a']}
+        html={content}
+      ></SanitizedHTML>
     )
 }
