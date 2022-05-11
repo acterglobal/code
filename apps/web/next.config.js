@@ -34,23 +34,35 @@ const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
  * @type {import('next/dist/server/config').NextConfig}
  **/
 const nextConfig = {
-  redirects: async () => [
-    {
-      source: '/',
-      destination: '/search',
-      permanent: false,
-    },
-    {
-      source: '/profile',
-      destination: '/profile/info',
-      permanent: false,
-    },
-    {
-      source: '/:acterType/:slug',
-      destination: '/:acterType/:slug/forum',
-      permanent: false,
-    },
-  ],
+  rewrites: async () => {
+    // We have to hard code these because we can't import TS enums here
+    const acterTypeList = [
+      'activities',
+      'groups',
+      'networks',
+      'organisations',
+      'public-organisations',
+      'users',
+      'communities',
+      'ngos',
+      'companies',
+      'universities',
+    ].join('|')
+    return [
+      {
+        source: '/',
+        destination: '/search',
+      },
+      {
+        source: '/profile',
+        destination: '/profile/info',
+      },
+      {
+        source: `/:acterType(${acterTypeList})/:slug`,
+        destination: '/:acterType/:slug/forum',
+      },
+    ]
+  },
   module: {
     loaders: [
       {
