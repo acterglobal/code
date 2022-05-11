@@ -59,7 +59,9 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
       </FormSection>
 
       <FormSection onClick={() => editor.focus()}>
-        <FormLabel className={classes.label}>Description</FormLabel>
+        <FormLabel className={classes.label}>
+          {capitalize(t('description'))}
+        </FormLabel>
         <TextEditor
           height={150}
           initialValue={values.description}
