@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 import { Box, FormLabel } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
-import { Field } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 import {
@@ -14,14 +14,22 @@ import { Switch } from '@acter/components/atoms/fields/switch'
 import { LocationVenuePicker } from '@acter/components/molecules/fields/location-venue-picker'
 import { StartEndDateTimePicker } from '@acter/components/molecules/fields/start-end-datetime-picker'
 import { FormSection } from '@acter/components/styled/form-section'
+import { TextEditor } from '@acter/components/util/text-editor'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 
 export type MeetingStepProps = SettingsStepProps
 
+export interface MeetingStepValues {
+  name: string
+  description?: string
+}
+
 export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
   const { t } = useTranslation('common')
   const classes = useStyles()
+  const [editor, setEditor] = useState(null)
+  const { values, setFieldValue } = useFormikContext<MeetingStepValues>()
   const [selectOrganiser, setSelectOrganiser] = useState(false)
 
   const handleChange = () => {
@@ -50,16 +58,15 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
         <LocationVenuePicker />
       </FormSection>
 
-      <FormSection>
-        <Field
-          className={classes.field}
-          fullWidth
-          component={TextField}
-          label={t('form.description')}
-          name="description"
-          variant="outlined"
-          multiline={true}
-          rows={5}
+      <FormSection onClick={() => editor.focus()}>
+        <FormLabel className={classes.label}>
+          {capitalize(t('description'))}
+        </FormLabel>
+        <TextEditor
+          height={150}
+          initialValue={values.description}
+          handleInputChange={(value) => setFieldValue('description', value)}
+          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
 
