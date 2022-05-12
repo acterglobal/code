@@ -3,11 +3,14 @@ import pino, {
   multistream,
   transport,
   DestinationStream,
+  Level,
   Logger,
   LogFn,
   StreamEntry,
 } from 'pino'
 import { createWriteStream } from 'pino-http-send'
+
+const level = process.env.NEXT_PUBLIC_LOG_LEVEL || 'info'
 
 interface LoggerWithTimer extends Logger {
   startTimer: () => { done: LogFn }
@@ -17,6 +20,8 @@ const transports: Record<string, DestinationStream | StreamEntry> = {
   [process.env.NODE_ENV === 'production' ? '' : 'dev']: transport({
     target: 'pino-pretty',
     options: {
+      minimumLevel: level,
+      trasnslateTime: true,
       destination: 1, // use 2 for stderr
       colorize: true,
     },
@@ -33,13 +38,14 @@ const transports: Record<string, DestinationStream | StreamEntry> = {
 }
 const streams = Object.keys(transports).reduce((memo, k) => {
   if (!k) return memo
-  return [...memo, transports[k]]
+  return [...memo, { level: level as Level, stream: transports[k] }]
 }, [])
 
-const level = process.env.NEXT_PUBLIC_LOG_LEVEL || 'info'
-const logger = pino({ level }, multistream(streams))
+let logger: Logger
 
 export const getLogger = (label: string): LoggerWithTimer => {
+  if (!logger) logger = pino({ level }, multistream(streams))
+
   const l = logger.child({
     label,
   }) as LoggerWithTimer
