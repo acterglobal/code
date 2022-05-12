@@ -51,6 +51,7 @@
     "react-is-visible": "1.1.2",
     "react-sanitized-html": "^2.0.0",
     "sanitize-html": "^2.7.0",
+    "sanitize-html-react": "^1.13.0",
     "title-case": "3.0.3",
     "use-places-autocomplete": "^2.0.0",
     "use-position": "1.0.0",
