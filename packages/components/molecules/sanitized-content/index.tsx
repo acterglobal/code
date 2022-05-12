@@ -2,30 +2,29 @@ import { ReactNode } from 'react'
 import SanitizedHTML from 'react-sanitized-html'
 
 import Markdown from 'markdown-to-jsx'
-import sanitizeHtml from 'sanitize-html'
 
 export const SantizedContent = (
   content: string & ReactNode,
   isMarkDown: boolean
 ): JSX.Element => {
-  const sanitizedConmponent = (
+  const sanitizedComponent = (
     <SanitizedHTML
       allowedAttributes={{ a: ['href'] }}
       allowedTags={['p', 'b', 'i', 'em', 'strong', 'a']}
+      disallowedTagsMode="discard"
       html={content}
     ></SanitizedHTML>
   )
 
-  const tester1 = sanitizeHtml(sanitizedConmponent.props.html, {
-    exclusiveFilter: function (frame) {
-      return frame.tag === 'br' && !frame.text.trim()
-    },
-  })
+  const filteredContent = sanitizedComponent.props.html.replaceAll(
+    '<p><br></p>',
+    ''
+  )
 
   if (content)
     return isMarkDown ? (
       <Markdown>{content}</Markdown>
     ) : (
-      <Markdown>{tester1}</Markdown>
+      <Markdown>{filteredContent}</Markdown>
     )
 }
