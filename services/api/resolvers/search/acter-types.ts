@@ -5,16 +5,12 @@ import { Prisma } from '@acter/schema/prisma'
 export const withActerTypesSearch = (
   types: [string]
 ): Prisma.ActerWhereInput => {
-  const now = new Date()
   if (types.includes(ActerTypes.ACTIVITY)) {
     return {
       ActerType: {
         name: ActerTypes.ACTIVITY,
       },
       Activity: {
-        startAt: {
-          gte: now,
-        },
         Organiser: {
           isNot: {
             acterPrivacySetting: ActerPrivacySettings.PRIVATE,
