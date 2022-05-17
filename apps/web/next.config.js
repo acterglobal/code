@@ -30,7 +30,39 @@ const disableSentrySourcemaps = process.env.SENTRY_BUILD_SOURCE_MAPS
   ? false
   : true
 
+/**
+ * @type {import('next/dist/server/config').NextConfig}
+ **/
 const nextConfig = {
+  rewrites: async () => {
+    // We have to hard code these because we can't import TS enums here
+    const acterTypeList = [
+      'activities',
+      'groups',
+      'networks',
+      'organisations',
+      'public-organisations',
+      'users',
+      'communities',
+      'ngos',
+      'companies',
+      'universities',
+    ].join('|')
+    return [
+      {
+        source: '/',
+        destination: '/search',
+      },
+      {
+        source: '/profile',
+        destination: '/profile/info',
+      },
+      {
+        source: `/:acterType(${acterTypeList})/:slug`,
+        destination: '/:acterType/:slug/forum',
+      },
+    ]
+  },
   module: {
     loaders: [
       {
@@ -39,6 +71,7 @@ const nextConfig = {
       },
     ],
   },
+  // @ts-ignore
   i18n,
   images: {
     loader: 'imgix',
