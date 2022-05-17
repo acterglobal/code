@@ -22,5 +22,5 @@ export const QueueNotificationsMiddleware =
       url: `/notify/${queueType}`,
       data: data,
     })
-    timer.done({ message: 'Sent notifications job', queueType, data })
+    timer.done({ msg: 'Sent notifications job', queueType, data })
   }

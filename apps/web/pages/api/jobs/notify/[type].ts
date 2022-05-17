@@ -73,7 +73,7 @@ const notifyHandler = async (
       if (!worker.checks(req.body)) return res.status(422).send('Data missing')
       await worker.fn(req.body)
       res.status(200).end('ok')
-      timer.done({ ...loggerMeta, message: 'Notify job complete' })
+      timer.done({ ...loggerMeta, msg: 'Notify job complete' })
       return
     } catch (e) {
       l.error(e)

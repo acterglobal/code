@@ -40,9 +40,9 @@ export const getApiHandler =
         },
       })
       await server.start()
-      timer.done({ message: 'Apollo server started' })
+      timer.done({ msg: 'Apollo server started' })
     } else {
-      timer.done({ message: 'Apollo server already exists and will be reused' })
+      timer.done({ msg: 'Apollo server already exists and will be reused' })
     }
 
     const handler = server.createHandler({ path })
