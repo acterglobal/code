@@ -8,7 +8,7 @@ import { MiniFollowingList } from '@acter/components/acter/molecules/mini-follow
 import { ActerTypeDisplay } from '@acter/components/acter/molecules/type-display'
 import { ActerProfileImage } from '@acter/components/atoms/acter/profile-image'
 import { InterestsSection } from '@acter/components/interests/interests-section'
-import { SantizedContent } from '@acter/components/molecules/sanitized-content'
+import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
 import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
@@ -39,10 +39,6 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 
   const collapsedClass = collapsed ? 'collapsed' : ''
 
-  const acterDescription = acter?.description
-    ? SantizedContent(acter?.description, acter?.isMarkDown)
-    : null
-
   return (
     <div ref={ref}>
       <ActerTileContainer className={clsx(collapsedClass, active && 'hovered')}>
@@ -61,7 +57,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 
             {acter?.description && (
               <ActerDescription className={collapsedClass}>
-                <Typography variant="caption">{acterDescription}</Typography>
+                <ActerDescriptionText acter={acter} />
               </ActerDescription>
             )}
 
@@ -71,7 +67,7 @@ export const ActerTile: FC<ActerTileProps> = ({ acter, collapsed, active }) => {
 
         {acter?.description && (
           <ActerDescriptionCollapsed className={collapsedClass}>
-            <Typography variant="caption">{acterDescription}</Typography>
+            <ActerDescriptionText acter={acter} />
           </ActerDescriptionCollapsed>
         )}
 
@@ -169,6 +165,14 @@ const ActerDescriptionCollapsed = styled(ActerDescription)(({ theme }) => ({
     display: 'none',
   },
 }))
+
+const ActerDescriptionText: FC<{ acter: Acter }> = ({ acter }) => (
+  <Typography variant="caption">
+    <SanitizedContent isMarkdown={acter.isMarkDown}>
+      {acter.description}
+    </SanitizedContent>
+  </Typography>
+)
 
 const InterestsContainer = styled(Box)(({ theme }) => ({
   flex: '0 0',

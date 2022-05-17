@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
-import { SantizedContent } from '@acter/components/molecules/sanitized-content'
+import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { Acter } from '@acter/schema'
@@ -29,10 +29,6 @@ export const About: FC<AboutProps> = ({ acter }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
 
-  const acterDescription = acter.description
-    ? SantizedContent(acter.description, acter.isMarkDown)
-    : null
-
   return (
     <>
       <Typography className={classes.heading} variant="h6">
@@ -41,7 +37,9 @@ export const About: FC<AboutProps> = ({ acter }) => {
       {acter.description && (
         <Box className={classes.description}>
           <Typography variant="caption">
-            {acter.description && acterDescription}
+            <SanitizedContent isMarkdown={acter.isMarkDown}>
+              {acter.description}
+            </SanitizedContent>
           </Typography>
         </Box>
       )}

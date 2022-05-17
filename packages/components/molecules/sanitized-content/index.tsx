@@ -1,30 +1,30 @@
-import { ReactNode } from 'react'
+import React, { FC } from 'react'
 import SanitizedHTML from 'react-sanitized-html'
 
 import Markdown from 'markdown-to-jsx'
 
-export const SantizedContent = (
-  content: string & ReactNode,
-  isMarkDown: boolean
-): JSX.Element => {
-  const sanitizedComponent = (
-    <SanitizedHTML
-      allowedAttributes={{ a: ['href'] }}
-      allowedTags={['p', 'b', 'i', 'em', 'strong', 'a']}
-      disallowedTagsMode="discard"
-      html={content}
-    ></SanitizedHTML>
-  )
+interface SanitizedContentProps {
+  isMarkdown?: boolean
+}
 
-  const filteredContent = sanitizedComponent.props.html.replaceAll(
-    '<p><br></p>',
-    ''
-  )
+export const SanitizedContent: FC<SanitizedContentProps> = ({
+  isMarkdown,
+  children,
+}): JSX.Element => {
+  if (children) {
+    if (isMarkdown) {
+      if (typeof children !== 'string')
+        throw new Error('Cannot render Markdown for non-string content')
+      return <Markdown>{children as string}</Markdown>
+    }
 
-  if (content)
-    return isMarkDown ? (
-      <Markdown>{content}</Markdown>
-    ) : (
-      <Markdown>{filteredContent}</Markdown>
+    return (
+      <SanitizedHTML
+        allowedAttributes={{ a: ['href'] }}
+        allowedTags={['p', 'b', 'i', 'em', 'strong', 'a']}
+        disallowedTagsMode="discard"
+        html={children}
+      ></SanitizedHTML>
     )
+  }
 }
