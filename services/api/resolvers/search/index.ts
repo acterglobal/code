@@ -69,7 +69,7 @@ export class SearchResolver {
 
     const options = {
       where,
-      orderBy: getOrderBy(orderBy),
+      orderBy: getOrderBy(orderBy, dateFilter),
       take,
       skip,
       ...(cursor ? { cursor } : {}),

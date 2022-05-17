@@ -55,6 +55,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
   }
 
   const handleSortBy = (orderBy: SearchActivitiesSortBy) => {
+    if (searchVariables.orderBy === orderBy) return
     setSearchVariables({
       ...searchVariables,
       orderBy,
