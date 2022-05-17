@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { SantizedContent } from '@acter/components/molecules/sanitized-content'
+import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 
 export interface headerProps {
   title: string
@@ -13,10 +13,6 @@ export interface headerProps {
 
 export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
   const classes = useStyles()
-
-  const acterDescription = description
-    ? SantizedContent(description, isMarkDown)
-    : null
 
   return (
     <>
@@ -29,7 +25,11 @@ export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
           component="p"
           className={classes.description}
         >
-          {description && acterDescription}
+          {description && (
+            <SanitizedContent isMarkdown={isMarkDown}>
+              {description}
+            </SanitizedContent>
+          )}
         </Typography>
       )}
     </>
