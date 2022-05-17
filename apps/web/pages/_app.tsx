@@ -16,6 +16,7 @@ import { SnackbarProvider } from 'notistack'
 
 import { OverallLayout } from '@acter/components/layout/overall'
 import { ActerThemeProvider } from '@acter/components/themes/acter-theme'
+import { reportWebVitalsToAxiom } from '@acter/lib/axiom'
 import * as gtag from '@acter/lib/gtag'
 import { UrqlProvider } from '@acter/lib/urql'
 
@@ -70,5 +71,7 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
     </IntercomProvider>
   )
 }
+
+export const reportWebVitals = reportWebVitalsToAxiom
 
 export default appWithTranslation(ActerApp)

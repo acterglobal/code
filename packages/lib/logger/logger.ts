@@ -26,7 +26,7 @@ const transports: Record<string, DestinationStream | StreamEntry> = {
       colorize: true,
     },
   }),
-  [process.env.AXIOS_API_TOKEN]: createWriteStream({
+  [process.env.AXIOM_API_TOKEN]: createWriteStream({
     url: 'https://cloud.axiom.co/api/v1/datasets/dev/ingest',
     bodyType: 'ndjson',
     headers: {
