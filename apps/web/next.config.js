@@ -38,7 +38,6 @@ const nextConfig = {
     // We have to hard code these because we can't import TS enums here
     const acterTypeList = [
       'activities',
-      'groups',
       'networks',
       'organisations',
       'public-organisations',
@@ -56,6 +55,10 @@ const nextConfig = {
       {
         source: '/profile',
         destination: '/profile/info',
+      },
+      {
+        source: `/:acterType(groups)/:slug/forum`,
+        destination: '/groups/:slug',
       },
       {
         source: `/:acterType(${acterTypeList})/:slug`,
