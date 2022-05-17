@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Box, Typography } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
@@ -17,11 +17,11 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
       <PostInfo post={post} />
 
       {post.content && (
-        <Typography variant="caption" className={classes.description}>
+        <div className={classes.description}>
           <SanitizedContent isMarkdown={post.isMarkDown}>
             {post.content}
           </SanitizedContent>
-        </Typography>
+        </div>
       )}
 
       <PostReactions post={post} />
@@ -40,10 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
     },
     description: {
+      display: 'block',
       color: theme.palette.secondary.dark,
       fontSize: '0.813rem',
+      lineHeight: 1,
       hyphens: 'auto',
       overflow: 'hidden',
+      '& p': {
+        margin: 0,
+      },
     },
   })
 )

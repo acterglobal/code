@@ -20,17 +20,9 @@ export const Header: FC<headerProps> = ({ title, description, isMarkDown }) => {
         {title}
       </Typography>
       {description && (
-        <Typography
-          variant="body2"
-          component="p"
-          className={classes.description}
-        >
-          {description && (
-            <SanitizedContent isMarkdown={isMarkDown}>
-              {description}
-            </SanitizedContent>
-          )}
-        </Typography>
+        <SanitizedContent isMarkdown={isMarkDown}>
+          {description}
+        </SanitizedContent>
       )}
     </>
   )

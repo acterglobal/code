@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx'
 
 interface SanitizedContentProps {
   isMarkdown?: boolean
+  children: string
 }
 
 export const SanitizedContent: FC<SanitizedContentProps> = ({
@@ -12,18 +13,36 @@ export const SanitizedContent: FC<SanitizedContentProps> = ({
   children,
 }): JSX.Element => {
   if (children) {
-    if (isMarkdown) {
-      if (typeof children !== 'string')
-        throw new Error('Cannot render Markdown for non-string content')
-      return <Markdown>{children as string}</Markdown>
-    }
+    if (typeof children !== 'string')
+      throw new Error('Cannot render Markdown for non-string content')
+
+    const re = /<p>\s?<br(\\s\/)?>\s?<\/p>/gi
+    const filteredContent = children.replaceAll(re, '')
+
+    if (isMarkdown) return <Markdown>{filteredContent}</Markdown>
 
     return (
       <SanitizedHTML
         allowedAttributes={{ a: ['href'] }}
-        allowedTags={['p', 'b', 'i', 'em', 'strong', 'a']}
+        allowedTags={[
+          'h1',
+          'h2',
+          'h3',
+          'p',
+          'b',
+          'i',
+          'u',
+          'em',
+          'strong',
+          'a',
+          'ul',
+          'ol',
+          'li',
+          'code',
+          'blockquote',
+        ]}
         disallowedTagsMode="discard"
-        html={children}
+        html={filteredContent}
       ></SanitizedHTML>
     )
   }
