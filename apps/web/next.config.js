@@ -57,10 +57,6 @@ const nextConfig = {
         destination: '/profile/info',
       },
       {
-        source: `/:acterType(groups)/:slug`,
-        destination: '/groups/:slug',
-      },
-      {
         source: `/:acterType(groups)/:slug/forum`,
         destination: '/groups/:slug',
       },
