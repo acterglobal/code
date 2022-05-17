@@ -59,7 +59,7 @@ export class SearchResolver {
         },
         withActerTypesSearch(types),
         withNameSearch(searchText),
-        withDateFilterSearch(dateFilter),
+        withDateFilterSearch(types, dateFilter),
         withEndsBeforeSearch(endsBefore),
         withInterestsFilter(interests),
         withLocation({ north, east, south, west }),

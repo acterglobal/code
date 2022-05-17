@@ -1,3 +1,4 @@
+import { ActerTypes } from '@acter/lib/constants'
 import { Prisma } from '@acter/schema/prisma'
 
 export enum SearchActivitiesDateFilter {
@@ -7,29 +8,32 @@ export enum SearchActivitiesDateFilter {
 }
 
 export const withDateFilterSearch = (
+  types: [string],
   dateFilter: SearchActivitiesDateFilter
 ): Prisma.ActerWhereInput => {
   const now = new Date()
-  switch (dateFilter) {
-    case SearchActivitiesDateFilter.UPCOMING:
-      return {
-        Activity: {
-          endAt: {
-            gte: now,
+  if (types.includes(ActerTypes.ACTIVITY)) {
+    switch (dateFilter) {
+      case SearchActivitiesDateFilter.UPCOMING:
+        return {
+          Activity: {
+            endAt: {
+              gte: now,
+            },
           },
-        },
-      }
-    case SearchActivitiesDateFilter.PAST:
-      return {
-        Activity: {
-          endAt: {
-            lte: now,
+        }
+      case SearchActivitiesDateFilter.PAST:
+        return {
+          Activity: {
+            endAt: {
+              lte: now,
+            },
           },
-        },
-      }
-    case SearchActivitiesDateFilter.ALL:
-      return {
-        Activity: {},
-      }
+        }
+      case SearchActivitiesDateFilter.ALL:
+        return {
+          Activity: {},
+        }
+    }
   }
 }

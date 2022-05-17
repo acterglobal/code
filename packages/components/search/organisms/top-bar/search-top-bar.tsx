@@ -69,6 +69,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
   }
 
   const handleDateFilter = (dateFilter: SearchActivitiesDateFilter) => {
+    if (dateFilter === currentDateFilter) return
     setCurrentDateFilter(dateFilter)
     setSearchVariables({
       ...searchVariables,
@@ -113,7 +114,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
       {searchType === SearchType.ACTIVITIES && (
         <SearchActivitiesDateFilters
           currentDateFilter={currentDateFilter}
-          onClick={handleDateFilter}
+          onChange={handleDateFilter}
         />
       )}
     </>

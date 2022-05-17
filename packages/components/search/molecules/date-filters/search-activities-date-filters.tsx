@@ -10,12 +10,12 @@ const { ALL, UPCOMING, PAST } = SearchActivitiesDateFilter
 
 export interface SearchActivitiesDateFilters {
   currentDateFilter: SearchActivitiesDateFilter
-  onClick: (currentDateFilter: SearchActivitiesDateFilter) => void
+  onChange: (currentDateFilter: SearchActivitiesDateFilter) => void
 }
 
 export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({
   currentDateFilter,
-  onClick,
+  onChange,
 }) => {
   const classes = useStyles()
 
@@ -23,19 +23,19 @@ export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({
     <Box className={classes.SearchActivitiesDateFilters}>
       <SearchFilterButton
         className={currentDateFilter === UPCOMING && classes.active}
-        onClick={() => onClick(UPCOMING)}
+        onClick={() => onChange(UPCOMING)}
       >
         Upcoming
       </SearchFilterButton>
       <SearchFilterButton
         className={currentDateFilter === PAST && classes.active}
-        onClick={() => onClick(PAST)}
+        onClick={() => onChange(PAST)}
       >
         Past
       </SearchFilterButton>
       <SearchFilterButton
         className={currentDateFilter === ALL && classes.active}
-        onClick={() => onClick(ALL)}
+        onClick={() => onChange(ALL)}
       >
         All
       </SearchFilterButton>
