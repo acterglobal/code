@@ -68,5 +68,6 @@ export const createActerConnection = async ({
       },
     },
   })
+  l.debug({ connection, msg: 'connection created' })
   return connection
 }

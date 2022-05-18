@@ -8,7 +8,7 @@ interface LoggerWithTimer extends Logger {
 }
 
 const config =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV !== 'production'
     ? transport({
         target: 'pino-pretty',
         options: {
@@ -28,8 +28,6 @@ export const getLogger = (label: string): LoggerWithTimer => {
   const l = logger.child({
     label,
   }) as LoggerWithTimer
-
-  l.debug("I'm alive")
 
   l.startTimer = () => {
     const startTime = new Date()
