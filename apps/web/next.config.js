@@ -66,6 +66,13 @@ const nextConfig = {
       },
     ]
   },
+  redirects: async () => [
+    {
+      source: '/invites/:id',
+      destination: '/api/accept-invite/:id',
+      permanent: true,
+    },
+  ],
   module: {
     loaders: [
       {

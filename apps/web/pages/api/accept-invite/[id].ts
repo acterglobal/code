@@ -18,7 +18,9 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
 
   if (!session?.user) {
     t.done('Not logged in')
-    res.redirect(`/api/auth/login?returnTo=${req.url}`)
+    res.redirect(
+      `${process.env.AUTH0_BASE_URL}/api/auth/login?returnTo=${req.url}`
+    )
     return
   }
 
