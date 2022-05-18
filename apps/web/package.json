@@ -53,5 +53,8 @@
     "fs": false,
     "os": false,
     "path": false
+  },
+  "devDependencies": {
+    "typescript": "4.4.3"
   }
 }

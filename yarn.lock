@@ -240,6 +240,7 @@ __metadata:
     react-use-intercom: 1.4.0
     reflect-metadata: 0.1.13
     type-graphql: 1.1.1
+    typescript: 4.4.3
     urql: 2.0.5
   languageName: unknown
   linkType: soft
