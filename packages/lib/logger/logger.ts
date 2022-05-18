@@ -1,7 +1,15 @@
 import { differenceInMilliseconds } from 'date-fns'
-import pino, { transport, Level, Logger, LogFn, destination } from 'pino'
+import pino, {
+  multistream,
+  transport,
+  Level,
+  Logger,
+  LogFn,
+  destination,
+} from 'pino'
+import { createWriteStream } from 'pino-http-send'
 
-const level = process.env.NEXT_PUBLIC_LOG_LEVEL || ('info' as Level)
+const level: Level = (process.env.NEXT_PUBLIC_LOG_LEVEL as Level) || 'info'
 
 interface LoggerWithTimer extends Logger {
   startTimer: () => { done: LogFn }
@@ -18,12 +26,34 @@ const config =
           colorize: true,
         },
       })
-    : destination(1)
+    : multistream([
+        { level, stream: destination(1) },
+        ...(process.env.AXIOM_INGEST_URL && process.env.AXIOM_API_TOKEN
+          ? [
+              {
+                level,
+                stream: createWriteStream({
+                  url: process.env.AXIOM_INGEST_URL,
+                  headers: {
+                    Authorization: `Bearer ${process.env.AXIOM_API_TOKEN}`,
+                    'Content-Type': 'application/x-ndjson',
+                    'x-axiom-org-id': 'acter-25g8',
+                  },
+                  bodyType: 'ndjson',
+                }),
+              },
+            ]
+          : []),
+      ])
 
 let logger: Logger
 
 export const getLogger = (label: string): LoggerWithTimer => {
-  if (!logger) logger = pino({ level }, config)
+  if (!logger)
+    logger = pino(
+      { level, formatters: { level: (level) => ({ level }) } },
+      config
+    )
 
   const l = logger.child({
     label,
@@ -36,7 +66,7 @@ export const getLogger = (label: string): LoggerWithTimer => {
         const { level = 'info', ...restLogObj } = logObj
         const duration_ms = differenceInMilliseconds(new Date(), startTime)
         const finalLogObj =
-          typeof logObj === 'string' ? { message: logObj } : restLogObj
+          typeof logObj === 'string' ? { msg: logObj } : restLogObj
         logger[level]({ ...finalLogObj, duration_ms })
       },
     }
