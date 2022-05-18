@@ -27,7 +27,6 @@
     "nodemailer": "6.6.3",
     "notistack": "1.0.10",
     "pino": "7.11.0",
-    "pino-http-send": "0.4.2",
     "pino-pretty": "7.6.1",
     "pluralize": "8.0.0",
     "ramda": "0.27.1",

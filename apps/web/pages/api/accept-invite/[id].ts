@@ -77,7 +77,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     return
   }
 
-  const connection = createActerConnection({
+  const connection = await createActerConnection({
     prisma,
     followerActerId: user.Acter.id,
     followingActerId: acter.id,
@@ -95,7 +95,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     return
   }
 
-  const inviteUpdate = prisma.invite.update({
+  const inviteUpdate = await prisma.invite.update({
     data: {
       acceptedAt: new Date(),
     },
@@ -114,6 +114,12 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     })
   }
 
+  t.done({
+    inviteUpdate,
+    acter,
+    connection,
+    msg: 'Invite accept complete',
+  })
   res.redirect(acterAsUrl({ acter }))
   return
 }

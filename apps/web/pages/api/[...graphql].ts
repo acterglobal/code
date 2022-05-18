@@ -24,9 +24,9 @@ const graphqlHandler = async (
   const timer = l.startTimer()
   if (!handler) {
     handler = await getApiHandler('/api/graphql')
-    timer.done({ message: 'handler built' })
+    timer.done({ msg: 'handler built' })
   } else {
-    timer.done({ message: 'reusing handler' })
+    timer.done({ msg: 'reusing handler' })
   }
   return handler(req, res)
 }

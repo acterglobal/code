@@ -54,7 +54,7 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
     })
   )
   timer.done({
-    message: `Created digest notifications for ${count} users`,
+    msg: `Created digest notifications for ${count} users`,
     count,
   })
 }

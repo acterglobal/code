@@ -192,7 +192,7 @@ export const createNotificationWorker =
           }
         })
       )
-      timer.done({ message: 'Notification complete', job })
+      timer.done({ msg: 'Notification complete', job })
     } catch (e) {
       l.error('Error processing job', {
         error: e,

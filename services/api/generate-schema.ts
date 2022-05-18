@@ -37,7 +37,7 @@ export const generateSchema = async (
   } else {
     timer.done('using existing schema')
   }
-  timer.done({ message: 'Schema found, reusing' })
+  timer.done({ msg: 'Schema found, reusing' })
 
   return schema
 }

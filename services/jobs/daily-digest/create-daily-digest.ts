@@ -108,7 +108,7 @@ export const createDailyDigest = async ({
   }
   await sendEmail(email)
   timer.done({
-    message: 'Finished creating digest',
+    msg: 'Finished creating digest',
     acterId: acter.id,
     notificationCount: notifications.length,
   })
