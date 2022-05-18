@@ -11,6 +11,7 @@ import {
 import { FilterList } from '@material-ui/icons'
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
+import { SearchActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
 import {
   ShowMapSwitch,
   ShowMapSwitchProps,
@@ -18,6 +19,7 @@ import {
 import { SearchBar } from '@acter/components/search/organisms/bar'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { SearchSortBy } from '@acter/components/search/organisms/sort-by'
+import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
@@ -35,6 +37,8 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
   const searchType = useSearchType()
   const [showOtherControls, setShowOtherControls] = useState(true)
   const [searchVariables, setSearchVariables] = useSearchVariables()
+  const [currentDateFilter, setCurrentDateFilter] =
+    useState<SearchActivitiesDateFilter>(SearchActivitiesDateFilter.UPCOMING)
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
   )
@@ -51,6 +55,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
   }
 
   const handleSortBy = (orderBy: SearchActivitiesSortBy) => {
+    if (searchVariables.orderBy === orderBy) return
     setSearchVariables({
       ...searchVariables,
       orderBy,
@@ -64,36 +69,56 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
     })
   }
 
-  return (
-    <div className={classes.searchTopBar}>
-      <div className={classes.main}>
-        <SearchBar onClick={handleSearch} />
+  const handleDateFilter = (dateFilter: SearchActivitiesDateFilter) => {
+    if (dateFilter === currentDateFilter) return
+    setCurrentDateFilter(dateFilter)
+    setSearchVariables({
+      ...searchVariables,
+      dateFilter,
+    })
+  }
 
-        <Hidden smUp>
-          <IconButton onClick={() => setShowOtherControls(!showOtherControls)}>
-            <FilterList />
-          </IconButton>
-        </Hidden>
+  return (
+    <>
+      <div className={classes.searchTopBar}>
+        <div className={classes.main}>
+          <SearchBar onClick={handleSearch} />
+
+          <Hidden smUp>
+            <IconButton
+              onClick={() => setShowOtherControls(!showOtherControls)}
+            >
+              <FilterList />
+            </IconButton>
+          </Hidden>
+        </div>
+
+        {showOtherControls && (
+          <div className={classes.otherControls}>
+            <SearchInterestsFilter applyFilters={handleFilterInterests} />
+
+            {searchType === SearchType.ACTIVITIES && (
+              <SearchSortBy
+                sortBy={searchVariables.orderBy}
+                onChange={handleSortBy}
+              />
+            )}
+
+            <ShowMapSwitch
+              resultDisplayType={resultDisplayType}
+              onChange={onResultDisplayTypeChange}
+            />
+          </div>
+        )}
       </div>
 
-      {showOtherControls && (
-        <div className={classes.otherControls}>
-          <SearchInterestsFilter applyFilters={handleFilterInterests} />
-
-          {searchType === SearchType.ACTIVITIES && (
-            <SearchSortBy
-              sortBy={searchVariables.orderBy}
-              onChange={handleSortBy}
-            />
-          )}
-
-          <ShowMapSwitch
-            resultDisplayType={resultDisplayType}
-            onChange={onResultDisplayTypeChange}
-          />
-        </div>
+      {searchType === SearchType.ACTIVITIES && (
+        <SearchActivitiesDateFilters
+          currentDateFilter={currentDateFilter}
+          onChange={handleDateFilter}
+        />
       )}
-    </div>
+    </>
   )
 }
 

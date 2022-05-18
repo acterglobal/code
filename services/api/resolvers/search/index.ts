@@ -1,6 +1,10 @@
 import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
 
 import {
+  withDateFilterSearch,
+  SearchActivitiesDateFilter,
+} from '@acter/lib/api/resolvers/date-filter'
+import {
   getOrderBy,
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
@@ -21,6 +25,10 @@ registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
 })
 
+registerEnumType(SearchActivitiesDateFilter, {
+  name: 'SearchActivitiesDateFilter',
+})
+
 @Resolver(Acter)
 export class SearchResolver {
   @Query(() => [Acter])
@@ -28,6 +36,8 @@ export class SearchResolver {
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('searchText', { nullable: true }) searchText: string,
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
+    @Arg('dateFilter', { nullable: true })
+    dateFilter: SearchActivitiesDateFilter,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
     @Arg('types', () => [String], { nullable: true }) types: [string],
     @Arg('activityTypes', () => [String], { nullable: true })
@@ -49,6 +59,7 @@ export class SearchResolver {
         },
         withActerTypesSearch(types),
         withNameSearch(searchText),
+        withDateFilterSearch(types, dateFilter),
         withEndsBeforeSearch(endsBefore),
         withInterestsFilter(interests),
         withLocation({ north, east, south, west }),
@@ -58,7 +69,7 @@ export class SearchResolver {
 
     const options = {
       where,
-      orderBy: getOrderBy(orderBy),
+      orderBy: getOrderBy(orderBy, dateFilter),
       take,
       skip,
       ...(cursor ? { cursor } : {}),
