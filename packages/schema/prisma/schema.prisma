@@ -314,7 +314,7 @@ model Invite {
   createdByUser   User   @relation("invite_created_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("created_by_user_id")
 
-  @@unique(name: "oneEmailInvitePerActer", fields: [onActerId, email])
+  @@unique(name: "oneEmailInvitePerActer", fields: [onActerId, email, expiredAt])
   @@index(name: "inviteEmailForActer", fields: [onActerId, email])
   @@map("invites")
 }

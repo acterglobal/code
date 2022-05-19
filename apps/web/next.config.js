@@ -68,7 +68,7 @@ const nextConfig = {
   },
   redirects: async () => [
     {
-      source: '/invites/:id',
+      source: '/invites/:id((?!expired))',
       destination: '/api/accept-invite/:id',
       permanent: true,
     },
