@@ -10,10 +10,15 @@ export const createInviteNotification = async (
   job: InviteEmailCreate
 ): Promise<void> => {
   try {
-    const { email, message, onActerId, createdByUserId, senderName } = job
+    const { email, message, onActerId, senderName } = job
 
     const invitation = await prisma.invite.findFirst({
-      where: { onActerId, email, createdByUserId },
+      where: {
+        email,
+        onActerId,
+        expiredAt: { equals: null },
+        acceptedAt: { equals: null },
+      },
     })
     const onActer = await prisma.acter.findFirst({ where: { id: onActerId } })
 
@@ -37,7 +42,7 @@ export const createInviteNotification = async (
     await sendEmail(emailData)
 
     await prisma.invite.update({
-      data: { sentAt: new Date(), expiredAt: null },
+      data: { sentAt: new Date() },
       where: { id: invitation.id },
     })
   } catch (err) {

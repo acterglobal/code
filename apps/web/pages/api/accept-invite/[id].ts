@@ -12,7 +12,6 @@ const l = getLogger('acceptInviteHandler')
 
 const acceptInviteHandler: NextApiHandler = async (req, res) => {
   const t = l.startTimer()
-  const { id } = req.query
 
   const session = getSession(req, res)
 
@@ -46,12 +45,16 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
 
   const invite = await prisma.invite.findFirst({
     where: {
-      id: id as string,
+      id: req.query.id as string,
     },
   })
 
   if (!invite) {
-    t.done({ inviteId: id, msg: 'No invite found for id', level: 'warn' })
+    t.done({
+      query: req.query,
+      msg: 'No invite found for id',
+      level: 'warn',
+    })
     res.redirect('/404')
     return
   }
@@ -97,9 +100,12 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     return
   }
 
+  const acceptedAt = new Date()
+  // We set expired at the same time so someone could be invited again if they leave
   const inviteUpdate = await prisma.invite.update({
     data: {
-      acceptedAt: new Date(),
+      acceptedAt,
+      expiredAt: acceptedAt,
     },
     where: {
       id: invite.id,
