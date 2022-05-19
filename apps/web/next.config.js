@@ -72,6 +72,11 @@ const nextConfig = {
       destination: '/api/accept-invite/:id',
       permanent: true,
     },
+    {
+      source: '/notifications/:id',
+      destination: '/api/notification-redirect/:id',
+      permanent: true,
+    },
   ],
   module: {
     loaders: [
