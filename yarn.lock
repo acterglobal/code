@@ -220,6 +220,7 @@ __metadata:
     "@material-ui/core": 4.12.3
     "@next/bundle-analyzer": 11.0.1
     "@next/eslint-plugin-next": ^12.1.6
+    "@playwright/test": ^1.22.1
     "@sentry/nextjs": 6.19.7
     "@typescript-eslint/eslint-plugin": 4.29.0
     "@typescript-eslint/parser": 4.29.0
@@ -3864,6 +3865,17 @@ __metadata:
   version: 1.0.0
   resolution: "@panva/asn1.js@npm:1.0.0"
   checksum: cb6bcc1918a7f08e81e7d7f5bde83c20a66b30248ddc3ef10b1612e0e0b9f722c2b07ca6b586a089a49c1b6cfb29d63fdd23d4bc00c8cc40538b5595bec66d7d
+  languageName: node
+  linkType: hard
+
+"@playwright/test@npm:^1.22.1":
+  version: 1.22.1
+  resolution: "@playwright/test@npm:1.22.1"
+  dependencies:
+    playwright-core: 1.22.1
+  bin:
+    playwright: cli.js
+  checksum: 8c807b9e6a793df2505c888a909892e1e2fb18a0467ca374524b9b404f8a33a18eeb1f23a15d8eb4042e2ef50a8f50308641af5103bb90c36b1c2404c6c314d3
   languageName: node
   linkType: hard
 
@@ -21328,6 +21340,15 @@ __metadata:
   dependencies:
     find-up: ^5.0.0
   checksum: b167bb8dac7bbf22b1d5e30ec223e6b064b84b63010c9d49384619a36734caf95ed23ad23d4f9bd975e8e8082b60a83395f43a89bb192df53a7c25a38ecb57d9
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.22.1":
+  version: 1.22.1
+  resolution: "playwright-core@npm:1.22.1"
+  bin:
+    playwright: cli.js
+  checksum: f93940fe3a596a0fe9a8d03ee1f01ed95ef9b23dc5662647c3b1eb7e7bbf65c116b19f763b91a39c041c0bea9ab5e50ecbb619dcbef9eebd3db3d940b3db2696
   languageName: node
   linkType: hard
 

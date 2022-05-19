@@ -59,3 +59,6 @@ data
 
 #Storybook
 storybook-static
+
+# Playwright
+test-results

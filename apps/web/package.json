@@ -8,6 +8,7 @@
     "dev": "yarn env next dev",
     "build": "yarn env next build",
     "build:cicd": "yarn workspace @acter/schema build && yarn build",
+    "test": "playwright test",
     "start": "yarn env next start",
     "lint": "yarn env next lint",
     "analyze": "ANALYZE=true yarn env next build",
@@ -54,5 +55,8 @@
     "fs": false,
     "os": false,
     "path": false
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.22.1"
   }
 }

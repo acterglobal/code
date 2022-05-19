@@ -10,6 +10,7 @@
     "netcorext.uuid-generator",
     "github.vscode-pull-request-github",
     "streetsidesoftware.code-spell-checker",
-    "jbockle.jbockle-format-files"
+    "jbockle.jbockle-format-files",
+    "ms-playwright.playwright"
   ]
 }

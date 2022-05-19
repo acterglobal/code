@@ -16,8 +16,8 @@
     "**/node_modules",
     "**/storybook-helpers",
     "**/test-helpers",
-    "**/*.stories.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
+    "**/*.stories.*",
+    "**/*.spec.*",
+    "**/*.test.*"
   ]
 }
