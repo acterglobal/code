@@ -1,11 +1,11 @@
 import { NextApiHandler } from 'next'
 
-import { getSession } from '@auth0/nextjs-auth0'
 import { withSentry } from '@sentry/nextjs'
 
 import { getLogger } from '@acter/../packages/lib/logger'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createActerConnection } from '@acter/lib/api/create-acter-connection'
+import { getUserForSession } from '@acter/lib/authentication/get-user-for-session'
 import { prisma } from '@acter/schema/prisma'
 
 const l = getLogger('acceptInviteHandler')
@@ -14,35 +14,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
   const t = l.startTimer()
   const { id } = req.query
 
-  const session = getSession(req, res)
-
-  if (!session?.user) {
-    t.done('Not logged in')
-    res.redirect(
-      `${process.env.AUTH0_BASE_URL}/api/auth/login?returnTo=${req.url}`
-    )
-    return
-  }
-
-  const user = await prisma.user.findFirst({
-    include: {
-      Acter: true,
-    },
-    where: {
-      email: session.user.email,
-    },
-  })
-
-  if (!user) {
-    t.done({
-      sessionUser: session.user,
-      user,
-      msg: 'No user found for session',
-      level: 'warn',
-    })
-    res.redirect('/404')
-    return
-  }
+  const user = await getUserForSession(req, res)
 
   const invite = await prisma.invite.findFirst({
     where: {
@@ -72,10 +44,10 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
   if (!acter) {
     t.done({
       invite,
-      user: session.user,
+      user,
       msg: 'No Acter found for invite',
     })
-    res.redirect('/404')
+    res.redirect('/404').end()
     return
   }
 
@@ -93,7 +65,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
       msg: 'Could not create connection for Invite',
       level: 'error',
     })
-    res.redirect('/500')
+    res.redirect('/500').end()
     return
   }
 
@@ -122,7 +94,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     connection,
     msg: 'Invite accept complete',
   })
-  res.redirect(acterAsUrl({ acter }))
+  res.redirect(acterAsUrl({ acter })).end()
   return
 }
 
