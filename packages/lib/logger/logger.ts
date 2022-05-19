@@ -67,7 +67,7 @@ export const getLogger = (label: string): LoggerWithTimer => {
         const duration_ms = differenceInMilliseconds(new Date(), startTime)
         const finalLogObj =
           typeof logObj === 'string' ? { msg: logObj } : restLogObj
-        logger[level]({ ...finalLogObj, duration_ms })
+        l[level]({ ...finalLogObj, duration_ms })
       },
     }
   }
