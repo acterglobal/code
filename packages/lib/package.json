@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@auth0/nextjs-auth0": "1.8.0",
+    "@graphql-yoga/node": "^2.6.0",
     "@sendgrid/mail": "7.6.2",
     "@types/mime": "2.0.3",
     "@urql/core": "2.3.4",
