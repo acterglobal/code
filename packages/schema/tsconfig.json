@@ -1,11 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["**/*.ts"],
   "ts-node": {
-    "transpileOnly": true,
-    "transpiler": "ts-node/transpilers/swc-experimental",
+    "esm": true,
+    "swc": true,
     "compilerOptions": {
-      "esModuleInterop": true
+      "moduleResolution": "node"
     }
   }
 }

@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = {
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
     command: 'yarn run dev',
-    port: 3000,
+    port: 3001,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
     // More information: https://playwright.dev/docs/trace-viewer
     trace: 'retry-with-trace',
 
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3001',
 
     // All available context options: https://playwright.dev/docs/api/class-browser#browser-new-context
     // contextOptions: {

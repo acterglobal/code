@@ -8,11 +8,13 @@
     "dev": "yarn env next dev",
     "build": "yarn env next build",
     "build:cicd": "yarn workspace @acter/schema build && yarn build",
-    "test": "playwright test",
+    "test": "yarn env:test -- yarn workspace @acter/schema prisma migrate reset --force",
+    "test:e2e": "playwright test",
     "start": "yarn env next start",
     "lint": "yarn env next lint",
     "analyze": "ANALYZE=true yarn env next build",
-    "env": "dotenv -e ../../.env"
+    "env": "dotenv -e ../../.env",
+    "env:test": "dotenv -c test -e ../../.env"
   },
   "dependencies": {
     "@acter/api": "workspace:services/api",
@@ -48,7 +50,7 @@
     "react-use-intercom": "1.4.0",
     "reflect-metadata": "0.1.13",
     "type-graphql": "1.1.1",
-    "typescript": "4.4.3",
+    "typescript": "4.6.4",
     "urql": "2.0.5"
   },
   "browser": {
@@ -57,6 +59,7 @@
     "path": false
   },
   "devDependencies": {
-    "@playwright/test": "^1.22.1"
+    "@playwright/test": "^1.22.1",
+    "ts-node": "10.2.1"
   }
 }
