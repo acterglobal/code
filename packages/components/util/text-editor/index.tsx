@@ -1,17 +1,23 @@
-import React, { FC, useState, useEffect, useMemo, useRef } from 'react'
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  Component,
+} from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
-import createLinkifyPlugin from '@draft-js-plugins/linkify'
-import '@draft-js-plugins/linkify/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
+import createLinkDetectionPlugin from 'draft-js-link-detection-plugin'
 
 import {
   Toolbar,
@@ -41,8 +47,6 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
-  editorRef: (ref) => void
-  clearTextEditor?: boolean
   hideEditorToolbar?: boolean
   placeholder?: string
 }
@@ -50,15 +54,20 @@ export interface TextEditorProps extends widthHeightType, stylesProp {
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
   initialValue,
-  editorRef,
-  clearTextEditor,
   placeholder,
   borderStyles,
   height,
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
+  const [editor, setEditor] = useState(null)
+  const [clearText, setClearText] = useState(false)
   const ref = useRef<Editor>(null)
+
+  editor?.focus()
+  useEffect(() => {
+    ref.current?.focus()
+  }, [ref])
 
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
@@ -68,11 +77,14 @@ export const TextEditor: FC<TextEditorProps> = ({
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const linkifyPlugin = createLinkifyPlugin({
-    target: '_blank',
-  })
+  const linkDetectionPlugin = createLinkDetectionPlugin()
 
-  const plugins = [...inlinePlugins, toolbarPlugin, linkPlugin, linkifyPlugin]
+  const plugins = [
+    ...inlinePlugins,
+    toolbarPlugin,
+    linkPlugin,
+    linkDetectionPlugin,
+  ]
 
   const decorator = new CompositeDecorator([
     {
@@ -93,10 +105,10 @@ export const TextEditor: FC<TextEditorProps> = ({
   )
 
   useEffect(() => {
-    if (clearTextEditor) {
+    if (clearText) {
       return setEditorState(EditorState.createEmpty())
     }
-  }, [clearTextEditor])
+  }, [clearText])
 
   const onEditorStateChange = async (data) => {
     const contentState = data.getCurrentContent()
@@ -105,6 +117,7 @@ export const TextEditor: FC<TextEditorProps> = ({
       entityStyleFn: (entity) => {
         if (entity.get('type').toLowerCase() === 'link') {
           const data = entity.getData()
+
           return {
             element: 'a',
             attributes: {
@@ -117,9 +130,15 @@ export const TextEditor: FC<TextEditorProps> = ({
     }
 
     const value = stateToHTML(contentState, options)
+
     handleInputChange(value)
 
     setEditorState(data)
+  }
+
+  const handleEditorRef = (editorRef: Component) => {
+    setEditor(editorRef)
+    setClearText(false)
   }
 
   return (
@@ -131,7 +150,7 @@ export const TextEditor: FC<TextEditorProps> = ({
       <Box
         className={classes.editor}
         onClick={() => {
-          ref.current?.focus()
+          handleEditorRef
         }}
       >
         <EditorContext.Provider value={editorState}>
@@ -140,7 +159,7 @@ export const TextEditor: FC<TextEditorProps> = ({
             onChange={onEditorStateChange}
             plugins={plugins}
             ref={ref}
-            placeholder={placeholder}
+            placeholder={clearText && placeholder}
           />
         </EditorContext.Provider>
 

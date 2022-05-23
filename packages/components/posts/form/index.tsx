@@ -46,15 +46,8 @@ export const PostForm: FC<PostFormProps> = ({
     parentId: null,
     ...post,
   }
-  const [editor, setEditor] = useState(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [clearText, setClearText] = useState(false)
   const theme = useTheme()
-
-  editor?.focus()
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [inputRef])
 
   const handleSubmit = (
     values: PostFormValues,
@@ -62,17 +55,12 @@ export const PostForm: FC<PostFormProps> = ({
   ) => {
     if (post) {
       onPostUpdate(values)
+      formikBag.resetForm()
     } else {
       const submitValues = parentId ? { ...values, parentId: parentId } : values
       onPostSubmit(submitValues)
+      formikBag.resetForm()
     }
-    formikBag.resetForm()
-    setClearText(true)
-  }
-
-  const handleEditorRef = (editorRef: Component) => {
-    setEditor(editorRef)
-    setClearText(false)
   }
 
   return (
@@ -96,9 +84,7 @@ export const PostForm: FC<PostFormProps> = ({
             <TextEditor
               initialValue={initialValues.content}
               handleInputChange={(value) => setFieldValue('content', value)}
-              placeholder={clearText && t('form.writePost')}
-              editorRef={handleEditorRef}
-              clearTextEditor={clearText}
+              placeholder={t('form.writePost')}
               height={theme.spacing(12)}
               borderStyles={{
                 radius: theme.spacing(1),

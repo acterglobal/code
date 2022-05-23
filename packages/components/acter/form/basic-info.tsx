@@ -24,7 +24,6 @@ export interface BasicInformationValues extends ActerTypePickerValues {
 export const BasicInformation: FC = () => {
   const classes = useStyles()
   const { t } = useTranslation('common', { keyPrefix: 'form' })
-  const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<BasicInformationValues>()
 
   return (
@@ -50,14 +49,13 @@ export const BasicInformation: FC = () => {
         name="name"
         required={true}
       />
-      <Box mb={2} className={classes.textEditor} onClick={() => editor.focus()}>
+      <Box mb={2} className={classes.textEditor}>
         <InputLabel style={{ marginBottom: 5 }}>{t('description')}</InputLabel>
         <TextEditor
           height={150}
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
-          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </Box>
 

@@ -24,7 +24,6 @@ export interface DetailsStepValues {
 export const DetailsStep: FC = () => {
   const { t } = useTranslation('common', { keyPrefix: 'form' })
   const classes = useStyles()
-  const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<DetailsStepValues>()
 
   const { interestTypes, fetching } = useInterestTypes()
@@ -40,7 +39,7 @@ export const DetailsStep: FC = () => {
         />
       </FormSection>
 
-      <FormSection onClick={() => editor.focus()}>
+      <FormSection>
         <FormLabel>{t('description')}</FormLabel>
 
         <TextEditor
@@ -48,7 +47,6 @@ export const DetailsStep: FC = () => {
           initialValue={values.description}
           // @ts-ignore
           handleInputChange={(value) => setFieldValue('description', value)}
-          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
       {fetching && <LoadingSpinner />}
