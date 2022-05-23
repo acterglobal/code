@@ -48,7 +48,9 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   }, [router.events])
 
   useEffect(() => {
-    hotjar.initialize(HJ_ID, HJ_SV)
+    if (HJ_ID && HJ_SV) {
+      hotjar.initialize(HJ_ID, HJ_SV)
+    }
   }, [HJ_ID, HJ_SV])
 
   const getLayout =
