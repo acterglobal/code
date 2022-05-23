@@ -1,5 +1,6 @@
 import { initUrqlClient } from 'next-urql'
 
+import { captureException } from '@sentry/react'
 import { devtoolsExchange } from '@urql/devtools'
 import { cacheExchange, ResolverConfig } from '@urql/exchange-graphcache'
 
@@ -8,6 +9,7 @@ import {
   ClientOptions,
   dedupExchange,
   fetchExchange,
+  errorExchange,
   ssrExchange,
 } from 'urql'
 
@@ -46,9 +48,18 @@ export const getUrqlClientOptions = (): ClientOptions => {
     initialState: !isServerSide ? window['__URQL_DATA__'] : undefined,
   })
 
+  const error = errorExchange({ onError: (err) => captureException(err) })
+
   const config = {
     url: `/api/graphql`,
-    exchanges: [dedupExchange, cache, devtoolsExchange, ssr, fetchExchange],
+    exchanges: [
+      dedupExchange,
+      cache,
+      devtoolsExchange,
+      ssr,
+      error,
+      fetchExchange,
+    ],
     suspense: false,
   }
   return config
