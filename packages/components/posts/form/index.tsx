@@ -1,4 +1,4 @@
-import React, { Component, FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
 import {
   makeStyles,
@@ -49,6 +49,10 @@ export const PostForm: FC<PostFormProps> = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const theme = useTheme()
 
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
+
   const handleSubmit = (
     values: PostFormValues,
     formikBag: FormikBag<PostFormProps, PostType>
@@ -61,6 +65,7 @@ export const PostForm: FC<PostFormProps> = ({
       onPostSubmit(submitValues)
       formikBag.resetForm()
     }
+    formikBag.resetForm()
   }
 
   return (

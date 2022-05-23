@@ -77,7 +77,8 @@ export const TextEditor: FC<TextEditorProps> = ({
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const linkDetectionPlugin = createLinkDetectionPlugin()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const linkDetectionPlugin: any = createLinkDetectionPlugin()
 
   const plugins = [
     ...inlinePlugins,
