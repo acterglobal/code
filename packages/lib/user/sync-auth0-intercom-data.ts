@@ -27,20 +27,20 @@ export const syncAuth0IntercomData = async ({
   session,
   user,
 }: SyncAuth0IntercomData): Promise<void> => {
-  assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
-  assert(
-    !!process.env.AUTH0_MANAGEMENT_API_URL,
-    'Auth0 management API URL missing'
-  )
-  assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
-  assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
-
   try {
+    assert(!!process.env.INTERCOM_ACCESS_TOKEN, 'Intercom access token missing')
+    assert(
+      !!process.env.AUTH0_MANAGEMENT_API_URL,
+      'Auth0 management API URL missing'
+    )
+    assert(!!process.env.AUTH0_CLIENT_ID, 'Auth0 client ID missing')
+    assert(!!process.env.AUTH0_CLIENT_SECRET, 'Auth0 client secret missing')
+
     const intercomUser = await syncIntercomData({ user, session })
     await syncIntercomToAuth0({ session, intercomUser })
     await syncWithDb({ user, intercomUser })
-  } catch (e) {
-    l.error('Error syncing intercom user', e)
+  } catch (error) {
+    l.error({ error }, 'Error syncing intercom user')
   }
 }
 
@@ -79,8 +79,9 @@ const syncIntercomData = async ({
         },
       },
     })
-  } catch (e) {
-    l.error(e)
+  } catch (error) {
+    l.error('error getting Intercom user', { error })
+    throw error
   }
 
   try {
@@ -98,8 +99,9 @@ const syncIntercomData = async ({
       return null
     }
     return userUpsert.data as IntercomUser
-  } catch (e) {
-    l.error(e)
+  } catch (error) {
+    l.error('error syncing Intercom user', { error })
+    throw error
   }
 }
 
@@ -120,22 +122,26 @@ const syncIntercomToAuth0 = async ({
   let auth0User
   try {
     auth0User = await auth0.getUser({ id: session.user.sub })
-  } catch (e) {
-    l.error(e)
-    return
+  } catch (error) {
+    l.error({ error }, 'error getting Auth0 user')
+    throw error
   }
 
-  await auth0.updateUser(
-    {
-      id: auth0User.user_id,
-    },
-    {
-      app_metadata: {
-        ...auth0User.app_metadata,
-        intercomId: intercomUser.id,
+  try {
+    await auth0.updateUser(
+      {
+        id: auth0User.user_id,
       },
-    }
-  )
+      {
+        app_metadata: {
+          ...auth0User.app_metadata,
+          intercomId: intercomUser.id,
+        },
+      }
+    )
+  } catch (error) {
+    l.error({ error }, 'error updating Auth0 user')
+  }
 }
 
 type SyncWithDbParams = Pick<SyncAuth0IntercomData, 'user'> &
