@@ -6,6 +6,7 @@ import { getLogger } from '@acter/../packages/lib/logger'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createActerConnection } from '@acter/lib/api/create-acter-connection'
 import { getUserForSession } from '@acter/lib/authentication/get-user-for-session'
+import { ActerConnectionRole } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
 const l = getLogger('acceptInviteHandler')
@@ -59,6 +60,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     followerActerId: user.Acter.id,
     followingActerId: acter.id,
     createdByUserId: user.id,
+    role: ActerConnectionRole.MEMBER,
   })
 
   if (!connection) {
