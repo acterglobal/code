@@ -5,12 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "yarn env next start",
     "dev": "yarn env next dev",
     "build": "yarn env next build",
     "build:cicd": "yarn workspace @acter/schema build && yarn build",
     "test": "yarn env:test -- yarn workspace @acter/schema prisma migrate reset --force",
-    "test:e2e": "playwright test",
-    "start": "yarn env next start",
+    "e2e:build": "yarn env:test -- yarn next build",
+    "e2e:start": "yarn env:test -- yarn next start",
+    "e2e:test": "yarn env:test -- yarn playwright test",
+    "e2e:reset-db": "yarn env:test -- yarn workspace @acter/schema prisma migrate reset --force",
     "lint": "yarn env next lint",
     "analyze": "ANALYZE=true yarn env next build",
     "env": "dotenv -e ../../.env",
@@ -60,6 +63,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.22.1",
+    "just-omit": "^2.0.1",
     "ts-node": "10.2.1"
   }
 }

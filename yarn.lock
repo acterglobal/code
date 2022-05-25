@@ -231,6 +231,7 @@ __metadata:
     eslint-config-next: 12.1.0
     graphql: 15.5.1
     just-capitalize: 1.0.1
+    just-omit: ^2.0.1
     micro: 9.3.4
     next: 12.1.0
     next-compose-plugins: 2.2.1
@@ -17999,6 +18000,13 @@ __metadata:
   version: 1.1.0
   resolution: "just-debounce@npm:1.1.0"
   checksum: 6f43d4d9b25ad45d8c2970f839d378b4d161f6da7e5fecfa3bab478d2567ea07d8992ca957009820704dc1accd211f816ffb15ace7e3a0a7254f1830b4914265
+  languageName: node
+  linkType: hard
+
+"just-omit@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "just-omit@npm:2.0.1"
+  checksum: f43fb88f5654bdc280d8a2dbeee699b20da4e41b0f035c12b7abb9452683368aaa9c4150d7d75696de681eb59e6ae8d5caa5114a447ed0947cb1c037323a47d4
   languageName: node
   linkType: hard
 

@@ -1,6 +1,12 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test'
 
+import dotenv from 'dotenv'
 import path from 'path'
+
+dotenv.config({
+  path: '../../.env.test',
+  debug: true,
+})
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -16,7 +22,7 @@ const config: PlaywrightTestConfig = {
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
-    command: 'yarn run dev',
+    command: 'yarn run e2e:start',
     port: 3001,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
