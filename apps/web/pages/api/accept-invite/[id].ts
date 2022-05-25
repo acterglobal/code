@@ -31,7 +31,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
     res.redirect('/404')
     return
   }
-  if (invite?.expiredAt) {
+  if (invite?.expiredAt && !invite?.acceptedAt) {
     res.redirect('/invites/expired')
     return
   }
