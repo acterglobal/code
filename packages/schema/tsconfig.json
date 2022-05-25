@@ -4,7 +4,9 @@
     "esm": true,
     "swc": true,
     "compilerOptions": {
-      "moduleResolution": "node"
+      "target": "es6",
+      "module": "commonjs",
+      "esModuleInterop": true
     }
   }
 }
