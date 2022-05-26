@@ -1,4 +1,11 @@
-import React, { FC, useState, useEffect, useMemo } from 'react'
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  Component,
+} from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
@@ -8,8 +15,10 @@ import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+import clsx from 'clsx'
 import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
+import createLinkDetectionPlugin from 'draft-js-link-detection-plugin'
 
 import {
   Toolbar,
@@ -31,6 +40,7 @@ interface widthHeightType {
 interface borderStylesType {
   radius?: number
   color?: string
+  border?: string
 }
 interface stylesProp {
   borderStyles?: borderStylesType
@@ -39,23 +49,31 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
-  editorRef: (ref) => void
-  clearTextEditor?: boolean
   hideEditorToolbar?: boolean
   placeholder?: string
+  isComment?: boolean
 }
 
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
   initialValue,
-  editorRef,
-  clearTextEditor,
   placeholder,
   borderStyles,
   height,
+  isComment,
+  hideEditorToolbar,
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
+  const [editor, setEditor] = useState(null)
+  const [clearText, setClearText] = useState(false)
+  const ref = useRef<Editor>(null)
+
+  editor?.focus()
+  useEffect(() => {
+    ref.current?.focus()
+  }, [ref])
+
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
   const [inlinePlugins, InlineToolbar] = useMemo(() => {
@@ -64,7 +82,15 @@ export const TextEditor: FC<TextEditorProps> = ({
     return [[inlineToolbarPlugin], inlineToolbarPlugin.InlineToolbar]
   }, [])
 
-  const plugins = [...inlinePlugins, toolbarPlugin, linkPlugin]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const linkDetectionPlugin: any = createLinkDetectionPlugin()
+
+  const plugins = [
+    ...inlinePlugins,
+    toolbarPlugin,
+    linkPlugin,
+    linkDetectionPlugin,
+  ]
 
   const decorator = new CompositeDecorator([
     {
@@ -85,10 +111,10 @@ export const TextEditor: FC<TextEditorProps> = ({
   )
 
   useEffect(() => {
-    if (clearTextEditor) {
+    if (clearText) {
       return setEditorState(EditorState.createEmpty())
     }
-  }, [clearTextEditor])
+  }, [clearText])
 
   const onEditorStateChange = async (data) => {
     const contentState = data.getCurrentContent()
@@ -97,6 +123,7 @@ export const TextEditor: FC<TextEditorProps> = ({
       entityStyleFn: (entity) => {
         if (entity.get('type').toLowerCase() === 'link') {
           const data = entity.getData()
+
           return {
             element: 'a',
             attributes: {
@@ -109,25 +136,43 @@ export const TextEditor: FC<TextEditorProps> = ({
     }
 
     const value = stateToHTML(contentState, options)
+
     handleInputChange(value)
 
     setEditorState(data)
   }
 
-  return (
-    <Box className={classes.editorContainer}>
-      <Box className={classes.toolbarContainer}>
-        <Toolbar />
-      </Box>
+  const handleEditorRef = (editorRef: Component) => {
+    setEditor(editorRef)
+    setClearText(false)
+  }
 
-      <Box className={classes.editor}>
+  return (
+    <Box
+      className={clsx(
+        classes.editorContainer,
+        isComment && classes.editorComment
+      )}
+    >
+      {!hideEditorToolbar && (
+        <Box className={classes.toolbarContainer}>
+          <Toolbar />
+        </Box>
+      )}
+
+      <Box
+        className={classes.editor}
+        onClick={() => {
+          handleEditorRef
+        }}
+      >
         <EditorContext.Provider value={editorState}>
           <Editor
             editorState={editorState}
             onChange={onEditorStateChange}
             plugins={plugins}
-            ref={editorRef}
-            placeholder={placeholder}
+            ref={ref}
+            placeholder={clearText && placeholder}
           />
         </EditorContext.Provider>
 
@@ -153,6 +198,16 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         minHeight: ({ size }: stylesProp) => size.height + theme.spacing(5),
       },
+    },
+    editorComment: {
+      backgroundColor: theme.colors.grey.extraLight,
+      outline: 'none',
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: 0.688,
+      lineHeight: '1.2rem',
+      resize: 'none',
+      width: '100%',
     },
     toolbarContainer: {
       display: 'flex',

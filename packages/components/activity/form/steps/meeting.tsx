@@ -28,7 +28,6 @@ export interface MeetingStepValues {
 export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
   const { t } = useTranslation('common')
   const classes = useStyles()
-  const [editor, setEditor] = useState(null)
   const { values, setFieldValue } = useFormikContext<MeetingStepValues>()
   const [selectOrganiser, setSelectOrganiser] = useState(false)
 
@@ -58,7 +57,7 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
         <LocationVenuePicker />
       </FormSection>
 
-      <FormSection onClick={() => editor.focus()}>
+      <FormSection>
         <FormLabel className={classes.label}>
           {capitalize(t('description'))}
         </FormLabel>
@@ -66,7 +65,6 @@ export const MeetingStep: FC<MeetingStepProps> = ({ acters }) => {
           height={150}
           initialValue={values.description}
           handleInputChange={(value) => setFieldValue('description', value)}
-          editorRef={(editorRef) => setEditor(editorRef)}
         />
       </FormSection>
 

@@ -63,6 +63,7 @@ __metadata:
     dotenv-cli: 5.1.0
     draft-js: 0.11.7
     draft-js-export-html: ^1.4.1
+    draft-js-link-detection-plugin: ^0.0.4
     email-validator: 2.0.4
     emoji-picker-react: 3.4.8
     filepond: 4.28.2
@@ -6484,6 +6485,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/draft-js@npm:^0.10.40":
+  version: 0.10.45
+  resolution: "@types/draft-js@npm:0.10.45"
+  dependencies:
+    "@types/react": "*"
+    immutable: ~3.7.4
+  checksum: dead87d6c1c7b2d84cdc26f221404a12e6cd7ffe9ab0acbbc9d3c87a3290d6435a4d895512154f0262247df30474895ca2f5841517e65648f2c5846705d552af
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.0":
   version: 3.7.1
   resolution: "@types/eslint-scope@npm:3.7.1"
@@ -6723,6 +6734,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 769e462ae9d663f1c2b65f07f621d52cfd02b8289357ac9f8af353243a7356a54f1568d4cbef13b90de367aaeb768446b324b792b6c5ff958d0b34ed68b75df2
+  languageName: node
+  linkType: hard
+
+"@types/linkify-it@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@types/linkify-it@npm:2.1.0"
+  checksum: df606ec9c1edc08666f66e83cf2de311cacd08534cc5b2d0f44f584b2fe72c47d62beeb1cb065e25c027161dbfc370e0d96b5f69d232fd97cba45ad0b756265b
   languageName: node
   linkType: hard
 
@@ -12019,6 +12037,19 @@ __metadata:
     draft-js: ">=0.10.0"
     immutable: 3.x.x
   checksum: 41a95522abcd3f12933ef2656fc25356f6d7e5e67689dc3ae50a3927cc129e17d45ac648fc20723f335a08f6e696de04a73db61013920692486a5f99398e3af1
+  languageName: node
+  linkType: hard
+
+"draft-js-link-detection-plugin@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "draft-js-link-detection-plugin@npm:0.0.4"
+  dependencies:
+    "@types/draft-js": ^0.10.40
+    "@types/linkify-it": ^2.1.0
+    linkify-it: ^3.0.2
+    react: ^16.12.0
+    react-dom: ^16.12.0
+  checksum: 105234e22bfa2dbe33022eb59fdcb352790137f08f63bb506c8a8ba6bee7660298c41374c993dd4cc9fe6c9b825a0b8312d358f0f09a8666f76e3f991d2370b2
   languageName: node
   linkType: hard
 
@@ -18028,6 +18059,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkify-it@npm:^3.0.2":
+  version: 3.0.3
+  resolution: "linkify-it@npm:3.0.3"
+  dependencies:
+    uc.micro: ^1.0.1
+  checksum: 31367a4bb70c5bbc9703246236b504b0a8e049bcd4e0de4291fa50f0ebdebf235b5eb54db6493cb0b1319357c6eeafc4324c9f4aa34b0b943d9f2e11a1268fbc
+  languageName: node
+  linkType: hard
+
 "listr-silent-renderer@npm:^1.1.1":
   version: 1.1.1
   resolution: "listr-silent-renderer@npm:1.1.1"
@@ -22211,6 +22251,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^16.12.0":
+  version: 16.14.0
+  resolution: "react-dom@npm:16.14.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    prop-types: ^15.6.2
+    scheduler: ^0.19.1
+  peerDependencies:
+    react: ^16.14.0
+  checksum: 5a5c49da0f106b2655a69f96c622c347febcd10532db391c262b26aec225b235357d9da1834103457683482ab1b229af7a50f6927a6b70e53150275e31785544
+  languageName: node
+  linkType: hard
+
 "react-draggable@npm:^4.4.3":
   version: 4.4.4
   resolution: "react-draggable@npm:4.4.4"
@@ -22604,6 +22658,17 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
+  languageName: node
+  linkType: hard
+
+"react@npm:^16.12.0":
+  version: 16.14.0
+  resolution: "react@npm:16.14.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    prop-types: ^15.6.2
+  checksum: 8484f3ecb13414526f2a7412190575fc134da785c02695eb92bb6028c930bfe1c238d7be2a125088fec663cc7cda0a3623373c46807cf2c281f49c34b79881ac
   languageName: node
   linkType: hard
 
@@ -23622,6 +23687,16 @@ resolve@^2.0.0-next.3:
   bin:
     sb: index.js
   checksum: ddc4fb5fb17690573d091d762727ba314e59c4e681a20bef0d1ca2296578898dec669a3bf44d727873626becc5c3558f70e2eeb94616d72001a0cc62ceeb7ff0
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.19.1":
+  version: 0.19.1
+  resolution: "scheduler@npm:0.19.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 73e185a59e2ff5aa3609f5b9cb97ddd376f89e1610579d29939d952411ca6eb7a24907a4ea4556569dacb931467a1a4a56d94fe809ef713aa76748642cd96a6c
   languageName: node
   linkType: hard
 
@@ -26041,6 +26116,13 @@ typescript@^4.0.2:
   version: 0.7.28
   resolution: "ua-parser-js@npm:0.7.28"
   checksum: a7da4ad54527211e878ee016c2ef64efad5c2f5a31277d36c9da93b4c89ecaa64f391ad4cf158ada76a9ad8e53004a950705ff1c2f27a52ca8bfb3f1381c39ff
+  languageName: node
+  linkType: hard
+
+"uc.micro@npm:^1.0.1":
+  version: 1.0.6
+  resolution: "uc.micro@npm:1.0.6"
+  checksum: 6898bb556319a38e9cf175e3628689347bd26fec15fc6b29fa38e0045af63075ff3fea4cf1fdba9db46c9f0cbf07f2348cd8844889dd31ebd288c29fe0d27e7a
   languageName: node
   linkType: hard
 
