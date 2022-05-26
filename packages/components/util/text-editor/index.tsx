@@ -15,6 +15,7 @@ import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+import clsx from 'clsx'
 import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import createLinkDetectionPlugin from 'draft-js-link-detection-plugin'
@@ -39,6 +40,7 @@ interface widthHeightType {
 interface borderStylesType {
   radius?: number
   color?: string
+  border?: string
 }
 interface stylesProp {
   borderStyles?: borderStylesType
@@ -49,6 +51,7 @@ export interface TextEditorProps extends widthHeightType, stylesProp {
   handleInputChange: (data: string) => void
   hideEditorToolbar?: boolean
   placeholder?: string
+  isComment?: boolean
 }
 
 export const TextEditor: FC<TextEditorProps> = ({
@@ -57,6 +60,8 @@ export const TextEditor: FC<TextEditorProps> = ({
   placeholder,
   borderStyles,
   height,
+  isComment,
+  hideEditorToolbar,
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
@@ -143,10 +148,17 @@ export const TextEditor: FC<TextEditorProps> = ({
   }
 
   return (
-    <Box className={classes.editorContainer}>
-      <Box className={classes.toolbarContainer}>
-        <Toolbar />
-      </Box>
+    <Box
+      className={clsx(
+        classes.editorContainer,
+        isComment && classes.editorComment
+      )}
+    >
+      {!hideEditorToolbar && (
+        <Box className={classes.toolbarContainer}>
+          <Toolbar />
+        </Box>
+      )}
 
       <Box
         className={classes.editor}
@@ -186,6 +198,16 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         minHeight: ({ size }: stylesProp) => size.height + theme.spacing(5),
       },
+    },
+    editorComment: {
+      backgroundColor: theme.colors.grey.extraLight,
+      outline: 'none',
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: 0.688,
+      lineHeight: '1.2rem',
+      resize: 'none',
+      width: '100%',
     },
     toolbarContainer: {
       display: 'flex',

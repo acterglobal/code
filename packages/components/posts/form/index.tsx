@@ -1,14 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react'
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  TextareaAutosize,
-  useTheme,
-} from '@material-ui/core'
+import { makeStyles, createStyles, useTheme } from '@material-ui/core'
 
-import { Field, Form, Formik, FormikBag } from 'formik'
+import { Form, Formik, FormikBag } from 'formik'
 
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
@@ -68,6 +62,10 @@ export const PostForm: FC<PostFormProps> = ({
     formikBag.resetForm()
   }
 
+  const placeholder = parentId
+    ? `${capitalize(t('comment'))} ...`
+    : t('form.writePost')
+
   return (
     <Formik
       initialValues={initialValues}
@@ -76,27 +74,21 @@ export const PostForm: FC<PostFormProps> = ({
     >
       {({ setFieldValue }) => (
         <Form className={classes.form}>
-          {parentId ? (
-            <Field
-              name="content"
-              placeholder={`${capitalize(t('comment'))} ...`}
-              className={classes.field}
-              innerRef={inputRef}
-              autoFocus={true}
-              as={TextareaAutosize}
-            />
-          ) : (
-            <TextEditor
-              initialValue={initialValues.content}
-              handleInputChange={(value) => setFieldValue('content', value)}
-              placeholder={t('form.writePost')}
-              height={theme.spacing(12)}
-              borderStyles={{
-                radius: theme.spacing(1),
-                color: theme.colors.grey.main,
-              }}
-            />
-          )}
+          <TextEditor
+            initialValue={initialValues.content}
+            handleInputChange={(value) => setFieldValue('content', value)}
+            placeholder={placeholder}
+            isComment={!!parentId}
+            hideEditorToolbar={!!parentId}
+            height={theme.spacing(parentId ? 4.5 : 12)}
+            borderStyles={{
+              radius: theme.spacing(1),
+              color: parentId
+                ? theme.colors.grey.extraLight
+                : theme.colors.grey.main,
+              border: !!parentId && 'none',
+            }}
+          />
 
           {post ? (
             <FormButtons align="right" onCancel={onCancel} />
@@ -113,7 +105,7 @@ export const PostForm: FC<PostFormProps> = ({
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       paddingRight: 2,
@@ -121,21 +113,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       overflow: 'hidden',
       fontSize: 11,
-    },
-    field: {
-      padding: theme.spacing(1),
-      width: '100%',
-      height: theme.spacing(4.5),
-      backgroundColor: theme.colors.grey.extraLight,
-      borderColor: theme.colors.grey.extraLight,
-      borderRadius: theme.spacing(1),
-      border: 'none',
-      outline: 'none',
-      fontFamily: theme.typography.fontFamily,
-      fontWeight: theme.typography.fontWeightRegular,
-      fontSize: 11,
-      lineHeight: '1.2rem',
-      resize: 'none',
     },
   })
 )
