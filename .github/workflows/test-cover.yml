@@ -14,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js version
         uses: actions/setup-node@v2
@@ -47,3 +50,10 @@ jobs:
       - name: coverage tests
         run: |
           yarn cover
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build
+          workingDir: ./packages/components
