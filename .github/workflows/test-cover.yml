@@ -47,7 +47,3 @@ jobs:
       - name: coverage tests
         run: |
           yarn cover
-
-      - name: build web
-        run: |
-          yarn workspace @acter/web build
