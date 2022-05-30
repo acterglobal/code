@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn dotenv yarn start-storybook -p 6006",
-    "build": "yarn dotenv build-storybook",
+    "dev": "yarn dotenv -- start-storybook -p 6006",
+    "build": "yarn dotenv -- build-storybook",
     "build:cicd": "yarn workspace @acter/schema build && build",
-    "chromatic": "yarn dotenv yarn chromatic --build-script-name build",
-    "env": "dotenv -e ../../.env --"
+    "chromatic": "yarn dotenv -- chromatic --build-script-name build",
+    "dotenv": "dotenv -e ../../.env"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "1.8.0",
