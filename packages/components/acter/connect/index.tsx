@@ -8,6 +8,8 @@ import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
+import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getFollowers2 } from '@acter/lib/acter/get-followers-2'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
@@ -30,6 +32,14 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
+
+  const potentialFollowers = useMemo(
+    () =>
+      getFollowers(user, acter).filter(
+        (follower) => follower.id !== acter.Activity?.Organiser?.id
+      ),
+    [acter?.Followers]
+  )
 
   const followers = useMemo(
     () =>
@@ -57,8 +67,19 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   if (!followers.length) return null
 
   const isMember = checkMemberAccess(user, acter)
+  const filteredFollowers = filterConnectionsByActerSetting(
+    acter,
+    potentialFollowers
+  )
 
-  if (isMember && followers.length === 0) {
+  const selectedFilteredFollowers = filteredFollowers.filter(
+    (filteredFollowers) =>
+      followers.filter((follower) => follower.id !== filteredFollowers.id)
+  )
+
+  const selectedFollowers = [...followers, ...selectedFilteredFollowers]
+
+  if (isMember && selectedFollowers.length === 0) {
     return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>
   }
 
@@ -80,7 +101,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       closeOnClick={false}
       size="large"
     >
-      {followers.map((follower) => (
+      {selectedFollowers.map((follower) => (
         <FollowerRow
           follower={follower}
           acterId={acterId}
