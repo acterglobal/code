@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import { Button, makeStyles, createStyles, Theme, Box } from '@material-ui/core'
 import { KeyboardArrowDown } from '@material-ui/icons'
@@ -8,8 +8,7 @@ import { FollowerRow } from '@acter/components/acter/connect/follower-row'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
-import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getFollowers2 } from '@acter/lib/acter/get-followers-2'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
@@ -17,7 +16,6 @@ import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
 import { useAuthRedirect } from '@acter/lib/url/use-auth-redirect'
 import { useUser } from '@acter/lib/user/use-user'
-import { Acter } from '@acter/schema'
 
 const { ACTIVITY } = ActerTypes
 const { SMALL } = Size
@@ -32,12 +30,11 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   const { loginUrl } = useAuthRedirect()
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
-  const [selectedFilteredFollowers, setSelectedFilteredFollowers] = useState([])
 
   const followers = useMemo(
     () =>
-      getFollowers(user, acter).filter(
-        (follower) => follower.id !== acter.Activity?.Organiser?.id
+      getFollowers2(user, acter).filter(
+        (follower) => follower?.id !== acter.Activity?.Organiser?.id
       ),
     [acter?.Followers]
   )
@@ -59,54 +56,9 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
 
   if (!followers.length) return null
 
-  // Anyone can leave but they can't join
-  // Button case 1 joining follow acters can join setting
-
-  // Case two leaving both acters & people can leave
-  // if can join is set to ACTERS current user is part of selectedFollowers
-  // SO filter user from followers
-  // If the user is the creator then don't add to follower list
-
-  // followers is acter followers not user
-
   const isMember = checkMemberAccess(user, acter)
 
-  const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
-
-  const userFollower = acter?.Followers?.filter(
-    (follower) => follower.Follower?.id === user.Acter?.id
-  )
-
-  const isUserCreator =
-    userFollower[0].Follower.id === acter.createdByUserId ? true : false
-
-  const getFilteredFollowers = (
-    isMember,
-    userFollower,
-    isUserCreator,
-    selectedFollowers
-  ) => {
-    if (isMember && userFollower.length > 0 && isUserCreator) {
-      return [...selectedFollowers, userFollower[0].Follower]
-      // setSelectedFilteredFollowers([
-      //   ...selectedFilteredFollowers,
-      //   userFollower[0].Follower,
-      // ])
-    }
-    return selectedFollowers
-  }
-
-  const selectedFollowersWithUser = getFilteredFollowers(
-    isMember,
-    userFollower,
-    isUserCreator,
-    selectedFollowers
-  )
-
-  console.log('ACTER FOLLOWERS...', acter && selectedFollowers)
-  console.log('USER FOLLOWERS...', acter && selectedFollowersWithUser)
-
-  if (isMember && selectedFollowers.length === 0) {
+  if (isMember && followers.length === 0) {
     return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>
   }
 
@@ -128,7 +80,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       closeOnClick={false}
       size="large"
     >
-      {selectedFollowers.map((follower) => (
+      {followers.map((follower) => (
         <FollowerRow
           follower={follower}
           acterId={acterId}
