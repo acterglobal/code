@@ -58,3 +58,6 @@ jobs:
           buildScriptName: build
           workingDir: ./packages/components
           exitOnceUploaded: true
+        env:
+          STORYBOOK_IMAGE_LOADER_URL: https://acter-dev.imgix.net
+          STORYBOOK_GOOGLE_MAPS_API_KEY: ${{ secrets.STORYBOOK_GOOGLE_MAPS_API_KEY }}
