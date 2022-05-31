@@ -10,7 +10,7 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
-import { getFollowers2 } from '@acter/lib/acter/get-followers-2'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
@@ -35,7 +35,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
 
   const potentialFollowers = useMemo(
     () =>
-      getFollowers(user, acter).filter(
+      getPotentialFollowers(user, acter).filter(
         (follower) => follower.id !== acter.Activity?.Organiser?.id
       ),
     [acter?.Followers]
@@ -43,7 +43,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
 
   const followers = useMemo(
     () =>
-      getFollowers2(user, acter).filter(
+      getFollowers(user, acter).filter(
         (follower) => follower?.id !== acter.Activity?.Organiser?.id
       ),
     [acter?.Followers]
@@ -67,17 +67,23 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   if (!followers.length) return null
 
   const isMember = checkMemberAccess(user, acter)
-  const filteredFollowers = filterConnectionsByActerSetting(
+
+  const filteredPotentialFollowers = filterConnectionsByActerSetting(
     acter,
     potentialFollowers
   )
 
-  const selectedFilteredFollowers = filteredFollowers.filter(
-    (filteredFollowers) =>
-      followers.filter((follower) => follower.id !== filteredFollowers.id)
+  const filteredPotentialFollowersMap = filteredPotentialFollowers.reduce(
+    (state, payload) => ({ ...state, [payload.id]: payload }),
+    {}
   )
 
-  const selectedFollowers = [...followers, ...selectedFilteredFollowers]
+  const selectedFollowers = followers.reduce((state, payload) => {
+    if (!filteredPotentialFollowersMap[payload.id]) {
+      return [...state, payload]
+    }
+    return state
+  }, filteredPotentialFollowers)
 
   if (isMember && selectedFollowers.length === 0) {
     return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>

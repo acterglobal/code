@@ -1,5 +1,5 @@
 import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
 import { Acter } from '@acter/schema'
 import {
   ExampleActer,
@@ -10,7 +10,7 @@ import {
 
 jest.mock('@acter/lib/acter/can-follow-acter')
 
-describe('getFollowers', () => {
+describe('getPotentialFollowers', () => {
   beforeAll(() => {
     const mockFilterFollowers = canFollowActer as jest.Mock
     mockFilterFollowers.mockImplementation(
@@ -24,7 +24,7 @@ describe('getFollowers', () => {
       Acter: null,
     }
 
-    expect(getFollowers(user, ExampleActer)).toStrictEqual([])
+    expect(getPotentialFollowers(user, ExampleActer)).toStrictEqual([])
   })
 
   it('should return an empty array if there are no Followers', () => {
@@ -36,7 +36,7 @@ describe('getFollowers', () => {
       },
     }
 
-    expect(getFollowers(user, ExampleActer)).toStrictEqual([])
+    expect(getPotentialFollowers(user, ExampleActer)).toStrictEqual([])
   })
 
   it('should create a list of Acters for which the current User is following', () => {
@@ -67,7 +67,10 @@ describe('getFollowers', () => {
       },
     }
 
-    expect(getFollowers(user, ExampleActer)).toStrictEqual([acter1, acter2])
+    expect(getPotentialFollowers(user, ExampleActer)).toStrictEqual([
+      acter1,
+      acter2,
+    ])
   })
 
   it("should only add the current User's Acter if the given Acter was not created by the User", () => {
@@ -88,8 +91,12 @@ describe('getFollowers', () => {
       createdByUserId: '1c88534b-7158-40ec-81a9-31d973077916',
     }
 
-    expect(getFollowers(user, acterCreatedByUser)).not.toContain(userActer)
+    expect(getPotentialFollowers(user, acterCreatedByUser)).not.toContain(
+      userActer
+    )
 
-    expect(getFollowers(user, acterCreatedByAnotherUser)).toContain(userActer)
+    expect(getPotentialFollowers(user, acterCreatedByAnotherUser)).toContain(
+      userActer
+    )
   })
 })

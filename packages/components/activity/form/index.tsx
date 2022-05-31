@@ -28,7 +28,7 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { Stepper } from '@acter/components/util/stepper'
 import { getActerTypeByName } from '@acter/lib/acter-types/get-acter-type-by-name'
 import { useActerTypes } from '@acter/lib/acter-types/use-acter-types'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useActivityTypes } from '@acter/lib/activity-types/use-activity-types'
 import { getActivityTypeNameById } from '@acter/lib/activity/get-activity-type-name'
@@ -197,7 +197,7 @@ export const ActivityForm: FC<ActivityFormProps> = ({
           organiserId: '',
         },
       } as Acter)
-  const acterFollowers = getFollowers(user, checkActer)
+  const acterFollowers = getPotentialFollowers(user, checkActer)
 
   const filteredActerFollowers = acterFollowers?.filter(
     (follower) => follower?.id !== parentActer?.id

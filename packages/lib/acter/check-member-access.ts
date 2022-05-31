@@ -1,6 +1,6 @@
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, User } from '@acter/schema'
 
@@ -17,7 +17,7 @@ export const checkMemberAccess = (user: User, acter: Acter): boolean => {
 
   if (isMember) return true
 
-  const followers = getFollowers(user, acter)
+  const followers = getPotentialFollowers(user, acter)
   const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
 
   const atLeastOneFollowerMemberOnActer = selectedFollowers.find((follower) =>
