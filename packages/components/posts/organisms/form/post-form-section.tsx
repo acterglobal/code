@@ -10,7 +10,7 @@ import {
   PostForm,
   PostFormProps,
   PostFormValues,
-} from '@acter/components/posts/form'
+} from '@acter/components/posts/organisms/form'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useCreateComment } from '@acter/lib/post/use-create-comment'

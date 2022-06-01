@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import { PostForm, PostFormProps } from '@acter/components/posts/form'
+import { PostForm, PostFormProps } from '@acter/components/posts/organisms/form'
 import { ExampleActer } from '@acter/schema/fixtures'
 import { ExampleUser } from '@acter/schema/fixtures'
 

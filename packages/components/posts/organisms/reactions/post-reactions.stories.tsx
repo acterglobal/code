@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react'
 import {
   PostReactions,
   PostReactionsProps,
-} from '@acter/components/posts/reactions'
+} from '@acter/components/posts/organisms/reactions'
 import { withExampleActerParams } from '@acter/lib/storybook-helpers'
 import { ExamplePost } from '@acter/schema/fixtures'
 

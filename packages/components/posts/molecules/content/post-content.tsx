@@ -4,8 +4,11 @@ import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
-import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
-import { PostReactions } from '@acter/components/posts/reactions'
+import {
+  PostInfo,
+  PostInfoProps,
+} from '@acter/components/posts/molecules/info/post-info'
+import { PostReactions } from '@acter/components/posts/organisms/reactions'
 
 type PostContentProps = PostInfoProps
 

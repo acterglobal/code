@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core/'
 
-import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
+import { AddPostReaction } from '@acter/components/posts/organisms/reactions/add-reaction'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useCreatePostReaction } from '@acter/lib/post/use-create-post-reaction'

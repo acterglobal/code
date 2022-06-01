@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 import { Box, Divider } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import { PostFormSection } from '@acter/components/posts/form/post-form-section'
-import { Post } from '@acter/components/posts/post/index'
+import { PostContainer } from '@acter/components/posts/organisms/container'
+import { PostFormSection } from '@acter/components/posts/organisms/form/post-form-section'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUser } from '@acter/lib/user/use-user'
@@ -15,7 +15,7 @@ interface SinglePostProps {
   acterId?: string
 }
 
-export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
+export const Post: FC<SinglePostProps> = ({ post, acterId }) => {
   const classes = useStyles()
   const { user } = useUser()
   const { acter } = useActer({ acterId })
@@ -26,18 +26,20 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
 
   return (
     <Box className={classes.contentContainer}>
-      <Post post={post} user={user} />
+      <PostContainer post={post} user={user} />
       <Box className={classes.commentSection}>
         {post.Comments.length !== 0 && <Divider className={classes.divider} />}
 
-        {post.Comments?.map((comment) => (
-          <Post
-            key={`post-${post.id}-comment-${comment.id}`}
-            post={comment}
-            parentId={post.id}
-            user={user}
-          />
-        ))}
+        {post.Comments?.map((comment) => {
+          return (
+            <PostContainer
+              key={`post-${post.id}-comment-${comment.id}`}
+              post={comment}
+              parentId={post.id}
+              user={user}
+            />
+          )
+        })}
 
         {isMember && (
           <PostFormSection parentId={post.id} user={user} acterId={acterId} />

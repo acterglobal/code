@@ -5,13 +5,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { InfiniteList } from '@acter/components/pagination/infinite-list'
-import { PostFormSection } from '@acter/components/posts/form/post-form-section'
-import { SinglePost } from '@acter/components/posts/single-post'
+import { PostFormSection } from '@acter/components/posts/organisms/form/post-form-section'
+import { Post } from '@acter/components/posts/organisms/post'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { usePosts } from '@acter/lib/post/use-posts'
 import { useUser } from '@acter/lib/user/use-user'
-import { ActerJoinSettings, Post } from '@acter/schema'
+import { ActerJoinSettings, Post as PostType } from '@acter/schema'
 
 interface PostListProps {
   acterId?: string
@@ -54,8 +54,8 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
           hasMore={hasMore}
           loadMore={loadMore}
           renderOnLoading={() => <LoadingSpinner />}
-          render={(post: Post) => (
-            <SinglePost post={post} acterId={acterId} key={`post-${post.id}`} />
+          render={(post: PostType) => (
+            <Post post={post} acterId={acterId} key={`post-${post.id}`} />
           )}
         />
       )}
