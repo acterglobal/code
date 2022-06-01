@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Meta, Story } from '@storybook/react'
 
-import { PostList } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts/organisms/post-list'
 import {
   withExampleActerParams,
   withExampleUserParams,

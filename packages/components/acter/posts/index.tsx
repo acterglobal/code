@@ -4,7 +4,7 @@ import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 
 import { InfoSection } from '@acter/components/acter/landing-page/info-section'
 import { LandingPageLayout } from '@acter/components/acter/landing-page/layout'
-import { PostList } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts/organisms/post-list'
 
 export const ActerPosts: FC = () => {
   const classes = useStyles({})

@@ -13,7 +13,7 @@ import { DescriptionSection } from '@acter/components/group/sections/description
 import { LinksSection } from '@acter/components/group/sections/links'
 import { MembersSection } from '@acter/components/group/sections/members'
 import { UpcomingActivities } from '@acter/components/group/sections/upcoming-activities'
-import { PostList } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts/organisms/post-list'
 
 export const GroupLanding: FC = () => {
   const classes = useStyles()

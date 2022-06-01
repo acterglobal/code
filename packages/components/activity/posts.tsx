@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import slugify from 'slugify'
 
 import { SinglePostSection } from '@acter/components/acter/posts/single-post-section'
-import { PostList } from '@acter/components/posts'
+import { PostList } from '@acter/components/posts/organisms/post-list'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { usePost } from '@acter/lib/post/use-post'
 import { Acter } from '@acter/schema'
