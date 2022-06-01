@@ -14,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js version
         uses: actions/setup-node@v2
@@ -48,6 +51,13 @@ jobs:
         run: |
           yarn cover
 
-      - name: build web
-        run: |
-          yarn workspace @acter/web build
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build
+          workingDir: ./packages/components
+          exitOnceUploaded: true
+        env:
+          STORYBOOK_IMAGE_LOADER_URL: https://acter-dev.imgix.net
+          STORYBOOK_GOOGLE_MAPS_API_KEY: ${{ secrets.STORYBOOK_GOOGLE_MAPS_API_KEY }}

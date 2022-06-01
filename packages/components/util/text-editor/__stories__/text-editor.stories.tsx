@@ -9,7 +9,7 @@ export default {
   title: 'Organisms/Util/TextEditor',
   component: TextEditorComponent,
   args: {
-    initialValue: null,
+    initialValue: '',
     width: 400,
     height: 300,
     handleInputChange: () => void 0,

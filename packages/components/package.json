@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn env start-storybook -p 6006",
-    "build": "yarn workspace @acter/schema build && build-storybook",
-    "build-storybook": "yarn env build-storybook",
-    "chromatic": "yarn env chromatic --build-script-name build",
-    "env": "dotenv -e ../../.env --"
+    "dev": "yarn dotenv -- start-storybook -p 6006",
+    "build": "yarn dotenv -- build-storybook",
+    "build:cicd": "yarn workspace @acter/schema build && build",
+    "chromatic": "yarn dotenv -- chromatic --build-script-name build",
+    "dotenv": "dotenv -e ../../.env"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "1.8.0",
@@ -87,6 +87,7 @@
     "babel-loader": "8.2.2",
     "babel-plugin-polyfill-corejs2": "0.2.2",
     "babel-plugin-polyfill-regenerator": "0.2.2",
+    "chromatic": "^6.5.4",
     "date-fns": "2.23.0",
     "graphql": "15.5.1",
     "just-capitalize": "1.0.1",

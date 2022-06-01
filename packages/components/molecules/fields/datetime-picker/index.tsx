@@ -36,6 +36,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
   const { t } = useTranslation('common')
 
   const router = useRouter()
+  console.log('router', router)
   const locale = getDateTimeLocale(router.locale)
 
   const isValueValid = value && isValid(value)
