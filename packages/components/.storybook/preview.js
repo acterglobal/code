@@ -28,6 +28,7 @@ export const parameters = {
   },
   nextRouter: {
     Provider: RouterContext.Provider,
+    locale: 'en-GB',
   },
   options: {
     storySort: {
