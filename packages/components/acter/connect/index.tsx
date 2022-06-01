@@ -11,6 +11,7 @@ import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
 import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
+import { mergeFollowers } from '@acter/lib/acter/merge-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
@@ -64,7 +65,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       />
     )
 
-  if (!followers.length) return null
+  if (!followers.length || !potentialFollowers.length) return null
 
   const isMember = checkMemberAccess(user, acter)
 
@@ -73,17 +74,10 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
     potentialFollowers
   )
 
-  const filteredPotentialFollowersMap = filteredPotentialFollowers.reduce(
-    (state, payload) => ({ ...state, [payload.id]: payload }),
-    {}
+  const selectedFollowers = mergeFollowers(
+    filteredPotentialFollowers,
+    followers
   )
-
-  const selectedFollowers = followers.reduce((state, payload) => {
-    if (!filteredPotentialFollowersMap[payload.id]) {
-      return [...state, payload]
-    }
-    return state
-  }, filteredPotentialFollowers)
 
   if (isMember && selectedFollowers.length === 0) {
     return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>

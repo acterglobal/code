@@ -16,27 +16,32 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
     return []
   }
 
-  const isCreator = user.id === acter.createdByUserId
+  const isUserActerCreator = user.id === acter.createdByUserId
 
-  const acterFilteredFollowers = acter.Followers.map(({ Follower }) => {
+  const filteredActerFollowers = acter.Followers.map(({ Follower }) => {
     if (Follower.id === user.Acter?.id || Follower.ActerType.name !== USER)
       return Follower
   })
 
-  const userConnections = user.Acter.Following.map(({ Following }) => {
+  const filteredUserConnections = user.Acter.Following.map(({ Following }) => {
     if (Following.ActerType.name !== GROUP) return Following
   })
 
-  const userActerFilteredConnections = acterFilteredFollowers.filter(
-    (acterFollower) => {
-      return userConnections.some((userConnection) => {
-        return (
-          acterFollower?.id === userConnection?.id ||
-          !(isCreator && acterFollower?.id === user.Acter.id)
-        )
-      })
-    }
+  const filteredActerFollowersMap = filteredActerFollowers.reduce(
+    (state, payload) => ({ ...state, [payload.id]: payload }),
+    {}
   )
 
-  return userActerFilteredConnections
+  const mergedFollowers = filteredUserConnections.reduce((state, payload) => {
+    if (filteredActerFollowersMap[payload?.id]) {
+      return [...state, payload]
+    }
+    return state
+  }, filteredActerFollowers)
+
+  const selectedFollowers = mergedFollowers.filter(
+    (follower) => isUserActerCreator && follower.id !== user.Acter.id
+  )
+
+  return selectedFollowers
 }
