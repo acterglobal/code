@@ -1,10 +1,18 @@
 #import "../fragments/post-full.graphql"
 #import "../fragments/acter-display.fragment.graphql"
 
-query GetPosts($acterId: String) {
+query GetPosts(
+  $acterId: String
+  $take: Int
+  $skip: Int
+  $cursor: PostWhereUniqueInput
+) {
   posts(
     where: { acterId: { equals: $acterId }, parentId: null }
     orderBy: { createdAt: desc }
+    take: $take
+    skip: $skip
+    cursor: $cursor
   ) {
     ...PostFull
   }
