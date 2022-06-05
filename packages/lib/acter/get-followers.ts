@@ -3,7 +3,7 @@ import { Acter, User } from '@acter/schema'
 import { ActerTypes } from '../constants'
 
 /**
- * Get a list of Acters for the current User which follow the given Acter
+ * Get a list of User connections the can follow the given Acter
  * @param user User for which we will get a list of potential followers
  * @param acter Acter we wish to follow
  * @returns A list of Acters
@@ -12,7 +12,7 @@ import { ActerTypes } from '../constants'
 const { GROUP, USER } = ActerTypes
 
 export const getFollowers = (user: User, acter: Acter): Acter[] => {
-  if (!user?.Acter?.Following || !acter) {
+  if (!user?.Acter?.Following || !acter.Followers) {
     return []
   }
 
@@ -28,7 +28,7 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
   })
 
   const filteredActerFollowersMap = filteredActerFollowers.reduce(
-    (state, payload) => ({ ...state, [payload.id]: payload }),
+    (state, payload) => ({ ...state, [payload?.id]: payload }),
     {}
   )
 
@@ -40,8 +40,11 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
   }, filteredActerFollowers)
 
   const selectedFollowers = mergedFollowers.filter(
-    (follower) => isUserActerCreator && follower.id !== user.Acter.id
+    (follower) => isUserActerCreator && follower?.id !== user.Acter.id
   )
+
+  console.log('ACTER...', acter)
+  console.log('USER...', user)
 
   return selectedFollowers
 }
