@@ -18,6 +18,7 @@
     "dev": "yarn workspace @acter/web dev",
     "build": "yarn workspaces foreach run build",
     "build:web": "yarn workspace @acter/web build",
+    "build:cicd": "yarn generate && yarn build:web",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components dev",
     "chromatic": "yarn workspace @acter/components chromatic",
