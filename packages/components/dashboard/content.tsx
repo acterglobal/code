@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Box,
@@ -12,8 +12,10 @@ import {
 import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GroupsList } from '@acter/components/dashboard/groups-list'
+import { ActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
 import { flattenFollowing } from '@acter/lib/acter/flatten-following'
 import { useActivities } from '@acter/lib/activity/use-activities'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { ActerTypes } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
@@ -23,11 +25,14 @@ const { ACTIVITY, GROUP } = ActerTypes
 export const DashboardContent: FC = () => {
   const classes = useStyles()
   const { t } = useTranslation('dashboard')
+  const [currentDateFilter, setCurrentDateFilter] =
+    useState<ActivitiesDateFilter>(ActivitiesDateFilter.UPCOMING)
 
   const { user } = useUser()
 
   const { activities, fetching: activitiesLoading } = useActivities({
     followerId: user?.Acter?.id,
+    dateFilter: currentDateFilter,
   })
 
   if (activitiesLoading) return <LoadingSpinner />
@@ -36,6 +41,11 @@ export const DashboardContent: FC = () => {
 
   const acters = flattenFollowing(user?.Acter)
   const groups = acters.filter((acter) => acter.ActerType.name === GROUP)
+
+  const handleDateFilter = (dateFilter: ActivitiesDateFilter) => {
+    if (dateFilter === currentDateFilter) return
+    setCurrentDateFilter(dateFilter)
+  }
 
   return (
     <Box className={classes.container}>
@@ -58,7 +68,13 @@ export const DashboardContent: FC = () => {
               {activities.length === 0 ? (
                 <ZeroMessage messageFor={ACTIVITY} />
               ) : (
-                <ActivitiesList activities={activities} />
+                <>
+                  <ActivitiesDateFilters
+                    currentDateFilter={currentDateFilter}
+                    onChange={handleDateFilter}
+                  />
+                  <ActivitiesList activities={activities} />
+                </>
               )}
             </>
           ) : null}
