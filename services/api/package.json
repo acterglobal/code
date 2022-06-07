@@ -6,6 +6,7 @@
     "@acter/lib": "workspace:packages/lib",
     "@acter/schema": "workspace:packages/schema",
     "@auth0/nextjs-auth0": "1.8.0",
+    "apollo-server-micro": "^3.8.2",
     "axios": "0.27.0",
     "next": "12.1.0",
     "reflect-metadata": "0.1.13",
