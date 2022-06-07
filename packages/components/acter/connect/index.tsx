@@ -65,7 +65,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       />
     )
 
-  if (!followers.length || !potentialFollowers.length) return null
+  if (!potentialFollowers.length) return null
 
   const isMember = checkMemberAccess(user, acter)
 
