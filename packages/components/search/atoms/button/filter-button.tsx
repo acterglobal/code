@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core'
 import { createStyles, Theme, withStyles } from '@material-ui/core/styles'
 
-export const SearchFilterButton = withStyles((theme: Theme) =>
+export const FilterButton = withStyles((theme: Theme) =>
   createStyles({
     root: {
       height: theme.spacing(4.5),

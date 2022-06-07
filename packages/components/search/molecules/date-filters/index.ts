@@ -1,1 +1,1 @@
-export { SearchActivitiesDateFilters } from './search-activities-date-filters'
+export { ActivitiesDateFilters } from './activities-date-filters'

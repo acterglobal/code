@@ -1,2 +1,2 @@
 export { SearchButton } from './search-button'
-export { SearchFilterButton } from './search-filter-button'
+export { FilterButton } from './filter-button'

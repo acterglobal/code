@@ -3,17 +3,17 @@ import { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { SearchFilterButton } from '@acter/components/search/atoms/button'
+import { FilterButton } from '@acter/components/search/atoms/button'
 import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 
 const { ALL, UPCOMING, PAST } = ActivitiesDateFilter
 
-export interface SearchActivitiesDateFilters {
+export interface ActivitiesDateFilters {
   currentDateFilter: ActivitiesDateFilter
   onChange: (currentDateFilter: ActivitiesDateFilter) => void
 }
 
-export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({
+export const ActivitiesDateFilters: FC<ActivitiesDateFilters> = ({
   currentDateFilter,
   onChange,
 }) => {
@@ -21,24 +21,24 @@ export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({
 
   return (
     <Box className={classes.SearchActivitiesDateFilters}>
-      <SearchFilterButton
+      <FilterButton
         className={currentDateFilter === UPCOMING && classes.active}
         onClick={() => onChange(UPCOMING)}
       >
         Upcoming
-      </SearchFilterButton>
-      <SearchFilterButton
+      </FilterButton>
+      <FilterButton
         className={currentDateFilter === PAST && classes.active}
         onClick={() => onChange(PAST)}
       >
         Past
-      </SearchFilterButton>
-      <SearchFilterButton
+      </FilterButton>
+      <FilterButton
         className={currentDateFilter === ALL && classes.active}
         onClick={() => onChange(ALL)}
       >
         All
-      </SearchFilterButton>
+      </FilterButton>
     </Box>
   )
 }

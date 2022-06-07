@@ -11,7 +11,7 @@ import {
 import { FilterList } from '@material-ui/icons'
 
 import { useSearchVariables } from '@acter/components/contexts/search-variables'
-import { SearchActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
+import { ActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
 import {
   ShowMapSwitch,
   ShowMapSwitchProps,
@@ -113,7 +113,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
       </div>
 
       {searchType === SearchType.ACTIVITIES && (
-        <SearchActivitiesDateFilters
+        <ActivitiesDateFilters
           currentDateFilter={currentDateFilter}
           onChange={handleDateFilter}
         />
