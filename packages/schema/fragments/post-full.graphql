@@ -2,7 +2,7 @@
 
 fragment PostFull on Post {
   ...PostDisplay
-  Comments(orderBy: { createdAt: asc }, take: 5) {
+  Comments(orderBy: { createdAt: desc }, take: 6) {
     ...PostDisplay
   }
   Parent {

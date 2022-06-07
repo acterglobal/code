@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { useState, FC } from 'react'
 
 import { Box, Divider } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -19,27 +19,38 @@ export const Post: FC<SinglePostProps> = ({ post, acterId }) => {
   const classes = useStyles()
   const { user } = useUser()
   const { acter } = useActer({ acterId })
+  const [hasMoreComments, setHasMoreComments] = useState(
+    post.Comments.length > 5
+  )
 
   if (!acter || !user) return null
 
   const isMember = checkMemberAccess(user, acter)
 
+  const comments = post.Comments
+    ? post.Comments.slice(0, post.Comments.length - 1).reverse()
+    : []
+
   return (
     <Box className={classes.contentContainer}>
       <PostContainer post={post} user={user} />
       <Box className={classes.commentSection}>
-        {post.Comments.length !== 0 && <Divider className={classes.divider} />}
-
-        {post.Comments?.map((comment) => {
-          return (
-            <PostContainer
-              key={`post-${post.id}-comment-${comment.id}`}
-              post={comment}
-              parentId={post.id}
-              user={user}
-            />
-          )
-        })}
+        {comments.length !== 0 && (
+          <>
+            <Divider className={classes.divider} />
+            {hasMoreComments && <>Load more comments</>}
+            {comments.map((comment) => {
+              return (
+                <PostContainer
+                  key={`post-${post.id}-comment-${comment.id}`}
+                  post={comment}
+                  parentId={post.id}
+                  user={user}
+                />
+              )
+            })}
+          </>
+        )}
 
         {isMember && (
           <PostFormSection parentId={post.id} user={user} acterId={acterId} />

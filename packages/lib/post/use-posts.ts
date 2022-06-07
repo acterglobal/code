@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { CombinedError, UseQueryArgs } from 'urql'
 
 import { useActer } from '@acter/lib/acter/use-acter'
-import { getObjectArrayMemoString } from '@acter/lib/get-object-array-memo-string'
 import {
   usePaginatedQuery,
   UsePaginatedState,
@@ -74,7 +73,11 @@ export const usePosts = (params?: UsePostsParams): UsePostsResult => {
     if (queryError) return setError(queryError)
   }, [acterError, queryError])
 
-  useEffect(() => setPosts(results), [getObjectArrayMemoString(results)])
+  useEffect(() => {
+    debugger
+    console.log('post results', results.toList().toArray())
+    setPosts(results.toList().toArray())
+  }, [results])
 
   return { posts, fetching, error, ...restQueryResults } as UsePostsResult
 }
