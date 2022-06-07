@@ -3,7 +3,7 @@ services:
     name: demo
     env: node
     plan: starter
-    buildCommand: yarn workspaces focus --production @acter/web; yarn workspace @acter/web build:cicd
+    buildCommand: corepack enable && yarn set version stable && yarn plugin import workspace-tools && yarn workspaces focus --production @acter/web && yarn build:cicd
     startCommand: yarn workspace @acter/web start
     envVars:
       - key: BASE_URL
