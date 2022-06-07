@@ -1,6 +1,6 @@
 import React, { createContext, FC, useContext, useState } from 'react'
 
-import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
@@ -10,7 +10,7 @@ export interface SearchVariables {
   orderBy?: SearchActivitiesSortBy
   types?: ActerTypes[]
   activityTypes?: ActivityTypes[]
-  dateFilter?: SearchActivitiesDateFilter
+  dateFilter?: ActivitiesDateFilter
   north?: number
   east?: number
   south?: number
@@ -19,7 +19,7 @@ export interface SearchVariables {
 
 const searchVariableDefaults: SearchVariables = {
   orderBy: SearchActivitiesSortBy.NAME,
-  dateFilter: SearchActivitiesDateFilter.UPCOMING,
+  dateFilter: ActivitiesDateFilter.UPCOMING,
 }
 
 export type TSearchVariablesContext = [

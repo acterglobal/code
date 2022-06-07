@@ -19,7 +19,7 @@ import {
 import { SearchBar } from '@acter/components/search/organisms/bar'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { SearchSortBy } from '@acter/components/search/organisms/sort-by'
-import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
@@ -38,7 +38,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
   const [showOtherControls, setShowOtherControls] = useState(true)
   const [searchVariables, setSearchVariables] = useSearchVariables()
   const [currentDateFilter, setCurrentDateFilter] =
-    useState<SearchActivitiesDateFilter>(SearchActivitiesDateFilter.UPCOMING)
+    useState<ActivitiesDateFilter>(ActivitiesDateFilter.UPCOMING)
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
   )
@@ -69,7 +69,7 @@ export const SearchTopBar: FC<SearchTopBarProps> = ({
     })
   }
 
-  const handleDateFilter = (dateFilter: SearchActivitiesDateFilter) => {
+  const handleDateFilter = (dateFilter: ActivitiesDateFilter) => {
     if (dateFilter === currentDateFilter) return
     setCurrentDateFilter(dateFilter)
     setSearchVariables({

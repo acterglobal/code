@@ -4,13 +4,13 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { SearchFilterButton } from '@acter/components/search/atoms/button'
-import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 
-const { ALL, UPCOMING, PAST } = SearchActivitiesDateFilter
+const { ALL, UPCOMING, PAST } = ActivitiesDateFilter
 
 export interface SearchActivitiesDateFilters {
-  currentDateFilter: SearchActivitiesDateFilter
-  onChange: (currentDateFilter: SearchActivitiesDateFilter) => void
+  currentDateFilter: ActivitiesDateFilter
+  onChange: (currentDateFilter: ActivitiesDateFilter) => void
 }
 
 export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({

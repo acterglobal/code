@@ -8,7 +8,7 @@ query ActersSearch(
   $types: [String!]
   $activityTypes: [String!]
   $endsBefore: DateTime
-  $dateFilter: SearchActivitiesDateFilter
+  $dateFilter: ActivitiesDateFilter
   $north: Float
   $east: Float
   $south: Float
