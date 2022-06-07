@@ -23,7 +23,9 @@ export const ActivitiesSection: FC = () => {
   const { t } = useTranslation('common')
   const [showPastActivities, setShowPastActivities] = useState(false)
   const { acter, fetching: acterFetching } = useActer()
-  const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
+  const { activities, fetching: activitiesFetching } = useActivities({
+    followerId: acter?.id,
+  })
 
   if (acterFetching || activitiesFetching) return <LoadingSpinner />
   if (!acter || !activities) return null

@@ -26,9 +26,9 @@ export const DashboardContent: FC = () => {
 
   const { user } = useUser()
 
-  const { activities, fetching: activitiesLoading } = useActivities(
-    user?.Acter?.id
-  )
+  const { activities, fetching: activitiesLoading } = useActivities({
+    followerId: user?.Acter?.id,
+  })
 
   if (activitiesLoading) return <LoadingSpinner />
 
