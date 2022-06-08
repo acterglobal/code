@@ -1,6 +1,10 @@
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
 [build]
 publish = ".next"
 command = "yarn build:cicd"
 
-[[plugins]]
-package = "@netlify/plugin-nextjs"
+[context]
+NETLIFY_USE_YARN = true
+YARN_VERSION = "3.0.0"

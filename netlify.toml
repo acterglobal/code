@@ -1,6 +1,2 @@
 [build]
 base = "apps/web/"
-
-[context]
-NETLIFY_USE_YARN = true
-YARN_VERSION = "3.0.0"
