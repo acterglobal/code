@@ -5,7 +5,7 @@ package = "@netlify/plugin-nextjs"
 publish = ".next"
 command = "yarn build:cicd"
 environment = {
-  NETLIFY_USE_YARN = true
+  NETLIFY_USE_YARN = true,
   YARN_VERSION = "3.0.0"
 }
 
