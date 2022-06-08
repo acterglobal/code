@@ -18,7 +18,7 @@ export const FilterButton = withStyles((theme: Theme) =>
       '&:hover, &.active': {
         backgroundColor: theme.palette.secondary.main,
         color: theme.colors.white,
-        fontWeight: theme.typography.fontWeightBold,
+        fontWeight: theme.typography.fontWeightMedium,
         boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.1)',
       },
     },

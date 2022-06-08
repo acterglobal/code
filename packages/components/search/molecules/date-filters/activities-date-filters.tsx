@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { FilterButton } from '@acter/components/search/atoms/button'
 import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const { ALL, UPCOMING, PAST } = ActivitiesDateFilter
 
@@ -18,6 +19,7 @@ export const ActivitiesDateFilters: FC<ActivitiesDateFilters> = ({
   onChange,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Box className={classes.SearchActivitiesDateFilters}>
@@ -25,19 +27,19 @@ export const ActivitiesDateFilters: FC<ActivitiesDateFilters> = ({
         className={currentDateFilter === UPCOMING && classes.active}
         onClick={() => onChange(UPCOMING)}
       >
-        Upcoming
+        {t('upcoming')}
       </FilterButton>
       <FilterButton
         className={currentDateFilter === PAST && classes.active}
         onClick={() => onChange(PAST)}
       >
-        Past
+        {t('past')}
       </FilterButton>
       <FilterButton
         className={currentDateFilter === ALL && classes.active}
         onClick={() => onChange(ALL)}
       >
-        All
+        {t('all')}
       </FilterButton>
     </Box>
   )
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
     active: {
       backgroundColor: theme.palette.secondary.main,
       color: theme.colors.white,
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightMedium,
     },
   })
 )
