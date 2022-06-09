@@ -6,6 +6,7 @@ import {
   ActivityTile,
   ActivityTileProps,
 } from '@acter/components/activity/tile'
+import { Activity } from '@acter/schema'
 import { ExampleActer } from '@acter/schema/fixtures'
 import {
   ExampleActivity,
@@ -13,11 +14,18 @@ import {
   ProjectTypeActivity,
 } from '@acter/schema/fixtures/activity/example-activity'
 
+const startAt = new Date(2022, 5, 9, 12, 0, 0)
+const activity: Activity = {
+  ...ExampleActivity,
+  startAt,
+  endAt: add(startAt, { days: 10 }),
+}
+
 export default {
   title: 'Organisms/Activity/ActivityTile',
   component: ActivityTile,
   args: {
-    activity: ExampleActivity,
+    activity,
   },
 } as Meta
 
@@ -27,19 +35,26 @@ export const Template: Story<ActivityTileProps> = (args) => (
 
 export const IdeaTile = Template.bind({})
 IdeaTile.args = {
-  activity: IdeaTypeActivity,
+  activity: {
+    ...IdeaTypeActivity,
+    startAt,
+    endAt: add(startAt, { days: 10 }),
+  },
 }
 
 export const ProjectTile = Template.bind({})
 ProjectTile.args = {
-  activity: ProjectTypeActivity,
+  activity: {
+    ...ProjectTypeActivity,
+    startAt,
+    endAt: add(startAt, { days: 10 }),
+  },
 }
 
 export const SmallContent = Template.bind({})
 SmallContent.args = {
   activity: {
-    ...ExampleActivity,
-    endAt: add(new Date(), { days: 10 }),
+    ...activity,
     Acter: {
       ...ExampleActer,
       name: 'Small content',
@@ -49,7 +64,7 @@ SmallContent.args = {
 export const MediumContent = Template.bind({})
 MediumContent.args = {
   activity: {
-    ...ExampleActivity,
+    ...activity,
     Acter: {
       ...ExampleActer,
       name: 'Medium activity title goes here more',
@@ -59,7 +74,7 @@ MediumContent.args = {
 export const LargeContent = Template.bind({})
 LargeContent.args = {
   activity: {
-    ...ExampleActivity,
+    ...activity,
     Acter: {
       ...ExampleActer,
       name: 'Very very very very very long title for this activity content',

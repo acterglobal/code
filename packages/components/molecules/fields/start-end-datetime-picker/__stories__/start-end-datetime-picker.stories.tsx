@@ -53,8 +53,8 @@ WithValues.parameters = {
 export const WithError = Template.bind({})
 WithError.parameters = {
   args: {
-    endAt: new Date(2021, 10, 18),
-    startAt: new Date(2021, 10, 17),
+    endAt: new Date(2021, 10, 18, 12, 0, 0),
+    startAt: new Date(2021, 10, 17, 12, 0, 0),
   },
   formik: {
     initialErrors: {
