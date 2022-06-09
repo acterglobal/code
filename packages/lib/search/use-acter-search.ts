@@ -66,7 +66,6 @@ export const useActerSearch = (
     dataKey: 'searchActers',
     variables,
     pause,
-    pageSize: 3,
   })
 
   useEffect(() => setActers(results.toList().toArray()), [results])
