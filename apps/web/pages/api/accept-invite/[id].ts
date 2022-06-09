@@ -5,8 +5,12 @@ import { withSentry } from '@sentry/nextjs'
 import { getLogger } from '@acter/../packages/lib/logger'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createActerConnection } from '@acter/lib/api/create-acter-connection'
-import { getUserForSession } from '@acter/lib/authentication/get-user-for-session'
-import { ActerConnectionRole } from '@acter/schema'
+import {
+  getUserForSession,
+  UserNotFond,
+  UserNotLoggedIn,
+} from '@acter/lib/authentication/get-user-for-session'
+import { ActerConnectionRole, User } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
 const l = getLogger('acceptInviteHandler')
@@ -14,7 +18,16 @@ const l = getLogger('acceptInviteHandler')
 const acceptInviteHandler: NextApiHandler = async (req, res) => {
   const t = l.startTimer()
 
-  const user = await getUserForSession(req, res)
+  let user: User
+  try {
+    user = await getUserForSession(req, res)
+  } catch (e) {
+    if (e instanceof UserNotLoggedIn)
+      return l.debug('user not logged in, redirecting to login')
+    if (e instanceof UserNotFond)
+      return l.debug('user not found, redirecting to 401')
+    throw e
+  }
 
   const invite = await prisma.invite.findFirst({
     where: {

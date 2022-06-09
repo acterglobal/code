@@ -2,11 +2,28 @@ import { NextApiHandler } from 'next'
 
 import { withSentry } from '@sentry/nextjs'
 
-import { getUserForSession } from '@acter/lib/authentication/get-user-for-session'
+import { User } from '@acter/../packages/schema'
+import {
+  getUserForSession,
+  UserNotLoggedIn,
+  UserNotFond,
+} from '@acter/lib/authentication/get-user-for-session'
+import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
 
+const l = getLogger('notificationRedirect')
+
 const notificationRedirect: NextApiHandler = async (req, res) => {
-  const user = await getUserForSession(req, res)
+  let user: User
+  try {
+    user = await getUserForSession(req, res)
+  } catch (e) {
+    if (e instanceof UserNotLoggedIn)
+      return l.debug('user not logged in, redirecting to login')
+    if (e instanceof UserNotFond)
+      return l.debug('user not found, redirecting to 401')
+    throw e
+  }
 
   const notification = await prisma.notification.findFirst({
     where: {

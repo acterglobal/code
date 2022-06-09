@@ -9,6 +9,9 @@ import { getLogger } from '../logger'
 
 const l = getLogger('getUserForSession')
 
+export class UserNotLoggedIn extends Error {}
+export class UserNotFond extends Error {}
+
 export const getUserForSession = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -17,12 +20,10 @@ export const getUserForSession = async (
 
   if (!session?.user) {
     l.debug({ session }, 'no user for session')
-    res
-      .redirect(
-        `${process.env.AUTH0_BASE_URL}/api/auth/login?returnTo=${req.url}`
-      )
-      .end()
-    return
+    res.redirect(
+      `${process.env.AUTH0_BASE_URL}/api/auth/login?returnTo=${req.url}`
+    )
+    throw UserNotLoggedIn
   }
 
   const user = await prisma.user.findFirst({
