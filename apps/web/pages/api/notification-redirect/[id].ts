@@ -6,7 +6,7 @@ import { User } from '@acter/../packages/schema'
 import {
   getUserForSession,
   UserNotLoggedIn,
-  UserNotFond,
+  UserNotFound,
 } from '@acter/lib/authentication/get-user-for-session'
 import { getLogger } from '@acter/lib/logger'
 import { prisma } from '@acter/schema/prisma'
@@ -20,7 +20,7 @@ const notificationRedirect: NextApiHandler = async (req, res) => {
   } catch (e) {
     if (e instanceof UserNotLoggedIn)
       return l.debug('user not logged in, redirecting to login')
-    if (e instanceof UserNotFond)
+    if (e instanceof UserNotFound)
       return l.debug('user not found, redirecting to 401')
     throw e
   }

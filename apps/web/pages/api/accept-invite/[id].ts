@@ -7,7 +7,7 @@ import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { createActerConnection } from '@acter/lib/api/create-acter-connection'
 import {
   getUserForSession,
-  UserNotFond,
+  UserNotFound,
   UserNotLoggedIn,
 } from '@acter/lib/authentication/get-user-for-session'
 import { ActerConnectionRole, User } from '@acter/schema'
@@ -24,7 +24,7 @@ const acceptInviteHandler: NextApiHandler = async (req, res) => {
   } catch (e) {
     if (e instanceof UserNotLoggedIn)
       return l.debug('user not logged in, redirecting to login')
-    if (e instanceof UserNotFond)
+    if (e instanceof UserNotFound)
       return l.debug('user not found, redirecting to 401')
     throw e
   }
