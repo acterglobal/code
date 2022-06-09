@@ -4,13 +4,17 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  Component,
+  useCallback,
 } from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
+import createMentionPlugin, {
+  defaultSuggestionsFilter,
+} from '@draft-js-plugins/mention'
+import '@draft-js-plugins/mention/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -27,12 +31,19 @@ import {
 import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
 import { EditorContext } from '@acter/components/util/text-editor/editor-context'
 import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
+import { mentions } from '@acter/components/util/text-editor/mentions'
+import { getInitials } from '@acter/lib/get-initials'
+import { ActerConnection } from '@acter/schema'
 
 let htmlToDraft = null
 if (typeof window === 'object') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   htmlToDraft = require('html-to-draftjs').default
 }
+
+const mentionPlugin = createMentionPlugin()
+const { MentionSuggestions } = mentionPlugin
+// const plugins = [mentionPlugin]
 
 interface widthHeightType {
   height?: number
@@ -52,6 +63,7 @@ export interface TextEditorProps extends widthHeightType, stylesProp {
   hideEditorToolbar?: boolean
   placeholder?: string
   isComment?: boolean
+  followers?: ActerConnection[]
 }
 
 export const TextEditor: FC<TextEditorProps> = ({
@@ -61,18 +73,28 @@ export const TextEditor: FC<TextEditorProps> = ({
   borderStyles,
   height,
   isComment,
+  followers,
   hideEditorToolbar,
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
-  const [editor, setEditor] = useState(null)
   const [clearText, setClearText] = useState(false)
   const ref = useRef<Editor>(null)
 
-  editor?.focus()
+  const [open, setOpen] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
+
   useEffect(() => {
-    ref.current?.focus()
-  }, [ref])
+    if (followers) {
+      const followersList = followers.map((follower) => ({
+        name: follower.Follower.name,
+        avatar: follower.Follower.avatarUrl
+          ? follower.Follower.avatarUrl
+          : getInitials(follower.Follower.name || ''),
+      }))
+      setSuggestions([followersList])
+    }
+  }, [followers])
 
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
@@ -90,6 +112,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     toolbarPlugin,
     linkPlugin,
     linkDetectionPlugin,
+    mentionPlugin,
   ]
 
   const decorator = new CompositeDecorator([
@@ -142,9 +165,20 @@ export const TextEditor: FC<TextEditorProps> = ({
     setEditorState(data)
   }
 
-  const handleEditorRef = (editorRef: Component) => {
-    setEditor(editorRef)
+  const handleEditorRef = (editorRef) => {
+    editorRef?.focus()
     setClearText(false)
+  }
+
+  const onOpenChange = useCallback((_open: boolean) => {
+    setOpen(_open)
+  }, [])
+  const onSearchChange = useCallback(({ value }: { value: string }) => {
+    setSuggestions(defaultSuggestionsFilter(value, mentions))
+  }, [])
+
+  const onAddMention = () => {
+    // SOMETHING
   }
 
   return (
@@ -173,6 +207,13 @@ export const TextEditor: FC<TextEditorProps> = ({
             plugins={plugins}
             ref={ref}
             placeholder={clearText && placeholder}
+          />
+          <MentionSuggestions
+            open={open}
+            onOpenChange={onOpenChange}
+            onSearchChange={onSearchChange}
+            suggestions={suggestions}
+            onAddMention={() => onAddMention}
           />
         </EditorContext.Provider>
 

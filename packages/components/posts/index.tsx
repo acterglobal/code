@@ -7,10 +7,14 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { SinglePost } from '@acter/components/posts/single-post'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { MemberType } from '@acter/lib/constants'
 import { usePosts } from '@acter/lib/post/use-posts'
 import { useUser } from '@acter/lib/user/use-user'
 import { ActerJoinSettings } from '@acter/schema'
+
+const { PEOPLE } = MemberType
 
 interface PostListProps {
   acterId?: string
@@ -36,9 +40,17 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
 
   const isMember = checkMemberAccess(user, acter)
 
+  const validFollowers = getFollowersByType(acter, PEOPLE)
+
   return (
     <Box className={classes.mainContainer}>
-      {isMember && <PostFormSection user={user} acterId={acterId} />}
+      {isMember && (
+        <PostFormSection
+          user={user}
+          acterId={acterId}
+          followers={validFollowers}
+        />
+      )}
 
       {(isActerPublic || isMember) && (
         <>

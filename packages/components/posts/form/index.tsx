@@ -9,7 +9,7 @@ import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { Post as PostType, User } from '@acter/schema'
+import { ActerConnection, Post as PostType, User } from '@acter/schema'
 
 export type PostFormValues = PostType & {
   content: string
@@ -20,6 +20,7 @@ export interface PostFormProps {
   parentId?: string
   post?: PostType
   user?: User
+  followers: ActerConnection[]
   onPostSubmit?: (values: PostFormValues) => void
   onPostUpdate?: (values: PostFormValues) => void
   cancelEdit?: () => void
@@ -29,6 +30,7 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({
   parentId,
   post,
+  followers,
   onPostSubmit,
   onPostUpdate,
   onCancel,
@@ -89,6 +91,7 @@ export const PostForm: FC<PostFormProps> = ({
                 : theme.colors.grey.main,
               border: !!parentId && 'none',
             }}
+            followers={followers}
           />
 
           {post ? (
