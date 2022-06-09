@@ -4,7 +4,6 @@ import {
   SearchVariables,
   useSearchVariables,
 } from '@acter/components/contexts/search-variables'
-import { getObjectArrayMemoString } from '@acter/lib/object/get-object-array-memo-string'
 import {
   usePaginatedQuery,
   UsePaginatedState,
@@ -67,9 +66,10 @@ export const useActerSearch = (
     dataKey: 'searchActers',
     variables,
     pause,
+    pageSize: 3,
   })
 
-  useEffect(() => setActers(results), [getObjectArrayMemoString(results)])
+  useEffect(() => setActers(results.toList().toArray()), [results])
 
   return { acters, ...restQueryResult }
 }

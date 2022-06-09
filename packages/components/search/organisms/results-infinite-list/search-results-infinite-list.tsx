@@ -1,36 +1,17 @@
-import React, { FC, useEffect, useRef } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { useIsVisible } from 'react-is-visible'
+import React, { FC } from 'react'
 
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import clsx from 'clsx'
-
 import { LoadingBar } from '@acter/components/atoms/loading/bar'
+import { InfiniteList } from '@acter/components/pagination/infinite-list'
 import { SearchZeroResultsMessage } from '@acter/components/search/atoms/zero-results-message'
-import { Button } from '@acter/components/styled'
 import { useActerSearch } from '@acter/lib/search/use-acter-search'
-import { useSearchType } from '@acter/lib/search/use-search-type'
 
 import { SearchResultsList } from '../results-list'
 
-interface HasMoreProps {
-  onVisible: () => void
-}
-
-const HasMore: FC<HasMoreProps> = ({ onVisible, children }) => {
-  const nodeRef = useRef()
-  const isVisible = useIsVisible(nodeRef)
-  useEffect(() => {
-    if (isVisible) onVisible()
-  }, [isVisible])
-  return <div ref={nodeRef}>{children}</div>
-}
-
 export const SearchResultsInfiniteList: FC = () => {
   const classes = useStyles()
-  const searchType = useSearchType()
 
   const { acters, fetching, loadMore, hasMore } = useActerSearch()
 
@@ -45,20 +26,15 @@ export const SearchResultsInfiniteList: FC = () => {
 
   return (
     <div className={classes.searchResultsInfiniteList}>
-      <InfiniteScroll
-        className={clsx(classes[searchType], classes.infinityScroll)}
-        dataLength={acters?.length || 0}
-        next={loadMore}
+      <InfiniteList
+        entities={acters}
+        fetching={fetching}
         hasMore={hasMore}
-        loader={<LoadingBar />}
+        loadMore={loadMore}
+        renderOnLoading={() => <LoadingBar />}
       >
         <SearchResultsList acters={acters} />
-      </InfiniteScroll>
-      {acters && hasMore && !fetching && (
-        <HasMore onVisible={loadMore}>
-          <Button onClick={loadMore}>Load more</Button>
-        </HasMore>
-      )}
+      </InfiniteList>
     </div>
   )
 }
