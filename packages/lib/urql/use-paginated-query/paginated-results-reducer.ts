@@ -1,3 +1,5 @@
+import { OrderedMap } from 'immutable'
+
 import {
   WithId,
   PaginatedResultsState,
@@ -26,7 +28,7 @@ export const getPaginatedResultsReducer = <
   }
 
   const defaultState: ReducerState = {
-    results: [],
+    results: OrderedMap(),
     hasMore: false,
     fetching: false,
     pagination: defaultPagination,
@@ -54,11 +56,15 @@ export const getPaginatedResultsReducer = <
             const hasMore = results.length > state.pagination.take
             const sliceEnd = hasMore ? -1 : undefined
             const nextResultsPage = results.slice(0, sliceEnd)
+            const newResults = nextResultsPage.reduce(
+              (map, item) => map.set(item.id, item),
+              state.results
+            )
             return {
               ...state,
               hasMore,
               fetching: false,
-              results: [...state.results, ...nextResultsPage],
+              results: newResults,
             }
           }
           return {
@@ -68,12 +74,12 @@ export const getPaginatedResultsReducer = <
           }
         }
         case PaginatedResultsActionKind.LOAD_MORE: {
-          if (state.results.length > 0) {
+          if (state.results.size > 0) {
             return {
               ...state,
               pagination: {
                 ...state.pagination,
-                cursor: { id: state.results[state.results.length - 1].id },
+                cursor: { id: state.results.last().id },
                 skip: 1,
               },
             }

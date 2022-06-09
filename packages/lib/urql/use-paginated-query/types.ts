@@ -2,6 +2,7 @@
 import { Reducer } from 'react'
 
 import { DocumentNode } from 'graphql/language/ast'
+import { OrderedMap } from 'immutable'
 import { UseQueryState, TypedDocumentNode, UseQueryArgs } from 'urql'
 
 export interface Pagination {
@@ -10,9 +11,10 @@ export interface Pagination {
   take: number
 }
 
+export type ResultsType<TType = unknown> = OrderedMap<string | number, TType>
 export interface PaginatedResultsState<TType, TData, TVariables>
   extends UseQueryState<TData, TVariables> {
-  results: TType[]
+  results: ResultsType<TType>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
@@ -65,7 +67,7 @@ export type VariablesWithPagination<TVariables> = TVariables & Pagination
 
 export interface UsePaginatedState<TType = any, TData = any, TVariables = any>
   extends UseQueryState<TData, TVariables> {
-  results: TType[]
+  results: ResultsType<TType>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
