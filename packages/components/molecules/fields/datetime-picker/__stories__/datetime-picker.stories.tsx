@@ -35,14 +35,14 @@ DateOnly.args = {
   isAllDay: true,
 } as DateTimePickerProps
 
-export const WithMaxDateToday = Template.bind({})
-WithMaxDateToday.args = {
-  maxDate: new Date(),
+export const WithMaxDate9June2022 = Template.bind({})
+WithMaxDate9June2022.args = {
+  maxDate: new Date(2022, 5, 9, 12, 0, 0),
 } as DateTimePickerProps
 
-export const WithMinDateToday = Template.bind({})
-WithMinDateToday.args = {
-  minDate: new Date(),
+export const WithMinDate9June2022 = Template.bind({})
+WithMinDate9June2022.args = {
+  minDate: new Date(2022, 5, 9, 12, 0, 0),
 } as DateTimePickerProps
 
 export const ErrorState = Template.bind({})

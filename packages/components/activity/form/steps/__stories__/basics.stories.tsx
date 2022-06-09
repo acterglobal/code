@@ -39,7 +39,7 @@ const Template: Story = (args) => (
 
 export const Create = Template.bind({})
 
-const tomorrow = add(new Date(), { days: 1 })
+const tomorrow = add(new Date(2022, 5, 9), { days: 1 })
 const dayAfterTomorrow = add(tomorrow, { days: 1 })
 export const Edit = Template.bind({})
 Edit.parameters = {
