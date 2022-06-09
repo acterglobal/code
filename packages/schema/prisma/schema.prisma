@@ -119,6 +119,8 @@ model Acter {
 
   PostReactions PostReaction[] @relation("acter_reaction_on_post")
 
+  PostMentions PostMention[] @relation("acter_mentioned_on_post")
+
   @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
   @@map("acters")
 }
@@ -227,6 +229,8 @@ model Post {
 
   PostReactions PostReaction[] @relation("reaction_on_post")
 
+  PostMentions PostMention[] @relation("mention_on_post")
+
   Notification Notification[]
   @@map("posts")
 }
@@ -247,6 +251,20 @@ model PostReaction {
 
   @@unique(name: "oneTypeOfReactionOnOnePostByOneMember", fields: [emojiUnicode, postId, acterId])
   @@index(name: "onPost", fields: [postId])
+}
+
+model PostMention {
+  id   String @id @default(uuid())
+  name String
+
+  Post   Post   @relation("mention_on_post", fields: [postId], references: [id], onDelete: Cascade)
+  postId String @map("postId")
+
+  Acter   Acter  @relation("acter_mentioned_on_post", fields: [acterId], references: [id])
+  acterId String @map("acterId")
+
+  createdByUser   User   @relation("post_mention_by_user", fields: [createdByUserId], references: [id])
+  createdByUserId String @map("createdByUserId")
 }
 
 model Link {
@@ -390,6 +408,8 @@ model User {
   Invite Invite[] @relation("invite_created_by_user")
 
   PostReactions PostReaction[] @relation("post_reaction_by_user")
+
+  PostMentions PostMention[] @relation("post_mention_by_user")
 
   @@map("users")
 }

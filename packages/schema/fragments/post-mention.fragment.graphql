@@ -1,0 +1,7 @@
+fragment PostMentionsList on PostMention {
+  id
+  name
+  postId
+  acterId
+  createdByUserId
+}
