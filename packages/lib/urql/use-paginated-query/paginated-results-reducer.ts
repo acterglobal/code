@@ -56,10 +56,10 @@ export const getPaginatedResultsReducer = <
             const hasMore = results.length > state.pagination.take
             const sliceEnd = hasMore ? -1 : undefined
             const nextResultsPage = results.slice(0, sliceEnd)
-            const newResults = nextResultsPage.reduce(
-              (map, item) => map.set(item.id, item),
-              state.results
-            )
+            const newResults = nextResultsPage.reduce((map, item) => {
+              const newMap = map.set(item.id.toString(), item)
+              return newMap
+            }, state.results)
             return {
               ...state,
               hasMore,
