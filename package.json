@@ -1,6 +1,6 @@
 {
   "name": "acter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The platform for coordinating action on global challenges",
   "main": "index.js",
   "repository": "git@github.com:acterglobal/code.git",
