@@ -13,13 +13,14 @@ import {
 } from './types'
 
 export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
-  options: UsePaginationQueryOptions<TData, TVariables>
+  options: UsePaginationQueryOptions<TType, TData, TVariables>
 ): UsePaginatedResponse<TType, TData, TVariables> => {
-  const { query, dataKey, variables, pageSize = 10 } = options
+  const { query, dataKey, variables, pageSize = 10, resultsMergeFn } = options
 
   const [paginatedResultsReducer, { defaultState }] =
     getPaginatedResultsReducer<TType, TData, TVariables>({
       pageSize,
+      resultsMergeFn,
     })
   const [state, dispatch] = useReducer(paginatedResultsReducer, defaultState)
 

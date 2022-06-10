@@ -11,10 +11,13 @@ export interface Pagination {
   take: number
 }
 
-export type ResultsType<TType = unknown> = OrderedMap<string | number, TType>
+export type StateResultsType<TType = unknown> = OrderedMap<
+  string | number,
+  TType
+>
 export interface PaginatedResultsState<TType, TData, TVariables>
   extends UseQueryState<TData, TVariables> {
-  results: ResultsType<TType>
+  results: StateResultsType<TType>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
@@ -36,8 +39,14 @@ export interface PaginatedResultsAction<TType> {
   payload?: PaginatedResultsActionPayload<TType>
 }
 
-export interface GetPaginatedResultsReducerProps {
+export type ResultsMergeFn<TType = unknown> = (
+  state: StateResultsType<TType>,
+  results: TType
+) => StateResultsType<TType>
+
+export interface GetPaginatedResultsReducerProps<TType = unknown> {
   pageSize?: number
+  resultsMergeFn?: ResultsMergeFn<TType>
 }
 
 export type GetPaginatedResultsReducer<TType, TData, TVariables> = Reducer<
@@ -67,7 +76,7 @@ export type VariablesWithPagination<TVariables> = TVariables & Pagination
 
 export interface UsePaginatedState<TType = any, TData = any, TVariables = any>
   extends UseQueryState<TData, TVariables> {
-  results: ResultsType<TType>
+  results: StateResultsType<TType>
   fetching: boolean
   hasMore: boolean
   pagination: Pagination
@@ -80,7 +89,7 @@ export type UsePaginatedResponse<TType, TData, TVariables> = [
   UsePaginatedState<TType, TData, TVariables>,
   refetch<TVariables>
 ]
-export interface UsePaginationQueryOptions<TData, TVariables>
+export interface UsePaginationQueryOptions<TType, TData, TVariables>
   extends UseQueryArgs<TVariables, TData> {
   /**
    * The GraphQL query
@@ -102,6 +111,10 @@ export interface UsePaginationQueryOptions<TData, TVariables>
    * Pagination options
    */
   pagination?: Pagination
+  /**
+   * Merge function to use for new results
+   */
+  resultsMergeFn?: ResultsMergeFn<TType>
 }
 
 export type WithId = {

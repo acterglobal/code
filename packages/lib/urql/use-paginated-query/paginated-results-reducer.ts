@@ -14,11 +14,14 @@ export const getPaginatedResultsReducer = <
   TType extends WithId,
   TData,
   TVariables
->(
-  { pageSize }: GetPaginatedResultsReducerProps = {
-    pageSize: 20,
-  }
-): GetPaginatedResultsReducerResult<TType, TData, TVariables> => {
+>({
+  pageSize = 20,
+  resultsMergeFn = (map, item) => map.set(item.id.toString(), item),
+}: GetPaginatedResultsReducerProps<TType> = {}): GetPaginatedResultsReducerResult<
+  TType,
+  TData,
+  TVariables
+> => {
   type ReducerState = PaginatedResultsState<TType, TData, TVariables>
 
   const defaultPagination: Pagination = {
@@ -57,7 +60,7 @@ export const getPaginatedResultsReducer = <
             const sliceEnd = hasMore ? -1 : undefined
             const nextResultsPage = results.slice(0, sliceEnd)
             const newResults = nextResultsPage.reduce(
-              (map, item) => map.set(item.id.toString(), item),
+              resultsMergeFn,
               state.results
             )
             return {

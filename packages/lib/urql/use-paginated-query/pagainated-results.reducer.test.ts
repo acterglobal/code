@@ -5,7 +5,7 @@ import {
   GetPaginatedResultsReducer,
   PaginatedResultsActionKind,
   PaginatedResultsState,
-  ResultsType,
+  StateResultsType,
 } from './types'
 
 describe('paginatedResultsReducer', () => {
@@ -134,7 +134,7 @@ describe('paginatedResultsReducer', () => {
               results: OrderedMap({
                 1: { id: 1 },
                 2: { id: 2 },
-              }) as ResultsType,
+              }) as StateResultsType,
             },
             {
               type: PaginatedResultsActionKind.NEW_RESULTS,
@@ -156,7 +156,7 @@ describe('paginatedResultsReducer', () => {
               results: OrderedMap({
                 1: { id: 1 },
                 2: { id: 2 },
-              }) as ResultsType,
+              }) as StateResultsType,
             },
             {
               type: PaginatedResultsActionKind.NEW_RESULTS,
@@ -168,6 +168,40 @@ describe('paginatedResultsReducer', () => {
             { id: 1 },
             { id: 2 },
             { id: 3 },
+          ])
+        })
+      })
+
+      describe('resultsMergeFn', () => {
+        it('should allow for different merge strategies', () => {
+          const result = getPaginatedResultsReducer<
+            { id: number; foo: string },
+            unknown,
+            unknown
+          >({
+            resultsMergeFn: (state, item) =>
+              state.set(item.id.toString(), {
+                ...item,
+                foo: 'bar'.repeat(item.id),
+              }),
+          })
+          reducer = result[0]
+          const newResults = [{ id: 1 }, { id: 2 }, { id: 3 }]
+          const state = reducer(
+            {
+              ...defaultState,
+              results: OrderedMap() as StateResultsType,
+            },
+            {
+              type: PaginatedResultsActionKind.NEW_RESULTS,
+              payload: { results: newResults },
+            }
+          )
+
+          expect(state.results.toList().toArray()).toStrictEqual([
+            { id: 1, foo: 'bar' },
+            { id: 2, foo: 'barbar' },
+            { id: 3, foo: 'barbarbar' },
           ])
         })
       })

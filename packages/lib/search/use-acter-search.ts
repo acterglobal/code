@@ -22,6 +22,7 @@ export interface UseActerSearchQueryResults
 }
 
 type UseActerSearchOptions = UsePaginationQueryOptions<
+  Acter,
   ActerSearchData,
   SearchVariables
 >
