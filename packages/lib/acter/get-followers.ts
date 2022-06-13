@@ -43,8 +43,5 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
     (follower) => isUserActerCreator && follower?.id !== user.Acter.id
   )
 
-  console.log('ACTER...', acter)
-  console.log('USER...', user.Acter.Following)
-
   return selectedFollowers
 }
