@@ -11,11 +11,13 @@ import { MoreHoriz as DotsIcon } from '@material-ui/icons'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { DropdownMenu } from '@acter/components/util/dropdown-menu'
+import { useActer } from '@acter/lib/acter/use-acter'
+import { useDeleteActerConnection } from '@acter/lib/acter/use-delete-connection'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
-const { ADMIN, MEMBER, REMOVED } = ActerConnectionRole
+const { ADMIN, MEMBER } = ActerConnectionRole
 export interface ConnectionStateProps {
   connection: ActerConnection
   canEdit: boolean
@@ -27,12 +29,17 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
+  const { acter } = useActer()
+
   const [{ fetching: updatingConnection }, updateConnection] =
     useUpdateActerConnection()
+  const [{ fetching: deletingConnection }, deleteActerConnection] =
+    useDeleteActerConnection(acter)
 
-  if (!canEdit) return null
+  if (!canEdit || !acter) return null
 
-  if (updatingConnection) return <LoadingSpinner thickness={4} />
+  if (updatingConnection || deletingConnection)
+    return <LoadingSpinner thickness={4} />
 
   const handleClick = (role) => updateConnection(connection, role)
 
@@ -52,7 +59,7 @@ export const ConnectionUpdateOptions: FC<ConnectionStateProps> = ({
       </MenuItem>
       <MenuItem
         className={classes.menuItem}
-        onClick={() => handleClick(REMOVED)}
+        onClick={() => deleteActerConnection(acter, connection.Follower)}
       >
         {t('removeAsMember')}
       </MenuItem>
