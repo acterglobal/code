@@ -1,24 +1,50 @@
-import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { Acter, User } from '@acter/schema'
 
+import { ActerTypes } from '../constants'
+
 /**
- * Get a list of Acters for the current User which can follow the given Acter
+ * Get a list of User connections the can follow the given Acter
  * @param user User for which we will get a list of potential followers
  * @param acter Acter we wish to follow
  * @returns A list of Acters
  */
+
+const { GROUP, USER } = ActerTypes
+
 export const getFollowers = (user: User, acter: Acter): Acter[] => {
-  if (!user?.Acter?.Following || !acter) {
+  if (!user?.Acter?.Following || !acter.Followers) {
     return []
   }
 
-  const followers = user.Acter.Following.map(
-    ({ Following }) => Following
-  ).filter(canFollowActer(acter))
+  const isUserActerCreator = user.id === acter.createdByUserId
 
-  // Only include the User's UserActer if this Acter was not created by the User
-  if (acter.createdByUserId !== user.id) {
-    followers.unshift(user.Acter)
-  }
-  return followers
+  const filteredActerFollowers = acter.Followers.map(({ Follower }) => {
+    if (Follower.id === user.Acter?.id || Follower.ActerType.name !== USER)
+      return Follower
+  })
+
+  const filteredUserConnections = user.Acter.Following.map(({ Following }) => {
+    if (Following.ActerType.name !== GROUP) return Following
+  })
+
+  const filteredActerFollowersMap = filteredActerFollowers.reduce(
+    (state, payload) => ({ ...state, [payload?.id]: payload }),
+    {}
+  )
+
+  const mergedFollowers = filteredUserConnections.reduce((state, payload) => {
+    if (filteredActerFollowersMap[payload?.id]) {
+      return [...state, payload]
+    }
+    return state
+  }, filteredActerFollowers)
+
+  const selectedFollowers = mergedFollowers.filter(
+    (follower) => isUserActerCreator && follower?.id !== user.Acter.id
+  )
+
+  console.log('ACTER...', acter)
+  console.log('USER...', user.Acter.Following)
+
+  return selectedFollowers
 }

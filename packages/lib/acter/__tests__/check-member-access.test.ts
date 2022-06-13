@@ -1,7 +1,7 @@
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { followerHasRoleOnActer } from '@acter/lib/acter/follower-has-role-on-acter'
-import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { User } from '@acter/schema'
 import {
@@ -11,7 +11,7 @@ import {
 } from '@acter/schema/fixtures'
 
 jest.mock('@acter/lib/user/user-has-role-on-acter')
-jest.mock('@acter/lib/acter/get-followers')
+jest.mock('@acter/lib/acter/get-potential-followers')
 jest.mock('@acter/lib/acter/filter-by-acter-setting')
 jest.mock('@acter/lib/acter/follower-has-role-on-acter')
 
@@ -34,12 +34,13 @@ describe('checkMemberAccess', () => {
   } as User
 
   const mockedUserHasRoleOnActer = userHasRoleOnActer as jest.Mock
-  const mockedGetFollowers = getFollowers as jest.Mock
-  const mockedFilterConnectionsByActerSetting = filterConnectionsByActerSetting as jest.Mock
+  const mockedGetPotentialFollowers = getPotentialFollowers as jest.Mock
+  const mockedFilterConnectionsByActerSetting =
+    filterConnectionsByActerSetting as jest.Mock
   const mockedFollowerHasRoleOnActer = followerHasRoleOnActer as jest.Mock
 
   beforeEach(() => {
-    mockedGetFollowers.mockReturnValue([acter1, acter2])
+    mockedGetPotentialFollowers.mockReturnValue([acter1, acter2])
     mockedFilterConnectionsByActerSetting.mockReturnValue([acter1, acter2])
   })
 

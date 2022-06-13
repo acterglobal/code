@@ -10,6 +10,8 @@ import { DropdownMenu } from '@acter/components/util/dropdown-menu'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { filterConnectionsByActerSetting } from '@acter/lib/acter/filter-by-acter-setting'
 import { getFollowers } from '@acter/lib/acter/get-followers'
+import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
+import { mergeFollowers } from '@acter/lib/acter/merge-followers'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { Size } from '@acter/lib/constants'
 import { ActerTypes } from '@acter/lib/constants/acter-types'
@@ -32,10 +34,18 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
 
+  const potentialFollowers = useMemo(
+    () =>
+      getPotentialFollowers(user, acter).filter(
+        (follower) => follower.id !== acter.Activity?.Organiser?.id
+      ),
+    [acter?.Followers]
+  )
+
   const followers = useMemo(
     () =>
       getFollowers(user, acter).filter(
-        (follower) => follower.id !== acter.Activity?.Organiser?.id
+        (follower) => follower?.id !== acter.Activity?.Organiser?.id
       ),
     [acter?.Followers]
   )
@@ -55,11 +65,19 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       />
     )
 
-  if (!followers.length) return null
-
-  const selectedFollowers = filterConnectionsByActerSetting(acter, followers)
+  if (!potentialFollowers.length) return null
 
   const isMember = checkMemberAccess(user, acter)
+
+  const filteredPotentialFollowers = filterConnectionsByActerSetting(
+    acter,
+    potentialFollowers
+  )
+
+  const selectedFollowers = mergeFollowers(
+    filteredPotentialFollowers,
+    followers
+  )
 
   if (isMember && selectedFollowers.length === 0) {
     return <Box className={classes.memberLabel}>{capitalize(t('member'))}</Box>
