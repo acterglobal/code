@@ -29,7 +29,7 @@ describe('getFollowers', () => {
     expect(getFollowers(user, ExampleActer)).toStrictEqual([])
   })
 
-  it('should create a combined list of acter followers & user connections that can connect', () => {
+  it.skip('should create a combined list of acter followers & user connections that can connect', () => {
     const acter1: Acter = {
       ...ExampleActer,
       id: 'acter-100',
