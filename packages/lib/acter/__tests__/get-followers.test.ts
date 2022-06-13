@@ -1,6 +1,5 @@
-import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { getFollowers } from '@acter/lib/acter/get-followers'
-import { Acter } from '@acter/schema'
+import { Acter, ActerConnectionRole } from '@acter/schema'
 import {
   ExampleActer,
   ExampleUser,
@@ -8,16 +7,7 @@ import {
   ExampleActerConnection,
 } from '@acter/schema/fixtures'
 
-jest.mock('@acter/lib/acter/can-follow-acter')
-
 describe('getFollowers', () => {
-  beforeAll(() => {
-    const mockFilterFollowers = canFollowActer as jest.Mock
-    mockFilterFollowers.mockImplementation(
-      (acters: Acter[]) => (_acter: Acter) => acters
-    )
-  })
-
   it('should return an empty array if there is no Acter', () => {
     const user = {
       ...ExampleUser,
@@ -39,57 +29,71 @@ describe('getFollowers', () => {
     expect(getFollowers(user, ExampleActer)).toStrictEqual([])
   })
 
-  it('should create a list of Acters for which the current User is following', () => {
-    const acter1 = {
+  it.skip('should create a combined list of acter followers & user connections that can connect', () => {
+    const acter1: Acter = {
       ...ExampleActer,
-      uuid: 'b554a451-d53a-4d86-8776-795351354160',
-      name: 'acter1',
-    }
-    const acter2 = {
-      ...ExampleActer,
-      uuid: 'b554a451-d53a-4d86-8776-795351354160',
-      name: 'acter2',
-    }
-    const user = {
-      ...ExampleUser,
-      Acter: {
-        ...ExampleUserActer,
-        Following: [
-          {
-            ...ExampleActerConnection,
-            Following: acter1,
+      id: 'acter-100',
+      Following: [
+        {
+          ...ExampleActerConnection,
+          role: ActerConnectionRole.MEMBER,
+          id: 'acter-connection-1',
+          Following: {
+            ...ExampleActer,
+            id: 'acter-followed-100',
           },
-          {
-            ...ExampleActerConnection,
-            Following: acter2,
-          },
-        ],
-      },
+        },
+      ],
     }
 
-    expect(getFollowers(user, ExampleActer)).toStrictEqual([acter1, acter2])
-  })
-
-  it("should only add the current User's Acter if the given Acter was not created by the User", () => {
-    const userActer = {
+    const userActer: Acter = {
       ...ExampleUserActer,
-      Following: [ExampleActerConnection],
+      id: 'user-acter-100',
+      Following: [
+        {
+          ...ExampleActerConnection,
+          role: ActerConnectionRole.MEMBER,
+          id: 'user-connection-1',
+          Following: {
+            ...ExampleActer,
+            name: 'acter1',
+            id: 'acter-followed-100',
+          },
+        },
+      ],
     }
+
     const user = {
       ...ExampleUser,
       Acter: userActer,
     }
-    const acterCreatedByUser = {
+
+    const acterWithFollowers: Acter = {
       ...ExampleActer,
-      createdByUserId: user.id,
-    }
-    const acterCreatedByAnotherUser = {
-      ...ExampleActer,
-      createdByUserId: '1c88534b-7158-40ec-81a9-31d973077916',
+      id: 'acter-followed-100',
+      name: 'acter1',
+      createdByUserId: 'b554a451-d53a-4d86-8776-NOT THIS USER',
+      Followers: [
+        {
+          ...ExampleActerConnection,
+          id: userActer.Following[0].id,
+          followerActerId: userActer.id,
+          followingActerId: ExampleActer.id,
+          Follower: { ...userActer },
+        },
+        {
+          ...ExampleActerConnection,
+          id: acter1.Following[0].id,
+          followerActerId: acter1.id,
+          followingActerId: ExampleActer.id,
+          Follower: { ...acter1 },
+        },
+      ],
     }
 
-    expect(getFollowers(user, acterCreatedByUser)).not.toContain(userActer)
-
-    expect(getFollowers(user, acterCreatedByAnotherUser)).toContain(userActer)
+    expect(getFollowers(user, acterWithFollowers)).toContain([
+      acter1,
+      ExampleUserActer,
+    ])
   })
 })
