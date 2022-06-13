@@ -39,7 +39,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       getPotentialFollowers(user, acter).filter(
         (follower) => follower.id !== acter.Activity?.Organiser?.id
       ),
-    [acter?.Followers]
+    [acter?.Followers?.length]
   )
 
   const followers = useMemo(
@@ -47,7 +47,7 @@ export const Connect: FC<ConnectProps> = ({ acterId, size }) => {
       getFollowers(user, acter).filter(
         (follower) => follower?.id !== acter.Activity?.Organiser?.id
       ),
-    [acter?.Followers]
+    [acter?.Followers?.length]
   )
 
   if (acterLoading || userLoading) return <LoadingSpinner />
