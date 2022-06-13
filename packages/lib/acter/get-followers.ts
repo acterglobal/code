@@ -1,4 +1,5 @@
 import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
+import { getActerConnection } from '@acter/lib/acter/get-acter-connection'
 import { Acter, User } from '@acter/schema'
 
 /**
@@ -16,8 +17,10 @@ export const getFollowers = (user: User, acter: Acter): Acter[] => {
     ({ Following }) => Following
   ).filter(canFollowActer(acter))
 
+  const connection = getActerConnection(acter, user.Acter)
+
   // Only include the User's UserActer if this Acter was not created by the User
-  if (acter.createdByUserId !== user.id) {
+  if (!connection) {
     followers.unshift(user.Acter)
   }
   return followers
