@@ -19,9 +19,14 @@ export const getPotentialFollowers = (user: User, acter: Acter): Acter[] => {
 
   const connection = getActerConnection(acter, user.Acter)
 
-  // Only include the User's UserActer if this Acter was not created by the User
-  if (!connection) {
+  // Only include the User's Acter if this Acter was not created by the User
+  // OR it WAS created by the User but there is no longer a connection (i.e. rejoin)
+  if (
+    acter.createdByUserId !== user.id ||
+    (acter.createdByUserId === user.id && !connection)
+  ) {
     followers.unshift(user.Acter)
   }
+
   return followers
 }
