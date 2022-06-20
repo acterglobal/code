@@ -1,4 +1,4 @@
-import { SearchActivitiesDateFilter } from './date-filter'
+import { ActivitiesDateFilter } from './date-filter'
 
 export enum SearchActivitiesSortBy {
   DATE = 'DATE',
@@ -20,9 +20,9 @@ type SearchActivitiesOrderBy =
  */
 export const getOrderBy = (
   sortBy: SearchActivitiesSortBy,
-  dateFilter?: SearchActivitiesDateFilter
+  dateFilter?: ActivitiesDateFilter
 ): SearchActivitiesOrderBy => {
-  const { ALL, PAST } = SearchActivitiesDateFilter
+  const { ALL, PAST } = ActivitiesDateFilter
 
   switch (sortBy) {
     case SearchActivitiesSortBy.DATE:

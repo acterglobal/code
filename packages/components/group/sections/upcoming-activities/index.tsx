@@ -17,7 +17,9 @@ export const UpcomingActivities: FC = () => {
     keyPrefix: 'upcomingActivities',
   })
   const { acter } = useActer()
-  const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
+  const { activities, fetching: activitiesFetching } = useActivities({
+    followerId: acter?.id,
+  })
 
   if (!activities || !acter) return null
 

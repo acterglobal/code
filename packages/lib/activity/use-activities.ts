@@ -5,20 +5,37 @@ import { useQuery, UseQueryState } from 'urql'
 import { Activity } from '@acter/schema'
 import QUERY_ACTIVITIES from '@acter/schema/queries/activities-followed-by-acter.graphql'
 
+import { ActivitiesDateFilter } from '../api/resolvers/date-filter'
+
 type UseActivitiesData = {
   activities: Activity[]
+}
+type UseActivitiesVariables = {
+  followerId: string
+  dateFilter: ActivitiesDateFilter
 }
 
 type UseActivitiesResponse = UseQueryState<UseActivitiesData> &
   UseActivitiesData
 
-export const useActivities = (followerId: string): UseActivitiesResponse => {
+type Params = {
+  followerId: string
+  dateFilter?: ActivitiesDateFilter
+}
+
+export const useActivities = ({
+  followerId,
+  dateFilter = ActivitiesDateFilter.ALL,
+}: Params): UseActivitiesResponse => {
   const [activities, setActivities] = useState<Activity[]>()
 
-  const [{ data, ...restQueryResult }] = useQuery({
+  const [{ data, ...restQueryResult }] = useQuery<
+    UseActivitiesData,
+    UseActivitiesVariables
+  >({
     query: QUERY_ACTIVITIES,
     pause: !followerId,
-    variables: { followerId },
+    variables: { followerId, dateFilter },
   })
 
   useEffect(() => {
