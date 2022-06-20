@@ -1,12 +1,12 @@
 import { Meta, Story } from '@storybook/react'
 
-import { SearchFilterButton } from './search-filter-button'
+import { FilterButton } from './filter-button'
 
 export default {
-  title: 'Atoms/Search/Button/SearchFilterButton',
-  component: SearchFilterButton,
+  title: 'Atoms/Search/Button/FilterButton',
+  component: FilterButton,
 } as Meta
 
-const Template: Story = () => <SearchFilterButton />
+const Template: Story = () => <FilterButton />
 
 export const Button = Template.bind({})

@@ -3,42 +3,44 @@ import { FC } from 'react'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-import { SearchFilterButton } from '@acter/components/search/atoms/button'
-import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { FilterButton } from '@acter/components/search/atoms/button'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
-const { ALL, UPCOMING, PAST } = SearchActivitiesDateFilter
+const { ALL, UPCOMING, PAST } = ActivitiesDateFilter
 
-export interface SearchActivitiesDateFilters {
-  currentDateFilter: SearchActivitiesDateFilter
-  onChange: (currentDateFilter: SearchActivitiesDateFilter) => void
+export interface ActivitiesDateFilters {
+  currentDateFilter: ActivitiesDateFilter
+  onChange: (currentDateFilter: ActivitiesDateFilter) => void
 }
 
-export const SearchActivitiesDateFilters: FC<SearchActivitiesDateFilters> = ({
+export const ActivitiesDateFilters: FC<ActivitiesDateFilters> = ({
   currentDateFilter,
   onChange,
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Box className={classes.SearchActivitiesDateFilters}>
-      <SearchFilterButton
+      <FilterButton
         className={currentDateFilter === UPCOMING && classes.active}
         onClick={() => onChange(UPCOMING)}
       >
-        Upcoming
-      </SearchFilterButton>
-      <SearchFilterButton
+        {t('upcoming')}
+      </FilterButton>
+      <FilterButton
         className={currentDateFilter === PAST && classes.active}
         onClick={() => onChange(PAST)}
       >
-        Past
-      </SearchFilterButton>
-      <SearchFilterButton
+        {t('past')}
+      </FilterButton>
+      <FilterButton
         className={currentDateFilter === ALL && classes.active}
         onClick={() => onChange(ALL)}
       >
-        All
-      </SearchFilterButton>
+        {t('all')}
+      </FilterButton>
     </Box>
   )
 }
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
     active: {
       backgroundColor: theme.palette.secondary.main,
       color: theme.colors.white,
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightMedium,
     },
   })
 )

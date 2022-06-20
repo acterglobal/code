@@ -14,7 +14,7 @@ import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SecondaryMenu } from '@acter/components/molecules/secondary-menu'
 import { SearchTabs } from '@acter/components/search/molecules/tabs'
 import { SearchTypesPicker } from '@acter/components/search/molecules/types-picker'
-import { SearchActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
 import {
   ActerSearchTypes,
@@ -43,14 +43,14 @@ export const SearchMenu: FC = () => {
           types: [ActerTypes.ACTIVITY],
           activityTypes: ActivitySearchTypes,
           orderBy: SearchActivitiesSortBy.DATE,
-          dateFilter: SearchActivitiesDateFilter.UPCOMING,
+          dateFilter: ActivitiesDateFilter.UPCOMING,
         })
       } else {
         setSearchVariables({
           types: ActerSearchTypes,
           activityTypes: undefined,
           orderBy: SearchActivitiesSortBy.NAME,
-          dateFilter: SearchActivitiesDateFilter.UPCOMING,
+          dateFilter: ActivitiesDateFilter.UPCOMING,
         })
       }
       currentSearchType.current = searchType

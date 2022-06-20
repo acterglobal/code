@@ -43,6 +43,7 @@ import { QueueInviteEmail } from '../middlewares/queue-invite-email'
 import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'
 import { ActerResolver } from './acter'
 import { ActerConnectionResolver } from './acter-connection'
+import { ActivitiesResolver } from './activities'
 import { HealthCheckResolver } from './health'
 import { SearchResolver } from './search'
 
@@ -104,4 +105,5 @@ export const resolvers: NonEmptyArray<Function> = [
   ActerConnectionResolver,
   HealthCheckResolver,
   SearchResolver,
+  ActivitiesResolver,
 ]

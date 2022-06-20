@@ -2,7 +2,7 @@ import { Resolver, Query, Arg, Ctx, registerEnumType, Int } from 'type-graphql'
 
 import {
   withDateFilterSearch,
-  SearchActivitiesDateFilter,
+  ActivitiesDateFilter,
 } from '@acter/lib/api/resolvers/date-filter'
 import {
   getOrderBy,
@@ -25,8 +25,8 @@ registerEnumType(SearchActivitiesSortBy, {
   name: 'SearchActivitiesSortBy',
 })
 
-registerEnumType(SearchActivitiesDateFilter, {
-  name: 'SearchActivitiesDateFilter',
+registerEnumType(ActivitiesDateFilter, {
+  name: 'ActivitiesDateFilter',
 })
 
 @Resolver(Acter)
@@ -37,7 +37,7 @@ export class SearchResolver {
     @Arg('searchText', { nullable: true }) searchText: string,
     @Arg('endsBefore', { nullable: true }) endsBefore: Date,
     @Arg('dateFilter', { nullable: true })
-    dateFilter: SearchActivitiesDateFilter,
+    dateFilter: ActivitiesDateFilter,
     @Arg('interests', () => [String], { nullable: true }) interests: [string],
     @Arg('types', () => [String], { nullable: true }) types: [string],
     @Arg('activityTypes', () => [String], { nullable: true })

@@ -1,72 +1,44 @@
 import React, { FC, useState } from 'react'
 
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  createStyles,
-  withStyles,
-} from '@material-ui/core'
+import { Box, createStyles, withStyles } from '@material-ui/core'
 
 import { AddActivitySection } from '@acter/components/activity/add-activity-section'
 import { ActivitiesList } from '@acter/components/activity/list'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { ActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
 import { useActer } from '@acter/lib/acter/use-acter'
-import {
-  getActivitiesAfterDate,
-  sortActivitiesByStartAt,
-} from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 
 export const ActivitiesSection: FC = () => {
-  const { t } = useTranslation('common')
-  const [showPastActivities, setShowPastActivities] = useState(false)
+  const [currentDateFilter, setCurrentDateFilter] =
+    useState<ActivitiesDateFilter>(ActivitiesDateFilter.UPCOMING)
   const { acter, fetching: acterFetching } = useActer()
-  const { activities, fetching: activitiesFetching } = useActivities(acter?.id)
+  const { activities, fetching: activitiesFetching } = useActivities({
+    followerId: acter?.id,
+    dateFilter: currentDateFilter,
+  })
 
   if (acterFetching || activitiesFetching) return <LoadingSpinner />
   if (!acter || !activities) return null
 
-  const allActivities = sortActivitiesByStartAt(activities)
-  const futureActivities = getActivitiesAfterDate(allActivities, new Date())
-
-  const displayActivities = showPastActivities
-    ? allActivities
-    : futureActivities
-
+  const handleDateFilter = (dateFilter: ActivitiesDateFilter) => {
+    if (dateFilter === currentDateFilter) return
+    setCurrentDateFilter(dateFilter)
+  }
   return (
     <>
       <TopSection>
         <AddActivitySection />
-
-        <FormControlsContainer>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={showPastActivities}
-                onChange={(evt) => setShowPastActivities(evt.target.checked)}
-                name="showPastActivities"
-              />
-            }
-            label={t('showPastActivities')}
-          />
-        </FormControlsContainer>
       </TopSection>
-
-      <ActivitiesList activities={displayActivities} />
+      <ActivitiesDateFilters
+        currentDateFilter={currentDateFilter}
+        onChange={handleDateFilter}
+      />
+      <ActivitiesList activities={activities} />
     </>
   )
 }
-
-const FormControlsContainer = withStyles(() =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-  })
-)(Box)
 
 const TopSection = withStyles(() =>
   createStyles({

@@ -1,19 +1,11 @@
 #import "../fragments/acter-display.fragment.graphql"
 #import "../fragments/activity-display.fragment.graphql"
 
-query ActivitiesFollowedByActer($followerId: String!) {
-  activities(
-    where: {
-      Acter: {
-        is: {
-          deletedAt: { equals: null }
-          Followers: {
-            some: { Follower: { is: { id: { equals: $followerId } } } }
-          }
-        }
-      }
-    }
-  ) {
+query ActivitiesFollowedByActer(
+  $followerId: String!
+  $dateFilter: ActivitiesDateFilter
+) {
+  activities(followerId: $followerId, dateFilter: $dateFilter) {
     ...ActivityDisplay
     Acter {
       ...ActerDisplay

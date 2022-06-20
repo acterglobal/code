@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core'
 import { createStyles, Theme, withStyles } from '@material-ui/core/styles'
 
-export const SearchFilterButton = withStyles((theme: Theme) =>
+export const FilterButton = withStyles((theme: Theme) =>
   createStyles({
     root: {
       height: theme.spacing(4.5),
@@ -18,7 +18,7 @@ export const SearchFilterButton = withStyles((theme: Theme) =>
       '&:hover, &.active': {
         backgroundColor: theme.palette.secondary.main,
         color: theme.colors.white,
-        fontWeight: theme.typography.fontWeightBold,
+        fontWeight: theme.typography.fontWeightMedium,
         boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.1)',
       },
     },
