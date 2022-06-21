@@ -1,23 +1,15 @@
 services:
   - type: web
-    name: demo
+    name: Web
     env: node
     plan: starter
+    region: frankfurt
     buildCommand: corepack enable && yarn set version stable && yarn plugin import workspace-tools && yarn workspaces focus --production @acter/web && yarn build:cicd
     startCommand: yarn workspace @acter/web start
-    envVars:
-      - key: BASE_URL
-        value: https://acter-dev-zbeo.onrender.com
-      - key: AUTH0_ISSUER_BASE_URL
-        value: https://acter-dev.eu.auth0.com
-      - key: EMAIL_FROM
-        value: hello@acter.global
-      - key: NEXT_PUBLIC_IMAGE_LOADER_URL
-        value: https://acter-dev.imgix.net
 databases:
   - name: acter-dev-db
     region: frankfurt
     plan: starter
-    databaseName: acter_dev
+    databaseName: db
     user: user
     postgresMajorVersion: 14
