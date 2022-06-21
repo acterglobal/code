@@ -18,6 +18,6 @@ databases:
   - name: acter-dev-db
     region: frankfurt
     plan: starter
-    databaseName: postgres
+    databaseName: acter-dev
     user: user
     postgresMajorVersion: 14
