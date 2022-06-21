@@ -7,7 +7,7 @@ export const mapFollowersByType = (
   acter: Acter
 ): { [key: string]: ActerConnection[] } => {
   return (
-    acter.Followers?.reduce((map, connection) => {
+    acter?.Followers?.reduce((map, connection) => {
       const type = connection.Follower.ActerType?.name
       const key = type === ActerTypes.USER ? PEOPLE : ACTERS
       return {

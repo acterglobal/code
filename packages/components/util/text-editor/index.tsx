@@ -32,8 +32,12 @@ import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link
 import { EditorContext } from '@acter/components/util/text-editor/editor-context'
 import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
 import { mentions } from '@acter/components/util/text-editor/mentions'
+import { DraftEntityTypes } from '@acter/lib/constants'
+import { getEntities } from '@acter/lib/draft-js/get-entities'
 import { getInitials } from '@acter/lib/get-initials'
 import { ActerConnection } from '@acter/schema'
+
+const { LINK, MENTION } = DraftEntityTypes
 
 let htmlToDraft = null
 if (typeof window === 'object') {
@@ -83,6 +87,7 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   const [open, setOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
+  const [selectedMentions, setSelectedMentions] = useState([])
 
   useEffect(() => {
     if (followers) {
@@ -134,6 +139,18 @@ export const TextEditor: FC<TextEditorProps> = ({
   )
 
   useEffect(() => {
+    if (editorState) {
+      const entities = getEntities(editorState, MENTION)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mentions = entities.map(({ content }: any) => {
+        return content.mention
+      })
+
+      setSelectedMentions(mentions)
+    }
+  }, [editorState])
+
+  useEffect(() => {
     if (clearText) {
       return setEditorState(EditorState.createEmpty())
     }
@@ -144,7 +161,7 @@ export const TextEditor: FC<TextEditorProps> = ({
 
     const options = {
       entityStyleFn: (entity) => {
-        if (entity.get('type').toLowerCase() === 'link') {
+        if (entity.get('type').toLowerCase() === LINK) {
           const data = entity.getData()
 
           return {
@@ -161,7 +178,6 @@ export const TextEditor: FC<TextEditorProps> = ({
     const value = stateToHTML(contentState, options)
 
     handleInputChange(value)
-
     setEditorState(data)
   }
 
@@ -173,13 +189,10 @@ export const TextEditor: FC<TextEditorProps> = ({
   const onOpenChange = useCallback((_open: boolean) => {
     setOpen(_open)
   }, [])
+
   const onSearchChange = useCallback(({ value }: { value: string }) => {
     setSuggestions(defaultSuggestionsFilter(value, mentions))
   }, [])
-
-  const onAddMention = () => {
-    // SOMETHING
-  }
 
   return (
     <Box
@@ -213,7 +226,6 @@ export const TextEditor: FC<TextEditorProps> = ({
             onOpenChange={onOpenChange}
             onSearchChange={onSearchChange}
             suggestions={suggestions}
-            onAddMention={() => onAddMention}
           />
         </EditorContext.Provider>
 
