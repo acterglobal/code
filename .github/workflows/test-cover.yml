@@ -50,14 +50,3 @@ jobs:
       - name: coverage tests
         run: |
           yarn cover
-
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: build
-          workingDir: ./packages/components
-          exitOnceUploaded: true
-        env:
-          STORYBOOK_IMAGE_LOADER_URL: https://acter-dev.imgix.net
-          STORYBOOK_GOOGLE_MAPS_API_KEY: ${{ secrets.STORYBOOK_GOOGLE_MAPS_API_KEY }}
