@@ -8,7 +8,6 @@
     "dev": "yarn dotenv -- start-storybook -p 6006",
     "build": "yarn dotenv -- build-storybook",
     "build:cicd": "yarn workspace @acter/schema build && build",
-    "chromatic": "yarn dotenv -- chromatic --build-script-name build",
     "dotenv": "dotenv -e ../../.env"
   },
   "dependencies": {
@@ -87,7 +86,6 @@
     "babel-loader": "8.2.2",
     "babel-plugin-polyfill-corejs2": "0.2.2",
     "babel-plugin-polyfill-regenerator": "0.2.2",
-    "chromatic": "^6.5.4",
     "date-fns": "2.23.0",
     "graphql": "15.5.1",
     "just-capitalize": "1.0.1",
