@@ -20,7 +20,6 @@
     "build:web": "yarn workspace @acter/web build",
     "start": "yarn workspace @acter/web start",
     "storybook": "yarn workspace @acter/components dev",
-    "chromatic": "yarn workspace @acter/components chromatic",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx",
     "test": "dotenv jest",
     "test:prepush": "yarn lint --quiet && yarn cover && yarn build",
