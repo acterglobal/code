@@ -13,6 +13,7 @@ import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
 import createMentionPlugin, {
   defaultSuggestionsFilter,
+  MentionData,
 } from '@draft-js-plugins/mention'
 import '@draft-js-plugins/mention/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
@@ -31,11 +32,10 @@ import {
 import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
 import { EditorContext } from '@acter/components/util/text-editor/editor-context'
 import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
-import { mentions } from '@acter/components/util/text-editor/mentions'
 import { DraftEntityTypes } from '@acter/lib/constants'
 import { getEntities } from '@acter/lib/draft-js/get-entities'
-import { getInitials } from '@acter/lib/get-initials'
-import { ActerConnection } from '@acter/schema'
+import { getPostMentionsSuggestions } from '@acter/lib/post/get-post-mentions-suggestions'
+import { ActerConnection, PostMention } from '@acter/schema'
 
 const { LINK, MENTION } = DraftEntityTypes
 
@@ -64,6 +64,7 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
+  handleMentions: (data: MentionData[]) => void
   hideEditorToolbar?: boolean
   placeholder?: string
   isComment?: boolean
@@ -72,6 +73,7 @@ export interface TextEditorProps extends widthHeightType, stylesProp {
 
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
+  handleMentions,
   initialValue,
   placeholder,
   borderStyles,
@@ -87,19 +89,7 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   const [open, setOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
-  const [selectedMentions, setSelectedMentions] = useState([])
-
-  useEffect(() => {
-    if (followers) {
-      const followersList = followers.map((follower) => ({
-        name: follower.Follower.name,
-        avatar: follower.Follower.avatarUrl
-          ? follower.Follower.avatarUrl
-          : getInitials(follower.Follower.name || ''),
-      }))
-      setSuggestions([followersList])
-    }
-  }, [followers])
+  const [selectedMentions, setSelectedMentions] = useState<PostMention[]>([])
 
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
@@ -138,15 +128,17 @@ export const TextEditor: FC<TextEditorProps> = ({
     EditorState.createWithContent(contentState, decorator)
   )
 
+  const mentions = getPostMentionsSuggestions(followers)
+
   useEffect(() => {
     if (editorState) {
       const entities = getEntities(editorState, MENTION)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const mentions = entities.map(({ content }: any) => {
+      const currentMentions = entities.map(({ content }: any) => {
         return content.mention
       })
 
-      setSelectedMentions(mentions)
+      setSelectedMentions(currentMentions)
     }
   }, [editorState])
 
@@ -158,7 +150,6 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   const onEditorStateChange = async (data) => {
     const contentState = data.getCurrentContent()
-
     const options = {
       entityStyleFn: (entity) => {
         if (entity.get('type').toLowerCase() === LINK) {
@@ -178,6 +169,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     const value = stateToHTML(contentState, options)
 
     handleInputChange(value)
+    handleMentions(selectedMentions)
     setEditorState(data)
   }
 

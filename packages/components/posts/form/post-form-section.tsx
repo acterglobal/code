@@ -18,7 +18,7 @@ import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useCreateComment } from '@acter/lib/post/use-create-comment'
 import { useCreatePost } from '@acter/lib/post/use-create-post'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { User } from '@acter/schema'
+import { PostMention, User } from '@acter/schema'
 import { Post as PostType } from '@acter/schema'
 
 const { PEOPLE } = MemberType
@@ -50,9 +50,9 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
 
   const createFn = parentId ? createComment : createPost
 
-  const handlePostSubmit = (data: PostFormValues) => {
+  const handlePostSubmit = (data: PostFormValues, mentions: PostMention[]) => {
     setShowForm(false)
-    createFn(data)
+    createFn(data, mentions)
   }
 
   const validFollowers = getFollowersByType(acter, PEOPLE)
