@@ -1,6 +1,6 @@
 import { canFollowActer } from '@acter/lib/acter/can-follow-acter'
 import { getPotentialFollowers } from '@acter/lib/acter/get-potential-followers'
-import { Acter } from '@acter/schema'
+import { Acter, User } from '@acter/schema'
 import {
   ExampleActer,
   ExampleUser,
@@ -27,12 +27,12 @@ describe('getPotentialFollowers', () => {
     expect(getPotentialFollowers(user, ExampleActer)).toStrictEqual([])
   })
 
-  it('should return an empty array if there are no Followers', () => {
+  it('should return an empty array if user not following any acters', () => {
     const user = {
       ...ExampleUser,
       Acter: {
         ...ExampleUserActer,
-        Followers: null,
+        Following: null,
       },
     }
 
@@ -40,17 +40,17 @@ describe('getPotentialFollowers', () => {
   })
 
   it('should create a list of Acters for which the current User is following', () => {
-    const acter1 = {
+    const acter1: Acter = {
       ...ExampleActer,
-      uuid: 'b554a451-d53a-4d86-8776-795351354160',
+      id: 'b554a451-d53a-4d86-8776-795351354160',
       name: 'acter1',
     }
-    const acter2 = {
+    const acter2: Acter = {
       ...ExampleActer,
-      uuid: 'b554a451-d53a-4d86-8776-795351354160',
+      id: 'b554a451-d53a-4d86-8776-795351354161',
       name: 'acter2',
     }
-    const user = {
+    const user: User = {
       ...ExampleUser,
       Acter: {
         ...ExampleUserActer,
@@ -67,36 +67,57 @@ describe('getPotentialFollowers', () => {
       },
     }
 
-    expect(getPotentialFollowers(user, ExampleActer)).toStrictEqual([
+    const ExampleActer1: Acter = {
+      ...ExampleActer,
+    }
+
+    expect(getPotentialFollowers(user, ExampleActer1)).toStrictEqual([
+      user.Acter,
       acter1,
       acter2,
     ])
   })
 
-  it("should only add the current User's Acter if the given Acter was not created by the User", () => {
-    const userActer = {
+  it("should NOT add the User's Acter when the user created the other Acter and a connection exits", () => {
+    // Users cannot leave an Acter they created
+    const userActer: Acter = {
       ...ExampleUserActer,
-      Following: [ExampleActerConnection],
     }
-    const user = {
+    const user: User = {
       ...ExampleUser,
       Acter: userActer,
     }
-    const acterCreatedByUser = {
+    const acterCreatedByUser: Acter = {
       ...ExampleActer,
-      createdByUserId: user.id,
-    }
-    const acterCreatedByAnotherUser = {
-      ...ExampleActer,
-      createdByUserId: '1c88534b-7158-40ec-81a9-31d973077916',
+      createdByUser: user,
+      Followers: [
+        {
+          ...ExampleActerConnection,
+          Follower: userActer,
+        },
+      ],
     }
 
     expect(getPotentialFollowers(user, acterCreatedByUser)).not.toContain(
       userActer
     )
+  })
 
-    expect(getPotentialFollowers(user, acterCreatedByAnotherUser)).toContain(
-      userActer
-    )
+  it("should add the User's Acter when the user created the other Acter but no connection exists", () => {
+    // This allows users to re-join an Acter they created but have been removed from
+    const userActer: Acter = {
+      ...ExampleUserActer,
+    }
+    const user: User = {
+      ...ExampleUser,
+      Acter: userActer,
+    }
+    const acterCreatedByUser: Acter = {
+      ...ExampleActer,
+      createdByUser: user,
+      Followers: [],
+    }
+
+    expect(getPotentialFollowers(user, acterCreatedByUser)).toContain(userActer)
   })
 })

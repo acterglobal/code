@@ -3,6 +3,8 @@
  */
 import React from 'react'
 
+import { useSnackbar } from 'notistack'
+
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useUpdateActerConnection } from '@acter/lib/acter/use-update-connection'
@@ -14,11 +16,18 @@ import {
   ExampleUser,
 } from '@acter/schema/fixtures'
 
+jest.mock('notistack')
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/acter/use-update-connection')
 jest.mock('@acter/lib/user/use-user')
 
 describe('<DisplayMembers>', () => {
+  const useSnackbarMock = useSnackbar as jest.Mock
+  const enqueueSnackbarMock = jest.fn()
+  useSnackbarMock.mockReturnValue({
+    enqueueSnackbar: enqueueSnackbarMock,
+  })
+
   const mockUseActer = useActer as jest.Mock
   const mockUseUser = useUser as jest.Mock
   const useUpdateActerConnectionMock = useUpdateActerConnection as jest.Mock
