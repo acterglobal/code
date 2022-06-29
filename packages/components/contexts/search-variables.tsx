@@ -1,7 +1,7 @@
 import React, { createContext, FC, useContext, useState } from 'react'
 
-import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { ActerTypes, ActivityTypes } from '@acter/lib/constants'
 
 export interface SearchVariables {

@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { useQuery, UseQueryState } from 'urql'
 
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { Activity } from '@acter/schema'
 import QUERY_ACTIVITIES from '@acter/schema/queries/activities-followed-by-acter.graphql'
-
-import { ActivitiesDateFilter } from '../api/resolvers/date-filter'
 
 type UseActivitiesData = {
   activities: Activity[]

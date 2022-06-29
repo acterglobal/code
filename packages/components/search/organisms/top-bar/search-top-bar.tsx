@@ -19,8 +19,8 @@ import {
 import { SearchBar } from '@acter/components/search/organisms/bar'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { SearchSortBy } from '@acter/components/search/organisms/sort-by'
-import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { SearchType } from '@acter/lib/constants'
 import { useSearchType } from '@acter/lib/search/use-search-type'
 

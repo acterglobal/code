@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { FilterButton } from '@acter/components/search/atoms/button'
-import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 const { ALL, UPCOMING, PAST } = ActivitiesDateFilter
