@@ -14,8 +14,8 @@ import { SearchIcon } from '@acter/components/icons/search-icon'
 import { SecondaryMenu } from '@acter/components/molecules/secondary-menu'
 import { SearchTabs } from '@acter/components/search/molecules/tabs'
 import { SearchTypesPicker } from '@acter/components/search/molecules/types-picker'
-import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
 import { SearchActivitiesSortBy } from '@acter/lib/api/resolvers/get-order-by'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import {
   ActerSearchTypes,
   ActerTypes,

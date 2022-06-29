@@ -1,11 +1,6 @@
 import { ActerTypes } from '@acter/lib/constants'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { Prisma } from '@acter/schema/prisma'
-
-export enum ActivitiesDateFilter {
-  ALL = 'ALL',
-  UPCOMING = 'UPCOMING',
-  PAST = 'PAST',
-}
 
 export const withDateFilterSearch = (
   types: [string],

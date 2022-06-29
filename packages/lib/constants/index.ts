@@ -1,6 +1,7 @@
 export * from './acter-menu'
 export * from './acter-types'
 export * from './action-button'
+export * from './activity-date-filter'
 export * from './activity-types'
 export * from './api-keys'
 export * from './date-formats'

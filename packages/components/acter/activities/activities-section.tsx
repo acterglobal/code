@@ -8,7 +8,7 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ActivitiesDateFilters } from '@acter/components/search/molecules/date-filters'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
-import { ActivitiesDateFilter } from '@acter/lib/api/resolvers/date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 
 export const ActivitiesSection: FC = () => {
   const [currentDateFilter, setCurrentDateFilter] =

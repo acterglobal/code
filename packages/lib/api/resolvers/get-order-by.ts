@@ -1,4 +1,4 @@
-import { ActivitiesDateFilter } from './date-filter'
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 
 export enum SearchActivitiesSortBy {
   DATE = 'DATE',

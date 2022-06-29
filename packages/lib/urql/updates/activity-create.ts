@@ -1,9 +1,9 @@
 import { UpdateResolver } from '@urql/exchange-graphcache'
 
+import { ActivitiesDateFilter } from '@acter/lib/constants'
 import { WithTypeName } from '@acter/lib/urql/types'
-import { Acter, Activity } from '@acter/schema'
+import { Activity } from '@acter/schema'
 
-import { addItemToFieldList } from '../util/add-item-to-field-list'
 import {
   forEachQueryFields,
   prependItemFn,
@@ -15,6 +15,8 @@ interface ActerData {
   createActivityCustom?: ActivityWithType
 }
 
+const { ALL, PAST, UPCOMING } = ActivitiesDateFilter
+
 export const createActivityCustom: UpdateResolver<ActerData> = (
   result,
   _args,
@@ -22,6 +24,11 @@ export const createActivityCustom: UpdateResolver<ActerData> = (
   _info
 ) => {
   result.createActivityCustom.Acter.Followers.forEach((connection) => {
+    const activityDateFilters =
+      new Date(result.createActivityCustom.startAt) > new Date()
+        ? [ALL, UPCOMING]
+        : [ALL, PAST]
+
     forEachQueryFields({
       cache,
       result: result.createActivityCustom,
@@ -29,19 +36,13 @@ export const createActivityCustom: UpdateResolver<ActerData> = (
       match: ({ fieldArgs }) => {
         return (
           // @ts-ignore mocking this would be a pain
-          fieldArgs.where.Acter.is.Followers.some.Follower.is.id.equals ===
-          connection.Follower.id
+          fieldArgs.followerId === connection.Follower.id &&
+          activityDateFilters.includes(
+            fieldArgs.dateFilter as ActivitiesDateFilter
+          )
         )
       },
       fn: prependItemFn({ cache, result: result.createActivityCustom }),
     })
-  })
-
-  const parent = result.createActivityCustom.Acter.Parent as WithTypeName<Acter>
-  addItemToFieldList({
-    cache,
-    target: parent,
-    field: 'ActivitiesOrganized',
-    item: result.createActivityCustom,
   })
 }
