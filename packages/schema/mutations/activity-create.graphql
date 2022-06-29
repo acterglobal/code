@@ -1,4 +1,5 @@
 #import "../fragments/acter-display.fragment.graphql"
+#import "../fragments/activity-display.fragment.graphql"
 #import "../fragments/acter-full.fragment.graphql"
 
 mutation ActivityCreate(
@@ -43,7 +44,7 @@ mutation ActivityCreate(
     organiserActerId: $organiserActerId
     activityTypeId: $activityTypeId
   ) {
-    id
+    ...ActivityDisplay
     Acter {
       ...ActerFull
     }
