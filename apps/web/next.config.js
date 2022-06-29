@@ -37,11 +37,9 @@ const nextConfig = {
   rewrites: async () => {
     // We have to hard code these because we can't import TS enums here
     const acterTypeList = [
-      'activities',
       'networks',
       'organisations',
       'public-organisations',
-      'users',
       'communities',
       'ngos',
       'companies',
