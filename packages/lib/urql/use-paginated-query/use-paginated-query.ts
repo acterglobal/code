@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useReducer, useRef } from 'react'
+import { useEffect, useReducer } from 'react'
 
 import { useQuery } from 'urql'
-
-import { getObjectArrayMemoString } from '@acter/lib/object/get-object-array-memo-string'
 
 import { getPaginatedResultsReducer } from './paginated-results-reducer'
 import {
@@ -15,21 +13,20 @@ import {
 } from './types'
 
 export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
-  options: UsePaginationQueryOptions<TData, TVariables>
+  options: UsePaginationQueryOptions<TType, TData, TVariables>
 ): UsePaginatedResponse<TType, TData, TVariables> => {
-  const { query, dataKey, variables, pageSize = 20 } = options
-  const dataRef = useRef('')
+  const { query, dataKey, variables, pageSize = 10, resultsMergeFn } = options
 
   const [paginatedResultsReducer, { defaultState }] =
     getPaginatedResultsReducer<TType, TData, TVariables>({
       pageSize,
+      resultsMergeFn,
     })
   const [state, dispatch] = useReducer(paginatedResultsReducer, defaultState)
 
   useEffect(() => {
     dispatch({ type: PaginatedResultsActionKind.NEW_SEARCH })
-    dataRef.current = undefined
-  }, [variables])
+  }, [JSON.stringify(variables)])
 
   const [{ data, fetching: dataFetching, ...restQueryResult }, refetch] =
     useQuery<TData, VariablesWithPagination<TVariables>>({
@@ -48,12 +45,7 @@ export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
 
   // Let reducer know there are new results
   useEffect(() => {
-    const newRef = getObjectArrayMemoString(data?.[dataKey])
-    if (
-      (!dataRef.current && data?.[dataKey]) ||
-      (newRef && dataRef.current !== newRef)
-    ) {
-      dataRef.current = newRef
+    if (data?.[dataKey]) {
       dispatch({
         type: PaginatedResultsActionKind.NEW_RESULTS,
         payload: { results: data[dataKey] },
@@ -61,10 +53,13 @@ export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
     }
   }, [data?.[dataKey]])
 
+  const { results, ...restState } = state
+
   return [
     {
       ...restQueryResult,
-      ...state,
+      ...restState,
+      results,
       loadMore: () => {
         dispatch({ type: PaginatedResultsActionKind.LOAD_MORE })
       },

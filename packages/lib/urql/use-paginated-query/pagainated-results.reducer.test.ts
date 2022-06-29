@@ -1,8 +1,11 @@
+import { OrderedMap } from 'immutable'
+
 import { getPaginatedResultsReducer } from './paginated-results-reducer'
 import {
   GetPaginatedResultsReducer,
   PaginatedResultsActionKind,
   PaginatedResultsState,
+  StateResultsType,
 } from './types'
 
 describe('paginatedResultsReducer', () => {
@@ -24,8 +27,8 @@ describe('paginatedResultsReducer', () => {
   })
 
   describe('reducer', () => {
-    let reducer: GetPaginatedResultsReducer<any, any, any>
-    let defaultState: PaginatedResultsState<any, any, any>
+    let reducer: GetPaginatedResultsReducer<unknown, unknown, unknown>
+    let defaultState: PaginatedResultsState<unknown, unknown, unknown>
 
     beforeEach(() => {
       const result = getPaginatedResultsReducer()
@@ -37,7 +40,7 @@ describe('paginatedResultsReducer', () => {
       const state = reducer(
         {
           ...defaultState,
-          results: [{ id: 1 }, { id: 2 }],
+          results: OrderedMap([{ id: 1 }, { id: 2 }]),
           pagination: {
             ...defaultState.pagination,
             cursor: { id: 1 },
@@ -47,7 +50,7 @@ describe('paginatedResultsReducer', () => {
         { type: PaginatedResultsActionKind.NEW_SEARCH }
       )
 
-      expect(state.results).toStrictEqual([])
+      expect(state.results.toList().toArray()).toStrictEqual([])
       expect(state.pagination.cursor).toBe(undefined)
       expect(state.pagination.skip).toBe(0)
     })
@@ -61,7 +64,7 @@ describe('paginatedResultsReducer', () => {
 
     describe('new results', () => {
       describe('hasMore', () => {
-        let hasMoreState: PaginatedResultsState<any, any, any>
+        let hasMoreState: PaginatedResultsState<unknown, unknown, unknown>
         beforeEach(() => {
           hasMoreState = {
             ...defaultState,
@@ -119,23 +122,86 @@ describe('paginatedResultsReducer', () => {
             }
           )
 
-          expect(state.results).toStrictEqual([{ id: 1 }])
+          expect(state.results.toList().toArray()).toStrictEqual([{ id: 1 }])
         })
 
         it('should append new results', () => {
           const currentResults = [{ id: 1 }, { id: 2 }]
           const newResults = [{ id: 3 }, { id: 4 }]
           const state = reducer(
-            { ...defaultState, results: currentResults },
+            {
+              ...defaultState,
+              results: OrderedMap({
+                1: { id: 1 },
+                2: { id: 2 },
+              }) as StateResultsType,
+            },
             {
               type: PaginatedResultsActionKind.NEW_RESULTS,
               payload: { results: newResults },
             }
           )
 
-          expect(state.results).toStrictEqual([
+          expect(state.results.toList().toArray()).toStrictEqual([
             ...currentResults,
             ...newResults,
+          ])
+        })
+
+        it('should dedupe entries', () => {
+          const newResults = [{ id: 2 }, { id: 3 }]
+          const state = reducer(
+            {
+              ...defaultState,
+              results: OrderedMap({
+                1: { id: 1 },
+                2: { id: 2 },
+              }) as StateResultsType,
+            },
+            {
+              type: PaginatedResultsActionKind.NEW_RESULTS,
+              payload: { results: newResults },
+            }
+          )
+
+          expect(state.results.toList().toArray()).toStrictEqual([
+            { id: 1 },
+            { id: 2 },
+            { id: 3 },
+          ])
+        })
+      })
+
+      describe('resultsMergeFn', () => {
+        it('should allow for different merge strategies', () => {
+          const result = getPaginatedResultsReducer<
+            { id: number; foo: string },
+            unknown,
+            unknown
+          >({
+            resultsMergeFn: (state, item) =>
+              state.set(item.id.toString(), {
+                ...item,
+                foo: 'bar'.repeat(item.id),
+              }),
+          })
+          reducer = result[0]
+          const newResults = [{ id: 1 }, { id: 2 }, { id: 3 }]
+          const state = reducer(
+            {
+              ...defaultState,
+              results: OrderedMap() as StateResultsType,
+            },
+            {
+              type: PaginatedResultsActionKind.NEW_RESULTS,
+              payload: { results: newResults },
+            }
+          )
+
+          expect(state.results.toList().toArray()).toStrictEqual([
+            { id: 1, foo: 'bar' },
+            { id: 2, foo: 'barbar' },
+            { id: 3, foo: 'barbarbar' },
           ])
         })
       })
@@ -154,9 +220,9 @@ describe('paginatedResultsReducer', () => {
         })
 
         it('should set cursor and skip on pagination', () => {
-          const currentResults = [{ id: 1 }, { id: 2 }]
+          const currentResults = OrderedMap({ 1: { id: 1 }, 2: { id: 2 } })
           const state = reducer(
-            { ...defaultState, results: currentResults },
+            { ...defaultState, results: OrderedMap(currentResults) },
             {
               type: PaginatedResultsActionKind.LOAD_MORE,
             }
