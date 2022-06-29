@@ -1,24 +1,33 @@
-# Acter
+# Acter <!-- omit in toc -->
 
-## Laptop setup
+- [Laptop setup](#laptop-setup)
+- [Technology Stack](#technology-stack)
+- [Getting started](#getting-started)
+  - [Service Dependencies](#service-dependencies)
+  - [Installation, build and dev server](#installation-build-and-dev-server)
+- [Monorepo Layout](#monorepo-layout)
+  - [`apps/web`](#appsweb)
+  - [`packages/components`](#packagescomponents)
+  - [`packages/lib`](#packageslib)
+  - [`packages/schema`](#packagesschema)
+  - [`services/api`](#servicesapi)
+  - [`services/jobs`](#servicesjobs)
+  - [`tools`](#tools)
+- [Vendors](#vendors)
+  - [Github](#github)
+  - [Heroku](#heroku)
+  - [Auth0](#auth0)
+  - [Amazon AWS](#amazon-aws)
+  - [Google](#google)
+  - [Imgix](#imgix)
+  - [Sendgrid](#sendgrid)
+  - [Sentry](#sentry)
+
+# Laptop setup
 
 Head to [New laptop setup](./docs/new-laptop-setup.md)
 
-## Getting started
-
-The application and it's dependencies are dockerized. Make sure that [Docker](http://docker.com) is set up, then run:
-
-```
-Create a .env.development.local file with : DB_NAME, DB_USER,DB_PASS
-
-docker-compose up -d --build
-```
-
-Or better yet use the VS Code built-in Docker command: `command+shift+p` and select "Docker Compose: Up"
-
-The application will be available at: [http://localhost:3000](http://localhost:3000)
-
-## Technology Stack
+# Technology Stack
 
 Acter is built with the following stack.
 |Role|Technology|
@@ -30,66 +39,104 @@ Acter is built with the following stack.
 |API/Data|[GraphQL](https://graphql.org/), [Apollo](https://www.apollographql.com/), [TypeGraphQL](https://typegraphql.com/), [Prisma](https://www.prisma.io/)|
 |Database|[PostgreSQL](https://www.postgresql.org/)|
 
-### Components
+# Getting started
 
-Acter uses [Component Driven Develompment](https://www.componentdriven.org/) to build the application from the "bottom up" using smaller components incorporated into larger components. Smaller components use [Material-UI](https://material-ui.com/) to build larger functional pieces. Components are unit tested and use [Storybook](https://storybook.js.org/) to visualize their look and behavior.
+## Service Dependencies
 
-### Authentication
+The application's dependencies are dockerized. Currently this consists of a Postgres database and a fake SMTP server. Make sure that [Docker](http://docker.com), copy `.env.example` to `.env` and set the appropriate fields is set up, then run:
 
-We use [Auth0](https://auth0.com/) for managing our authentication layer. It provides "authentication as a service" and a library for integrating with Next.js
+```
+docker-compose up -d --build
+```
+
+Or better yet use the VS Code built-in Docker command: `command+shift+p` and select "Docker Compose: Up"
 
 We have a fake SMTP server that is deployed with Docker which allows us to receive emails in development. When our app is running in Docker, it is available at [http://localhost:1080](http://localhost:1080).
 
-### API/Data
+## Installation, build and dev server
 
-The API layer starts with [GraphQL](https://graphql.org/) and the [Apollo GraphQL](https://www.apollographql.com/) client/server library. On the backend, the GraphQL resolvers use [Prisma](https://www.prisma.io/) as an ORM for interactions with the database as well as database migrations. We use the [TypeGraphQL Prisma](https://typegraphql.com/docs/prisma.html) integration to autogenerate types, which can be imorted via `@generated/<type>` after running `yarn run generate`.
+The app currently uses [Yarn 3](https://yarnpkg.com) with workspaces to manage it's monorepo dependencies. Get started by running the following from the root folder: 
 
-## Layout
+```
+yarn
+```
 
-### `.storybook`
+After that, you will need to build various parts of the application:
+```
+yarn build
+```
 
-Contains configuration files for [Storybook](https://graphql.org/), including webpack.
+Finally, start the Next.js server with:
 
-### `graphql`
+```
+yarn dev
+```
 
-Contains `graphql` [queries](https://graphql.org/learn/queries/) and [TypeGraphQL resolvers](https://typegraphql.com/docs/resolvers.html).
+The app will be available at [http://localhost:3000](http://localhost:3000)
+# Monorepo Layout
 
-### `prisma`
+Acter's codebase is laid out in a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
 
-Contains [Prisma](https://www.prisma.io/) migrations and schema.
+## `apps/web`
 
-### `public`
+This is the main [Next.js](https://nextjs.org) application. It is the primary glue between our component library and Next.js. It is also the entrypoint for serving the application.
 
-[Next.js public files](https://nextjs.org/docs/basic-features/static-file-serving)
+## `packages/components`
 
-### `src`
+The React components used to build our application. Acter uses [Component Driven Develompment](https://www.componentdriven.org/) to build the application from the "bottom up" using smaller components incorporated into larger components. While not complete, some effort has been made to migrate the application to use [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) principals. Smaller components use [Material-UI](https://material-ui.com/) to build larger functional pieces. 
 
-Main application code folder
+Components should use [Storybook](https://storybook.js.org/) to visualize & test their look and behavior.
 
-### `@acter/schema/fixtures`
+## `packages/lib`
 
-Used for shared test fixtures
+Pure Javascript/Typescript functions meant to encapsulate our business logic into small, testable functions.
 
-### `src/__mocks__`
+## `packages/schema`
 
-Module mocks. Currently only used for Storybook.
+Currently a combination of our [Prisma](https://www.prisma.io/) schema, the output from [TypeGraphQLPrisma](https://prisma.typegraphql.com), and our GraphQL queries, mutations, and fragments.
 
-### `@acter/components`
+## `services/api`
 
-All components, tests, and stories. The components folder will be organized by major functional area, with common elements in a `shared` folder and organized by functionality.
+The Apollo GraphQL server used to serve both generated and custom resolvers. The API layer starts with [GraphQL](https://graphql.org/) and the [Apollo GraphQL](https://www.apollographql.com/) client/server library. On the backend, the GraphQL resolvers use [Prisma](https://www.prisma.io/) as an ORM for interactions with the database as well as database migrations. We use the [TypeGraphQL Prisma](https://typegraphql.com/docs/prisma.html) integration to autogenerate types, which can be imorted via `@acter/schema` after running `yarn generate`.
 
-### `@acter/lib`
+## `services/jobs`
 
-When additional business logic or extensions to external libraries are needed, they should be placed in the `lib` folder.
+Various asynchronous jobs like email notifications and daily digest creation
 
-### `src/pages`
+## `tools`
 
-Next.js api and pages live in this folder. Pages will contain any data loading but leave all dislay logic to the display components.
+Custom configuration, currently just for eslint.
 
-### `src/stories`
+# Vendors
 
-Assets for Storybook
+## Github
 
-### `@acter/components/themes`
+We use [Github](https://github.com) for a code repository, and to run basic [CI tests](https://en.wikipedia.org/wiki/Continuous_integration) by way of [Github Actions](https://docs.github.com/en/actions).
 
-Material-UI theme files
+## Heroku
+
+Our applications and databases are hosted on [Heroku](https://dashboard.heroku.com/pipelines/f814f074-77e1-4719-87d9-318e61daec15). We currently have both a demo/dev instance as well as production.
+
+## Auth0
+
+We use [Auth0](https://auth0.com/) for managing our authentication layer. It provides "authentication as a service" and a library for integrating with Next.js.
+
+## Amazon AWS
+
+We use Amazon AWS for the storage of images, both our static images and user-uploaded avatars and banners. Items live in [S3](https://s3.console.aws.amazon.com/s3/buckets) and are managed by [IAM](https://aws.amazon.com/iamv2) keys.
+
+## Google 
+
+We use the Google Maps & Places APIs for our mapping and places, respectively. Management of keys is done via the APIs and Services Credentials page for [development](https://console.cloud.google.com/apis/credentials?authuser=1&project=acter-dev) and [production](https://console.cloud.google.com/apis/credentials?authuser=1&project=acter-315721)).
+
+## Imgix
+
+We use [Imgix](https://dashboard.imgix.com) for image resizing. This was done because of bugs in Next.js' own image resize library and issues with performance on Heroku, though this should probably be revisited.
+
+## Sendgrid
+
+We use [Sendgrid](https://sendgrid.com) for sending emails.
+
+## Sentry
+
+We currently have [Sentry](https://sentry.io/organizations/acter/issues/) monitoring our application for bugs and performance.
