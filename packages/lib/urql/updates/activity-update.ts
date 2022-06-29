@@ -1,6 +1,5 @@
 import { UpdateResolver } from '@urql/exchange-graphcache'
 
-import { addItemToFieldList } from '../util/add-item-to-field-list'
 import { forEachQueryFields, updateItemFn } from '../util/query-fields-for-each'
 import { ActivityWithType } from './activity-create'
 
@@ -22,8 +21,8 @@ export const updateActivityCustom: UpdateResolver<ActerData> = (
       match: ({ fieldArgs }) => {
         return (
           // @ts-ignore mocking this would be a pain
-          fieldArgs.where.Acter.is.Followers.some.Follower.is.id.equals ===
-          connection.Follower.id
+          fieldArgs.where?.Acter?.is?.Followers?.some?.Follower?.is?.id
+            ?.equals === connection.Follower.id
         )
       },
       fn: updateItemFn({ cache, result: result.updateActivityCustom }),

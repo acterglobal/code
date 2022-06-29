@@ -29,8 +29,8 @@ export const createActivityCustom: UpdateResolver<ActerData> = (
       match: ({ fieldArgs }) => {
         return (
           // @ts-ignore mocking this would be a pain
-          fieldArgs.where.Acter.is.Followers.some.Follower.is.id.equals ===
-          connection.Follower.id
+          fieldArgs.where?.Acter?.is?.Followers?.some?.Follower?.is?.id
+            ?.equals === connection.Follower.id
         )
       },
       fn: prependItemFn({ cache, result: result.createActivityCustom }),
