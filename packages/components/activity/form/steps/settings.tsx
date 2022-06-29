@@ -31,7 +31,7 @@ export const SettingsStep: FC<SettingsStepProps> = ({ acters }) => {
       </FormSection>
 
       <FormSection>
-        <FormLabel>{t('postTo')}</FormLabel>
+        <FormLabel>{t('form.postTo')}</FormLabel>
         <SelectFollowers acters={acters} />
       </FormSection>
     </Box>
