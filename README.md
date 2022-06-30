@@ -1,5 +1,7 @@
 # Acter <!-- omit in toc -->
 
+This is some description
+
 ## Table of contents <!-- omit in toc -->
 
 - [Laptop setup](#laptop-setup)
