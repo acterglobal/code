@@ -31,6 +31,12 @@ describe('Display search results', () => {
     mockUseUser.mockReturnValue({
       user: ExampleUser,
     })
+
+    const observe = jest.fn()
+    //@ts-ignore
+    window.IntersectionObserver = jest.fn(function () {
+      this.observe = observe
+    })
   })
 
   it('should display search results with a list of Acters', async () => {

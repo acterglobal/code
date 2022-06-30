@@ -39,6 +39,12 @@ describe('Display search results', () => {
     jest.resetAllMocks()
     mockUseActerSearch.mockReturnValue({ acters: [] })
     mockUseTranslation.mockReturnValue({ t: (_) => '' })
+
+    const observe = jest.fn()
+    //@ts-ignore
+    window.IntersectionObserver = jest.fn(function () {
+      this.observe = observe
+    })
   })
 
   it('should display search results with a list of Acters', async () => {
