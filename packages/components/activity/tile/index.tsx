@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
+import { useIsVisible } from 'react-is-visible'
 
 import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
 
@@ -20,24 +21,29 @@ export const ActivityTile: FC<ActivityTileProps> = ({
   hovered = false,
 }) => {
   const classes = useStyles()
+  const nodeRef = useRef()
+  const isVisible = useIsVisible(nodeRef)
 
   if (!activity) return null
 
   return (
-    <Box
+    <div
       className={clsx(
         classes.activityTile,
         hovered && classes.activityTileHovered
       )}
+      ref={nodeRef}
     >
       <ImageSection activity={activity} />
 
       <InfoSection activity={activity} />
 
-      <Box className={classes.buttonContainer}>
-        <Connect acterId={activity.Acter.id} size={Size.SMALL} />
-      </Box>
-    </Box>
+      {isVisible && (
+        <Box className={classes.buttonContainer}>
+          <Connect acterId={activity.Acter.id} size={Size.SMALL} />
+        </Box>
+      )}
+    </div>
   )
 }
 
