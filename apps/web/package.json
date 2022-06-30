@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "yarn env next dev",
-    "build": "yarn env next build",
-    "build:cicd": "yarn workspace @acter/schema build && yarn build",
+    "build": "yarn workspace @acter/schema build && yarn build:next",
+    "build:next": "yarn env next build",
     "start": "yarn env next start",
     "lint": "yarn env next lint",
     "analyze": "ANALYZE=true yarn env next build",

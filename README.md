@@ -1,10 +1,15 @@
 # Acter <!-- omit in toc -->
 
+## Table of contents <!-- omit in toc -->
+
 - [Laptop setup](#laptop-setup)
 - [Technology Stack](#technology-stack)
 - [Getting started](#getting-started)
   - [Service Dependencies](#service-dependencies)
   - [Installation, build and dev server](#installation-build-and-dev-server)
+  - [Deployment](#deployment)
+    - [Demo](#demo)
+    - [Production](#production)
 - [Monorepo Layout](#monorepo-layout)
   - [`apps/web`](#appsweb)
   - [`packages/components`](#packagescomponents)
@@ -34,10 +39,13 @@ Acter is built with the following stack.
 |-|-|
 |Language|[Typescript]()|
 |Frontend|[Next.js](https://nextjs.org)|
-|Components|[Material-UI](https://material-ui.com/), [Storybook](https://storybook.js.org/)|
-|Authenticaton|[Auth0](https://auth0.com), [Fake SMTP Server](https://github.com/ReachFive/fake-smtp-server), [JWT](https://jwt.io/) (planned)|
-|API/Data|[GraphQL](https://graphql.org/), [Apollo](https://www.apollographql.com/), [TypeGraphQL](https://typegraphql.com/), [Prisma](https://www.prisma.io/)|
-|Database|[PostgreSQL](https://www.postgresql.org/)|
+|Components|[Material-UI](https://material-ui.com/)|
+| Testing | [Jest](https://jestjs.io), [Testing Library](https://testing-library.com), [Storybook](https://storybook.js.org/) |
+|Authenticaton|[Auth0](https://auth0.com)| 
+| Hosting/DNS | [Heroku](https://heroku.com), [CloudFlare](https://cloudflare.com) |
+| Notification/Email | [Sendgrid](https://sendgrid.com), [Fake SMTP Server](https://github.com/ReachFive/fake-smtp-server) on dev|
+|API/Data|[GraphQL](https://graphql.org/), [Apollo](https://www.apollographql.com/) (server), [URQL](https://formidable.com/open-source/urql/) (client), [TypeGraphQL](https://typegraphql.com/), [Prisma TypeGraphQL](https://prisma.typegraphql.com/) |
+|Database|[PostgreSQL](https://www.postgresql.org/), [Prisma ORM](https://www.prisma.io/)|
 
 # Getting started
 
@@ -73,6 +81,16 @@ yarn dev
 ```
 
 The app will be available at [http://localhost:3000](http://localhost:3000)
+
+## Deployment
+
+### Demo
+
+The `main` branch is automatically deployed as [the `acter-dev` app on Heroku](https://dashboard.heroku.com/apps/acter-dev) to https://demo.acter.app.
+
+### Production
+
+Deployment to production is achieved as a manual deploy of `main` as the [`acter-prod` app on Heroku](https://dashboard.heroku.com/apps/acter-prod/deploy/github) to https://acter.app.
 # Monorepo Layout
 
 Acter's codebase is laid out in a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
@@ -119,7 +137,7 @@ Our applications and databases are hosted on [Heroku](https://dashboard.heroku.c
 
 ## Auth0
 
-We use [Auth0](https://auth0.com/) for managing our authentication layer. It provides "authentication as a service" and a library for integrating with Next.js.
+We use [Auth0](https://auth0.com/) for managing our authentication layer. It provides "authentication as a service" and a library for integrating with Next.js. Note that we use two different "tenants": one for production and one for demo & local.
 
 ## Amazon AWS
 
