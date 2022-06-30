@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       '& p': {
         margin: 0,
+        lineHeight: '1.25rem',
+      },
+      '& li': {
+        lineHeight: '1.2rem',
       },
     },
   })
