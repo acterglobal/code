@@ -1,5 +1,9 @@
 # Acter <!-- omit in toc -->
 
+ABOUT
+Acter is a co-created, purposedriven digital platform for coordination. It was initiated in 2019 and started its journey as open source in July 2022.
+Glad to see you here.
+
 ## Table of contents <!-- omit in toc -->
 
 - [Laptop setup](#laptop-setup)
