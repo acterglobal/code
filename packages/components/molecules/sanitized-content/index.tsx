@@ -17,7 +17,7 @@ export const SanitizedContent: FC<SanitizedContentProps> = ({
       throw new Error('Cannot render Markdown for non-string content')
 
     const re = /<p>\s?<br(\\s\/)?>\s?<\/p>/gi
-    const filteredContent = children.replaceAll(re, '')
+    const filteredContent = (children || '').replaceAll(re, '')
 
     if (isMarkdown) return <Markdown>{filteredContent}</Markdown>
 
