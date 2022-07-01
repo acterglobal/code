@@ -51,6 +51,11 @@ export const createActerConnection = async ({
       Following: {
         include: {
           ActerType: true,
+          Parent: {
+            include: {
+              ActerType: true,
+            },
+          },
         },
       },
     },
