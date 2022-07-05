@@ -65,14 +65,14 @@ export const DashboardContent: FC = () => {
         <Box className={classes.content}>
           {activities ? (
             <>
+              <ActivitiesDateFilters
+                currentDateFilter={currentDateFilter}
+                onChange={handleDateFilter}
+              />
               {activities.length === 0 ? (
                 <ZeroMessage messageFor={ACTIVITY} />
               ) : (
                 <>
-                  <ActivitiesDateFilters
-                    currentDateFilter={currentDateFilter}
-                    onChange={handleDateFilter}
-                  />
                   <ActivitiesList activities={activities} />
                 </>
               )}
