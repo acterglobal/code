@@ -1,5 +1,10 @@
 # Acter <!-- omit in toc -->
 
+## About <!-- omit in toc -->
+Acter is a free community management tool for grassroots, activists, researchers, NGOs basically anyone working for an equal, peaceful and regenerative future. It is a both an internal organizing tool for individuals and groups as well as a database to find new collaborators or initiatives. The platform has been online since 2021.
+
+The Acter platform is the main initiative in the Danish based non-profit organization Acter Global. Acter Global was founded in 2020 and has as its ultimate goal to promote an equal, peaceful and regenerative world by furthering existing solutions to global challenges and engaging more people in and around their implementation.
+
 ## Table of contents <!-- omit in toc -->
 
 - [Laptop setup](#laptop-setup)
