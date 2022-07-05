@@ -1,14 +1,16 @@
 import React, { FC, useRef } from 'react'
 import { useIsVisible } from 'react-is-visible'
 
-import { Box, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { useRouter } from 'next/router'
+
+import { Box, makeStyles, createStyles, Theme, Button } from '@material-ui/core'
 
 import clsx from 'clsx'
 
-import { Connect } from '@acter/components/acter/connect'
 import { ImageSection } from '@acter/components/activity/tile/image-section'
 import { InfoSection } from '@acter/components/activity/tile/info-section'
-import { Size } from '@acter/lib/constants'
+import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
+import { capitalize } from '@acter/lib/string/capitalize'
 import { Activity } from '@acter/schema'
 
 export interface ActivityTileProps {
@@ -23,8 +25,15 @@ export const ActivityTile: FC<ActivityTileProps> = ({
   const classes = useStyles()
   const nodeRef = useRef()
   const isVisible = useIsVisible(nodeRef)
+  const router = useRouter()
 
   if (!activity) return null
+
+  const acterUrl = acterAsUrl({ acter: activity?.Acter })
+
+  const handleButtonClick = () => {
+    router.push(acterUrl)
+  }
 
   return (
     <div
@@ -40,7 +49,9 @@ export const ActivityTile: FC<ActivityTileProps> = ({
 
       {isVisible && (
         <Box className={classes.buttonContainer}>
-          <Connect acterId={activity.Acter.id} size={Size.SMALL} />
+          <Button onClick={handleButtonClick} className={classes.button}>
+            {capitalize('View')}
+          </Button>
         </Box>
       )}
     </div>
@@ -68,6 +79,22 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: theme.spacing(1.7),
+    },
+    button: {
+      borderRadius: theme.spacing(3),
+      marginRight: theme.spacing(1),
+      height: theme.spacing(4),
+      minWidth: theme.spacing(11),
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.colors.white,
+      border: '1px solid',
+      borderColor: theme.palette.secondary.main,
+      textTransform: 'capitalize',
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: '0.8rem',
+      '&:hover': {
+        color: theme.palette.secondary.main,
+      },
     },
   })
 )
