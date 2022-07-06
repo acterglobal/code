@@ -1,10 +1,9 @@
-import { NullArray, UpdateResolver } from '@urql/exchange-graphcache'
+import { UpdateResolver } from '@urql/exchange-graphcache'
 
 import { Post } from '@acter/schema'
 import POST_FRAGMENT from '@acter/schema/fragments/post-full.graphql'
-import GET_POSTS from '@acter/schema/queries/posts-by-acter.graphql'
 
-import { WithTypeName, WithWhereActerId } from '../types'
+import { WithTypeName } from '../types'
 import {
   forEachQueryFields,
   matchOnActerId,
@@ -24,15 +23,6 @@ export const createPost: UpdateResolver<PostData> = (
   _info
 ) => {
   if (result.createPost?.parentId) {
-    // forEachQueryFields({
-    //   cache,
-    //   result: result.createPost,
-    //   fieldNameMatch: 'posts',
-    //   match: matchOnActerId,
-    //   fn: ({ fieldKey, fieldArgs, items }) => {
-    //     debugger
-    //   },
-    // })
     const data = cache.readFragment<PostWithType>(POST_FRAGMENT, {
       id: result.createPost.parentId,
       __typename: 'Post',
@@ -41,13 +31,13 @@ export const createPost: UpdateResolver<PostData> = (
       ...data,
       Comments: [result.createPost, ...data.Comments],
     })
+  } else {
+    forEachQueryFields({
+      cache,
+      result: result.createPost,
+      fieldNameMatch: 'posts',
+      match: matchOnActerId,
+      fn: prependItemFn({ cache, result: result.createPost }),
+    })
   }
-
-  forEachQueryFields({
-    cache,
-    result: result.createPost,
-    fieldNameMatch: 'posts',
-    match: matchOnActerId,
-    fn: prependItemFn({ cache, result: result.createPost }),
-  })
 }
