@@ -6,6 +6,7 @@ import { Field, useFormikContext } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { ActerTypes } from '@acter/lib/constants'
 import { Acter } from '@acter/schema'
 
 export interface SelectFollowersProps {
@@ -29,9 +30,13 @@ export const SelectFollowers: FC<SelectFollowersProps> = ({ acters }) => {
     setFieldValue('followerIds', [organiserActerId])
   }
 
+  const potentialActers = acters.filter(
+    (acter) => acter.ActerType.name !== ActerTypes.USER
+  )
+
   return (
     <>
-      {acters.map((acter) => {
+      {potentialActers.map((acter) => {
         const isOrganiser = acter.id === organiserActerId
         const isInPostToList = followerIds.includes(acter.id)
         return (
