@@ -90,12 +90,13 @@ export const createNotificationWorker =
   async (job: TVariables & { id: string }): Promise<void> => {
     try {
       const timer = l.startTimer()
+      l.debug({ job }, 'Starting job')
       const data = await getJobData(job)
-      l.debug('Got notification data', { data })
+      l.debug({ data }, 'Got notification data')
       const following = await getFollowing(data)
-      l.debug('Got following', { following })
+      l.debug({ following }, 'Got following')
       const followersWhere = getFollowersWhere(data)
-      l.debug('Got followersWhere', { followersWhere })
+      l.debug({ followersWhere }, 'Got followersWhere')
       const followers = await prisma.acterConnection.findMany({
         include: {
           Follower: {
@@ -122,17 +123,21 @@ export const createNotificationWorker =
           },
         },
       })
-      l.debug('Sending notification followers', {
-        followers: followers.map(
-          ({
-            Follower: {
-              id,
-              name,
-              ActerType: { name: acterTypeName },
-            },
-          }) => ({ id, name, acterTypeName })
-        ),
-      })
+      l.debug(
+        {
+          followers: followers.map(
+            ({
+              Follower: {
+                id,
+                name,
+                ActerType: { name: acterTypeName },
+                User: { id: userId },
+              },
+            }) => ({ id, name, acterTypeName, userId })
+          ),
+        },
+        'Sending notification followers'
+      )
       const activity = getActivity?.(data)
       if (activity) l.debug('Got activity', { activity })
       const post = getPost?.(data)
