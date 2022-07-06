@@ -7,13 +7,16 @@ export const withDateFilterSearch = (
   dateFilter: ActivitiesDateFilter
 ): Prisma.ActerWhereInput => {
   const now = new Date()
+  const nowDate = new Date(now)
+  const nowOffsetDate = new Date(nowDate.setDate(nowDate.getDate() + 2))
+
   if (types.includes(ActerTypes.ACTIVITY)) {
     switch (dateFilter) {
       case ActivitiesDateFilter.UPCOMING:
         return {
           Activity: {
             endAt: {
-              gte: now,
+              gte: nowOffsetDate,
             },
           },
         }
