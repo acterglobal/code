@@ -15,6 +15,8 @@ type Blue = {
   dark: Color
   light: Color
   lightGrey: Color
+  grey: Color
+  mediumGrey: Color
 }
 
 type ActivityTypeColor = {
@@ -41,7 +43,7 @@ type OtherColors = {
   notificationBadge: Color
 }
 
-type ContentColours = {
+type ContentColors = {
   title: Color
   description?: Color
 }
@@ -57,7 +59,7 @@ export type Colors = {
   interestTypes: InterestTypeColors
   toolbar: ToolbarColors
   others: OtherColors
-  content: ContentColours
+  content: ContentColors
 }
 
 export const paletteColors = {
@@ -84,6 +86,8 @@ export const colors: Colors = {
     dark: '#243141',
     light: '#3A527D',
     lightGrey: '#D6DDEB',
+    grey: '#ABBBD8',
+    mediumGrey: '#415C8C',
   },
   grey: {
     extraLight: '#E3E8F2',
