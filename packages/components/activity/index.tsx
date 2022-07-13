@@ -14,6 +14,7 @@ import { ActivityDetails } from '@acter/components/activity/activity-details'
 import { ManageContent } from '@acter/components/activity/sections/manage-content'
 import { SectionTabs as ActivitySectionTabs } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { useUser } from '@acter/lib/user/use-user'
 import { Acter } from '@acter/schema'
 
 import { Connect } from '../acter/connect'
@@ -30,6 +31,7 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
   const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
   const [contentTab, setContentTab] = useState(INVITE)
+  const { user } = useUser()
 
   const handleOnClick = () => {
     setContentTab(INVITE)
@@ -47,9 +49,11 @@ export const Activity: FC<ActivityProps> = ({ acter }) => {
         <Box className={classes.organiserContainer}>
           <Organiser acter={acter?.Activity?.Organiser} />
           <Box className={classes.connectButtonContainer}>
-            <Button className={classes.button} onClick={handleOnClick}>
-              {t('invite')}
-            </Button>
+            {user && (
+              <Button className={classes.button} onClick={handleOnClick}>
+                {t('invite')}
+              </Button>
+            )}
             <Connect acterId={acter.id} />
           </Box>
         </Box>
