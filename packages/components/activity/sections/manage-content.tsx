@@ -39,8 +39,11 @@ export const ManageContent: FC<ManageContentProps> = ({
   const { acter } = useActer()
   const { user } = useUser()
 
+  const tabs = [MEMBERS, INVITE]
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  const tabs = [MEMBERS, INVITE, isAdmin && SETTINGS]
+  if (isAdmin) {
+    tabs.push(SETTINGS)
+  }
 
   const [currentTab, setCurrentTab] = useState(tabs.indexOf(contentTab))
 
