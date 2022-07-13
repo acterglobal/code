@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core'
 
 import { EditIcon } from '@acter/components/icons'
+import { Link } from '@acter/components/util/anchor-link'
+import { ProfileSettingsPages } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
@@ -25,21 +27,23 @@ export const TopBanner: FC = () => {
 
   return (
     <Box className={classes.topBanner}>
-      <Box className={classes.editButton}>
-        <EditIcon
-          style={{
-            color: theme.palette.secondary.dark,
-            marginRight: 4,
-          }}
-        />
-        <Typography
-          className="buttonText"
-          variant="body1"
-          style={{ fontWeight: theme.typography.fontWeightMedium }}
-        >
-          {t('editProfile')}
-        </Typography>
-      </Box>
+      <Link href={`/profile/${ProfileSettingsPages.EDIT}`}>
+        <Box className={classes.editButton}>
+          <EditIcon
+            style={{
+              color: theme.palette.secondary.dark,
+              marginRight: 4,
+            }}
+          />
+          <Typography
+            className="buttonText"
+            variant="body1"
+            style={{ fontWeight: theme.typography.fontWeightMedium }}
+          >
+            {t('editProfile')}
+          </Typography>
+        </Box>
+      </Link>
     </Box>
   )
 }
@@ -63,7 +67,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      cursor: 'pointer',
     },
   })
 )

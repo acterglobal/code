@@ -5,7 +5,7 @@ import { Box, createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 import { About } from '@acter/components/user/profile/info/about'
 import { Content } from '@acter/components/user/profile/info/content'
 import { PartOf } from '@acter/components/user/profile/info/part-of'
-import { TopBanner } from '@acter/components/user/profile/layout/tob-banner'
+import { TopBanner } from '@acter/components/user/profile/info/tob-banner'
 
 export const ProfileView: FC = () => {
   const classes = useStyles()
