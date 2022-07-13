@@ -17,7 +17,6 @@ import clsx from 'clsx'
 
 import { commonStyles } from '@acter/components/organisms/side-bar/common'
 import { Link } from '@acter/components/util/anchor-link'
-import { ProfileSettingsPages } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 
 interface ProfileMenuItemProps {
@@ -51,7 +50,7 @@ export const ProfileMenuItem: FC<ProfileMenuItemProps> = ({
       })}
       aria-current={isActive}
     >
-      <Link href={`/profile/${ProfileSettingsPages.INTERESTS}`}>
+      <Link href={href}>
         <ListItemIcon>
           <Icon
             color="inherit"

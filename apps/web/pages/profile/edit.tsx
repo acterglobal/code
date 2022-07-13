@@ -5,19 +5,22 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { NextPageWithLayout } from 'pages/_app'
 
+import { ProfileLayout } from '@acter/../packages/components/user/profile/layout'
 import { Head } from '@acter/components/atoms/head'
 import { ProfileInterestsForm } from '@acter/components/user/form/interests'
 
-export const UserProfileInterestsPage: NextPageWithLayout = () => {
+export const UserProfileEditPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Profile - Acter" />
       <main>
-        <ProfileInterestsForm />
+        {/* <ProfileInterestsForm /> */}
+        Edit page
       </main>
     </>
   )
 }
+UserProfileEditPage.getLayout = (page) => <ProfileLayout>{page}</ProfileLayout>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -29,4 +32,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 })
 
-export default UserProfileInterestsPage
+export default UserProfileEditPage

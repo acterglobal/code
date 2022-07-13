@@ -13,12 +13,12 @@ export const ProfileMenuItems: FC = () => {
         Icon={ProfileIcon}
       />
       <ProfileMenuItem
-        path={ProfileSettingsPages.INTERESTS}
+        path={ProfileSettingsPages.EDIT}
         label="Edit Profile"
         Icon={EditIcon}
       />
       <ProfileMenuItem
-        path={ProfileSettingsPages.NOTIFICATIONS}
+        path={ProfileSettingsPages.SETTINGS}
         label="Profile settings"
         Icon={SettingsIcon}
       />
