@@ -2,12 +2,15 @@ import React, { FC, useEffect, useState } from 'react'
 
 import {
   Box,
+  createStyles,
   FormHelperText,
   Grid,
+  makeStyles,
   Popper,
   PopperProps,
   TextField,
   TextFieldProps,
+  Theme,
   Typography,
 } from '@material-ui/core'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
@@ -26,7 +29,6 @@ import usePlacesAutocomplete, {
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export type LocationPickerProps = Partial<
   AutocompleteProps<LocationPickerResult, false, false, false>
@@ -46,14 +48,8 @@ export type LocationPickerResult = {
 }
 
 export const LocationPicker: FC<LocationPickerProps> = (props) => {
-  const { t } = useTranslation('common')
-  const {
-    label = t('form.location'),
-    placeholder,
-    types,
-    cacheKey,
-    ...autocompleteProps
-  } = props
+  const classes = useStyles()
+  const { types, cacheKey, ...autocompleteProps } = props
   const [error, setError] = useState<Error | ErrorEvent>()
   const { setValues, values } = useFormikContext<LocationPickerResult>()
   const { location, locationLat, locationLng, placeId } = values
@@ -162,11 +158,11 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            size="small"
-            label={label}
-            placeholder={placeholder}
-            variant="outlined"
-            fullWidth
+            className={classes.textField}
+            InputProps={{
+              ...params.InputProps,
+              disableUnderline: true,
+            }}
             error={!!error}
             onChange={(e) => handleInput(e)} // <-- moved from Autocomplete prop to here
           />
@@ -193,3 +189,22 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
     </>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    textField: {
+      paddingTop: 2,
+      paddingLeft: 15,
+      paddingRight: 15,
+      backgroundColor: theme.colors.white,
+      borderRadius: 5,
+      height: 45,
+      width: 420,
+
+      '& .MuiAutocomplete-input:first-child': {
+        fontSize: '1.4rem',
+        fontWeight: theme.typography.fontWeightMedium,
+      },
+    },
+  })
+)

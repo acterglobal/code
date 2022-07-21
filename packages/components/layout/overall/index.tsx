@@ -35,9 +35,8 @@ export const OverallLayout: FC<LayoutProps> = ({
 }) => {
   const classes = useStyles()
   const [isMenuOpen, setMenuOpen] = useState(true)
-  const [menuVariant, setMenuVariant] = useState<DrawerProps['variant']>(
-    'permanent'
-  )
+  const [menuVariant, setMenuVariant] =
+    useState<DrawerProps['variant']>('permanent')
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs')
   )
@@ -103,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
       scrollbarWidth: 'none',
       '&::-webkit-scrollbar': {
         display: 'none',
+      },
+      '& .MuiDrawer-paperAnchorDockedLeft': {
+        border: 0,
       },
     },
     drawer: {
