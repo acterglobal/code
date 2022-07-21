@@ -6,7 +6,7 @@ mutation CreatePostMention(
   $acterId: String!
   $createdByUserId: String!
 ) {
-  createPostReaction(
+  createPostMention(
     data: {
       name: $name
       Acter: { connect: { id: $acterId } }
@@ -14,7 +14,7 @@ mutation CreatePostMention(
       createdByUser: { connect: { id: $createdByUserId } }
     }
   ) {
-    ...PostMentionsList
+    ...PostMentionData
     postId
   }
 }

@@ -22,6 +22,6 @@ fragment PostDisplay on Post {
     ...PostReactionData
   }
   PostMentions {
-    ...PostMentionsList
+    ...PostMentionData
   }
 }

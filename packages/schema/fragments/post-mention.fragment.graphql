@@ -1,4 +1,4 @@
-fragment PostMentionsList on PostMention {
+fragment PostMentionData on PostMention {
   id
   name
   postId

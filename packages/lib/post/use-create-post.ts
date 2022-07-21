@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { CombinedError, UseMutationState, OperationResult } from 'urql'
 
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import '@acter/lib/post/use-create-post-mention'
 import {
   UseMutationOptions,
   useNotificationMutation,
@@ -10,15 +11,14 @@ import {
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType, Acter, PostMention } from '@acter/schema'
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
+import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.graphql'
 
-import { useCreatePostMention } from './use-create-post-mention'
-
-export type PostVariables2 = PostType &
-  PostMention & {
-    values: { content: string; mentions: PostMention[] }
-    acterId: string
-    authorId: string
-  }
+export type PostMentionVariables = PostMention & {
+  name: string
+  acterId: string
+  postId: string
+  createdByUserId: string
+}
 
 export type PostVariables = PostType & {
   content: string
@@ -27,6 +27,7 @@ export type PostVariables = PostType & {
 }
 
 type CreatePostData = { createPost: PostType }
+type CreatePostMentionData = { createMention: PostMention }
 
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
@@ -78,6 +79,13 @@ export const useCreatePost = (
     getSuccessMessage: () => t('post.created'),
   })
 
+  const [_, createPostMention] = useNotificationMutation<
+    CreatePostMentionData,
+    PostMentionVariables
+  >(CREATE_POST_MENTION, {
+    getSuccessMessage: () => 'Mentions Created',
+  })
+
   useEffect(() => {
     if (createFetching) setFetching(true)
   }, [createFetching])
@@ -104,21 +112,26 @@ export const useCreatePost = (
   ) => {
     if (!user) throw 'User is not set.'
     setFetching(true)
+
     const { data } = await createPost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,
     })
 
-    const mentionPostId: string = data.createPost.id
-    const [createPostMention] = useCreatePostMention()
-
-    const mentionData = {
-      mentions,
-      postId: mentionPostId,
-      createdByUserId: user.id,
+    if (data.createPost && mentions) {
+      mentions.map((mention) => {
+        createPostMention({
+          name: mention.name,
+          postId: data.createPost.id,
+          acterId: mention.acterId,
+          createdByUserId: user.id,
+          ...mention,
+        })
+      })
     }
-    data && createPostMention(mentionData)
+
+    setFetching(false)
 
     return data
   }

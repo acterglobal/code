@@ -11,6 +11,8 @@ type PostContentProps = PostInfoProps
 
 export const PostContent: FC<PostContentProps> = ({ post }) => {
   const classes = useStyles()
+  // Find mentions in post content
+  // convert to links so sanitizer can style
 
   return (
     <Box className={classes.postContent}>

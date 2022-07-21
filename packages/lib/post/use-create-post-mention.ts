@@ -8,8 +8,9 @@ import { PostMention } from '@acter/schema'
 import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.graphql'
 
 export type PostMentionVariables = {
-  mentions: PostMention[]
-  postId: string
+  name: string
+  postid: string
+  acterId: string
   createdByUserId: string
 }
 
