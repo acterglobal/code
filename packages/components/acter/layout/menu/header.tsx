@@ -14,10 +14,14 @@ import { Acter } from '@acter/schema'
 
 export interface ActerMenuHeaderProps {
   acter: Acter
+  height?: number
 }
 
-export const ActerMenuHeader: FC<ActerMenuHeaderProps> = ({ acter }) => {
-  const classes = useStyles()
+export const ActerMenuHeader: FC<ActerMenuHeaderProps> = ({
+  acter,
+  height,
+}) => {
+  const classes = useStyles({ height })
 
   return (
     <ListItem divider className={classes.acterHeaderItem}>
@@ -28,6 +32,9 @@ export const ActerMenuHeader: FC<ActerMenuHeaderProps> = ({ acter }) => {
   )
 }
 
+type StyleParams = {
+  height: number | undefined
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ...commonStyles(theme),
@@ -35,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       borderColor: theme.palette.secondary.contrastText,
-      minHeight: theme.spacing(6),
+      minHeight: ({ height }: StyleParams) => theme.spacing(height || 6),
       marginBottom: 10,
     },
   })
