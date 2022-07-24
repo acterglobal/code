@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import { Link } from '@acter/components/util/anchor-link'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
 
@@ -22,9 +23,11 @@ export const Logout: FC = () => {
     <>
       <Divider className={classes.divider} />
 
-      <Typography className={classes.heading} variant="body2">
-        {t('signOut')}
-      </Typography>
+      <Link href="/api/auth/logout" isExternal={true}>
+        <Typography className={classes.heading} variant="body2">
+          {t('signOut')}
+        </Typography>
+      </Link>
     </>
   )
 }
@@ -38,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2),
       fontWeight: theme.typography.fontWeightLight,
       color: theme.palette.secondary.contrastText,
+      '&:hover': {
+        color: theme.colors.white,
+      },
     },
   })
 )
