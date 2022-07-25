@@ -12,17 +12,22 @@ import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 
 export type InterestsFilterProps = {
+  isAnchorElementIcon?: boolean
+  userInterestIds?: string[]
   applyFilters: (filterInterests?: string[]) => void
 }
 
 export const SearchInterestsFilter: FC<InterestsFilterProps> = ({
   applyFilters,
+  userInterestIds = [],
+  isAnchorElementIcon = false,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation('search')
 
   const [closePopover, setClosePopover] = useState<boolean | null>(null)
-  const [selectedInterestIds, setSelectedInterestIds] = useState([])
+  const [selectedInterestIds, setSelectedInterestIds] =
+    useState(userInterestIds)
 
   const { interestTypes } = useInterestTypes()
   if (!interestTypes) return null
@@ -44,13 +49,13 @@ export const SearchInterestsFilter: FC<InterestsFilterProps> = ({
     setSelectedInterestIds([])
     setClosePopover(!closePopover)
   }
-
   return (
     <Popover
       tabLabel={`${t('interests')} ${
         selectedInterestIds.length > 0 ? `(${selectedInterestIds.length})` : ``
       }`}
       closePopover={closePopover}
+      isAnchorElementIcon={isAnchorElementIcon}
     >
       <Box className={classes.content}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -81,7 +86,7 @@ export const SearchInterestsFilter: FC<InterestsFilterProps> = ({
                   disabled={selectedInterestIds.length === 0}
                   type="submit"
                 >
-                  {t('applyButtonText')}
+                  {t('search:applyButtonText')}
                 </Button>
               </Box>
             </Form>

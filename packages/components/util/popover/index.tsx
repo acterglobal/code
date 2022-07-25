@@ -8,10 +8,13 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  IconButton,
 } from '@material-ui/core'
+import { CreateOutlined } from '@material-ui/icons'
 
 export type PopoverProps = {
-  tabLabel: string
+  isAnchorElementIcon?: boolean
+  tabLabel?: string
   children: ReactNode
   closePopover: boolean | null
 }
@@ -20,6 +23,7 @@ export const Popover: FC<PopoverProps> = ({
   tabLabel,
   children,
   closePopover,
+  isAnchorElementIcon,
 }) => {
   const classes = useStyles()
 
@@ -38,15 +42,21 @@ export const Popover: FC<PopoverProps> = ({
 
   return (
     <>
-      <Button
-        className={classes.button}
-        variant="contained"
-        onClick={handleClick}
-      >
-        <Typography className={classes.tabLable} variant="caption">
-          {tabLabel}
-        </Typography>
-      </Button>
+      {isAnchorElementIcon ? (
+        <IconButton onClick={handleClick}>
+          <CreateOutlined className={classes.editIcon} />
+        </IconButton>
+      ) : (
+        <Button
+          className={classes.button}
+          variant="contained"
+          onClick={handleClick}
+        >
+          <Typography className={classes.tabLabel} variant="caption">
+            {tabLabel}
+          </Typography>
+        </Button>
+      )}
 
       <MUIPopover
         id={id}
@@ -90,8 +100,13 @@ const useStyles = makeStyles((theme: Theme) =>
     popover: {
       maxWidth: theme.spacing(80),
     },
-    tabLable: {
+    tabLabel: {
       fontSize: '1rem',
+    },
+    editIcon: {
+      color: theme.colors.blue.mediumGrey,
+      fontSize: 20,
+      cursor: 'pointer',
     },
   })
 )

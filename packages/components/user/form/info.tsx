@@ -10,7 +10,7 @@ import {
   Box,
 } from '@material-ui/core'
 
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, FormikProps } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
@@ -72,72 +72,89 @@ export const ProfileInfoForm: FC = () => {
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <Box className={classes.formButtons}>
-            <FormButtons align="right" hideUnlessDirty={true} />
-          </Box>
-          <Box className={classes.formContainer}>
-            <Grid container>
-              <Grid item sm={12} md={4}>
-                <ImageUpload
-                  imageType="avatar"
-                  fileUrl={user?.Acter.avatarUrl}
-                />
-              </Grid>
-              <Grid className={classes.fieldsContainer} item sm={12} md={8}>
-                <Typography className={classes.label}>{t('name')}</Typography>
+        {({
+          dirty,
+          values,
+          submitForm,
+          resetForm,
+        }: FormikProps<ProfileInfoFormValues>) => {
+          return (
+            <Form
+              onBlur={async () => {
+                if (dirty) {
+                  await submitForm()
+                  resetForm({ values }) // <-- Changes dirty to false
+                }
+              }}
+            >
+              <Box className={classes.formButtons}>
+                <FormButtons align="right" hideUnlessDirty={true} />
+              </Box>
+              <Box className={classes.formContainer}>
+                <Grid container>
+                  <Grid item sm={12} md={4}>
+                    <ImageUpload
+                      imageType="avatar"
+                      fileUrl={user?.Acter.avatarUrl}
+                    />
+                  </Grid>
+                  <Grid className={classes.fieldsContainer} item sm={12} md={8}>
+                    <Typography className={classes.label}>
+                      {t('name')}
+                    </Typography>
 
-                <Field
-                  className={classes.textinput}
-                  component={TextField}
-                  name="name"
-                  placeholder={t('name')}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  inputProps={{
-                    style: {
-                      paddingLeft: 15,
-                      fontSize: '1.4rem',
-                      fontWeight: theme.typography.fontWeightMedium,
-                      backgroundColor: theme.colors.white,
-                      borderRadius: 5,
-                      height: 35,
-                    },
-                  }}
-                />
-                <Typography className={classes.label}>Email</Typography>
+                    <Field
+                      className={classes.textinput}
+                      component={TextField}
+                      name="name"
+                      placeholder={t('name')}
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
+                      inputProps={{
+                        style: {
+                          paddingLeft: 15,
+                          fontSize: '1.4rem',
+                          fontWeight: theme.typography.fontWeightMedium,
+                          backgroundColor: theme.colors.white,
+                          borderRadius: 5,
+                          height: 35,
+                        },
+                      }}
+                    />
+                    <Typography className={classes.label}>Email</Typography>
 
-                <Field
-                  className={classes.textinput}
-                  component={TextField}
-                  name="email"
-                  placeholder="you@acter.global"
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  disabled={true}
-                  inputProps={{
-                    style: {
-                      paddingLeft: 15,
-                      fontSize: '1.4rem',
-                      fontWeight: theme.typography.fontWeightMedium,
-                      backgroundColor: theme.colors.white,
-                      borderRadius: 5,
-                      height: 35,
-                    },
-                  }}
-                />
-                <Typography className={classes.label}>
-                  {t('location')}
-                </Typography>
+                    <Field
+                      className={classes.textinput}
+                      component={TextField}
+                      name="email"
+                      placeholder="you@acter.global"
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
+                      disabled={true}
+                      inputProps={{
+                        style: {
+                          paddingLeft: 15,
+                          fontSize: '1.4rem',
+                          fontWeight: theme.typography.fontWeightMedium,
+                          backgroundColor: theme.colors.white,
+                          borderRadius: 5,
+                          height: 35,
+                        },
+                      }}
+                    />
+                    <Typography className={classes.label}>
+                      {t('location')}
+                    </Typography>
 
-                <LocationPicker types={['(regions)']} cacheKey="regions" />
-              </Grid>
-            </Grid>
-            {/* <FormButtons align="right" hideUnlessDirty={true} /> */}
-          </Box>
-        </Form>
+                    <LocationPicker types={['(regions)']} cacheKey="regions" />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Form>
+          )
+        }}
       </Formik>
     </>
   )
