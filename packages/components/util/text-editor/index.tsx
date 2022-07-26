@@ -64,7 +64,7 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
-  handleMentions: (data: MentionData[]) => void
+  handleMentions?: (data: MentionData[]) => void
   hideEditorToolbar?: boolean
   placeholder?: string
   isComment?: boolean
@@ -152,14 +152,30 @@ export const TextEditor: FC<TextEditorProps> = ({
     const contentState = data.getCurrentContent()
     const options = {
       entityStyleFn: (entity) => {
-        if (entity.get('type').toLowerCase() === LINK) {
-          const data = entity.getData()
+        const entityType = entity.get('type').toLowerCase()
+
+        if (entityType === LINK) {
+          const link = entity.getData()
 
           return {
             element: 'a',
             attributes: {
-              href: data.url,
+              href: link.url,
               target: '_blank',
+            },
+          }
+        }
+
+        if (entityType === MENTION) {
+          const { mention } = entity.getData()
+
+          return {
+            element: 'a',
+            attributes: {
+              href: 'https://www.google.com',
+              target: '_blank',
+              name: mention.name,
+              acterId: mention.acterId,
             },
           }
         }

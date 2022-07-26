@@ -11,12 +11,12 @@ type PostContentProps = PostInfoProps
 
 export const PostContent: FC<PostContentProps> = ({ post }) => {
   const classes = useStyles()
-  // Find mentions in post content
-  // convert to links so sanitizer can style
 
   return (
     <Box className={classes.postContent}>
       <PostInfo post={post} />
+
+      {/* ADD LINK TO DRAWER IN SANITIZER AS PROP/FLAG TO VIEW USER PROFILE IF POST CONTENT CONTAINS MENTION DATA CHECK FOR ACTERID */}
 
       {post.content && (
         <div className={classes.description}>
