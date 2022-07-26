@@ -7,12 +7,15 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
 import { ProfileLayout } from '@acter/components/user/profile/layout'
+import { ProfileSettings } from '@acter/components/user/profile/settings'
 
 export const UserProfileSettingsPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Notifications - Profile - Acter" />
-      <main>settings</main>
+      <main>
+        <ProfileSettings />
+      </main>
     </>
   )
 }
