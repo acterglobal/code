@@ -29,7 +29,7 @@ export const createPost: UpdateResolver<PostData> = (
     })
     cache.writeFragment(POST_FRAGMENT, {
       ...data,
-      Comments: [result.createPost, ...data.Comments],
+      Comments: [...data.Comments, result.createPost],
     })
   } else {
     forEachQueryFields({
