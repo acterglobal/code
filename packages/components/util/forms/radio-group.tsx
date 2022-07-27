@@ -27,7 +27,9 @@ export const RadioGroup: FC<RadioGroupProps> = ({ label, name, children }) => {
 
   return (
     <FormControl component="fieldset" fullWidth className={classes.control}>
-      <FormLabel component="legend">{label}</FormLabel>
+      <FormLabel className={classes.label} component="legend">
+        {label}
+      </FormLabel>
       <Field component={FormikRadioGroup} name={name}>
         {children}
       </Field>
@@ -38,7 +40,10 @@ export const RadioGroup: FC<RadioGroupProps> = ({ label, name, children }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     control: {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(3),
+    },
+    label: {
+      marginBottom: theme.spacing(1.7),
     },
   })
 )
