@@ -7,16 +7,12 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { ProfileLayout } from '@acter/../packages/components/user/profile/layout'
 import { Head } from '@acter/components/atoms/head'
-import { ProfileInterestsForm } from '@acter/components/user/form/interests'
 
 export const UserProfileEditPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Profile - Acter" />
-      <main>
-        {/* <ProfileInterestsForm /> */}
-        Edit page
-      </main>
+      <main>Edit page</main>
     </>
   )
 }
