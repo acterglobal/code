@@ -1,11 +1,6 @@
 import React, { FC, useEffect } from 'react'
 
-import {
-  FormControl,
-  FormControlProps,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core'
+import { FormControl, FormControlProps, MenuItem } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 import { Field, useFormikContext } from 'formik'
@@ -40,13 +35,7 @@ export const LanguagePicker: FC<LanguagePickerProps> = (props) => {
 
   return (
     <FormControl {...props}>
-      <InputLabel>Language</InputLabel>
-      <Field
-        component={Select}
-        label="Language"
-        name="language"
-        onChange={handleChange}
-      >
+      <Field component={Select} name="language" onChange={handleChange}>
         {Object.entries(LanguageNames).map(([language, languageName]) => (
           <MenuItem value={language as Language} className={classes.item}>
             {capitalize(languageName)}
