@@ -7,12 +7,15 @@ import { NextPageWithLayout } from 'pages/_app'
 
 import { ProfileLayout } from '@acter/../packages/components/user/profile/layout'
 import { Head } from '@acter/components/atoms/head'
+import { ProfileEdit } from '@acter/components/user/profile/edit'
 
 export const UserProfileEditPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Profile - Acter" />
-      <main>Edit page</main>
+      <main>
+        <ProfileEdit />
+      </main>
     </>
   )
 }
@@ -24,6 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'interests',
       'success-messages',
+      'search',
     ])),
   },
 })

@@ -1,5 +1,8 @@
 import React, { FC } from 'react'
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core'
+
+import clsx from 'clsx'
 import { useFormikContext } from 'formik'
 
 import {
@@ -27,10 +30,10 @@ export const FormButtons: FC<FormButtonsProps> = ({
   hideUnlessDirty = false,
   onCancel,
 }) => {
+  const classes = useStyles()
   const { t } = useTranslation('common')
   const Container = align === 'left' ? ButtonsContainer : ButtonsContainerRight
   const { dirty, isSubmitting, resetForm } = useFormikContext()
-
   if (hideUnlessDirty && !dirty) return null
 
   const handleClick = () => {
@@ -41,22 +44,43 @@ export const FormButtons: FC<FormButtonsProps> = ({
   return (
     <Container>
       <Button
-        variant="outlined"
-        color="primary"
-        disabled={isSubmitting}
-        onClick={handleClick}
-      >
-        {capitalize(t(cancelText))}
-      </Button>
-      <Button
+        className={clsx(classes.button, classes.save)}
         variant="contained"
         color="primary"
-        style={{ color: 'white' }}
         disabled={isSubmitting}
         type="submit"
       >
         {capitalize(t(`form.${saveText}`))}
       </Button>
+      <Button
+        className={clsx(classes.button, classes.cancel)}
+        color="primary"
+        variant="outlined"
+        disabled={isSubmitting}
+        onClick={handleClick}
+      >
+        {capitalize(t(cancelText))}
+      </Button>
     </Container>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      borderRadius: 5,
+    },
+    save: {
+      color: theme.colors.white,
+    },
+    cancel: {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.colors.white,
+      border: '1px solid',
+      '&:hover': {
+        backgroundColor: theme.colors.white,
+        border: '1px solid',
+      },
+    },
+  })
+)

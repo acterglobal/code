@@ -29,16 +29,7 @@ export const BottomBar: FC<BottomBarProps> = ({ onOpen }) => {
           <MenuIcon />
         </IconButton>
         <div className={classes.grow} />
-        <ProfileButton
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-        />
+        <ProfileButton />
       </Toolbar>
     </AppBar>
   )

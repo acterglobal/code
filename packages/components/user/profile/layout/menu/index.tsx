@@ -16,7 +16,7 @@ export const ProfileMenu: FC = () => {
 
   return (
     <SecondaryMenu>
-      <ActerMenuHeader acter={user.Acter} />
+      <ActerMenuHeader acter={user.Acter} height={8} />
 
       <ProfileMenuItems />
 
