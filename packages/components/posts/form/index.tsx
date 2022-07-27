@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react'
 
-import { makeStyles, createStyles, useTheme } from '@material-ui/core'
+import { makeStyles, createStyles, useTheme, Box } from '@material-ui/core'
 
+import clsx from 'clsx'
 import { Form, Formik, FormikBag } from 'formik'
 
 import { FormButtons } from '@acter/components/util/forms/form-buttons'
@@ -91,13 +92,17 @@ export const PostForm: FC<PostFormProps> = ({
           />
 
           {post ? (
-            <FormButtons align="right" onCancel={onCancel} />
+            <Box className={clsx(parentId && classes.buttons)}>
+              <FormButtons align="right" onCancel={onCancel} />
+            </Box>
           ) : (
-            <FormButtons
-              align="right"
-              onCancel={onCancel}
-              saveText={parentId ? 'comment' : 'post'}
-            />
+            <Box className={clsx(parentId && classes.buttons)}>
+              <FormButtons
+                align="right"
+                onCancel={onCancel}
+                saveText={parentId ? 'comment' : 'post'}
+              />
+            </Box>
           )}
         </Form>
       )}
@@ -113,6 +118,9 @@ const useStyles = makeStyles(() =>
       flexDirection: 'column',
       overflow: 'hidden',
       fontSize: 11,
+    },
+    buttons: {
+      marginTop: 8,
     },
   })
 )
