@@ -6,18 +6,21 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
-import { ProfileInfoForm } from '@acter/components/user/form/info'
+import { ProfileView } from '@acter/components/user/profile'
+import { ProfileLayout } from '@acter/components/user/profile/layout'
 
 export const UserProfileInfoPage: NextPageWithLayout = () => {
   return (
     <>
       <Head title="Profile - Acter" />
       <main>
-        <ProfileInfoForm />
+        <ProfileView />
       </main>
     </>
   )
 }
+
+UserProfileInfoPage.getLayout = (page) => <ProfileLayout>{page}</ProfileLayout>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {

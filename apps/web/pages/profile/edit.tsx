@@ -5,19 +5,18 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { NextPageWithLayout } from 'pages/_app'
 
+import { ProfileLayout } from '@acter/../packages/components/user/profile/layout'
 import { Head } from '@acter/components/atoms/head'
-import { ProfileNotificationsForm } from '@acter/components/user/form/notifications'
 
-export const UserProfileNotificationsPage: NextPageWithLayout = () => {
+export const UserProfileEditPage: NextPageWithLayout = () => {
   return (
     <>
-      <Head title="Notifications - Profile - Acter" />
-      <main>
-        <ProfileNotificationsForm />
-      </main>
+      <Head title="Profile - Acter" />
+      <main>Edit page</main>
     </>
   )
 }
+UserProfileEditPage.getLayout = (page) => <ProfileLayout>{page}</ProfileLayout>
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -25,9 +24,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'interests',
       'success-messages',
-      'notifications',
     ])),
   },
 })
 
-export default UserProfileNotificationsPage
+export default UserProfileEditPage

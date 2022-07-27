@@ -6,18 +6,19 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextPageWithLayout } from 'pages/_app'
 
 import { Head } from '@acter/components/atoms/head'
-import { ProfileInterestsForm } from '@acter/components/user/form/interests'
+import { ProfileLayout } from '@acter/components/user/profile/layout'
 
-export const UserProfileInterestsPage: NextPageWithLayout = () => {
+export const UserProfileSettingsPage: NextPageWithLayout = () => {
   return (
     <>
-      <Head title="Profile - Acter" />
-      <main>
-        <ProfileInterestsForm />
-      </main>
+      <Head title="Notifications - Profile - Acter" />
+      <main>settings</main>
     </>
   )
 }
+UserProfileSettingsPage.getLayout = (page) => (
+  <ProfileLayout>{page}</ProfileLayout>
+)
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -25,8 +26,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'interests',
       'success-messages',
+      'notifications',
     ])),
   },
 })
 
-export default UserProfileInterestsPage
+export default UserProfileSettingsPage
