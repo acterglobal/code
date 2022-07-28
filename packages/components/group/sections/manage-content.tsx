@@ -18,6 +18,9 @@ import { Drawer } from '@acter/components/util/drawer'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { useUser } from '@acter/lib/user/use-user'
+import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
+import { ActerConnectionRole } from '@acter/schema'
 
 const { ABOUT, LINKS, MEMBERS, INVITE, SETTINGS } = GroupSectionTabs
 const tabs = [ABOUT, LINKS, MEMBERS, INVITE, SETTINGS]
@@ -36,8 +39,13 @@ export const ManageContent: FC<ManageContentProps> = ({
   const classes = useStyles()
   const { t } = useTranslation('common')
 
+  const { user } = useUser()
   const { acter } = useActer()
+
   if (!acter) return null
+
+  const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
+  if (!isAdmin) return null
 
   const handleClose = () => setDrawer(false)
   const handleChange = (_, tab) => setCurrentTab(tab)
@@ -66,7 +74,7 @@ export const ManageContent: FC<ManageContentProps> = ({
           {tabs[currentTab] === LINKS && <LinksSection />}
           {tabs[currentTab] === MEMBERS && <MembersSection />}
           {tabs[currentTab] === INVITE && <InvitesSection />}
-          {tabs[currentTab] === SETTINGS && <SettingsSection />}
+          {isAdmin && tabs[currentTab] === SETTINGS && <SettingsSection />}
         </Box>
       </Box>
     </Drawer>

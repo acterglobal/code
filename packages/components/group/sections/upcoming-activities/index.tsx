@@ -6,17 +6,21 @@ import { UpcomingActivity } from '@acter/components/group/sections/upcoming-acti
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { getUpcomingActivities } from '@acter/lib/activity/get-activities-for-acter'
 import { useActivities } from '@acter/lib/activity/use-activities'
 import { ActerTypes } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { Acter } from '@acter/schema'
 
-export const UpcomingActivities: FC = () => {
+interface UpcomingActivitiesProps {
+  acter: Acter
+}
+
+export const UpcomingActivities: FC<UpcomingActivitiesProps> = ({ acter }) => {
   const { t } = useTranslation('group-landing', {
     keyPrefix: 'upcomingActivities',
   })
-  const { acter } = useActer()
+
   const { activities, fetching: activitiesFetching } = useActivities({
     followerId: acter?.id,
   })

@@ -28,7 +28,7 @@ import { ActerConnectionRole } from '@acter/schema'
 
 interface SectionContainerProps {
   addItem?: ActerTypes
-  children: ReactNode
+  children?: ReactNode
   title: string
   buttonText: string
   hideAddIcon?: boolean
