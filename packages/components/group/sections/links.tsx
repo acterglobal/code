@@ -12,23 +12,24 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
 import { Link } from '@acter/components/util/anchor-link'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getUrl } from '@acter/lib/links/get-url'
 import { useLinks } from '@acter/lib/links/use-links'
 import { capitalize } from '@acter/lib/string/capitalize'
+import { Acter } from '@acter/schema'
 
-export const LinksSection: FC = () => {
+interface LinksSectionProps {
+  acter: Acter
+}
+
+export const LinksSection: FC<LinksSectionProps> = ({ acter }) => {
   const { t } = useTranslation('group-landing', { keyPrefix: 'links' })
   const classes = useStyles()
-  const { acter } = useActer()
 
   const { links, fetching: linksLoading } = useLinks({
     acterId: acter?.id,
   })
-
-  if (!acter) return null
 
   return (
     <SectionContainer

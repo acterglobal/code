@@ -7,8 +7,13 @@ import { SectionContainer } from '@acter/components/group/sections/container'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { Acter } from '@acter/schema'
 
-export const MembersSection: FC = () => {
+interface MembersSectionProps {
+  acter: Acter
+}
+
+export const MembersSection: FC<MembersSectionProps> = () => {
   const { t } = useTranslation('group-landing', { keyPrefix: 'members' })
   const classes = useStyles()
   const { acter } = useActer()

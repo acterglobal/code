@@ -4,16 +4,17 @@ import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 
 import { SectionContainer } from '@acter/components/group/sections/container'
 import { ZeroMessage } from '@acter/components/group/sections/zero-message'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { SectionTabs as GroupSectionTabs } from '@acter/lib/constants'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import { Acter } from '@acter/schema'
 
-export const DescriptionSection: FC = () => {
+interface DescriptionSectionProps {
+  acter: Acter
+}
+
+export const DescriptionSection: FC<DescriptionSectionProps> = ({ acter }) => {
   const classes = useStyles()
   const { t } = useTranslation('group-landing', { keyPrefix: 'description' })
-
-  const { acter } = useActer()
-  if (!acter) return null
 
   return (
     <SectionContainer
