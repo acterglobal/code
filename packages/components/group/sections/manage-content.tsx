@@ -45,7 +45,6 @@ export const ManageContent: FC<ManageContentProps> = ({
   if (!acter) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  if (!isAdmin) return null
 
   const handleClose = () => setDrawer(false)
   const handleChange = (_, tab) => setCurrentTab(tab)

@@ -29,7 +29,6 @@ export const GroupLanding: FC = () => {
   if (!acter) return null
 
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
-  if (!isAdmin) return null
 
   return (
     <LandingPageLayout>
