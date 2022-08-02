@@ -11,7 +11,6 @@ import {
 
 import { Connect } from '@acter/components/acter/connect'
 import { AddInviteSection } from '@acter/components/acter/landing-page/header-section/add-invite'
-import { DeleteButton } from '@acter/components/acter/landing-page/header-section/delete-button'
 import { EditButton } from '@acter/components/acter/landing-page/header-section/edit-button'
 import { Image } from '@acter/components/util/image'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
@@ -75,7 +74,6 @@ export const HeaderSection: FC<HeaderSectionProps> = ({ acter }) => {
           <Hidden xsDown>
             <Box>
               <EditButton />
-              <DeleteButton />
             </Box>
           </Hidden>
         </Box>
