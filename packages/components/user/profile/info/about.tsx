@@ -17,19 +17,27 @@ import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 import { useUser } from '@acter/lib/user/use-user'
+import { Acter } from '@acter/schema'
 
-export const About: FC = () => {
+interface AboutProps {
+  acter?: Acter
+}
+
+export const About: FC<AboutProps> = ({ acter }) => {
   const { user } = useUser()
   const classes = useStyles()
   const { route } = useRouter()
-  const [_, updateActer] = useUpdateActer(user?.Acter)
+
+  const currentActer = acter ? acter : user?.Acter
+
+  const [_, updateActer] = useUpdateActer(currentActer)
 
   const { interestTypes } = useInterestTypes()
   if (!interestTypes) return null
 
   const interests = interestNameMap(interestTypes)
 
-  if (!user) {
+  if (!acter && !user) {
     return null
   }
 
@@ -43,18 +51,18 @@ export const About: FC = () => {
 
   return (
     <>
-      {(user?.Acter?.description ||
-        user?.Acter?.ActerInterests?.length !== 0) && (
+      {(currentActer?.description ||
+        currentActer?.ActerInterests?.length !== 0) && (
         <Box className={classes.section}>
-          {user.Acter.description && (
+          {currentActer.description && (
             <>
               <Typography className={classes.heading}>About</Typography>
               <Typography className={classes.description}>
-                {user.Acter.description}
+                {currentActer.description}
               </Typography>
             </>
           )}
-          {user?.Acter?.ActerInterests?.length !== 0 && (
+          {currentActer?.ActerInterests?.length !== 0 && (
             <>
               <Box className={classes.interestsHeading}>
                 <Typography className={classes.heading}>Interests</Typography>
@@ -62,7 +70,7 @@ export const About: FC = () => {
                   <SearchInterestsFilter
                     applyFilters={handleFilterInterests}
                     isAnchorElementIcon={true}
-                    userInterestIds={user?.Acter?.ActerInterests.map(
+                    userInterestIds={currentActer?.ActerInterests.map(
                       ({ Interest }) => Interest.id
                     )}
                   />
@@ -70,7 +78,7 @@ export const About: FC = () => {
               </Box>
               <Box>
                 <InterestsSection
-                  selected={user.Acter.ActerInterests?.map(
+                  selected={currentActer.ActerInterests?.map(
                     ({ Interest }) => Interest
                   )}
                 />

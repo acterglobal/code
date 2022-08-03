@@ -9,6 +9,8 @@ import {
 } from '@material-ui/core'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { About } from '@acter/components/user/profile/info/about'
+import { PartOf } from '@acter/components/user/profile/info/part-of'
 import { Image } from '@acter/components/util/image'
 import { useActer } from '@acter/lib/acter/use-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
@@ -39,14 +41,17 @@ export const SidebarProfile: FC<SidebarProfileProps> = ({ acterId }) => {
 
       <Box className={classes.info}>
         <Typography className={classes.label}>{t('name')}</Typography>
-        <Typography className={classes.detail}>{acter.name}</Typography>
+        <Typography className={classes.detail}>{acter?.name}</Typography>
 
         <Typography className={classes.label}>Email</Typography>
-        <Typography className={classes.detail}>something@later.com</Typography>
+        <Typography className={classes.detail}>SOMETHING@SOME</Typography>
 
         <Typography className={classes.label}>{t('form.location')}</Typography>
-        <Typography className={classes.detail}>{acter.location}</Typography>
+        <Typography className={classes.detail}>{acter?.location}</Typography>
       </Box>
+
+      <About acter={acter} />
+      <PartOf />
     </Box>
   )
 }
