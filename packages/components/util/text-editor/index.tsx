@@ -172,10 +172,10 @@ export const TextEditor: FC<TextEditorProps> = ({
           return {
             element: 'a',
             attributes: {
-              href: 'https://www.google.com',
-              target: '_blank',
+              href: '#',
               name: mention.name,
               acterId: mention.acterId,
+              id: mention.acterId,
             },
           }
         }
@@ -185,7 +185,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     const value = stateToHTML(contentState, options)
 
     handleInputChange(value)
-    handleMentions(selectedMentions)
+    handleMentions && handleMentions(selectedMentions)
     setEditorState(data)
   }
 

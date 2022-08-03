@@ -119,7 +119,7 @@ export const useCreatePost = (
       authorId: user.Acter.id,
     })
 
-    if (data.createPost && mentions) {
+    if (data?.createPost && mentions) {
       mentions.map((mention) => {
         createPostMention({
           name: mention.name,

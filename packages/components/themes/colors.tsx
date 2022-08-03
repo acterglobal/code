@@ -19,6 +19,11 @@ type Blue = {
   mediumGrey: Color
 }
 
+type Green = {
+  light: Color
+  dark: Color
+}
+
 type ActivityTypeColor = {
   [key in ActivityTypes]: Color
 }
@@ -51,6 +56,7 @@ type ContentColors = {
 export type Colors = {
   black: Color
   blue: Blue
+  green: Green
   grey: Grey
   white: Color
   red: Color
@@ -88,6 +94,10 @@ export const colors: Colors = {
     lightGrey: '#D6DDEB',
     grey: '#ABBBD8',
     mediumGrey: '#415C8C',
+  },
+  green: {
+    light: '#5BB318',
+    dark: '#2B7A0B',
   },
   grey: {
     extraLight: '#E3E8F2',
