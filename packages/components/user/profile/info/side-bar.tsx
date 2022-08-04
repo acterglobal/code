@@ -12,9 +12,9 @@ import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { About } from '@acter/components/user/profile/info/about'
 import { PartOf } from '@acter/components/user/profile/info/part-of'
 import { Image } from '@acter/components/util/image'
-import { useActer } from '@acter/lib/acter/use-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
+import { useUser } from '@acter/lib/user/use-user'
 
 interface SidebarProfileProps {
   acterId: string
@@ -22,18 +22,18 @@ interface SidebarProfileProps {
 
 export const SidebarProfile: FC<SidebarProfileProps> = ({ acterId }) => {
   const classes = useStyles()
-  const { acter, fetching: acterLoading } = useActer({ acterId })
+  const { user, fetching: userLoading } = useUser({ acterId })
   const { t } = useTranslation()
 
-  if (acterLoading) return <LoadingSpinner />
+  if (userLoading) return <LoadingSpinner />
 
-  if (!acter) return null
+  if (!user) return null
 
   return (
     <Box className={classes.content}>
       <Box className={classes.avatarImage}>
         <Image
-          src={getImageUrl(acter?.avatarUrl, 'avatar')}
+          src={getImageUrl(user.Acter?.avatarUrl, 'avatar')}
           alt="Acter Logo"
           height={200}
         />
@@ -41,16 +41,18 @@ export const SidebarProfile: FC<SidebarProfileProps> = ({ acterId }) => {
 
       <Box className={classes.info}>
         <Typography className={classes.label}>{t('name')}</Typography>
-        <Typography className={classes.detail}>{acter?.name}</Typography>
+        <Typography className={classes.detail}>{user.Acter?.name}</Typography>
 
         <Typography className={classes.label}>Email</Typography>
-        <Typography className={classes.detail}>SOMETHING@SOME</Typography>
+        <Typography className={classes.detail}>{user.email}</Typography>
 
         <Typography className={classes.label}>{t('form.location')}</Typography>
-        <Typography className={classes.detail}>{acter?.location}</Typography>
+        <Typography className={classes.detail}>
+          {user.Acter?.location}
+        </Typography>
       </Box>
 
-      <About acter={acter} />
+      {/* <About acter={acter} /> */}
       <PartOf />
     </Box>
   )
