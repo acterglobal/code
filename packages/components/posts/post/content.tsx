@@ -15,18 +15,16 @@ type PostContentProps = PostInfoProps
 export const PostContent: FC<PostContentProps> = ({ post }) => {
   const classes = useStyles()
   const [openDrawer, setDrawerOpen] = useState(false)
-  const [heading, setHeading] = useState('')
+  const heading = 'User Profile' as string
   const [mentionActerId, setMentionedActerId] = useState(null)
 
   const handleDrawerOpen = (mentionActerId) => {
     setMentionedActerId(mentionActerId)
     setDrawerOpen(true)
-    setHeading('User Profile')
   }
 
   const handleDrawerClose = () => {
     setDrawerOpen(false)
-    setHeading('')
   }
 
   addMentionListener(handleDrawerOpen)
@@ -44,13 +42,15 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
       )}
 
       <PostReactions post={post} />
-      <Drawer
-        heading={heading}
-        open={openDrawer}
-        handleClose={handleDrawerClose}
-      >
-        <SidebarProfile acterId={mentionActerId} />
-      </Drawer>
+      {mentionActerId && (
+        <Drawer
+          heading={heading}
+          open={openDrawer}
+          handleClose={handleDrawerClose}
+        >
+          <SidebarProfile acterId={mentionActerId} />
+        </Drawer>
+      )}
     </Box>
   )
 }
