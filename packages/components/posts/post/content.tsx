@@ -8,6 +8,7 @@ import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 import { PostReactions } from '@acter/components/posts/reactions'
 import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
 import { Drawer } from '@acter/components/util/drawer'
+import { addMentionListener } from '@acter/lib/post/add-mention-listerner'
 
 type PostContentProps = PostInfoProps
 
@@ -28,12 +29,7 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
     setHeading('')
   }
 
-  document.body.addEventListener('click', (e) => {
-    if (e.target && e.target.nodeName == 'A' && !!e.target.getAttribute('id')) {
-      const mentionActerId = e.target.getAttribute('id')
-      handleDrawerOpen(mentionActerId)
-    }
-  })
+  addMentionListener(handleDrawerOpen)
 
   return (
     <Box className={classes.postContent}>

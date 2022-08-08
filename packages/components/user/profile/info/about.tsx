@@ -10,6 +10,8 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import clsx from 'clsx'
+
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { ActerVariables } from '@acter/lib/acter/use-create-acter'
@@ -17,27 +19,24 @@ import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 import { useUser } from '@acter/lib/user/use-user'
-import { Acter } from '@acter/schema'
 
 interface AboutProps {
-  acter?: Acter
+  acterId?: string
 }
 
-export const About: FC<AboutProps> = ({ acter }) => {
-  const { user } = useUser()
+export const About: FC<AboutProps> = ({ acterId }) => {
+  const { user } = useUser(acterId && { acterId })
   const classes = useStyles()
   const { route } = useRouter()
 
-  const currentActer = acter ? acter : user?.Acter
-
-  const [_, updateActer] = useUpdateActer(currentActer)
+  const [_, updateActer] = useUpdateActer(user?.Acter)
 
   const { interestTypes } = useInterestTypes()
   if (!interestTypes) return null
 
   const interests = interestNameMap(interestTypes)
 
-  if (!acter && !user) {
+  if (!user) {
     return null
   }
 
@@ -51,18 +50,20 @@ export const About: FC<AboutProps> = ({ acter }) => {
 
   return (
     <>
-      {(currentActer?.description ||
-        currentActer?.ActerInterests?.length !== 0) && (
-        <Box className={classes.section}>
-          {currentActer.description && (
+      {(user?.Acter?.description ||
+        user?.Acter?.ActerInterests?.length !== 0) && (
+        <Box
+          className={clsx(classes.section, acterId && classes.sidebarSection)}
+        >
+          {user?.Acter.description && (
             <>
               <Typography className={classes.heading}>About</Typography>
               <Typography className={classes.description}>
-                {currentActer.description}
+                {user?.Acter.description}
               </Typography>
             </>
           )}
-          {currentActer?.ActerInterests?.length !== 0 && (
+          {user?.Acter?.ActerInterests?.length !== 0 && (
             <>
               <Box className={classes.interestsHeading}>
                 <Typography className={classes.heading}>Interests</Typography>
@@ -70,7 +71,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
                   <SearchInterestsFilter
                     applyFilters={handleFilterInterests}
                     isAnchorElementIcon={true}
-                    userInterestIds={currentActer?.ActerInterests.map(
+                    userInterestIds={user?.Acter?.ActerInterests.map(
                       ({ Interest }) => Interest.id
                     )}
                   />
@@ -78,7 +79,7 @@ export const About: FC<AboutProps> = ({ acter }) => {
               </Box>
               <Box>
                 <InterestsSection
-                  selected={currentActer.ActerInterests?.map(
+                  selected={user?.Acter.ActerInterests?.map(
                     ({ Interest }) => Interest
                   )}
                 />
@@ -94,10 +95,16 @@ export const About: FC<AboutProps> = ({ acter }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     section: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.toolbar.main,
       minHeight: 300,
       borderRadius: 5,
       padding: '10px 20px',
+    },
+    sidebarSection: {
+      width: 526,
+      marginTop: 10,
+      marginLeft: 40,
+      minHeight: 100,
     },
     interestsHeading: {
       marginTop: 10,
@@ -107,6 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 90,
     },
     heading: {
+      marginTop: 10,
       color: theme.colors.blue.mediumGrey,
       fontWeight: theme.typography.fontWeightBold,
       fontSize: '0.9rem',

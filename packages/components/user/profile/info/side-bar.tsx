@@ -1,19 +1,11 @@
 import React, { FC } from 'react'
 
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { About } from '@acter/components/user/profile/info/about'
+import { Content } from '@acter/components/user/profile/info/content'
 import { PartOf } from '@acter/components/user/profile/info/part-of'
-import { Image } from '@acter/components/util/image'
-import { useTranslation } from '@acter/lib/i18n/use-translation'
-import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
 
 interface SidebarProfileProps {
@@ -23,7 +15,6 @@ interface SidebarProfileProps {
 export const SidebarProfile: FC<SidebarProfileProps> = ({ acterId }) => {
   const classes = useStyles()
   const { user, fetching: userLoading } = useUser({ acterId })
-  const { t } = useTranslation()
 
   if (userLoading) return <LoadingSpinner />
 
@@ -31,29 +22,10 @@ export const SidebarProfile: FC<SidebarProfileProps> = ({ acterId }) => {
 
   return (
     <Box className={classes.content}>
-      <Box className={classes.avatarImage}>
-        <Image
-          src={getImageUrl(user.Acter?.avatarUrl, 'avatar')}
-          alt="Acter Logo"
-          height={200}
-        />
-      </Box>
+      <Content acterId={acterId} />
 
-      <Box className={classes.info}>
-        <Typography className={classes.label}>{t('name')}</Typography>
-        <Typography className={classes.detail}>{user.Acter?.name}</Typography>
-
-        <Typography className={classes.label}>Email</Typography>
-        <Typography className={classes.detail}>{user.email}</Typography>
-
-        <Typography className={classes.label}>{t('form.location')}</Typography>
-        <Typography className={classes.detail}>
-          {user.Acter?.location}
-        </Typography>
-      </Box>
-
-      {/* <About acter={acter} /> */}
-      <PartOf />
+      <About acterId={acterId} />
+      <PartOf acterId={acterId} />
     </Box>
   )
 }
@@ -65,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexDirection: 'column',
       width: 526,
+      backgroundColor: theme.colors.toolbar.main,
     },
     avatarImage: {
       marginLeft: 40,

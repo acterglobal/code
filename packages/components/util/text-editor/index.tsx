@@ -47,7 +47,6 @@ if (typeof window === 'object') {
 
 const mentionPlugin = createMentionPlugin()
 const { MentionSuggestions } = mentionPlugin
-// const plugins = [mentionPlugin]
 
 interface widthHeightType {
   height?: number
