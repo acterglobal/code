@@ -37,7 +37,7 @@ export type LocationPickerProps = Partial<
   placeholder?: string
   types?: GooglePlacesType[]
   cacheKey?: string
-  TextFieldProps?: TextFieldProps
+  textfieldprops?: TextFieldProps
 }
 
 export type LocationPickerResult = {

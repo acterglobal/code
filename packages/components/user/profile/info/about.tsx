@@ -10,6 +10,8 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import clsx from 'clsx'
+
 import { InterestsSection } from '@acter/components/interests/interests-section'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { ActerVariables } from '@acter/lib/acter/use-create-acter'
@@ -18,10 +20,15 @@ import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 import { useUser } from '@acter/lib/user/use-user'
 
-export const About: FC = () => {
-  const { user } = useUser()
+interface AboutProps {
+  acterId?: string
+}
+
+export const About: FC<AboutProps> = ({ acterId }) => {
+  const { user } = useUser(acterId && { acterId })
   const classes = useStyles()
   const { route } = useRouter()
+
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
   const { interestTypes } = useInterestTypes()
@@ -45,12 +52,14 @@ export const About: FC = () => {
     <>
       {(user?.Acter?.description ||
         user?.Acter?.ActerInterests?.length !== 0) && (
-        <Box className={classes.section}>
-          {user.Acter.description && (
+        <Box
+          className={clsx(classes.section, acterId && classes.sidebarSection)}
+        >
+          {user?.Acter.description && (
             <>
               <Typography className={classes.heading}>About</Typography>
               <Typography className={classes.description}>
-                {user.Acter.description}
+                {user?.Acter.description}
               </Typography>
             </>
           )}
@@ -70,7 +79,7 @@ export const About: FC = () => {
               </Box>
               <Box>
                 <InterestsSection
-                  selected={user.Acter.ActerInterests?.map(
+                  selected={user?.Acter.ActerInterests?.map(
                     ({ Interest }) => Interest
                   )}
                 />
@@ -86,10 +95,16 @@ export const About: FC = () => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     section: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.toolbar.main,
       minHeight: 300,
       borderRadius: 5,
       padding: '10px 20px',
+    },
+    sidebarSection: {
+      width: 526,
+      marginTop: 10,
+      marginLeft: 40,
+      minHeight: 100,
     },
     interestsHeading: {
       marginTop: 10,
@@ -99,6 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 90,
     },
     heading: {
+      marginTop: 10,
       color: theme.colors.blue.mediumGrey,
       fontWeight: theme.typography.fontWeightBold,
       fontSize: '0.9rem',

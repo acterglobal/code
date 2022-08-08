@@ -24,7 +24,7 @@ export const ActersList: FC<ActersListProps> = ({ user, role }) => {
   return (
     <Box className={classes.container}>
       {connections.map(({ Following: acter }) => (
-        <Box className={classes.acter}>
+        <Box key={`connection=${acter.id}`} className={classes.acter}>
           <ActerAvatar acter={acter} />
           <Typography className={classes.acterName}>{acter.name}</Typography>
         </Box>

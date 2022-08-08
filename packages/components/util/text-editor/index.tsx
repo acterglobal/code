@@ -4,13 +4,18 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  Component,
+  useCallback,
 } from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
+import createMentionPlugin, {
+  defaultSuggestionsFilter,
+  MentionData,
+} from '@draft-js-plugins/mention'
+import '@draft-js-plugins/mention/lib/plugin.css'
 import '@draft-js-plugins/static-toolbar/lib/plugin.css'
 import { Box } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -27,12 +32,21 @@ import {
 import { DecoratedLink } from '@acter/components/util/text-editor/decorated-link'
 import { EditorContext } from '@acter/components/util/text-editor/editor-context'
 import { linkStrategy } from '@acter/components/util/text-editor/link-strategy'
+import { DraftEntityTypes } from '@acter/lib/constants'
+import { getEntities } from '@acter/lib/draft-js/get-entities'
+import { getPostMentionsSuggestions } from '@acter/lib/post/get-post-mentions-suggestions'
+import { ActerConnection, PostMention } from '@acter/schema'
+
+const { LINK, MENTION } = DraftEntityTypes
 
 let htmlToDraft = null
 if (typeof window === 'object') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   htmlToDraft = require('html-to-draftjs').default
 }
+
+const mentionPlugin = createMentionPlugin()
+const { MentionSuggestions } = mentionPlugin
 
 interface widthHeightType {
   height?: number
@@ -49,30 +63,32 @@ interface stylesProp {
 export interface TextEditorProps extends widthHeightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
+  handleMentions?: (data: MentionData[]) => void
   hideEditorToolbar?: boolean
   placeholder?: string
   isComment?: boolean
+  followers?: ActerConnection[]
 }
 
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
+  handleMentions,
   initialValue,
   placeholder,
   borderStyles,
   height,
   isComment,
+  followers,
   hideEditorToolbar,
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
-  const [editor, setEditor] = useState(null)
   const [clearText, setClearText] = useState(false)
   const ref = useRef<Editor>(null)
 
-  editor?.focus()
-  useEffect(() => {
-    ref.current?.focus()
-  }, [ref])
+  const [open, setOpen] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
+  const [selectedMentions, setSelectedMentions] = useState<PostMention[]>([])
 
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
@@ -90,6 +106,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     toolbarPlugin,
     linkPlugin,
     linkDetectionPlugin,
+    mentionPlugin,
   ]
 
   const decorator = new CompositeDecorator([
@@ -110,6 +127,20 @@ export const TextEditor: FC<TextEditorProps> = ({
     EditorState.createWithContent(contentState, decorator)
   )
 
+  const mentions = getPostMentionsSuggestions(followers)
+
+  useEffect(() => {
+    if (editorState) {
+      const entities = getEntities(editorState, MENTION)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const currentMentions = entities.map(({ content }: any) => {
+        return content.mention
+      })
+
+      setSelectedMentions(currentMentions)
+    }
+  }, [editorState])
+
   useEffect(() => {
     if (clearText) {
       return setEditorState(EditorState.createEmpty())
@@ -118,17 +149,32 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   const onEditorStateChange = async (data) => {
     const contentState = data.getCurrentContent()
-
     const options = {
       entityStyleFn: (entity) => {
-        if (entity.get('type').toLowerCase() === 'link') {
-          const data = entity.getData()
+        const entityType = entity.get('type').toLowerCase()
+
+        if (entityType === LINK) {
+          const link = entity.getData()
 
           return {
             element: 'a',
             attributes: {
-              href: data.url,
+              href: link.url,
               target: '_blank',
+            },
+          }
+        }
+
+        if (entityType === MENTION) {
+          const { mention } = entity.getData()
+
+          return {
+            element: 'a',
+            attributes: {
+              href: '#',
+              name: mention.name,
+              acterId: mention.acterId,
+              id: mention.acterId,
             },
           }
         }
@@ -138,14 +184,22 @@ export const TextEditor: FC<TextEditorProps> = ({
     const value = stateToHTML(contentState, options)
 
     handleInputChange(value)
-
+    handleMentions && handleMentions(selectedMentions)
     setEditorState(data)
   }
 
-  const handleEditorRef = (editorRef: Component) => {
-    setEditor(editorRef)
+  const handleEditorRef = (editorRef) => {
+    editorRef?.focus()
     setClearText(false)
   }
+
+  const onOpenChange = useCallback((_open: boolean) => {
+    setOpen(_open)
+  }, [])
+
+  const onSearchChange = useCallback(({ value }: { value: string }) => {
+    setSuggestions(defaultSuggestionsFilter(value, mentions))
+  }, [])
 
   return (
     <Box
@@ -173,6 +227,12 @@ export const TextEditor: FC<TextEditorProps> = ({
             plugins={plugins}
             ref={ref}
             placeholder={clearText && placeholder}
+          />
+          <MentionSuggestions
+            open={open}
+            onOpenChange={onOpenChange}
+            onSearchChange={onSearchChange}
+            suggestions={suggestions}
           />
         </EditorContext.Provider>
 

@@ -11,11 +11,15 @@ import { PostContent } from '@acter/components/posts/post/content'
 import { PostOptions } from '@acter/components/posts/post/options'
 import { AddPostReaction } from '@acter/components/posts/reactions/add-reaction'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { MemberType } from '@acter/lib/constants'
 import { useDeletePost } from '@acter/lib/post/use-delete-post'
 import { useUpdatePost } from '@acter/lib/post/use-update-post'
 import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { ActerConnectionRole, Post as PostType, User } from '@acter/schema'
+
+const { PEOPLE } = MemberType
 
 export interface PostsProps {
   user: User
@@ -47,6 +51,8 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
   const isAdmin = userHasRoleOnActer(user, ActerConnectionRole.ADMIN, acter)
   const isMember = checkMemberAccess(user, acter)
 
+  const validFollowers = getFollowersByType(acter, PEOPLE)
+
   if (toggleForm) {
     return (
       <Box className={classes.post}>
@@ -56,6 +62,7 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
           parentId={parentId}
           onPostUpdate={handleSubmit}
           onCancel={handleCancelEdit}
+          followers={validFollowers}
         />
       </Box>
     )

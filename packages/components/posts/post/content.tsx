@@ -1,16 +1,35 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Box } from '@material-ui/core'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme } from '@material-ui/core'
 
 import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 import { PostReactions } from '@acter/components/posts/reactions'
+import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
+import { Drawer } from '@acter/components/util/drawer'
+import { addMentionListener } from '@acter/lib/post/add-mention-listerner'
 
 type PostContentProps = PostInfoProps
 
 export const PostContent: FC<PostContentProps> = ({ post }) => {
   const classes = useStyles()
+  const [openDrawer, setDrawerOpen] = useState(false)
+  const [heading, setHeading] = useState('')
+  const [mentionActerId, setMentionedActerId] = useState(null)
+
+  const handleDrawerOpen = (mentionActerId) => {
+    setMentionedActerId(mentionActerId)
+    setDrawerOpen(true)
+    setHeading('User Profile')
+  }
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false)
+    setHeading('')
+  }
+
+  addMentionListener(handleDrawerOpen)
 
   return (
     <Box className={classes.postContent}>
@@ -25,6 +44,13 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
       )}
 
       <PostReactions post={post} />
+      <Drawer
+        heading={heading}
+        open={openDrawer}
+        handleClose={handleDrawerClose}
+      >
+        <SidebarProfile acterId={mentionActerId} />
+      </Drawer>
     </Box>
   )
 }
@@ -38,6 +64,15 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       overflowX: 'auto',
       padding: theme.spacing(1),
+      '& a': {
+        textDecoration: 'none',
+        lineHeight: '1.2rem',
+        color: theme.colors.green.light,
+        fontWeight: theme.typography.fontWeightBold,
+        '&:hover': {
+          color: theme.colors.green.dark,
+        },
+      },
     },
     description: {
       display: 'block',

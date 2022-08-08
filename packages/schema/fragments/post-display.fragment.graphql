@@ -1,5 +1,6 @@
 #import "../fragments/acter-display.fragment.graphql"
 #import "../fragments/post-reaction.fragment.graphql"
+#import "../fragments/post-mention.fragment.graphql"
 
 fragment PostDisplay on Post {
   id
@@ -19,5 +20,8 @@ fragment PostDisplay on Post {
   }
   PostReactions {
     ...PostReactionData
+  }
+  PostMentions {
+    ...PostMentionData
   }
 }

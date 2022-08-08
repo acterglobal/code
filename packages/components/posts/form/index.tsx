@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
 import { makeStyles, createStyles, useTheme, Box } from '@material-ui/core'
 
@@ -9,9 +9,15 @@ import { FormButtons } from '@acter/components/util/forms/form-buttons'
 import { TextEditor } from '@acter/components/util/text-editor'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { capitalize } from '@acter/lib/string/capitalize'
-import { Post as PostType, User } from '@acter/schema'
+import {
+  ActerConnection,
+  Post as PostType,
+  PostMention,
+  User,
+} from '@acter/schema'
 
 export type PostFormValues = PostType & {
+  mentions: PostMention[]
   content: string
   parentId: string | null
 }
@@ -20,7 +26,8 @@ export interface PostFormProps {
   parentId?: string
   post?: PostType
   user?: User
-  onPostSubmit?: (values: PostFormValues) => void
+  followers: ActerConnection[]
+  onPostSubmit?: (values: PostFormValues, mentions: PostMention[]) => void
   onPostUpdate?: (values: PostFormValues) => void
   cancelEdit?: () => void
   onCancel?: () => void
@@ -29,12 +36,14 @@ export interface PostFormProps {
 export const PostForm: FC<PostFormProps> = ({
   parentId,
   post,
+  followers,
   onPostSubmit,
   onPostUpdate,
   onCancel,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
+  const [mentions, setMentions] = useState<PostMention[]>([])
 
   const initialValues: PostType = {
     content: post?.content || '',
@@ -48,6 +57,10 @@ export const PostForm: FC<PostFormProps> = ({
     inputRef.current?.focus()
   }, [inputRef])
 
+  const handleMentions = (newMentions: PostMention[]) => {
+    setMentions(newMentions)
+  }
+
   const handleSubmit = (
     values: PostFormValues,
     formikBag: FormikBag<PostFormProps, PostType>
@@ -57,7 +70,7 @@ export const PostForm: FC<PostFormProps> = ({
       formikBag.resetForm()
     } else {
       const submitValues = parentId ? { ...values, parentId: parentId } : values
-      onPostSubmit(submitValues)
+      onPostSubmit(submitValues, mentions)
       formikBag.resetForm()
     }
     formikBag.resetForm()
@@ -78,6 +91,7 @@ export const PostForm: FC<PostFormProps> = ({
           <TextEditor
             initialValue={initialValues.content}
             handleInputChange={(value) => setFieldValue('content', value)}
+            handleMentions={handleMentions}
             placeholder={placeholder}
             isComment={!!parentId}
             hideEditorToolbar={!!parentId}
@@ -89,6 +103,7 @@ export const PostForm: FC<PostFormProps> = ({
                 : theme.colors.grey.main,
               border: !!parentId && 'none',
             }}
+            followers={followers}
           />
 
           {post ? (

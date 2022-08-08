@@ -6,9 +6,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { Post } from '@acter/components/posts/post/index'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
+import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
+import { MemberType } from '@acter/lib/constants'
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType } from '@acter/schema'
+
+const { PEOPLE } = MemberType
 
 interface SinglePostProps {
   post: PostType
@@ -23,6 +27,8 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
   if (!acter || !user) return null
 
   const isMember = checkMemberAccess(user, acter)
+
+  const validFollowers = getFollowersByType(acter, PEOPLE)
 
   return (
     <Box className={classes.contentContainer}>
@@ -40,7 +46,12 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
         ))}
 
         {isMember && (
-          <PostFormSection parentId={post.id} user={user} acterId={acterId} />
+          <PostFormSection
+            parentId={post.id}
+            user={user}
+            acterId={acterId}
+            followers={validFollowers}
+          />
         )}
       </Box>
     </Box>

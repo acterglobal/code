@@ -14,6 +14,7 @@ import { Formik, Form, Field, FormikProps } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
+import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
@@ -41,7 +42,7 @@ export const ProfileInfoForm: FC = () => {
 
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
-  if (fetching) return <>Loading...</>
+  if (fetching) return <LoadingSpinner />
   if (!user) return null
 
   const { email, language } = user

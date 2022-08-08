@@ -23,7 +23,7 @@ export const SanitizedContent: FC<SanitizedContentProps> = ({
 
     return (
       <SanitizedHTML
-        allowedAttributes={{ a: ['href', 'target'] }}
+        allowedAttributes={{ a: ['href', 'target', 'id'] }}
         allowedTags={[
           'h1',
           'h2',

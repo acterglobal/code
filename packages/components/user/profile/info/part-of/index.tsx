@@ -10,6 +10,8 @@ import {
   Tab,
 } from '@material-ui/core'
 
+import clsx from 'clsx'
+
 import { ActersList } from '@acter/components/user/profile/info/part-of/acters-list'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
@@ -17,9 +19,13 @@ import { ActerConnectionRole } from '@acter/schema'
 
 const { MEMBER, ADMIN } = ActerConnectionRole
 
-export const PartOf: FC = () => {
+interface PartOfProps {
+  acterId?: string
+}
+
+export const PartOf: FC<PartOfProps> = ({ acterId }) => {
   const classes = useStyles()
-  const { user } = useUser()
+  const { user } = useUser(acterId && { acterId })
   const { t } = useTranslation()
   const tabs = [ADMIN, MEMBER]
   const [currentTab, setCurrentTab] = useState<number>(tabs.indexOf(ADMIN))
@@ -29,7 +35,7 @@ export const PartOf: FC = () => {
   const handleChange = (_, tab: number) => setCurrentTab(tab)
 
   return (
-    <Box className={classes.section}>
+    <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
       <Typography className={classes.heading}>Part of as</Typography>
       <Tabs value={currentTab} onChange={handleChange}>
         {tabs.map((tab, i) => (
@@ -54,6 +60,11 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 300,
       borderRadius: 5,
       padding: '10px 22px',
+    },
+    sidebarSection: {
+      width: 526,
+      marginLeft: 40,
+      backgroundColor: theme.colors.toolbar.main,
     },
     heading: {
       marginTop: 10,

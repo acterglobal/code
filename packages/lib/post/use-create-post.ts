@@ -1,25 +1,50 @@
-import { UseMutationState, OperationResult } from 'urql'
+import { useEffect, useState } from 'react'
+
+import { CombinedError, UseMutationState, OperationResult } from 'urql'
 
 import { useTranslation } from '@acter/lib/i18n/use-translation'
+import '@acter/lib/post/use-create-post-mention'
 import {
   UseMutationOptions,
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
-import { Post as PostType, Acter } from '@acter/schema'
+import { Post as PostType, Acter, PostMention } from '@acter/schema'
 import CREATE_POST from '@acter/schema/mutations/post-create.graphql'
+import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.graphql'
+
+export type PostMentionVariables = PostMention & {
+  name: string
+  acterId: string
+  postId: string
+  createdByUserId: string
+}
 
 export type PostVariables = PostType & {
-  acterId: string
-  authorId: string
+  content: string
+  mentions: PostMention[]
+  parentId: string | null
 }
 
 type CreatePostData = { createPost: PostType }
+type CreatePostMentionData = { createMention: PostMention }
+
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
 export type HandleMethod<TData> = (
   post: PostType | TData
-) => Promise<OperationResult<CreatePostData, PostVariables>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => Promise<OperationResult<TData, Record<string, any>>>
+
+type CreatePostUseMutationState = UseMutationState<
+  CreatePostData,
+  PostVariables
+>
+
+type CreatePostUseMutationRestState = Omit<
+  CreatePostUseMutationState,
+  'data' | 'fetching' | 'error>'
+>
 
 /**
  * Custom hook that creates new post
@@ -31,28 +56,93 @@ export const useCreatePost = (
   acter: Acter,
   options?: CreatePostOptions
 ): [
-  HandleMethod<CreatePostData>,
-  UseMutationState<CreatePostData, PostVariables>
+  (values: PostVariables, mentions: PostMention[]) => Promise<CreatePostData>,
+  CreatePostUseMutationState
 ] => {
   const { t } = useTranslation('success-messages')
   const { user } = useUser()
 
-  const [mutationResult, createPost] = useNotificationMutation<
-    CreatePostData,
-    PostVariables
-  >(CREATE_POST, {
+  const [fetching, setFetching] = useState(false)
+  const [error, setError] = useState<CombinedError>()
+  const [restState, setRestState] = useState<CreatePostUseMutationRestState>()
+
+  const [
+    {
+      data: createData,
+      fetching: createFetching,
+      error: createError,
+      ...createRestState
+    },
+    createPost,
+  ] = useNotificationMutation<CreatePostData, PostVariables>(CREATE_POST, {
     ...options,
     getSuccessMessage: () => t('post.created'),
   })
 
-  const handlePost = async (values: PostVariables) => {
+  const [_, createPostMention] = useNotificationMutation<
+    CreatePostMentionData,
+    PostMentionVariables
+  >(CREATE_POST_MENTION, {
+    getSuccessMessage: () => 'Mentions Created',
+  })
+
+  useEffect(() => {
+    if (createFetching) setFetching(true)
+  }, [createFetching])
+
+  useEffect(() => {
+    if (createError) {
+      setError(createError)
+      setFetching(false)
+    }
+  }, [createError])
+
+  useEffect(() => {
+    setRestState({
+      ...createRestState,
+    })
+  }, [JSON.stringify(createRestState)])
+
+  const handlePost: (
+    values: PostVariables,
+    mentions: PostMention[]
+  ) => Promise<CreatePostData> = async (
+    values: PostVariables,
+    mentions: PostMention[]
+  ) => {
     if (!user) throw 'User is not set.'
-    return createPost({
+    setFetching(true)
+
+    const { data } = await createPost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,
     })
+
+    if (data?.createPost && mentions) {
+      mentions.map((mention) => {
+        createPostMention({
+          name: mention.name,
+          postId: data.createPost.id,
+          acterId: mention.acterId,
+          createdByUserId: user.id,
+          ...mention,
+        })
+      })
+    }
+
+    setFetching(false)
+
+    return data
   }
 
-  return [handlePost, mutationResult]
+  return [
+    handlePost,
+    {
+      data: createData,
+      fetching,
+      error,
+      ...restState,
+    },
+  ]
 }

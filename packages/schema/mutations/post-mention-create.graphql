@@ -1,0 +1,20 @@
+#import "../fragments/post-mention.fragment.graphql"
+
+mutation CreatePostMention(
+  $name: String!
+  $postId: String!
+  $acterId: String!
+  $createdByUserId: String!
+) {
+  createPostMention(
+    data: {
+      name: $name
+      Acter: { connect: { id: $acterId } }
+      Post: { connect: { id: $postId } }
+      createdByUser: { connect: { id: $createdByUserId } }
+    }
+  ) {
+    ...PostMentionData
+    postId
+  }
+}

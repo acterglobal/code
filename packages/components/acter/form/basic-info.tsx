@@ -62,7 +62,7 @@ export const BasicInformation: FC = () => {
       <LocationPicker
         className={classes.field}
         fullWidth
-        TextFieldProps={{ variant: 'standard' }}
+        textfieldprops={{ variant: 'standard' }}
       />
 
       <Field

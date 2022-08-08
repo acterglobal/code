@@ -8,22 +8,34 @@ import {
   Typography,
 } from '@material-ui/core'
 
+import clsx from 'clsx'
+
 import { Image } from '@acter/components/util/image'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { getImageUrl } from '@acter/lib/images/get-image-url'
 import { useUser } from '@acter/lib/user/use-user'
 
-export const Content: FC = () => {
+interface ContentProps {
+  acterId?: string
+}
+
+export const Content: FC<ContentProps> = ({ acterId }) => {
   const classes = useStyles()
-  const { user } = useUser()
+  const { user } = useUser(acterId && { acterId })
   const { t } = useTranslation()
 
   if (!user) {
     return null
   }
+
   return (
-    <Box className={classes.content}>
-      <Box className={classes.avatarImage}>
+    <Box className={clsx(acterId ? classes.sidebarContent : classes.content)}>
+      <Box
+        className={clsx(
+          classes.avatarImage,
+          acterId ? classes.sidebarAvatar : classes.profileAvatar
+        )}
+      >
         <Image
           src={getImageUrl(user.Acter?.avatarUrl, 'avatar')}
           alt="Acter Logo"
@@ -35,7 +47,7 @@ export const Content: FC = () => {
         <Typography className={classes.label}>{t('name')}</Typography>
         <Typography className={classes.detail}>{user.Acter.name}</Typography>
 
-        <Typography className={classes.label}>Email</Typography>
+        <Typography className={classes.label}>{t('email')}</Typography>
         <Typography className={classes.detail}>{user.email}</Typography>
 
         <Typography className={classes.label}>{t('form.location')}</Typography>
@@ -53,8 +65,22 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
     },
-    avatarImage: {
+    sidebarContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: 526,
+      background: theme.colors.grey.extraLight,
+    },
+    sidebarAvatar: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: 20,
+    },
+    profileAvatar: {
       marginLeft: 40,
+      marginRight: 0,
+    },
+    avatarImage: {
       borderRadius: '50%',
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.blue.grey,
