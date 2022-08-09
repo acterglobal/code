@@ -36,6 +36,11 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const HJ_SV = parseInt(process.env.HJ_SV)
   hotjar.initialize(HJ_ID, HJ_SV)
 
+  useEffect(() => {
+    hotjar.initialize(HJ_ID, HJ_SV)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const router = useRouter()
 
   useEffect(() => {
