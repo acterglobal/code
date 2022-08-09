@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core'
@@ -27,10 +27,25 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
     setDrawerOpen(false)
   }
 
-  addMentionListener(handleDrawerOpen)
+  useEffect(() => {
+    addMentionListener(handleDrawerOpen)
+  }, [])
+
+  const SidePanel = (): JSX.Element => {
+    return (
+      <Drawer
+        heading={heading}
+        open={openDrawer}
+        handleClose={handleDrawerClose}
+      >
+        <SidebarProfile acterId={mentionActerId} />
+      </Drawer>
+    )
+  }
 
   return (
     <Box className={classes.postContent}>
+      {mentionActerId && <SidePanel />}
       <PostInfo post={post} />
 
       {post.content && (
@@ -42,15 +57,6 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
       )}
 
       <PostReactions post={post} />
-      {mentionActerId && (
-        <Drawer
-          heading={heading}
-          open={openDrawer}
-          handleClose={handleDrawerClose}
-        >
-          <SidebarProfile acterId={mentionActerId} />
-        </Drawer>
-      )}
     </Box>
   )
 }
