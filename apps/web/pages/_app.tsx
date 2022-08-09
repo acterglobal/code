@@ -34,6 +34,7 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
   const HJ_ID = parseInt(process.env.HJ_ID)
   const HJ_SV = parseInt(process.env.HJ_SV)
+  hotjar.initialize(HJ_ID, HJ_SV)
 
   const router = useRouter()
 
@@ -46,14 +47,6 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events])
-
-  useEffect(() => {
-    if (HJ_ID && HJ_SV) {
-      hotjar.initialize(HJ_ID, HJ_SV)
-      return
-    }
-    return
-  }, [HJ_ID, HJ_SV])
 
   const getLayout =
     Component.getLayout ?? ((page) => <OverallLayout>{page}</OverallLayout>)
