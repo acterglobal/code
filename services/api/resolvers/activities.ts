@@ -16,7 +16,7 @@ import {
   ActivitiesDateFilter,
   NotificationQueueType,
 } from '@acter/lib/constants'
-import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import {
   Acter,
   ActerConnectionRole,

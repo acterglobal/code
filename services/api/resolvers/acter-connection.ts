@@ -10,7 +10,7 @@ import {
 import { createActerConnection } from '@acter/lib/api/create-acter-connection'
 import { NotificationQueueType } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
-import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 
 import { QueueNotificationsMiddleware } from '../middlewares/queue-notifications'

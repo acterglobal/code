@@ -3,7 +3,7 @@ import { Authorized, Resolver, Mutation, Arg, Ctx } from 'type-graphql'
 import { createSlug } from '@acter/lib/acter/create-acter-slug'
 import { ActerTypes } from '@acter/lib/constants'
 import { getLogger } from '@acter/lib/logger'
-import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import {
   Acter,
   ActerConnectionRole,

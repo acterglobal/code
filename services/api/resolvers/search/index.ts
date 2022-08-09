@@ -6,7 +6,7 @@ import {
   SearchActivitiesSortBy,
 } from '@acter/lib/api/resolvers/get-order-by'
 import { ActivitiesDateFilter } from '@acter/lib/constants'
-import type { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import { Acter } from '@acter/schema'
 import { ActerPrivacySettings } from '@acter/schema'
 import { ActerWhereUniqueInput } from '@acter/schema/generated'
