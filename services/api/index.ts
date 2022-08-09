@@ -7,7 +7,7 @@ import { getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
 
 import { getLogger } from '@acter/lib/logger'
-import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import { prisma } from '@acter/schema/prisma'
 
 import { generateSchema } from './generate-schema'

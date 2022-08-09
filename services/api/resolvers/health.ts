@@ -1,7 +1,7 @@
 import { Resolver, Query, ObjectType, Field, Ctx } from 'type-graphql'
 
 import { getLogger } from '@acter/lib/logger'
-import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 
 @ObjectType()
 export class Health {

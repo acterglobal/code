@@ -1,7 +1,7 @@
 import slugify from 'slugify'
 
 import { ActerTypes } from '@acter/lib/constants'
-import { ActerGraphQLContext } from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 
 /**
  * creates the slug with acter name and its parent slug(if exist)
