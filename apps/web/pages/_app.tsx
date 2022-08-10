@@ -41,6 +41,13 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEffect((): any => {
+    if (HJ_ID && HJ_SV) {
+      hotjar.initialize(HJ_ID, HJ_SV)
+    }
+  }, [Component, HJ_ID, HJ_SV, pageProps])
+
   const router = useRouter()
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { NotificationQueueType } from '@acter/lib/constants'
 import { CreateInvitesVariables } from '@acter/lib/invites/use-create-invites'
 import { UpdateInviteVariables } from '@acter/lib/invites/use-update-invite'
 import { getLogger } from '@acter/lib/logger'
-import ActerGraphQLContext from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 
 const l = getLogger('QueueInviteEmail')
 

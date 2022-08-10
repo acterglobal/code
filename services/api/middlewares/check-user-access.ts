@@ -4,7 +4,7 @@ import {
   NotAuthorizedError,
   NotLoggedError,
 } from '@acter/lib/errors/graphql-errors'
-import ActerGraphQLContext from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
 import { ActerPrivacySettings } from '@acter/schema'
 

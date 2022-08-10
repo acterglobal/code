@@ -1,7 +1,7 @@
 import { AuthChecker } from 'type-graphql'
 
 import { getLogger } from '@acter/lib/logger'
-import ActerGraphQLContext from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 import { ActerConnectionRole } from '@acter/schema'
 
 const { ADMIN } = ActerConnectionRole

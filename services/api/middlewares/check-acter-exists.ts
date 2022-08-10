@@ -1,7 +1,7 @@
 import { MiddlewareFn } from 'type-graphql'
 
 import { NotFoundError } from '@acter/lib/errors/graphql-errors'
-import ActerGraphQLContext from '@acter/lib/types/graphql-api'
+import type ActerGraphQLContext from '@acter/lib/types/graphql-api'
 
 export const CheckActerExists: MiddlewareFn<ActerGraphQLContext> = async (
   _,
