@@ -32,6 +32,13 @@ type ActerAppProps = AppProps & {
 const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEffect((): any => {
+    if (HJ_ID && HJ_SV) {
+      hotjar.initialize(HJ_ID, HJ_SV)
+    }
+  }, [Component, HJ_ID, HJ_SV, pageProps])
+
   const router = useRouter()
 
   useEffect(() => {
