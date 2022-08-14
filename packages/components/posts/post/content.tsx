@@ -33,19 +33,20 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
   }, [])
 
   return (
-    <Box className={classes.postContent}>
-      <PostInfo post={post} />
+    <>
+      <Box className={classes.postContent}>
+        <PostInfo post={post} />
 
-      {post.content && (
-        <div className={classes.description}>
-          <SanitizedContent isMarkdown={post.isMarkDown}>
-            {post.content}
-          </SanitizedContent>
-        </div>
-      )}
+        {post.content && (
+          <div className={classes.description}>
+            <SanitizedContent isMarkdown={post.isMarkDown}>
+              {post.content}
+            </SanitizedContent>
+          </div>
+        )}
 
-      <PostReactions post={post} />
-
+        <PostReactions post={post} />
+      </Box>
       {mentionActerId && (
         <Drawer
           heading={heading}
@@ -55,7 +56,7 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
           <SidebarProfile acterId={mentionActerId} />
         </Drawer>
       )}
-    </Box>
+    </>
   )
 }
 
