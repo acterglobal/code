@@ -2,7 +2,7 @@
 export const addMentionListener = (
   handleDrawerOpen: (data: string) => void
 ) => {
-  document.body.addEventListener('click', (event: MouseEvent) => {
+  window.addEventListener('click', (event: MouseEvent) => {
     const target = event.target as HTMLInputElement
 
     if (target && target.nodeName == 'A' && !!target.getAttribute('id')) {

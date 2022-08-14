@@ -31,21 +31,8 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
     addMentionListener(handleDrawerOpen)
   }, [])
 
-  const SidePanel = (): JSX.Element => {
-    return (
-      <Drawer
-        heading={heading}
-        open={openDrawer}
-        handleClose={handleDrawerClose}
-      >
-        <SidebarProfile acterId={mentionActerId} />
-      </Drawer>
-    )
-  }
-
   return (
     <Box className={classes.postContent}>
-      {mentionActerId && <SidePanel />}
       <PostInfo post={post} />
 
       {post.content && (
@@ -57,6 +44,14 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
       )}
 
       <PostReactions post={post} />
+
+      <Drawer
+        heading={heading}
+        open={openDrawer}
+        handleClose={handleDrawerClose}
+      >
+        <SidebarProfile acterId={mentionActerId} />
+      </Drawer>
     </Box>
   )
 }
