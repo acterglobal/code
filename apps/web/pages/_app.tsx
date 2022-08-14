@@ -35,13 +35,6 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const HJ_ID = parseInt(process.env.HJ_ID)
   const HJ_SV = parseInt(process.env.HJ_SV)
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useEffect((): any => {
-    if (HJ_ID && HJ_SV) {
-      hotjar.initialize(HJ_ID, HJ_SV)
-    }
-  }, [Component, HJ_ID, HJ_SV, pageProps])
-
   const router = useRouter()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
