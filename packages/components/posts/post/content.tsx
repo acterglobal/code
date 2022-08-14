@@ -18,13 +18,14 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
   const heading = 'User Profile' as string
   const [mentionActerId, setMentionedActerId] = useState(null)
 
-  const handleDrawerOpen = (mentionActerId) => {
+  const handleDrawerOpen = (mentionActerId: string) => {
     setMentionedActerId(mentionActerId)
     setDrawerOpen(true)
   }
 
   const handleDrawerClose = () => {
     setDrawerOpen(false)
+    setMentionedActerId(null)
   }
 
   useEffect(() => {
@@ -45,13 +46,15 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
 
       <PostReactions post={post} />
 
-      <Drawer
-        heading={heading}
-        open={openDrawer}
-        handleClose={handleDrawerClose}
-      >
-        <SidebarProfile acterId={mentionActerId} />
-      </Drawer>
+      {mentionActerId && (
+        <Drawer
+          heading={heading}
+          open={openDrawer}
+          handleClose={handleDrawerClose}
+        >
+          <SidebarProfile acterId={mentionActerId} />
+        </Drawer>
+      )}
     </Box>
   )
 }
@@ -68,16 +71,16 @@ const useStyles = makeStyles((theme: Theme) =>
       '& a': {
         textDecoration: 'none',
         lineHeight: '1.2rem',
-        color: theme.colors.green.light,
+        color: theme.palette.secondary.main,
         fontWeight: theme.typography.fontWeightBold,
         '&:hover': {
-          color: theme.colors.green.dark,
+          color: theme.colors.green.light,
         },
       },
     },
     description: {
       display: 'block',
-      color: theme.palette.secondary.dark,
+      color: theme.palette.secondary.main,
       fontSize: '0.813rem',
       lineHeight: 1,
       hyphens: 'auto',
