@@ -7,9 +7,7 @@ export const addMentionListener = (
 
     if (target && target.nodeName == 'A' && !!target.getAttribute('id')) {
       const mentionActerId = target.getAttribute('id')
-      return handleDrawerOpen(mentionActerId)
+      handleDrawerOpen(mentionActerId)
     }
-
-    return
   })
 }
