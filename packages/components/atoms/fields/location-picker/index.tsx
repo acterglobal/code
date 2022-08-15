@@ -9,7 +9,6 @@ import {
   Popper,
   PopperProps,
   TextField,
-  TextFieldProps,
   Theme,
   Typography,
 } from '@material-ui/core'
@@ -29,6 +28,7 @@ import usePlacesAutocomplete, {
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { GooglePlacesType } from '@acter/lib/constants/google-places-type'
 import { useGooglePlacesApi } from '@acter/lib/google/use-google-places-api'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 export type LocationPickerProps = Partial<
   AutocompleteProps<LocationPickerResult, false, false, false>
@@ -37,7 +37,7 @@ export type LocationPickerProps = Partial<
   placeholder?: string
   types?: GooglePlacesType[]
   cacheKey?: string
-  textfieldprops?: TextFieldProps
+  fieldFor?: string
 }
 
 export type LocationPickerResult = {
@@ -49,7 +49,16 @@ export type LocationPickerResult = {
 
 export const LocationPicker: FC<LocationPickerProps> = (props) => {
   const classes = useStyles()
-  const { types, cacheKey, ...autocompleteProps } = props
+  const { t } = useTranslation('common')
+
+  const {
+    types,
+    cacheKey,
+    label = t('form.location'),
+    placeholder,
+    fieldFor,
+    ...autocompleteProps
+  } = props
   const [error, setError] = useState<Error | ErrorEvent>()
   const { setValues, values } = useFormikContext<LocationPickerResult>()
   const { location, locationLat, locationLng, placeId } = values
@@ -155,18 +164,31 @@ export const LocationPicker: FC<LocationPickerProps> = (props) => {
         defaultValue={location}
         value={data.find((x) => x.description === location) || location || null}
         onChange={handleOnChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            className={classes.textField}
-            InputProps={{
-              ...params.InputProps,
-              disableUnderline: true,
-            }}
-            error={!!error}
-            onChange={(e) => handleInput(e)} // <-- moved from Autocomplete prop to here
-          />
-        )}
+        renderInput={(params) => {
+          return fieldFor === 'profile' ? (
+            <TextField
+              {...params}
+              className={classes.textField}
+              InputProps={{
+                ...params.InputProps,
+                disableUnderline: true,
+              }}
+              error={!!error}
+              onChange={(e) => handleInput(e)} // <-- moved from Autocomplete prop to here
+            />
+          ) : (
+            <TextField
+              {...params}
+              size="small"
+              label={label}
+              placeholder={placeholder}
+              variant="outlined"
+              fullWidth
+              error={!!error}
+              onChange={(e) => handleInput(e)} // <-- moved from Autocomplete prop to here
+            />
+          )
+        }}
         renderOption={(option) => {
           return (
             <Grid container alignItems="center">

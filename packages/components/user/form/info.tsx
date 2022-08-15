@@ -149,7 +149,11 @@ export const ProfileInfoForm: FC = () => {
                       {t('location')}
                     </Typography>
 
-                    <LocationPicker types={['(regions)']} cacheKey="regions" />
+                    <LocationPicker
+                      types={['(regions)']}
+                      cacheKey="regions"
+                      fieldFor="profile"
+                    />
                   </Grid>
                 </Grid>
               </Box>
