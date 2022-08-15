@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import React, { FC, ReactElement, ReactNode, useEffect } from 'react'
+import { hotjar } from 'react-hotjar'
 import { IntercomProvider } from 'react-use-intercom'
 
 import { NextPage } from 'next'
@@ -31,8 +32,17 @@ type ActerAppProps = AppProps & {
 
 const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
   const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
+  const HJ_ID = parseInt(process.env.HJ_ID)
+  const HJ_SV = parseInt(process.env.HJ_SV)
 
   const router = useRouter()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEffect((): any => {
+    if (HJ_ID && HJ_SV) {
+      hotjar.initialize(HJ_ID, HJ_SV)
+    }
+  }, [Component, HJ_ID, HJ_SV, pageProps])
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {

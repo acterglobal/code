@@ -239,6 +239,7 @@ __metadata:
     notistack: 1.0.10
     react: 17.0.2
     react-dom: 17.0.2
+    react-hotjar: ^5.0.0
     react-use-intercom: 1.4.0
     reflect-metadata: 0.1.13
     type-graphql: 1.1.1
@@ -22892,6 +22893,13 @@ __metadata:
     react: ^16.6.0 || ^17.0.0
     react-dom: ^16.6.0 || ^17.0.0
   checksum: af7041314f6ebaefa64f3c06f75cf1ad62602b93228798615c2ca3365065688ee2b8c58bde98a9ae0d728aecfda5a757e9fc7695da3af2a504ff7e5291c716c9
+  languageName: node
+  linkType: hard
+
+"react-hotjar@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "react-hotjar@npm:5.0.0"
+  checksum: a9fa2b609dd6c65a4f1c449921c6097f6969fd2b13e52a3193bf6a54bda878947d60b7071a9d554500f837b0abcfe477305c6daf6814f1c3daeb7e233b4e4772
   languageName: node
   linkType: hard
 
