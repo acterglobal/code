@@ -9,7 +9,11 @@ import {
 } from '@material-ui/core'
 
 import { ActerAvatar } from '@acter/components/acter/avatar'
+import { excludeActerTypes } from '@acter/lib/acter/exclude-acter-types'
+import { ActerTypes } from '@acter/lib/constants'
 import { ActerConnectionRole, User } from '@acter/schema'
+
+const { GROUP, ACTIVITY } = ActerTypes
 
 interface ActersListProps {
   user: User
@@ -21,9 +25,15 @@ export const ActersList: FC<ActersListProps> = ({ user, role }) => {
   const connections = user.Acter.Following.filter(
     ({ role: connectionRole }) => role === connectionRole
   )
+
+  const filteredConnections = excludeActerTypes(
+    connections.map(({ Following }) => Following),
+    [GROUP, ACTIVITY]
+  )
+
   return (
     <Box className={classes.container}>
-      {connections.map(({ Following: acter }) => (
+      {filteredConnections.map((acter) => (
         <Box key={`connection=${acter.id}`} className={classes.acter}>
           <ActerAvatar acter={acter} />
           <Typography className={classes.acterName}>{acter.name}</Typography>
