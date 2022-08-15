@@ -25,9 +25,15 @@ export interface PostsProps {
   user: User
   post?: PostType
   parentId?: string
+  handleOpenSidePanel: (data: string) => void
 }
 
-export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
+export const Post: FC<PostsProps> = ({
+  user,
+  post,
+  parentId,
+  handleOpenSidePanel,
+}) => {
   const classes = useStyles()
   const [toggleForm, setToggleForm] = useState(false)
   const { acter } = useActer()
@@ -70,7 +76,7 @@ export const Post: FC<PostsProps> = ({ user, post, parentId }) => {
     return (
       <Box className={clsx(classes.post, parentId && classes.comment)}>
         <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
-        <PostContent post={post} />
+        <PostContent post={post} handleOpenSidePanel={handleOpenSidePanel} />
 
         <Box className={classes.options}>
           {post.PostReactions.length === 0 && isMember && (

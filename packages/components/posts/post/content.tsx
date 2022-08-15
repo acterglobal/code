@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core'
@@ -6,30 +6,20 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core'
 import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 import { PostReactions } from '@acter/components/posts/reactions'
-import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
-import { Drawer } from '@acter/components/util/drawer'
 import { addMentionListener } from '@acter/lib/post/add-mention-listerner'
 
-type PostContentProps = PostInfoProps
+type PostContentProps = PostInfoProps & {
+  handleOpenSidePanel: (data: string) => void
+}
 
-export const PostContent: FC<PostContentProps> = ({ post }) => {
+export const PostContent: FC<PostContentProps> = ({
+  post,
+  handleOpenSidePanel,
+}) => {
   const classes = useStyles()
-  const [openDrawer, setDrawerOpen] = useState(false)
-  const heading = 'User Profile' as string
-  const [mentionActerId, setMentionedActerId] = useState(null)
-
-  const handleDrawerOpen = (mentionActerId: string) => {
-    setMentionedActerId(mentionActerId)
-    setDrawerOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false)
-    setMentionedActerId(null)
-  }
 
   useEffect(() => {
-    addMentionListener(handleDrawerOpen)
+    addMentionListener(handleOpenSidePanel)
   }, [])
 
   return (
@@ -47,15 +37,6 @@ export const PostContent: FC<PostContentProps> = ({ post }) => {
 
         <PostReactions post={post} />
       </Box>
-      {mentionActerId && (
-        <Drawer
-          heading={heading}
-          open={openDrawer}
-          handleClose={handleDrawerClose}
-        >
-          <SidebarProfile acterId={mentionActerId} />
-        </Drawer>
-      )}
     </>
   )
 }

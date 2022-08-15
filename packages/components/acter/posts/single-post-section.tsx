@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Box,
@@ -10,7 +10,9 @@ import {
 import { ArrowBackSharp as BackIcon } from '@material-ui/icons'
 
 import { SinglePost } from '@acter/components/posts/single-post'
+import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
 import { Link } from '@acter/components/util/anchor-link'
+import { Drawer } from '@acter/components/util/drawer'
 import { Post } from '@acter/schema'
 
 interface SinglePostSectionProps {
@@ -24,6 +26,20 @@ export const SinglePostSection: FC<SinglePostSectionProps> = ({
 }) => {
   const classes = useStyles()
 
+  const [openDrawer, setDrawerOpen] = useState(false)
+  const heading = 'User Profile' as string
+  const [mentionActerId, setMentionedActerId] = useState(null)
+
+  const handleDrawerOpen = (mentionActerId: string) => {
+    setMentionedActerId(mentionActerId)
+    setDrawerOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false)
+    setMentionedActerId(null)
+  }
+
   return (
     <>
       <Link href={redirectUrl}>
@@ -36,7 +52,18 @@ export const SinglePostSection: FC<SinglePostSectionProps> = ({
           <Typography className={classes.backLink}>Back to posts</Typography>
         </Box>
       </Link>
-      <Box className={classes.postContainer}>{<SinglePost post={post} />}</Box>
+      <Box className={classes.postContainer}>
+        {<SinglePost post={post} handleOpenSidePanel={handleDrawerOpen} />}
+      </Box>
+      {mentionActerId && (
+        <Drawer
+          heading={heading}
+          open={openDrawer}
+          handleClose={handleDrawerClose}
+        >
+          <SidebarProfile acterId={mentionActerId} />
+        </Drawer>
+      )}
     </>
   )
 }
