@@ -17,9 +17,14 @@ const { PEOPLE } = MemberType
 interface SinglePostProps {
   post: PostType
   acterId?: string
+  handleOpenSidePanel: (data: string) => void
 }
 
-export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
+export const SinglePost: FC<SinglePostProps> = ({
+  post,
+  acterId,
+  handleOpenSidePanel,
+}) => {
   const classes = useStyles()
   const { user } = useUser()
   const { acter } = useActer({ acterId })
@@ -32,7 +37,7 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
 
   return (
     <Box className={classes.contentContainer}>
-      <Post post={post} user={user} />
+      <Post post={post} user={user} handleOpenSidePanel={handleOpenSidePanel} />
       <Box className={classes.commentSection}>
         {post.Comments.length !== 0 && <Divider className={classes.divider} />}
 
@@ -42,6 +47,7 @@ export const SinglePost: FC<SinglePostProps> = ({ post, acterId }) => {
             post={comment}
             parentId={post.id}
             user={user}
+            handleOpenSidePanel={handleOpenSidePanel}
           />
         ))}
 

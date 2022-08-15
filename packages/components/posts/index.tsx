@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Box } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -6,6 +6,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { PostFormSection } from '@acter/components/posts/form/post-form-section'
 import { SinglePost } from '@acter/components/posts/single-post'
+import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
+import { Drawer } from '@acter/components/util/drawer'
 import { checkMemberAccess } from '@acter/lib/acter/check-member-access'
 import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -26,6 +28,19 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
   const { posts, fetching: postsLoading } = usePosts({ acterId })
   const { user, fetching: userLoading } = useUser()
   const { acter, fetching: acterLoading } = useActer({ acterId })
+  const [openDrawer, setDrawerOpen] = useState(false)
+  const heading = 'User Profile' as string
+  const [mentionActerId, setMentionedActerId] = useState(null)
+
+  const handleDrawerOpen = (mentionActerId: string) => {
+    setMentionedActerId(mentionActerId)
+    setDrawerOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false)
+    setMentionedActerId(null)
+  }
 
   if (acterLoading || userLoading || postsLoading) return <LoadingSpinner />
   if (!acter) return null
@@ -55,8 +70,22 @@ export const PostList: FC<PostListProps> = ({ acterId }) => {
       {(isActerPublic || isMember) && (
         <>
           {posts?.map((post) => (
-            <SinglePost post={post} acterId={acterId} key={`post-${post.id}`} />
+            <SinglePost
+              post={post}
+              acterId={acterId}
+              key={`post-${post.id}`}
+              handleOpenSidePanel={handleDrawerOpen}
+            />
           ))}
+          {mentionActerId && (
+            <Drawer
+              heading={heading}
+              open={openDrawer}
+              handleClose={handleDrawerClose}
+            >
+              <SidebarProfile acterId={mentionActerId} />
+            </Drawer>
+          )}
         </>
       )}
     </Box>
