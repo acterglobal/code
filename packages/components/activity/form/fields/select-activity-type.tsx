@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
           theme.colors.activityTypes[color],
         borderColor: ({ color }: { color: ActivityTypes }) =>
           theme.colors.activityTypes[color],
+        color: theme.colors.white,
       },
     },
     button: {
