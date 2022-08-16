@@ -59,11 +59,7 @@ export const BasicInformation: FC = () => {
         />
       </Box>
 
-      <LocationPicker
-        className={classes.field}
-        fullWidth
-        textfieldprops={{ variant: 'standard' }}
-      />
+      <LocationPicker className={classes.field} fullWidth />
 
       <Field
         className={classes.field}
