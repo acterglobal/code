@@ -102,7 +102,6 @@ model Acter {
   // If this has an associated User record
   User User?
 
-
   // If this has an associated Activity record
   Activity            Activity?  @relation("acter")
   ActivitiesOrganized Activity[] @relation("organiser")
@@ -174,6 +173,7 @@ model ActerType {
   name String @unique
 
   Acter Acter[]
+
   @@map("acter_types")
 }
 
@@ -199,6 +199,7 @@ model Activity {
   organiserId String? @map("organiser_id")
 
   Notification Notification[]
+
   @@map("activities")
 }
 
@@ -207,6 +208,7 @@ model ActivityType {
   name String @unique
 
   Activity Activity[]
+
   @@map("activity_types")
 }
 
@@ -232,6 +234,7 @@ model Post {
   PostMentions PostMention[] @relation("mention_on_post")
 
   Notification Notification[]
+
   @@map("posts")
 }
 
@@ -265,6 +268,8 @@ model PostMention {
 
   createdByUser   User   @relation("post_mention_by_user", fields: [createdByUserId], references: [id])
   createdByUserId String @map("createdByUserId")
+
+  Notification Notification[]
 }
 
 model Link {
@@ -307,7 +312,6 @@ model InterestType {
   parentInterestTypeId String?        @map("parent_interest_type_id")
   Interests            Interest[]
 
-
   @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
   @@index([sortOrder])
   @@map("interest_types")
@@ -340,6 +344,7 @@ enum NotificationType {
   NEW_POST
   NEW_ACTIVITY
   NEW_MEMBER
+  NEW_MENTION
 }
 
 model Notification {
@@ -367,6 +372,8 @@ model Notification {
   Activity   Activity? @relation(fields: [activityId], references: [id])
   activityId String?   @map("activity_id")
 
+  PostMention   PostMention? @relation(fields: [postMentionId], references: [id])
+  postMentionId String?      @map("post_mention_id")
 
   @@index([toActerId, viewedAt])
   @@index([onActerId, toActerId, type])
