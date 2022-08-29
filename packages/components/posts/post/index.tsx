@@ -75,7 +75,11 @@ export const Post: FC<PostsProps> = ({
   } else {
     return (
       <Box className={clsx(classes.post, parentId && classes.comment)}>
-        <ActerAvatar acter={post.Author} size={parentId ? 4 : 6} />
+        <ActerAvatar
+          acter={post.Author}
+          size={parentId ? 4 : 6}
+          handleOpenSidePanel={handleOpenSidePanel}
+        />
         <PostContent post={post} handleOpenSidePanel={handleOpenSidePanel} />
 
         <Box className={classes.options}>
