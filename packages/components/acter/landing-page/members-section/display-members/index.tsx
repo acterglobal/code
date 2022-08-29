@@ -13,9 +13,16 @@ export interface DisplayMembersProps {
    * The list of acters we are displaying
    */
   followers: ActerConnection[]
+  /**
+   * Method to open user side panel drawer
+   */
+  handleOpenSidePanel?: (data: string) => void
 }
 
-export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
+export const DisplayMembers: FC<DisplayMembersProps> = ({
+  followers = [],
+  handleOpenSidePanel,
+}) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
 
@@ -32,6 +39,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
           key={`follower-${connection.Follower.id}`}
           Follower={connection.Follower}
           connection={connection}
+          handleOpenSidePanel={handleOpenSidePanel}
         />
       ))}
 
@@ -47,6 +55,7 @@ export const DisplayMembers: FC<DisplayMembersProps> = ({ followers = [] }) => {
               key={`follower-${connection.Follower.id}`}
               Follower={connection.Follower}
               connection={connection}
+              handleOpenSidePanel={handleOpenSidePanel}
             />
           ))}
         </>

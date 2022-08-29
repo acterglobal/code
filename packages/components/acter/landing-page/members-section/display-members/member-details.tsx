@@ -14,13 +14,21 @@ import { Acter } from '@acter/schema'
 
 type MemberDetailsProps = {
   follower: Acter
+  handleOpenSidePanel?: (data: string) => void
 }
-export const MemberDetails: FC<MemberDetailsProps> = ({ follower }) => {
+export const MemberDetails: FC<MemberDetailsProps> = ({
+  follower,
+  handleOpenSidePanel,
+}) => {
   const classes = useStyles()
+
   return (
     <>
       <ListItemAvatar>
-        <ActerAvatar acter={follower} />
+        <ActerAvatar
+          acter={follower}
+          handleOpenSidePanel={handleOpenSidePanel}
+        />
       </ListItemAvatar>
       <ListItemText
         classes={{ primary: classes.name, secondary: classes.location }}

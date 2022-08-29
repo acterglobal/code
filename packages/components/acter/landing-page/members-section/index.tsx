@@ -7,6 +7,8 @@ import { DisplayActers } from '@acter/components/acter/landing-page/members-sect
 import { DisplayMembers } from '@acter/components/acter/landing-page/members-section/display-members'
 import { Selectors } from '@acter/components/acter/landing-page/members-section/selectors'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
+import { SidebarProfile } from '@acter/components/user/profile/info/side-bar'
+import { Drawer } from '@acter/components/util/drawer'
 import { getFollowersByType } from '@acter/lib/acter/get-followers-by-type'
 import { getSelectors } from '@acter/lib/acter/get-selectors'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -17,6 +19,9 @@ const { ACTERS, PEOPLE } = MemberType
 export const MembersSection: FC = () => {
   const classes = useStyles()
   const [activeSelector, setActiveSelector] = useState<MemberType>(PEOPLE)
+  const [openDrawer, setDrawerOpen] = useState(false)
+  const [acterId, setActerId] = useState(null)
+  const heading = 'User Profile' as string
 
   const { acter, fetching: acterLoading } = useActer()
 
@@ -31,6 +36,16 @@ export const MembersSection: FC = () => {
     setActiveSelector(selector)
   }
 
+  const handleDrawerOpen = (mentionActerId: string) => {
+    setActerId(mentionActerId)
+    setDrawerOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false)
+    setActerId(null)
+  }
+
   return (
     <Box className={classes.container}>
       <Selectors
@@ -40,10 +55,23 @@ export const MembersSection: FC = () => {
         totalResults={validFollowers?.length}
       />
       {activeSelector === PEOPLE && (
-        <DisplayMembers followers={validFollowers} />
+        <DisplayMembers
+          followers={validFollowers}
+          handleOpenSidePanel={handleDrawerOpen}
+        />
       )}
       {activeSelector === ACTERS && (
         <DisplayActers followers={validFollowers} />
+      )}
+
+      {acterId && (
+        <Drawer
+          heading={heading}
+          open={openDrawer}
+          handleClose={handleDrawerClose}
+        >
+          <SidebarProfile acterId={acterId} />
+        </Drawer>
       )}
     </Box>
   )
