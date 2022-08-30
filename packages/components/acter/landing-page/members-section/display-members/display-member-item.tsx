@@ -19,11 +19,16 @@ export interface DisplayMemberItemProps {
    * The connection type of the member to the acter
    */
   connection: ActerConnection
+  /**
+   * Method to open user side panel drawer
+   */
+  handleOpenSidePanel: (data: string) => void
 }
 
 export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
   Follower,
   connection,
+  handleOpenSidePanel,
 }) => {
   const { acter, fetching: acterLoading } = useActer()
   const { user, fetching: userLoading } = useUser()
@@ -35,7 +40,10 @@ export const DisplayMemberItem: FC<DisplayMemberItemProps> = ({
 
   return (
     <ListItem>
-      <MemberDetails follower={Follower} />
+      <MemberDetails
+        follower={Follower}
+        handleOpenSidePanel={handleOpenSidePanel}
+      />
       <ListItemSecondaryAction>
         <ConnectionUpdateOptions
           connection={connection}

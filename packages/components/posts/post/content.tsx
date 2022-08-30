@@ -6,7 +6,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core'
 import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { PostInfo, PostInfoProps } from '@acter/components/posts/post/info'
 import { PostReactions } from '@acter/components/posts/reactions'
-import { addMentionListener } from '@acter/lib/post/add-mention-listerner'
+import { addMentionListener } from '@acter/lib/post/add-mention-listener'
 
 type PostContentProps = PostInfoProps & {
   handleOpenSidePanel: (data: string) => void
@@ -25,7 +25,7 @@ export const PostContent: FC<PostContentProps> = ({
   return (
     <>
       <Box className={classes.postContent}>
-        <PostInfo post={post} />
+        <PostInfo post={post} handleOpenSidePanel={handleOpenSidePanel} />
 
         {post.content && (
           <div className={classes.description}>
