@@ -12,6 +12,7 @@ import {
   createNewMemberNotifications,
   NewMemberJoinNotification,
 } from '@acter/jobs/new-member-notifications'
+import { createPostMentionNotifications } from '@acter/jobs/post-mention-notifications'
 import {
   createPostNotifications,
   PostJobVariables,
@@ -50,6 +51,10 @@ const notificationTypeMap: Record<
   [NotificationQueueType.NEW_POST]: {
     checks: (body: PostJobVariables) => !!body.id,
     fn: createPostNotifications,
+  },
+  [NotificationQueueType.NEW_MENTION]: {
+    checks: (body: PostJobVariables) => !!body.id,
+    fn: createPostMentionNotifications,
   },
 }
 

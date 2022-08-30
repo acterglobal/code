@@ -66,6 +66,13 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
       ),
     ],
   },
+  PostMention: {
+    createPostMention: [
+      UseMiddleware(
+        QueueNotificationsMiddleware(NotificationQueueType.NEW_MENTION)
+      ),
+    ],
+  },
 }
 
 //eslint-disable-next-line @typescript-eslint/ban-types
