@@ -7,24 +7,29 @@ import { createNotificationWorker } from '@acter/lib/notification/create-notific
 import { NotificationType, Post } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-import { createPostEmailNotification } from './template'
-import { PostJobVariables, PostJobData } from './types'
+import { createPostMentionEmailNotification } from './template'
+import { PostMentionJobVariables, PostMentionJobData } from './types'
 
 export const createPostMentionNotifications = createNotificationWorker<
-  PostJobVariables,
-  PostJobData
+  PostMentionJobVariables,
+  PostMentionJobData
 >({
   getJobData: async (job) => {
+    const postMention = await prisma.postMention.findFirst({
+      where: {
+        id: job.id,
+      },
+    })
     const post = await prisma.post.findFirst({
       include: {
         Acter: true,
         Author: true,
       },
       where: {
-        id: job.id,
+        id: postMention.postId,
       },
     })
-    return { post }
+    return { post, postMention }
   },
   getFollowing: async ({ post }) => {
     return await prisma.acter.findFirst({
@@ -37,26 +42,24 @@ export const createPostMentionNotifications = createNotificationWorker<
         },
       },
       where: {
-        id: post.acterId,
+        id: post.Acter.id,
       },
     })
   },
-  getFollowersWhere: ({ post }) => ({
+  getFollowersWhere: ({ postMention }) => ({
     Follower: {
-      id: {
-        not: post.Author.id,
-      },
+      id: postMention.acterId,
     },
   }),
   getNotificationEmail: ({ data: { post }, notification }) =>
-    createPostEmailNotification({
+    createPostMentionEmailNotification({
       post,
       notification,
     }),
   getNotificationEmailSubject: ({ notification }) =>
-    `New post on ${notification.OnActer.name} via Acter`,
+    `New mention on post on ${notification.OnActer.name} via Acter`,
   getPost: ({ post }) => post as Post,
-  type: NotificationType.NEW_POST,
+  type: NotificationType.NEW_MENTION,
   getNotificationUrlPath: (postId, following) =>
     following.ActerType.name === ActerTypes.ACTIVITY
       ? `activities?activity=${slugify(following.name)}&post=${postId}`

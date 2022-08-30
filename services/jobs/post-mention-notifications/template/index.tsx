@@ -22,15 +22,15 @@ export type PostWithActerAndAuthor = Omit<Post, 'Acter' | 'Author'> & {
 
 type ActerNameAndID = Pick<Acter, 'id' | 'name'>
 
-type CreatePostMentionEmailNotificationParams = {
+type CreatePostEmailNotificationParams = {
   notification: Notification
   post: PostWithActerAndAuthor
 }
 
-export const createPostEmailNotification = ({
+export const createPostMentionEmailNotification = ({
   notification,
   post,
-}: CreatePostMentionEmailNotificationParams): CreateEmailReturn => {
+}: CreatePostEmailNotificationParams): CreateEmailReturn => {
   assert(!!post.Acter?.name, 'Post Acter name required')
   assert(!!post.Author?.name, 'Post Author name required')
   assert(!!post.createdAt, 'Post created at required')
@@ -42,7 +42,7 @@ export const createPostEmailNotification = ({
       <MjmlSection backgroundColor="#fff">
         <MjmlColumn>
           <MjmlText fontFamily="Montserrat, Arial, non-serif">
-            A new {postType} was created on {post.Acter.name}.
+            A new {postType} created on {post.Acter.name} mentioned you.
           </MjmlText>
         </MjmlColumn>
       </MjmlSection>

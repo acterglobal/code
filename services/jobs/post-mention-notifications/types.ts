@@ -1,9 +1,12 @@
-import { PostWithActerAndAuthor } from './template'
+import { PostMention } from '@acter/schema'
 
-export interface PostJobVariables {
+import { PostWithActerAndAuthor } from '../post-notifications/template'
+
+export interface PostMentionJobVariables {
   id: string
 }
 
-export interface PostJobData {
+export interface PostMentionJobData {
+  postMention: PostMention
   post: PostWithActerAndAuthor
 }

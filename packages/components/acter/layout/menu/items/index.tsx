@@ -14,7 +14,7 @@ import { userHasRoleOnActer } from '@acter/lib/user/user-has-role-on-acter'
 import { Acter, ActerConnectionRole, NotificationType } from '@acter/schema'
 
 const { ACTIVITIES, FORUM, MEMBERS, SETTINGS } = ActerMenuEnum
-const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST, NEW_MENTION } = NotificationType
+const { NEW_ACTIVITY, NEW_MEMBER, NEW_POST } = NotificationType
 
 export interface ActerMenuItemProps {
   acter: Acter
@@ -38,12 +38,6 @@ export const ActerMenuItems: FC<ActerMenuItemProps> = ({ acter }) => {
         Icon={ForumIcon}
         path={FORUM}
         notifications={getNotifications(NEW_POST)}
-      />
-      <ActerMenuItem
-        acter={acter}
-        Icon={ForumIcon}
-        path={FORUM}
-        notifications={getNotifications(NEW_MENTION)}
       />
       <ActerMenuItem
         acter={acter}
