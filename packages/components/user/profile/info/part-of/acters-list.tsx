@@ -22,18 +22,20 @@ interface ActersListProps {
 export const ActersList: FC<ActersListProps> = ({ user, role }) => {
   const classes = useStyles()
 
-  const connections = user.Acter.Following.filter(
+  if (!user) return null
+
+  const connections = user.Acter?.Following.filter(
     ({ role: connectionRole }) => role === connectionRole
   )
 
   const filteredConnections = excludeActerTypes(
-    connections.map(({ Following }) => Following),
+    connections?.map(({ Following }) => Following),
     [GROUP, ACTIVITY]
   )
 
   return (
     <Box className={classes.container}>
-      {filteredConnections.map((acter) => (
+      {filteredConnections?.map((acter) => (
         <Box key={`connection=${acter.id}`} className={classes.acter}>
           <ActerAvatar acter={acter} />
           <Typography className={classes.acterName}>{acter.name}</Typography>
