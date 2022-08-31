@@ -45,14 +45,14 @@ export const Content: FC<ContentProps> = ({ acterId }) => {
 
       <Box className={classes.info}>
         <Typography className={classes.label}>{t('name')}</Typography>
-        <Typography className={classes.detail}>{user.Acter.name}</Typography>
+        <Typography className={classes.detail}>{user.Acter?.name}</Typography>
 
         <Typography className={classes.label}>{t('email')}</Typography>
         <Typography className={classes.detail}>{user.email}</Typography>
 
         <Typography className={classes.label}>{t('form.location')}</Typography>
         <Typography className={classes.detail}>
-          {user.Acter.location}
+          {user.Acter?.location}
         </Typography>
       </Box>
     </Box>
