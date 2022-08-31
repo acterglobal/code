@@ -50,44 +50,33 @@ export const About: FC<AboutProps> = ({ acterId }) => {
 
   return (
     <>
-      {(user?.Acter?.description ||
-        user?.Acter?.ActerInterests?.length !== 0) && (
-        <Box
-          className={clsx(classes.section, acterId && classes.sidebarSection)}
-        >
-          {user.Acter?.description && (
-            <>
-              <Typography className={classes.heading}>About</Typography>
-              <Typography className={classes.description}>
-                {user.Acter?.description}
-              </Typography>
-            </>
-          )}
-          {user.Acter?.ActerInterests?.length !== 0 && (
-            <>
-              <Box className={classes.interestsHeading}>
-                <Typography className={classes.heading}>Interests</Typography>
-                {route === '/profile/edit' && (
-                  <SearchInterestsFilter
-                    applyFilters={handleFilterInterests}
-                    isAnchorElementIcon={true}
-                    userInterestIds={user?.Acter?.ActerInterests.map(
-                      ({ Interest }) => Interest.id
-                    )}
-                  />
-                )}
-              </Box>
-              <Box>
-                <InterestsSection
-                  selected={user?.Acter?.ActerInterests?.map(
-                    ({ Interest }) => Interest
-                  )}
-                />
-              </Box>
-            </>
-          )}
+      <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
+        <>
+          <Typography className={classes.heading}>About</Typography>
+          <Typography className={classes.description}>
+            {user.Acter?.description}
+          </Typography>
+        </>
+
+        <Box className={classes.interestsHeading}>
+          <Typography className={classes.heading}>Interests</Typography>
+
+          <SearchInterestsFilter
+            applyFilters={handleFilterInterests}
+            isAnchorElementIcon={true}
+            userInterestIds={user?.Acter?.ActerInterests.map(
+              ({ Interest }) => Interest.id
+            )}
+          />
         </Box>
-      )}
+        <Box>
+          <InterestsSection
+            selected={user?.Acter?.ActerInterests?.map(
+              ({ Interest }) => Interest
+            )}
+          />
+        </Box>
+      </Box>
     </>
   )
 }
