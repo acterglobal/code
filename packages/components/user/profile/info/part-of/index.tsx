@@ -36,7 +36,7 @@ export const PartOf: FC<PartOfProps> = ({ acterId }) => {
 
   return (
     <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
-      <Typography className={classes.heading}>Part of as</Typography>
+      <Typography className={classes.heading}>Part of</Typography>
       <Tabs value={currentTab} onChange={handleChange}>
         {tabs.map((tab, i) => (
           <Tab
