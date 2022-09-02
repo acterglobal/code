@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 
-import { useRouter } from 'next/router'
-
 import {
   Box,
   makeStyles,
@@ -13,6 +11,7 @@ import {
 import clsx from 'clsx'
 
 import { InterestsSection } from '@acter/components/interests/interests-section'
+import { SanitizedContent } from '@acter/components/molecules/sanitized-content'
 import { SearchInterestsFilter } from '@acter/components/search/organisms/interests-filter'
 import { ActerVariables } from '@acter/lib/acter/use-create-acter'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
@@ -27,7 +26,6 @@ interface AboutProps {
 export const About: FC<AboutProps> = ({ acterId }) => {
   const { user } = useUser(acterId && { acterId })
   const classes = useStyles()
-  const { route } = useRouter()
 
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
@@ -51,23 +49,24 @@ export const About: FC<AboutProps> = ({ acterId }) => {
   return (
     <>
       <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
-        <>
-          <Typography className={classes.heading}>About</Typography>
-          <Typography className={classes.description}>
-            {user.Acter?.description}
-          </Typography>
-        </>
+        <Typography className={classes.heading}>About</Typography>
+
+        <SanitizedContent isMarkdown={false}>
+          {user.Acter?.description}
+        </SanitizedContent>
 
         <Box className={classes.interestsHeading}>
           <Typography className={classes.heading}>Interests</Typography>
 
-          <SearchInterestsFilter
-            applyFilters={handleFilterInterests}
-            isAnchorElementIcon={true}
-            userInterestIds={user?.Acter?.ActerInterests.map(
-              ({ Interest }) => Interest.id
-            )}
-          />
+          {!acterId && (
+            <SearchInterestsFilter
+              applyFilters={handleFilterInterests}
+              isAnchorElementIcon={true}
+              userInterestIds={user?.Acter?.ActerInterests.map(
+                ({ Interest }) => Interest.id
+              )}
+            />
+          )}
         </Box>
         <Box>
           <InterestsSection
@@ -109,12 +108,21 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.9rem',
     },
     description: {
-      marginTop: 5,
+      display: 'block',
       backgroundColor: theme.colors.toolbar.main,
-      minHeight: 100,
       fontSize: '0.85rem',
       paddingRight: 5,
       paddingLeft: 5,
+      lineHeight: 1,
+      hyphens: 'auto',
+      overflow: 'hidden',
+      '& p': {
+        margin: 0,
+        lineHeight: '1.25rem',
+      },
+      '& li': {
+        lineHeight: '1.2rem',
+      },
     },
     editIcon: {
       color: theme.colors.blue.mediumGrey,

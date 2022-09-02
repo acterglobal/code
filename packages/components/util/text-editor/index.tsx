@@ -48,7 +48,7 @@ if (typeof window === 'object') {
 const mentionPlugin = createMentionPlugin()
 const { MentionSuggestions } = mentionPlugin
 
-interface widthHeightType {
+interface heightType {
   height?: number
 }
 interface borderStylesType {
@@ -58,9 +58,9 @@ interface borderStylesType {
 }
 interface stylesProp {
   borderStyles?: borderStylesType
-  size?: widthHeightType
+  size?: heightType
 }
-export interface TextEditorProps extends widthHeightType, stylesProp {
+export interface TextEditorProps extends heightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
   handleMentions?: (data: MentionData[]) => void
@@ -222,6 +222,7 @@ export const TextEditor: FC<TextEditorProps> = ({
       >
         <EditorContext.Provider value={editorState}>
           <Editor
+            editorKey={'editor'}
             editorState={editorState}
             onChange={onEditorStateChange}
             plugins={plugins}
@@ -247,10 +248,12 @@ export const TextEditor: FC<TextEditorProps> = ({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     editorContainer: {
+      backgroundColor: theme.colors.white,
       border: '1px solid',
       borderColor: theme.colors.blue.lightGrey,
       borderRadius: 8,
       minHeight: ({ size }: stylesProp) => size.height,
+      flexGrow: 1,
       cursor: 'text',
       minInlineSize: '1.2rem',
       marginBottom: '1em',
