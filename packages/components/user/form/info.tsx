@@ -17,6 +17,7 @@ import { LocationPicker } from '@acter/components/atoms/fields/location-picker'
 import { LoadingSpinner } from '@acter/components/atoms/loading/spinner'
 import { ImageUpload } from '@acter/components/image-upload'
 import { FormButtons } from '@acter/components/util/forms'
+import { TextEditor } from '@acter/components/util/text-editor'
 import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { useTranslation } from '@acter/lib/i18n/use-translation'
 import { useUser } from '@acter/lib/user/use-user'
@@ -78,6 +79,7 @@ export const ProfileInfoForm: FC = () => {
           values,
           submitForm,
           resetForm,
+          setFieldValue,
         }: FormikProps<ProfileInfoFormValues>) => {
           return (
             <Form
@@ -155,6 +157,22 @@ export const ProfileInfoForm: FC = () => {
                       fieldFor="profile"
                     />
                   </Grid>
+
+                  <Grid
+                    className={classes.textEditorContainer}
+                    item
+                    xs={12}
+                    sm={6}
+                  >
+                    <TextEditor
+                      height={300}
+                      initialValue={description}
+                      placeholder={t('form.writeAboutYou')}
+                      handleInputChange={(value) =>
+                        setFieldValue('description', value)
+                      }
+                    />
+                  </Grid>
                 </Grid>
               </Box>
             </Form>
@@ -183,6 +201,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '5%',
       height: 350,
       backgroundColor: theme.colors.grey.extraLight,
+    },
+    textEditorContainer: {
+      paddingTop: '35px',
     },
     fieldsContainer: {
       paddingLeft: 16,
