@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { Component, FC, useEffect, useRef, useState } from 'react'
 
 import { makeStyles, createStyles, useTheme, Box } from '@material-ui/core'
 
@@ -43,16 +43,21 @@ export const PostForm: FC<PostFormProps> = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation('common')
-  const [mentions, setMentions] = useState<PostMention[]>([])
+  const [mentions, setMentions] = useState<PostMention[]>(
+    post?.PostMentions && (post?.PostMentions as PostMention[])
+  )
 
   const initialValues: PostType = {
     content: post?.content || '',
     parentId: null,
     ...post,
   }
+  const [editor, setEditor] = useState(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [clearText, setClearText] = useState(false)
   const theme = useTheme()
 
+  editor?.focus()
   useEffect(() => {
     inputRef.current?.focus()
   }, [inputRef])
@@ -76,6 +81,11 @@ export const PostForm: FC<PostFormProps> = ({
     formikBag.resetForm()
   }
 
+  const handleEditorRef = (editorRef: Component) => {
+    setEditor(editorRef)
+    setClearText(false)
+  }
+
   const placeholder = parentId
     ? `${capitalize(t('comment'))} ...`
     : t('form.writePost')
@@ -88,23 +98,33 @@ export const PostForm: FC<PostFormProps> = ({
     >
       {({ setFieldValue }) => (
         <Form className={classes.form}>
-          <TextEditor
-            initialValue={initialValues.content}
-            handleInputChange={(value) => setFieldValue('content', value)}
-            handleMentions={handleMentions}
-            placeholder={placeholder}
-            isComment={!!parentId}
-            hideEditorToolbar={!!parentId}
-            height={theme.spacing(parentId ? 4.5 : 12)}
-            borderStyles={{
-              radius: theme.spacing(1),
-              color: parentId
-                ? theme.colors.grey.extraLight
-                : theme.colors.grey.main,
-              border: !!parentId && 'none',
+          <Box
+            className={classes.editorContainer}
+            onClick={() => {
+              handleEditorRef
             }}
-            followers={followers}
-          />
+          >
+            <TextEditor
+              initialValue={initialValues.content}
+              currentMentions={mentions}
+              handleInputChange={(value) => setFieldValue('content', value)}
+              editorRef={editor}
+              handleEditorRef={handleEditorRef}
+              placeholder={clearText && placeholder}
+              handleMentions={handleMentions}
+              isComment={!!parentId}
+              hideEditorToolbar={!!parentId}
+              height={theme.spacing(parentId ? 4.5 : 12)}
+              borderStyles={{
+                radius: theme.spacing(1),
+                color: parentId
+                  ? theme.colors.grey.extraLight
+                  : theme.colors.grey.main,
+                border: !!parentId && 'none',
+              }}
+              followers={followers}
+            />
+          </Box>
 
           {post ? (
             <Box className={clsx(parentId && classes.buttons)}>
@@ -133,6 +153,9 @@ const useStyles = makeStyles(() =>
       flexDirection: 'column',
       overflow: 'hidden',
       fontSize: 11,
+    },
+    editorContainer: {
+      minHeight: 100,
     },
     buttons: {
       marginTop: 8,

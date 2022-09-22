@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { Component, FC, useEffect, useRef, useState } from 'react'
 
 import {
   Grid,
@@ -40,8 +40,16 @@ export const ProfileInfoForm: FC = () => {
   const classes = useStyles()
   const theme = useTheme()
   const { user, fetching } = useUser()
+  const [editor, setEditor] = useState(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [clearText, setClearText] = useState(false)
 
   const [_, updateActer] = useUpdateActer(user?.Acter)
+
+  editor?.focus()
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
 
   if (fetching) return <LoadingSpinner />
   if (!user) return null
@@ -71,6 +79,11 @@ export const ProfileInfoForm: FC = () => {
 
   const handleSubmit = (values) => updateActer(values)
 
+  const handleEditorRef = (editorRef: Component) => {
+    setEditor(editorRef)
+    setClearText(false)
+  }
+
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -80,104 +93,107 @@ export const ProfileInfoForm: FC = () => {
           submitForm,
           resetForm,
           setFieldValue,
-        }: FormikProps<ProfileInfoFormValues>) => {
-          return (
-            <Form
-              onBlur={async () => {
-                if (dirty) {
-                  await submitForm()
-                  resetForm({ values }) // <-- Changes dirty to false
-                }
-              }}
-            >
-              <Box className={classes.formButtons}>
-                <FormButtons align="right" hideUnlessDirty={true} />
-              </Box>
-              <Box className={classes.formContainer}>
-                <Grid container>
-                  <Grid item sm={12} md={4}>
-                    <ImageUpload
-                      imageType="avatar"
-                      fileUrl={user?.Acter.avatarUrl}
-                    />
-                  </Grid>
-                  <Grid className={classes.fieldsContainer} item sm={12} md={8}>
-                    <Typography className={classes.label}>
-                      {t('name')}
-                    </Typography>
+        }: FormikProps<ProfileInfoFormValues>) => (
+          <Form
+            onBlur={async () => {
+              if (dirty) {
+                await submitForm()
+                resetForm({ values }) // <-- Changes dirty to false
+              }
+            }}
+          >
+            <Box className={classes.formButtons}>
+              <FormButtons align="right" hideUnlessDirty={true} />
+            </Box>
+            <Box className={classes.formContainer}>
+              <Grid container>
+                <Grid item sm={12} md={4}>
+                  <ImageUpload
+                    imageType="avatar"
+                    fileUrl={user?.Acter.avatarUrl}
+                  />
+                </Grid>
+                <Grid className={classes.fieldsContainer} item sm={12} md={8}>
+                  <Typography className={classes.label}>{t('name')}</Typography>
 
-                    <Field
-                      className={classes.textinput}
-                      component={TextField}
-                      name="name"
-                      placeholder={t('name')}
-                      InputProps={{
-                        disableUnderline: true,
-                      }}
-                      inputProps={{
-                        style: {
-                          paddingLeft: 15,
-                          fontSize: '1.4rem',
-                          fontWeight: theme.typography.fontWeightMedium,
-                          backgroundColor: theme.colors.white,
-                          borderRadius: 5,
-                          height: 35,
-                        },
-                      }}
-                    />
-                    <Typography className={classes.label}>Email</Typography>
+                  <Field
+                    className={classes.textinput}
+                    component={TextField}
+                    name="name"
+                    placeholder={t('name')}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    inputProps={{
+                      style: {
+                        paddingLeft: 15,
+                        fontSize: '1.4rem',
+                        fontWeight: theme.typography.fontWeightMedium,
+                        backgroundColor: theme.colors.white,
+                        borderRadius: 5,
+                        height: 35,
+                      },
+                    }}
+                  />
+                  <Typography className={classes.label}>Email</Typography>
 
-                    <Field
-                      className={classes.textinput}
-                      component={TextField}
-                      name="email"
-                      placeholder="you@acter.global"
-                      InputProps={{
-                        disableUnderline: true,
-                      }}
-                      disabled={true}
-                      inputProps={{
-                        style: {
-                          paddingLeft: 15,
-                          fontSize: '1.4rem',
-                          fontWeight: theme.typography.fontWeightMedium,
-                          backgroundColor: theme.colors.white,
-                          borderRadius: 5,
-                          height: 35,
-                        },
-                      }}
-                    />
-                    <Typography className={classes.label}>
-                      {t('location')}
-                    </Typography>
+                  <Field
+                    className={classes.textinput}
+                    component={TextField}
+                    name="email"
+                    placeholder="you@acter.global"
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    disabled={true}
+                    inputProps={{
+                      style: {
+                        paddingLeft: 15,
+                        fontSize: '1.4rem',
+                        fontWeight: theme.typography.fontWeightMedium,
+                        backgroundColor: theme.colors.white,
+                        borderRadius: 5,
+                        height: 35,
+                      },
+                    }}
+                  />
+                  <Typography className={classes.label}>
+                    {t('location')}
+                  </Typography>
 
-                    <LocationPicker
-                      types={['(regions)']}
-                      cacheKey="regions"
-                      fieldFor="profile"
-                    />
-                  </Grid>
+                  <LocationPicker
+                    types={['(regions)']}
+                    cacheKey="regions"
+                    fieldFor="profile"
+                  />
+                </Grid>
 
-                  <Grid
-                    className={classes.textEditorContainer}
-                    item
-                    xs={12}
-                    sm={6}
-                  >
+                <Grid
+                  className={classes.textEditorContainer}
+                  item
+                  xs={12}
+                  sm={6}
+                  onClick={() => {
+                    handleEditorRef
+                  }}
+                >
+                  <Box className={classes.editorContainer}>
                     <TextEditor
                       height={300}
                       initialValue={description}
-                      placeholder={t('form.writeAboutYou')}
+                      editorRef={editor}
+                      handleEditorRef={handleEditorRef}
+                      placeholder={clearText && t('form.writeAboutYou')}
                       handleInputChange={(value) =>
                         setFieldValue('description', value)
                       }
                     />
-                  </Grid>
+                  </Box>
                 </Grid>
-              </Box>
-            </Form>
-          )
-        }}
+              </Grid>
+            </Box>
+          </Form>
+        )}
       </Formik>
     </>
   )
@@ -218,6 +234,9 @@ const useStyles = makeStyles((theme: Theme) =>
     textinput: {
       width: 420,
       marginBottom: theme.spacing(2),
+    },
+    editorContainer: {
+      minHeight: 100,
     },
   })
 )
