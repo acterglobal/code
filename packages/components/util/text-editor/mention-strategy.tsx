@@ -2,10 +2,10 @@ import { ContentBlock, ContentState } from 'draft-js'
 
 import { DraftEntityTypes } from '@acter/lib/constants'
 
-const { LINK } = DraftEntityTypes
-const matchesEntityType = (type: string) => type === LINK
+const { MENTION } = DraftEntityTypes
+const matchesEntityType = (type: string) => type === MENTION
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const linkStrategy = (
+export const mentionStrategy = (
   contentBlock: ContentBlock,
   cb: (start: number, end: number) => void,
   contentState: ContentState

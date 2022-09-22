@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useRef,
   useCallback,
+  Component,
 } from 'react'
 
 import createLinkPlugin from '@draft-js-plugins/anchor'
@@ -63,7 +64,11 @@ interface stylesProp {
 export interface TextEditorProps extends heightType, stylesProp {
   initialValue: string
   handleInputChange: (data: string) => void
+  currentMentions?: PostMention[]
   handleMentions?: (data: MentionData[]) => void
+  editorRef?: Component
+  handleEditorRef?: (editorRef: Component) => void
+  clearText?: boolean
   hideEditorToolbar?: boolean
   placeholder?: string
   isComment?: boolean
@@ -73,6 +78,10 @@ export interface TextEditorProps extends heightType, stylesProp {
 export const TextEditor: FC<TextEditorProps> = ({
   handleInputChange,
   handleMentions,
+  handleEditorRef,
+  currentMentions,
+  editorRef,
+  clearText,
   initialValue,
   placeholder,
   borderStyles,
@@ -83,12 +92,13 @@ export const TextEditor: FC<TextEditorProps> = ({
 }) => {
   const size = { height }
   const classes = useStyles({ borderStyles, size })
-  const [clearText, setClearText] = useState(false)
-  const ref = useRef<Editor>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ref = useRef<any>(editorRef)
 
   const [open, setOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
-  const [selectedMentions, setSelectedMentions] = useState<PostMention[]>([])
+  const [selectedMentions, setSelectedMentions] =
+    useState<PostMention[]>(currentMentions)
 
   const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
 
@@ -109,6 +119,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     mentionPlugin,
   ]
 
+  // TO DO add mentions decorator strategy
   const decorator = new CompositeDecorator([
     {
       strategy: linkStrategy,
@@ -186,11 +197,6 @@ export const TextEditor: FC<TextEditorProps> = ({
     handleInputChange(value)
     handleMentions && handleMentions(selectedMentions)
     setEditorState(data)
-  }
-
-  const handleEditorRef = (editorRef) => {
-    editorRef?.focus()
-    setClearText(false)
   }
 
   const onOpenChange = useCallback((_open: boolean) => {
@@ -280,6 +286,10 @@ const useStyles = makeStyles((theme: Theme) =>
     editor: {
       padding: 10,
       fontSize: '0.813rem',
+      minHeight: '100%',
+      '& .public-DraftEditor-content': {
+        minHeight: 80,
+      },
     },
   })
 )
