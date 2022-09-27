@@ -51,11 +51,9 @@ export const About: FC<AboutProps> = ({ acterId }) => {
       <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
         <Typography className={classes.heading}>About</Typography>
 
-        {user.Acter?.description && (
-          <SanitizedContent isMarkdown={false}>
-            {user.Acter?.description}
-          </SanitizedContent>
-        )}
+        <SanitizedContent isMarkdown={false}>
+          {user.Acter?.description}
+        </SanitizedContent>
 
         <Box className={classes.interestsHeading}>
           <Typography className={classes.heading}>Interests</Typography>
