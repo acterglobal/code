@@ -12,38 +12,35 @@ export const SanitizedContent: FC<SanitizedContentProps> = ({
   isMarkdown,
   children,
 }): JSX.Element => {
-  if (children) {
-    if (typeof children !== 'string')
-      throw new Error('Cannot render Markdown for non-string content')
+  if (typeof children !== 'string') children = ''
 
-    const re = /<p>\s?<br(\\s\/)?>\s?<\/p>/gi
-    const filteredContent = (children || '').replaceAll(re, '')
+  const re = /<p>\s?<br(\\s\/)?>\s?<\/p>/gi
+  const filteredContent = (children || '').replaceAll(re, '')
 
-    if (isMarkdown) return <Markdown>{filteredContent}</Markdown>
+  if (isMarkdown) return <Markdown>{filteredContent}</Markdown>
 
-    return (
-      <SanitizedHTML
-        allowedAttributes={{ a: ['href', 'target', 'id'] }}
-        allowedTags={[
-          'h1',
-          'h2',
-          'h3',
-          'p',
-          'b',
-          'i',
-          'u',
-          'em',
-          'strong',
-          'a',
-          'ul',
-          'ol',
-          'li',
-          'code',
-          'blockquote',
-        ]}
-        disallowedTagsMode="discard"
-        html={filteredContent}
-      ></SanitizedHTML>
-    )
-  }
+  return (
+    <SanitizedHTML
+      allowedAttributes={{ a: ['href', 'target', 'id'] }}
+      allowedTags={[
+        'h1',
+        'h2',
+        'h3',
+        'p',
+        'b',
+        'i',
+        'u',
+        'em',
+        'strong',
+        'a',
+        'ul',
+        'ol',
+        'li',
+        'code',
+        'blockquote',
+      ]}
+      disallowedTagsMode="discard"
+      html={filteredContent}
+    ></SanitizedHTML>
+  )
 }

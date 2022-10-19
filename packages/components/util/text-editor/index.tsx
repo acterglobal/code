@@ -127,7 +127,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     },
   ])
 
-  const blocksFromHtml = htmlToDraft(initialValue)
+  const blocksFromHtml = htmlToDraft(initialValue ?? '')
   const { contentBlocks, entityMap } = blocksFromHtml
   const contentState = ContentState.createFromBlockArray(
     contentBlocks,
