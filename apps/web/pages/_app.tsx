@@ -1,5 +1,7 @@
 import 'reflect-metadata'
 
+import 'reset-css';
+
 import React, { FC, ReactElement, ReactNode, useEffect } from 'react'
 import { hotjar } from 'react-hotjar'
 import { IntercomProvider } from 'react-use-intercom'
