@@ -29,7 +29,9 @@ export const usePaginatedQuery = <TType extends WithId, TData, TVariables>(
   }, [JSON.stringify(variables)])
 
   const [{ data, fetching: dataFetching, ...restQueryResult }, refetch] =
-    useQuery<TData, VariablesWithPagination<TVariables>>({
+    useQuery<TData, VariablesWithPagination<TVariables>>(
+      //@ts-ignore
+      {
       ...options,
       query,
       variables: {

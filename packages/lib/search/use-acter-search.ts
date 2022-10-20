@@ -66,6 +66,7 @@ export const useActerSearch = (
     query: SEARCH_ACTERS,
     dataKey: 'searchActers',
     variables,
+    //@ts-ignore
     pause,
   })
 
