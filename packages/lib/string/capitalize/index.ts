@@ -13,5 +13,5 @@ export const capitalize = (textString: string | unknown): string => {
     specialCapitalizationMap[(textString as string).toLocaleLowerCase()]
   return specialCapitalization
     ? specialCapitalization
-    : justCapitalize(textString)
+    : justCapitalize(textString as string)
 }
