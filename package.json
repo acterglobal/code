@@ -74,7 +74,7 @@
     "path": false
   },
   "engines": {
-    "node": "18.x",
+    "node": "16.x",
     "yarn": "3.x"
   },
   "resolutions": {
