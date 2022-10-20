@@ -82,7 +82,7 @@
     "@storybook/react": "6.4.22",
     "@types/googlemaps": "3.43.3",
     "@types/sanitize-html": "^2.6.2",
-    "@urql/storybook-addon": "1.0.8",
+    "@urql/storybook-addon": "^2.0.1",
     "babel-loader": "8.2.2",
     "babel-plugin-polyfill-corejs2": "0.2.2",
     "babel-plugin-polyfill-regenerator": "0.2.2",

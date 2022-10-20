@@ -66,5 +66,4 @@ export const getUrqlClientOptions = (): ClientOptions => {
 }
 
 export const getUrqlClient = (): Client =>
-//@ts-ignore
   initUrqlClient(getUrqlClientOptions(), false)
