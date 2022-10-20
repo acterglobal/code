@@ -32,8 +32,8 @@ describe('getUpdateFunction', () => {
       updateActivity,
       updateActer,
     })({})
-    expect(updateActivity).toBeCalledTimes(1)
-    expect(updateActer).toBeCalledTimes(0)
+    expect(updateActivity).toHaveBeenCalledTimes(1)
+    expect(updateActer).toHaveBeenCalledTimes(0)
   })
 
   it('should update as an Acter when Acter is any other type', async () => {
@@ -47,7 +47,7 @@ describe('getUpdateFunction', () => {
       updateActivity,
       updateActer,
     })({})
-    expect(updateActivity).toBeCalledTimes(0)
-    expect(updateActer).toBeCalledTimes(1)
+    expect(updateActivity).toHaveBeenCalledTimes(0)
+    expect(updateActer).toHaveBeenCalledTimes(1)
   })
 })

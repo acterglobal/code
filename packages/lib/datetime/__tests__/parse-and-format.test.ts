@@ -22,7 +22,7 @@ describe('parseAndFormat', () => {
       dateString: '2021-11-02T14:00:00',
       formatString: DATE_FORMAT_SHORT_TZ,
     })
-    expect(parseDateOrStringMock).toBeCalledTimes(1)
+    expect(parseDateOrStringMock).toHaveBeenCalledTimes(1)
   })
 
   it('should call format', () => {
@@ -30,6 +30,6 @@ describe('parseAndFormat', () => {
       dateString: '2021-11-02T14:00:00',
       formatString: DATE_FORMAT_SHORT_TZ,
     })
-    expect(formatWithOptions).toBeCalledTimes(1)
+    expect(formatWithOptions).toHaveBeenCalledTimes(1)
   })
 })

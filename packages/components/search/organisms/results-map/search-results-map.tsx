@@ -70,6 +70,7 @@ export const SearchResultsMap: FC<SearchResultsMapProps> = ({
   }
 
   const handleBoundsChanged = debounce(() => {
+    // eslint-disable-next-line no-unsafe-optional-chaining
     const { north, east, south, west } = mapRef.current?.getBounds?.().toJSON()
     if (
       north !== searchVariables.north ||
