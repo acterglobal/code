@@ -47,6 +47,7 @@ jobs:
 
       - name: lint
         run: |
+          npx browserslist@latest --update-db
           yarn lint
 
       - name: generate schema
