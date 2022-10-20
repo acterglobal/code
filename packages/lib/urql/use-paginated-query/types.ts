@@ -90,6 +90,7 @@ export type UsePaginatedResponse<TType, TData, TVariables> = [
   refetch<TVariables>
 ]
 export interface UsePaginationQueryOptions<TType, TData, TVariables>
+  //@ts-ignore
   extends UseQueryArgs<TVariables, TData> {
   /**
    * The GraphQL query
