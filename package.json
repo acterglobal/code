@@ -75,9 +75,10 @@
   },
   "engines": {
     "node": "16.x",
-    "yarn": "3.x"
+    "yarn": "3.2.4"
   },
   "resolutions": {
     "webpack": "5.49.0"
-  }
+  },
+  "packageManager": "yarn@3.2.4"
 }
