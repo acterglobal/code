@@ -87,7 +87,7 @@
     "babel-plugin-polyfill-corejs2": "0.2.2",
     "babel-plugin-polyfill-regenerator": "0.2.2",
     "date-fns": "2.23.0",
-    "graphql": "15.5.1",
+    "graphql": "15.8.0",
     "just-capitalize": "1.0.1",
     "next": "12.1.0",
     "storybook-addon-next-auth0": "1.0.6",
