@@ -36,9 +36,9 @@ describe('getCreateFunction', () => {
       updateActer,
     })({})
 
-    expect(createActivity).toBeCalledTimes(1)
-    expect(createActer).toBeCalledTimes(0)
-    expect(updateActer).toBeCalledTimes(1)
+    expect(createActivity).toHaveBeenCalledTimes(1)
+    expect(createActer).toHaveBeenCalledTimes(0)
+    expect(updateActer).toHaveBeenCalledTimes(1)
   })
 
   it('should use createActer for all other ActerTypes', async () => {
@@ -61,8 +61,8 @@ describe('getCreateFunction', () => {
       updateActer,
     })({})
 
-    expect(createActivity).toBeCalledTimes(0)
-    expect(createActer).toBeCalledTimes(1)
-    expect(updateActer).toBeCalledTimes(1)
+    expect(createActivity).toHaveBeenCalledTimes(0)
+    expect(createActer).toHaveBeenCalledTimes(1)
+    expect(updateActer).toHaveBeenCalledTimes(1)
   })
 })

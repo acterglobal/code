@@ -47,7 +47,7 @@ mutation Fake() {
         },
       } = renderHook(() => useNotificationMutation(mutation))
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledWith(message, { variant: 'error' })
+      expect(enqueueSnackbarMock).toHaveBeenCalledWith(message, { variant: 'error' })
     })
 
     it('should use the error message function when passed', async () => {
@@ -67,7 +67,7 @@ mutation Fake() {
         })
       )
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledWith(`${message}!`, {
+      expect(enqueueSnackbarMock).toHaveBeenCalledWith(`${message}!`, {
         variant: 'error',
       })
     })
@@ -87,8 +87,8 @@ mutation Fake() {
         })
       )
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledTimes(1)
-      expect(onError).toBeCalledWith(error)
+      expect(enqueueSnackbarMock).toHaveBeenCalledTimes(1)
+      expect(onError).toHaveBeenCalledWith(error)
     })
   })
 
@@ -102,7 +102,7 @@ mutation Fake() {
         },
       } = renderHook(() => useNotificationMutation(mutation))
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledWith('Success', {
+      expect(enqueueSnackbarMock).toHaveBeenCalledWith('Success', {
         variant: 'success',
       })
     })
@@ -121,7 +121,7 @@ mutation Fake() {
         })
       )
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledWith(`${message}!`, {
+      expect(enqueueSnackbarMock).toHaveBeenCalledWith(`${message}!`, {
         variant: 'success',
       })
     })
@@ -140,8 +140,8 @@ mutation Fake() {
         })
       )
       await mutate()
-      expect(enqueueSnackbarMock).toBeCalledTimes(1)
-      expect(onCompleted).toBeCalledWith(data)
+      expect(enqueueSnackbarMock).toHaveBeenCalledTimes(1)
+      expect(onCompleted).toHaveBeenCalledWith(data)
     })
   })
 })

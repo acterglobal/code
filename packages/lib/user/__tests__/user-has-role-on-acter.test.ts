@@ -48,6 +48,6 @@ describe('userHasRoleOnActer', () => {
       }
     )
     userHasRoleOnActer(user, role, ExampleActer)
-    expect(mockedFollowerHasRoleOnActer).toBeCalledTimes(1)
+    expect(mockedFollowerHasRoleOnActer).toHaveBeenCalledTimes(1)
   })
 })

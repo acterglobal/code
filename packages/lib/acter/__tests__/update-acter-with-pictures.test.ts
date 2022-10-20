@@ -28,7 +28,7 @@ describe('upsertActerWithPictures', () => {
       const data = await _updatePictures(variables)
       expect(data.avatarUrl).toEqual('ok')
       expect(data.bannerUrl).toEqual('ok')
-      expect(uploadFn).toBeCalledTimes(2)
+      expect(uploadFn).toHaveBeenCalledTimes(2)
     })
 
     it('should set just one pic url if the other is missing', async () => {
@@ -45,7 +45,7 @@ describe('upsertActerWithPictures', () => {
       const data = await _updatePictures(variables)
       expect(data.avatarUrl).toEqual('ok')
       expect(data.bannerUrl).toEqual('')
-      expect(uploadFn).toBeCalledTimes(1)
+      expect(uploadFn).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -73,7 +73,7 @@ describe('upsertActerWithPictures', () => {
         'avatar'
       )
       expect(acter.avatarUrl).toBe('foo/bar')
-      expect(uploadFn).toBeCalledTimes(0)
+      expect(uploadFn).toHaveBeenCalledTimes(0)
     })
 
     it('should throw an error if there was a problem upfetchingthe image', async () => {
@@ -117,7 +117,7 @@ describe('upsertActerWithPictures', () => {
       await expect(
         _updatePicture('foo')(Promise.resolve(variables), 'avatar')
       ).resolves.toHaveProperty('avatarUrl', 'foo/bar')
-      expect(uploadFn).toBeCalledTimes(1)
+      expect(uploadFn).toHaveBeenCalledTimes(1)
     })
   })
 })
