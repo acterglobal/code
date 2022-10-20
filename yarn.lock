@@ -235,7 +235,7 @@ __metadata:
     next-graphql-loader: 1.0.1
     next-i18next: ^12.1.0
     next-transpile-modules: ^9.1.0
-    next-urql: 3.2.1
+    next-urql: ^4.0.0
     notistack: 1.0.10
     react: 17.0.2
     react-dom: 17.0.2
@@ -245,7 +245,7 @@ __metadata:
     reset-css: ^5.0.1
     type-graphql: 1.1.1
     typescript: ^4.8.4
-    urql: 2.0.5
+    urql: ^3.0.3
   languageName: unknown
   linkType: soft
 
@@ -7712,6 +7712,18 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 36c2f6ad83a406f5dc8fbae4cbe58e6bb6f6580a934b24e6a73e99098d10fd47fd9f084aacf45bc84ba35588b9c46e8830fc433e8f4f686d281439fca2504593
+  languageName: node
+  linkType: hard
+
+"@urql/core@npm:^3.0.3":
+  version: 3.0.4
+  resolution: "@urql/core@npm:3.0.4"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    wonka: ^6.0.0
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: ca4b6117d5ea9a1c0dce09afb127572db709d6caf65f4c7d8bfe1b8a24602288e761bce4bcaaf6b27dfa554bb2c46e6a4aba92b2ca9d2ca966b8e99a3f19dcce
   languageName: node
   linkType: hard
 
@@ -20357,15 +20369,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-urql@npm:3.2.1":
-  version: 3.2.1
-  resolution: "next-urql@npm:3.2.1"
+"next-urql@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "next-urql@npm:4.0.0"
   dependencies:
     react-ssr-prepass: ^1.4.0
   peerDependencies:
     react: ">=16.8.0"
-    urql: ^2.0.0
-  checksum: 871ca74b638f4ad1233d64c8b0df244a219c218d9638fa13fcf1c3fbde363451f2cfd220990c7ec012b46a503cb0726e56c60c0565589f40592b4410722ecf98
+    urql: ^3.0.0
+  checksum: e3194ecb5fcf32122cf9c075a8305d64c432c688782886aeac35d929f10c97d7550b4f241eea79ad727ba0b87fb00530ef2d1719e44e77a3b0ae05a3979c7e92
   languageName: node
   linkType: hard
 
@@ -27122,6 +27134,19 @@ typescript@^4.8.4:
   languageName: node
   linkType: hard
 
+"urql@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "urql@npm:3.0.3"
+  dependencies:
+    "@urql/core": ^3.0.3
+    wonka: ^6.0.0
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    react: ">= 16.8.0"
+  checksum: 0376873d95b28a7593c9c791da2df54fbbd079caa283ef0225b51bd169d87108744dc47d3d14417e51f7079439e4dd28427bc7f4d74b22b7c5de36a0dea06855
+  languageName: node
+  linkType: hard
+
 "use-composed-ref@npm:^1.0.0":
   version: 1.2.1
   resolution: "use-composed-ref@npm:1.2.1"
@@ -27833,6 +27858,13 @@ typescript@^4.8.4:
   version: 4.0.15
   resolution: "wonka@npm:4.0.15"
   checksum: afbee7359ed2d0a9146bf682f3953cb093f47d5f827e767e6ef33cb70ca6f30631afe5fe31dbb8d6c7eaed26c4ac6426e7c13568917c017ef6f42c71139b38f7
+  languageName: node
+  linkType: hard
+
+"wonka@npm:^6.0.0":
+  version: 6.1.0
+  resolution: "wonka@npm:6.1.0"
+  checksum: 662793c7429affc12c4ee9f8b8b642fd44a9f69886bd782ee3df241ac6b1ada66d366e4669bbea43f52f6167e4697dd6f4aa40b8e71dbfe9046d91203ae59731
   languageName: node
   linkType: hard
 
