@@ -9,7 +9,7 @@ import QUERY_ACTER_TYPES from '@acter/schema/queries/query-acter-types.graphql'
  */
 export const getActerTypes: ComposedGetServerSideProps = async () => {
   const { data, error } = await getUrqlClient()
-    .query(QUERY_ACTER_TYPES)
+    .query(QUERY_ACTER_TYPES, {})
     .toPromise()
 
   if (error) {
