@@ -12,7 +12,7 @@ __metadata:
     "@acter/lib": "workspace:packages/lib"
     "@acter/schema": "workspace:packages/schema"
     "@auth0/nextjs-auth0": 1.8.0
-    apollo-server-micro: ^3.8.2
+    apollo-server-micro: 3.8.2
     axios: 0.27.0
     next: 12.1.0
     reflect-metadata: 0.1.13
@@ -31,12 +31,12 @@ __metadata:
     "@babel/plugin-proposal-private-methods": 7.14.5
     "@babel/plugin-proposal-private-property-in-object": 7.15.4
     "@date-io/date-fns": 1.3.13
-    "@draft-js-plugins/anchor": ^4.1.4
-    "@draft-js-plugins/buttons": ^4.3.1
-    "@draft-js-plugins/editor": ^4.1.3
-    "@draft-js-plugins/inline-toolbar": ^4.1.3
-    "@draft-js-plugins/mention": ^5.2.1
-    "@draft-js-plugins/static-toolbar": ^4.1.3
+    "@draft-js-plugins/anchor": 4.1.4
+    "@draft-js-plugins/buttons": 4.3.1
+    "@draft-js-plugins/editor": 4.1.3
+    "@draft-js-plugins/inline-toolbar": 4.1.3
+    "@draft-js-plugins/mention": 5.2.1
+    "@draft-js-plugins/static-toolbar": 4.1.3
     "@fontsource/montserrat": 4.5.5
     "@material-ui/core": 4.12.3
     "@material-ui/icons": 4.11.2
@@ -53,8 +53,8 @@ __metadata:
     "@storybook/react": 6.4.22
     "@types/googlemaps": 3.43.3
     "@types/react-imgix": 9.4.0
-    "@types/sanitize-html": ^2.6.2
-    "@urql/storybook-addon": ^2.0.1
+    "@types/sanitize-html": 2.6.2
+    "@urql/storybook-addon": 2.0.1
     axios: 0.27.0
     babel-loader: 8.2.2
     babel-plugin-polyfill-corejs2: 0.2.2
@@ -64,8 +64,8 @@ __metadata:
     date-fns: 2.23.0
     dotenv-cli: 5.1.0
     draft-js: 0.11.7
-    draft-js-export-html: ^1.4.1
-    draft-js-link-detection-plugin: ^0.0.4
+    draft-js-export-html: 1.4.1
+    draft-js-link-detection-plugin: 0.0.4
     email-validator: 2.0.4
     emoji-picker-react: 3.4.8
     filepond: 4.28.2
@@ -77,7 +77,7 @@ __metadata:
     formik-material-ui-pickers: 0.0.12
     fp-ts: 2.11.1
     graphql: 15.5.1
-    html-to-draftjs: ^1.5.0
+    html-to-draftjs: 1.5.0
     just-capitalize: 1.0.1
     just-debounce: 1.1.0
     markdown-draft-js: 2.3.0
@@ -94,18 +94,18 @@ __metadata:
     react-google-autocomplete: 2.6.1
     react-imgix: 9.5.0
     react-is-visible: 1.1.2
-    react-sanitized-html: ^2.0.0
-    sanitize-html: ^2.7.0
-    sanitize-html-react: ^1.13.0
+    react-sanitized-html: 2.0.0
+    sanitize-html: 2.7.0
+    sanitize-html-react: 1.13.0
     sb: 6.3.6
     storybook-addon-next-auth0: 1.0.6
     storybook-addon-next-router: 3.1.1
-    storybook-addon-swc: ^1.1.7
+    storybook-addon-swc: 1.1.7
     storybook-formik: 2.4.0
     stringify-object: 4.0.1
     title-case: 3.0.3
     typescript: 4.4.3
-    use-places-autocomplete: ^2.0.0
+    use-places-autocomplete: 2.0.0
     use-position: 1.0.0
     uuid: 8.3.2
   languageName: unknown
@@ -150,21 +150,21 @@ __metadata:
     "@acter/eslint-config-base": "workspace:tools/eslint-config-base"
     "@acter/eslint-config-jest": "workspace:tools/eslint-config-jest"
     "@auth0/nextjs-auth0": 1.8.0
-    "@graphql-yoga/node": ^2.6.0
+    "@graphql-yoga/node": 2.6.0
     "@sendgrid/mail": 7.6.2
     "@types/intercom-client": 2.11.13
     "@types/mime": 2.0.3
-    "@urql/core": ^3.0.4
-    "@urql/devtools": ^2.0.3
-    "@urql/exchange-graphcache": ^5.0.2
-    auth0: ^2.40.0
+    "@urql/core": 3.0.4
+    "@urql/devtools": 2.0.3
+    "@urql/exchange-graphcache": 5.0.2
+    auth0: 2.40.0
     axios: 0.27.0
     deep-equal: 2.0.5
     deepmerge: 4.2.2
     graphql: 15.5.1
     intercom-client: 2.11.2
     ioredis: 4.27.7
-    just-camel-case: ^6.0.1
+    just-camel-case: 6.0.1
     md5: 2.3.0
     mime: 2.5.2
     mjml: 4.12.0
@@ -173,14 +173,14 @@ __metadata:
     nodemailer: 6.6.3
     notistack: 1.0.10
     pino: 7.11.0
-    pino-http-send: ^0.4.2
+    pino-http-send: 0.4.2
     pino-pretty: 7.6.1
     pluralize: 8.0.0
     ramda: 0.27.1
     react: 17.0.2
     react-script-hook: 1.5.0
     slugify: 1.6.5
-    urql: ^3.0.3
+    urql: 3.0.3
   languageName: unknown
   linkType: soft
 
@@ -219,7 +219,7 @@ __metadata:
     "@auth0/nextjs-auth0": 1.8.0
     "@material-ui/core": 4.12.3
     "@next/bundle-analyzer": 11.0.1
-    "@next/eslint-plugin-next": ^12.1.6
+    "@next/eslint-plugin-next": 12.1.6
     "@sentry/nextjs": 6.19.7
     "@typescript-eslint/eslint-plugin": 4.29.0
     "@typescript-eslint/parser": 4.29.0
@@ -228,24 +228,24 @@ __metadata:
     eslint: 7.32.0
     eslint-config-next: 12.1.0
     graphql: 15.5.1
-    just-capitalize: ^3.1.1
-    micro: ^9.4.1
+    just-capitalize: 3.1.1
+    micro: 9.4.1
     next: 12.1.0
     next-compose-plugins: 2.2.1
     next-graphql-loader: 1.0.1
-    next-i18next: ^12.1.0
-    next-transpile-modules: ^9.1.0
-    next-urql: ^4.0.0
+    next-i18next: 12.1.0
+    next-transpile-modules: 9.1.0
+    next-urql: 4.0.0
     notistack: 1.0.10
     react: 17.0.2
     react-dom: 17.0.2
-    react-hotjar: ^5.2.0
-    react-use-intercom: ^2.0.0
+    react-hotjar: 5.2.0
+    react-use-intercom: 2.0.0
     reflect-metadata: 0.1.13
-    reset-css: ^5.0.1
+    reset-css: 5.0.1
     type-graphql: 1.1.1
-    typescript: ^4.8.4
-    urql: ^3.0.3
+    typescript: 4.8.4
+    urql: 3.0.3
   languageName: unknown
   linkType: soft
 
@@ -2329,7 +2329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@draft-js-plugins/anchor@npm:^4.1.4":
+"@draft-js-plugins/anchor@npm:4.1.4":
   version: 4.1.4
   resolution: "@draft-js-plugins/anchor@npm:4.1.4"
   dependencies:
@@ -2346,6 +2346,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@draft-js-plugins/buttons@npm:4.3.1":
+  version: 4.3.1
+  resolution: "@draft-js-plugins/buttons@npm:4.3.1"
+  dependencies:
+    clsx: ^1.0.4
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: c08c090bec345dcffaa878982c8f0de1cb7c1efce4e9d454bbe0c5b5d2cdb8b322080bde4e3bb79e0f40d0baeebbf31dc529a45053baf790d67e8a20dd974835
+  languageName: node
+  linkType: hard
+
 "@draft-js-plugins/buttons@npm:^4.0.0":
   version: 4.3.0
   resolution: "@draft-js-plugins/buttons@npm:4.3.0"
@@ -2359,20 +2372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@draft-js-plugins/buttons@npm:^4.3.1":
-  version: 4.3.1
-  resolution: "@draft-js-plugins/buttons@npm:4.3.1"
-  dependencies:
-    clsx: ^1.0.4
-  peerDependencies:
-    draft-js: ^0.10.1 || ^0.11.0
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: c08c090bec345dcffaa878982c8f0de1cb7c1efce4e9d454bbe0c5b5d2cdb8b322080bde4e3bb79e0f40d0baeebbf31dc529a45053baf790d67e8a20dd974835
-  languageName: node
-  linkType: hard
-
-"@draft-js-plugins/editor@npm:^4.1.3":
+"@draft-js-plugins/editor@npm:4.1.3":
   version: 4.1.3
   resolution: "@draft-js-plugins/editor@npm:4.1.3"
   dependencies:
@@ -2386,7 +2386,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@draft-js-plugins/inline-toolbar@npm:^4.1.3":
+"@draft-js-plugins/inline-toolbar@npm:4.1.3":
   version: 4.1.3
   resolution: "@draft-js-plugins/inline-toolbar@npm:4.1.3"
   dependencies:
@@ -2400,7 +2400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@draft-js-plugins/mention@npm:^5.2.1":
+"@draft-js-plugins/mention@npm:5.2.1":
   version: 5.2.1
   resolution: "@draft-js-plugins/mention@npm:5.2.1"
   dependencies:
@@ -2420,7 +2420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@draft-js-plugins/static-toolbar@npm:^4.1.3":
+"@draft-js-plugins/static-toolbar@npm:4.1.3":
   version: 4.1.3
   resolution: "@draft-js-plugins/static-toolbar@npm:4.1.3"
   dependencies:
@@ -3146,7 +3146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-yoga/node@npm:^2.6.0":
+"@graphql-yoga/node@npm:2.6.0":
   version: 2.6.0
   resolution: "@graphql-yoga/node@npm:2.6.0"
   dependencies:
@@ -3816,12 +3816,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:^12.1.6":
-  version: 12.3.1
-  resolution: "@next/eslint-plugin-next@npm:12.3.1"
+"@next/eslint-plugin-next@npm:12.1.6":
+  version: 12.1.6
+  resolution: "@next/eslint-plugin-next@npm:12.1.6"
   dependencies:
     glob: 7.1.7
-  checksum: 157b1126f016a0090b62f590d9c331c58221c4efaf3453c294a0d26e75497704617549480e9bba3ddaf278a355359133dd239c3960f684f2abe575553ec59a96
+  checksum: 33dcaf71f299d3c8a0744cad512369f92d7a355f3c0d57f2496e888e4242080c49226ec2c59ba2efac04b3a1df51c36019b853b4177df082ca4621a1713a2229
   languageName: node
   linkType: hard
 
@@ -4433,7 +4433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@release-it/conventional-changelog@npm:^5.0.0":
+"@release-it/conventional-changelog@npm:5.0.0":
   version: 5.0.0
   resolution: "@release-it/conventional-changelog@npm:5.0.0"
   dependencies:
@@ -4446,7 +4446,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@release-it/keep-a-changelog@npm:^3.0.0":
+"@release-it/keep-a-changelog@npm:3.0.0":
   version: 3.0.0
   resolution: "@release-it/keep-a-changelog@npm:3.0.0"
   dependencies:
@@ -7363,7 +7363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sanitize-html@npm:^2.6.2":
+"@types/sanitize-html@npm:2.6.2":
   version: 2.6.2
   resolution: "@types/sanitize-html@npm:2.6.2"
   dependencies:
@@ -7694,7 +7694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/core@npm:>=3.0.4, @urql/core@npm:^3.0.0, @urql/core@npm:^3.0.3, @urql/core@npm:^3.0.4":
+"@urql/core@npm:3.0.4, @urql/core@npm:>=3.0.4, @urql/core@npm:^3.0.0, @urql/core@npm:^3.0.3":
   version: 3.0.4
   resolution: "@urql/core@npm:3.0.4"
   dependencies:
@@ -7706,7 +7706,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/devtools@npm:>=2.0.0, @urql/devtools@npm:^2.0.3":
+"@urql/devtools@npm:2.0.3, @urql/devtools@npm:>=2.0.0":
   version: 2.0.3
   resolution: "@urql/devtools@npm:2.0.3"
   dependencies:
@@ -7718,7 +7718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/exchange-graphcache@npm:^5.0.2":
+"@urql/exchange-graphcache@npm:5.0.2":
   version: 5.0.2
   resolution: "@urql/exchange-graphcache@npm:5.0.2"
   dependencies:
@@ -7739,7 +7739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/storybook-addon@npm:^2.0.1":
+"@urql/storybook-addon@npm:2.0.1":
   version: 2.0.1
   resolution: "@urql/storybook-addon@npm:2.0.1"
   dependencies:
@@ -8041,8 +8041,8 @@ __metadata:
   dependencies:
     "@acter/eslint-config-base": "workspace:tools/eslint-config-base"
     "@mdx-js/react": 1.6.22
-    "@release-it/conventional-changelog": ^5.0.0
-    "@release-it/keep-a-changelog": ^3.0.0
+    "@release-it/conventional-changelog": 5.0.0
+    "@release-it/keep-a-changelog": 3.0.0
     "@testing-library/dom": 7.31.2
     "@testing-library/jest-dom": 5.16.2
     "@testing-library/react": 12.1.3
@@ -8061,10 +8061,10 @@ __metadata:
     eslint: 7.32.0
     eslint-plugin-jest: 24.4.0
     eslint-plugin-you-dont-need-lodash-underscore: 6.12.0
-    husky: ^8.0.0
+    husky: 8.0.0
     jest: 27.5.1
     jest-transform-graphql: 2.1.0
-    release-it: ^15.0.0
+    release-it: 15.0.0
     syncpack: 5.8.14
     ts-jest: 27.0.4
     ts-node: 10.2.1
@@ -8418,7 +8418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-micro@npm:^3.8.2":
+"apollo-server-micro@npm:3.8.2":
   version: 3.8.2
   resolution: "apollo-server-micro@npm:3.8.2"
   dependencies:
@@ -8921,7 +8921,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0@npm:^2.40.0":
+"auth0@npm:2.40.0":
   version: 2.40.0
   resolution: "auth0@npm:2.40.0"
   dependencies:
@@ -12480,7 +12480,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"draft-js-export-html@npm:^1.4.1":
+"draft-js-export-html@npm:1.4.1":
   version: 1.4.1
   resolution: "draft-js-export-html@npm:1.4.1"
   dependencies:
@@ -12492,7 +12492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"draft-js-link-detection-plugin@npm:^0.0.4":
+"draft-js-link-detection-plugin@npm:0.0.4":
   version: 0.0.4
   resolution: "draft-js-link-detection-plugin@npm:0.0.4"
   dependencies:
@@ -15594,7 +15594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-to-draftjs@npm:^1.5.0":
+"html-to-draftjs@npm:1.5.0":
   version: 1.5.0
   resolution: "html-to-draftjs@npm:1.5.0"
   peerDependencies:
@@ -15862,12 +15862,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.0":
-  version: 8.0.1
-  resolution: "husky@npm:8.0.1"
+"husky@npm:8.0.0":
+  version: 8.0.0
+  resolution: "husky@npm:8.0.0"
   bin:
     husky: lib/bin.js
-  checksum: 943a73a13d0201318fd30e83d299bb81d866bd245b69e6277804c3b462638dc1921694cb94c2b8c920a4a187060f7d6058d3365152865406352e934c5fff70dc
+  checksum: b6b842abdd1bbc9322ad0c2003471fa35f94c9c01fccef3a6b5262f53e3f1bde1d78787f8a96ed8ef8a15ab3a7d56c83f576afd1cf7618588df77940044081df
   languageName: node
   linkType: hard
 
@@ -18305,7 +18305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"just-camel-case@npm:^6.0.1":
+"just-camel-case@npm:6.0.1":
   version: 6.0.1
   resolution: "just-camel-case@npm:6.0.1"
   checksum: 58862e8bbfe536a06f38110b63c3cad578ed6437674ae30285a89bfb01fb4232b713700517e90fda27c37c2e0102c6522b2cd0b8b8909742ee1356d73d90b860
@@ -18319,7 +18319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"just-capitalize@npm:^3.1.1":
+"just-capitalize@npm:3.1.1":
   version: 3.1.1
   resolution: "just-capitalize@npm:3.1.1"
   checksum: e4d774a16102b670817848dea573642eb6fac29de5026f973c3c87585df147cb0ef7ecdc97805dc17b577eabf00096557046d074220858a7602791d6551e7156
@@ -19389,7 +19389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micro@npm:^9.4.1":
+"micro@npm:9.4.1":
   version: 9.4.1
   resolution: "micro@npm:9.4.1"
   dependencies:
@@ -20322,7 +20322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-i18next@npm:^12.1.0":
+"next-i18next@npm:12.1.0":
   version: 12.1.0
   resolution: "next-i18next@npm:12.1.0"
   dependencies:
@@ -20340,7 +20340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-transpile-modules@npm:^9.1.0":
+"next-transpile-modules@npm:9.1.0":
   version: 9.1.0
   resolution: "next-transpile-modules@npm:9.1.0"
   dependencies:
@@ -20350,7 +20350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-urql@npm:^4.0.0":
+"next-urql@npm:4.0.0":
   version: 4.0.0
   resolution: "next-urql@npm:4.0.0"
   dependencies:
@@ -21734,7 +21734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-http-send@npm:^0.4.2":
+"pino-http-send@npm:0.4.2":
   version: 0.4.2
   resolution: "pino-http-send@npm:0.4.2"
   dependencies:
@@ -22893,7 +22893,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hotjar@npm:^5.2.0":
+"react-hotjar@npm:5.2.0":
   version: 5.2.0
   resolution: "react-hotjar@npm:5.2.0"
   checksum: 6fe70ef67ae68241a559e77819fb45c460d0c3ed63b1b638d163ea93826fc760e36a1f6fbb9f4b489be1d920eaa7d4e91f29d0c4c97bed946a76f3889968bf84
@@ -23095,7 +23095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-sanitized-html@npm:^2.0.0":
+"react-sanitized-html@npm:2.0.0":
   version: 2.0.0
   resolution: "react-sanitized-html@npm:2.0.0"
   peerDependencies:
@@ -23180,7 +23180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-use-intercom@npm:^2.0.0":
+"react-use-intercom@npm:2.0.0":
   version: 2.0.0
   resolution: "react-use-intercom@npm:2.0.0"
   peerDependencies:
@@ -23565,7 +23565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:^15.0.0":
+"release-it@npm:15.0.0":
   version: 15.0.0
   resolution: "release-it@npm:15.0.0"
   dependencies:
@@ -23804,7 +23804,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reset-css@npm:^5.0.1":
+"reset-css@npm:5.0.1":
   version: 5.0.1
   resolution: "reset-css@npm:5.0.1"
   checksum: b93380a2c691bfc85344bfa07e781266a2f58fef194c1aec61923d4591d30d73f54a12e4fe32b48668ce9bc82c2d42715e7e9fdd108d85b3c93b2a319f0a077c
@@ -24193,7 +24193,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sanitize-html-react@npm:^1.13.0":
+"sanitize-html-react@npm:1.13.0":
   version: 1.13.0
   resolution: "sanitize-html-react@npm:1.13.0"
   dependencies:
@@ -24204,7 +24204,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sanitize-html@npm:^2.7.0":
+"sanitize-html@npm:2.7.0":
   version: 2.7.0
   resolution: "sanitize-html@npm:2.7.0"
   dependencies:
@@ -25133,7 +25133,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"storybook-addon-swc@npm:^1.1.7":
+"storybook-addon-swc@npm:1.1.7":
   version: 1.1.7
   resolution: "storybook-addon-swc@npm:1.1.7"
   dependencies:
@@ -26626,6 +26626,16 @@ typescript@4.4.3:
   languageName: node
   linkType: hard
 
+typescript@4.8.4:
+  version: 4.8.4
+  resolution: "typescript@npm:4.8.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 3e4f061658e0c8f36c820802fa809e0fd812b85687a9a2f5430bc3d0368e37d1c9605c3ce9b39df9a05af2ece67b1d844f9f6ea8ff42819f13bcb80f85629af0
+  languageName: node
+  linkType: hard
+
 typescript@^4.0.2:
   version: 4.6.4
   resolution: "typescript@npm:4.6.4"
@@ -26633,16 +26643,6 @@ typescript@^4.0.2:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: e7bfcc39cd4571a63a54e5ea21f16b8445268b9900bf55aee0e02ad981be576acc140eba24f1af5e3c1457767c96cea6d12861768fb386cf3ffb34013718631a
-  languageName: node
-  linkType: hard
-
-typescript@^4.8.4:
-  version: 4.8.4
-  resolution: "typescript@npm:4.8.4"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 3e4f061658e0c8f36c820802fa809e0fd812b85687a9a2f5430bc3d0368e37d1c9605c3ce9b39df9a05af2ece67b1d844f9f6ea8ff42819f13bcb80f85629af0
   languageName: node
   linkType: hard
 
@@ -26656,6 +26656,16 @@ typescript@^4.8.4:
   languageName: node
   linkType: hard
 
+"typescript@patch:typescript@4.8.4#~builtin<compat/typescript>":
+  version: 4.8.4
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=d8b4e7"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: a328d5c41fa6626d4f9570f509e9d23938ffa3ad27bea7aea59371c43d3978d214cda35955cec5498cc7e9f59bfe2ee2a960d9397c89017c7d737f01084f3587
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@^4.0.2#~builtin<compat/typescript>":
   version: 4.6.4
   resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=d8b4e7"
@@ -26663,16 +26673,6 @@ typescript@^4.8.4:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 984becf501fe4a0dec5f7fd7bed69785ee84a777e8c6fae5bec7241ac81467ea03d0b6211fb54997dc66e204608a9b70c4e56042566042f8348d3356b8a70f71
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
-  version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=d8b4e7"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: a328d5c41fa6626d4f9570f509e9d23938ffa3ad27bea7aea59371c43d3978d214cda35955cec5498cc7e9f59bfe2ee2a960d9397c89017c7d737f01084f3587
   languageName: node
   linkType: hard
 
@@ -27102,7 +27102,7 @@ typescript@^4.8.4:
   languageName: node
   linkType: hard
 
-"urql@npm:^3.0.3":
+"urql@npm:3.0.3":
   version: 3.0.3
   resolution: "urql@npm:3.0.3"
   dependencies:
@@ -27150,7 +27150,7 @@ typescript@^4.8.4:
   languageName: node
   linkType: hard
 
-"use-places-autocomplete@npm:^2.0.0":
+"use-places-autocomplete@npm:2.0.0":
   version: 2.0.0
   resolution: "use-places-autocomplete@npm:2.0.0"
   peerDependencies:
