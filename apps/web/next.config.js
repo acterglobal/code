@@ -96,6 +96,7 @@ const nextConfig = {
     disableServerWebpackPlugin: disableSentrySourcemaps,
     disableClientWebpackPlugin: disableSentrySourcemaps,
   },
+  swcMinify: true,
   webpack: (config, options) => {
     config.plugins.push(
       new options.webpack.NormalModuleReplacementPlugin(
