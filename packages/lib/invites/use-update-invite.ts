@@ -35,14 +35,14 @@ type MutationResult = UseMutationState<UpdateInviteData, UpdateInviteVariables>
 
 /**
  * To update invite with expired time
- * @returns updateInvite mutation and its results
+ * @returns updateOneInvite mutation and its results
  */
 export const useUpdateInvite = (
   options?: UpdateInviteOptions
 ): [MutationResult, HandleMethod] => {
   const { t } = useTranslation('success-messages')
   const [message, setMessage] = useState(null)
-  const [mutationResult, updateInvite] = useNotificationMutation(
+  const [mutationResult, updateOneInvite] = useNotificationMutation(
     UPDATE_INVITE,
     {
       ...options,
@@ -54,7 +54,7 @@ export const useUpdateInvite = (
     const status = acceptedAt ? 'accepted' : expiredAt ? 'cancelled' : 'sent'
     setMessage(t(`invitationStatus.${status}`))
 
-    return updateInvite({ inviteId, expiredAt, acceptedAt })
+    return updateOneInvite({ inviteId, expiredAt, acceptedAt })
   }
 
   return [mutationResult, handleUpdateInvite]

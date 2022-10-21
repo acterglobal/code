@@ -5,7 +5,7 @@ import { ActerConnection, ActerConnectionRole } from '@acter/schema'
 import UPDATE_ACTER_CONNECTION from '@acter/schema/mutations/acter-connection-update.graphql'
 
 type UpdateActerConnectionData = {
-  updateActerConnectionCustom: ActerConnection
+  updateOneActerConnectionCustom: ActerConnection
 }
 
 type UpdateActerConnectionVariables = {

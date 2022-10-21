@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { withSentry } from '@sentry/nextjs'
 
-import { createInviteNotification } from '@acter/../services/jobs/invite-notification/create-invites'
+import { createOneInviteNotification } from '@acter/../services/jobs/invite-notification/create-invites'
 import {
   ActivityPick,
   createActivityFollowerNotifications,
@@ -43,7 +43,7 @@ const notificationTypeMap: Record<
   [NotificationQueueType.NEW_INVITE]: {
     checks: (body: InviteEmailCreate) =>
       !!body.onActerId && !!body.email && !!body.createdByUserId,
-    fn: createInviteNotification,
+    fn: createOneInviteNotification,
   },
   [NotificationQueueType.NEW_MEMBER]: {
     checks: (body: NewMemberJoinNotification) => !!body?.Following,

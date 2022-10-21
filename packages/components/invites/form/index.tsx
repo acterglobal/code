@@ -42,7 +42,7 @@ export const InviteForm: FC = () => {
     onActerId: acter?.id,
     createdByUserId: user?.id,
   })
-  const [_, createInvites] = useCreateInvites({
+  const [_, createOneInvites] = useCreateInvites({
     onCompleted: () => refetchInvites({ requestPolicy: 'network-only' }),
   })
 
@@ -87,7 +87,7 @@ export const InviteForm: FC = () => {
       []
     )
 
-    createInvites(data)
+    createOneInvites(data)
 
     setFieldValue('emails', [])
   }

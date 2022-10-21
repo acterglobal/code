@@ -12,26 +12,26 @@ import {
 export type ActivityWithType = WithTypeName<Activity>
 
 interface ActerData {
-  createActivityCustom?: ActivityWithType
+  createOneActivityCustom?: ActivityWithType
 }
 
 const { ALL, PAST, UPCOMING } = ActivitiesDateFilter
 
-export const createActivityCustom: UpdateResolver<ActerData> = (
+export const createOneActivityCustom: UpdateResolver<ActerData> = (
   result,
   _args,
   cache,
   _info
 ) => {
-  result.createActivityCustom.Acter.Followers.forEach((connection) => {
+  result.createOneActivityCustom.Acter.Followers.forEach((connection) => {
     const activityDateFilters =
-      new Date(result.createActivityCustom.startAt) > new Date()
+      new Date(result.createOneActivityCustom.startAt) > new Date()
         ? [ALL, UPCOMING]
         : [ALL, PAST]
 
     forEachQueryFields({
       cache,
-      result: result.createActivityCustom,
+      result: result.createOneActivityCustom,
       fieldNameMatch: 'activities',
       match: ({ fieldArgs }) => {
         return (
@@ -42,7 +42,7 @@ export const createActivityCustom: UpdateResolver<ActerData> = (
           )
         )
       },
-      fn: prependItemFn({ cache, result: result.createActivityCustom }),
+      fn: prependItemFn({ cache, result: result.createOneActivityCustom }),
     })
   })
 }

@@ -21,7 +21,7 @@ export const useUpdateUserLanguage = (): [
   HandleUpdateMethod
 ] => {
   const { t } = useTranslation('success-messages')
-  const [mutationResult, updateUserLanguage] = useNotificationMutation<
+  const [mutationResult, updateOneUserLanguage] = useNotificationMutation<
     UpdateUserLanguageData,
     UpdateUserLanguageVariables
   >(UPDATE_USER_LANGUAGE, {
@@ -29,7 +29,7 @@ export const useUpdateUserLanguage = (): [
   })
 
   const handleMethod = (variables: UpdateUserLanguageVariables) =>
-    updateUserLanguage({ ...variables })
+    updateOneUserLanguage({ ...variables })
 
   return [mutationResult, handleMethod]
 }

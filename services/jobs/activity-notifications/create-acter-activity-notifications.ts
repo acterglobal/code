@@ -2,13 +2,13 @@ import 'reflect-metadata'
 
 import slugify from 'slugify'
 
-import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
+import { createOneNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { Activity, NotificationType } from '@acter/schema'
 
 import { createActivityNotificationEmail } from './template'
 import { ActivityNotificationForActer } from './types'
 
-export const createActerActivityNotifications = createNotificationWorker<
+export const createActerActivityNotifications = createOneNotificationWorker<
   ActivityNotificationForActer,
   ActivityNotificationForActer
 >({

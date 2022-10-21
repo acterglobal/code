@@ -82,7 +82,7 @@ export class ActivitiesResolver {
   @UseMiddleware(
     QueueNotificationsMiddleware(NotificationQueueType.NEW_ACTIVITY)
   )
-  async createActivityCustom(
+  async createOneActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
@@ -180,7 +180,7 @@ export class ActivitiesResolver {
 
   @Authorized()
   @Mutation(() => Activity)
-  async updateActivityCustom(
+  async updateOneActivityCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
     @Arg('name') name: string,

@@ -1,12 +1,12 @@
 import 'reflect-metadata'
 
-import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
+import { createOneNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { ActerConnectionRole, NotificationType } from '@acter/schema'
 
 import { createNewMemberNotificationEmail } from './template'
 import { NewMemberJoinNotification } from './types'
 
-export const createNewMemberNotifications = createNotificationWorker<
+export const createNewMemberNotifications = createOneNotificationWorker<
   NewMemberJoinNotification,
   NewMemberJoinNotification
 >({

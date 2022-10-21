@@ -15,7 +15,7 @@ export type ConnectionVariables = {
 }
 
 type CreateConnectionData = {
-  createActerConnectionCustom: ActerConnection
+  createOneActerConnectionCustom: ActerConnection
 }
 
 type CreateConnectionState = UseMutationOptions<
@@ -43,7 +43,7 @@ export const useCreateActerConnection = (
     {
       ...options,
       getSuccessMessage: ({
-        createActerConnectionCustom: {
+        createOneActerConnectionCustom: {
           Follower: { name },
         },
       }) => t('connectedTo', { toActer: acter.name, asActer: name }),

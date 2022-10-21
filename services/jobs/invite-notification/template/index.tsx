@@ -19,7 +19,7 @@ type InviteEmail = {
 
 type CreateInviteEmailParams = InviteEmail
 
-export const createInviteEmail = ({
+export const createOneInviteEmail = ({
   acterName,
   inviteUrl,
   senderName,

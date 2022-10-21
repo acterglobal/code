@@ -14,7 +14,7 @@ type CreateNotificationParams = Pick<
   Post?: Post
 }
 
-export const createNotification = async ({
+export const createOneNotification = async ({
   ToActer,
   OnActer,
   url,

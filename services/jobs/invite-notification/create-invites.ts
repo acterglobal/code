@@ -2,11 +2,11 @@ import { sendEmail } from '@acter/lib/email'
 import { getInviteUrl } from '@acter/lib/invites/get-invite-url'
 import { prisma } from '@acter/schema/prisma'
 
-import { createInviteEmail } from './template'
+import { createOneInviteEmail } from './template'
 import { InviteEmailSend } from './types'
 import { InviteEmailCreate } from './types'
 
-export const createInviteNotification = async (
+export const createOneInviteNotification = async (
   job: InviteEmailCreate
 ): Promise<void> => {
   try {
@@ -24,7 +24,7 @@ export const createInviteNotification = async (
 
     const inviteUrl = getInviteUrl(invitation.id)
 
-    const { html, text } = createInviteEmail({
+    const { html, text } = createOneInviteEmail({
       acterName: onActer.name,
       inviteUrl,
       message,
