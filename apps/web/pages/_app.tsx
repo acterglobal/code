@@ -79,4 +79,4 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
 
 export const reportWebVitals = reportWebVitalsToAxiom
 
-export default appWithTranslation(ActerApp)
+export default appWithTranslation(ActerApp as FC)

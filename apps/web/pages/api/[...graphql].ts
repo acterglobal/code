@@ -20,7 +20,7 @@ const l = getLogger('api/graphql')
 const graphqlHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> => {
+): Promise<void|unknown> => {
   const timer = l.startTimer()
   if (!handler) {
     handler = await getApiHandler('/api/graphql')

@@ -12,7 +12,9 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
-const withPlugins = require('next-compose-plugins')
+
+
+
 const withGraphql = require('next-graphql-loader')
 const { withSentryConfig } = require('@sentry/nextjs')
 const transpileModules = require('next-transpile-modules')
@@ -94,6 +96,7 @@ const nextConfig = {
     disableServerWebpackPlugin: disableSentrySourcemaps,
     disableClientWebpackPlugin: disableSentrySourcemaps,
   },
+  swcMinify: true,
   webpack: (config, options) => {
     config.plugins.push(
       new options.webpack.NormalModuleReplacementPlugin(
@@ -111,7 +114,8 @@ const nextConfig = {
   },
 }
 
-module.exports = withPlugins(
-  [[withBundleAnalyzer], withSentryConfig, withGraphql, withTM],
-  nextConfig
-)
+
+module.exports = (_phase, { defaultConfig }) => {
+  const plugins = [withBundleAnalyzer, withSentryConfig, withGraphql, withTM]
+  return plugins.reduce((acc, plugin) => plugin(acc), { ...defaultConfig, ...nextConfig })
+}

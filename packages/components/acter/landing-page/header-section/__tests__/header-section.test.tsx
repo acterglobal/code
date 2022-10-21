@@ -3,7 +3,6 @@
  */
 import React from 'react'
 
-import { useRouter } from 'next/router'
 
 import { MuiThemeProvider } from '@material-ui/core'
 
@@ -15,7 +14,29 @@ import { render, screen } from '@acter/lib/test-helpers'
 import { useUser } from '@acter/lib/user/use-user'
 import { ExampleActer, ExampleUser } from '@acter/schema/fixtures'
 
-jest.mock('next/router')
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    });
+  },
+}));
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+
 jest.mock('@acter/lib/acter/use-acter')
 jest.mock('@acter/lib/user/use-user')
 jest.mock('@acter/lib/acter/use-create-connection')
