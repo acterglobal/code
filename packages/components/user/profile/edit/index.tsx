@@ -14,7 +14,7 @@ export const ProfileEdit: FC = () => {
 
       <Box className={classes.bottomSection}>
         <Grid container spacing={8}>
-          <Grid item xs={12} sm={6} />
+          <Grid item xs={12} sm={6} className={classes.descriptionOverlay} />
           <Grid item xs={12} sm={6}>
             <PartOf />
           </Grid>
@@ -26,6 +26,9 @@ export const ProfileEdit: FC = () => {
 
 const useStyles = makeStyles(
   createStyles({
+    descriptionOverlay: {
+      pointerEvents: 'none',
+    },
     bottomSection: {
       flexGrow: 1,
       paddingTop: '5%',
