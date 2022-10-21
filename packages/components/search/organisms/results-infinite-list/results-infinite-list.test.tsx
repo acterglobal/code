@@ -3,7 +3,6 @@
  */
 import React from 'react'
 
-import { useRouter } from 'next/router'
 
 import { acterAsUrl } from '@acter/lib/acter/acter-as-url'
 import { useActer } from '@acter/lib/acter/use-acter'
@@ -18,7 +17,28 @@ import { ExampleActerList, ExampleActivity } from '@acter/schema/fixtures'
 
 import { SearchResultsInfiniteList } from './search-results-infinite-list'
 
-jest.mock('next/router')
+jest.mock('next/router', () => ({
+  useRouter() {
+    return ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    });
+  },
+}));
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+
 jest.mock('@acter/lib/search/use-search-type')
 jest.mock('@acter/lib/search/use-acter-search')
 jest.mock('@acter/lib/url/use-auth-redirect')

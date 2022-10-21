@@ -3,7 +3,6 @@
  */
 import React from 'react'
 
-import { useRouter } from 'next/router'
 
 import { ForumOutlined as ForumIcon } from '@material-ui/icons'
 
@@ -16,7 +15,29 @@ import { useUpdateNotifications } from '@acter/lib/notification/use-update-notif
 import { render, screen } from '@acter/lib/test-helpers'
 import { ExampleActer } from '@acter/schema/fixtures'
 
-jest.mock('next/router')
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    });
+  },
+}));
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+
 jest.mock('@acter/lib/acter/get-landing-page-tab')
 jest.mock('@acter/lib/notification/use-notifications')
 jest.mock('@acter/lib/notification/use-update-notifications')
