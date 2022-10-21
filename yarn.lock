@@ -76,7 +76,7 @@ __metadata:
     formik-material-ui: 3.0.1
     formik-material-ui-pickers: 0.0.12
     fp-ts: 2.11.1
-    graphql: 15.5.1
+    graphql: 15.8.0
     html-to-draftjs: 1.5.0
     just-capitalize: 1.0.1
     just-debounce: 1.1.0
@@ -160,7 +160,7 @@ __metadata:
     axios: 0.27.2
     deep-equal: 2.0.5
     deepmerge: 4.2.2
-    graphql: 15.5.1
+    graphql: 15.8.0
     intercom-client: 2.11.2
     ioredis: 4.27.7
     just-camel-case: 6.0.1
@@ -226,7 +226,7 @@ __metadata:
     dotenv-cli: 5.1.0
     eslint: ^8.25.0
     eslint-config-next: 12.1.0
-    graphql: 15.5.1
+    graphql: 15.8.0
     just-capitalize: 3.1.1
     micro: 9.4.1
     next: 12.1.0
@@ -15149,7 +15149,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:15.5.1, graphql@npm:^15.3.0":
+"graphql@npm:15.8.0":
+  version: 15.8.0
+  resolution: "graphql@npm:15.8.0"
+  checksum: 423325271db8858428641b9aca01699283d1fe5b40ef6d4ac622569ecca927019fce8196208b91dd1d8eb8114f00263fe661d241d0eb40c10e5bfd650f86ec5e
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^15.3.0":
   version: 15.5.1
   resolution: "graphql@npm:15.5.1"
   checksum: 7e45ae27021e5bafd2a3ce557e708606ff28504aae705654764fa6239b0151d014a90cbd4c68300f4f95a9074820aaee9b1f25b560ff089c8db0b49563e34080
