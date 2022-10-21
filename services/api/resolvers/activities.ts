@@ -119,7 +119,7 @@ export class ActivitiesResolver {
     @Arg('parentAdminUserIds', () => [String], { nullable: true })
     parentAdminUserIds: [string?] = []
   ): Promise<Partial<Activity>> {
-    const acter = await new ActerResolver().createActerCustom(
+    const acter = await new ActerResolver().createOneActerCustom(
       ctx,
       name,
       description,
@@ -219,7 +219,7 @@ export class ActivitiesResolver {
     @Arg('followerIds', () => [String], { nullable: true })
     followerIds: [string]
   ): Promise<Activity> {
-    await new ActerResolver().updateActerCustom(
+    await new ActerResolver().updateOneActerCustom(
       ctx,
       acterId,
       name,
@@ -258,7 +258,7 @@ export class ActivitiesResolver {
 
   @Authorized(ADMIN)
   @Mutation(() => Acter)
-  async deleteActerCustom(
+  async deleteOneActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string
   ): Promise<Acter> {

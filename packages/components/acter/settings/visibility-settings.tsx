@@ -27,7 +27,7 @@ export const VisibilitySettings: FC<VisibilitySettingsProps> = ({ acter }) => {
   const [{ fetching: updatingSetting }, updateActer] = useUpdateActer(acter, {
     onCompleted: (data) =>
       setActerPrivacySetting(
-        ActerPrivacySettings[data.updateActerCustom.acterPrivacySetting]
+        ActerPrivacySettings[data.updateOneActerCustom.acterPrivacySetting]
       ),
   })
 

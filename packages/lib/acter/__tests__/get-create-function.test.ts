@@ -25,7 +25,7 @@ describe('getCreateFunction', () => {
     })
     updateActer.mockReturnValue({
       data: {
-        updateActerCustom: ExampleActivity.Acter,
+        updateOneActerCustom: ExampleActivity.Acter,
       },
     })
 

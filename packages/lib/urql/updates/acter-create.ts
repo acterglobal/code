@@ -8,16 +8,16 @@ import { Acter } from '@acter/schema'
 export type ActerWithType = WithTypeName<Acter>
 
 interface ActerData {
-  createActerCustom?: ActerWithType
+  createOneActerCustom?: ActerWithType
 }
 
-export const createActerCustom: UpdateResolver<ActerData> = (
+export const createOneActerCustom: UpdateResolver<ActerData> = (
   result,
   _args,
   cache,
   _info
 ) => {
-  result.createActerCustom.Followers.forEach((connection) => {
+  result.createOneActerCustom.Followers.forEach((connection) => {
     addItemToFieldList({
       cache,
       target: connection.Follower,

@@ -86,7 +86,7 @@ const _acterCreate = async ({
     }
     default: {
       const res = await createActer({ variables })
-      return res.data.createActerCustom
+      return res.data.createOneActerCustom
     }
   }
 }

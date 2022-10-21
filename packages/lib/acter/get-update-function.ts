@@ -36,7 +36,7 @@ export const getUpdateFunction = ({
     }
     default: {
       const res = await updateActer(variables)
-      return res.data.updateActerCustom
+      return res.data.updateOneActerCustom
     }
   }
 }
