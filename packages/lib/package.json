@@ -16,7 +16,7 @@
     "axios": "0.27.2",
     "deep-equal": "2.0.5",
     "deepmerge": "4.2.2",
-    "graphql": "15.8.0",
+    "graphql": "15.5.1",
     "intercom-client": "2.11.2",
     "ioredis": "4.27.7",
     "just-camel-case": "6.0.1",
