@@ -4,7 +4,7 @@ mutation ActerConnectionUpdate(
   $connectionId: String!
   $role: ActerConnectionRole!
 ) {
-  updateActerConnectionCustom(connectionId: $connectionId, role: $role) {
+  updateOneActerConnectionCustom(connectionId: $connectionId, role: $role) {
     ...ActerConnectionFull
   }
 }

@@ -32,11 +32,11 @@ export const getUpdateFunction = ({
         formData,
         updateActer: updateActivity,
       })
-      return res.data.updateActivityCustom.Acter
+      return res.data.updateOneActivityCustom.Acter
     }
     default: {
       const res = await updateActer(variables)
-      return res.data.updateActerCustom
+      return res.data.updateOneActerCustom
     }
   }
 }

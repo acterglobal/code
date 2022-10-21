@@ -1,7 +1,7 @@
 #import "../fragments/post-full.graphql"
 
 mutation CreatePost($content: String!, $acterId: String!, $authorId: String!) {
-  createPost(
+  createOnePost(
     data: {
       content: $content
       Acter: { connect: { id: $acterId } }

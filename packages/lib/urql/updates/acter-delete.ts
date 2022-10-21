@@ -8,10 +8,10 @@ import {
 import { Acter, Activity } from '@acter/schema'
 
 type ActerData = {
-  deleteActerCustom?: WithTypeName<Acter>
+  deleteOneActerCustom?: WithTypeName<Acter>
 }
 
-export const deleteActerCustom: UpdateResolver<ActerData> = (
+export const deleteOneActerCustom: UpdateResolver<ActerData> = (
   result,
   _args,
   cache,
@@ -19,12 +19,12 @@ export const deleteActerCustom: UpdateResolver<ActerData> = (
 ) => {
   forEachQueryFields({
     cache,
-    result: result.deleteActerCustom,
+    result: result.deleteOneActerCustom,
     fieldNameMatch: 'activities',
     fn: removeItemFn<Activity>({
       cache,
-      result: result.deleteActerCustom.Activity,
+      result: result.deleteOneActerCustom.Activity,
     }),
   })
-  cache.invalidate((result.deleteActerCustom as unknown) as Data)
+  cache.invalidate((result.deleteOneActerCustom as unknown) as Data)
 }

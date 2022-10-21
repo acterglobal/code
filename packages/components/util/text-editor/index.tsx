@@ -8,7 +8,7 @@ import React, {
   Component,
 } from 'react'
 
-import createLinkPlugin from '@draft-js-plugins/anchor'
+import createOneLinkPlugin from '@draft-js-plugins/anchor'
 import Editor from '@draft-js-plugins/editor'
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar'
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css'
@@ -24,7 +24,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { ContentState, EditorState, CompositeDecorator } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
-import createLinkDetectionPlugin from 'draft-js-link-detection-plugin'
+import createOneLinkDetectionPlugin from 'draft-js-link-detection-plugin'
 
 import {
   Toolbar,
@@ -100,7 +100,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   const [selectedMentions, setSelectedMentions] =
     useState<PostMention[]>(currentMentions)
 
-  const linkPlugin = createLinkPlugin({ linkTarget: '_blank' })
+  const linkPlugin = createOneLinkPlugin({ linkTarget: '_blank' })
 
   const [inlinePlugins, InlineToolbar] = useMemo(() => {
     const inlineToolbarPlugin = createInlineToolbarPlugin()
@@ -109,7 +109,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   }, [])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const linkDetectionPlugin: any = createLinkDetectionPlugin()
+  const linkDetectionPlugin: any = createOneLinkDetectionPlugin()
 
   const plugins = [
     ...inlinePlugins,

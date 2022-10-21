@@ -15,7 +15,7 @@ export type LinkVariables = LinkType & {
   userId: string
 }
 
-type UpdateLinkData = { updateLink: LinkType }
+type UpdateLinkData = { updateOneLink: LinkType }
 
 type UpdateLinkOptions = UseMutationOptions<UpdateLinkData, LinkVariables>
 
@@ -41,7 +41,7 @@ export const useUpdateLink = (
   const { t } = useTranslation('success-messages')
 
   const { user } = useUser()
-  const [mutationResult, updateLink] = useNotificationMutation<
+  const [mutationResult, updateOneLink] = useNotificationMutation<
     UpdateLinkData,
     LinkVariables
   >(UPDATE_LINK, {
@@ -52,7 +52,7 @@ export const useUpdateLink = (
   const handleLink = async (values: LinkVariables) => {
     if (!user) throw 'User is not set'
 
-    return updateLink({
+    return updateOneLink({
       ...values,
       linkId: values.id,
       acterId: acter.id,

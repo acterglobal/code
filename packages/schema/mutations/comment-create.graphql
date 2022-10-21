@@ -7,7 +7,7 @@ mutation CreatePost(
   $authorId: String!
   $parentId: String
 ) {
-  createPost(
+  createOnePost(
     data: {
       content: $content
       Acter: { connect: { id: $acterId } }

@@ -18,7 +18,7 @@ export interface ActivityVariables extends Activity {
 }
 
 export type CreateActivityData = {
-  createActivityCustom: Activity
+  createOneActivityCustom: Activity
 }
 
 type ActivityData = CreateActivityData | UpdateActivityData
@@ -75,9 +75,9 @@ export const useCreateActivity = (
     CREATE_ACTIVITY,
     {
       ...options,
-      getSuccessMessage: ({ createActivityCustom }) =>
+      getSuccessMessage: ({ createOneActivityCustom }) =>
         t('activityCreated', {
-          activityName: createActivityCustom?.Acter?.name,
+          activityName: createOneActivityCustom?.Acter?.name,
         }),
     }
   )
@@ -111,7 +111,7 @@ export const useCreateActivity = (
 
     const updateResult = await updateActivity({
       ...activity,
-      ...data?.createActivityCustom,
+      ...data?.createOneActivityCustom,
     })
 
     setFetching(false)

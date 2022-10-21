@@ -1,5 +1,5 @@
 mutation DeleteLink($linkId: String!) {
-  deleteLink(where: { id: $linkId }) {
+  deleteOneLink(where: { id: $linkId }) {
     id
     name
     url

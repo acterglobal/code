@@ -15,7 +15,7 @@ import { Acter } from '@acter/schema'
 import UPDATE_ACTER from '@acter/schema/mutations/acter-update.graphql'
 
 export type UpdateActerData = {
-  updateActerCustom: Acter
+  updateOneActerCustom: Acter
 }
 
 type UpdateActerOptions = UseMutationOptions<UpdateActerData, ActerVariables>
@@ -41,7 +41,7 @@ export const useUpdateActer = (
     ActerVariables
   >(UPDATE_ACTER, {
     getSuccessMessage: (data: UpdateActerData) =>
-      t('acterUpdated', { acterName: data.updateActerCustom.name }),
+      t('acterUpdated', { acterName: data.updateOneActerCustom.name }),
     ...options,
   })
 

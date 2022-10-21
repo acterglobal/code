@@ -128,7 +128,7 @@ const syncIntercomToAuth0 = async ({
   }
 
   try {
-    await auth0.updateUser(
+    await auth0.updateOneUser(
       {
         id: auth0User.user_id,
       },

@@ -26,7 +26,7 @@ export interface ActerVariables extends Acter {
 }
 
 export type CreateActerData = {
-  createActerCustom: Acter
+  createOneActerCustom: Acter
 }
 
 type ActerData = CreateActerData | UpdateActerData
@@ -66,7 +66,7 @@ export const useCreateActer = (
     updateActer,
   ] = useUpdateActer({} as Acter, {
     getSuccessMessage: (data) =>
-      t('imagesUploaded', { acterName: data.updateActerCustom.name }),
+      t('imagesUploaded', { acterName: data.updateOneActerCustom.name }),
   })
 
   const [
@@ -81,10 +81,10 @@ export const useCreateActer = (
     ...options,
     getSuccessMessage: (data: CreateActerData) =>
       t('acterCreated', {
-        acterName: data.createActerCustom.name,
+        acterName: data.createOneActerCustom.name,
         acterTypeName: t(
           `common:acterTypes.${getTranslationKey(
-            data.createActerCustom.ActerType.name
+            data.createOneActerCustom.ActerType.name
           )}`
         ),
       }),
@@ -117,7 +117,7 @@ export const useCreateActer = (
     })
 
     // Bypass image upload osv. for Groups
-    if (data.createActerCustom?.ActerType?.name === ActerTypes.GROUP) {
+    if (data.createOneActerCustom?.ActerType?.name === ActerTypes.GROUP) {
       setFetching(false)
       setResultData(createData)
       return
@@ -127,12 +127,12 @@ export const useCreateActer = (
       followerIds: [],
       interestIds: [],
       ...acter,
-      ...data.createActerCustom,
+      ...data.createOneActerCustom,
     })
 
     setFetching(false)
     setResultData(updateResult.data)
-    router.push(acterAsUrl({ acter: updateResult.data.updateActerCustom }))
+    router.push(acterAsUrl({ acter: updateResult.data.updateOneActerCustom }))
 
     return updateResult
   }

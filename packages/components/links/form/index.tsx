@@ -40,21 +40,21 @@ export const LinkForm: FC<LinkFormProps> = ({ link, handleCancel }) => {
 
   const { acter } = useActer()
 
-  const [{ fetching: creating }, createLink] = useCreateLink(acter, {
+  const [{ fetching: creating }, createOneLink] = useCreateLink(acter, {
     onCompleted: handleCancel,
   })
-  const [{ fetching: updating }, updateLink] = useUpdateLink(acter)
-  const [{ fetching: deleting }, deleteLink] = useDeleteLink()
+  const [{ fetching: updating }, updateOneLink] = useUpdateLink(acter)
+  const [{ fetching: deleting }, deleteOneLink] = useDeleteLink()
 
   const handleSubmit = (
     values: LinkFormValues,
     formikbag: FormikBag<LinkFormProps, Link>
   ) => {
-    link ? updateLink(values) : createLink(values)
+    link ? updateOneLink(values) : createOneLink(values)
     formikbag.resetForm()
   }
 
-  const onDelete = () => deleteLink(link)
+  const onDelete = () => deleteOneLink(link)
 
   return (
     <Formik

@@ -38,18 +38,18 @@ export const Post: FC<PostsProps> = ({
   const [toggleForm, setToggleForm] = useState(false)
   const { acter } = useActer()
 
-  const [{ fetching: updateFetching }, updatePost] = useUpdatePost()
-  const [{ fetching: deleteFetching }, deletePost] = useDeletePost()
+  const [{ fetching: updateFetching }, updateOnePost] = useUpdatePost()
+  const [{ fetching: deleteFetching }, deleteOnePost] = useDeletePost()
 
   const handleEdit = () => setToggleForm(!toggleForm)
   const handleCancelEdit = () => setToggleForm(!toggleForm)
 
   const handleSubmit = (values: PostFormValues) => {
     setToggleForm(!toggleForm)
-    updatePost(values)
+    updateOnePost(values)
   }
 
-  const handleDelete = () => deletePost(post)
+  const handleDelete = () => deleteOnePost(post)
 
   if (updateFetching || deleteFetching) return <LoadingSpinner />
 

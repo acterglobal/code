@@ -6,10 +6,10 @@ import { LinkWithType } from './link-create'
 import { Link } from '@acter/schema'
 
 type LinkData = {
-  deleteLink?: LinkWithType
+  deleteOneLink?: LinkWithType
 }
 
-export const deleteLink: UpdateResolver<LinkData> = (
+export const deleteOneLink: UpdateResolver<LinkData> = (
   result,
   _args,
   cache,
@@ -17,8 +17,8 @@ export const deleteLink: UpdateResolver<LinkData> = (
 ) => {
   forEachQueryFields({
     cache,
-    result: result.deleteLink,
+    result: result.deleteOneLink,
     fieldNameMatch: 'links',
-    fn: removeItemFn<Link>({ cache, result: result.deleteLink }),
+    fn: removeItemFn<Link>({ cache, result: result.deleteOneLink }),
   })
 }

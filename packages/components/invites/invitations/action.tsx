@@ -21,17 +21,17 @@ export const Action: FC<ActionProps> = ({ action, invite }) => {
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
 
-  const [{ fetching: updating }, updateInvite] = useUpdateInvite()
+  const [{ fetching: updating }, updateOneInvite] = useUpdateInvite()
 
   useEffect(() => {
     setLoading(updating)
   }, [updating])
 
   const handleCancel = () =>
-    updateInvite({ inviteId: invite.id, expiredAt: new Date() })
+    updateOneInvite({ inviteId: invite.id, expiredAt: new Date() })
 
   const handleResend = () =>
-    updateInvite({ inviteId: invite.id, expiredAt: null })
+    updateOneInvite({ inviteId: invite.id, expiredAt: null })
 
   return (
     <Button

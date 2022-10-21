@@ -20,7 +20,7 @@ mutation ActerUpdate(
   $interestIds: [String!]!
   $followerIds: [String!]!
 ) {
-  updateActerCustom(
+  updateOneActerCustom(
     acterId: $acterId
     name: $name
     description: $description

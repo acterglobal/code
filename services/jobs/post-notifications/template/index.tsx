@@ -27,7 +27,7 @@ type CreatePostEmailNotificationParams = {
   post: PostWithActerAndAuthor
 }
 
-export const createPostEmailNotification = ({
+export const createOnePostEmailNotification = ({
   notification,
   post,
 }: CreatePostEmailNotificationParams): CreateEmailReturn => {

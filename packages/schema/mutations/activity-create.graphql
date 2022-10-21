@@ -23,7 +23,7 @@ mutation ActivityCreate(
   $activityTypeId: String!
 ) {
   __typename
-  createActivityCustom(
+  createOneActivityCustom(
     # Acter
     name: $name
     description: $description

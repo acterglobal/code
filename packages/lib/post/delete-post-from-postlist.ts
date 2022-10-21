@@ -1,6 +1,6 @@
 import { Post as PostType } from '@acter/schema'
 
-export const deletePostFromPostList = (
+export const deleteOnePostFromPostList = (
   deletedPost: PostType,
   displayPostList: PostType[]
 ): PostType[] => {

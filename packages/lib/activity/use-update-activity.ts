@@ -16,7 +16,7 @@ import { Activity } from '@acter/schema'
 import UPDATE_ACTIVITY from '@acter/schema/mutations/activity-update.graphql'
 
 export type UpdateActivityData = {
-  updateActivityCustom: Activity
+  updateOneActivityCustom: Activity
 }
 
 type UpdateActivityOptions = UseMutationOptions<

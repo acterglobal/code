@@ -21,7 +21,7 @@ export class ActerConnectionResolver {
   @Authorized()
   @Mutation(() => ActerConnection)
   @UseMiddleware(QueueNotificationsMiddleware(NotificationQueueType.NEW_MEMBER))
-  async createActerConnectionCustom(
+  async createOneActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('followerActerId') followerActerId: string,
     @Arg('followingActerId') followingActerId: string,
@@ -42,7 +42,7 @@ export class ActerConnectionResolver {
 
   @Authorized()
   @Mutation(() => ActerConnection)
-  async updateActerConnectionCustom(
+  async updateOneActerConnectionCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('connectionId') connectionId: string,
     @Arg('role') role: ActerConnectionRole

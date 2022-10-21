@@ -45,7 +45,7 @@ export const useCreatePostReaction = (
 ] => {
   const { t } = useTranslation('success-messages')
 
-  const [mutationResult, createPostReaction] = useNotificationMutation(
+  const [mutationResult, createOnePostReaction] = useNotificationMutation(
     CREATE_POST_REACTION,
     {
       ...options,
@@ -53,7 +53,7 @@ export const useCreatePostReaction = (
     }
   )
 
-  const handleCreatePostReaction = (values) => createPostReaction({ ...values })
+  const handleCreatePostReaction = (values) => createOnePostReaction({ ...values })
 
   return [mutationResult, handleCreatePostReaction]
 }

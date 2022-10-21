@@ -14,7 +14,7 @@ export type LinkVariables = LinkType & {
   userId: string
 }
 
-type CreateLinkData = { createLink: LinkType }
+type CreateLinkData = { createOneLink: LinkType }
 
 type CreateLinkOptions = UseMutationOptions<CreateLinkData, LinkVariables>
 
@@ -41,19 +41,19 @@ export const useCreateLink = (
   const { t } = useTranslation('success-messages')
   const { user } = useUser()
 
-  const [mutationResult, createLink] = useNotificationMutation<
+  const [mutationResult, createOneLink] = useNotificationMutation<
     CreateLinkData,
     LinkVariables
   >(CREATE_LINK, {
     ...options,
-    getSuccessMessage: ({ createLink: { name } }) =>
+    getSuccessMessage: ({ createOneLink: { name } }) =>
       t('link.created', { linkName: name }),
   })
 
   const handleLink = async (values: LinkVariables) => {
     if (!user) throw 'User is not set'
 
-    return createLink({
+    return createOneLink({
       ...values,
       acterId: acter.id,
       userId: user?.id,

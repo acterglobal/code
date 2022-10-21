@@ -11,7 +11,7 @@ import { Acter } from '@acter/schema'
 import DELETE_ACTER from '@acter/schema/mutations/acter-delete.graphql'
 
 type ActerVariables = { acterId: string }
-type DeleteActerData = { deleteActerCustom: Acter }
+type DeleteActerData = { deleteOneActerCustom: Acter }
 type HandleMethod = (
   acterId: string
 ) => Promise<OperationResult<DeleteActerData, ActerVariables>>
@@ -35,14 +35,14 @@ export const useDeleteActer = (
     onCompleted: (data) => {
       options?.onCompleted?.(data)
 
-      const redirectUrl = data?.deleteActerCustom?.Parent
-        ? acterAsUrl({ acter: data.deleteActerCustom.Parent })
+      const redirectUrl = data?.deleteOneActerCustom?.Parent
+        ? acterAsUrl({ acter: data.deleteOneActerCustom.Parent })
         : '/dashboard'
       router.push(redirectUrl)
     },
 
     // TODO: figure out why data is empty here so we can't use deleted Acter name in message
-    // getSuccessMessage: ({deleteActerCustom: {name}}) => `${name} deleted`,
+    // getSuccessMessage: ({deleteOneActerCustom: {name}}) => `${name} deleted`,
   })
   const handleDeleteActer = (acterId) => deleteActer({ acterId })
 

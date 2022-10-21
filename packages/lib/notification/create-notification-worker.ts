@@ -14,7 +14,7 @@ import {
 import { prisma, Prisma } from '@acter/schema/prisma'
 
 import { CreateEmailReturn, Email } from '../email'
-import { createNotification } from './create-notification'
+import { createOneNotification } from './create-notification'
 import { NotificationEmail } from './send-notification-email'
 import { sendNotificationEmail } from './send-notification-email'
 
@@ -73,9 +73,9 @@ interface CreateNotificationWorker<TVariables, TData> {
   getNotificationUrlPath: (data?: string, following?: Acter) => string
 }
 
-const l = getLogger('createNotificationWorker')
+const l = getLogger('createOneNotificationWorker')
 
-export const createNotificationWorker =
+export const createOneNotificationWorker =
   <TVariables, TData>({
     getJobData = async (job) => job as unknown as TData,
     getFollowing,
@@ -159,7 +159,7 @@ export const createNotificationWorker =
 
       await Promise.all(
         followers.map(async ({ Follower }) => {
-          const notification = await createNotification({
+          const notification = await createOneNotification({
             ToActer: Follower,
             OnActer: following,
             url,

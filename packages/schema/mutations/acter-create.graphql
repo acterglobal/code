@@ -16,7 +16,7 @@ mutation CreateActer(
   $parentAdminActerIds: [String!]
   $parentAdminUserIds: [String!]
 ) {
-  createActerCustom(
+  createOneActerCustom(
     name: $name
     description: $description
     location: $location

@@ -23,7 +23,7 @@ describe('getUpdateFunction', () => {
     })
     updateActivity.mockReturnValue({
       data: {
-        updateActivityCustom: {},
+        updateOneActivityCustom: {},
       },
     })
 

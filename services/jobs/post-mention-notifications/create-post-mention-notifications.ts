@@ -3,14 +3,14 @@ import 'reflect-metadata'
 import slugify from 'slugify'
 
 import { ActerTypes } from '@acter/lib/constants'
-import { createNotificationWorker } from '@acter/lib/notification/create-notification-worker'
+import { createOneNotificationWorker } from '@acter/lib/notification/create-notification-worker'
 import { NotificationType, Post } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-import { createPostMentionEmailNotification } from './template'
+import { createOnePostMentionEmailNotification } from './template'
 import { PostMentionJobVariables, PostMentionJobData } from './types'
 
-export const createPostMentionNotifications = createNotificationWorker<
+export const createOnePostMentionNotifications = createOneNotificationWorker<
   PostMentionJobVariables,
   PostMentionJobData
 >({
@@ -52,7 +52,7 @@ export const createPostMentionNotifications = createNotificationWorker<
     },
   }),
   getNotificationEmail: ({ data: { post }, notification }) =>
-    createPostMentionEmailNotification({
+    createOnePostMentionEmailNotification({
       post,
       notification,
     }),

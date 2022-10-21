@@ -22,7 +22,7 @@ const l = getLogger('ActerResolver')
 export class ActerResolver {
   @Authorized()
   @Mutation(() => Acter)
-  async createActerCustom(
+  async createOneActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('name') name: string,
     @Arg('description', { nullable: true }) description: string,
@@ -148,7 +148,7 @@ export class ActerResolver {
 
   @Authorized(ADMIN)
   @Mutation(() => Acter)
-  async updateActerCustom(
+  async updateOneActerCustom(
     @Ctx() ctx: ActerGraphQLContext,
     @Arg('acterId') acterId: string,
     @Arg('name') name: string,

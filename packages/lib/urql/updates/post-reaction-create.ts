@@ -8,10 +8,10 @@ import { PostReaction } from '@acter/schema'
 type PostReactionType = WithTypeName<PostReaction>
 
 interface PostReactionData {
-  createPostReaction?: PostReactionType
+  createOnePostReaction?: PostReactionType
 }
 
-export const createPostReaction: UpdateResolver<PostReactionData> = (
+export const createOnePostReaction: UpdateResolver<PostReactionData> = (
   result,
   _args,
   cache,
@@ -21,9 +21,9 @@ export const createPostReaction: UpdateResolver<PostReactionData> = (
     cache,
     target: {
       __typename: 'Post',
-      id: result.createPostReaction.postId,
+      id: result.createOnePostReaction.postId,
     },
     field: 'PostReactions',
-    item: result.createPostReaction,
+    item: result.createOnePostReaction,
   })
 }

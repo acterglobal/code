@@ -5,7 +5,7 @@ mutation ActerConnectionCreate(
   $followingActerId: String!
   $role: ActerConnectionRole
 ) {
-  createActerConnectionCustom(
+  createOneActerConnectionCustom(
     followerActerId: $followerActerId
     followingActerId: $followingActerId
     role: $role
