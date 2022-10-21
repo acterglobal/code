@@ -12,10 +12,10 @@ import { Link } from '@acter/schema'
 export type LinkWithType = WithTypeName<Link>
 
 interface LinkData {
-  createLink?: LinkWithType
+  createOneLink?: LinkWithType
 }
 
-export const createLink: UpdateResolver<LinkData> = (
+export const createOneLink: UpdateResolver<LinkData> = (
   result,
   _args,
   cache,
@@ -23,9 +23,9 @@ export const createLink: UpdateResolver<LinkData> = (
 ) => {
   forEachQueryFields({
     cache,
-    result: result.createLink,
+    result: result.createOneLink,
     fieldNameMatch: 'links',
     match: matchOnActerId,
-    fn: prependItemFn({ cache, result: result.createLink }),
+    fn: prependItemFn({ cache, result: result.createOneLink }),
   })
 }

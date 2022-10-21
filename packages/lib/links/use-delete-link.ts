@@ -12,7 +12,7 @@ export type LinkVariables = LinkType & {
   linkId: string
 }
 
-type DeleteLinkData = { deleteLink: LinkType }
+type DeleteLinkData = { deleteOneLink: LinkType }
 
 type DeleteLinkOptions = UseMutationOptions<DeleteLinkData, LinkVariables>
 
@@ -35,17 +35,17 @@ export const useDeleteLink = (
 ] => {
   const { t } = useTranslation('success-messages')
 
-  const [mutationResult, deleteLink] = useNotificationMutation<
+  const [mutationResult, deleteOneLink] = useNotificationMutation<
     DeleteLinkData,
     LinkVariables
   >(DELETE_LINK, {
     ...options,
     getSuccessMessage: (data) =>
-      t('link.deleted', { linkName: data.deleteLink.name }),
+      t('link.deleted', { linkName: data.deleteOneLink.name }),
   })
 
   const handleDeleteLink = async (values: LinkVariables) =>
-    deleteLink({
+    deleteOneLink({
       ...values,
       linkId: values.id,
     })
