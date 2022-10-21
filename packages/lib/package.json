@@ -24,7 +24,7 @@
     "mime": "2.5.2",
     "mjml": "4.12.0",
     "mjml-react": "2.0.7",
-    "next": "12.1.0",
+    "next": "12.2.5",
     "nodemailer": "6.6.3",
     "notistack": "1.0.10",
     "pino": "7.11.0",

@@ -1,16 +1,23 @@
-import { NextMiddleware, NextResponse } from 'next/server'
+import { NextMiddleware, NextRequest, NextResponse } from 'next/server'
 
 export const getAuthMiddleware =
   (authKey: string): NextMiddleware =>
-  ({ headers, url }) => {
-    const authHeader = headers.get('authorization')
+  (request: NextRequest) => {
+    const authHeader = request.headers.get('authorization')
     if (authHeader !== authKey) {
       // eslint-disable-next-line no-console
       console.info('Bad notify job request', {
-        url,
+        url: request.url,
         authHeader,
+        authKey,
       })
-      return new Response('Not authorized', { status: 401 })
+
+      return NextResponse.rewrite(
+        `${request.nextUrl.protocol}//${request.nextUrl.host}/401`,
+        {
+          status: 401,
+        }
+      );
     }
 
     return NextResponse.next()
