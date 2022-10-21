@@ -190,7 +190,7 @@ __metadata:
     "@auth0/nextjs-auth0": 1.8.0
     "@graphql-codegen/cli": 2.2.1
     "@graphql-codegen/urql-introspection": 2.1.0
-    "@prisma/client": 3.15.2
+    "@prisma/client": 4.4.0
     "@types/node": ^18.11.3
     date-fns: 2.23.0
     dotenv-cli: 5.1.0
@@ -4628,17 +4628,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:3.15.2":
-  version: 3.15.2
-  resolution: "@prisma/client@npm:3.15.2"
+"@prisma/client@npm:4.4.0":
+  version: 4.4.0
+  resolution: "@prisma/client@npm:4.4.0"
   dependencies:
-    "@prisma/engines-version": 3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e
+    "@prisma/engines-version": 4.4.0-66.f352a33b70356f46311da8b00d83386dd9f145d6
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: ef7eaeba6c9b85b0c4ebd95ce87083ca0deb0a588b46a8fac1f9769228e550785c53eb991be774746a7e6bf36c4bcb199bffa20795737aa59384216273d981be
+  checksum: 7ecd1dbfd7158baef5365beaead3d863841812cd939b7b1f5287f163281119de311ffdeb422d1105b15c939b50ca3760bb459ede63a34d5f7acda510d7c30b03
   languageName: node
   linkType: hard
 
@@ -4675,10 +4675,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
-  version: 3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e
-  resolution: "@prisma/engines-version@npm:3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
-  checksum: f2ea2b3efe2ed90c1448b79e8718eefa7ee12f68dcee3fb9c322aee1cb8847602628436e7760b5ddc1e84da5fb799d464d9b4809a3989393842b75d933273abc
+"@prisma/engines-version@npm:4.4.0-66.f352a33b70356f46311da8b00d83386dd9f145d6":
+  version: 4.4.0-66.f352a33b70356f46311da8b00d83386dd9f145d6
+  resolution: "@prisma/engines-version@npm:4.4.0-66.f352a33b70356f46311da8b00d83386dd9f145d6"
+  checksum: 91ca927a69f53ffd05ee02b25666531997202642dbe92ae2c6df6a28a38726894e3728377c49d2327a323461d92f5b7eedae0795ab6ca50ed59ae28c2775b38a
   languageName: node
   linkType: hard
 
