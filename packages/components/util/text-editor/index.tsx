@@ -260,6 +260,8 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 8,
       minHeight: ({ size }: stylesProp) => size.height,
       flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
       cursor: 'text',
       minInlineSize: '1.2rem',
       marginBottom: '1em',
@@ -284,12 +286,17 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     editor: {
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
       padding: 10,
       fontSize: '0.813rem',
       minHeight: '100%',
-      '& .public-DraftEditor-content': {
-        minHeight: 80,
-      },
+      '& .DraftEditor-root, & .DraftEditor-editorContainer, & .public-DraftEditor-content': {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }
     },
   })
 )
