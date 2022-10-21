@@ -230,7 +230,6 @@ __metadata:
     just-capitalize: 3.1.1
     micro: 9.4.1
     next: 12.3.1
-    next-compose-plugins: 2.2.1
     next-graphql-loader: 1.0.1
     next-i18next: 12.1.0
     next-transpile-modules: 9.1.0
@@ -20764,13 +20763,6 @@ __metadata:
   dependencies:
     type-fest: ^2.5.1
   checksum: 3d4ae0f3b775623ceed8e558b6f9850e897aea981a9c937d3ad4e018669c829beccb2c4b5a6af996726ebf86c5b7638368dfc01f3ac2e395d1df29309bc0c5ca
-  languageName: node
-  linkType: hard
-
-"next-compose-plugins@npm:2.2.1":
-  version: 2.2.1
-  resolution: "next-compose-plugins@npm:2.2.1"
-  checksum: 771762fda2b12b81daf10431cbb494816cff96be02b44009692c6c0eefbacd62cbf51ddb93af8d3380ec00254c6a95d64d10f744d4b9ddadefc21efee7dc69fc
   languageName: node
   linkType: hard
 
