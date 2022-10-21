@@ -7,7 +7,7 @@ mutation CreateLink(
   $acterId: String!
   $userId: String!
 ) {
-  createLink(
+  createOneLink(
     data: {
       name: $name
       url: $url

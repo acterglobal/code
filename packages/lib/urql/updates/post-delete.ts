@@ -11,10 +11,10 @@ import { Post } from '@acter/schema'
 type PostWithType = WithTypeName<Post>
 
 interface PostData {
-  deletePost?: PostWithType
+  deleteOnePost?: PostWithType
 }
 
-export const deletePost: UpdateResolver<PostData> = (
+export const deleteOnePost: UpdateResolver<PostData> = (
   result,
   _args,
   cache,
@@ -22,9 +22,9 @@ export const deletePost: UpdateResolver<PostData> = (
 ) => {
   forEachQueryFields({
     cache,
-    result: result.deletePost,
+    result: result.deleteOnePost,
     fieldNameMatch: 'posts',
-    fn: removeItemFn<Post>({ cache, result: result.deletePost }),
+    fn: removeItemFn<Post>({ cache, result: result.deleteOnePost }),
   })
-  cache.invalidate((result.deletePost as unknown) as Data)
+  cache.invalidate((result.deleteOnePost as unknown) as Data)
 }

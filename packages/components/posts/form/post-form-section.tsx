@@ -41,14 +41,14 @@ export const PostFormSection: FC<PostFormSectionProps> = ({
   const classes = useStyles()
   const [showForm, setShowForm] = useState(false)
   const { acter } = useActer({ acterId })
-  const [createPost] = useCreatePost(acter)
+  const [createOnePost] = useCreatePost(acter)
   const [createComment] = useCreateComment(acter)
 
   if (!acter) return null
 
   const handleClick = () => setShowForm(!showForm)
 
-  const createFn = parentId ? createComment : createPost
+  const createFn = parentId ? createComment : createOnePost
 
   const handlePostSubmit = (data: PostFormValues, mentions: PostMention[]) => {
     setShowForm(false)

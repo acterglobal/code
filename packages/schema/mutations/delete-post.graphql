@@ -1,5 +1,5 @@
 mutation DeletePost($postId: String!) {
-  deletePost(where: { id: $postId }) {
+  deleteOnePost(where: { id: $postId }) {
     id
     parentId
     Parent {

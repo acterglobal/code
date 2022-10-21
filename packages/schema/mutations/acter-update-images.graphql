@@ -4,7 +4,7 @@ mutation UpdateActerImages(
   $bannerUrl: String
 ) {
   __typename
-  updateActer(
+  updateOneActer(
     data: { avatarUrl: { set: $avatarUrl }, bannerUrl: { set: $bannerUrl } }
     where: { id: $acterId }
   ) {

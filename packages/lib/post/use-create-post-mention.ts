@@ -39,7 +39,7 @@ type CreatePostMentionUseMutationState = UseMutationState<
 export const useCreatePostMention = (
   options?: CreatePostMentionOptions
 ): [HandleMethod<CreatePostMentionData>, CreatePostMentionUseMutationState] => {
-  const [mutationResult, createPostMention] = useNotificationMutation(
+  const [mutationResult, createOnePostMention] = useNotificationMutation(
     CREATE_POST_MENTION,
     {
       ...options,
@@ -47,7 +47,7 @@ export const useCreatePostMention = (
     }
   )
 
-  const handleCreatePostMention = (values) => createPostMention({ ...values })
+  const handleCreatePostMention = (values) => createOnePostMention({ ...values })
 
   return [handleCreatePostMention, mutationResult]
 }

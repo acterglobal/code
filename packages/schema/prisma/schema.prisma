@@ -1,11 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +5,288 @@ generator client {
 generator typegraphql {
   provider           = "typegraphql-prisma"
   output             = "../generated"
-  emitTranspiledCode = true
+  emitTranspiledCode = "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://user:pass@localhost:5432/acter-dev"
+}
+
+model Acter {
+  id                        String                          @id @default(uuid())
+  acterTypeId               String                          @map("acter_type_id")
+  name                      String?
+  slug                      String?
+  description               String?
+  location                  String?
+  locationLat               Float?                          @map("location_lat")
+  locationLng               Float?                          @map("location_lng")
+  url                       String?
+  createdAt                 DateTime                        @default(now()) @map("created_at")
+  updatedAt                 DateTime                        @updatedAt @map("updated_at")
+  createdByUserId           String                          @map("created_by_user_id")
+  parentActerId             String?                         @map("parent_acter_id")
+  avatarUrl                 String?                         @map("avatar_url")
+  bannerUrl                 String?                         @map("banner_url")
+  deletedAt                 DateTime?                       @map("deleted_at")
+  deletedByUserId           String?                         @map("deleted_by_user_id")
+  acterJoinSetting          ActerJoinSettings               @default(EVERYONE) @map("acter_join_setting")
+  acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(INSTANT) @map("acter_notify_email_frequency")
+  acterNotifySetting        ActerNotificationSettings       @default(ALL_ACTIVITY) @map("acter_notify_setting")
+  acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
+  acterWhoCanJoinSetting    ActerWhoCanJoinSettings         @default(ALL) @map("acter_who_can_join_setting")
+  placeId                   String?                         @map("place_id")
+  isMarkDown                Boolean                         @default(false) @map("is_mark_down")
+  ActerType                 ActerType                       @relation(fields: [acterTypeId], references: [id])
+  createdByUser             User                            @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
+  DeletedByUser             User?                           @relation("acter_deleted_by_user", fields: [deletedByUserId], references: [id])
+  Parent                    Acter?                          @relation("acter_parent", fields: [parentActerId], references: [id], onDelete: Cascade)
+  PostMentions              PostMention[]                   @relation("acter_mentioned_on_post")
+  PostReactions             PostReaction[]                  @relation("acter_reaction_on_post")
+  Following                 ActerConnection[]               @relation("follower")
+  Followers                 ActerConnection[]               @relation("following")
+  ActerInterests            ActerInterest[]
+  Children                  Acter[]                         @relation("acter_parent")
+  Activity                  Activity?                       @relation("acter")
+  ActivitiesOrganized       Activity[]                      @relation("organiser")
+  Invite                    Invite[]                        @relation("inviteToActer")
+  AttachedLinks             Link[]                          @relation("links")
+  NotificationsTo           Notification[]                  @relation("notificationToActer")
+  NotificationsOn           Notification[]                  @relation("notificationOnActer")
+  AttachedPosts             Post[]                          @relation("posts")
+  AuthoredPosts             Post[]                          @relation("authored")
+  User                      User?
+
+  @@unique([slug, acterTypeId], name: "slug_unique_for_acter_type")
+  @@map("acters")
+}
+
+model ActerConnection {
+  id               String              @id @default(uuid())
+  isApproved       Boolean?            @default(true) @map("is_approved")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+  createdByUserId  String              @map("created_by_user_id")
+  followerActerId  String              @map("follower_acter_id")
+  followingActerId String              @map("following_acter_id")
+  role             ActerConnectionRole @default(MEMBER)
+  CreatedByUser    User                @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
+  Follower         Acter               @relation("follower", fields: [followerActerId], references: [id], onDelete: Cascade)
+  Following        Acter               @relation("following", fields: [followingActerId], references: [id], onDelete: Cascade)
+
+  @@unique([followerActerId, followingActerId], name: "acter_follower_following")
+  @@map("acter_connections")
+}
+
+model ActerInterest {
+  id              String   @id @default(uuid())
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  createdByUserId String   @map("created_by_user_id")
+  acterId         String
+  interestId      String
+  Acter           Acter    @relation(fields: [acterId], references: [id], onDelete: Cascade)
+  CreatedByUser   User     @relation("acter_interest_created_by_user", fields: [createdByUserId], references: [id])
+  Interest        Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@unique([acterId, interestId], name: "acter_interests_unique")
+  @@map("acter_interests")
+}
+
+model ActerType {
+  id    String  @id @default(uuid())
+  name  String  @unique
+  Acter Acter[]
+
+  @@map("acter_types")
+}
+
+model Activity {
+  id              String         @id @default(uuid())
+  startAt         DateTime       @map("start_at")
+  endAt           DateTime       @map("end_at")
+  isOnline        Boolean        @map("is_online")
+  createdByUserId String         @map("created_by_user_id")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  acterId         String?        @unique @map("acter_id")
+  organiserId     String?        @map("organiser_id")
+  isAllDay        Boolean        @default(false) @map("is_all_day")
+  activityTypeId  String
+  Acter           Acter?         @relation("acter", fields: [acterId], references: [id], onDelete: Cascade)
+  ActivityType    ActivityType   @relation(fields: [activityTypeId], references: [id])
+  createdByUser   User           @relation("activity_created_by_user", fields: [createdByUserId], references: [id])
+  Organiser       Acter?         @relation("organiser", fields: [organiserId], references: [id])
+  Notification    Notification[]
+
+  @@map("activities")
+}
+
+model ActivityType {
+  id       String     @id @default(uuid())
+  name     String     @unique
+  Activity Activity[]
+
+  @@map("activity_types")
+}
+
+model Post {
+  id            String         @id @default(uuid())
+  content       String
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  parentId      String?        @map("parent_id")
+  acterId       String         @map("acter_id")
+  authorId      String         @map("author_id")
+  isMarkDown    Boolean        @default(false) @map("is_mark_down")
+  Acter         Acter          @relation("posts", fields: [acterId], references: [id])
+  Author        Acter          @relation("authored", fields: [authorId], references: [id])
+  Parent        Post?          @relation("PostToPost", fields: [parentId], references: [id], onDelete: Cascade)
+  PostMentions  PostMention[]  @relation("mention_on_post")
+  PostReactions PostReaction[] @relation("reaction_on_post")
+  Notification  Notification[]
+  Comments      Post[]         @relation("PostToPost")
+
+  @@map("posts")
+}
+
+model PostReaction {
+  id              String @id @default(uuid())
+  emoji           String
+  emojiUnicode    String
+  postId          String
+  acterId         String
+  createdByUserId String
+  Acter           Acter  @relation("acter_reaction_on_post", fields: [acterId], references: [id])
+  createdByUser   User   @relation("post_reaction_by_user", fields: [createdByUserId], references: [id])
+  Post            Post   @relation("reaction_on_post", fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([emojiUnicode, postId, acterId], name: "oneTypeOfReactionOnOnePostByOneMember")
+  @@index([postId], map: "onPost")
+}
+
+model PostMention {
+  id              String         @id @default(uuid())
+  name            String
+  postId          String
+  acterId         String
+  createdByUserId String
+  Acter           Acter          @relation("acter_mentioned_on_post", fields: [acterId], references: [id])
+  createdByUser   User           @relation("post_mention_by_user", fields: [createdByUserId], references: [id])
+  Post            Post           @relation("mention_on_post", fields: [postId], references: [id], onDelete: Cascade)
+  Notification    Notification[]
+}
+
+model Link {
+  id              String   @id @default(uuid())
+  name            String
+  url             String
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  acterId         String   @map("acter_id")
+  createdByUserId String   @map("created_by_user_id")
+  Acter           Acter    @relation("links", fields: [acterId], references: [id])
+  createdByUser   User     @relation("link_created_by_user", fields: [createdByUserId], references: [id])
+
+  @@map("links")
+}
+
+model Interest {
+  id             String          @id @default(uuid())
+  name           String
+  interestTypeId String          @map("interest_type_id")
+  description    String?
+  sdgNumber      String?         @map("sdg_number")
+  InterestType   InterestType    @relation(fields: [interestTypeId], references: [id], onDelete: Cascade)
+  InterestActers ActerInterest[]
+
+  @@unique([interestTypeId, name], name: "nameUniqueForInterestType")
+  @@map("interests")
+}
+
+model InterestType {
+  id                   String         @id @default(uuid())
+  name                 String
+  parentInterestTypeId String?        @map("parent_interest_type_id")
+  sortOrder            Int            @default(0) @map("sort_order")
+  parent               InterestType?  @relation("parent_interest_type", fields: [parentInterestTypeId], references: [id])
+  children             InterestType[] @relation("parent_interest_type")
+  Interests            Interest[]
+
+  @@unique([parentInterestTypeId, name], name: "nameUniqueForParentInterestType")
+  @@index([sortOrder])
+  @@map("interest_types")
+}
+
+model Invite {
+  id              String    @id @default(uuid())
+  email           String
+  message         String
+  error           String?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  sentAt          DateTime? @map("sent_at")
+  acceptedAt      DateTime? @map("accepted_at")
+  onActerId       String    @map("on_acter_id")
+  createdByUserId String    @map("created_by_user_id")
+  expiredAt       DateTime? @map("expired_at")
+  createdByUser   User      @relation("invite_created_by_user", fields: [createdByUserId], references: [id])
+  OnActer         Acter     @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)
+
+  @@index([onActerId, email], map: "inviteEmailForActer")
+  @@map("invites")
+}
+
+model Notification {
+  id            String           @id @default(uuid())
+  type          NotificationType
+  url           String
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+  sendTo        String?          @map("send_to")
+  sentAt        DateTime?        @map("sent_at")
+  viewedAt      DateTime?        @map("viewed_at")
+  toActerId     String           @map("to_acter_id")
+  onActerId     String           @map("on_acter_id")
+  activityId    String?          @map("activity_id")
+  postId        String?          @map("post_id")
+  postMentionId String?          @map("post_mention_id")
+  Activity      Activity?        @relation(fields: [activityId], references: [id])
+  OnActer       Acter            @relation("notificationToActer", fields: [onActerId], references: [id], onDelete: Cascade)
+  Post          Post?            @relation(fields: [postId], references: [id])
+  PostMention   PostMention?     @relation(fields: [postMentionId], references: [id])
+  ToActer       Acter            @relation("notificationOnActer", fields: [toActerId], references: [id], onDelete: Cascade)
+
+  @@index([toActerId, viewedAt])
+  @@index([onActerId, toActerId, type])
+  @@map("notifications")
+}
+
+model User {
+  id                String            @id @default(uuid())
+  name              String?
+  email             String?           @unique
+  emailVerified     DateTime?         @map("email_verified")
+  image             String?
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @default(now()) @map("updated_at")
+  acterId           String?           @unique
+  auth0ProviderId   String?           @map("auth0_provider_id")
+  intercomId        String?           @map("intercom_id")
+  language          Language          @default(en_GB)
+  Acter             Acter?            @relation(fields: [acterId], references: [id], onDelete: Cascade)
+  PostMentions      PostMention[]     @relation("post_mention_by_user")
+  PostReactions     PostReaction[]    @relation("post_reaction_by_user")
+  ActerConnections  ActerConnection[] @relation("acter_connection_created_by_user")
+  ActerInterest     ActerInterest[]   @relation("acter_interest_created_by_user")
+  ActersCreated     Acter[]           @relation("acter_created_by_user")
+  ActersDeleted     Acter[]           @relation("acter_deleted_by_user")
+  ActivitiesCreated Activity[]        @relation("activity_created_by_user")
+  Invite            Invite[]          @relation("invite_created_by_user")
+  LinksCreated      Link[]            @relation("link_created_by_user")
+
+  @@map("users")
 }
 
 enum ActerJoinSettings {
@@ -24,8 +297,8 @@ enum ActerJoinSettings {
 
 enum ActerNotificationSettings {
   ALL_ACTIVITY
-  MENTIONS
   NONE
+  MENTIONS
 }
 
 enum ActerNotificationEmailFrequency {
@@ -45,300 +318,12 @@ enum ActerWhoCanJoinSettings {
   ACTERS
 }
 
-model Acter {
-  id          String   @id @default(uuid())
-  acterTypeId String   @map("acter_type_id")
-  name        String?
-  slug        String?
-  description String?
-  isMarkDown  Boolean  @default(false) @map("is_mark_down")
-  location    String?
-  locationLat Float?   @map("location_lat")
-  locationLng Float?   @map("location_lng")
-  placeId     String?  @map("place_id")
-  url         String?
-  avatarUrl   String?  @map("avatar_url")
-  bannerUrl   String?  @map("banner_url")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  // TODO: this is becoming an antipattern and should probably be moved to a key:value store table
-  // Settings
-  //   Who can join this Acter
-  acterJoinSetting          ActerJoinSettings               @default(EVERYONE) @map("acter_join_setting")
-  //   What triggers a Notification
-  acterNotifySetting        ActerNotificationSettings       @default(ALL_ACTIVITY) @map("acter_notify_setting")
-  //   How often to send an email for Notifications
-  acterNotifyEmailFrequency ActerNotificationEmailFrequency @default(INSTANT) @map("acter_notify_email_frequency")
-  //   Whether an Acter is visible in public Search
-  acterPrivacySetting       ActerPrivacySettings            @default(PUBLIC) @map("acter_privacy_setting")
-  //   Who can join a given Acter
-  acterWhoCanJoinSetting    ActerWhoCanJoinSettings         @default(ALL) @map("acter_who_can_join_setting")
-
-  // Associations
-  // List of Interests for this Acter
-  ActerInterests ActerInterest[]
-
-  // The User that created this Acter
-  createdByUser   User   @relation("acter_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("created_by_user_id")
-
-  // Soft delete: if this field is set we have deleted this Acter
-  deletedAt       DateTime? @map("deleted_at")
-  deletedByUserId String?   @map("deleted_by_user_id")
-  DeletedByUser   User?     @relation("acter_deleted_by_user", fields: [deletedByUserId], references: [id])
-
-  // The type of acter, i.e. User, Organisation, etc
-  ActerType ActerType @relation(fields: [acterTypeId], references: [id])
-
-  // Create a parent/child relationship. Mostly for Organisation -> Group
-  Parent        Acter?  @relation("acter_parent", fields: [parentActerId], references: [id], onDelete: Cascade)
-  Children      Acter[] @relation("acter_parent")
-  parentActerId String? @map("parent_acter_id")
-
-  // Follow/join/members
-  Following ActerConnection[] @relation("follower")
-  Followers ActerConnection[] @relation("following")
-
-  // If this has an associated User record
-  User User?
-
-  // If this has an associated Activity record
-  Activity            Activity?  @relation("acter")
-  ActivitiesOrganized Activity[] @relation("organiser")
-
-  AttachedPosts Post[] @relation("posts")
-  AuthoredPosts Post[] @relation("authored")
-
-  AttachedLinks Link[] @relation("links")
-
-  NotificationsTo Notification[] @relation("notificationToActer")
-  NotificationsOn Notification[] @relation("notificationOnActer")
-
-  Invite Invite[] @relation("inviteToActer")
-
-  PostReactions PostReaction[] @relation("acter_reaction_on_post")
-
-  PostMentions PostMention[] @relation("acter_mentioned_on_post")
-
-  @@unique(name: "slug_unique_for_acter_type", fields: [slug, acterTypeId])
-  @@map("acters")
-}
-
 enum ActerConnectionRole {
   PENDING
-  REJECTED
-  REMOVED
   MEMBER
   ADMIN
-}
-
-model ActerConnection {
-  id         String              @id @default(uuid())
-  isApproved Boolean?            @default(true) @map("is_approved")
-  role       ActerConnectionRole @default(MEMBER)
-  createdAt  DateTime            @default(now()) @map("created_at")
-  updatedAt  DateTime            @updatedAt @map("updated_at")
-
-  CreatedByUser   User   @relation("acter_connection_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("created_by_user_id")
-
-  Follower         Acter  @relation("follower", fields: [followerActerId], references: [id], onDelete: Cascade)
-  followerActerId  String @map("follower_acter_id")
-  Following        Acter  @relation("following", fields: [followingActerId], references: [id], onDelete: Cascade)
-  followingActerId String @map("following_acter_id")
-
-  @@unique(name: "acter_follower_following", fields: [followerActerId, followingActerId])
-  @@map("acter_connections")
-}
-
-model ActerInterest {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  CreatedByUser   User   @relation("acter_interest_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("created_by_user_id")
-
-  Acter      Acter    @relation(fields: [acterId], references: [id], onDelete: Cascade)
-  acterId    String
-  Interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
-  interestId String
-
-  @@unique(name: "acter_interests_unique", fields: [acterId, interestId])
-  @@map("acter_interests")
-}
-
-model ActerType {
-  id   String @id @default(uuid())
-  name String @unique
-
-  Acter Acter[]
-
-  @@map("acter_types")
-}
-
-model Activity {
-  id       String   @id @default(uuid())
-  startAt  DateTime @map("start_at")
-  endAt    DateTime @map("end_at")
-  isOnline Boolean  @map("is_online")
-  isAllDay Boolean  @default(false) @map("is_all_day")
-
-  ActivityType   ActivityType @relation(fields: [activityTypeId], references: [id])
-  activityTypeId String
-
-  createdByUser   User     @relation("activity_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String   @map("created_by_user_id")
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-
-  Acter   Acter?  @relation(name: "acter", fields: [acterId], references: [id], onDelete: Cascade)
-  acterId String? @unique @map("acter_id")
-
-  Organiser   Acter?  @relation(name: "organiser", fields: [organiserId], references: [id])
-  organiserId String? @map("organiser_id")
-
-  Notification Notification[]
-
-  @@map("activities")
-}
-
-model ActivityType {
-  id   String @id @default(uuid())
-  name String @unique
-
-  Activity Activity[]
-
-  @@map("activity_types")
-}
-
-model Post {
-  id         String   @id @default(uuid())
-  content    String
-  isMarkDown Boolean  @default(false) @map("is_mark_down")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  Parent   Post?   @relation("PostToPost", fields: [parentId], references: [id], onDelete: Cascade)
-  parentId String? @map("parent_id")
-  Comments Post[]  @relation("PostToPost")
-
-  Acter   Acter  @relation("posts", fields: [acterId], references: [id])
-  acterId String @map("acter_id")
-
-  Author   Acter  @relation("authored", fields: [authorId], references: [id])
-  authorId String @map("author_id")
-
-  PostReactions PostReaction[] @relation("reaction_on_post")
-
-  PostMentions PostMention[] @relation("mention_on_post")
-
-  Notification Notification[]
-
-  @@map("posts")
-}
-
-model PostReaction {
-  id           String @id @default(uuid())
-  emoji        String
-  emojiUnicode String
-
-  Post   Post   @relation("reaction_on_post", fields: [postId], references: [id], onDelete: Cascade)
-  postId String @map("postId")
-
-  Acter   Acter  @relation("acter_reaction_on_post", fields: [acterId], references: [id])
-  acterId String @map("acterId")
-
-  createdByUser   User   @relation("post_reaction_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("createdByUserId")
-
-  @@unique(name: "oneTypeOfReactionOnOnePostByOneMember", fields: [emojiUnicode, postId, acterId])
-  @@index(name: "onPost", fields: [postId])
-}
-
-model PostMention {
-  id   String @id @default(uuid())
-  name String
-
-  Post   Post   @relation("mention_on_post", fields: [postId], references: [id], onDelete: Cascade)
-  postId String @map("postId")
-
-  Acter   Acter  @relation("acter_mentioned_on_post", fields: [acterId], references: [id])
-  acterId String @map("acterId")
-
-  createdByUser   User   @relation("post_mention_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("createdByUserId")
-
-  Notification Notification[]
-}
-
-model Link {
-  id        String   @id @default(uuid())
-  name      String
-  url       String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  Acter   Acter  @relation("links", fields: [acterId], references: [id])
-  acterId String @map("acter_id")
-
-  createdByUser   User   @relation("link_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("created_by_user_id")
-
-  @@map("links")
-}
-
-model Interest {
-  id          String  @id @default(uuid())
-  name        String
-  description String?
-  sdgNumber   String? @map("sdg_number")
-
-  InterestType   InterestType @relation(fields: [interestTypeId], references: [id], onDelete: Cascade)
-  interestTypeId String       @map("interest_type_id")
-
-  InterestActers ActerInterest[]
-
-  @@unique(name: "nameUniqueForInterestType", fields: [interestTypeId, name])
-  @@map("interests")
-}
-
-model InterestType {
-  id                   String         @id @default(uuid())
-  name                 String
-  parent               InterestType?  @relation("parent_interest_type", fields: [parentInterestTypeId], references: [id])
-  children             InterestType[] @relation("parent_interest_type")
-  sortOrder            Int            @default(0) @map("sort_order")
-  parentInterestTypeId String?        @map("parent_interest_type_id")
-  Interests            Interest[]
-
-  @@unique(name: "nameUniqueForParentInterestType", fields: [parentInterestTypeId, name])
-  @@index([sortOrder])
-  @@map("interest_types")
-}
-
-model Invite {
-  id         String    @id @default(uuid())
-  email      String
-  message    String
-  error      String?
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
-  sentAt     DateTime? @map("sent_at")
-  acceptedAt DateTime? @map("accepted_at")
-  expiredAt  DateTime? @map("expired_at")
-
-  // The acter to which we're inviting someone
-  OnActer   Acter  @relation("inviteToActer", fields: [onActerId], references: [id], onDelete: Cascade)
-  onActerId String @map("on_acter_id")
-
-  // The User that created this Acter
-  createdByUser   User   @relation("invite_created_by_user", fields: [createdByUserId], references: [id])
-  createdByUserId String @map("created_by_user_id")
-
-  @@index(name: "inviteEmailForActer", fields: [onActerId, email])
-  @@map("invites")
+  REJECTED
+  REMOVED
 }
 
 enum NotificationType {
@@ -348,76 +333,7 @@ enum NotificationType {
   NEW_MENTION
 }
 
-model Notification {
-  id   String           @id @default(uuid())
-  type NotificationType
-  url  String
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  sendTo String?   @map("send_to")
-  sentAt DateTime? @map("sent_at")
-
-  viewedAt DateTime? @map("viewed_at")
-
-  ToActer   Acter  @relation("notificationOnActer", fields: [toActerId], references: [id], onDelete: Cascade)
-  toActerId String @map("to_acter_id")
-
-  OnActer   Acter  @relation("notificationToActer", fields: [onActerId], references: [id], onDelete: Cascade)
-  onActerId String @map("on_acter_id")
-
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String? @map("post_id")
-
-  Activity   Activity? @relation(fields: [activityId], references: [id])
-  activityId String?   @map("activity_id")
-
-  PostMention   PostMention? @relation(fields: [postMentionId], references: [id])
-  postMentionId String?      @map("post_mention_id")
-
-  @@index([toActerId, viewedAt])
-  @@index([onActerId, toActerId, type])
-  @@map("notifications")
-}
-
 enum Language {
   en_GB
   da_DK
-}
-
-model User {
-  id            String    @id @default(uuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  language      Language  @default(en_GB)
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
-
-  auth0ProviderId String? @map("auth0_provider_id")
-  intercomId      String? @map("intercom_id")
-
-  Acter   Acter?  @relation(fields: [acterId], references: [id], onDelete: Cascade)
-  acterId String? @unique
-
-  ActersCreated    Acter[]           @relation("acter_created_by_user")
-  ActerConnections ActerConnection[] @relation("acter_connection_created_by_user")
-
-  LinksCreated Link[] @relation("link_created_by_user")
-
-  ActerInterest ActerInterest[] @relation("acter_interest_created_by_user")
-
-  ActivitiesCreated Activity[] @relation("activity_created_by_user")
-
-  ActersDeleted Acter[] @relation("acter_deleted_by_user")
-
-  Invite Invite[] @relation("invite_created_by_user")
-
-  PostReactions PostReaction[] @relation("post_reaction_by_user")
-
-  PostMentions PostMention[] @relation("post_mention_by_user")
-
-  @@map("users")
 }

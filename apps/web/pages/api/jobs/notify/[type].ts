@@ -13,9 +13,9 @@ import {
   NewMemberJoinNotification,
 } from '@acter/jobs/new-member-notifications'
 // TODO Fix post mention notifications
-// import { createPostMentionNotifications } from '@acter/jobs/post-mention-notifications'
+// import { createOnePostMentionNotifications } from '@acter/jobs/post-mention-notifications'
 import {
-  createPostNotifications,
+  createOnePostNotifications,
   PostJobVariables,
 } from '@acter/jobs/post-notifications'
 import { NotificationQueueType } from '@acter/lib/constants'
@@ -51,12 +51,12 @@ const notificationTypeMap: Record<
   },
   [NotificationQueueType.NEW_POST]: {
     checks: (body: PostJobVariables) => !!body.id,
-    fn: createPostNotifications,
+    fn: createOnePostNotifications,
   },
   // TODO Fix mentions notifications
   // [NotificationQueueType.NEW_MENTION]: {
   //   checks: (body: PostJobVariables) => !!body.id,
-  //   fn: createPostMentionNotifications,
+  //   fn: createOnePostMentionNotifications,
   // },
 }
 

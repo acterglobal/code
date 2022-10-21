@@ -37,7 +37,7 @@ export const AddPostReaction: FC<AddPostReactionsProps> = ({
 
   const [
     { fetching: addingReaction },
-    createPostReaction,
+    createOnePostReaction,
   ] = useCreatePostReaction()
   const { acter } = useActer()
   const { user } = useUser()
@@ -53,7 +53,7 @@ export const AddPostReaction: FC<AddPostReactionsProps> = ({
       createdByUserId: user.id,
     }
 
-    createPostReaction(data)
+    createOnePostReaction(data)
     handleClose()
   }
 

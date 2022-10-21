@@ -40,7 +40,7 @@ export const useDeletePostReaction = (
 ] => {
   const { t } = useTranslation('success-messages')
 
-  const [mutationResult, deletePostReaction] = useNotificationMutation<
+  const [mutationResult, deleteOnePostReaction] = useNotificationMutation<
     DeletePostReactionData,
     DeletePostReactionVariables
   >(DELETE_POST_REACTION, {
@@ -50,7 +50,7 @@ export const useDeletePostReaction = (
 
   const handleDeletePostReaction = async (
     values: DeletePostReactionVariables
-  ) => deletePostReaction({ ...values })
+  ) => deleteOnePostReaction({ ...values })
 
   return [mutationResult, handleDeletePostReaction]
 }

@@ -13,7 +13,7 @@ export type PostVariables = PostType & {
 }
 
 type UpdatePostData = {
-  updatePost: PostType
+  updateOnePost: PostType
 }
 interface UpdatePostOptions
   extends UseMutationOptions<UpdatePostData, PostVariables> {
@@ -38,7 +38,7 @@ export const useUpdatePost = (
 ] => {
   const { t } = useTranslation('success-messages')
 
-  const [mutationResult, updatePost] = useNotificationMutation<
+  const [mutationResult, updateOnePost] = useNotificationMutation<
     UpdatePostData,
     PostVariables
   >(UPDATE_POST, {
@@ -47,7 +47,7 @@ export const useUpdatePost = (
   })
 
   const handlePost = async (values: PostVariables) => {
-    return updatePost({
+    return updateOnePost({
       ...values,
       postId: values.id,
     })

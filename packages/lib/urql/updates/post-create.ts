@@ -13,31 +13,31 @@ import {
 type PostWithType = WithTypeName<Post>
 
 interface PostData {
-  createPost?: PostWithType
+  createOnePost?: PostWithType
 }
 
-export const createPost: UpdateResolver<PostData> = (
+export const createOnePost: UpdateResolver<PostData> = (
   result,
   _args,
   cache,
   _info
 ) => {
-  if (result.createPost?.parentId) {
+  if (result.createOnePost?.parentId) {
     const data = cache.readFragment<PostWithType>(POST_FRAGMENT, {
-      id: result.createPost.parentId,
+      id: result.createOnePost.parentId,
       __typename: 'Post',
     })
     cache.writeFragment(POST_FRAGMENT, {
       ...data,
-      Comments: [...data.Comments, result.createPost],
+      Comments: [...data.Comments, result.createOnePost],
     })
   } else {
     forEachQueryFields({
       cache,
-      result: result.createPost,
+      result: result.createOnePost,
       fieldNameMatch: 'posts',
       match: matchOnActerId,
-      fn: prependItemFn({ cache, result: result.createPost }),
+      fn: prependItemFn({ cache, result: result.createOnePost }),
     })
   }
 }

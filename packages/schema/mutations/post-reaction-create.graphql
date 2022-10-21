@@ -7,7 +7,7 @@ mutation CreatePostReaction(
   $acterId: String!
   $createdByUserId: String!
 ) {
-  createPostReaction(
+  createOnePostReaction(
     data: {
       emoji: $emoji
       emojiUnicode: $emojiUnicode

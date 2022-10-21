@@ -26,7 +26,7 @@ export type PostVariables = PostType & {
   parentId: string | null
 }
 
-type CreatePostData = { createPost: PostType }
+type CreatePostData = { createOnePost: PostType }
 type CreatePostMentionData = { createMention: PostMention }
 
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
@@ -73,13 +73,13 @@ export const useCreatePost = (
       error: createError,
       ...createRestState
     },
-    createPost,
+    createOnePost,
   ] = useNotificationMutation<CreatePostData, PostVariables>(CREATE_POST, {
     ...options,
     getSuccessMessage: () => t('post.created'),
   })
 
-  const [_, createPostMention] = useNotificationMutation<
+  const [_, createOnePostMention] = useNotificationMutation<
     CreatePostMentionData,
     PostMentionVariables
   >(CREATE_POST_MENTION, {
@@ -113,17 +113,17 @@ export const useCreatePost = (
     if (!user) throw 'User is not set.'
     setFetching(true)
 
-    const { data } = await createPost({
+    const { data } = await createOnePost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,
     })
 
-    if (data?.createPost && mentions) {
+    if (data?.createOnePost && mentions) {
       mentions.map((mention) => {
-        createPostMention({
+        createOnePostMention({
           name: mention.name,
-          postId: data.createPost.id,
+          postId: data.createOnePost.id,
           acterId: mention.acterId,
           createdByUserId: user.id,
           ...mention,

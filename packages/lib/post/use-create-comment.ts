@@ -15,7 +15,7 @@ export type PostVariables = PostType & {
   parentId: string
 }
 
-type CreatePostData = { createPost: PostType }
+type CreatePostData = { createOnePost: PostType }
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
 
 export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
@@ -36,7 +36,7 @@ export const useCreateComment = (
   const { t } = useTranslation('success-messages')
   const { user } = useUser()
 
-  const [mutationResult, createPost] = useNotificationMutation<
+  const [mutationResult, createOnePost] = useNotificationMutation<
     CreatePostData,
     PostVariables
   >(CREATE_COMMENT, {
@@ -46,7 +46,7 @@ export const useCreateComment = (
 
   const handlePost = async (values: PostVariables) => {
     if (!user) throw 'User is not set.'
-    createPost({
+    createOnePost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,

@@ -24,7 +24,7 @@ mutation ActivityUpdate(
   $activityTypeId: String!
 ) {
   __typename
-  updateActivityCustom(
+  updateOneActivityCustom(
     # Acter
     acterId: $acterId
     name: $name

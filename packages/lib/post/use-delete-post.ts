@@ -12,7 +12,7 @@ export type PostVariables = {
 }
 
 type DeletePostData = {
-  deletePost: PostType
+  deleteOnePost: PostType
 }
 
 interface DeletePostOptions
@@ -37,7 +37,7 @@ export const useDeletePost = (
   UseMutationState<DeletePostData, PostVariables>,
   HandleMethod<DeletePostData>
 ] => {
-  const [mutationResult, deletePost] = useNotificationMutation<
+  const [mutationResult, deleteOnePost] = useNotificationMutation<
     DeletePostData,
     PostVariables
   >(DELETE_POST, {
@@ -46,7 +46,7 @@ export const useDeletePost = (
   })
 
   const handleDeletePost = async (values: PostType) =>
-    deletePost({
+    deleteOnePost({
       postId: values.id,
     })
 

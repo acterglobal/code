@@ -2,7 +2,7 @@ mutation ActerConnectionDelete(
   $followerActerId: String!
   $followingActerId: String!
 ) {
-  deleteActerConnection(
+  deleteOneActerConnection(
     where: {
       acter_follower_following: {
         followingActerId: $followingActerId

@@ -7,10 +7,10 @@ import { createNotificationWorker } from '@acter/lib/notification/create-notific
 import { NotificationType, Post } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
-import { createPostEmailNotification } from './template'
+import { createOnePostEmailNotification } from './template'
 import { PostJobVariables, PostJobData } from './types'
 
-export const createPostNotifications = createNotificationWorker<
+export const createOnePostNotifications = createNotificationWorker<
   PostJobVariables,
   PostJobData
 >({
@@ -49,7 +49,7 @@ export const createPostNotifications = createNotificationWorker<
     },
   }),
   getNotificationEmail: ({ data: { post }, notification }) =>
-    createPostEmailNotification({
+    createOnePostEmailNotification({
       post,
       notification,
     }),

@@ -5,7 +5,7 @@ mutation UpdateInvite(
   $expiredAt: DateTime = null
   $acceptedAt: DateTime = null
 ) {
-  updateInvite(
+  updateOneInvite(
     where: { id: $inviteId }
     data: { expiredAt: { set: $expiredAt }, acceptedAt: { set: $acceptedAt } }
   ) {

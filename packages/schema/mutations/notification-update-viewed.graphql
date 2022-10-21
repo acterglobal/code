@@ -4,7 +4,7 @@ mutation UpdateNotificationViewed(
   $notificationId: String!
   $viewedAt: DateTime!
 ) {
-  updateNotification(
+  updateOneNotification(
     where: { id: $notificationId }
     data: { viewedAt: { set: $viewedAt } }
   ) {
