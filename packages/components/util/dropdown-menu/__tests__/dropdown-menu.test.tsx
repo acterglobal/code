@@ -32,7 +32,7 @@ describe('SessionMenu', () => {
       </DropdownMenu>
     )
 
-    userEvent.click(await screen.getByText('Foo'))
+    await userEvent.click(await screen.getByText('Foo'))
 
     expect(screen.queryByRole('menu')).toBeTruthy()
     expect(screen.queryByRole('menuitem', { name: 'Bar' })).toBeTruthy()
