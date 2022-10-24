@@ -1,1 +1,9 @@
-{"allActivities":"All activities","dailyDigest":"Daily digest","emailMe":"Email me","immediately":"Immediately","never":"Never","none":"None","notifyMeAbout":"Notify me about"}
+{
+  "allActivities": "All activities",
+  "dailyDigest": "Daily digest",
+  "emailMe": "Email me",
+  "immediately": "Immediately",
+  "never": "Never",
+  "none": "None",
+  "notifyMeAbout": "Notify me about"
+}

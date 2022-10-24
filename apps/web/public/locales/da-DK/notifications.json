@@ -1,1 +1,9 @@
-{"allActivities":"Alle aktiviteter","dailyDigest":"Daglig opdatering","emailMe":"Send mig en email","immediately":"Med det samme","never":"Aldrig","none":"Ingen","notifyMeAbout":"Opdatér mig om"}
+{
+  "allActivities": "Alle aktiviteter",
+  "dailyDigest": "Daglig opdatering",
+  "emailMe": "Send mig en email",
+  "immediately": "Med det samme",
+  "never": "Aldrig",
+  "none": "Ingen",
+  "notifyMeAbout": "Opdatér mig om"
+}

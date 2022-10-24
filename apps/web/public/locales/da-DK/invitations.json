@@ -1,1 +1,23 @@
-{"approve":"godkend","copied":"Kopieret","copyLink":"Kopiér link","enterValidEmail":"* Skriv venligst en valid email adresse.","invitations":"invitationer","inviteByEmail":"Invitér via email","inviteByLink":"Invitér via link","invitePeople":"Invitér personer til at deltage","message":{"content":"Jeg inviterer dig til at deltage i {{acterName}} på Acter. {{acterName}} bruger Acter som vores platform for kommunikation og samarbejde.","greetings":"Venlig hilsen","hi":"Hej!"},"reject":"afvis","requests":"anmodninger","resend":"gensend","sendInvites":"Send invitationer","zeroMessage":{"invitations":"{{acterName}} har ingen nye invitationer.","requests":"{{acterName}} har ingen medlemsanmodninger."}}
+{
+  "approve": "godkend",
+  "copied": "Kopieret",
+  "copyLink": "Kopiér link",
+  "enterValidEmail": "* Skriv venligst en valid email adresse.",
+  "invitations": "invitationer",
+  "inviteByEmail": "Invitér via email",
+  "inviteByLink": "Invitér via link",
+  "invitePeople": "Invitér personer til at deltage",
+  "message": {
+    "content": "Jeg inviterer dig til at deltage i {{acterName}} på Acter. {{acterName}} bruger Acter som vores platform for kommunikation og samarbejde.",
+    "greetings": "Venlig hilsen",
+    "hi": "Hej!"
+  },
+  "reject": "afvis",
+  "requests": "anmodninger",
+  "resend": "gensend",
+  "sendInvites": "Send invitationer",
+  "zeroMessage": {
+    "invitations": "{{acterName}} har ingen nye invitationer.",
+    "requests": "{{acterName}} har ingen medlemsanmodninger."
+  }
+}

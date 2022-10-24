@@ -1,1 +1,10 @@
-{"applyButtonText":"Anvend","clearButtonText":"Ryd","heading":"Offentlig søgning","searchButtonText":"Søg","searchInputPlaceholder":"Søg","showOnMap":"Vis på kort","sortByTabLabel":"Sorter efter","zeroResults":"Din søgning gav ingen resultater. Prøv at fjerne søgetermer og/eller filtre for at se mere."}
+{
+  "applyButtonText": "Anvend",
+  "clearButtonText": "Ryd",
+  "heading": "Offentlig søgning",
+  "searchButtonText": "Søg",
+  "searchInputPlaceholder": "Søg",
+  "showOnMap": "Vis på kort",
+  "sortByTabLabel": "Sorter efter",
+  "zeroResults": "Din søgning gav ingen resultater. Prøv at fjerne søgetermer og/eller filtre for at se mere."
+}
