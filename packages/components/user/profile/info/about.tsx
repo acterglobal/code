@@ -18,6 +18,8 @@ import { useUpdateActer } from '@acter/lib/acter/use-update-acter'
 import { interestNameMap } from '@acter/lib/interests/map-interest-name'
 import { useInterestTypes } from '@acter/lib/interests/use-interest-types'
 import { useUser } from '@acter/lib/user/use-user'
+import { capitalize } from '@acter/lib/string/capitalize'
+import { useTranslation } from '@acter/lib/i18n/use-translation'
 
 interface AboutProps {
   acterId?: string
@@ -26,7 +28,7 @@ interface AboutProps {
 export const About: FC<AboutProps> = ({ acterId }) => {
   const { user } = useUser(acterId && { acterId })
   const classes = useStyles()
-
+  const {t} = useTranslation()
   const [_, updateActer] = useUpdateActer(user?.Acter)
 
   const { interestTypes } = useInterestTypes()
@@ -49,14 +51,14 @@ export const About: FC<AboutProps> = ({ acterId }) => {
   return (
     <>
       <Box className={clsx(classes.section, acterId && classes.sidebarSection)}>
-        <Typography className={classes.heading}>About</Typography>
+        <Typography className={classes.heading}>{capitalize(t('about'))}</Typography>
 
         <SanitizedContent isMarkdown={false}>
           {user.Acter?.description}
         </SanitizedContent>
 
         <Box className={classes.interestsHeading}>
-          <Typography className={classes.heading}>Interests</Typography>
+          <Typography className={classes.heading}>{capitalize(t('interests'))}</Typography>
 
           {!acterId && (
             <SearchInterestsFilter

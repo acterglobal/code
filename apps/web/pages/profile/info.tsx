@@ -28,6 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'interests',
       'success-messages',
+      'search'
     ])),
   },
 })
