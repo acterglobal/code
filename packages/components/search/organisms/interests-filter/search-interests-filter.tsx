@@ -86,7 +86,7 @@ export const SearchInterestsFilter: FC<InterestsFilterProps> = ({
                   disabled={selectedInterestIds.length === 0}
                   type="submit"
                 >
-                  {t('search:applyButtonText')}
+                  {t('applyButtonText')}
                 </Button>
               </Box>
             </Form>

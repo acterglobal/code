@@ -1,1 +1,23 @@
-{"approve":"approve","copied":"Copied","copyLink":"Copy link","enterValidEmail":"* Please enter a valid email address.","invitations":"invitations","inviteByEmail":"Invite by email","inviteByLink":"Invite by link","invitePeople":"Invite people to join","message":{"content":"I'm inviting you to join {{acterName}} on Acter. {{acterName}} is using Acter as our dedicated space for communication & collaboration.","greetings":"Best regards","hi":"Hi!"},"reject":"reject","requests":"requests","resend":"resend","sendInvites":"Send invites","zeroMessage":{"invitations":"{{acterName}} has no new invitations.","requests":"{{acterName}} has no new joining requests."}}
+{
+  "approve": "approve",
+  "copied": "Copied",
+  "copyLink": "Copy link",
+  "enterValidEmail": "* Please enter a valid email address.",
+  "invitations": "invitations",
+  "inviteByEmail": "Invite by email",
+  "inviteByLink": "Invite by link",
+  "invitePeople": "Invite people to join",
+  "message": {
+    "content": "I'm inviting you to join {{acterName}} on Acter. {{acterName}} is using Acter as our dedicated space for communication & collaboration.",
+    "greetings": "Best regards",
+    "hi": "Hi!"
+  },
+  "reject": "reject",
+  "requests": "requests",
+  "resend": "resend",
+  "sendInvites": "Send invites",
+  "zeroMessage": {
+    "invitations": "{{acterName}} has no new invitations.",
+    "requests": "{{acterName}} has no new joining requests."
+  }
+}
