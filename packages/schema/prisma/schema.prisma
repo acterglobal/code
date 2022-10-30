@@ -273,7 +273,6 @@ model User {
   updatedAt         DateTime          @default(now()) @map("updated_at")
   acterId           String?           @unique
   auth0ProviderId   String?           @map("auth0_provider_id")
-  intercomId        String?           @map("intercom_id")
   language          Language          @default(en_GB)
   Acter             Acter?            @relation(fields: [acterId], references: [id], onDelete: Cascade)
   PostMentions      PostMention[]     @relation("post_mention_by_user")
