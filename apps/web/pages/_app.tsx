@@ -4,7 +4,6 @@ import 'reset-css';
 
 import React, { FC, ReactElement, ReactNode, useEffect } from 'react'
 import { hotjar } from 'react-hotjar'
-import { IntercomProvider } from 'react-use-intercom'
 
 import { NextPage } from 'next'
 import { appWithTranslation } from 'next-i18next'
@@ -33,7 +32,6 @@ type ActerAppProps = AppProps & {
 }
 
 const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
-  const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID
   const HJ_ID = parseInt(process.env.HJ_ID)
   const HJ_SV = parseInt(process.env.HJ_SV)
 
@@ -60,20 +58,18 @@ const ActerApp: FC<ActerAppProps> = ({ Component, pageProps, err }) => {
     Component.getLayout ?? ((page) => <OverallLayout>{page}</OverallLayout>)
 
   return (
-    <IntercomProvider appId={INTERCOM_APP_ID}>
-      <UrqlProvider>
-        <UserProvider>
-          <ActerThemeProvider>
-            <SnackbarProvider
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            >
-              <CssBaseline />
-              {getLayout(<Component {...pageProps} err={err} />)}
-            </SnackbarProvider>
-          </ActerThemeProvider>
-        </UserProvider>
-      </UrqlProvider>
-    </IntercomProvider>
+    <UrqlProvider>
+      <UserProvider>
+        <ActerThemeProvider>
+          <SnackbarProvider
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          >
+            <CssBaseline />
+            {getLayout(<Component {...pageProps} err={err} />)}
+          </SnackbarProvider>
+        </ActerThemeProvider>
+      </UserProvider>
+    </UrqlProvider>
   )
 }
 

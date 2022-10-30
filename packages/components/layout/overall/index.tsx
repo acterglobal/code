@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { useIntercom } from 'react-use-intercom'
 
 import {
   Box,
@@ -45,12 +44,6 @@ export const OverallLayout: FC<LayoutProps> = ({
     setMenuOpen(!isSmallScreen)
     setMenuVariant(isSmallScreen ? 'temporary' : 'permanent')
   }, [isSmallScreen])
-
-  const { boot } = useIntercom()
-
-  useEffect(() => {
-    boot()
-  }, [])
 
   const secondSidebar = secondarySidebar?.()
   const drawerWidthClassName = secondSidebar
