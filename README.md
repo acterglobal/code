@@ -66,6 +66,22 @@ Or better yet use the VS Code built-in Docker command: `command+shift+p` and sel
 
 We have a fake SMTP server that is deployed with Docker which allows us to receive emails in development. When our app is running in Docker, it is available at [http://localhost:1080](http://localhost:1080).
 
+## Database setup
+
+Once the DB is running, you can migrate & seed it using:
+
+```sh
+yarn db:migrate:run
+```
+
+## Auth0, Google Maps, etc.
+
+We use a `.env` file to manage keys and secrets to various 3rd party providers like Auth0 and Goolge Maps. To set this up, copy `.env.example` to `.env`, then get keys and secrets from someone, probably Emil.
+
+```sh
+cp .env.example .env
+```
+
 ## Installation, build and dev server
 
 The app currently uses [Yarn 3](https://yarnpkg.com) with workspaces to manage it's monorepo dependencies. Get started by running the following from the root folder: 
