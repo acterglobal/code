@@ -48,13 +48,18 @@ export const dailyDigestCronWorker = async (): Promise<void> => {
     count,
   })
 
-  await Promise.all(
-    digestUsers.map(async (acter) => {
-      await createDailyDigest({ acter, afterDateTime })
+  try {
+    await Promise.all(
+      digestUsers.map(async (acter) => {
+        await createDailyDigest({ acter, afterDateTime })
+      })
+    )
+    timer.done({
+      msg: `Created digest notifications for ${count} users`,
+      count,
     })
-  )
-  timer.done({
-    msg: `Created digest notifications for ${count} users`,
-    count,
-  })
+  } catch (e) {
+    l.error('Error creating digest notifications', e)
+    throw e
+  }
 }
