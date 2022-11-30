@@ -13,7 +13,7 @@ export const CookieBar: FC = () => {
       buttonStyle={{ marginRight: '7rem' }}
     >
       This website uses cookies to enhance the user experience.
-      <Link href={'/privacy-policy'}>
+      <Link href={'https://www.acter.global/privacy-policy'}>
         <a className={classes.link} target="_blank">
           {' '}
           You can click here to read our Privacy Policy.
