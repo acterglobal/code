@@ -3,7 +3,10 @@ import 'reflect-metadata'
 import slugify from 'slugify'
 
 import { ActerTypes } from '@acter/lib/constants'
-import { createOneNotificationWorker } from '@acter/lib/notification/create-notification-worker'
+import {
+  getUsersToNotify,
+  createOneNotificationWorker,
+} from '@acter/lib/notification'
 import { NotificationType, Post } from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
@@ -12,7 +15,7 @@ import { PostJobVariables, PostJobData } from './types'
 
 export const createOnePostNotifications = createOneNotificationWorker<
   PostJobVariables,
-  PostJobData
+  PostJobData & { notifyUsers: string[] }
 >({
   getJobData: async (job) => {
     const post = await prisma.post.findFirst({
@@ -24,7 +27,15 @@ export const createOnePostNotifications = createOneNotificationWorker<
         id: job.id,
       },
     })
-    return { post }
+
+    let notifyUsers = []
+
+    // We have a comment, not a post
+    if (post.parentId !== null) {
+      notifyUsers = await getUsersToNotify(post.parentId, post.authorId)
+    }
+
+    return { post, notifyUsers }
   },
   getFollowing: async ({ post }) => {
     return await prisma.acter.findFirst({
@@ -41,10 +52,11 @@ export const createOnePostNotifications = createOneNotificationWorker<
       },
     })
   },
-  getFollowersWhere: ({ post }) => ({
+  getFollowersWhere: ({ post, notifyUsers }) => ({
     Follower: {
       id: {
         not: post.Author.id,
+        in: notifyUsers,
       },
     },
   }),
