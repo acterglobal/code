@@ -28,7 +28,7 @@ export const createOnePostNotifications = createOneNotificationWorker<
       },
     })
 
-    let notifyUsers = []
+    let notifyUsers = null
 
     // We have a comment, not a post
     if (post.parentId !== null) {
@@ -52,14 +52,23 @@ export const createOnePostNotifications = createOneNotificationWorker<
       },
     })
   },
-  getFollowersWhere: ({ post, notifyUsers }) => ({
-    Follower: {
-      id: {
-        not: post.Author.id,
-        in: notifyUsers,
-      },
-    },
-  }),
+  getFollowersWhere: ({ post, notifyUsers }) =>
+    notifyUsers !== null
+      ? {
+          Follower: {
+            id: {
+              not: post.Author.id,
+              in: notifyUsers,
+            },
+          },
+        }
+      : {
+          Follower: {
+            id: {
+              not: post.Author.id,
+            },
+          },
+        },
   getNotificationEmail: ({ data: { post }, notification }) =>
     createOnePostEmailNotification({
       post,
