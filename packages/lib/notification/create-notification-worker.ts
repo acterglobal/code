@@ -115,11 +115,11 @@ export const createOneNotificationWorker =
                 ?.ActerType as Prisma.ActerTypeWhereInput),
               name: ActerTypes.USER,
             },
-            ...(followersWhere?.Follower as Prisma.ActerWhereInput),
             acterNotifySetting: ActerNotificationSettings.ALL_ACTIVITY,
             acterNotifyEmailFrequency: {
               not: ActerNotificationEmailFrequency.NEVER,
             },
+            ...(followersWhere?.Follower as Prisma.ActerWhereInput),
           },
         },
       })
