@@ -123,6 +123,7 @@ export const createOneNotificationWorker =
           },
         },
       })
+
       l.debug(
         {
           followers: followers.map(

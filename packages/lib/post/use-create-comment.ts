@@ -8,6 +8,7 @@ import {
 import { useUser } from '@acter/lib/user/use-user'
 import { Post as PostType, Acter } from '@acter/schema'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
+import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.graphql'
 
 export type PostVariables = PostType & {
   acterId: string
@@ -44,13 +45,32 @@ export const useCreateComment = (
     getSuccessMessage: () => t('comment.created'),
   })
 
-  const handlePost = async (values: PostVariables) => {
+  const [_, createOnePostMention] = useNotificationMutation<
+    CreatePostMentionData,
+    PostMentionVariables
+  >(CREATE_POST_MENTION, {
+    getSuccessMessage: () => 'Mentions Created',
+  })
+
+  const handlePost = async (values: PostVariables, mentions: PostMention[]) => {
     if (!user) throw 'User is not set.'
-    createOnePost({
+    const { data } = await createOnePost({
       ...values,
       acterId: acter.id,
       authorId: user.Acter.id,
     })
+
+    if (data?.createOnePost && mentions) {
+      mentions.map((mention) => {
+        createOnePostMention({
+          name: mention.name,
+          postId: data.createOnePost.id,
+          acterId: mention.acterId,
+          createdByUserId: user.id,
+          ...mention,
+        })
+      })
+    }
   }
 
   return [handlePost, mutationResult]

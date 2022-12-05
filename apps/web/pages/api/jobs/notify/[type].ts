@@ -13,7 +13,7 @@ import {
   NewMemberJoinNotification,
 } from '@acter/jobs/new-member-notifications'
 // TODO Fix post mention notifications
-// import { createOnePostMentionNotifications } from '@acter/jobs/post-mention-notifications'
+import { createOnePostMentionNotifications } from '@acter/jobs/post-mention-notifications'
 import {
   createOnePostNotifications,
   PostJobVariables,
@@ -54,10 +54,10 @@ const notificationTypeMap: Record<
     fn: createOnePostNotifications,
   },
   // TODO Fix mentions notifications
-  // [NotificationQueueType.NEW_MENTION]: {
-  //   checks: (body: PostJobVariables) => !!body.id,
-  //   fn: createOnePostMentionNotifications,
-  // },
+  [NotificationQueueType.NEW_MENTION]: {
+    checks: (body: PostJobVariables) => !!body.id,
+    fn: createOnePostMentionNotifications,
+  },
 }
 
 const l = getLogger('notifyHandler')
