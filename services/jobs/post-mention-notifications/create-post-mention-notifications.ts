@@ -4,7 +4,11 @@ import slugify from 'slugify'
 
 import { ActerTypes } from '@acter/lib/constants'
 import { createOneNotificationWorker } from '@acter/lib/notification/create-notification-worker'
-import { NotificationType, Post } from '@acter/schema'
+import {
+  ActerNotificationSettings,
+  NotificationType,
+  Post,
+} from '@acter/schema'
 import { prisma } from '@acter/schema/prisma'
 
 import { createOnePostMentionEmailNotification } from './template'
@@ -46,11 +50,19 @@ export const createOnePostMentionNotifications = createOneNotificationWorker<
       },
     })
   },
-  getFollowersWhere: ({ postMention }) => ({
-    Follower: {
-      id: postMention.acterId,
-    },
-  }),
+  getFollowersWhere: ({ postMention }) => {
+    return {
+      Follower: {
+        id: postMention.acterId,
+        acterNotifySetting: {
+          in: [
+            ActerNotificationSettings.ALL_ACTIVITY,
+            ActerNotificationSettings.MENTIONS,
+          ],
+        },
+      },
+    }
+  },
   getNotificationEmail: ({ data: { post }, notification }) =>
     createOnePostMentionEmailNotification({
       post,

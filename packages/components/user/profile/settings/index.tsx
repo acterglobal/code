@@ -78,10 +78,10 @@ export const ProfileSettings: FC = () => {
                   label={t('allActivities')}
                   value={ActerNotificationSettings.ALL_ACTIVITY}
                 />
-                {/* <SettingsRadio
+                <SettingsRadio
                   label='Mentions'
                   value={ActerNotificationSettings.MENTIONS}
-                /> */}
+                />
                 <SettingsRadio
                   label={t('none')}
                   value={ActerNotificationSettings.NONE}

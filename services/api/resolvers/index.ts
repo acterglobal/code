@@ -66,14 +66,14 @@ export const resolversEnhanceMap: ResolversEnhanceMap = {
       ),
     ],
   },
-  // TODO Fix Mention notifications
-  // PostMention: {
-  //   createOnePostMention: [
-  //     UseMiddleware(
-  //       QueueNotificationsMiddleware(NotificationQueueType.NEW_MENTION)
-  //     ),
-  //   ],
-  // },
+
+  PostMention: {
+    createOnePostMention: [
+      UseMiddleware(
+        QueueNotificationsMiddleware(NotificationQueueType.NEW_MENTION)
+      ),
+    ],
+  },
 }
 
 //eslint-disable-next-line @typescript-eslint/ban-types
