@@ -305,8 +305,5 @@ const useStyles = makeStyles((theme: Theme) =>
           flexDirection: 'column',
         },
     },
-    superFancyBlockquote: {
-      color: 'red',
-    },
   })
 )
