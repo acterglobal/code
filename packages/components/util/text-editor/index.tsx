@@ -269,6 +269,12 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         minHeight: ({ size }: stylesProp) => size.height + theme.spacing(5),
       },
+      '& .public-DraftEditor-content': {
+        marginTop: -15,
+      },
+      '& .public-DraftStyleDefault-block': {
+        marginTop: '1em',
+      },
     },
     editorComment: {
       backgroundColor: theme.colors.grey.extraLight,
@@ -292,11 +298,12 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 10,
       fontSize: '0.813rem',
       minHeight: '100%',
-      '& .DraftEditor-root, & .DraftEditor-editorContainer, & .public-DraftEditor-content': {
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      }
+      '& .DraftEditor-root, & .DraftEditor-editorContainer, & .public-DraftEditor-content':
+        {
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        },
     },
   })
 )
