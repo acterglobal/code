@@ -6,7 +6,7 @@ import {
   useNotificationMutation,
 } from '@acter/lib/urql/use-notification-mutation'
 import { useUser } from '@acter/lib/user/use-user'
-import { Post as PostType, Acter } from '@acter/schema'
+import { Post as PostType, Acter, PostMention } from '@acter/schema'
 import CREATE_COMMENT from '@acter/schema/mutations/comment-create.graphql'
 import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.graphql'
 
@@ -16,10 +16,21 @@ export type PostVariables = PostType & {
   parentId: string
 }
 
+export type PostMentionVariables = {
+  name: string
+  postId: string
+  acterId: string
+  createdByUserId: string
+}
+
 type CreatePostData = { createOnePost: PostType }
 type CreatePostOptions = UseMutationOptions<CreatePostData, PostVariables>
+type CreatePostMentionData = { createMention: PostMention }
 
-export type HandleMethod<TData> = (post: PostType | TData) => Promise<void>
+export type HandleMethod<TData> = (
+  post: PostType | TData,
+  mentions: PostMention[]
+) => Promise<void>
 
 /**
  * Custom hook that creates new post
@@ -52,8 +63,12 @@ export const useCreateComment = (
     getSuccessMessage: () => 'Mentions Created',
   })
 
-  const handlePost = async (values: PostVariables, mentions: PostMention[]) => {
+  const handlePost = async (
+    values: PostVariables,
+    mentions: PostMention[]
+  ): Promise<void> => {
     if (!user) throw 'User is not set.'
+
     const { data } = await createOnePost({
       ...values,
       acterId: acter.id,
@@ -67,7 +82,6 @@ export const useCreateComment = (
           postId: data.createOnePost.id,
           acterId: mention.acterId,
           createdByUserId: user.id,
-          ...mention,
         })
       })
     }
