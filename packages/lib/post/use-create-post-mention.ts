@@ -9,7 +9,7 @@ import CREATE_POST_MENTION from '@acter/schema/mutations/post-mention-create.gra
 
 export type PostMentionVariables = {
   name: string
-  postid: string
+  postId: string
   acterId: string
   createdByUserId: string
 }
@@ -47,7 +47,8 @@ export const useCreatePostMention = (
     }
   )
 
-  const handleCreatePostMention = (values) => createOnePostMention({ ...values })
+  const handleCreatePostMention = (values) =>
+    createOnePostMention({ ...values })
 
   return [handleCreatePostMention, mutationResult]
 }
