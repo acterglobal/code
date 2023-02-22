@@ -18,7 +18,7 @@ export const mergeFollowers = (
   )
 
   const mergedFollowers = followers.reduce((state, payload) => {
-    if (!filteredPotentialFollowersMap[payload.id]) {
+    if (payload && !filteredPotentialFollowersMap[payload.id]) {
       return [...state, payload]
     }
     return state
